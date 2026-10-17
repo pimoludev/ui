@@ -1,0 +1,15 @@
+{
+  "name": "@pimolu/themes",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./styles.css": "./dist/styles.css",
+    "./themes.json": "./dist/themes.json"
+  },
+  "dependencies": {
+    "@pimolu/design-tokens": "workspace:*"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "light": {
+    "background": "{color.white}",
+    "foreground": "{color.slate.950}",
+    "surface": "{color.slate.50}",
+    "surface-foreground": "{color.slate.900}",
+    "muted": "{color.slate.100}",
+    "muted-foreground": "{color.slate.500}",
+    "border": "{color.slate.200}",
+    "primary": "{color.indigo.600}",
+    "primary-hover": "{color.indigo.700}",
+    "primary-foreground": "{color.white}",
+    "focus-ring": "{color.indigo.500}",
+    "danger": "{color.red.500}"
+  },
+  "dark": {
+    "background": "{color.slate.950}",
+    "foreground": "{color.slate.50}",
+    "surface": "{color.slate.900}",
+    "surface-foreground": "{color.slate.50}",
+    "muted": "{color.slate.800}",
+    "muted-foreground": "{color.slate.400}",
+    "border": "{color.slate.800}",
+    "primary": "{color.indigo.400}",
+    "primary-hover": "{color.indigo.500}",
+    "primary-foreground": "{color.slate.950}",
+    "focus-ring": "{color.indigo.400}",
+    "danger": "{color.red.400}"
+  }
+}

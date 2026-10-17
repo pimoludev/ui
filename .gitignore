@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.next/
+.vite/
+.turbo/
+.DS_Store
+.env*
+!.env.example

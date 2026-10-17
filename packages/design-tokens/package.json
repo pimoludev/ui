@@ -1,0 +1,12 @@
+{
+  "name": "@pimolu/design-tokens",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./tokens.json": "./dist/tokens.json",
+    "./tokens.css": "./dist/tokens.css"
+  }
+}
