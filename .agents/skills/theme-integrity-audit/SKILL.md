@@ -27,13 +27,14 @@ Pimolu has **two distinct layers** — see `references/theme-system.md` for the 
 1. **Color themes** — `light` / `dark`, defined once as semantic aliases in
    `packages/themes/src/themes.json`. Not one file per theme.
 2. **Style presets** — `default`, `monochrome`, `cartoon`, `glass`, `luxury`,
-   `neo-brutalism`, expressed by **two** artifacts:
-   - a color palette `packages/themes/src/presets/<name>.json` (all except `default`),
-   - a visual CSS file `packages/themes/style-<name>.css`.
+   `neo-brutalism`, each expressed by **two platform-neutral data sources**:
+   - a colour palette `packages/themes/src/presets/<name>.json` (all except `default`),
+   - a visual token set `packages/themes/src/visual/<name>.json` (keys are the exact
+     `--pimolu-<key>` suffix, used verbatim; `dark` only carries overrides).
 
-Component-specific preset tokens (`glassBg`, `luxuryGold`, …) live in the preset JSON,
-not in the global token file. Distinguish an intentional stylistic difference from a
-missing token — they are not the same.
+`build:presets` and `build:visuals` turn that data into web CSS and into JS for native
+consumers. Preset data must never declare component internals. Distinguish an intentional
+stylistic difference from a missing token — they are not the same.
 
 ## Deterministic check (run first, always)
 ```bash
@@ -56,12 +57,12 @@ Then run the project checks via `test-runner`: `pnpm build:all`, `pnpm test`,
 | semantic aliases | `packages/themes/src/themes.json` | read by `build.mjs` |
 | color-theme TS union | `PimoluTheme` in `packages/themes/scripts/build-presets.mjs` | **NO — hardcoded** |
 | preset palette | `packages/themes/src/presets/<name>.json` | yes (dir scan) |
-| preset visual CSS | `packages/themes/style-<name>.css` | **NO — by convention** |
+| preset visual tokens | `packages/themes/src/visual/<name>.json` | yes (dir scan) |
+| generated web CSS | `dist/{default,presets,visual}.css` | generated |
+| generated JS for native | `dist/{presets,visuals}.js` | generated |
 | preset aggregator | `packages/themes/style-presets.css` (`@import`) | **NO — manual** |
-| preset TS union | generated `dist/presets.d.ts` | yes (from dir scan) |
-| playground selectors | `apps/playground/src/App.tsx` (`const themes`/`const presets`) | **NO — hardcoded** |
-| provider tests | `registry/react/provider/pimolu-provider.test.tsx` | **NO — hardcoded list** |
-| docs | `README.md`, `AGENTS.md` | **NO — manual** |
+| playground colour themes | `apps/playground/src/App.tsx` (`const themes`) | **NO — hardcoded** (presets are derived) |
+| docs | `README.md`, `README.fr.md`, `AGENTS.md` | **NO — manual** |
 
 A theme/preset is only "fully integrated" when every non-auto-discovered row is updated.
 

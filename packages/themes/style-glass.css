@@ -1,53 +1,9 @@
 
 /* ==================================
-   PIMOLU GLASS — VISUAL PROPERTIES
+   PIMOLU GLASS — WEB HELPERS
+   Visual tokens are generated from
+   src/visual/glass.json (dist/visual.css).
 ================================== */
-
-[data-pimolu-style="glass"] {
-  /* Glass material */
-
-  --pimolu-glass-blur: 18px;
-
-  --pimolu-glass-shadow:
-    0 8px 32px rgba(31, 38, 135, 0.12);
-
-  /* Background accents */
-
-  --pimolu-glass-orb-1: #a5b4fc;
-  --pimolu-glass-orb-2: #67e8f9;
-
-  /* Components */
-
-  --pimolu-control-border-width: 1px;
-
-  --pimolu-solid-border-color:
-    rgba(255, 255, 255, 0.35);
-
-  --pimolu-shadow-raised:
-    0 6px 20px rgba(79, 70, 229, 0.14);
-
-  --pimolu-radius-md: 14px;
-  --pimolu-radius-lg: 20px;
-  --pimolu-button-font-weight: 500;
-}
-
-/* Glass Dark */
-
-[data-pimolu-theme="dark"][data-pimolu-style="glass"] {
-  --pimolu-glass-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3);
-
-  --pimolu-glass-orb-1: #4338ca;
-  --pimolu-glass-orb-2: #0e7490;
-
-  --pimolu-solid-border-color:
-    rgba(255, 255, 255, 0.18);
-
-  --pimolu-shadow-raised:
-    0 6px 20px rgba(0, 0, 0, 0.25);
-}
-
-/* Reusable glass surface */
 
 [data-pimolu-style="glass"] .pimolu-glass-surface {
   background: var(--pimolu-glass-bg);
@@ -63,21 +19,4 @@
 
   backdrop-filter:
     blur(var(--pimolu-glass-blur));
-}
-
-
-@media (prefers-color-scheme: dark) {
-  [data-pimolu-theme="system"][data-pimolu-style="glass"] {
-    --pimolu-glass-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.3);
-
-    --pimolu-glass-orb-1: #4338ca;
-    --pimolu-glass-orb-2: #0e7490;
-
-    --pimolu-solid-border-color:
-      rgba(255, 255, 255, 0.18);
-
-    --pimolu-shadow-raised:
-      0 6px 20px rgba(0, 0, 0, 0.25);
-  }
 }

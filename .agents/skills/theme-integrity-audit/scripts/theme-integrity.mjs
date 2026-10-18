@@ -91,11 +91,9 @@ const themeKeys = Object.keys(themesSrc).sort();
 const presetFiles = (await readdir(presetsDir)).filter((f) => f.endsWith(".json")).sort();
 const presetNames = presetFiles.map((f) => f.replace(/\.json$/, ""));
 
-const stylePresetNames = (await readdir(themesPkg))
-  .filter((f) => /^style-.*\.css$/.test(f))
-  .map((f) => f.replace(/^style-/, "").replace(/\.css$/, ""))
-  .filter((n) => n !== "base" && n !== "presets")
-  .sort();
+const visualDir = join(themesPkg, "src/visual");
+const visualFiles = (await readdir(visualDir)).filter((f) => f.endsWith(".json")).sort();
+const visualPresetNames = visualFiles.map((f) => f.replace(/\.json$/, ""));
 
 // ---------------------------------------------------------------------------
 // 1. Theme parity
@@ -122,17 +120,30 @@ for (const file of presetFiles) {
 }
 
 // ---------------------------------------------------------------------------
-// 3. Preset JSON  <->  style-*.css parity
+// 3. Preset palette <-> visual token data parity
 // ---------------------------------------------------------------------------
 for (const name of presetNames) {
-  if (!stylePresetNames.includes(name)) {
-    err(`preset "${name}" has a palette but no style-${name}.css (only "default" may skip it).`);
+  if (!visualPresetNames.includes(name)) {
+    err(`preset "${name}" has a palette but no src/visual/${name}.json.`);
   }
 }
-for (const name of stylePresetNames) {
+for (const name of visualPresetNames) {
   if (name === "default") continue;
   if (!presetNames.includes(name)) {
-    err(`style-${name}.css exists but src/presets/${name}.json is missing.`);
+    err(`src/visual/${name}.json exists but src/presets/${name}.json is missing.`);
+  }
+}
+
+const { validateVisual } = await import(
+  pathToFileURL(join(themesPkg, "scripts/validate-visuals.mjs")).href
+);
+for (const file of visualFiles) {
+  const name = file.replace(/\.json$/, "");
+  const src = await readJson(join(visualDir, file));
+  try {
+    validateVisual(name, src);
+  } catch (e) {
+    err(`src/visual/${file}: ${e.message}`);
   }
 }
 
@@ -206,10 +217,21 @@ for (const file of presetFiles) {
   const src = await readJson(join(presetsDir, file));
   for (const key of Object.keys(src.light)) defined.add(`--pimolu-${camelToKebab(key)}`);
 }
+for (const file of visualFiles) {
+  const src = await readJson(join(visualDir, file));
+  for (const mode of ["light", "dark"]) {
+    for (const key of Object.keys(src[mode] ?? {})) {
+      defined.add(`--pimolu-${camelToKebab(key)}`);
+    }
+  }
+}
 
 const cssFiles = [
   ...(await walkCss(themesPkg)),
   ...(await walkCss(join(root, "registry"))),
+  ...["visual.css", "presets.css", "default.css"]
+    .map((f) => join(themesPkg, "dist", f))
+    .filter((f) => existsSync(f)),
 ];
 for (const file of cssFiles) {
   const css = await readText(file);
@@ -246,7 +268,7 @@ for (const [name, files] of usedWithFallback) {
 const summary = {
   themes: themeKeys,
   presets: presetNames,
-  stylePresets: stylePresetNames,
+  visualPresets: visualPresetNames,
   generatedThemeUnion,
   generatedPresetUnion,
   errors,
@@ -259,7 +281,7 @@ if (asJson) {
   console.log("THEME INTEGRITY AUDIT (read-only)");
   console.log(`- themes (color):   ${themeKeys.join(", ")}`);
   console.log(`- presets (palette):${presetNames.join(", ")}`);
-  console.log(`- style-*.css:      ${stylePresetNames.join(", ")}`);
+  console.log(`- visual presets:   ${visualPresetNames.join(", ")}`);
   console.log("");
   if (errors.length) {
     console.log(`ERRORS (${errors.length}):`);

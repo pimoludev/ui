@@ -1,65 +1,16 @@
 
 /* ==================================
-   PIMOLU LUXURY — VISUAL PROPERTIES
+   PIMOLU LUXURY — WEB HELPERS
+   Visual tokens are generated from
+   src/visual/luxury.json (dist/visual.css).
 ================================== */
 
 [data-pimolu-style="luxury"] {
-  /* Typography */
-
-  --pimolu-font-heading:
-    Georgia, "Times New Roman", serif;
-
-  --pimolu-font-body:
-    Arial, Helvetica, sans-serif;
-
-  /* Borders */
-
-  --pimolu-control-border-width: 1px;
-  --pimolu-solid-border-color: transparent;
-
-  /* Shadows */
-
-  --pimolu-shadow-raised:
-    0 6px 20px rgba(36, 33, 30, 0.08);
-
-  /* Radius */
-
-  --pimolu-radius-sm: 2px;
-  --pimolu-radius-md: 4px;
-  --pimolu-radius-lg: 8px;
-
-  /* Typography settings */
-
-  --pimolu-button-font-weight: 500;
-  --pimolu-button-letter-spacing: 0.04em;
-
-  --pimolu-outline-hover-border: var(--pimolu-luxury-gold);
-
   font-family: var(--pimolu-font-body);
 }
-
-/* ==================================
-   LUXURY — DARK
-================================== */
-
-[data-pimolu-theme="dark"][data-pimolu-style="luxury"] {
-  --pimolu-shadow-raised:
-    0 6px 24px rgba(0, 0, 0, 0.3);
-}
-
-/* ==================================
-   REUSABLE HEADING STYLE
-================================== */
 
 [data-pimolu-style="luxury"] .pimolu-heading {
   font-family: var(--pimolu-font-heading);
   font-weight: 400;
   letter-spacing: -0.02em;
-}
-
-@media (prefers-color-scheme: dark) {
-  [data-pimolu-theme="system"][data-pimolu-style="luxury"] {
-    --pimolu-shadow-raised:
-      0 6px 24px rgba(0, 0, 0, 0.3);
-  }
 }

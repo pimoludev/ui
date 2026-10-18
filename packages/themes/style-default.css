@@ -1,9 +1,0 @@
-
-/* Pimolu Default */
-
-[data-pimolu-style="default"] {
-  --pimolu-control-border-width: 1px;
-  --pimolu-solid-border-color: transparent;
-  --pimolu-shadow-raised: none;
-  --pimolu-button-font-weight: 500;
-}

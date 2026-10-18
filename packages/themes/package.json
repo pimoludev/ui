@@ -7,12 +7,14 @@
   "files": [
     "dist",
     "style-*.css",
-    "src/presets"
+    "src/presets",
+    "src/visual"
   ],
   "scripts": {
     "build:presets": "node scripts/build-presets.mjs",
-    "test": "node --test",
-    "build:default": "node scripts/build-default.mjs"
+    "build:visuals": "node scripts/build-visuals.mjs",
+    "build:default": "node scripts/build-default.mjs",
+    "test": "node --test"
   },
   "exports": {
     "./styles.css": "./dist/styles.css",
@@ -21,6 +23,10 @@
     "./presets": {
         "types": "./dist/presets.d.ts",
         "default": "./dist/presets.js"
+      },
+    "./visuals": {
+        "types": "./dist/visuals.d.ts",
+        "default": "./dist/visuals.js"
       }
 
   },

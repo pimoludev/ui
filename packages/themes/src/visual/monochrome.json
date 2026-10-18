@@ -1,0 +1,10 @@
+{
+  "light": {
+    "control-border-width": "1px",
+    "solid-border-color": "transparent",
+    "shadow-raised": "none",
+    "radius-md": "8px",
+    "button-font-weight": "500"
+  },
+  "dark": {}
+}

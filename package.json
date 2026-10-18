@@ -15,7 +15,7 @@
     "playground dev": "pnpm --dir apps/playground dev",
     "test:react": "pnpm --dir registry/react test",
     "test:watch": "pnpm --dir registry/react test:watch",
-    "build:all": "pnpm build && pnpm --dir packages/themes build:default && pnpm --dir packages/themes build:presets",
+    "build:all": "pnpm build && pnpm --dir packages/themes build:default && pnpm --dir packages/themes build:presets && pnpm --dir packages/themes build:visuals",
     "test:themes": "pnpm --dir packages/themes test",
     "typecheck": "pnpm --dir apps/playground exec tsc -p ../../tsconfig.json",
     "lint": "pnpm --dir apps/playground run lint",
