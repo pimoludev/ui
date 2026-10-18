@@ -50,7 +50,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 - Git hooks in `.githooks/` (no dependency; enabled by `pnpm install` via the `prepare` script, which sets `core.hooksPath`):
   - `pre-commit` → blocks conflict markers / staged secrets, then `pnpm verify:quick`.
   - `pre-push` → `pnpm verify`.
-- CI: `.github/workflows/ci.yml` runs `pnpm install --frozen-lockfile` + `pnpm verify` on push to `main`/`dev` and on PRs.
+- CI is currently **disabled**: the workflow is kept as `.github/workflows/ci.yml.disabled` (GitHub ignores files that are not `.yml`/`.yaml`, so it never runs). Renaming it back to `ci.yml` re-enables `pnpm install --frozen-lockfile` + `pnpm verify` on push to `main`/`dev` and on PRs. When re-enabling, do **not** pass an explicit `version` to `pnpm/action-setup`: `packageManager` already pins pnpm, and specifying both fails with `ERR_PNPM_BAD_PM_VERSION`.
 - Branch protection (required status check on `verify`) is a **manual GitHub setting** — see `release-manager`/`github-push`. Local tooling cannot configure it.
 
 ## Generated code — do not hand-edit
