@@ -14,35 +14,37 @@ playground should demonstrate it. Also usable to review playground freshness.
 - No duplicated rendering logic; demos import from `@pimolu/react`.
 
 ## Current playground facts
-- App: `apps/playground` (Vite + React 19). Entry `src/main.tsx`, demo `src/App.tsx`.
-- It already imports `@pimolu/themes/styles.css` and `@pimolu/themes/presets.css`,
-  so `pnpm build:all` must have run for styles to exist.
-- Demo state is local `useState` for `theme` (`light`/`dark`) and `stylePreset`.
+- App: `apps/playground` (Vite + React 19). Entry `src/main.tsx`, shell `src/App.tsx`.
+- One page per component: `src/pages/<name>-page.tsx`, registered in
+  `src/router.ts` (`pages`) and `src/App.tsx` (`pageComponents`). Routes are
+  hash-based: `#/overview`, `#/button`, `#/input`.
+- Shared data and derived option lists live in `src/demo-data.ts`.
+- Chrome: `src/toolbar.tsx` (brand, nav, theme/preset controls),
+  `src/section.tsx` (`PageHeader`, `Section`).
+- Styles come from `@pimolu/web-styles/styles.css`, imported in `src/main.tsx`,
+  so `pnpm build:all` must run first.
 - Presets present in the repo: `default`, `monochrome`, `cartoon`, `glass`,
   `luxury`, `neo-brutalism`.
-- `src/App.css` is leftover Vite template CSS and is NOT imported — do not treat
-  it as an app style source.
 
 ## Steps
-1. Read the component's public API (`<name>.tsx`, `.variants.ts`).
-2. Find its existing demo in `App.tsx` (search by component name).
+1. Read the component's public API (`<name>.tsx`, `input/…variants.ts`).
+2. Find or create its page in `src/pages/`.
 3. Add or update demos for: each new/changed variant, size, key state, and events.
    Do not duplicate an existing demo.
 4. Import components from `@pimolu/react` (never re-implement their markup).
-5. Add interactive controls where useful (buttons that toggle props/state).
-6. Show `light` + `dark` and the relevant style presets.
-7. Check responsive behavior (the layout uses flex-wrap; verify narrow widths).
-8. Run the checks: `pnpm lint`, `pnpm --dir apps/playground run build`, and
+5. Derive option lists from the component's variant map via `demo-data.ts`;
+   never hardcode a variant list in a page.
+6. Add interactive controls where useful (buttons that toggle props/state).
+7. Show `light` + `dark` and the relevant style presets.
+8. Check responsive behavior (the layout uses flex-wrap; verify narrow widths).
+9. Run the checks: `pnpm lint`, `pnpm --dir apps/playground run build`, and
    `test-runner`; the dev server hot-reloads changes (`pnpm "playground dev"`).
-9. Present the edits.
+10. Present the edits.
 
 ## Organization
-Group demos by category inside `App.tsx`: Buttons, Inputs, Navigation, Display,
-Feedback, Overlays, Other. Add a category section only when a component of that
-category exists. Keep one source of truth; avoid scattering duplicate demos.
-
-A demo-registry module (data-driven list of demos) may be introduced **only if**
-it reduces maintenance — do not over-engineer for the current component count.
+Each component gets its own page and its own nav entry. Registering a page means
+one entry in `src/router.ts` and one mapping in `src/App.tsx`. Keep shared demo
+data in `src/demo-data.ts`; a page file should contain demos, not option lists.
 
 ## Skills used
 `component-development` (context), `test-runner`, `theme-integrity-audit`,
@@ -61,7 +63,7 @@ it reduces maintenance — do not over-engineer for the current component count.
 ```
 PLAYGROUND
 - component(s): <...>
-- demos added/updated: <variant → location in App.tsx>
+- demos added/updated: <variant → page file>
 - presets/themes verified: <...>
 - checks: lint/build → result
 - notes: <responsive or follow-ups>
