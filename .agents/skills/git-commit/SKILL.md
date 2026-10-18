@@ -32,15 +32,24 @@ Do NOT use when the user only asks to review diffs or explain changes.
 type(scope): English description
 
 EN:
-- Description of the changes in English.
+- Why: <the problem or need this change addresses>
+- <what changed, by area, with the affected paths>
+- API/impact: <additive | behaviour change | breaking, and the migration if any>
+- Verification: <the checks actually run>
 
 FR:
-- Fidèle traduction des mêmes modifications en français.
+- Pourquoi : <le problème ou le besoin traité>
+- <ce qui a changé, par domaine, avec les chemins concernés>
+- API/impact : <ajout | changement de comportement | cassant, et la migration>
+- Vérifications : <les contrôles réellement exécutés>
 ```
 - Types: `feat`, `fix`, `refactor`, `docs`, `test`, `style`, `perf`, `build`, `ci`, `chore`.
 - Scope: package or area, e.g. `button`, `react`, `themes`, `design-tokens`, `playground`, `ci`.
 - Conventional Commits: breaking change with `!` after the type/scope and a `BREAKING CHANGE:` footer; reference issues with `Closes #12` / `Refs #12`.
-- EN and FR must describe the **same** facts.
+- **Be detailed enough for another developer to follow the change without opening the diff**: state the reason, the affected paths, the public API impact and what was verified. A one-line body is not acceptable for anything beyond a trivial fix.
+- Stay factual. No filler, no restating the diff line by line, no invented intent.
+- EN and FR must describe the **same** facts; French must be properly accented, not ASCII-folded.
+- Non-obvious decisions and their alternatives belong in the commit body so the history stays self-explanatory.
 
 ## Skills used
 `test-runner` (required), `test-coverage-audit`, plus any of `public-api-review`, `theme-integrity-audit`, `documentation-sync`, `playground-sync` when relevant.
