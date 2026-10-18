@@ -21,3 +21,17 @@ export type {
   PimoluThemeMode,
   PimoluStylePreset,
 } from "./provider/pimolu-provider";
+
+
+
+export { Input } from "./input/input";
+
+export { inputVariantMap } from "./input/input.variants";
+
+export type {
+  PimoluInputProps,
+  PimoluInputSize,
+  PimoluInputVariant,
+  PimoluInputAppearance,
+  PimoluInputAction
+} from "./input/input.types";

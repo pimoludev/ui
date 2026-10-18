@@ -9,7 +9,6 @@ import {
   type ButtonVariants,
 } from "./button.variants";
 
-import "./button.css";
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,

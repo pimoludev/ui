@@ -8,3 +8,4 @@ next-env.d.ts
 .DS_Store
 .env*
 !.env.example
+packages/web-styles/dist/

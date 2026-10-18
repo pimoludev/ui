@@ -1,0 +1,439 @@
+
+/* =========================================
+   PIMOLU UI — INPUT
+   Shared Web Styles
+========================================= */
+
+/* Base */
+
+.pimolu-input {
+  --pimolu-input-height: 40px;
+  --pimolu-input-padding: 12px;
+  --pimolu-input-font-size: 14px;
+
+  --pimolu-input-tone: var(--pimolu-focus-ring);
+  --pimolu-input-elevation: var(--pimolu-shadow-raised, none);
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  width: min(100%, 320px);
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* Full width */
+
+.pimolu-input--full-width {
+  width: 100%;
+}
+
+/* Label */
+
+.pimolu-input__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.pimolu-input__required {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* Input wrapper */
+
+.pimolu-input__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--pimolu-input-height);
+
+  padding-inline: var(--pimolu-input-padding);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-input-elevation);
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+/* Native input */
+
+.pimolu-input__control {
+  display: block;
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--pimolu-input-height);
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  color: var(--pimolu-foreground);
+
+  font: inherit;
+  font-size: var(--pimolu-input-font-size);
+
+  caret-color: var(--pimolu-input-tone);
+}
+
+.pimolu-input__control::placeholder {
+  color: var(--pimolu-muted-foreground);
+  opacity: 1;
+}
+
+/* The browser's native search clear button would double our own clear
+   button and only exists in WebKit/Blink. Hidden so the component renders
+   the same everywhere; `clearable` is the cross-browser replacement. */
+.pimolu-input__control::-webkit-search-cancel-button,
+.pimolu-input__control::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Icons */
+
+.pimolu-input__start-icon,
+.pimolu-input__end-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  pointer-events: none;
+}
+
+.pimolu-input__start-icon svg,
+.pimolu-input__end-icon svg {
+  width: 1.125em;
+  height: 1.125em;
+}
+
+/* Helper and error messages */
+
+.pimolu-input__helper,
+.pimolu-input__error {
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.pimolu-input__helper {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-input__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-input--xs {
+  --pimolu-input-height: 28px;
+  --pimolu-input-padding: 8px;
+  --pimolu-input-font-size: 12px;
+}
+
+.pimolu-input--sm {
+  --pimolu-input-height: 32px;
+  --pimolu-input-padding: 10px;
+  --pimolu-input-font-size: 13px;
+}
+
+.pimolu-input--md {
+  --pimolu-input-height: 40px;
+  --pimolu-input-padding: 12px;
+  --pimolu-input-font-size: 14px;
+}
+
+.pimolu-input--lg {
+  --pimolu-input-height: 48px;
+  --pimolu-input-padding: 16px;
+  --pimolu-input-font-size: 16px;
+}
+
+.pimolu-input--xl {
+  --pimolu-input-height: 56px;
+  --pimolu-input-padding: 18px;
+  --pimolu-input-font-size: 18px;
+}
+
+.pimolu-input--xxl {
+  --pimolu-input-height: 64px;
+  --pimolu-input-padding: 20px;
+  --pimolu-input-font-size: 20px;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-input--primary {
+  --pimolu-input-tone: var(--pimolu-primary);
+}
+
+.pimolu-input--secondary {
+  --pimolu-input-tone: var(--pimolu-secondary);
+}
+
+.pimolu-input--neutral {
+  --pimolu-input-tone: var(--pimolu-focus-ring);
+}
+
+.pimolu-input--success {
+  --pimolu-input-tone: var(--pimolu-success, #15803d);
+}
+
+.pimolu-input--warning {
+  --pimolu-input-tone: var(--pimolu-warning, #d97706);
+}
+
+.pimolu-input--danger {
+  --pimolu-input-tone: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   APPEARANCES
+========================================= */
+
+/* Outline */
+.pimolu-input--outline .pimolu-input__wrapper {
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+/* Soft */
+.pimolu-input--soft .pimolu-input__wrapper {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-input-tone) 8%,
+    var(--pimolu-background)
+  );
+
+  border-color: transparent;
+}
+
+/* Filled */
+.pimolu-input--filled .pimolu-input__wrapper {
+  background: var(--pimolu-muted);
+  border-color: transparent;
+}
+
+/* Glass */
+.pimolu-input--glass {
+  --pimolu-input-elevation: var(--pimolu-glass-shadow, none);
+}
+
+.pimolu-input--glass .pimolu-input__wrapper {
+  background: var(
+    --pimolu-glass-bg,
+    var(--pimolu-surface)
+  );
+
+  border-color: var(
+    --pimolu-glass-border,
+    var(--pimolu-border)
+  );
+
+  -webkit-backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+
+  backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+/* Hover */
+.pimolu-input:not(.pimolu-input--disabled)
+.pimolu-input__wrapper:hover {
+  border-color: var(--pimolu-input-tone);
+}
+
+/* Focus */
+.pimolu-input__wrapper:focus-within {
+  border-color: var(--pimolu-input-tone);
+
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--pimolu-input-tone) 22%,
+      transparent
+    ),
+    var(--pimolu-input-elevation);
+}
+
+/* Invalid */
+.pimolu-input--invalid {
+  --pimolu-input-tone: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-input--invalid .pimolu-input__wrapper {
+  border-color: var(--pimolu-input-tone);
+}
+
+/* Disabled */
+.pimolu-input--disabled .pimolu-input__wrapper {
+  background: var(--pimolu-muted);
+  box-shadow: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.pimolu-input__control:disabled {
+  cursor: not-allowed;
+}
+
+/* Read only */
+.pimolu-input__control:read-only {
+  cursor: default;
+}
+
+
+/* =========================================
+   INPUT ACTIONS
+========================================= */
+
+.pimolu-input__clear,
+.pimolu-input__visibility,
+.pimolu-input__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: min(32px, var(--pimolu-input-height));
+  height: min(32px, var(--pimolu-input-height));
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+
+/* Clear */
+
+.pimolu-input__clear {
+  font-size: 22px;
+}
+
+/* Icon alignment */
+
+.pimolu-input__visibility svg,
+.pimolu-input__action-icon svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.pimolu-input__action-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover */
+
+.pimolu-input__clear:hover,
+.pimolu-input__visibility:hover,
+.pimolu-input__action:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+/* Keyboard focus */
+
+.pimolu-input__clear:focus-visible,
+.pimolu-input__visibility:focus-visible,
+.pimolu-input__action:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Disabled action */
+
+.pimolu-input__action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-input__clear,
+  .pimolu-input__visibility,
+  .pimolu-input__action {
+    transition: none;
+  }
+}
+
+
+
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-input__wrapper {
+    transition: none;
+  }
+}
+
+/* High contrast */
+@media (forced-colors: active) {
+  .pimolu-input__wrapper:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-input--invalid .pimolu-input__wrapper {
+    border-color: Mark;
+  }
+}

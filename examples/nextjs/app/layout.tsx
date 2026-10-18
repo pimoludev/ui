@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import "@pimolu/web-styles/styles.css";
 
 import { cookies } from "next/headers";
 
@@ -12,8 +13,6 @@ import type {
 import { PimoluThemeClient } from "./pimolu-theme-client";
 
 import "./globals.css";
-import "@pimolu/themes/styles.css";
-import "@pimolu/themes/presets.css";
 
 export const metadata = {
   title: "Pimolu UI · Next.js example",

@@ -3,3 +3,5 @@ packages:
   - "registry/*"
   - "apps/*"
   - "examples/*"
+allowBuilds:
+  esbuild: true

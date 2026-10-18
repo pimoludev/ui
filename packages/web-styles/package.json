@@ -1,0 +1,32 @@
+{
+  "name": "@pimolu/web-styles",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+
+  "sideEffects": ["**/*.css"],
+
+  "files": [
+    "dist"
+  ],
+
+  "scripts": {
+    "build:css": "node scripts/build.mjs",
+    "test:css": "node --test"
+  },
+
+  "exports": {
+    "./styles.css": "./dist/pimolu.css",
+    "./pimolu.min.css": "./dist/pimolu.min.css",
+    "./button.css": "./dist/button.css",
+    "./input.css": "./dist/input.css"
+  },
+
+  "dependencies": {
+    "@pimolu/themes": "workspace:*"
+  },
+
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

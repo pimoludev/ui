@@ -1,0 +1,19 @@
+
+/* ==========================================
+   PIMOLU UI — WEB STYLES
+
+   Shared styles for all web frameworks.
+========================================== */
+
+/* 1. Design tokens and semantic colors */
+
+@import "@pimolu/themes/styles.css";
+
+/* 2. Presets and generated visual tokens */
+
+@import "@pimolu/themes/presets.css";
+
+/* 3. Component styles */
+
+@import "./button.css";
+@import "./input.css";
