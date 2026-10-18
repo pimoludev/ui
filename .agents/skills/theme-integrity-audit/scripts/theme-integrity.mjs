@@ -42,6 +42,18 @@ const warn = (m) => warnings.push(m);
 const readText = (p) => readFile(p, "utf8");
 const readJson = async (p) => JSON.parse(await readText(p));
 
+async function walkFiles(dir, extensions) {
+  const out = [];
+  if (!existsSync(dir)) return out;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    if (entry.name === "node_modules" || entry.name === "dist") continue;
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...(await walkFiles(full, extensions)));
+    else if (extensions.some((ext) => entry.name.endsWith(ext))) out.push(full);
+  }
+  return out;
+}
+
 async function walkCss(dir) {
   const out = [];
   if (!existsSync(dir)) return out;
@@ -182,9 +194,14 @@ if (existsSync(dtsPath)) {
 // ---------------------------------------------------------------------------
 // 5. Playground selectors list exactly the known values
 // ---------------------------------------------------------------------------
-const appTsxPath = join(root, "apps/playground/src/App.tsx");
-if (existsSync(appTsxPath)) {
-  const app = await readText(appTsxPath);
+// The playground is split into per-component pages, so every source file is
+// scanned: the preset/theme references may live in a shared module.
+const playgroundDir = join(root, "apps/playground/src");
+if (existsSync(playgroundDir)) {
+  const sources = await Promise.all(
+    (await walkFiles(playgroundDir, [".ts", ".tsx"])).map(readText)
+  );
+  const app = sources.join("\n");
   const listOf = (re) => {
     const m = app.match(re);
     return m ? (m[1].match(/"([^"]+)"/g) ?? []).map((x) => x.replace(/"/g, "")) : [];
