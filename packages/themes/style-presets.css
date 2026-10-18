@@ -1,0 +1,16 @@
+
+@import "./style-base.css";
+
+/* Default palette */
+@import "./dist/default.css";
+
+/* Visual properties */
+@import "./style-default.css";
+@import "./style-monochrome.css";
+@import "./style-cartoon.css";
+@import "./style-glass.css";
+@import "./style-luxury.css";
+@import "./style-neo-brutalism.css";
+
+/* Generated preset palettes */
+@import "./dist/presets.css";

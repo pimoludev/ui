@@ -1,0 +1,27 @@
+#!/bin/sh
+# Pimolu UI — pre-commit hook
+#
+# Fast, blocking checks. Intentionally NOT bypassable with --no-verify as a
+# matter of policy (see .agents/skills/git-commit). Keep this quick; heavy
+# checks belong to pre-push / CI.
+
+if ! command -v pnpm >/dev/null 2>&1; then
+  echo "[pimolu] pnpm not found on PATH; cannot run pre-commit checks." >&2
+  exit 1
+fi
+
+# 1. Block unresolved conflict markers in staged content.
+if git diff --cached --check | grep -nE '^(<<<<<<<|=======|>>>>>>>)' >/dev/null 2>&1; then
+  echo "[pimolu] unresolved conflict markers detected in staged changes." >&2
+  exit 1
+fi
+
+# 2. Block accidentally staged secrets / env files.
+if git diff --cached --name-only --diff-filter=ACM \
+    | grep -nE '(^|/)\.env($|\.)|\.pem$|\.key$|(^|/)id_rsa$|credentials' >/dev/null 2>&1; then
+  echo "[pimolu] a sensitive file appears staged (.env/keys/credentials)." >&2
+  exit 1
+fi
+
+echo "[pimolu] pre-commit: quick verification (build, typecheck, tests)…"
+pnpm verify:quick

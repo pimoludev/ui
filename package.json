@@ -1,12 +1,30 @@
 {
   "name": "ui",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Pimolu UI monorepo",
   "main": "index.js",
   "private": true,
   "scripts": {
+    "dev:playground": "pnpm --dir apps/playground dev",
+    "build:playground": "pnpm --dir apps/playground build",
+
+    "dev:examples:nextjs": "pnpm --dir examples/nextjs dev",
+
     "build": "node packages/design-tokens/scripts/build.mjs",
-    "test": "node --test packages/design-tokens/tests/*.test.mjs"
+    "test": "node --test packages/design-tokens/tests/*.test.mjs",
+    "playground dev": "pnpm --dir apps/playground dev",
+    "test:react": "pnpm --dir registry/react test",
+    "test:watch": "pnpm --dir registry/react test:watch",
+    "build:all": "pnpm build && pnpm --dir packages/themes build:default && pnpm --dir packages/themes build:presets",
+    "test:themes": "pnpm --dir packages/themes test",
+    "typecheck": "pnpm --dir apps/playground exec tsc -p ../../tsconfig.json",
+    "lint": "pnpm --dir apps/playground run lint",
+    "audit:themes": "node .agents/skills/theme-integrity-audit/scripts/theme-integrity.mjs",
+    "audit:themes:strict": "node .agents/skills/theme-integrity-audit/scripts/theme-integrity.mjs --strict",
+    "skills:check": "node .agents/skills/pimolu-orchestrator/scripts/list-skills.mjs",
+    "verify:quick": "pnpm build:all && pnpm typecheck && pnpm audit:themes && pnpm test && pnpm test:themes && pnpm test:react",
+    "verify": "pnpm verify:quick && pnpm lint && pnpm skills:check && pnpm --dir apps/playground run build",
+    "prepare": "node scripts/setup-hooks.mjs"
   },
   "engines": {
     "node": ">=20"

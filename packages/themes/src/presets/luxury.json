@@ -1,0 +1,52 @@
+
+{
+  "light": {
+    "background": "#faf7f2",
+    "foreground": "#24211e",
+
+    "surface": "#ffffff",
+    "surfaceForeground": "#24211e",
+
+    "primary": "#24211e",
+    "primaryHover": "#403a33",
+    "primaryForeground": "#faf7f2",
+
+    "secondary": "#f1eae0",
+    "secondaryHover": "#e5d9c8",
+    "secondaryForeground": "#24211e",
+
+    "muted": "#f1eae0",
+    "mutedForeground": "#665e54",
+
+    "border": "#d8c9b3",
+    "focusRing": "#926a35",
+
+    "luxuryGold": "#b38a4a",
+    "luxuryDivider": "#d8c9b3"
+  },
+
+  "dark": {
+    "background": "#151311",
+    "foreground": "#f4eee5",
+
+    "surface": "#24201c",
+    "surfaceForeground": "#f4eee5",
+
+    "primary": "#e8cf9b",
+    "primaryHover": "#f3dfb5",
+    "primaryForeground": "#24211e",
+
+    "secondary": "#342f29",
+    "secondaryHover": "#453d34",
+    "secondaryForeground": "#f4eee5",
+
+    "muted": "#2d2822",
+    "mutedForeground": "#c4b7a5",
+
+    "border": "#675743",
+    "focusRing": "#e8cf9b",
+
+    "luxuryGold": "#e8cf9b",
+    "luxuryDivider": "#675743"
+  }
+}

@@ -1,0 +1,13 @@
+#!/bin/sh
+# Pimolu UI — pre-push hook
+#
+# Full verification before publishing to the remote. Mirrors the GitHub Actions
+# CI job so a local pass predicts a CI pass.
+
+if ! command -v pnpm >/dev/null 2>&1; then
+  echo "[pimolu] pnpm not found on PATH; cannot run pre-push checks." >&2
+  exit 1
+fi
+
+echo "[pimolu] pre-push: full verification (verify)…"
+pnpm verify

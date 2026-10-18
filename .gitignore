@@ -3,6 +3,8 @@ dist/
 .next/
 .vite/
 .turbo/
+*.tsbuildinfo
+next-env.d.ts
 .DS_Store
 .env*
 !.env.example

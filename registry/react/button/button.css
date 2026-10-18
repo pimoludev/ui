@@ -1,0 +1,447 @@
+
+.pimolu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pimolu-spacing-2);
+
+  
+  border: var(--pimolu-control-border-width, 1px) solid transparent;
+
+  font: inherit;
+  font-weight: var(--pimolu-button-font-weight, 500);
+
+  border-radius: var(--pimolu-radius-md);
+
+  cursor: pointer;
+
+  transition: background-color 150ms, opacity 150ms;
+  
+  letter-spacing: var(--pimolu-button-letter-spacing, normal);
+
+}
+
+
+/* Full Width */
+
+.pimolu-button--full-width {
+  display: flex;
+  width: 100%;
+}
+
+
+/* Dimensions pour Icon Only */
+
+.pimolu-button--xs {
+  --pimolu-button-height: 28px;
+}
+
+.pimolu-button--sm {
+  --pimolu-button-height: 32px;
+}
+
+.pimolu-button--md {
+  --pimolu-button-height: 40px;
+}
+
+.pimolu-button--lg {
+  --pimolu-button-height: 48px;
+}
+
+.pimolu-button--xl {
+  --pimolu-button-height: 56px;
+}
+
+.pimolu-button--xxl {
+  --pimolu-button-height: 64px;
+}
+
+
+
+/* Icon Only */
+
+.pimolu-button--icon-only {
+  box-sizing: border-box;
+  width: var(--pimolu-button-height, 40px);
+  height: var(--pimolu-button-height, 40px);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+/* Label invisible, but accessible to screen readers */
+
+.pimolu-button--icon-only .pimolu-button__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
+/* Semantic variants */
+
+.pimolu-button--primary {
+  --button-tone: var(--pimolu-primary);
+  --button-tone-hover: var(--pimolu-primary-hover, var(--pimolu-primary));
+  --button-on-tone: var(--pimolu-primary-foreground);
+}
+
+.pimolu-button--secondary {
+  --button-tone: var(--pimolu-secondary, var(--pimolu-muted));
+  --button-tone-hover: var(--pimolu-secondary-hover, var(--pimolu-muted));
+  --button-on-tone: var(--pimolu-secondary-foreground, var(--pimolu-foreground));
+}
+
+.pimolu-button--neutral {
+  --button-tone: var(--pimolu-neutral, var(--pimolu-foreground));
+  --button-tone-hover: var(--pimolu-neutral-hover, var(--pimolu-foreground));
+  --button-on-tone: var(--pimolu-neutral-foreground, var(--pimolu-background));
+}
+
+.pimolu-button--success {
+  --button-tone: var(--pimolu-success, #15803d);
+  --button-tone-hover: var(--pimolu-success-hover, #166534);
+  --button-on-tone: var(--pimolu-success-foreground, #ffffff);
+}
+
+.pimolu-button--warning {
+  --button-tone: var(--pimolu-warning, #f59e0b);
+  --button-tone-hover: var(--pimolu-warning-hover, #d97706);
+  --button-on-tone: var(--pimolu-warning-foreground, #171717);
+}
+
+.pimolu-button--danger {
+  --button-tone: var(--pimolu-danger, #dc2626);
+  --button-tone-hover: var(--pimolu-danger-hover, #b91c1c);
+  --button-on-tone: var(--pimolu-danger-foreground, #ffffff);
+}
+
+
+
+/* Appearances */
+
+/* Solid */
+
+.pimolu-button--solid {
+  background: var(--button-tone);
+  color: var(--button-on-tone);
+  border-color: var(--pimolu-solid-border-color, transparent);
+  box-shadow: var(--pimolu-shadow-raised, none);
+}
+
+.pimolu-button--solid:hover:not(:disabled) {
+  background: var(--button-tone-hover);
+}
+
+/* Soft */
+
+.pimolu-button--soft {
+  background: color-mix(
+    in srgb,
+    var(--button-tone) 15%,
+    var(--pimolu-background)
+  );
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-button--soft:hover:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    var(--button-tone) 25%,
+    var(--pimolu-background)
+  );
+}
+
+
+.pimolu-button--soft {
+  border-color: var(--pimolu-soft-border-color, transparent);
+}
+
+.pimolu-button--soft, .pimolu-button--outline {
+  box-shadow: var(--pimolu-control-shadow, none);
+}
+
+
+/* Outline */
+
+.pimolu-button--outline {
+  background: transparent;
+  color: var(--pimolu-foreground);
+  border-color: var(--pimolu-border);
+}
+
+.pimolu-button--outline:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+  border-color: var(
+    --pimolu-outline-hover-border,
+    var(--pimolu-border)
+  );
+}
+
+/* Ghost */
+
+.pimolu-button--ghost {
+  background: transparent;
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-button--ghost:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+/* Link */
+
+.pimolu-button--link {
+  background: transparent;
+  color: var(--button-tone);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pimolu-button--link:hover:not(:disabled) {
+  text-decoration-thickness: 2px;
+}
+
+
+/* radius */
+
+
+.pimolu-button--radius-none {
+  border-radius: 0;
+}
+
+.pimolu-button--radius-sm {
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-button--radius-md {
+  border-radius: var(--pimolu-radius-md, 8px);
+}
+
+.pimolu-button--radius-lg {
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+.pimolu-button--radius-full {
+  border-radius: 9999px;
+}
+
+
+
+/* Sizes */
+
+.pimolu-button--xs {
+  min-height: 28px;
+  padding: 0 var(--pimolu-spacing-2);
+  font-size: 12px;
+}
+
+.pimolu-button--sm {
+  min-height: 32px;
+  padding: 0 var(--pimolu-spacing-3);
+  font-size: 13px;
+}
+
+.pimolu-button--md {
+  min-height: 40px;
+  padding: 0 var(--pimolu-spacing-4);
+  font-size: 14px;
+}
+
+.pimolu-button--lg {
+  min-height: 48px;
+  padding: 0 var(--pimolu-spacing-5);
+  font-size: 16px;
+}
+
+.pimolu-button--xl {
+  min-height: 56px;
+  padding: 0 var(--pimolu-spacing-6);
+  font-size: 18px;
+}
+
+.pimolu-button--xxl {
+  min-height: 64px;
+  padding: 0 var(--pimolu-spacing-8);
+  font-size: 20px;
+}
+
+
+.pimolu-button:is(
+  .pimolu-button--solid,
+  .pimolu-button--soft,
+  .pimolu-button--outline
+):active:not(:disabled) {
+  transform: var(--pimolu-button-active-transform, none);
+
+  box-shadow: var(
+    --pimolu-button-active-shadow,
+    none
+  );
+}
+
+
+/* Accessibility */
+
+.pimolu-button:focus-visible {
+  outline: 3px solid var(--pimolu-focus-ring);
+  outline-offset: 2px;
+}
+
+.pimolu-button:disabled {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+  border-color: transparent;
+  opacity: 1;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+/* Icons */
+
+.pimolu-button > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spinner */
+
+.pimolu-button__spinner {
+  width: 1em;
+  height: 1em;
+
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+
+  animation: pimolu-spin 700ms linear infinite;
+}
+
+
+/* Glass appearance */
+
+.pimolu-button--glass {
+  background: var(
+    --pimolu-glass-bg,
+    color-mix(in srgb, var(--pimolu-background) 78%, transparent)
+  );
+
+  color: var(--pimolu-foreground);
+
+  border-color: var(
+    --pimolu-glass-border,
+    var(--pimolu-border)
+  );
+
+  box-shadow: var(
+    --pimolu-glass-shadow,
+    0 8px 24px rgba(0, 0, 0, 0.1)
+  );
+
+  -webkit-backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+
+  backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+}
+
+.pimolu-button--glass:hover:not(:disabled) {
+  background: var(
+    --pimolu-glass-bg-hover,
+    var(--pimolu-glass-bg, var(--pimolu-muted))
+  );
+}
+
+
+/* Dashed */
+
+.pimolu-button--dashed {
+  background: transparent;
+  color: var(--pimolu-foreground);
+  border-style: dashed;
+  border-color: var(--pimolu-border);
+}
+
+.pimolu-button--dashed:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+
+/* Elevated */
+
+.pimolu-button--elevated {
+  background: var(--pimolu-surface);
+  color: var(--pimolu-surface-foreground);
+  border-color: var(--pimolu-border);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08),
+    0 8px 20px rgba(15, 23, 42, 0.14);
+}
+
+.pimolu-button--elevated:hover:not(:disabled) {
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1),
+    0 12px 28px rgba(15, 23, 42, 0.2);
+}
+
+
+/* Glow */
+
+.pimolu-button--glow {
+  background: var(--button-tone);
+  color: var(--button-on-tone);
+  border-color: transparent;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--button-tone) 40%, transparent),
+    0 8px 24px color-mix(in srgb, var(--button-tone) 45%, transparent);
+}
+
+.pimolu-button--glow:hover:not(:disabled) {
+  background: var(--button-tone-hover);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--button-tone) 55%, transparent),
+    0 10px 30px color-mix(in srgb, var(--button-tone) 60%, transparent);
+}
+
+
+/* Text */
+
+.pimolu-button--text {
+  background: transparent;
+  color: var(--button-tone);
+}
+
+.pimolu-button--text:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+
+@keyframes pimolu-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-button__spinner {
+    animation: none;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-button {
+    transition: none;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-button:active:not(:disabled) {
+    transform: none;
+  }
+}

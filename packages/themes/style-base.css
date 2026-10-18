@@ -1,0 +1,82 @@
+
+/* ==================================
+   PIMOLU — SHARED STYLE DEFAULTS
+================================== */
+
+:root {
+  --pimolu-base-radius-sm: 4px;
+  --pimolu-base-radius-md: 8px;
+  --pimolu-base-radius-lg: 12px;
+}
+
+:where([data-pimolu-style]) {
+  
+  /* Semantic defaults */
+  --pimolu-outline-hover-border: var(--pimolu-border);
+
+  --pimolu-secondary: var(--pimolu-muted);
+  --pimolu-secondary-hover: var(--pimolu-border);
+  --pimolu-secondary-foreground: var(--pimolu-foreground);
+
+  --pimolu-neutral: var(--pimolu-foreground);
+  --pimolu-neutral-hover: var(--pimolu-muted-foreground);
+  --pimolu-neutral-foreground: var(--pimolu-background);
+
+  /* Borders */
+
+  --pimolu-control-border-width: 1px;
+  --pimolu-solid-border-color: transparent;
+  --pimolu-soft-border-color: transparent;
+
+  /* Shadows */
+
+  --pimolu-shadow-raised: none;
+  --pimolu-control-shadow: none;
+
+  /* Radius */
+
+  --pimolu-radius-sm: var(--pimolu-base-radius-sm);
+  --pimolu-radius-md: var(--pimolu-base-radius-md);
+  --pimolu-radius-lg: var(--pimolu-base-radius-lg);
+
+  /* Typography */
+
+  --pimolu-font-body: system-ui, sans-serif;
+  --pimolu-font-heading: inherit;
+
+  --pimolu-button-font-weight: 500;
+  --pimolu-button-letter-spacing: normal;
+
+  /* Interactions */
+
+  --pimolu-button-active-transform: none;
+  --pimolu-button-active-shadow: none;
+
+  /* Glass defaults */
+
+  --pimolu-glass-bg: color-mix(
+    in srgb,
+    var(--pimolu-background) 78%,
+    transparent
+  );
+
+  --pimolu-glass-bg-hover: var(--pimolu-muted);
+  --pimolu-glass-border: var(--pimolu-border);
+  --pimolu-glass-shadow: none;
+  --pimolu-glass-blur: 18px;
+
+  font-family: var(--pimolu-font-body);
+}
+
+
+[data-pimolu-theme="light"] {
+  color-scheme: light;
+}
+
+[data-pimolu-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-pimolu-theme="system"] {
+  color-scheme: light dark;
+}

@@ -1,0 +1,30 @@
+
+/* Cartoon — Visual properties */
+
+[data-pimolu-style="cartoon"] {
+  --pimolu-control-border-width: 2px;
+  --pimolu-solid-border-color: #171717;
+  --pimolu-shadow-raised: 4px 4px 0 #171717;
+  --pimolu-radius-md: 12px;
+  --pimolu-button-font-weight: 800;
+
+  --pimolu-control-shadow: var(--pimolu-shadow-raised);
+  
+  --pimolu-button-active-transform: translate(2px, 2px);
+  --pimolu-button-active-shadow: 2px 2px 0 var(--pimolu-border);
+
+}
+
+/* Dark */
+
+[data-pimolu-theme="dark"][data-pimolu-style="cartoon"] {
+  --pimolu-solid-border-color: #ffffff;
+  --pimolu-shadow-raised: 4px 4px 0 #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-pimolu-theme="system"][data-pimolu-style="cartoon"] {
+    --pimolu-solid-border-color: #ffffff;
+    --pimolu-shadow-raised: 4px 4px 0 #ffffff;
+  }
+}

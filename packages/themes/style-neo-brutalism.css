@@ -1,0 +1,49 @@
+
+/* ==================================
+   PIMOLU NEO-BRUTALISM
+================================== */
+
+[data-pimolu-style="neo-brutalism"] {
+  /* Borders */
+
+  --pimolu-control-border-width: 3px;
+  --pimolu-solid-border-color: #171717;
+
+  /* Hard shadows */
+
+  --pimolu-shadow-raised: 5px 5px 0 #171717;
+
+  /* Radius */
+
+  --pimolu-radius-sm: 0px;
+  --pimolu-radius-md: 3px;
+  --pimolu-radius-lg: 6px;
+
+  /* Typography */
+
+  --pimolu-button-font-weight: 800;
+
+  
+  --pimolu-control-shadow: var(--pimolu-shadow-raised);
+
+  --pimolu-soft-border-color: var(--pimolu-border);
+
+  --pimolu-button-active-transform: translate(3px, 3px);
+
+  --pimolu-button-active-shadow: 2px 2px 0 var(--pimolu-border);
+
+}
+
+/* Dark mode */
+
+[data-pimolu-theme="dark"][data-pimolu-style="neo-brutalism"] {
+  --pimolu-solid-border-color: #fafafa;
+  --pimolu-shadow-raised: 5px 5px 0 #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-pimolu-theme="system"][data-pimolu-style="neo-brutalism"] {
+    --pimolu-solid-border-color: #fafafa;
+    --pimolu-shadow-raised: 5px 5px 0 #fafafa;
+  }
+}

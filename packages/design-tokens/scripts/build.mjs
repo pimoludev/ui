@@ -1,3 +1,9 @@
+/*
+ * Pimolu Design Tokens Build Script
+ * This script reads the design tokens and themes from their source JSON files,
+ * processes them, and outputs flattened JSON and CSS files for use in the application.
+ */
+
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,8 +15,10 @@ const themeSrc = JSON.parse(await readFile(resolve(root, 'packages/themes/src/th
 
 function walkTokens(group, prefix = [], result = {}) {
   for (const [key, value] of Object.entries(group)) {
+
     if (key.startsWith('$')) continue;
     const path = [...prefix, key];
+
     if (value && typeof value === 'object' && '$value' in value) {
       const val = value.$value;
       // Native-friendly values: hex for colors, numbers for dimensions, arrays for font families.
@@ -22,6 +30,7 @@ function walkTokens(group, prefix = [], result = {}) {
     } else {
       walkTokens(value, path, result);
     }
+
   }
   return result;
 }
@@ -36,6 +45,7 @@ const getAlias = (text) => {
 };
 
 const primitives = {};
+
 for (const [key, value] of Object.entries(flatTokens)) {
   const [group, ...name] = key.split('.');
   const groupObj = (primitives[group] ??= {});
@@ -55,6 +65,7 @@ const primitivesCss = ':root {\n' + Object.entries(flatTokens)
 
 const resolvedThemes = {};
 const themeCss = [];
+
 for (const [name, vars] of Object.entries(themeSrc)) {
   resolvedThemes[name] = {};
   const declarations = [];
@@ -67,12 +78,14 @@ for (const [name, vars] of Object.entries(themeSrc)) {
   const selector = name === 'light' ? ':root, [data-pimolu-theme="light"]' : `[data-pimolu-theme="${name}"]`;
   themeCss.push(`${selector} {\n${declarations.join('\n')}\n}`);
 }
+
 if (Object.keys(resolvedThemes.light).sort().join('|') !== Object.keys(resolvedThemes.dark).sort().join('|')) {
   throw new Error('Light and dark themes need identical semantic token keys.');
 }
 
 const tokensDist = resolve(root, 'packages/design-tokens/dist');
 const themesDist = resolve(root, 'packages/themes/dist');
+
 await mkdir(tokensDist, { recursive: true });
 await mkdir(themesDist, { recursive: true });
 await Promise.all([
@@ -81,4 +94,5 @@ await Promise.all([
   writeFile(resolve(themesDist, 'themes.json'), JSON.stringify(resolvedThemes, null, 2) + '\n'),
   writeFile(resolve(themesDist, 'styles.css'), `${primitivesCss}\n${themeCss.join('\n\n')}\n`),
 ]);
+
 console.log('Pimolu tokens and themes built successfully.');

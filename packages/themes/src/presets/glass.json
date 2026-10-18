@@ -1,0 +1,54 @@
+
+{
+  "light": {
+    "primary": "#6366f1",
+    "primaryHover": "#4f46e5",
+    "primaryForeground": "#ffffff",
+
+    "background": "#eaf0ff",
+    "foreground": "#17213b",
+
+    "surface": "rgba(255, 255, 255, 0.72)",
+    "surfaceForeground": "#17213b",
+
+    "muted": "rgba(255, 255, 255, 0.65)",
+    "mutedForeground": "#475569",
+
+    "border": "rgba(255, 255, 255, 0.75)",
+    "focusRing": "#4338ca",
+
+    "glassBg": "rgba(255, 255, 255, 0.72)",
+    "glassBgHover": "rgba(255, 255, 255, 0.88)",
+    "glassBorder": "rgba(255, 255, 255, 0.85)",
+
+    "secondary": "rgba(255, 255, 255, 0.65)",
+    "secondaryHover": "rgba(255, 255, 255, 0.88)",
+    "secondaryForeground": "#17213b"
+  },
+
+  "dark": {
+    "primary": "#818cf8",
+    "primaryHover": "#a5b4fc",
+    "primaryForeground": "#0f172a",
+
+    "background": "#0b1024",
+    "foreground": "#f8fafc",
+
+    "surface": "rgba(15, 23, 42, 0.78)",
+    "surfaceForeground": "#f8fafc",
+
+    "muted": "rgba(51, 65, 85, 0.65)",
+    "mutedForeground": "#cbd5e1",
+
+    "border": "rgba(255, 255, 255, 0.18)",
+    "focusRing": "#a5b4fc",
+
+    "glassBg": "rgba(15, 23, 42, 0.78)",
+    "glassBgHover": "rgba(30, 41, 59, 0.9)",
+    "glassBorder": "rgba(255, 255, 255, 0.2)",
+
+    "secondary": "rgba(51, 65, 85, 0.65)",
+    "secondaryHover": "rgba(71, 85, 105, 0.85)",
+    "secondaryForeground": "#f8fafc"
+  }
+}

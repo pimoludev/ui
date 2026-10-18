@@ -1,13 +1,28 @@
 {
   "name": "@pimolu/themes",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
+  "sideEffects": ["**/*.css"],
   "files": [
-    "dist"
+    "dist",
+    "style-*.css",
+    "src/presets"
   ],
+  "scripts": {
+    "build:presets": "node scripts/build-presets.mjs",
+    "test": "node --test",
+    "build:default": "node scripts/build-default.mjs"
+  },
   "exports": {
     "./styles.css": "./dist/styles.css",
-    "./themes.json": "./dist/themes.json"
+    "./presets.css": "./style-presets.css",
+    "./themes.json": "./dist/themes.json",
+    "./presets": {
+        "types": "./dist/presets.d.ts",
+        "default": "./dist/presets.js"
+      }
+
   },
   "dependencies": {
     "@pimolu/design-tokens": "workspace:*"
