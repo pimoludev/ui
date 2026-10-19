@@ -1,0 +1,631 @@
+/* =========================================
+   PIMOLU UI - TABS
+   Shared Web Styles
+========================================= */
+
+.pimolu-tabs {
+  --pimolu-tabs-height: 40px;
+  --pimolu-tabs-padding-x: 14px;
+  --pimolu-tabs-font-size: 0.875rem;
+
+  display: grid;
+
+  gap: var(--pimolu-spacing-4, 16px);
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-tabs--vertical {
+  grid-template-columns:
+    max-content minmax(0, 1fr);
+
+  column-gap: var(--pimolu-spacing-6, 24px);
+
+  align-items: start;
+}
+
+/* =========================================
+   LIST WRAPPER
+========================================= */
+
+.pimolu-tabs__list-wrap {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+}
+
+.pimolu-tabs--vertical .pimolu-tabs__list-wrap {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.pimolu-tabs__list-wrap--scrollable {
+  position: relative;
+
+  width: 100%;
+}
+
+.pimolu-tabs__list-wrap--scrollable .pimolu-tabs__scroll {
+  position: absolute;
+
+  inset-block-start: 50%;
+
+  z-index: 1;
+
+  transform: translateY(-50%);
+}
+
+.pimolu-tabs__list-wrap--scrollable
+  .pimolu-tabs__scroll--previous {
+  inset-inline-start: 4px;
+}
+
+.pimolu-tabs__list-wrap--scrollable
+  .pimolu-tabs__scroll--next {
+  inset-inline-end: 4px;
+}
+
+/* =========================================
+   LIST
+========================================= */
+
+.pimolu-tabs__list {
+  display: inline-flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+}
+
+.pimolu-tabs--vertical .pimolu-tabs__list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+
+  min-width: 10rem;
+}
+
+/* A horizontal scrollable list stays on one line; the scrollbar is hidden
+   because the previous/next buttons carry the affordance. */
+
+.pimolu-tabs__list-wrap--scrollable .pimolu-tabs__list {
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.pimolu-tabs__list[data-scrollable="true"]
+  .pimolu-tabs__trigger {
+  flex: 0 0 auto;
+}
+
+.pimolu-tabs__list[data-scrollable="true"] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pimolu-tabs__list[data-scrollable="true"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================
+   SCROLL BUTTONS
+========================================= */
+
+.pimolu-tabs__scroll {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  line-height: 0;
+
+  cursor: pointer;
+}
+
+.pimolu-tabs__scroll:hover {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-tabs__scroll:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   TRIGGER
+========================================= */
+
+.pimolu-tabs__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  height: var(--pimolu-tabs-height);
+
+  padding-block: 0;
+  padding-inline: var(--pimolu-tabs-padding-x);
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  font-family: inherit;
+  font-size: var(--pimolu-tabs-font-size);
+  font-weight: 500;
+  line-height: 1;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-tabs__trigger:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-tabs__trigger:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-tabs--vertical .pimolu-tabs__trigger {
+  justify-content: flex-start;
+}
+
+/* =========================================
+   PANEL
+========================================= */
+
+.pimolu-tabs__panel {
+  min-width: 0;
+
+  outline: none;
+}
+
+/* A short entrance when a tab makes its panel visible. */
+
+.pimolu-tabs__panel[data-state="active"] {
+  animation:
+    pimolu-tabs-panel-in
+    180ms
+    ease-out;
+}
+
+@keyframes pimolu-tabs-panel-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.pimolu-tabs__panel:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+
+  border-radius: var(--pimolu-radius-md, 8px);
+}
+
+.pimolu-tabs--vertical .pimolu-tabs__panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* =========================================
+   LINE
+========================================= */
+
+.pimolu-tabs--line .pimolu-tabs__list {
+  gap: 8px;
+
+  border-block-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-tabs--line .pimolu-tabs__trigger {
+  border-radius: 0;
+
+  padding-inline: 4px;
+}
+
+.pimolu-tabs--line
+  .pimolu-tabs__trigger:hover:not([data-state="active"]) {
+  background: transparent;
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-tabs--line
+  .pimolu-tabs__trigger[data-state="active"] {
+  color: var(--pimolu-primary);
+
+  box-shadow:
+    inset 0 -2px 0
+    var(--pimolu-primary);
+}
+
+.pimolu-tabs--line
+  .pimolu-tabs__trigger[data-state="active"]:hover {
+  color: var(--pimolu-primary);
+}
+
+/* Vertical: the underline moves to the trailing edge of the list. */
+
+.pimolu-tabs--vertical.pimolu-tabs--line
+  .pimolu-tabs__list {
+  border-block-end: 0;
+
+  border-inline-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-tabs--vertical.pimolu-tabs--line
+  .pimolu-tabs__trigger {
+  padding-inline: var(--pimolu-spacing-3, 12px);
+}
+
+.pimolu-tabs--vertical.pimolu-tabs--line
+  .pimolu-tabs__trigger[data-state="active"] {
+  box-shadow:
+    inset -2px 0 0
+    var(--pimolu-primary);
+}
+
+/* =========================================
+   SOLID
+========================================= */
+
+.pimolu-tabs--solid .pimolu-tabs__list {
+  padding: 4px;
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(--pimolu-muted);
+}
+
+.pimolu-tabs--solid
+  .pimolu-tabs__trigger:hover:not([data-state="active"]) {
+  color: var(--pimolu-foreground);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 8%,
+    transparent
+  );
+}
+
+.pimolu-tabs--solid
+  .pimolu-tabs__trigger[data-state="active"] {
+  color: var(--pimolu-primary-foreground);
+
+  background: var(--pimolu-primary);
+}
+
+/* =========================================
+   SOFT
+========================================= */
+
+.pimolu-tabs--soft .pimolu-tabs__list {
+  gap: 6px;
+}
+
+.pimolu-tabs--soft
+  .pimolu-tabs__trigger:hover:not([data-state="active"]) {
+  color: var(--pimolu-foreground);
+
+  background: var(--pimolu-muted);
+}
+
+.pimolu-tabs--soft
+  .pimolu-tabs__trigger[data-state="active"] {
+  color: var(--pimolu-primary);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    transparent
+  );
+}
+
+/* =========================================
+   SEGMENTED
+========================================= */
+
+.pimolu-tabs--segmented .pimolu-tabs__list {
+  flex: 1 1 auto;
+
+  width: 100%;
+
+  gap: 0;
+
+  padding: 4px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(--pimolu-muted);
+}
+
+.pimolu-tabs--segmented .pimolu-tabs__trigger {
+  position: relative;
+
+  flex: 1 1 0;
+
+  min-width: 0;
+
+  padding-inline: var(--pimolu-spacing-3, 12px);
+
+  border-radius: 999px;
+
+  color: var(--pimolu-muted-foreground);
+  background: transparent;
+}
+
+.pimolu-tabs--segmented
+  .pimolu-tabs__trigger:hover:not([data-state="active"]) {
+  color: var(--pimolu-foreground);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 6%,
+    transparent
+  );
+}
+
+.pimolu-tabs--segmented
+  .pimolu-tabs__trigger[data-state="active"] {
+  color: var(--pimolu-foreground);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 10%,
+    var(--pimolu-muted)
+  );
+
+  box-shadow: var(
+    --pimolu-shadow-sm,
+    0 1px 2px rgba(15, 23, 42, 0.12)
+  );
+}
+
+/* The vertical menu keeps the rounded track but gives the active row a pill. */
+
+.pimolu-tabs--segmented.pimolu-tabs--vertical
+  .pimolu-tabs__list {
+  width: auto;
+  min-width: 12rem;
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+.pimolu-tabs--segmented.pimolu-tabs--vertical
+  .pimolu-tabs__trigger {
+  flex: 0 0 auto;
+
+  justify-content: flex-start;
+}
+
+/* Optional separators between inactive segments. */
+
+.pimolu-tabs--segmented
+  .pimolu-tabs__list[data-dividers="true"]
+  .pimolu-tabs__trigger
+  + .pimolu-tabs__trigger::before {
+  content: "";
+
+  position: absolute;
+
+  inset-block: 25%;
+  inset-inline-start: 0;
+
+  width: 1px;
+
+  background: var(--pimolu-border);
+}
+
+.pimolu-tabs--segmented
+  .pimolu-tabs__list[data-dividers="true"]
+  .pimolu-tabs__trigger[data-state="active"]::before,
+.pimolu-tabs--segmented
+  .pimolu-tabs__list[data-dividers="true"]
+  .pimolu-tabs__trigger[data-state="active"]
+  + .pimolu-tabs__trigger::before {
+  opacity: 0;
+}
+
+.pimolu-tabs--segmented.pimolu-tabs--vertical
+  .pimolu-tabs__list[data-dividers="true"]
+  .pimolu-tabs__trigger
+  + .pimolu-tabs__trigger::before {
+  inset-block-start: 0;
+  inset-inline: 25%;
+
+  width: auto;
+  height: 1px;
+}
+
+/* Blend the scroll buttons into the pill track. */
+
+.pimolu-tabs--segmented .pimolu-tabs__scroll {
+  border-color: transparent;
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-tabs--segmented .pimolu-tabs__scroll:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-tabs--sm {
+  --pimolu-tabs-height: 32px;
+  --pimolu-tabs-padding-x: 10px;
+  --pimolu-tabs-font-size: 0.8125rem;
+}
+
+.pimolu-tabs--md {
+  --pimolu-tabs-height: 40px;
+  --pimolu-tabs-padding-x: 14px;
+  --pimolu-tabs-font-size: 0.875rem;
+}
+
+.pimolu-tabs--lg {
+  --pimolu-tabs-height: 48px;
+  --pimolu-tabs-padding-x: 18px;
+  --pimolu-tabs-font-size: 1rem;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .pimolu-tabs--vertical {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pimolu-tabs--vertical .pimolu-tabs__list {
+    min-width: 0;
+
+    border-inline-end: 0;
+  }
+
+  .pimolu-tabs--vertical .pimolu-tabs__panel {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pimolu-tabs--vertical.pimolu-tabs--segmented
+    .pimolu-tabs__list {
+    width: 100%;
+  }
+
+  .pimolu-tabs--vertical.pimolu-tabs--line
+    .pimolu-tabs__list {
+    border-inline-start:
+      1px solid
+      var(--pimolu-border);
+  }
+
+  .pimolu-tabs--vertical.pimolu-tabs--line
+    .pimolu-tabs__trigger {
+    padding-inline: var(
+      --pimolu-spacing-3,
+      12px
+    );
+  }
+
+  .pimolu-tabs--vertical.pimolu-tabs--line
+    .pimolu-tabs__trigger[data-state="active"] {
+    box-shadow:
+      inset 2px 0 0
+      var(--pimolu-primary);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-tabs__trigger {
+    transition: none;
+  }
+
+  .pimolu-tabs__panel[data-state="active"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-tabs__trigger[data-state="active"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+
+  .pimolu-tabs__trigger:focus-visible,
+  .pimolu-tabs__panel:focus-visible {
+    outline-color: Highlight;
+  }
+}

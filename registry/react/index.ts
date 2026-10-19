@@ -319,3 +319,24 @@ export type {
   PimoluDialogCloseProps,
   PimoluDialogSize,
 } from "./dialog/dialog.types";
+
+/* Tabs */
+export {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "./tabs/tabs";
+
+export { tabsVariantMap } from "./tabs/tabs.variants";
+
+export type {
+  PimoluTabsProps,
+  PimoluTabsListProps,
+  PimoluTabsTriggerProps,
+  PimoluTabsContentProps,
+  PimoluTabsOrientation,
+  PimoluTabsActivationMode,
+  PimoluTabsVariant,
+  PimoluTabsSize,
+} from "./tabs/tabs.types";

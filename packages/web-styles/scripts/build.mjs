@@ -132,6 +132,11 @@ const outputs = [
     output: "dialog.css",
     minify: false,
   },
+  {
+    input: "tabs.css",
+    output: "tabs.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

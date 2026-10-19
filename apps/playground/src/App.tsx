@@ -26,6 +26,7 @@ import { SliderPage } from "./pages/slider-page";
 import { SpinnerPage } from "./pages/spinner-page";
 import { TooltipPage } from "./pages/tooltip-page";
 import { SwitchPage } from "./pages/switch-page";
+import { TabsPage } from "./pages/tabs-page";
 import { TextareaPage } from "./pages/textarea-page";
 
 import "./playground.css";
@@ -45,6 +46,7 @@ const pageComponents = {
   skeleton: SkeletonPage,
   spinner: SpinnerPage,
   tooltip: TooltipPage,
+  tabs: TabsPage,
   switch: SwitchPage,
   checkbox: CheckboxPage,
   radio: RadioPage,

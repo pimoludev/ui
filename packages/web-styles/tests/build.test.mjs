@@ -39,6 +39,7 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "tooltip.css",
     "popover.css",
     "dialog.css",
+    "tabs.css",
   ]) {
     const css = await load(file);
 
@@ -61,6 +62,7 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-tooltip",
     ".pimolu-popover",
     ".pimolu-dialog",
+    ".pimolu-tabs",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
@@ -1285,6 +1287,57 @@ test("Dialog styles are included in the CSS build", async () => {
 
   assert.ok(
     dialog.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+test("Tabs styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const tabs = await load("tabs.css");
+
+  const selectors = [
+    ".pimolu-tabs",
+    ".pimolu-tabs--line",
+    ".pimolu-tabs--solid",
+    ".pimolu-tabs--soft",
+    ".pimolu-tabs--sm",
+    ".pimolu-tabs--md",
+    ".pimolu-tabs--lg",
+    ".pimolu-tabs--vertical",
+    ".pimolu-tabs__list",
+    ".pimolu-tabs__trigger",
+    ".pimolu-tabs__panel",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      tabs.includes(selector),
+      `Missing Tabs selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    tabs.includes("--pimolu-tabs-height"),
+    "The trigger height must be driven by a custom property"
+  );
+
+  assert.ok(
+    tabs.includes("pimolu-tabs-panel-in"),
+    "Missing the active panel animation"
+  );
+
+  assert.ok(
+    tabs.includes("prefers-reduced-motion"),
+    "Missing reduced motion support"
+  );
+
+  assert.ok(
+    tabs.includes("forced-colors"),
     "Missing forced colors support"
   );
 });

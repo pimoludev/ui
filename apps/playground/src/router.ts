@@ -12,6 +12,8 @@ export const pages = [
 
   { id: "button", label: "Button", group: "Actions" },
 
+  { id: "tabs", label: "Tabs", group: "Navigation" },
+
   { id: "checkbox", label: "Checkbox", group: "Forms" },
   { id: "combobox", label: "Combobox", group: "Forms" },
   { id: "input", label: "Input", group: "Forms" },

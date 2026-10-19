@@ -30,9 +30,10 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Tooltip | `registry/react/tooltip/` | Contextual help | Present and tested |
 | Popover | `registry/react/popover/` | Anchored interactive panel | Present and tested |
 | Dialog | `registry/react/dialog/` | Modal panel, focus trap and scroll lock | Present and tested |
+| Tabs | `registry/react/tabs/` | Roving tabs, segmented controls and scrollable bars | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
-utilities in `registry/react/internal/`. The playground pages cover the 22
+utilities in `registry/react/internal/`. The playground pages cover the 23
 families (AvatarGroup and RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

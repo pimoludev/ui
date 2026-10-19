@@ -12,6 +12,7 @@ import {
   progressVariantMap,
   popoverVariantMap,
   dialogVariantMap,
+  tabsVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
   rangeSliderVariantMap,
@@ -176,6 +177,14 @@ export const popoverPaddings = optionsOf(
 
 export const dialogSizes = optionsOf(
   dialogVariantMap.size,
+);
+
+export const tabsVariants = optionsOf(
+  tabsVariantMap.variant,
+);
+
+export const tabsSizes = optionsOf(
+  tabsVariantMap.size,
 );
 
 export const sliderSizes = optionsOf(sliderVariantMap.size);

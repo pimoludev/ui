@@ -40,7 +40,8 @@
     "./circular-progress.css": "./dist/circular-progress.css",
     "./tooltip.css": "./dist/tooltip.css",
     "./popover.css": "./dist/popover.css",
-    "./dialog.css": "./dist/dialog.css"
+    "./dialog.css": "./dist/dialog.css",
+    "./tabs.css": "./dist/tabs.css"
   },
 
   "dependencies": {

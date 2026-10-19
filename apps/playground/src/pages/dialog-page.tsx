@@ -44,13 +44,13 @@ function AnatomyDialog() {
         </DialogHeader>
 
         <div className="pg-stack">
-          <p className="pg-dialog-copy">
+          <p className="pg-copy">
             Focus moves to the first control when the panel
             opens, Tab stays inside, and Escape returns focus to
             the trigger.
           </p>
 
-          <p className="pg-dialog-copy">
+          <p className="pg-copy">
             The accent border comes from a custom class on the
             panel, not from a new theme token.
           </p>
@@ -175,7 +175,7 @@ function LongContentDialog() {
           {Array.from({ length: 18 }, (_, index) => (
             <p
               key={index}
-              className="pg-dialog-copy"
+              className="pg-copy"
             >
               <strong>Clause {index + 1}.</strong> This
               paragraph exists to make the dialog taller than
@@ -248,13 +248,13 @@ function NamedWithoutTitleDialog() {
         size="sm"
       >
         <div className="pg-stack">
-          <p className="pg-dialog-copy">
+          <p className="pg-copy">
             A dialog with no visible title still needs a name:
             aria-label carries it here, and screen readers
             announce “Keyboard shortcuts”.
           </p>
 
-          <p className="pg-dialog-copy">
+          <p className="pg-copy">
             Escape closes the panel; Tab wraps inside it.
           </p>
         </div>

@@ -350,7 +350,7 @@
   border-color: var(--pimolu-primary);
 }
 
-.pg-dialog-copy {
+.pg-copy {
   margin: 0;
 
   font-size: 0.875rem;
@@ -569,6 +569,17 @@
 /* Heterogeneous content: keep each card at its natural height. */
 .pg-grid--start {
   align-items: start;
+}
+
+/* Fixed two-column grid for four related examples. */
+.pg-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 700px) {
+  .pg-grid--two {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* Cards and gallery panels */
