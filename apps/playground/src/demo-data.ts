@@ -19,6 +19,10 @@ import {
   typographyVariantMap,
   codeVariantMap,
   labelVariantMap,
+  accordionVariantMap,
+  paginationVariantMap,
+  listVariantMap,
+  descriptionListVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
   rangeSliderVariantMap,
@@ -231,6 +235,34 @@ export const codeSizes = optionsOf(
 
 export const labelSizes = optionsOf(
   labelVariantMap.size,
+);
+
+export const accordionVariants = optionsOf(
+  accordionVariantMap.variant,
+);
+
+export const paginationSizes = optionsOf(
+  paginationVariantMap.size,
+);
+
+export const listVariants = optionsOf(
+  listVariantMap.variant,
+);
+
+export const listSizes = optionsOf(
+  listVariantMap.size,
+);
+
+export const descriptionListLayouts = optionsOf(
+  descriptionListVariantMap.layout,
+);
+
+export const descriptionListVariants = optionsOf(
+  descriptionListVariantMap.variant,
+);
+
+export const descriptionListSizes = optionsOf(
+  descriptionListVariantMap.size,
 );
 
 export const sliderSizes = optionsOf(sliderVariantMap.size);

@@ -1,0 +1,103 @@
+/* =========================================
+   PIMOLU UI - SCROLL AREA
+   Shared Web Styles
+========================================= */
+
+.pimolu-scroll-area {
+  position: relative;
+
+  min-width: 0;
+  max-width: 100%;
+}
+
+.pimolu-scroll-area__viewport {
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--pimolu-border)
+    transparent;
+
+  outline: none;
+}
+
+.pimolu-scroll-area[data-orientation="vertical"]
+  .pimolu-scroll-area__viewport {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.pimolu-scroll-area[data-orientation="horizontal"]
+  .pimolu-scroll-area__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.pimolu-scroll-area[data-orientation="both"]
+  .pimolu-scroll-area__viewport {
+  overflow: auto;
+}
+
+.pimolu-scroll-area__viewport:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+/* =========================================
+   WEBKIT SCROLLBAR
+========================================= */
+
+.pimolu-scroll-area__viewport::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.pimolu-scroll-area__viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pimolu-scroll-area__viewport::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 22%,
+    transparent
+  );
+
+  background-clip: padding-box;
+}
+
+.pimolu-scroll-area__viewport::-webkit-scrollbar-thumb:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 34%,
+    transparent
+  );
+
+  background-clip: padding-box;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-scroll-area__viewport {
+    scrollbar-color: CanvasText transparent;
+  }
+
+  .pimolu-scroll-area__viewport:focus-visible {
+    outline-color: Highlight;
+  }
+}

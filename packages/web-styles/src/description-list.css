@@ -1,0 +1,138 @@
+/* =========================================
+   PIMOLU UI - DESCRIPTION LIST
+   Shared Web Styles
+========================================= */
+
+.pimolu-description-list {
+  --pimolu-description-padding: 12px;
+  --pimolu-description-font: 0.875rem;
+
+  margin: 0;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-description-list__item {
+  display: grid;
+  gap: 2px;
+
+  min-width: 0;
+
+  padding-block: var(--pimolu-description-padding);
+}
+
+.pimolu-description-list--inline
+  .pimolu-description-list__item {
+  grid-template-columns:
+    minmax(8rem, 38%) minmax(0, 1fr);
+
+  align-items: baseline;
+
+  gap: 16px;
+}
+
+.pimolu-description-list--divided
+  .pimolu-description-list__item:not(:last-child) {
+  border-block-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-description-list--bordered {
+  overflow: hidden;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-description-list--bordered
+  .pimolu-description-list__item {
+  padding-inline: 14px;
+}
+
+.pimolu-description-list--bordered
+  .pimolu-description-list__item:not(:last-child) {
+  border-block-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-description-list__term {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(--pimolu-description-font);
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-description-list__details {
+  min-width: 0;
+
+  margin: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-size: var(--pimolu-description-font);
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-description-list--sm {
+  --pimolu-description-padding: 8px;
+  --pimolu-description-font: 0.8125rem;
+}
+
+.pimolu-description-list--md {
+  --pimolu-description-padding: 12px;
+  --pimolu-description-font: 0.875rem;
+}
+
+.pimolu-description-list--lg {
+  --pimolu-description-padding: 16px;
+  --pimolu-description-font: 1rem;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .pimolu-description-list--inline
+    .pimolu-description-list__item {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 2px;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-description-list--bordered {
+    border-color: CanvasText;
+  }
+
+  .pimolu-description-list__item {
+    border-color: CanvasText;
+  }
+}

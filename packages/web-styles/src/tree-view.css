@@ -1,0 +1,160 @@
+/* =========================================
+   PIMOLU UI - TREE VIEW
+   Shared Web Styles
+========================================= */
+
+.pimolu-tree {
+  --pimolu-tree-level: 1;
+
+  margin: 0;
+  padding: 4px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+
+  list-style: none;
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-tree__item {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  min-height: 32px;
+
+  padding-block: 5px;
+  padding-inline-start: calc(
+    8px + (var(--pimolu-tree-level, 1) - 1) * 18px
+  );
+  padding-inline-end: 8px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-foreground);
+
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.pimolu-tree__item:hover {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-tree__item[data-state="selected"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    transparent
+  );
+
+  color: var(--pimolu-primary);
+
+  font-weight: 500;
+}
+
+.pimolu-tree__item[data-state="disabled"] {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-tree__item:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: -2px;
+}
+
+/* =========================================
+   CHEVRON
+========================================= */
+
+.pimolu-tree__chevron-slot {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+
+  width: 16px;
+  height: 16px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-tree__chevron {
+  transition: transform 120ms ease;
+}
+
+.pimolu-tree__item[aria-expanded="true"]
+  .pimolu-tree__chevron {
+  transform: rotate(90deg);
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.pimolu-tree__label {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-tree__item,
+  .pimolu-tree__chevron {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-tree {
+    border-color: CanvasText;
+  }
+
+  .pimolu-tree__item[data-state="selected"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+
+  .pimolu-tree__item:focus-visible {
+    outline-color: Highlight;
+  }
+}

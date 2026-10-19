@@ -38,9 +38,14 @@ describe("playground routes", () => {
         screen.getByRole("heading", { level: 1 })
       ).toBeInTheDocument();
 
-      expect(
-        screen.getByRole("link", { current: "page" })
-      ).toHaveTextContent(label);
+      const current = screen
+        .getAllByRole("link", { current: "page" })
+        .find((link) =>
+          link.classList.contains("pg-sidebar__link")
+        );
+
+      expect(current).toBeDefined();
+      expect(current).toHaveTextContent(label);
     }
   );
 

@@ -315,7 +315,6 @@
 }
 
 /* Popover demo content */
-
 .pg-popover-title {
   margin: 0;
   font-size: 0.9375rem;
@@ -632,6 +631,85 @@
 
 .pg-muted {
   color: var(--pimolu-muted-foreground);
+}
+
+/* Sidebar demo */
+
+.pg-sidebar-demo {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  gap: 24px;
+
+  min-height: 460px;
+
+  border: 1px solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-lg);
+  overflow: hidden;
+
+  background: var(--pimolu-background);
+}
+
+.pg-sidebar-demo > .pimolu-sidebar {
+  width: 100%;
+}
+
+.pg-sidebar-demo > .pg-stack {
+  padding: 24px;
+}
+
+@media (max-width: 800px) {
+  .pg-sidebar-demo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pg-sidebar-demo > .pimolu-sidebar {
+    position: static;
+
+    max-height: none;
+
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--pimolu-border);
+  }
+}
+
+/* ScrollArea demos */
+
+.pg-scroll-horizontal {
+  display: flex;
+  gap: 8px;
+
+  width: max-content;
+
+  padding: 4px;
+}
+
+.pg-scroll-horizontal-demo {
+  max-width: 32rem;
+}
+
+.pimolu-scroll-area.pg-scroll-horizontal-demo {
+  max-width: 32rem;
+}
+
+.pg-scroll-table {
+  display: grid;
+  gap: 4px;
+
+  width: max-content;
+  min-width: 100%;
+}
+
+.pg-scroll-table__row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(6rem, 1fr));
+  gap: 12px;
+
+  padding: 8px 10px;
+
+  border-bottom: 1px solid var(--pimolu-border);
+
+  font-size: 0.8125rem;
+  white-space: nowrap;
 }
 
 /* Footer */

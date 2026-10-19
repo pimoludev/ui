@@ -1,0 +1,235 @@
+/* =========================================
+   PIMOLU UI - NAVIGATION MENU
+   Shared Web Styles
+========================================= */
+
+.pimolu-navigation-menu {
+  position: relative;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-navigation-menu__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-navigation-menu__item {
+  position: relative;
+
+  min-width: 0;
+}
+
+/* =========================================
+   TRIGGER
+========================================= */
+
+.pimolu-navigation-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 8px 10px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.pimolu-navigation-menu__trigger:hover,
+.pimolu-navigation-menu__trigger[data-state="open"] {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-navigation-menu__trigger:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-navigation-menu__chevron {
+  flex: none;
+
+  transition: transform 150ms ease;
+}
+
+.pimolu-navigation-menu__trigger[data-state="open"]
+  .pimolu-navigation-menu__chevron {
+  transform: rotate(180deg);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-navigation-menu__content {
+  position: absolute;
+
+  inset-block-start: calc(100% + 6px);
+  inset-inline-start: 0;
+
+  z-index: 40;
+
+  box-sizing: border-box;
+
+  min-width: 16rem;
+  max-width: min(22rem, 90vw);
+
+  padding: 8px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  box-shadow: var(
+    --pimolu-shadow-raised,
+    none
+  );
+}
+
+.pimolu-navigation-menu__content[data-state="open"] {
+  animation:
+    pimolu-navigation-menu-in
+    140ms
+    ease-out;
+}
+
+@keyframes pimolu-navigation-menu-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   LINK
+========================================= */
+
+.pimolu-navigation-menu__link {
+  display: block;
+
+  padding: 8px 10px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.pimolu-navigation-menu__link:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-navigation-menu__link[aria-current="page"] {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-navigation-menu__link[aria-disabled="true"] {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-navigation-menu__link:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .pimolu-navigation-menu__content {
+    position: static;
+
+    min-width: 0;
+    max-width: none;
+
+    margin-block-start: 6px;
+
+    box-shadow: none;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-navigation-menu__chevron {
+    transition: none;
+  }
+
+  .pimolu-navigation-menu__content[data-state="open"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-navigation-menu__content {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-navigation-menu__link[aria-current="page"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+}

@@ -177,6 +177,61 @@ const outputs = [
     output: "form-field.css",
     minify: false,
   },
+  {
+    input: "accordion.css",
+    output: "accordion.css",
+    minify: false,
+  },
+  {
+    input: "breadcrumbs.css",
+    output: "breadcrumbs.css",
+    minify: false,
+  },
+  {
+    input: "pagination.css",
+    output: "pagination.css",
+    minify: false,
+  },
+  {
+    input: "stepper.css",
+    output: "stepper.css",
+    minify: false,
+  },
+  {
+    input: "navbar.css",
+    output: "navbar.css",
+    minify: false,
+  },
+  {
+    input: "sidebar.css",
+    output: "sidebar.css",
+    minify: false,
+  },
+  {
+    input: "navigation-menu.css",
+    output: "navigation-menu.css",
+    minify: false,
+  },
+  {
+    input: "scroll-area.css",
+    output: "scroll-area.css",
+    minify: false,
+  },
+  {
+    input: "tree-view.css",
+    output: "tree-view.css",
+    minify: false,
+  },
+  {
+    input: "list.css",
+    output: "list.css",
+    minify: false,
+  },
+  {
+    input: "description-list.css",
+    output: "description-list.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

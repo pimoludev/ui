@@ -1,0 +1,193 @@
+/* =========================================
+   PIMOLU UI - LIST
+   Shared Web Styles
+========================================= */
+
+.pimolu-list {
+  --pimolu-list-padding-y: 12px;
+  --pimolu-list-font-size: 0.875rem;
+
+  margin: 0;
+  padding: 0;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+
+  list-style: none;
+}
+
+.pimolu-list--bordered {
+  overflow: hidden;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-list--divided .pimolu-list__item:not(:last-child) {
+  border-block-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+/* =========================================
+   ROW
+========================================= */
+
+.pimolu-list__row {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  padding-block: var(--pimolu-list-padding-y);
+  padding-inline: 14px;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  font-size: var(--pimolu-list-font-size);
+  text-align: start;
+
+  cursor: default;
+}
+
+button.pimolu-list__row {
+  cursor: pointer;
+}
+
+button.pimolu-list__row:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-list__item[data-state="active"]
+  .pimolu-list__row {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 10%,
+    transparent
+  );
+}
+
+.pimolu-list__item[data-state="disabled"] {
+  opacity: 0.55;
+}
+
+button.pimolu-list__row:disabled {
+  cursor: not-allowed;
+}
+
+button.pimolu-list__row:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: -2px;
+}
+
+/* =========================================
+   SLOTS
+========================================= */
+
+.pimolu-list__start,
+.pimolu-list__end {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+
+  gap: 6px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-list__main {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-list__title {
+  min-width: 0;
+
+  color: inherit;
+
+  font-weight: 500;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-list__description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-list--sm {
+  --pimolu-list-padding-y: 8px;
+  --pimolu-list-font-size: 0.8125rem;
+}
+
+.pimolu-list--md {
+  --pimolu-list-padding-y: 12px;
+  --pimolu-list-font-size: 0.875rem;
+}
+
+.pimolu-list--lg {
+  --pimolu-list-padding-y: 16px;
+  --pimolu-list-font-size: 1rem;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-list__row {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-list--bordered {
+    border-color: CanvasText;
+  }
+
+  .pimolu-list__item[data-state="active"]
+    .pimolu-list__row {
+    border: 1px solid Highlight;
+  }
+
+  button.pimolu-list__row:focus-visible {
+    outline-color: Highlight;
+  }
+}

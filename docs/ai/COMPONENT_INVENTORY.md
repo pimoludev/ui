@@ -39,9 +39,20 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Code, Kbd | `registry/react/code/` | Inline code, blocks and keys | Present and tested |
 | Label | `registry/react/label/` | Form labels and required hints | Present and tested |
 | FormField | `registry/react/form-field/` | Field, control, message, group and fieldset | Present and tested |
+| Accordion | `registry/react/accordion/` | Collapsible sections | Present and tested |
+| Breadcrumbs | `registry/react/breadcrumbs/` | Path to the current page | Present and tested |
+| Pagination | `registry/react/pagination/` | Page navigation with ellipses | Present and tested |
+| Stepper | `registry/react/stepper/` | Multi-step progress | Present and tested |
+| Navbar | `registry/react/navbar/` | Top navigation shell | Present and tested |
+| Sidebar | `registry/react/sidebar/` | Grouped side navigation | Present and tested |
+| NavigationMenu | `registry/react/navigation-menu/` | Menus with disclosure panels | Present and tested |
+| ScrollArea | `registry/react/scroll-area/` | Styled scroll viewport | Present and tested |
+| TreeView | `registry/react/tree-view/` | Keyboard-driven tree | Present and tested |
+| List, ListItem | `registry/react/list/` | Visual list rows | Present and tested |
+| DescriptionList | `registry/react/description-list/` | Term/details properties | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
-utilities in `registry/react/internal/`. The playground pages cover the 31
+utilities in `registry/react/internal/`. The playground pages cover the 42
 families (AvatarGroup and RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

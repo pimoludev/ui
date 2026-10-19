@@ -48,6 +48,17 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "code.css",
     "label.css",
     "form-field.css",
+    "accordion.css",
+    "breadcrumbs.css",
+    "pagination.css",
+    "stepper.css",
+    "navbar.css",
+    "sidebar.css",
+    "navigation-menu.css",
+    "scroll-area.css",
+    "tree-view.css",
+    "list.css",
+    "description-list.css",
   ]) {
     const css = await load(file);
 
@@ -81,6 +92,17 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-kbd",
     ".pimolu-label",
     ".pimolu-form-field",
+    ".pimolu-accordion",
+    ".pimolu-breadcrumbs",
+    ".pimolu-pagination",
+    ".pimolu-stepper",
+    ".pimolu-navbar",
+    ".pimolu-sidebar",
+    ".pimolu-navigation-menu",
+    ".pimolu-scroll-area",
+    ".pimolu-tree",
+    ".pimolu-list",
+    ".pimolu-description-list",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
@@ -1411,6 +1433,51 @@ test("Toggle, SegmentedControl, Link and Typography styles are bundled", async (
       css.includes("forced-colors") ||
         css.includes("prefers-reduced-motion"),
       "Missing an accessibility media query"
+    );
+  }
+});
+
+test("Phase 2 navigation styles are bundled", async () => {
+  const full = await load("pimolu.css");
+  const accordion = await load("accordion.css");
+  const breadcrumbs = await load("breadcrumbs.css");
+  const pagination = await load("pagination.css");
+  const stepper = await load("stepper.css");
+  const navbar = await load("navbar.css");
+  const sidebar = await load("sidebar.css");
+  const navigationMenu = await load("navigation-menu.css");
+  const scrollArea = await load("scroll-area.css");
+  const tree = await load("tree-view.css");
+  const list = await load("list.css");
+  const description = await load("description-list.css");
+
+  const expectations = [
+    [accordion, ".pimolu-accordion__trigger"],
+    [accordion, ".pimolu-accordion--separated"],
+    [breadcrumbs, ".pimolu-breadcrumbs__separator"],
+    [pagination, ".pimolu-pagination__button"],
+    [pagination, ".pimolu-pagination--lg"],
+    [stepper, ".pimolu-stepper__marker"],
+    [stepper, ".pimolu-stepper--vertical"],
+    [navbar, ".pimolu-navbar__brand"],
+    [navbar, ".pimolu-navbar[data-sticky=true]"],
+    [sidebar, ".pimolu-sidebar__item"],
+    [navigationMenu, ".pimolu-navigation-menu__content"],
+    [scrollArea, ".pimolu-scroll-area__viewport"],
+    [tree, ".pimolu-tree__item"],
+    [list, ".pimolu-list--bordered"],
+    [description, ".pimolu-description-list__term"],
+  ];
+
+  for (const [css, selector] of expectations) {
+    assert.ok(
+      css.includes(selector),
+      `Missing selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
     );
   }
 });

@@ -1,0 +1,154 @@
+/* =========================================
+   PIMOLU UI - PAGINATION
+   Shared Web Styles
+========================================= */
+
+.pimolu-pagination {
+  --pimolu-pagination-size: 36px;
+  --pimolu-pagination-font: 0.875rem;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-pagination__button {
+  display: inline-grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  min-width: var(--pimolu-pagination-size);
+  height: var(--pimolu-pagination-size);
+
+  padding: 0 8px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-family: inherit;
+  font-size: var(--pimolu-pagination-font);
+  font-weight: 500;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-pagination__button:hover:not(:disabled):not(
+    [data-state="active"]
+  ) {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-pagination__button[data-state="active"] {
+  border-color: var(--pimolu-primary);
+
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+}
+
+.pimolu-pagination__button:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-pagination__button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+.pimolu-pagination__arrow {
+  font-size: 1.15rem;
+}
+
+.pimolu-pagination__ellipsis {
+  display: inline-grid;
+  place-items: center;
+
+  min-width: var(--pimolu-pagination-size);
+  height: var(--pimolu-pagination-size);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(--pimolu-pagination-font);
+  user-select: none;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-pagination--sm {
+  --pimolu-pagination-size: 28px;
+  --pimolu-pagination-font: 0.8125rem;
+}
+
+.pimolu-pagination--md {
+  --pimolu-pagination-size: 36px;
+  --pimolu-pagination-font: 0.875rem;
+}
+
+.pimolu-pagination--lg {
+  --pimolu-pagination-size: 44px;
+  --pimolu-pagination-font: 1rem;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-pagination__button {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-pagination__button[data-state="active"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+
+  .pimolu-pagination__button:focus-visible {
+    outline-color: Highlight;
+  }
+}

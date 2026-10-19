@@ -17,6 +17,11 @@ export const pages = [
   { id: "tabs", label: "Tabs", group: "Navigation" },
   { id: "segmented-control", label: "SegmentedControl", group: "Navigation" },
   { id: "link", label: "Link", group: "Navigation" },
+  { id: "accordion", label: "Accordion", group: "Navigation" },
+  { id: "breadcrumbs", label: "Breadcrumbs", group: "Navigation" },
+  { id: "pagination", label: "Pagination", group: "Navigation" },
+  { id: "stepper", label: "Stepper", group: "Navigation" },
+  { id: "navigation-menu", label: "NavigationMenu", group: "Navigation" },
 
   { id: "checkbox", label: "Checkbox", group: "Forms" },
   { id: "combobox", label: "Combobox", group: "Forms" },
@@ -34,10 +39,16 @@ export const pages = [
   { id: "avatar", label: "Avatar", group: "Data display" },
   { id: "badge", label: "Badge", group: "Data display" },
   { id: "card", label: "Card", group: "Data display" },
+  { id: "list", label: "List", group: "Data display" },
+  { id: "description-list", label: "DescriptionList", group: "Data display" },
+  { id: "tree-view", label: "TreeView", group: "Data display" },
 
   { id: "typography", label: "Typography", group: "Typography" },
   { id: "code", label: "Code & Kbd", group: "Typography" },
 
+  { id: "navbar", label: "Navbar", group: "Layout" },
+  { id: "sidebar", label: "Sidebar", group: "Layout" },
+  { id: "scroll-area", label: "ScrollArea", group: "Layout" },
   { id: "separator", label: "Separator", group: "Layout" },
 
   { id: "circular-progress", label: "CircularProgress", group: "Feedback" },

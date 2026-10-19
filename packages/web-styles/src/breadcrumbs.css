@@ -1,0 +1,76 @@
+/* =========================================
+   PIMOLU UI - BREADCRUMBS
+   Shared Web Styles
+========================================= */
+
+.pimolu-breadcrumbs {
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pimolu-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 6px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.pimolu-breadcrumbs__link {
+  color: var(--pimolu-muted-foreground);
+
+  text-decoration: none;
+}
+
+.pimolu-breadcrumbs__link:hover {
+  color: var(--pimolu-foreground);
+
+  text-decoration: underline;
+}
+
+.pimolu-breadcrumbs__page {
+  color: var(--pimolu-foreground);
+
+  font-weight: 500;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-breadcrumbs__separator {
+  color: var(--pimolu-muted-foreground);
+
+  user-select: none;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-breadcrumbs__page {
+    color: CanvasText;
+  }
+
+  .pimolu-breadcrumbs__link {
+    color: LinkText;
+  }
+}

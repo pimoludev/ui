@@ -1,0 +1,220 @@
+/* =========================================
+   PIMOLU UI - ACCORDION
+   Shared Web Styles
+========================================= */
+
+.pimolu-accordion {
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-accordion__item {
+  min-width: 0;
+}
+
+.pimolu-accordion--default .pimolu-accordion__item {
+  border-block-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-accordion--default
+  .pimolu-accordion__item:first-child {
+  border-block-start:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-accordion--separated {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.pimolu-accordion--separated
+  .pimolu-accordion__item {
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+/* =========================================
+   TRIGGER
+========================================= */
+
+.pimolu-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 16px 0;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: start;
+
+  cursor: pointer;
+}
+
+.pimolu-accordion--separated
+  .pimolu-accordion__trigger {
+  padding: 14px 16px;
+}
+
+.pimolu-accordion--ghost
+  .pimolu-accordion__trigger {
+  padding: 10px 8px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-accordion__trigger:hover:not(:disabled) {
+  color: var(--pimolu-primary);
+}
+
+.pimolu-accordion--ghost
+  .pimolu-accordion__trigger:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-accordion__trigger:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-accordion__trigger:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+.pimolu-accordion__label {
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-accordion__chevron {
+  flex: none;
+
+  color: var(--pimolu-muted-foreground);
+
+  transition:
+    transform 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-accordion__trigger[data-state="open"]
+  .pimolu-accordion__chevron {
+  color: var(--pimolu-primary);
+
+  transform: rotate(180deg);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-accordion__content {
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.pimolu-accordion__content[data-state="open"] {
+  animation:
+    pimolu-accordion-in
+    160ms
+    ease-out;
+}
+
+.pimolu-accordion__content-inner {
+  padding: 0 0 16px;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-accordion--separated
+  .pimolu-accordion__content-inner {
+  padding: 0 16px 16px;
+}
+
+.pimolu-accordion--ghost
+  .pimolu-accordion__content-inner {
+  padding: 0 8px 12px;
+}
+
+@keyframes pimolu-accordion-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-accordion__chevron {
+    transition: none;
+  }
+
+  .pimolu-accordion__content[data-state="open"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-accordion__item {
+    border-color: CanvasText;
+  }
+
+  .pimolu-accordion__trigger:focus-visible {
+    outline-color: Highlight;
+  }
+}

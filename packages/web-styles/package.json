@@ -49,7 +49,18 @@
     "./typography.css": "./dist/typography.css",
     "./code.css": "./dist/code.css",
     "./label.css": "./dist/label.css",
-    "./form-field.css": "./dist/form-field.css"
+    "./form-field.css": "./dist/form-field.css",
+    "./accordion.css": "./dist/accordion.css",
+    "./breadcrumbs.css": "./dist/breadcrumbs.css",
+    "./pagination.css": "./dist/pagination.css",
+    "./stepper.css": "./dist/stepper.css",
+    "./navbar.css": "./dist/navbar.css",
+    "./sidebar.css": "./dist/sidebar.css",
+    "./navigation-menu.css": "./dist/navigation-menu.css",
+    "./scroll-area.css": "./dist/scroll-area.css",
+    "./tree-view.css": "./dist/tree-view.css",
+    "./list.css": "./dist/list.css",
+    "./description-list.css": "./dist/description-list.css"
   },
 
   "dependencies": {

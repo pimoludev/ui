@@ -1,0 +1,183 @@
+/* =========================================
+   PIMOLU UI - NAVBAR
+   Shared Web Styles
+========================================= */
+
+.pimolu-navbar {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  padding: 12px 20px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-navbar[data-bordered="true"] {
+  border-block-end:
+    1px solid
+    var(--pimolu-border);
+}
+
+.pimolu-navbar[data-sticky="true"] {
+  position: sticky;
+  inset-block-start: 0;
+
+  z-index: 10;
+
+  backdrop-filter: blur(10px);
+}
+
+/* =========================================
+   BRAND
+========================================= */
+
+.pimolu-navbar__brand {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex: none;
+
+  color: inherit;
+
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.pimolu-navbar__brand:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-navbar__content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.pimolu-navbar__item {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 8px 10px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.pimolu-navbar__item:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-navbar__item[aria-current="page"] {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-navbar__item[aria-disabled="true"] {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-navbar__item:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-navbar__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-inline-start: auto;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+  .pimolu-navbar {
+    flex-wrap: wrap;
+
+    padding: 10px 16px;
+  }
+
+  .pimolu-navbar__content {
+    order: 3;
+
+    width: 100%;
+
+    overflow-x: auto;
+  }
+
+  .pimolu-navbar__actions {
+    margin-inline-start: auto;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-navbar {
+    border-color: CanvasText;
+  }
+
+  .pimolu-navbar__item[aria-current="page"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+}

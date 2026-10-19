@@ -1,0 +1,283 @@
+/* =========================================
+   PIMOLU UI - STEPPER
+   Shared Web Styles
+========================================= */
+
+.pimolu-stepper {
+  --pimolu-stepper-marker: 32px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-stepper--horizontal {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+.pimolu-stepper--vertical {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-stepper__item {
+  position: relative;
+
+  flex: 1 1 0;
+
+  min-width: 0;
+}
+
+.pimolu-stepper--vertical .pimolu-stepper__item {
+  flex: none;
+}
+
+.pimolu-stepper--horizontal
+  .pimolu-stepper__item:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  inset-block-start: calc(
+    var(--pimolu-stepper-marker) / 2
+  );
+  inset-inline-start: calc(
+    var(--pimolu-stepper-marker) + 8px
+  );
+  inset-inline-end: -12px;
+
+  z-index: 0;
+
+  height: 1px;
+
+  background: var(--pimolu-border);
+}
+
+.pimolu-stepper--vertical
+  .pimolu-stepper__item:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  inset-block-start: calc(
+    var(--pimolu-stepper-marker) + 8px
+  );
+  inset-block-end: -16px;
+  inset-inline-start: calc(
+    var(--pimolu-stepper-marker) / 2
+  );
+
+  z-index: 0;
+
+  width: 1px;
+
+  background: var(--pimolu-border);
+}
+
+.pimolu-stepper__item[data-state="complete"]::after {
+  background: var(--pimolu-primary);
+}
+
+/* =========================================
+   BUTTON / CONTENT
+========================================= */
+
+.pimolu-stepper__button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: start;
+
+  cursor: default;
+}
+
+button.pimolu-stepper__button {
+  cursor: pointer;
+}
+
+.pimolu-stepper__button:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-stepper__button:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 3px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-stepper--vertical
+  .pimolu-stepper__button {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* =========================================
+   MARKER
+========================================= */
+
+.pimolu-stepper__marker {
+  position: relative;
+  z-index: 1;
+
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  width: var(--pimolu-stepper-marker);
+  height: var(--pimolu-stepper-marker);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-stepper__item[data-state="active"]
+  .pimolu-stepper__marker {
+  border-color: var(--pimolu-primary);
+
+  color: var(--pimolu-primary);
+
+  box-shadow: 0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--pimolu-primary) 15%,
+      transparent
+    );
+}
+
+.pimolu-stepper__item[data-state="complete"]
+  .pimolu-stepper__marker {
+  border-color: var(--pimolu-primary);
+
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+}
+
+button.pimolu-stepper__button:hover
+  .pimolu-stepper__marker {
+  border-color: var(--pimolu-primary);
+
+  color: var(--pimolu-primary);
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.pimolu-stepper__text {
+  display: grid;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-stepper__title {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-stepper__description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-stepper__item[data-state="disabled"] {
+  opacity: 0.55;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-stepper__marker {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-stepper__marker {
+    border-color: CanvasText;
+  }
+
+  .pimolu-stepper__item[data-state="active"]
+    .pimolu-stepper__marker,
+  .pimolu-stepper__item[data-state="complete"]
+    .pimolu-stepper__marker {
+    border-color: Highlight;
+
+    color: Highlight;
+  }
+
+  .pimolu-stepper__button:focus-visible {
+    outline-color: Highlight;
+  }
+}
