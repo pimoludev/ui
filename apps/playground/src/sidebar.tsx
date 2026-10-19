@@ -1,20 +1,8 @@
-import { pageHref, pages, type Page, type PageId } from "./router";
-
-function groupPages(): Array<{ name: string; items: Page[] }> {
-  const groups: Array<{ name: string; items: Page[] }> = [];
-
-  for (const page of pages) {
-    const group = groups.find((entry) => entry.name === page.group);
-
-    if (group) {
-      group.items.push(page);
-    } else {
-      groups.push({ name: page.group, items: [page] });
-    }
-  }
-
-  return groups;
-}
+import {
+  groupPages,
+  pageHref,
+  type PageId,
+} from "./router";
 
 export function Sidebar({ current }: { current: PageId }) {
   return (

@@ -1,7 +1,51 @@
 import { Button, usePimoluTheme } from "@pimolu/react";
 
 import { presets, themes } from "../demo-data";
+import { groupPages, pageHref } from "../router";
 import { Section } from "../section";
+
+/* Derived from the router, so the index can never fall behind. */
+
+function ComponentIndex() {
+  const groups = groupPages().filter(
+    (group) => group.name !== "Getting started",
+  );
+
+  return (
+    <Section
+      title="Components"
+      hint="Every family has its own page, with its variants, its states and real-world examples."
+    >
+      <div className="pg-grid">
+        {groups.map((group) => (
+          <div key={group.name} className="pg-panel">
+            <div className="pg-panel__head">
+              <span className="pg-panel__name">
+                {group.name}
+              </span>
+
+              <span className="pg-panel__tag">
+                {group.items.length}
+              </span>
+            </div>
+
+            <div className="pg-index">
+              {group.items.map((page) => (
+                <a
+                  key={page.id}
+                  className="pg-index__link"
+                  href={pageHref(page.id)}
+                >
+                  {page.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
 
 function Gallery() {
   const { resolvedTheme } = usePimoluTheme();
@@ -112,6 +156,7 @@ export function OverviewPage() {
         </div>
       </div>
 
+      <ComponentIndex />
       <Gallery />
       <ThemePreview />
     </>

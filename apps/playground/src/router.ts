@@ -39,6 +39,38 @@ export type Page = (typeof pages)[number];
 
 export type PageId = Page["id"];
 
+export interface PageGroup {
+  name: string;
+  items: Page[];
+}
+
+/**
+ * Groups the pages in first-appearance order, so the sidebar and the
+ * overview index always agree with `pages`.
+ */
+export function groupPages(
+  entries: readonly Page[] = pages
+): PageGroup[] {
+  const groups: PageGroup[] = [];
+
+  for (const page of entries) {
+    const group = groups.find(
+      (entry) => entry.name === page.group
+    );
+
+    if (group) {
+      group.items.push(page);
+    } else {
+      groups.push({
+        name: page.group,
+        items: [page],
+      });
+    }
+  }
+
+  return groups;
+}
+
 const FALLBACK: PageId = "overview";
 
 function readPage(): PageId {
