@@ -724,3 +724,27 @@
 .pg-footer a {
   color: var(--pimolu-primary);
 }
+
+/* DataTable demo member cell */
+
+.pg-data-table-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.pg-data-table-member__text {
+  min-width: 0;
+}
+
+.pg-data-table-member__email {
+  display: block;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

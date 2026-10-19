@@ -1,0 +1,82 @@
+
+/* =========================================
+   PIMOLU UI — BOX
+   Shared Web Styles
+========================================= */
+
+.pimolu-box {
+  --pimolu-box-padding: 0;
+  --pimolu-box-padding-x: 0;
+  --pimolu-box-padding-y: 0;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: var(--pimolu-box-padding, 0);
+
+  padding-inline: var(
+    --pimolu-box-padding-x,
+    var(--pimolu-box-padding, 0)
+  );
+
+  padding-block: var(
+    --pimolu-box-padding-y,
+    var(--pimolu-box-padding, 0)
+  );
+}
+
+/* =========================================
+   WIDTH
+========================================= */
+
+.pimolu-box--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   SEMANTIC SURFACES
+========================================= */
+
+.pimolu-box--bg-surface {
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, transparent)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, inherit)
+  );
+}
+
+.pimolu-box--bg-muted {
+  background: var(--pimolu-muted, transparent);
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, inherit)
+  );
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+.pimolu-box > img,
+.pimolu-box > video,
+.pimolu-box > canvas,
+.pimolu-box > svg {
+  max-width: 100%;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-box--bg-surface,
+  .pimolu-box--bg-muted {
+    outline: 1px solid CanvasText;
+    outline-offset: -1px;
+  }
+}

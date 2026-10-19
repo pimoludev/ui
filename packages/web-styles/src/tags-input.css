@@ -1,0 +1,415 @@
+/* =========================================
+   PIMOLU UI - TAGS INPUT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-tags-input {
+  --pimolu-tags-input-height: 40px;
+  --pimolu-tags-input-padding: 6px 8px;
+  --pimolu-tags-input-font-size: 14px;
+
+  --pimolu-tags-input-tone: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #6366f1)
+  );
+
+  --pimolu-tags-input-elevation: var(
+    --pimolu-control-shadow,
+    var(--pimolu-shadow-raised, none)
+  );
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  width: min(100%, 360px);
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(
+    --pimolu-font-body,
+    var(--pimolu-font-family-sans, inherit)
+  );
+}
+
+.pimolu-tags-input--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.pimolu-tags-input__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.pimolu-tags-input__required {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.pimolu-tags-input__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--pimolu-tags-input-height);
+
+  padding: var(--pimolu-tags-input-padding);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-tags-input-elevation);
+
+  cursor: text;
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+/* =========================================
+   TAG LIST
+========================================= */
+
+.pimolu-tags-input__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-tags-input__tag {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 2px;
+
+  max-width: 100%;
+
+  padding: 2px 3px 2px 8px;
+
+  background: var(--pimolu-muted, #f1f5f9);
+
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-border, #e2e8f0) 70%,
+      transparent
+    );
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-tags-input__tag-label {
+  min-width: 0;
+  max-width: 20ch;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   REMOVE BUTTON
+========================================= */
+
+.pimolu-tags-input__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: none;
+
+  width: 18px;
+  height: 18px;
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+
+  border-radius: var(--pimolu-radius-full, 9999px);
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font: inherit;
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms,
+    color 120ms;
+}
+
+.pimolu-tags-input__remove:hover:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-danger, #dc2626) 14%,
+    transparent
+  );
+
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-tags-input__remove:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #6366f1));
+
+  outline-offset: 1px;
+}
+
+.pimolu-tags-input__remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   TEXT INPUT
+========================================= */
+
+.pimolu-tags-input__input {
+  flex: 1;
+
+  box-sizing: border-box;
+  min-width: 96px;
+  height: 26px;
+
+  margin: 0;
+  padding: 0 4px;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  font-size: var(--pimolu-tags-input-font-size);
+
+  caret-color: var(--pimolu-tags-input-tone);
+}
+
+.pimolu-tags-input__input::placeholder {
+  color: var(--pimolu-muted-foreground, #64748b);
+  opacity: 1;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-tags-input__helper,
+.pimolu-tags-input__error {
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.pimolu-tags-input__helper {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-tags-input__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-tags-input__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 0;
+
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-tags-input--sm {
+  --pimolu-tags-input-height: 32px;
+  --pimolu-tags-input-padding: 4px 6px;
+  --pimolu-tags-input-font-size: 13px;
+}
+
+.pimolu-tags-input--sm .pimolu-tags-input__input {
+  height: 22px;
+}
+
+.pimolu-tags-input--sm .pimolu-tags-input__tag {
+  padding-block: 1px;
+
+  font-size: 0.75rem;
+}
+
+.pimolu-tags-input--md {
+  --pimolu-tags-input-height: 40px;
+  --pimolu-tags-input-padding: 6px 8px;
+  --pimolu-tags-input-font-size: 14px;
+}
+
+.pimolu-tags-input--lg {
+  --pimolu-tags-input-height: 48px;
+  --pimolu-tags-input-padding: 8px 10px;
+  --pimolu-tags-input-font-size: 16px;
+}
+
+.pimolu-tags-input--lg .pimolu-tags-input__input {
+  height: 30px;
+}
+
+.pimolu-tags-input--lg .pimolu-tags-input__tag {
+  padding-block: 3px;
+
+  font-size: 0.875rem;
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-tags-input:not(.pimolu-tags-input--disabled)
+  .pimolu-tags-input__wrapper:hover {
+  border-color: var(--pimolu-tags-input-tone);
+}
+
+.pimolu-tags-input__wrapper:focus-within {
+  border-color: var(--pimolu-tags-input-tone);
+
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--pimolu-tags-input-tone) 22%,
+      transparent
+    ),
+    var(--pimolu-tags-input-elevation);
+}
+
+.pimolu-tags-input--invalid {
+  --pimolu-tags-input-tone: var(
+    --pimolu-danger,
+    #dc2626
+  );
+}
+
+.pimolu-tags-input--invalid
+  .pimolu-tags-input__wrapper {
+  border-color: var(--pimolu-tags-input-tone);
+}
+
+.pimolu-tags-input--disabled
+  .pimolu-tags-input__wrapper {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.pimolu-tags-input--disabled .pimolu-tags-input__input {
+  cursor: not-allowed;
+}
+
+.pimolu-tags-input--readonly
+  .pimolu-tags-input__wrapper {
+  background: var(--pimolu-muted, #f1f5f9);
+  cursor: default;
+}
+
+.pimolu-tags-input__input:read-only {
+  cursor: default;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-tags-input__wrapper,
+  .pimolu-tags-input__remove {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-tags-input__wrapper:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-tags-input--invalid
+    .pimolu-tags-input__wrapper {
+    border-color: Mark;
+  }
+
+  .pimolu-tags-input__tag {
+    border-color: CanvasText;
+  }
+
+  .pimolu-tags-input__remove:disabled {
+    color: GrayText;
+  }
+}

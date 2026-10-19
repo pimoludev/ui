@@ -1,0 +1,424 @@
+/* =========================================
+   PIMOLU UI — DATE RANGE PICKER
+   Shared Web Styles
+========================================= */
+
+.pimolu-date-range-picker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-sizing: border-box;
+  width: min(100%, 26rem);
+  max-width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-date-range-picker--full-width {
+  display: flex;
+  width: 100%;
+}
+
+.pimolu-date-range-picker__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-date-range-picker__required {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   FIELD
+========================================= */
+
+.pimolu-date-range-picker__field {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+.pimolu-date-range-picker__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 12px 40px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-foreground, #0f172a);
+  text-align: start;
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-date-range-picker__trigger:hover:not(:disabled) {
+  border-color: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #4f46e5)
+  );
+}
+
+.pimolu-date-range-picker__trigger:focus-visible {
+  border-color: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+.pimolu-date-range-picker--open
+  .pimolu-date-range-picker__trigger {
+  border-color: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  box-shadow: 0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5))
+        22%,
+      transparent
+    );
+}
+
+.pimolu-date-range-picker__trigger:disabled {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.pimolu-date-range-picker__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-date-range-picker__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-date-range-picker__value {
+  flex: 1;
+
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-date-range-picker__value--placeholder {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+/* =========================================
+   CLEAR
+========================================= */
+
+.pimolu-date-range-picker__clear {
+  position: absolute;
+
+  inset-block-start: 50%;
+  inset-inline-end: 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  font-size: 1.125rem;
+  line-height: 1;
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-date-range-picker__clear:hover {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, #0f172a);
+}
+
+.pimolu-date-range-picker__clear:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+/* =========================================
+   PANEL
+========================================= */
+
+.pimolu-date-range-picker__panel {
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  padding: 12px;
+
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, #0f172a)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pimolu-date-range-picker__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* =========================================
+   PRESETS
+========================================= */
+
+.pimolu-date-range-picker__presets {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  min-width: 9rem;
+
+  padding-inline-end: 12px;
+
+  border-inline-end: 1px solid
+    var(--pimolu-border, #e2e8f0);
+}
+
+.pimolu-date-range-picker__preset {
+  display: block;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  margin: 0;
+  padding: 7px 10px;
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-align: start;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-date-range-picker__preset:hover {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, #0f172a);
+}
+
+.pimolu-date-range-picker__preset:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: -2px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.pimolu-date-range-picker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-top: 12px;
+  padding-top: 10px;
+
+  border-top: 1px solid
+    var(--pimolu-border, #e2e8f0);
+}
+
+.pimolu-date-range-picker__summary {
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-date-range-picker__panel[data-state="open"] {
+  animation: pimolu-date-range-picker-panel-in 160ms
+    ease-out;
+}
+
+.pimolu-date-range-picker__panel[data-state="closing"] {
+  animation: pimolu-date-range-picker-panel-out 120ms
+    ease-in forwards;
+}
+
+@keyframes pimolu-date-range-picker-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pimolu-date-range-picker-panel-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-date-range-picker__trigger,
+  .pimolu-date-range-picker__clear,
+  .pimolu-date-range-picker__preset {
+    transition: none;
+  }
+
+  .pimolu-date-range-picker__panel[data-state="open"],
+  .pimolu-date-range-picker__panel[data-state="closing"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-date-range-picker__trigger {
+    background: Field;
+    color: FieldText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-date-range-picker__trigger:focus-visible,
+  .pimolu-date-range-picker__clear:focus-visible,
+  .pimolu-date-range-picker__preset:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-date-range-picker__panel {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+
+  .pimolu-date-range-picker__presets,
+  .pimolu-date-range-picker__footer {
+    border-color: CanvasText;
+  }
+
+  .pimolu-date-range-picker__clear,
+  .pimolu-date-range-picker__preset {
+    color: ButtonText;
+  }
+}

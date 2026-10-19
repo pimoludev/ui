@@ -1,0 +1,230 @@
+/* =========================================
+   PIMOLU UI — RESIZABLE
+   Shared Web Styles
+========================================= */
+
+.pimolu-resizable {
+  --pimolu-resizable-split: 50%;
+
+  position: relative;
+
+  display: grid;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-resizable[data-orientation="vertical"] {
+  min-height: 12rem;
+}
+
+.pimolu-resizable[data-dragging="true"] {
+  user-select: none;
+}
+
+/* =========================================
+   PANES
+========================================= */
+
+.pimolu-resizable__pane {
+  box-sizing: border-box;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: auto;
+
+  overscroll-behavior: contain;
+}
+
+.pimolu-resizable[data-orientation="horizontal"]
+  .pimolu-resizable__pane--start {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.pimolu-resizable[data-orientation="horizontal"]
+  .pimolu-resizable__pane--end {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.pimolu-resizable[data-orientation="vertical"]
+  .pimolu-resizable__pane--start {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.pimolu-resizable[data-orientation="vertical"]
+  .pimolu-resizable__pane--end {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* =========================================
+   SEPARATOR
+========================================= */
+
+.pimolu-resizable__separator {
+  position: absolute;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  background: transparent;
+
+  outline: none;
+
+  touch-action: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pimolu-resizable[data-orientation="horizontal"]
+  .pimolu-resizable__separator {
+  top: 0;
+  bottom: 0;
+
+  inset-inline-start:
+    var(--pimolu-resizable-split, 50%);
+
+  width: 10px;
+
+  margin-inline-start: -5px;
+
+  cursor: col-resize;
+}
+
+.pimolu-resizable[data-orientation="vertical"]
+  .pimolu-resizable__separator {
+  right: 0;
+  left: 0;
+
+  top: var(--pimolu-resizable-split, 50%);
+
+  height: 10px;
+
+  margin-block-start: -5px;
+
+  cursor: row-resize;
+}
+
+.pimolu-resizable__grip {
+  display: block;
+
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: var(
+    --pimolu-border,
+    color-mix(
+      in srgb,
+      var(--pimolu-foreground, currentColor) 30%,
+      transparent
+    )
+  );
+
+  transition: background-color 150ms;
+}
+
+.pimolu-resizable[data-orientation="horizontal"]
+  .pimolu-resizable__grip {
+  width: 2px;
+  height: 2rem;
+}
+
+.pimolu-resizable[data-orientation="vertical"]
+  .pimolu-resizable__grip {
+  width: 2rem;
+  height: 2px;
+}
+
+.pimolu-resizable__separator:hover
+  .pimolu-resizable__grip,
+.pimolu-resizable__separator:focus-visible
+  .pimolu-resizable__grip,
+.pimolu-resizable__separator[data-dragging="true"]
+  .pimolu-resizable__grip {
+  background: var(
+    --pimolu-primary,
+    var(--pimolu-foreground, currentColor)
+  );
+}
+
+.pimolu-resizable__separator:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: -2px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+/* A wider visual affordance while hovering the whole split. */
+
+.pimolu-resizable__separator:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary, currentColor) 10%,
+    transparent
+  );
+}
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.pimolu-resizable[data-disabled="true"]
+  .pimolu-resizable__separator {
+  cursor: default;
+
+  pointer-events: none;
+}
+
+.pimolu-resizable[data-disabled="true"]
+  .pimolu-resizable__grip {
+  opacity: 0.5;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-resizable__grip {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-resizable__grip {
+    background: CanvasText;
+  }
+
+  .pimolu-resizable__separator:hover
+    .pimolu-resizable__grip,
+  .pimolu-resizable__separator:focus-visible
+    .pimolu-resizable__grip,
+  .pimolu-resizable__separator[data-dragging="true"]
+    .pimolu-resizable__grip {
+    background: Highlight;
+  }
+
+  .pimolu-resizable__separator:focus-visible {
+    outline-color: Highlight;
+  }
+}

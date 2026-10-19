@@ -47,6 +47,11 @@ their appearance.
   and positioning paths. Drawer, ContextMenu, HoverCard, CommandPalette and
   Toast build on these helpers. `Portal` is exported publicly as a low-level
   utility for custom overlays.
+- The layout primitives (`Box`, `Stack`/`HStack`/`VStack`, `Flex`, `Grid`,
+  `Container`, `Center`, `Spacer`, `AspectRatio`) expose token-level spacing and
+  alignment as classes plus local CSS custom properties; they never introduce a
+  CSS-in-JS layer. `FocusScope` reuses the shared focus-trap hook without
+  requiring a modal.
 - `apps/playground/src/router.ts` declares the demo pages;
   `apps/playground/src/demo-data.ts` derives the option lists from the public
   variant maps. `examples/nextjs` is a separate integration example.

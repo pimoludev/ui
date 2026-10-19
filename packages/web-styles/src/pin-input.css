@@ -1,0 +1,233 @@
+/* =========================================
+   PIMOLU UI - PIN INPUT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-pin-input {
+  --pimolu-pin-input-cell-size: 44px;
+  --pimolu-pin-input-cell-height: 48px;
+  --pimolu-pin-input-font-size: 1.125rem;
+  --pimolu-pin-input-gap: 6px;
+
+  --pimolu-pin-input-tone: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #6366f1)
+  );
+
+  --pimolu-pin-input-elevation: var(
+    --pimolu-control-shadow,
+    var(--pimolu-shadow-raised, none)
+  );
+
+  display: inline-flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  max-width: 100%;
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(
+    --pimolu-font-body,
+    var(--pimolu-font-family-sans, inherit)
+  );
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.pimolu-pin-input__label {
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* =========================================
+   CELLS
+========================================= */
+
+.pimolu-pin-input__groups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.pimolu-pin-input__group {
+  display: flex;
+  align-items: center;
+
+  gap: var(--pimolu-pin-input-gap);
+
+  min-width: 0;
+}
+
+.pimolu-pin-input__cell {
+  box-sizing: border-box;
+
+  width: var(--pimolu-pin-input-cell-size);
+  height: var(--pimolu-pin-input-cell-height);
+
+  margin: 0;
+  padding: 0;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-pin-input-elevation);
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  font-size: var(--pimolu-pin-input-font-size);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+
+  text-align: center;
+
+  caret-color: var(--pimolu-pin-input-tone);
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.pimolu-pin-input__cell:hover:not(:disabled) {
+  border-color: var(--pimolu-pin-input-tone);
+}
+
+.pimolu-pin-input__cell:focus {
+  border-color: var(--pimolu-pin-input-tone);
+
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--pimolu-pin-input-tone) 22%,
+      transparent
+    ),
+    var(--pimolu-pin-input-elevation);
+}
+
+.pimolu-pin-input__cell::selection {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-pin-input-tone) 30%,
+    transparent
+  );
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-pin-input__helper,
+.pimolu-pin-input__error {
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.pimolu-pin-input__helper {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-pin-input__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-pin-input--invalid {
+  --pimolu-pin-input-tone: var(
+    --pimolu-danger,
+    #dc2626
+  );
+}
+
+.pimolu-pin-input--invalid .pimolu-pin-input__cell {
+  border-color: var(--pimolu-pin-input-tone);
+}
+
+.pimolu-pin-input--disabled .pimolu-pin-input__cell {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.pimolu-pin-input--readonly .pimolu-pin-input__cell {
+  background: var(--pimolu-muted, #f1f5f9);
+
+  cursor: default;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-pin-input__cell {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-pin-input__cell:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-pin-input--invalid .pimolu-pin-input__cell {
+    border-color: Mark;
+  }
+
+  .pimolu-pin-input--disabled .pimolu-pin-input__cell {
+    color: GrayText;
+  }
+}
+
+/* =========================================
+   SMALL SCREENS
+========================================= */
+
+@media (max-width: 360px) {
+  .pimolu-pin-input {
+    --pimolu-pin-input-cell-size: 38px;
+    --pimolu-pin-input-cell-height: 44px;
+    --pimolu-pin-input-gap: 4px;
+  }
+}

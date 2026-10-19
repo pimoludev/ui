@@ -1,0 +1,117 @@
+
+/* =========================================
+   PIMOLU UI — GRID
+   Shared Web Styles
+========================================= */
+
+.pimolu-grid {
+  --pimolu-grid-columns: minmax(0, 1fr);
+  --pimolu-grid-gap: var(--pimolu-spacing-4, 16px);
+  --pimolu-grid-min-item-width: 16rem;
+
+  display: grid;
+
+  grid-template-columns: var(
+    --pimolu-grid-columns,
+    minmax(0, 1fr)
+  );
+
+  gap: var(
+    --pimolu-grid-gap,
+    var(--pimolu-spacing-4, 16px)
+  );
+
+  min-width: 0;
+}
+
+/* =========================================
+   RESPONSIVE TRACKS
+========================================= */
+
+/*
+ * `min()` keeps a track from overflowing a container narrower than one
+ * item, so the grid stays responsive without a media query.
+ */
+.pimolu-grid--auto-fit {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      min(
+        var(--pimolu-grid-min-item-width, 16rem),
+        100%
+      ),
+      1fr
+    )
+  );
+}
+
+.pimolu-grid--auto-fill {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      min(
+        var(--pimolu-grid-min-item-width, 16rem),
+        100%
+      ),
+      1fr
+    )
+  );
+}
+
+/* =========================================
+   ALIGNMENT
+========================================= */
+
+.pimolu-grid--align-start {
+  align-items: start;
+}
+
+.pimolu-grid--align-center {
+  align-items: center;
+}
+
+.pimolu-grid--align-end {
+  align-items: end;
+}
+
+.pimolu-grid--align-stretch {
+  align-items: stretch;
+}
+
+/* =========================================
+   JUSTIFICATION
+========================================= */
+
+.pimolu-grid--justify-start {
+  justify-items: start;
+}
+
+.pimolu-grid--justify-center {
+  justify-items: center;
+}
+
+.pimolu-grid--justify-end {
+  justify-items: end;
+}
+
+.pimolu-grid--justify-stretch {
+  justify-items: stretch;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+.pimolu-grid--full-width {
+  width: 100%;
+}
+
+.pimolu-grid > * {
+  min-width: 0;
+}
+
+.pimolu-grid img,
+.pimolu-grid video,
+.pimolu-grid canvas {
+  max-width: 100%;
+}

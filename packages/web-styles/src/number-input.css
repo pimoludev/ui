@@ -1,0 +1,349 @@
+/* =========================================
+   PIMOLU UI - NUMBER INPUT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-number-input {
+  --pimolu-number-input-height: 40px;
+  --pimolu-number-input-padding: 12px;
+  --pimolu-number-input-font-size: 14px;
+
+  --pimolu-number-input-tone: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #6366f1)
+  );
+
+  --pimolu-number-input-elevation: var(
+    --pimolu-control-shadow,
+    var(--pimolu-shadow-raised, none)
+  );
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  width: min(100%, 320px);
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(
+    --pimolu-font-body,
+    var(--pimolu-font-family-sans, inherit)
+  );
+}
+
+.pimolu-number-input--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.pimolu-number-input__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.pimolu-number-input__required {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   CONTROL
+========================================= */
+
+.pimolu-number-input__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--pimolu-number-input-height);
+
+  padding-inline: var(--pimolu-number-input-padding);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-number-input-elevation);
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.pimolu-number-input__control {
+  display: block;
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--pimolu-number-input-height);
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  font-size: var(--pimolu-number-input-font-size);
+  font-variant-numeric: tabular-nums;
+
+  caret-color: var(--pimolu-number-input-tone);
+}
+
+.pimolu-number-input__control::placeholder {
+  color: var(--pimolu-muted-foreground, #64748b);
+  opacity: 1;
+}
+
+/* =========================================
+   AFFIXES
+========================================= */
+
+.pimolu-number-input__affix {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font-size: 0.8125em;
+  line-height: 1;
+
+  user-select: none;
+}
+
+.pimolu-number-input__affix--prefix {
+  margin-inline-end: -2px;
+}
+
+.pimolu-number-input__affix--suffix {
+  margin-inline-start: -2px;
+}
+
+/* =========================================
+   STEPPERS
+========================================= */
+
+.pimolu-number-input__steppers {
+  display: inline-flex;
+  flex: none;
+  flex-direction: row-reverse;
+  align-items: center;
+  align-self: center;
+
+  gap: 2px;
+
+  margin-inline-start: 2px;
+  padding-inline-start: 6px;
+
+  border-inline-start: 1px solid
+    var(--pimolu-border, #e2e8f0);
+}
+
+.pimolu-number-input__stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 28px;
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font: inherit;
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms,
+    color 120ms;
+}
+
+.pimolu-number-input__stepper:hover:not(:disabled) {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-number-input__stepper:active:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-number-input-tone) 16%,
+    transparent
+  );
+}
+
+.pimolu-number-input__stepper:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #6366f1));
+
+  outline-offset: 1px;
+}
+
+.pimolu-number-input__stepper:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-number-input__helper,
+.pimolu-number-input__error {
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.pimolu-number-input__helper {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-number-input__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-number-input--sm {
+  --pimolu-number-input-height: 32px;
+  --pimolu-number-input-padding: 10px;
+  --pimolu-number-input-font-size: 13px;
+}
+
+.pimolu-number-input--md {
+  --pimolu-number-input-height: 40px;
+  --pimolu-number-input-padding: 12px;
+  --pimolu-number-input-font-size: 14px;
+}
+
+.pimolu-number-input--lg {
+  --pimolu-number-input-height: 48px;
+  --pimolu-number-input-padding: 16px;
+  --pimolu-number-input-font-size: 16px;
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-number-input:not(.pimolu-number-input--disabled)
+  .pimolu-number-input__wrapper:hover {
+  border-color: var(--pimolu-number-input-tone);
+}
+
+.pimolu-number-input__wrapper:focus-within {
+  border-color: var(--pimolu-number-input-tone);
+
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--pimolu-number-input-tone) 22%,
+      transparent
+    ),
+    var(--pimolu-number-input-elevation);
+}
+
+.pimolu-number-input--invalid {
+  --pimolu-number-input-tone: var(
+    --pimolu-danger,
+    #dc2626
+  );
+}
+
+.pimolu-number-input--invalid
+  .pimolu-number-input__wrapper {
+  border-color: var(--pimolu-number-input-tone);
+}
+
+.pimolu-number-input--disabled
+  .pimolu-number-input__wrapper {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.pimolu-number-input__control:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-number-input__control:read-only {
+  cursor: default;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-number-input__wrapper,
+  .pimolu-number-input__stepper {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-number-input__wrapper:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-number-input--invalid
+    .pimolu-number-input__wrapper {
+    border-color: Mark;
+  }
+
+  .pimolu-number-input__stepper:disabled {
+    color: GrayText;
+  }
+}

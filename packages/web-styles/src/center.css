@@ -1,0 +1,38 @@
+
+/* =========================================
+   PIMOLU UI — CENTER
+   Shared Web Styles
+========================================= */
+
+.pimolu-center {
+  --pimolu-center-min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-block-size: var(--pimolu-center-min-height, 0);
+  min-width: 0;
+}
+
+/* =========================================
+   VARIANTS
+========================================= */
+
+.pimolu-center--inline {
+  display: inline-flex;
+}
+
+.pimolu-center--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+.pimolu-center > img,
+.pimolu-center > video,
+.pimolu-center > canvas {
+  max-width: 100%;
+}

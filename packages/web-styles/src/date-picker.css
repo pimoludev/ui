@@ -1,0 +1,325 @@
+/* =========================================
+   PIMOLU UI — DATE PICKER
+   Shared Web Styles
+========================================= */
+
+.pimolu-date-picker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-sizing: border-box;
+  width: min(100%, 22rem);
+  max-width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-date-picker--full-width {
+  display: flex;
+  width: 100%;
+}
+
+.pimolu-date-picker__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-date-picker__required {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   FIELD
+========================================= */
+
+.pimolu-date-picker__field {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+.pimolu-date-picker__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 12px 40px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-foreground, #0f172a);
+  text-align: start;
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-date-picker__trigger:hover:not(:disabled) {
+  border-color: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #4f46e5)
+  );
+}
+
+.pimolu-date-picker__trigger:focus-visible {
+  border-color: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+.pimolu-date-picker--open
+  .pimolu-date-picker__trigger {
+  border-color: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  box-shadow: 0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5))
+        22%,
+      transparent
+    );
+}
+
+.pimolu-date-picker__trigger:disabled {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.pimolu-date-picker__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-date-picker__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-date-picker__value {
+  flex: 1;
+
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-date-picker__value--placeholder {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+/* =========================================
+   CLEAR
+========================================= */
+
+.pimolu-date-picker__clear {
+  position: absolute;
+
+  inset-block-start: 50%;
+  inset-inline-end: 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  font-size: 1.125rem;
+  line-height: 1;
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-date-picker__clear:hover {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, #0f172a);
+}
+
+.pimolu-date-picker__clear:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+/* =========================================
+   PANEL
+========================================= */
+
+.pimolu-date-picker__panel {
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  padding: 12px;
+
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, #0f172a)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pimolu-date-picker__panel[data-state="open"] {
+  animation: pimolu-date-picker-panel-in 160ms ease-out;
+}
+
+.pimolu-date-picker__panel[data-state="closing"] {
+  animation: pimolu-date-picker-panel-out 120ms ease-in
+    forwards;
+}
+
+@keyframes pimolu-date-picker-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pimolu-date-picker-panel-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-date-picker__trigger,
+  .pimolu-date-picker__clear {
+    transition: none;
+  }
+
+  .pimolu-date-picker__panel[data-state="open"],
+  .pimolu-date-picker__panel[data-state="closing"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-date-picker__trigger {
+    background: Field;
+    color: FieldText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-date-picker__trigger:focus-visible,
+  .pimolu-date-picker__clear:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-date-picker__panel {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+
+  .pimolu-date-picker__clear {
+    color: ButtonText;
+  }
+}

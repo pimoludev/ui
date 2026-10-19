@@ -1,0 +1,479 @@
+/* =========================================
+   PIMOLU UI - COLOR PICKER
+   Shared Web Styles
+======================================== */
+
+/* =========================================
+   BASE
+======================================== */
+
+.pimolu-color-picker {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-color-picker__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pimolu-color-picker__error {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   TRIGGER
+======================================== */
+
+.pimolu-color-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  min-width: 9rem;
+  min-height: 40px;
+
+  padding: 0 12px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.pimolu-color-picker__trigger:hover:not(:disabled) {
+  border-color: var(--pimolu-primary);
+}
+
+.pimolu-color-picker__trigger:focus-visible {
+  outline:
+    3px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+.pimolu-color-picker__swatch {
+  display: inline-block;
+  flex: none;
+
+  box-sizing: border-box;
+
+  width: 20px;
+  height: 20px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: 6px;
+
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, #000000 10%, transparent);
+}
+
+.pimolu-color-picker__value {
+  color: var(--pimolu-foreground);
+
+  font-family:
+    ui-monospace, "SFMono-Regular", "Cascadia Code",
+    "Roboto Mono", Menlo, Consolas, monospace;
+
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* =========================================
+   SIZES
+======================================== */
+
+.pimolu-color-picker--sm
+  .pimolu-color-picker__trigger {
+  gap: 6px;
+
+  min-width: 7.5rem;
+  min-height: 32px;
+
+  padding: 0 10px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-color-picker--sm
+  .pimolu-color-picker__swatch {
+  width: 16px;
+  height: 16px;
+
+  border-radius: 4px;
+}
+
+.pimolu-color-picker--sm
+  .pimolu-color-picker__value {
+  font-size: 0.75rem;
+}
+
+.pimolu-color-picker--lg
+  .pimolu-color-picker__trigger {
+  gap: 10px;
+
+  min-width: 10.5rem;
+  min-height: 48px;
+
+  padding: 0 14px;
+}
+
+.pimolu-color-picker--lg
+  .pimolu-color-picker__swatch {
+  width: 24px;
+  height: 24px;
+
+  border-radius: 7px;
+}
+
+.pimolu-color-picker--lg
+  .pimolu-color-picker__value {
+  font-size: 0.875rem;
+}
+
+/* =========================================
+   PANEL
+======================================== */
+
+/* Higher specificity than the base popover padding: the panel owns its
+   spacing so the field row can sit on the edges. */
+
+.pimolu-popover.pimolu-color-picker__panel {
+  display: grid;
+  gap: 12px;
+
+  width: 272px;
+
+  padding: var(--pimolu-spacing-4, 16px);
+}
+
+.pimolu-color-picker__field-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.pimolu-color-picker__native {
+  flex: none;
+
+  box-sizing: border-box;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 3px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  cursor: pointer;
+}
+
+.pimolu-color-picker__native::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.pimolu-color-picker__native::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(
+    var(--pimolu-radius-md, 8px) - 3px
+  );
+}
+
+.pimolu-color-picker__native::-moz-color-swatch {
+  border: 0;
+  border-radius: calc(
+    var(--pimolu-radius-md, 8px) - 3px
+  );
+}
+
+.pimolu-color-picker__native:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+.pimolu-color-picker__hex {
+  flex: 1 1 auto;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  height: 40px;
+
+  padding: 0 10px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-family:
+    ui-monospace, "SFMono-Regular", "Cascadia Code",
+    "Roboto Mono", Menlo, Consolas, monospace;
+
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.pimolu-color-picker__hex:focus-visible {
+  border-color: var(--pimolu-primary);
+
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 1px;
+}
+
+.pimolu-color-picker__hex[aria-invalid="true"] {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-color-picker__hex:read-only {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-color-picker__hint {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.pimolu-color-picker__hex-error {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   PRESETS
+======================================== */
+
+.pimolu-color-picker__presets-group {
+  display: grid;
+  gap: 8px;
+}
+
+.pimolu-color-picker__presets-title {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.pimolu-color-picker__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pimolu-color-picker__preset {
+  display: inline-block;
+  flex: none;
+
+  box-sizing: border-box;
+
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: 9999px;
+
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, #000000 12%, transparent);
+
+  cursor: pointer;
+
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.pimolu-color-picker__preset:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.pimolu-color-picker__preset[aria-pressed="true"] {
+  outline:
+    2px solid
+    var(--pimolu-primary);
+
+  outline-offset: 2px;
+}
+
+.pimolu-color-picker__preset:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   STATES
+======================================== */
+
+.pimolu-color-picker--disabled
+  .pimolu-color-picker__label,
+.pimolu-color-picker--readonly
+  .pimolu-color-picker__label {
+  opacity: 0.7;
+}
+
+.pimolu-color-picker__trigger:disabled {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+
+  cursor: not-allowed;
+}
+
+.pimolu-color-picker__trigger[aria-readonly="true"] {
+  cursor: default;
+}
+
+.pimolu-color-picker__native:disabled,
+.pimolu-color-picker__preset:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+.pimolu-color-picker__native:disabled:hover,
+.pimolu-color-picker__preset:disabled:hover {
+  transform: none;
+}
+
+/* =========================================
+   REDUCED MOTION
+============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-color-picker__trigger,
+  .pimolu-color-picker__preset {
+    transition: none;
+  }
+
+  .pimolu-color-picker__preset:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+======================================== */
+
+@media (forced-colors: active) {
+  .pimolu-color-picker__trigger,
+  .pimolu-color-picker__swatch,
+  .pimolu-color-picker__native,
+  .pimolu-color-picker__hex,
+  .pimolu-color-picker__preset {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-color-picker__preset[aria-pressed="true"] {
+    outline-color: Highlight;
+  }
+
+  .pimolu-color-picker__trigger:focus-visible,
+  .pimolu-color-picker__native:focus-visible,
+  .pimolu-color-picker__hex:focus-visible,
+  .pimolu-color-picker__preset:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-color-picker__trigger:disabled,
+  .pimolu-color-picker__native:disabled,
+  .pimolu-color-picker__preset:disabled {
+    color: GrayText;
+  }
+
+  .pimolu-color-picker__error,
+  .pimolu-color-picker__hex-error {
+    color: LinkText;
+  }
+}

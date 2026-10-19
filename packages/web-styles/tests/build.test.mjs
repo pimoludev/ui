@@ -65,6 +65,40 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "context-menu.css",
     "hover-card.css",
     "command.css",
+    "alert.css",
+    "banner.css",
+    "empty-state.css",
+    "result.css",
+    "loading-overlay.css",
+    "table.css",
+    "data-table.css",
+    "stat.css",
+    "timeline.css",
+    "rating.css",
+    "number-input.css",
+    "pin-input.css",
+    "tags-input.css",
+    "time-picker.css",
+    "calendar.css",
+    "date-picker.css",
+    "date-range-picker.css",
+    "file-upload.css",
+    "dropzone.css",
+    "color-picker.css",
+    "box.css",
+    "stack.css",
+    "flex.css",
+    "grid.css",
+    "container.css",
+    "center.css",
+    "spacer.css",
+    "aspect-ratio.css",
+    "visually-hidden.css",
+    "focus-scope.css",
+    "image.css",
+    "carousel.css",
+    "resizable.css",
+    "virtual-list.css",
   ]) {
     const css = await load(file);
 
@@ -115,6 +149,40 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-context-menu",
     ".pimolu-hover-card",
     ".pimolu-command",
+    ".pimolu-alert",
+    ".pimolu-banner",
+    ".pimolu-empty-state",
+    ".pimolu-result",
+    ".pimolu-loading-overlay",
+    ".pimolu-table",
+    ".pimolu-data-table",
+    ".pimolu-stat",
+    ".pimolu-timeline",
+    ".pimolu-rating",
+    ".pimolu-number-input",
+    ".pimolu-pin-input",
+    ".pimolu-tags-input",
+    ".pimolu-time-picker",
+    ".pimolu-calendar",
+    ".pimolu-date-picker",
+    ".pimolu-date-range-picker",
+    ".pimolu-file-upload",
+    ".pimolu-dropzone",
+    ".pimolu-color-picker",
+    ".pimolu-box",
+    ".pimolu-stack",
+    ".pimolu-flex",
+    ".pimolu-grid",
+    ".pimolu-container",
+    ".pimolu-center",
+    ".pimolu-spacer",
+    ".pimolu-aspect-ratio",
+    ".pimolu-visually-hidden",
+    ".pimolu-focus-scope",
+    ".pimolu-image",
+    ".pimolu-carousel",
+    ".pimolu-resizable",
+    ".pimolu-virtual-list",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
@@ -1508,5 +1576,27 @@ test("Overlay styles are bundled", async () => {
   ]) {
     assert.ok(css.includes(selector));
     assert.ok(full.includes(selector));
+  }
+});
+
+test("Phase 4 feedback and data styles are bundled", async () => {
+  const full = await load("pimolu.css");
+
+  for (const [file, selector] of [
+    ["alert.css", ".pimolu-alert--danger"],
+    ["banner.css", ".pimolu-banner--sticky"],
+    ["empty-state.css", ".pimolu-empty-state--lg"],
+    ["result.css", ".pimolu-result--success"],
+    ["loading-overlay.css", ".pimolu-loading-overlay"],
+    ["table.css", ".pimolu-table--bordered"],
+    ["data-table.css", ".pimolu-data-table"],
+    ["stat.css", ".pimolu-stat__delta"],
+    ["timeline.css", ".pimolu-timeline__item"],
+    ["rating.css", ".pimolu-rating__item"],
+  ]) {
+    const css = await load(file);
+
+    assert.ok(css.includes(selector), `${file} missing ${selector}`);
+    assert.ok(full.includes(selector), `bundle missing ${selector}`);
   }
 });

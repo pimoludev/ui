@@ -1,0 +1,90 @@
+
+/* =========================================
+   PIMOLU UI — VISUALLY HIDDEN
+   Shared Web Styles
+========================================= */
+
+/*
+ * Standard clip technique: removed from sight but kept in the
+ * accessibility tree and the reading order.
+ */
+.pimolu-visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================
+   FOCUSABLE (SKIP LINKS)
+========================================= */
+
+.pimolu-visually-hidden--focusable:focus,
+.pimolu-visually-hidden--focusable:focus-within {
+  position: fixed;
+
+  inset-block-start: var(--pimolu-spacing-2, 8px);
+  inset-inline-start: var(--pimolu-spacing-2, 8px);
+
+  z-index: 1000;
+
+  width: auto;
+  height: auto;
+
+  padding: var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-4, 16px);
+
+  margin: 0;
+
+  overflow: visible;
+
+  clip: auto;
+  clip-path: none;
+
+  white-space: normal;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, Canvas)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, CanvasText)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, CanvasText);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  outline: 2px solid var(--pimolu-focus-ring, Highlight);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-visually-hidden--focusable:focus,
+  .pimolu-visually-hidden--focusable:focus-within {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    outline-color: Highlight;
+  }
+}

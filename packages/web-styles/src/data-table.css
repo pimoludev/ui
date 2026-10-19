@@ -1,0 +1,332 @@
+/* =========================================
+   PIMOLU UI - DATA TABLE
+   Shared Web Styles
+========================================= */
+
+.pimolu-data-table {
+  --pimolu-data-table-gap: 12px;
+  --pimolu-data-table-radius: var(
+    --pimolu-radius-md,
+    8px
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pimolu-data-table-gap);
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   TOOLBAR AND FILTER
+========================================= */
+
+.pimolu-data-table__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--pimolu-data-table-gap);
+}
+
+.pimolu-data-table__filter {
+  flex: 1 1 220px;
+
+  min-width: 12rem;
+  max-width: 22rem;
+}
+
+.pimolu-data-table__filter-input {
+  width: 100%;
+}
+
+/* =========================================
+   SELECTION BAR
+========================================= */
+
+.pimolu-data-table__selection-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px 6px 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-data-table-radius);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-data-table__selection-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.pimolu-data-table__clear-selection {
+  margin-inline-start: auto;
+}
+
+/* =========================================
+   TABLE CONTAINER
+========================================= */
+
+.pimolu-data-table__table-container {
+  position: relative;
+
+  min-width: 0;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-data-table-radius);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  overflow: hidden;
+}
+
+.pimolu-data-table__table {
+  width: 100%;
+}
+
+.pimolu-data-table__table-wrapper {
+  min-width: 0;
+}
+
+/* The container clips its corners, so keep the wrapper focus ring inside. */
+
+.pimolu-data-table__table-wrapper:focus-visible {
+  outline-offset: -2px;
+  border-radius: var(--pimolu-data-table-radius);
+}
+
+/* Sticky header needs a bounded scroll area. */
+
+.pimolu-data-table--sticky .pimolu-data-table__table-wrapper {
+  max-height: 30rem;
+
+  overflow-y: auto;
+}
+
+/* =========================================
+   HEADERS AND SORTING
+========================================= */
+
+.pimolu-data-table__head,
+.pimolu-data-table__cell {
+  white-space: nowrap;
+}
+
+.pimolu-data-table__head--start,
+.pimolu-data-table__cell--start {
+  text-align: start;
+}
+
+.pimolu-data-table__head--center,
+.pimolu-data-table__cell--center {
+  text-align: center;
+}
+
+.pimolu-data-table__head--end,
+.pimolu-data-table__cell--end {
+  text-align: end;
+}
+
+.pimolu-data-table__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  max-width: 100%;
+
+  margin: -4px;
+  padding: 4px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: none;
+  color: inherit;
+
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+
+  cursor: pointer;
+
+  transition: color 150ms ease;
+}
+
+.pimolu-data-table__sort-button:hover {
+  color: var(--pimolu-primary);
+}
+
+.pimolu-data-table__sort-button:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-data-table__sort-icon {
+  flex: none;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.pimolu-data-table__sort-icon[data-active="true"] {
+  color: var(--pimolu-primary);
+}
+
+/* =========================================
+   SELECTION CELL AND ROWS
+========================================= */
+
+.pimolu-data-table__select-cell {
+  width: 44px;
+  padding-inline-end: 0;
+
+  vertical-align: middle;
+}
+
+.pimolu-data-table__cell {
+  vertical-align: middle;
+}
+
+/* Paint the cells so the selected state survives the table row hover. */
+
+.pimolu-data-table__row--selected > .pimolu-data-table__cell,
+.pimolu-data-table__row--selected > .pimolu-data-table__select-cell {
+  background: var(--pimolu-muted);
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.pimolu-data-table__empty {
+  padding: 32px 16px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  text-align: center;
+  white-space: normal;
+}
+
+/* =========================================
+   LOADING OVERLAY
+========================================= */
+
+.pimolu-data-table__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-data-table__overlay-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* =========================================
+   FOOTER AND STATUS
+========================================= */
+
+.pimolu-data-table__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pimolu-data-table-gap);
+}
+
+.pimolu-data-table__status {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-data-table__sort-button {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-data-table__table-container,
+  .pimolu-data-table__selection-bar,
+  .pimolu-data-table__overlay-label {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-data-table__sort-button:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-data-table__row--selected > .pimolu-data-table__cell,
+  .pimolu-data-table__row--selected > .pimolu-data-table__select-cell {
+    background: Highlight;
+    color: HighlightText;
+  }
+}

@@ -1,0 +1,305 @@
+/* =========================================
+   PIMOLU UI - TIME PICKER
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-time-picker {
+  --pimolu-time-picker-height: 40px;
+  --pimolu-time-picker-padding: 12px;
+  --pimolu-time-picker-font-size: 14px;
+
+  --pimolu-time-picker-tone: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #6366f1)
+  );
+
+  --pimolu-time-picker-elevation: var(
+    --pimolu-control-shadow,
+    var(--pimolu-shadow-raised, none)
+  );
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  width: min(100%, 260px);
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(
+    --pimolu-font-body,
+    var(--pimolu-font-family-sans, inherit)
+  );
+}
+
+.pimolu-time-picker--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.pimolu-time-picker__label {
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* =========================================
+   CONTROL
+========================================= */
+
+.pimolu-time-picker__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--pimolu-time-picker-height);
+
+  padding-inline: var(--pimolu-time-picker-padding);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-time-picker-elevation);
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.pimolu-time-picker__control {
+  display: block;
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--pimolu-time-picker-height);
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  font-size: var(--pimolu-time-picker-font-size);
+  font-variant-numeric: tabular-nums;
+
+  caret-color: var(--pimolu-time-picker-tone);
+}
+
+/* Native chrome, kept as an affordance and tinted to match the control. */
+.pimolu-time-picker__control::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+
+  opacity: 0.7;
+
+  transition: opacity 120ms;
+}
+
+.pimolu-time-picker__control::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.pimolu-time-picker__control::-webkit-datetime-edit {
+  padding: 0;
+}
+
+/* =========================================
+   CLEAR
+========================================= */
+
+.pimolu-time-picker__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: none;
+
+  width: 28px;
+  height: 28px;
+
+  margin-inline-end: -6px;
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font: inherit;
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms,
+    color 120ms;
+}
+
+.pimolu-time-picker__clear:hover {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-time-picker__clear:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #6366f1));
+
+  outline-offset: 1px;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-time-picker__helper,
+.pimolu-time-picker__error,
+.pimolu-time-picker__format-hint {
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.pimolu-time-picker__helper,
+.pimolu-time-picker__format-hint {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-time-picker__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-time-picker--sm {
+  --pimolu-time-picker-height: 32px;
+  --pimolu-time-picker-padding: 10px;
+  --pimolu-time-picker-font-size: 13px;
+}
+
+.pimolu-time-picker--md {
+  --pimolu-time-picker-height: 40px;
+  --pimolu-time-picker-padding: 12px;
+  --pimolu-time-picker-font-size: 14px;
+}
+
+.pimolu-time-picker--lg {
+  --pimolu-time-picker-height: 48px;
+  --pimolu-time-picker-padding: 16px;
+  --pimolu-time-picker-font-size: 16px;
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-time-picker:not(.pimolu-time-picker--disabled)
+  .pimolu-time-picker__wrapper:hover {
+  border-color: var(--pimolu-time-picker-tone);
+}
+
+.pimolu-time-picker__wrapper:focus-within {
+  border-color: var(--pimolu-time-picker-tone);
+
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--pimolu-time-picker-tone) 22%,
+      transparent
+    ),
+    var(--pimolu-time-picker-elevation);
+}
+
+.pimolu-time-picker--invalid {
+  --pimolu-time-picker-tone: var(
+    --pimolu-danger,
+    #dc2626
+  );
+}
+
+.pimolu-time-picker--invalid
+  .pimolu-time-picker__wrapper {
+  border-color: var(--pimolu-time-picker-tone);
+}
+
+.pimolu-time-picker--disabled
+  .pimolu-time-picker__wrapper {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.pimolu-time-picker__control:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-time-picker--readonly
+  .pimolu-time-picker__wrapper {
+  background: var(--pimolu-muted, #f1f5f9);
+}
+
+.pimolu-time-picker__control:read-only {
+  cursor: default;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-time-picker__wrapper,
+  .pimolu-time-picker__clear,
+  .pimolu-time-picker__control::-webkit-calendar-picker-indicator {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-time-picker__wrapper:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-time-picker--invalid
+    .pimolu-time-picker__wrapper {
+    border-color: Mark;
+  }
+}

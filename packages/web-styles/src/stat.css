@@ -1,0 +1,278 @@
+/* =========================================
+   PIMOLU UI - STAT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-stat {
+  --pimolu-stat-icon-size: 40px;
+  --pimolu-stat-icon-radius: var(--pimolu-radius-md, 8px);
+  --pimolu-stat-value-size: 1.75rem;
+  --pimolu-stat-label-size: 0.8125rem;
+  --pimolu-stat-description-size: 0.8125rem;
+  --pimolu-stat-gap: 12px;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--pimolu-stat-gap);
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.pimolu-stat__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--pimolu-stat-icon-size);
+  height: var(--pimolu-stat-icon-size);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid color-mix(
+      in srgb,
+      var(--pimolu-primary) 18%,
+      transparent
+    );
+
+  border-radius: var(--pimolu-stat-icon-radius);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 10%,
+    transparent
+  );
+
+  color: var(--pimolu-primary);
+}
+
+.pimolu-stat__icon svg {
+  width: 55%;
+  height: 55%;
+}
+
+.pimolu-stat__icon img {
+  width: 60%;
+  height: 60%;
+
+  object-fit: contain;
+}
+
+/* =========================================
+   BODY
+========================================= */
+
+.pimolu-stat__body {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.pimolu-stat__label {
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(--pimolu-stat-label-size);
+  font-weight: 500;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-stat__value-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+
+  gap: 6px 10px;
+
+  min-width: 0;
+}
+
+.pimolu-stat__value {
+  min-width: 0;
+
+  color: inherit;
+
+  font-size: var(--pimolu-stat-value-size);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   DELTA
+========================================= */
+
+.pimolu-stat__delta {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 3px;
+
+  box-sizing: border-box;
+  min-height: 22px;
+
+  padding: 2px 8px;
+
+  border: 1px solid transparent;
+  border-radius: 9999px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted, #f4f4f5) 65%,
+    transparent
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+.pimolu-stat__delta[data-trend="up"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-success, #15803d) 12%,
+    transparent
+  );
+
+  color: var(--pimolu-success, #15803d);
+}
+
+.pimolu-stat__delta[data-trend="down"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-danger, #dc2626) 12%,
+    transparent
+  );
+
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-stat__delta[data-trend="neutral"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted, #f4f4f5) 65%,
+    transparent
+  );
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-stat__trend-icon {
+  flex: none;
+
+  width: 14px;
+  height: 14px;
+}
+
+.pimolu-stat__delta-value {
+  min-width: 0;
+}
+
+.pimolu-stat__description {
+  margin: 1px 0 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(--pimolu-stat-description-size);
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   VISUALLY HIDDEN
+========================================= */
+
+.pimolu-stat__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-stat--sm {
+  --pimolu-stat-icon-size: 32px;
+  --pimolu-stat-icon-radius: var(--pimolu-radius-sm, 4px);
+  --pimolu-stat-value-size: 1.375rem;
+  --pimolu-stat-label-size: 0.75rem;
+  --pimolu-stat-description-size: 0.75rem;
+  --pimolu-stat-gap: 10px;
+}
+
+.pimolu-stat--md {
+  --pimolu-stat-icon-size: 40px;
+  --pimolu-stat-icon-radius: var(--pimolu-radius-md, 8px);
+  --pimolu-stat-value-size: 1.75rem;
+  --pimolu-stat-label-size: 0.8125rem;
+  --pimolu-stat-description-size: 0.8125rem;
+  --pimolu-stat-gap: 12px;
+}
+
+.pimolu-stat--lg {
+  --pimolu-stat-icon-size: 48px;
+  --pimolu-stat-icon-radius: var(--pimolu-radius-lg, 12px);
+  --pimolu-stat-value-size: 2.25rem;
+  --pimolu-stat-label-size: 0.875rem;
+  --pimolu-stat-description-size: 0.875rem;
+  --pimolu-stat-gap: 14px;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-stat__icon {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-stat__delta {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}

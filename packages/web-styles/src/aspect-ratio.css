@@ -1,0 +1,60 @@
+
+/* =========================================
+   PIMOLU UI — ASPECT RATIO
+   Shared Web Styles
+========================================= */
+
+.pimolu-aspect-ratio {
+  --pimolu-aspect-ratio: 16 / 9;
+
+  position: relative;
+
+  aspect-ratio: var(--pimolu-aspect-ratio, 16 / 9);
+
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+/*
+ * The content fills the ratio box; images and media cover it without
+ * distorting, while any other child stretches to the available area.
+ */
+.pimolu-aspect-ratio__content {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+}
+
+.pimolu-aspect-ratio__content > * {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.pimolu-aspect-ratio__content img,
+.pimolu-aspect-ratio__content video,
+.pimolu-aspect-ratio__content iframe,
+.pimolu-aspect-ratio__content canvas {
+  display: block;
+
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-aspect-ratio {
+    outline: 1px solid CanvasText;
+    outline-offset: -1px;
+  }
+}

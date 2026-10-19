@@ -1,0 +1,198 @@
+/* =========================================
+   PIMOLU UI — LOADING OVERLAY
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-loading-overlay {
+  position: relative;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  font-family: var(--pimolu-font-body, inherit);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-loading-overlay[data-loading="true"] {
+  min-height: 8rem;
+}
+
+/* Full viewport variant */
+
+.pimolu-loading-overlay--fullscreen {
+  position: fixed;
+
+  inset: 0;
+  z-index: 50;
+
+  overflow: auto;
+}
+
+.pimolu-loading-overlay--fullscreen[data-loading="true"] {
+  min-height: 0;
+}
+
+/* Once loading stops, the wrapper must stop covering the page. */
+
+.pimolu-loading-overlay--fullscreen[data-loading="false"] {
+  position: static;
+
+  overflow: visible;
+}
+
+/* =========================================
+   COVERED CONTENT
+========================================= */
+
+.pimolu-loading-overlay__content {
+  min-width: 0;
+
+  transition: filter 150ms ease;
+}
+
+.pimolu-loading-overlay[data-loading="true"]
+  .pimolu-loading-overlay__content {
+  pointer-events: none;
+  user-select: none;
+}
+
+.pimolu-loading-overlay--blur[data-loading="true"]
+  .pimolu-loading-overlay__content {
+  filter: blur(2px);
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.pimolu-loading-overlay__overlay {
+  position: absolute;
+
+  inset: 0;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  gap: 2px;
+
+  padding: 24px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-background, #ffffff) 94%,
+    transparent
+  );
+
+  color: var(--pimolu-foreground, currentColor);
+
+  text-align: center;
+}
+
+.pimolu-loading-overlay--fullscreen
+  .pimolu-loading-overlay__overlay {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-background, #ffffff) 96%,
+    transparent
+  );
+}
+
+.pimolu-loading-overlay--blur
+  .pimolu-loading-overlay__overlay {
+  -webkit-backdrop-filter: blur(4px);
+
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-loading-overlay__spinner {
+  margin-bottom: 8px;
+
+  color: var(--pimolu-primary, #4f46e5);
+}
+
+.pimolu-loading-overlay__label {
+  margin: 0;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-loading-overlay__description {
+  margin: 4px 0 0;
+
+  max-width: 40ch;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 480px) {
+  .pimolu-loading-overlay__overlay {
+    padding: 16px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-loading-overlay__content {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-loading-overlay {
+    color: CanvasText;
+  }
+
+  .pimolu-loading-overlay__overlay {
+    background: Canvas;
+
+    color: CanvasText;
+
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-loading-overlay__spinner,
+  .pimolu-loading-overlay__label,
+  .pimolu-loading-overlay__description {
+    color: CanvasText;
+  }
+}

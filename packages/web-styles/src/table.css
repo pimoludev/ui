@@ -1,0 +1,308 @@
+/* =========================================
+   PIMOLU UI - TABLE
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   SCROLL WRAPPER
+========================================= */
+
+.pimolu-table__wrapper {
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.pimolu-table__wrapper:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-table {
+  --pimolu-table-cell-padding-y: 12px;
+  --pimolu-table-cell-padding-x: 16px;
+  --pimolu-table-font-size: 0.875rem;
+  --pimolu-table-header-font-size: 0.8125rem;
+
+  --pimolu-table-header-bg: color-mix(
+    in srgb,
+    var(--pimolu-muted, #f4f4f5) 70%,
+    var(--pimolu-surface, var(--pimolu-background, #ffffff))
+  );
+
+  width: 100%;
+  min-width: 100%;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  caption-side: bottom;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: var(--pimolu-table-font-size);
+  line-height: 1.5;
+
+  text-align: start;
+}
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.pimolu-table__header {
+  vertical-align: middle;
+}
+
+.pimolu-table__body {
+  vertical-align: top;
+}
+
+.pimolu-table__footer {
+  vertical-align: middle;
+}
+
+/* =========================================
+   HEADER CELL
+========================================= */
+
+.pimolu-table__head {
+  box-sizing: border-box;
+
+  padding:
+    var(--pimolu-table-cell-padding-y)
+    var(--pimolu-table-cell-padding-x);
+
+  color: inherit;
+
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  text-align: start;
+  vertical-align: middle;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-table__header .pimolu-table__head {
+  border-block-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(--pimolu-table-header-bg);
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-table-header-font-size);
+  line-height: 1.35;
+
+  white-space: nowrap;
+}
+
+/* Row headers stay in the body flow rather than imitating the column
+   header. */
+
+.pimolu-table__body .pimolu-table__head {
+  vertical-align: top;
+
+  white-space: normal;
+}
+
+/* =========================================
+   CELL
+========================================= */
+
+.pimolu-table__cell {
+  box-sizing: border-box;
+
+  padding:
+    var(--pimolu-table-cell-padding-y)
+    var(--pimolu-table-cell-padding-x);
+
+  color: inherit;
+
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: start;
+  vertical-align: top;
+
+  overflow-wrap: anywhere;
+}
+
+/* Row dividers, kept on the cells for collapsed borders. */
+
+.pimolu-table__body
+  .pimolu-table__row:not(:last-child)
+  .pimolu-table__cell,
+.pimolu-table__body
+  .pimolu-table__row:not(:last-child)
+  .pimolu-table__head {
+  border-block-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+.pimolu-table__footer .pimolu-table__cell {
+  border-block-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted, #f4f4f5) 45%,
+    var(--pimolu-surface, var(--pimolu-background, #ffffff))
+  );
+
+  font-weight: 600;
+}
+
+/* =========================================
+   CAPTION
+========================================= */
+
+.pimolu-table__caption {
+  padding-block: 10px 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: start;
+
+  caption-side: bottom;
+}
+
+/* =========================================
+   STRIPED
+========================================= */
+
+.pimolu-table--striped
+  .pimolu-table__body
+  .pimolu-table__row:nth-child(odd) {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted, #f4f4f5) 55%,
+    transparent
+  );
+}
+
+/* Hover stays readable over a stripe; the primary tint is additive. */
+
+.pimolu-table__body .pimolu-table__row:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 7%,
+    var(--pimolu-surface, var(--pimolu-background, #ffffff))
+  );
+}
+
+/* =========================================
+   BORDERED
+========================================= */
+
+.pimolu-table--bordered {
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+.pimolu-table--bordered .pimolu-table__head,
+.pimolu-table--bordered .pimolu-table__cell {
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+/* =========================================
+   STICKY HEADER
+========================================= */
+
+.pimolu-table--sticky-header
+  .pimolu-table__header
+  .pimolu-table__head {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+
+  background: var(--pimolu-table-header-bg);
+
+  /* A shadow survives collapsed borders where a border may disappear. */
+  box-shadow:
+    inset 0 -1px 0
+    var(--pimolu-border);
+}
+
+/* =========================================
+   DENSITIES
+========================================= */
+
+.pimolu-table--sm {
+  --pimolu-table-cell-padding-y: 8px;
+  --pimolu-table-cell-padding-x: 12px;
+  --pimolu-table-font-size: 0.8125rem;
+  --pimolu-table-header-font-size: 0.75rem;
+}
+
+.pimolu-table--md {
+  --pimolu-table-cell-padding-y: 12px;
+  --pimolu-table-cell-padding-x: 16px;
+  --pimolu-table-font-size: 0.875rem;
+  --pimolu-table-header-font-size: 0.8125rem;
+}
+
+.pimolu-table--lg {
+  --pimolu-table-cell-padding-y: 16px;
+  --pimolu-table-cell-padding-x: 20px;
+  --pimolu-table-font-size: 1rem;
+  --pimolu-table-header-font-size: 0.875rem;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-table__wrapper:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-table__head,
+  .pimolu-table__cell {
+    border-color: CanvasText;
+  }
+
+  .pimolu-table--striped
+    .pimolu-table__body
+    .pimolu-table__row:nth-child(odd),
+  .pimolu-table__body .pimolu-table__row:hover,
+  .pimolu-table__footer .pimolu-table__cell {
+    background: Canvas;
+  }
+
+  .pimolu-table--bordered {
+    border-color: CanvasText;
+  }
+}

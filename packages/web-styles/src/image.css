@@ -1,0 +1,284 @@
+/* =========================================
+   PIMOLU UI — IMAGE
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-image {
+  position: relative;
+
+  display: inline-block;
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  background: var(
+    --pimolu-muted,
+    var(--pimolu-background, transparent)
+  );
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  vertical-align: middle;
+
+  line-height: 0;
+
+  /* The fallback and skeleton are positioned against this box. */
+  isolation: isolate;
+}
+
+/* The ratio owns the box, so the wrapper must fill its column. */
+
+.pimolu-image--aspect {
+  display: block;
+  width: 100%;
+}
+
+.pimolu-image[data-state="error"] {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+}
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.pimolu-image__img {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+
+  border: 0;
+
+  opacity: 0;
+
+  transition: opacity 180ms ease-out;
+}
+
+.pimolu-image__img[data-loaded="true"] {
+  opacity: 1;
+}
+
+/* With an aspect ratio the image fills the reserved box. */
+
+.pimolu-image--aspect .pimolu-image__img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.pimolu-image__img:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: -2px;
+}
+
+/* =========================================
+   OBJECT FIT
+========================================= */
+
+.pimolu-image__img--fit-cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+.pimolu-image__img--fit-contain {
+  object-fit: contain;
+  object-position: center;
+}
+
+.pimolu-image__img--fit-fill {
+  object-fit: fill;
+}
+
+.pimolu-image__img--fit-none {
+  object-fit: none;
+  object-position: center;
+}
+
+.pimolu-image__img--fit-scale-down {
+  object-fit: scale-down;
+  object-position: center;
+}
+
+/* =========================================
+   ROUNDED
+========================================= */
+
+.pimolu-image--rounded-none {
+  border-radius: 0;
+}
+
+.pimolu-image--rounded-sm {
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-image--rounded-md {
+  border-radius: var(--pimolu-radius-md, 8px);
+}
+
+.pimolu-image--rounded-lg {
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+.pimolu-image--rounded-full {
+  border-radius: var(--pimolu-radius-full, 999px);
+}
+
+/* =========================================
+   LOADING SKELETON
+========================================= */
+
+.pimolu-image__skeleton {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  background: var(
+    --pimolu-muted,
+    var(--pimolu-border, #e5e5e5)
+  );
+
+  pointer-events: none;
+}
+
+.pimolu-image__skeleton::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(
+      in srgb,
+      var(--pimolu-foreground, currentColor) 12%,
+      transparent
+    ) 50%,
+    transparent 100%
+  );
+
+  transform: translateX(-100%);
+
+  animation:
+    pimolu-image-shimmer
+    1.6s
+    ease-in-out
+    infinite;
+}
+
+@keyframes pimolu-image-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* =========================================
+   FALLBACK
+========================================= */
+
+.pimolu-image__fallback {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  padding: var(--pimolu-spacing-3, 12px);
+
+  overflow: hidden;
+
+  background: var(
+    --pimolu-muted,
+    var(--pimolu-background, transparent)
+  );
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: var(--pimolu-font-size-sm, 0.875rem);
+  line-height: 1.4;
+
+  text-align: center;
+}
+
+.pimolu-image__fallback[data-custom="true"] {
+  /* Custom content keeps normal text flow. */
+  line-height: normal;
+}
+
+.pimolu-image__fallback-icon {
+  display: block;
+
+  width: 40%;
+  max-width: 2.5rem;
+  height: auto;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-image__img {
+    transition: none;
+  }
+
+  .pimolu-image__skeleton::after {
+    display: none;
+    animation: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-image {
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-image__skeleton {
+    background: GrayText;
+  }
+
+  .pimolu-image__skeleton::after {
+    display: none;
+  }
+
+  .pimolu-image__fallback {
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-image__img:focus-visible {
+    outline-color: Highlight;
+  }
+}

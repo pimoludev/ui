@@ -1,0 +1,217 @@
+/* =========================================
+   PIMOLU UI — RESULT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-result {
+  --pimolu-result-tone: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 36rem;
+  min-width: 0;
+
+  margin-inline: auto;
+  padding: 40px 24px;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-body, inherit);
+  text-align: center;
+}
+
+/* =========================================
+   STATUS VARIANTS
+========================================= */
+
+.pimolu-result--success {
+  --pimolu-result-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-result--error {
+  --pimolu-result-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-result--warning {
+  --pimolu-result-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-result--info {
+  --pimolu-result-tone:
+    var(--pimolu-primary, #4f46e5);
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.pimolu-result__icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: 72px;
+  height: 72px;
+
+  margin-bottom: 18px;
+
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-result-tone) 12%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  color: var(--pimolu-result-tone);
+
+  line-height: 0;
+}
+
+.pimolu-result__icon svg {
+  display: block;
+
+  width: 36px;
+  height: 36px;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.pimolu-result__title {
+  margin: 0;
+
+  max-width: 24ch;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-heading, inherit);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-result__description {
+  margin: 10px 0 0;
+
+  max-width: 44ch;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.pimolu-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 480px) {
+  .pimolu-result {
+    padding: 32px 16px;
+  }
+
+  .pimolu-result__icon {
+    width: 60px;
+    height: 60px;
+
+    margin-bottom: 14px;
+  }
+
+  .pimolu-result__icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .pimolu-result__title {
+    font-size: 1.25rem;
+  }
+
+  .pimolu-result__actions {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-result__icon,
+  .pimolu-result__actions {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-result {
+    color: CanvasText;
+  }
+
+  .pimolu-result__icon {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-result__title,
+  .pimolu-result__description {
+    color: CanvasText;
+  }
+}

@@ -262,6 +262,176 @@ const outputs = [
     output: "command.css",
     minify: false,
   },
+  {
+    input: "alert.css",
+    output: "alert.css",
+    minify: false,
+  },
+  {
+    input: "banner.css",
+    output: "banner.css",
+    minify: false,
+  },
+  {
+    input: "empty-state.css",
+    output: "empty-state.css",
+    minify: false,
+  },
+  {
+    input: "result.css",
+    output: "result.css",
+    minify: false,
+  },
+  {
+    input: "loading-overlay.css",
+    output: "loading-overlay.css",
+    minify: false,
+  },
+  {
+    input: "table.css",
+    output: "table.css",
+    minify: false,
+  },
+  {
+    input: "data-table.css",
+    output: "data-table.css",
+    minify: false,
+  },
+  {
+    input: "stat.css",
+    output: "stat.css",
+    minify: false,
+  },
+  {
+    input: "timeline.css",
+    output: "timeline.css",
+    minify: false,
+  },
+  {
+    input: "rating.css",
+    output: "rating.css",
+    minify: false,
+  },
+  {
+    input: "number-input.css",
+    output: "number-input.css",
+    minify: false,
+  },
+  {
+    input: "pin-input.css",
+    output: "pin-input.css",
+    minify: false,
+  },
+  {
+    input: "tags-input.css",
+    output: "tags-input.css",
+    minify: false,
+  },
+  {
+    input: "time-picker.css",
+    output: "time-picker.css",
+    minify: false,
+  },
+  {
+    input: "calendar.css",
+    output: "calendar.css",
+    minify: false,
+  },
+  {
+    input: "date-picker.css",
+    output: "date-picker.css",
+    minify: false,
+  },
+  {
+    input: "date-range-picker.css",
+    output: "date-range-picker.css",
+    minify: false,
+  },
+  {
+    input: "file-upload.css",
+    output: "file-upload.css",
+    minify: false,
+  },
+  {
+    input: "dropzone.css",
+    output: "dropzone.css",
+    minify: false,
+  },
+  {
+    input: "color-picker.css",
+    output: "color-picker.css",
+    minify: false,
+  },
+  {
+    input: "box.css",
+    output: "box.css",
+    minify: false,
+  },
+  {
+    input: "stack.css",
+    output: "stack.css",
+    minify: false,
+  },
+  {
+    input: "flex.css",
+    output: "flex.css",
+    minify: false,
+  },
+  {
+    input: "grid.css",
+    output: "grid.css",
+    minify: false,
+  },
+  {
+    input: "container.css",
+    output: "container.css",
+    minify: false,
+  },
+  {
+    input: "center.css",
+    output: "center.css",
+    minify: false,
+  },
+  {
+    input: "spacer.css",
+    output: "spacer.css",
+    minify: false,
+  },
+  {
+    input: "aspect-ratio.css",
+    output: "aspect-ratio.css",
+    minify: false,
+  },
+  {
+    input: "visually-hidden.css",
+    output: "visually-hidden.css",
+    minify: false,
+  },
+  {
+    input: "focus-scope.css",
+    output: "focus-scope.css",
+    minify: false,
+  },
+  {
+    input: "image.css",
+    output: "image.css",
+    minify: false,
+  },
+  {
+    input: "carousel.css",
+    output: "carousel.css",
+    minify: false,
+  },
+  {
+    input: "resizable.css",
+    output: "resizable.css",
+    minify: false,
+  },
+  {
+    input: "virtual-list.css",
+    output: "virtual-list.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

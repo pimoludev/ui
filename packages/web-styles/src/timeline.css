@@ -1,0 +1,364 @@
+/* =========================================
+   PIMOLU UI - TIMELINE
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-timeline {
+  --pimolu-timeline-indicator-size: 18px;
+  --pimolu-timeline-gap: 14px;
+  --pimolu-timeline-spacing: 24px;
+  --pimolu-timeline-line: var(--pimolu-border);
+
+  margin: 0;
+  padding: 0;
+
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+
+  list-style: none;
+}
+
+/* =========================================
+   ITEM AND CONNECTING LINE
+========================================= */
+
+.pimolu-timeline__item {
+  position: relative;
+
+  display: grid;
+  grid-template-columns:
+    var(--pimolu-timeline-indicator-size)
+    minmax(0, 1fr);
+
+  column-gap: var(--pimolu-timeline-gap);
+
+  min-width: 0;
+
+  padding-block-end: var(--pimolu-timeline-spacing);
+}
+
+.pimolu-timeline__item:last-child {
+  padding-block-end: 0;
+}
+
+.pimolu-timeline__item:not(:last-child)::before {
+  content: "";
+
+  position: absolute;
+
+  inset-block-start: calc(
+    var(--pimolu-timeline-indicator-size) + 6px
+  );
+  inset-block-end: 0;
+  inset-inline-start: calc(
+    var(--pimolu-timeline-indicator-size) / 2
+  );
+
+  width: 1px;
+
+  transform: translateX(-50%);
+
+  background: var(--pimolu-timeline-line);
+
+  z-index: 0;
+}
+
+.pimolu-timeline__item[data-status="complete"]::before {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 45%,
+    var(--pimolu-timeline-line)
+  );
+}
+
+/* =========================================
+   INDICATOR
+========================================= */
+
+.pimolu-timeline__indicator {
+  position: relative;
+  z-index: 1;
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  grid-column: 1;
+  grid-row: 1;
+
+  box-sizing: border-box;
+  width: var(--pimolu-timeline-indicator-size);
+  height: var(--pimolu-timeline-indicator-size);
+
+  margin-block-start: 1px;
+
+  border: 2px solid var(--pimolu-border);
+  border-radius: 50%;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/* Empty indicators draw the default dot with the current colour. */
+
+.pimolu-timeline__indicator:empty::after {
+  content: "";
+
+  display: block;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+.pimolu-timeline__indicator svg {
+  display: block;
+
+  width: 11px;
+  height: 11px;
+}
+
+.pimolu-timeline__item[data-status="active"]
+  .pimolu-timeline__indicator {
+  border-color: var(--pimolu-primary);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-primary);
+
+  box-shadow:
+    0 0 0 4px
+    color-mix(
+      in srgb,
+      var(--pimolu-primary) 16%,
+      transparent
+    );
+}
+
+.pimolu-timeline__item[data-status="complete"]
+  .pimolu-timeline__indicator {
+  border-color: var(--pimolu-primary);
+
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+}
+
+.pimolu-timeline__item[data-status="error"]
+  .pimolu-timeline__indicator {
+  border-color: var(--pimolu-danger, #dc2626);
+
+  background: var(--pimolu-danger, #dc2626);
+  color: var(
+    --pimolu-danger-foreground,
+    #ffffff
+  );
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-timeline__content {
+  grid-column: 2;
+  grid-row: 1;
+
+  min-width: 0;
+
+  padding-block-start: 1px;
+}
+
+.pimolu-timeline__title {
+  margin: 0;
+
+  color: inherit;
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-timeline__description {
+  margin: 3px 0 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.55;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-timeline__time {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  margin-block-start: 5px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+/* =========================================
+   VISUALLY HIDDEN
+========================================= */
+
+.pimolu-timeline__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* =========================================
+   CENTER ALIGNMENT
+========================================= */
+
+.pimolu-timeline--align-center
+  .pimolu-timeline__item {
+  align-items: center;
+}
+
+.pimolu-timeline--align-center
+  .pimolu-timeline__indicator {
+  align-self: center;
+
+  margin-block-start: 0;
+}
+
+.pimolu-timeline--align-center
+  .pimolu-timeline__item:not(:last-child)::before {
+  inset-block-start: calc(
+    50% +
+    var(--pimolu-timeline-indicator-size) / 2 +
+    4px
+  );
+}
+
+/* =========================================
+   COMPACT
+========================================= */
+
+.pimolu-timeline--compact {
+  --pimolu-timeline-indicator-size: 12px;
+  --pimolu-timeline-gap: 10px;
+  --pimolu-timeline-spacing: 16px;
+}
+
+.pimolu-timeline--compact
+  .pimolu-timeline__indicator:empty::after {
+  width: 4px;
+  height: 4px;
+}
+
+.pimolu-timeline--compact
+  .pimolu-timeline__indicator svg {
+  width: 8px;
+  height: 8px;
+}
+
+.pimolu-timeline--compact
+  .pimolu-timeline__title {
+  font-size: 0.875rem;
+}
+
+.pimolu-timeline--compact
+  .pimolu-timeline__description {
+  margin-block-start: 2px;
+
+  font-size: 0.75rem;
+}
+
+.pimolu-timeline--compact
+  .pimolu-timeline__time {
+  margin-block-start: 3px;
+
+  font-size: 0.6875rem;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-timeline__indicator {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-timeline__item::before {
+    background: CanvasText;
+  }
+
+  .pimolu-timeline__indicator {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-timeline__item[data-status="active"]
+    .pimolu-timeline__indicator,
+  .pimolu-timeline__item[data-status="complete"]
+    .pimolu-timeline__indicator,
+  .pimolu-timeline__item[data-status="error"]
+    .pimolu-timeline__indicator {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-timeline__title,
+  .pimolu-timeline__description,
+  .pimolu-timeline__time {
+    color: CanvasText;
+  }
+}

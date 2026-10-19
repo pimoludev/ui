@@ -1,0 +1,396 @@
+/* =========================================
+   PIMOLU UI - DROPZONE
+   Shared Web Styles
+======================================== */
+
+/* =========================================
+   BASE
+======================================== */
+
+.pimolu-dropzone {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-dropzone__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pimolu-dropzone__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-dropzone__error {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.pimolu-dropzone__input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 0;
+
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* =========================================
+   DROP ZONE
+======================================== */
+
+.pimolu-dropzone__zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 168px;
+
+  padding: 24px 16px;
+
+  border:
+    2px dashed
+    var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  background: transparent;
+  color: var(--pimolu-foreground);
+
+  font: inherit;
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+.pimolu-dropzone__zone:hover:not(:disabled) {
+  border-color: var(--pimolu-primary);
+
+  background: var(--pimolu-muted);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 6%,
+    transparent
+  );
+}
+
+.pimolu-dropzone__zone[data-dragging="true"] {
+  border-color: var(--pimolu-primary);
+
+  background: var(--pimolu-muted);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    transparent
+  );
+}
+
+.pimolu-dropzone__zone:focus-visible {
+  outline:
+    3px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+.pimolu-dropzone__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  margin-bottom: 2px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-dropzone__zone[data-dragging="true"]
+  .pimolu-dropzone__icon {
+  color: var(--pimolu-primary);
+}
+
+.pimolu-dropzone__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-dropzone__title {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.pimolu-dropzone__hint {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   FILE LIST
+======================================== */
+
+.pimolu-dropzone__list {
+  display: grid;
+  gap: 6px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-dropzone__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  padding: 8px 10px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+}
+
+.pimolu-dropzone__file-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-dropzone__file-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-dropzone__file-name {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-dropzone__file-size {
+  flex: none;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.pimolu-dropzone__remove {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.pimolu-dropzone__remove svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pimolu-dropzone__remove:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-dropzone__remove:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   REJECTIONS
+======================================== */
+
+.pimolu-dropzone__rejections {
+  display: grid;
+  gap: 2px;
+}
+
+.pimolu-dropzone__rejection {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   STATES
+======================================== */
+
+.pimolu-dropzone--invalid .pimolu-dropzone__zone {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-dropzone--disabled .pimolu-dropzone__label,
+.pimolu-dropzone--disabled
+  .pimolu-dropzone__description {
+  opacity: 0.6;
+}
+
+.pimolu-dropzone__zone:disabled {
+  border-color: var(--pimolu-border, #d4d4d8);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+
+  cursor: not-allowed;
+}
+
+.pimolu-dropzone__zone:disabled
+  .pimolu-dropzone__icon,
+.pimolu-dropzone__zone:disabled
+  .pimolu-dropzone__title,
+.pimolu-dropzone__zone:disabled
+  .pimolu-dropzone__hint {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-dropzone__remove:disabled {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-dropzone__zone,
+  .pimolu-dropzone__remove {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+======================================== */
+
+@media (forced-colors: active) {
+  .pimolu-dropzone__zone,
+  .pimolu-dropzone__item {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-dropzone__zone[data-dragging="true"] {
+    border-color: Highlight;
+  }
+
+  .pimolu-dropzone__zone:focus-visible,
+  .pimolu-dropzone__remove:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-dropzone__zone:disabled,
+  .pimolu-dropzone__remove:disabled {
+    color: GrayText;
+  }
+
+  .pimolu-dropzone__rejection,
+  .pimolu-dropzone__error {
+    color: LinkText;
+  }
+}

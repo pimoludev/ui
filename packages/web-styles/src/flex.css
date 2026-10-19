@@ -1,0 +1,118 @@
+
+/* =========================================
+   PIMOLU UI — FLEX
+   Shared Web Styles
+========================================= */
+
+.pimolu-flex {
+  --pimolu-flex-gap: 0;
+  --pimolu-flex-grow: 0;
+  --pimolu-flex-shrink: 1;
+  --pimolu-flex-basis: auto;
+
+  display: flex;
+  flex-direction: row;
+
+  gap: var(--pimolu-flex-gap, 0);
+
+  /* The container can itself be a flex item. */
+  flex-grow: var(--pimolu-flex-grow, 0);
+  flex-shrink: var(--pimolu-flex-shrink, 1);
+  flex-basis: var(--pimolu-flex-basis, auto);
+
+  min-width: 0;
+}
+
+/* =========================================
+   DIRECTION
+========================================= */
+
+.pimolu-flex--row-reverse {
+  flex-direction: row-reverse;
+}
+
+.pimolu-flex--column {
+  flex-direction: column;
+}
+
+.pimolu-flex--column-reverse {
+  flex-direction: column-reverse;
+}
+
+/* =========================================
+   ALIGNMENT
+========================================= */
+
+.pimolu-flex--align-start {
+  align-items: flex-start;
+}
+
+.pimolu-flex--align-center {
+  align-items: center;
+}
+
+.pimolu-flex--align-end {
+  align-items: flex-end;
+}
+
+.pimolu-flex--align-stretch {
+  align-items: stretch;
+}
+
+.pimolu-flex--align-baseline {
+  align-items: baseline;
+}
+
+/* =========================================
+   JUSTIFICATION
+========================================= */
+
+.pimolu-flex--justify-start {
+  justify-content: flex-start;
+}
+
+.pimolu-flex--justify-center {
+  justify-content: center;
+}
+
+.pimolu-flex--justify-end {
+  justify-content: flex-end;
+}
+
+.pimolu-flex--justify-between {
+  justify-content: space-between;
+}
+
+.pimolu-flex--justify-around {
+  justify-content: space-around;
+}
+
+.pimolu-flex--justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* =========================================
+   WRAPPING AND WIDTH
+========================================= */
+
+.pimolu-flex--wrap {
+  flex-wrap: wrap;
+}
+
+.pimolu-flex--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+.pimolu-flex > * {
+  min-width: 0;
+}
+
+.pimolu-flex img,
+.pimolu-flex video,
+.pimolu-flex canvas {
+  max-width: 100%;
+}

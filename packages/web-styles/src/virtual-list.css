@@ -1,0 +1,115 @@
+/* =========================================
+   PIMOLU UI — VIRTUAL LIST
+   Shared Web Styles
+========================================= */
+
+.pimolu-virtual-list {
+  position: relative;
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--pimolu-border)
+    transparent;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+
+  outline: none;
+}
+
+.pimolu-virtual-list:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: -2px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+/* =========================================
+   SPACER AND ROWS
+========================================= */
+
+.pimolu-virtual-list__spacer {
+  position: relative;
+
+  width: 100%;
+
+  min-width: 0;
+}
+
+.pimolu-virtual-list__item {
+  position: absolute;
+
+  inset-inline: 0;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  /* Fixed-height rows keep the window calculation exact. */
+  overflow: hidden;
+}
+
+/* =========================================
+   WEBKIT SCROLLBAR
+========================================= */
+
+.pimolu-virtual-list::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.pimolu-virtual-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pimolu-virtual-list::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 22%,
+    transparent
+  );
+
+  background-clip: padding-box;
+}
+
+.pimolu-virtual-list::-webkit-scrollbar-thumb:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 34%,
+    transparent
+  );
+
+  background-clip: padding-box;
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-virtual-list {
+    scrollbar-color: CanvasText transparent;
+  }
+
+  .pimolu-virtual-list:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-virtual-list__item {
+    border-color: CanvasText;
+  }
+}

@@ -1,0 +1,385 @@
+/* =========================================
+   PIMOLU UI - FILE UPLOAD
+   Shared Web Styles
+======================================== */
+
+/* =========================================
+   BASE
+======================================== */
+
+.pimolu-file-upload {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-file-upload__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+
+  cursor: pointer;
+}
+
+.pimolu-file-upload__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-file-upload__error {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* The native input stays in the DOM for forms and assistive technology,
+   but the visible button owns the click and the focus. */
+
+.pimolu-file-upload__input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 0;
+
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* =========================================
+   EMPTY STATE
+======================================== */
+
+.pimolu-file-upload__empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  padding: 24px 16px;
+
+  border:
+    1px dashed
+    var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted) 40%,
+    transparent
+  );
+
+  text-align: center;
+}
+
+.pimolu-file-upload__empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-file-upload__empty-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-file-upload__empty-text {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   TRIGGER
+======================================== */
+
+.pimolu-file-upload__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  min-height: 36px;
+
+  padding: 0 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.pimolu-file-upload__trigger:hover:not(:disabled) {
+  border-color: var(--pimolu-primary);
+
+  background: var(--pimolu-muted);
+}
+
+.pimolu-file-upload__trigger:focus-visible {
+  outline:
+    3px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   FILE LIST
+======================================== */
+
+.pimolu-file-upload__list {
+  display: grid;
+  gap: 6px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-file-upload__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  padding: 8px 10px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #d4d4d8);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+}
+
+.pimolu-file-upload__file-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-file-upload__file-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-file-upload__file-name {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-file-upload__file-size {
+  flex: none;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.pimolu-file-upload__remove {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.pimolu-file-upload__remove svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pimolu-file-upload__remove:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-file-upload__remove:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   REJECTIONS
+======================================== */
+
+.pimolu-file-upload__rejections {
+  display: grid;
+  gap: 2px;
+}
+
+.pimolu-file-upload__rejection {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   STATES
+======================================== */
+
+.pimolu-file-upload--invalid .pimolu-file-upload__empty {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-file-upload--disabled .pimolu-file-upload__label,
+.pimolu-file-upload--disabled
+  .pimolu-file-upload__description {
+  opacity: 0.6;
+}
+
+.pimolu-file-upload--disabled .pimolu-file-upload__label {
+  cursor: default;
+}
+
+.pimolu-file-upload__trigger:disabled,
+.pimolu-file-upload__remove:disabled {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-file-upload__trigger,
+  .pimolu-file-upload__remove {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+======================================== */
+
+@media (forced-colors: active) {
+  .pimolu-file-upload__empty,
+  .pimolu-file-upload__item,
+  .pimolu-file-upload__trigger {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-file-upload__trigger:focus-visible,
+  .pimolu-file-upload__remove:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-file-upload__trigger:disabled,
+  .pimolu-file-upload__remove:disabled {
+    color: GrayText;
+  }
+
+  .pimolu-file-upload__rejection,
+  .pimolu-file-upload__error {
+    color: LinkText;
+  }
+}

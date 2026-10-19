@@ -1,0 +1,39 @@
+
+/* =========================================
+   PIMOLU UI — SPACER
+   Shared Web Styles
+========================================= */
+
+/*
+ * Flexible by default: absorbs the free space of a Stack or Flex.
+ * The element is always aria-hidden, so it never reaches the a11y tree.
+ */
+.pimolu-spacer {
+  --pimolu-spacer-size: 0;
+
+  flex: 1 1 auto;
+
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+/* =========================================
+   FIXED SIZE
+========================================= */
+
+.pimolu-spacer--fixed {
+  flex: 0 0 auto;
+}
+
+.pimolu-spacer--fixed[data-axis="horizontal"] {
+  inline-size: var(--pimolu-spacer-size, 0);
+}
+
+.pimolu-spacer--fixed[data-axis="vertical"] {
+  block-size: var(--pimolu-spacer-size, 0);
+}
+
+.pimolu-spacer--fixed[data-axis="both"] {
+  inline-size: var(--pimolu-spacer-size, 0);
+  block-size: var(--pimolu-spacer-size, 0);
+}

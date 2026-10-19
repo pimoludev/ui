@@ -57,10 +57,44 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | ContextMenu | `registry/react/context-menu/` | Pointer-positioned action menu | Present and tested |
 | HoverCard | `registry/react/hover-card/` | Rich hover/focus preview | Present and tested |
 | Command, CommandPalette | `registry/react/command/` | Searchable command list and modal palette | Present and tested |
+| Alert | `registry/react/alert/` | Inline information or error message | Present and tested |
+| Banner | `registry/react/banner/` | Page-level message | Present and tested |
+| EmptyState | `registry/react/empty-state/` | No-data interface | Present and tested |
+| Result | `registry/react/result/` | Success or failure screen | Present and tested |
+| LoadingOverlay | `registry/react/loading-overlay/` | Loading layer over content | Present and tested |
+| Table | `registry/react/table/` | Styled semantic table | Present and tested |
+| DataTable | `registry/react/data-table/` | Sorting, filtering, selection and pagination | Present and tested |
+| Stat | `registry/react/stat/` | Metric and trend | Present and tested |
+| Timeline | `registry/react/timeline/` | Event chronology | Present and tested |
+| Rating | `registry/react/rating/` | Star rating | Present and tested |
+| NumberInput | `registry/react/number-input/` | Numeric field with steppers | Present and tested |
+| PinInput | `registry/react/pin-input/` | Multi-cell code entry | Present and tested |
+| TagsInput | `registry/react/tags-input/` | Tag creation and removal | Present and tested |
+| TimePicker | `registry/react/time-picker/` | Time selection | Present and tested |
+| Calendar | `registry/react/calendar/` | Month grid, single and range selection | Present and tested |
+| DatePicker | `registry/react/date-picker/` | Date field with calendar panel | Present and tested |
+| DateRangePicker | `registry/react/date-range-picker/` | Two-date range selection | Present and tested |
+| FileUpload | `registry/react/file-upload/` | File selection and validation | Present and tested |
+| Dropzone | `registry/react/dropzone/` | Drag-and-drop file selection | Present and tested |
+| ColorPicker | `registry/react/color-picker/` | Hex color and preset selection | Present and tested |
+| Box | `registry/react/box/` | Generic layout container | Present and tested |
+| Stack, HStack, VStack | `registry/react/stack/` | One-dimensional layout | Present and tested |
+| Flex | `registry/react/flex/` | Flexbox layout | Present and tested |
+| Grid | `registry/react/grid/` | Responsive grid | Present and tested |
+| Container | `registry/react/container/` | Responsive max width | Present and tested |
+| Center | `registry/react/center/` | Centering container | Present and tested |
+| Spacer | `registry/react/spacer/` | Flexible or fixed space | Present and tested |
+| AspectRatio | `registry/react/aspect-ratio/` | Controlled proportions | Present and tested |
+| VisuallyHidden | `registry/react/visually-hidden/` | Screen-reader-only content | Present and tested |
+| FocusScope | `registry/react/focus-scope/` | Reusable focus management | Present and tested |
+| Image | `registry/react/image/` | Image with loading and error states | Present and tested |
+| Carousel | `registry/react/carousel/` | Slide navigation | Present and tested |
+| Resizable | `registry/react/resizable/` | Draggable split panels | Present and tested |
+| VirtualList | `registry/react/virtual-list/` | Windowed large lists | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
 utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
-low-level utility. The playground pages cover the 49 families (AvatarGroup and
+low-level utility. The playground pages cover the 83 families (AvatarGroup and
 RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

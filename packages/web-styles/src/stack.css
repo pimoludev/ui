@@ -1,0 +1,109 @@
+
+/* =========================================
+   PIMOLU UI — STACK / HSTACK / VSTACK
+   Shared Web Styles
+========================================= */
+
+.pimolu-stack {
+  --pimolu-stack-gap: var(--pimolu-spacing-3, 12px);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(
+    --pimolu-stack-gap,
+    var(--pimolu-spacing-3, 12px)
+  );
+
+  min-width: 0;
+}
+
+/* =========================================
+   DIRECTION
+========================================= */
+
+.pimolu-stack--row {
+  flex-direction: row;
+}
+
+/* =========================================
+   ALIGNMENT
+========================================= */
+
+.pimolu-stack--align-start {
+  align-items: flex-start;
+}
+
+.pimolu-stack--align-center {
+  align-items: center;
+}
+
+.pimolu-stack--align-end {
+  align-items: flex-end;
+}
+
+.pimolu-stack--align-stretch {
+  align-items: stretch;
+}
+
+.pimolu-stack--align-baseline {
+  align-items: baseline;
+}
+
+/* =========================================
+   JUSTIFICATION
+========================================= */
+
+.pimolu-stack--justify-start {
+  justify-content: flex-start;
+}
+
+.pimolu-stack--justify-center {
+  justify-content: center;
+}
+
+.pimolu-stack--justify-end {
+  justify-content: flex-end;
+}
+
+.pimolu-stack--justify-between {
+  justify-content: space-between;
+}
+
+.pimolu-stack--justify-around {
+  justify-content: space-around;
+}
+
+.pimolu-stack--justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* =========================================
+   WRAPPING AND WIDTH
+========================================= */
+
+.pimolu-stack--wrap {
+  flex-wrap: wrap;
+}
+
+.pimolu-stack--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/*
+ * Children keep their intrinsic width and shrink instead of forcing the
+ * stack wider than its container; long words wrap rather than overflow.
+ */
+.pimolu-stack > * {
+  min-width: 0;
+}
+
+.pimolu-stack img,
+.pimolu-stack video,
+.pimolu-stack canvas {
+  max-width: 100%;
+}

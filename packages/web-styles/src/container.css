@@ -1,0 +1,76 @@
+
+/* =========================================
+   PIMOLU UI — CONTAINER
+   Shared Web Styles
+========================================= */
+
+.pimolu-container {
+  --pimolu-container-padding: var(
+    --pimolu-spacing-4,
+    16px
+  );
+
+  box-sizing: border-box;
+
+  width: 100%;
+  margin-inline: auto;
+
+  padding-inline: var(
+    --pimolu-container-padding,
+    var(--pimolu-spacing-4, 16px)
+  );
+
+  min-width: 0;
+}
+
+/* =========================================
+   MAX WIDTHS
+========================================= */
+
+.pimolu-container--sm {
+  max-width: 640px;
+}
+
+.pimolu-container--md {
+  max-width: 768px;
+}
+
+.pimolu-container--lg {
+  max-width: 1024px;
+}
+
+.pimolu-container--xl {
+  max-width: 1280px;
+}
+
+.pimolu-container--2xl {
+  max-width: 1536px;
+}
+
+.pimolu-container--full {
+  max-width: none;
+}
+
+/* =========================================
+   ALIGNMENT
+========================================= */
+
+.pimolu-container--start {
+  margin-inline: 0;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/*
+ * A fluid width plus a max-width and a token-driven gutter: no media
+ * queries needed, and a preset can change the gutter through
+ * `--pimolu-container-padding`.
+ */
+.pimolu-container > img,
+.pimolu-container > video,
+.pimolu-container > canvas {
+  max-width: 100%;
+  height: auto;
+}

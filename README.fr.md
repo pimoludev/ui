@@ -107,7 +107,7 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif. La chaîne de tokens, deux thèmes de couleur, six presets visuels et 49 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) pour l'architecture vérifiée et ses limites.
+Pimolu UI est en développement actif. La chaîne de tokens, deux thèmes de couleur, six presets visuels et 83 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) pour l'architecture vérifiée et ses limites.
 
 ## Contribution
 

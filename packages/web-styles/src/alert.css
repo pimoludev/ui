@@ -1,0 +1,291 @@
+/* =========================================
+   PIMOLU UI — ALERT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-alert {
+  --pimolu-alert-tone: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+
+  --pimolu-alert-background: color-mix(
+    in srgb,
+    var(--pimolu-alert-tone) 7%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  --pimolu-alert-border: color-mix(
+    in srgb,
+    var(--pimolu-alert-tone) 30%,
+    var(--pimolu-border, transparent)
+  );
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 12px 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-alert-border);
+
+  border-inline-start:
+    3px solid var(--pimolu-alert-tone);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(--pimolu-alert-background);
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-alert--info {
+  --pimolu-alert-tone:
+    var(--pimolu-primary, #4f46e5);
+}
+
+.pimolu-alert--success {
+  --pimolu-alert-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-alert--warning {
+  --pimolu-alert-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-alert--danger {
+  --pimolu-alert-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-alert--neutral {
+  --pimolu-alert-tone: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, #525252)
+  );
+
+  --pimolu-alert-background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  --pimolu-alert-border: var(
+    --pimolu-border,
+    color-mix(
+      in srgb,
+      var(--pimolu-foreground, #525252) 20%,
+      transparent
+    )
+  );
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.pimolu-alert__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 20px;
+  height: 20px;
+
+  margin-top: 1px;
+
+  color: var(--pimolu-alert-tone);
+}
+
+.pimolu-alert__icon svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-alert__content {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1 1 auto;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-alert__title {
+  margin: 0;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-alert__description {
+  margin: 0;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-alert__body {
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-alert__body > :first-child {
+  margin-top: 0;
+}
+
+.pimolu-alert__body > :last-child {
+  margin-bottom: 0;
+}
+
+.pimolu-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 8px;
+}
+
+/* =========================================
+   DISMISS BUTTON
+========================================= */
+
+.pimolu-alert__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 28px;
+  height: 28px;
+
+  margin: -4px -4px 0 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground)
+  );
+
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.pimolu-alert__dismiss:hover {
+  background: var(--pimolu-muted, rgba(0, 0, 0, 0.08));
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-alert__dismiss:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, currentColor));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 480px) {
+  .pimolu-alert {
+    gap: 10px;
+
+    padding: 10px 12px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-alert,
+  .pimolu-alert__dismiss {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-alert {
+    border-color: CanvasText;
+    border-inline-start-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-alert__icon,
+  .pimolu-alert__title,
+  .pimolu-alert__description {
+    color: CanvasText;
+  }
+
+  .pimolu-alert__dismiss {
+    color: ButtonText;
+  }
+}

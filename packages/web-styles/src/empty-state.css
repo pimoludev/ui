@@ -1,0 +1,210 @@
+/* =========================================
+   PIMOLU UI — EMPTY STATE
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-empty-state {
+  --pimolu-empty-state-padding: 32px 24px;
+  --pimolu-empty-state-icon-box: 56px;
+  --pimolu-empty-state-icon-size: 28px;
+  --pimolu-empty-state-title-size: 1.125rem;
+  --pimolu-empty-state-description-size: 0.875rem;
+  --pimolu-empty-state-actions-gap: 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: var(--pimolu-empty-state-padding);
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-body, inherit);
+  text-align: center;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-empty-state--sm {
+  --pimolu-empty-state-padding: 20px 16px;
+  --pimolu-empty-state-icon-box: 44px;
+  --pimolu-empty-state-icon-size: 22px;
+  --pimolu-empty-state-title-size: 1rem;
+  --pimolu-empty-state-description-size: 0.8125rem;
+  --pimolu-empty-state-actions-gap: 14px;
+}
+
+.pimolu-empty-state--md {
+  --pimolu-empty-state-padding: 32px 24px;
+  --pimolu-empty-state-icon-box: 56px;
+  --pimolu-empty-state-icon-size: 28px;
+  --pimolu-empty-state-title-size: 1.125rem;
+  --pimolu-empty-state-description-size: 0.875rem;
+  --pimolu-empty-state-actions-gap: 18px;
+}
+
+.pimolu-empty-state--lg {
+  --pimolu-empty-state-padding: 48px 32px;
+  --pimolu-empty-state-icon-box: 72px;
+  --pimolu-empty-state-icon-size: 36px;
+  --pimolu-empty-state-title-size: 1.375rem;
+  --pimolu-empty-state-description-size: 0.9375rem;
+  --pimolu-empty-state-actions-gap: 22px;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.pimolu-empty-state__icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: var(--pimolu-empty-state-icon-box);
+  height: var(--pimolu-empty-state-icon-box);
+
+  margin-bottom: 14px;
+
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 10%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  color: var(--pimolu-primary, #4f46e5);
+
+  font-size: calc(
+    var(--pimolu-empty-state-icon-size) * 0.75
+  );
+
+  line-height: 0;
+}
+
+.pimolu-empty-state__icon svg {
+  display: block;
+
+  width: var(--pimolu-empty-state-icon-size);
+  height: var(--pimolu-empty-state-icon-size);
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.pimolu-empty-state__title {
+  margin: 0;
+
+  max-width: 32ch;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-heading, inherit);
+  font-size: var(--pimolu-empty-state-title-size);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-empty-state__description {
+  margin: 6px 0 0;
+
+  max-width: 48ch;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(
+    --pimolu-empty-state-description-size
+  );
+  line-height: 1.55;
+
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.pimolu-empty-state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: var(--pimolu-empty-state-actions-gap);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 480px) {
+  .pimolu-empty-state--lg {
+    --pimolu-empty-state-padding: 32px 20px;
+    --pimolu-empty-state-icon-box: 60px;
+    --pimolu-empty-state-icon-size: 30px;
+    --pimolu-empty-state-title-size: 1.1875rem;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-empty-state__icon,
+  .pimolu-empty-state__actions {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-empty-state {
+    color: CanvasText;
+  }
+
+  .pimolu-empty-state__icon {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-empty-state__title,
+  .pimolu-empty-state__description {
+    color: CanvasText;
+  }
+}
