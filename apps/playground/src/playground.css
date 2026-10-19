@@ -38,40 +38,99 @@
   text-decoration: none;
 }
 
-.pg-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+/* Layout: sticky sidebar + content */
 
-  padding: 4px;
+.pg-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 40px;
 
-  border: 1px solid var(--pimolu-border);
-  border-radius: var(--pimolu-radius-full);
-  background: var(--pimolu-muted);
+  width: min(1120px, 100% - 48px);
+  margin-inline: auto;
 }
 
-.pg-nav__item {
-  padding: 6px 14px;
+.pg-sidebar {
+  position: sticky;
+  top: 84px;
+  align-self: start;
 
-  border-radius: var(--pimolu-radius-full);
+  max-height: calc(100vh - 104px);
+  overflow-y: auto;
 
-  font-size: 13px;
+  padding: 44px 0 24px;
+}
+
+.pg-sidebar__group + .pg-sidebar__group {
+  margin-top: 22px;
+}
+
+.pg-sidebar__title {
+  margin: 0 0 8px;
+  padding-inline: 12px;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pimolu-muted-foreground);
+}
+
+.pg-sidebar__nav {
+  display: grid;
+  gap: 2px;
+}
+
+.pg-sidebar__link {
+  padding: 7px 12px;
+
+  border-radius: var(--pimolu-radius-sm);
+
+  font-size: 14px;
   color: var(--pimolu-muted-foreground);
   text-decoration: none;
 }
 
-.pg-nav__item:hover {
+.pg-sidebar__link:hover {
+  background: var(--pimolu-muted);
   color: var(--pimolu-foreground);
 }
 
-.pg-nav__item[aria-current="page"] {
+.pg-sidebar__link[aria-current="page"] {
   background: var(--pimolu-primary);
   color: var(--pimolu-primary-foreground);
+  font-weight: 500;
 }
 
-.pg-nav__item:focus-visible {
+.pg-sidebar__link:focus-visible {
   outline: 2px solid var(--pimolu-focus-ring);
   outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .pg-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .pg-sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+
+    padding: 24px 0 0;
+  }
+
+  .pg-sidebar__title {
+    padding-inline: 0;
+  }
+
+  .pg-sidebar__nav {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 6px;
+
+    overflow-x: auto;
+  }
 }
 
 .pg-brand__mark {
@@ -132,6 +191,7 @@
 /* Main */
 
 .pg-main {
+  min-width: 0;
   padding: 44px 0 72px;
 }
 
@@ -210,15 +270,138 @@
   gap: 12px;
 }
 
+.pg-row--between {
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
 .pg-stack {
   display: grid;
   gap: 14px;
+}
+
+/* Real-example helpers */
+
+.pg-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+
+  border-radius: var(--pimolu-radius-md);
+  background: var(--pimolu-muted);
+}
+
+.pg-price {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pg-avatar {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: var(--pimolu-radius-full);
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+
+  font-weight: 700;
+}
+
+.pg-stat {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pg-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pg-metric {
+  display: grid;
+  gap: 2px;
+}
+
+.pg-metric__value {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.pg-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 64px;
+}
+
+.pg-bars > span {
+  flex: 1;
+  min-height: 4px;
+  border-radius: var(--pimolu-radius-sm);
+  background: var(--pimolu-primary);
+  opacity: 0.35;
+}
+
+.pg-bars > span[data-active="true"] {
+  opacity: 1;
+}
+
+.pg-meta {
+  font-size: 0.8125rem;
+  color: var(--pimolu-muted-foreground);
+}
+
+.pg-demo-item {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pg-grow {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pg-inline-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-md);
+
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+
+  font: inherit;
+  font-size: 14px;
+}
+
+.pg-separator-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  height: 44px;
 }
 
 .pg-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
+}
+
+/* Heterogeneous content: keep each card at its natural height. */
+.pg-grid--start {
+  align-items: start;
 }
 
 /* Cards and gallery panels */

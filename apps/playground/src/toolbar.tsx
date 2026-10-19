@@ -5,9 +5,9 @@ import {
 } from "@pimolu/react";
 
 import { presets, themeModes } from "./demo-data";
-import { pageHref, pages, type PageId } from "./router";
+import { pageHref } from "./router";
 
-export function Toolbar({ current }: { current: PageId }) {
+export function Toolbar() {
   const {
     theme,
     stylePreset,
@@ -27,21 +27,6 @@ export function Toolbar({ current }: { current: PageId }) {
             <span className="pg-brand__tag">Playground</span>
           </span>
         </a>
-
-        <nav className="pg-nav" aria-label="Pages">
-          {pages.map((page) => (
-            <a
-              key={page.id}
-              className="pg-nav__item"
-              href={pageHref(page.id)}
-              aria-current={
-                current === page.id ? "page" : undefined
-              }
-            >
-              {page.label}
-            </a>
-          ))}
-        </nav>
 
         <div className="pg-toolbar">
           <div

@@ -5,14 +5,35 @@ import { useEffect, useState } from "react";
  * (#/overview, #/button, #/input) that can be shared or reloaded.
  *
  * Adding a component page = one entry here + one file in pages/.
+ * `group` decides where the page appears in the sidebar.
  */
 export const pages = [
-  { id: "overview", label: "Overview" },
-  { id: "button", label: "Button" },
-  { id: "input", label: "Input" },
+  { id: "overview", label: "Overview", group: "Getting started" },
+
+  { id: "button", label: "Button", group: "Actions" },
+
+  { id: "checkbox", label: "Checkbox", group: "Forms" },
+  { id: "combobox", label: "Combobox", group: "Forms" },
+  { id: "input", label: "Input", group: "Forms" },
+  { id: "multi-select", label: "MultiSelect", group: "Forms" },
+  { id: "radio", label: "Radio", group: "Forms" },
+  { id: "select", label: "Select", group: "Forms" },
+  { id: "switch", label: "Switch", group: "Forms" },
+  { id: "textarea", label: "Textarea", group: "Forms" },
+
+  { id: "avatar", label: "Avatar", group: "Data display" },
+  { id: "badge", label: "Badge", group: "Data display" },
+  { id: "card", label: "Card", group: "Data display" },
+
+  { id: "separator", label: "Separator", group: "Layout" },
+
+  { id: "skeleton", label: "Skeleton", group: "Feedback" },
+  { id: "spinner", label: "Spinner", group: "Feedback" },
 ] as const;
 
-export type PageId = (typeof pages)[number]["id"];
+export type Page = (typeof pages)[number];
+
+export type PageId = Page["id"];
 
 const FALLBACK: PageId = "overview";
 
