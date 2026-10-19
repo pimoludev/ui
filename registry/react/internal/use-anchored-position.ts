@@ -19,13 +19,16 @@ export interface AnchoredPositionOptions {
 }
 
 /**
- * Positions a floating surface under its anchor with fixed coordinates, and
- * flips it above when there is more room there than below.
+ * Positions a floating surface against its anchor with fixed coordinates.
  *
- * Fixed coordinates keep the surface aligned while an ancestor scrolls; the
- * measurement is redone on scroll and resize. In an environment without
- * layout (jsdom) the measurement falls back to the viewport bounds, so the
- * surface still renders.
+ * The anchor is measured on open, then again on the next frame and whenever
+ * the surface resizes: a panel rendered through a portal only exists one
+ * render after `open`, so its height is unknown on the first pass. Until it is
+ * known the panel is assumed to be as tall as `maxHeight`, which keeps the
+ * flip decision honest.
+ *
+ * When the surface does not fit below the anchor it is anchored by its bottom
+ * edge instead of its top, so it hugs the trigger whatever its height is.
  */
 export function useAnchoredPosition(
   anchorRef: RefObject<HTMLElement | null>,
@@ -47,11 +50,11 @@ export function useAnchoredPosition(
       return;
     }
 
-    function measure() {
-      const anchor = anchorRef.current;
+    const anchor = anchorRef.current;
 
-      if (!anchor) return;
+    if (!anchor) return;
 
+    const measure = () => {
       const rect = anchor.getBoundingClientRect();
 
       const viewportHeight =
@@ -60,28 +63,31 @@ export function useAnchoredPosition(
       const viewportWidth =
         window.innerWidth || padding * 2;
 
-      const desired =
+      const measured =
         floatingRef.current?.scrollHeight ?? 0;
+
+      /* Before the panel exists, assume the biggest size it may take. */
+      const natural =
+        measured > 0 ? measured : maxHeight;
 
       const roomBelow =
         viewportHeight - rect.bottom - gap - padding;
 
       const roomAbove = rect.top - gap - padding;
 
-      const placeAbove =
-        roomBelow < Math.min(desired || Infinity, maxHeight) &&
+      const flip =
+        roomBelow < Math.min(natural, maxHeight) &&
         roomAbove > roomBelow;
 
-      const room = placeAbove ? roomAbove : roomBelow;
+      const room = Math.max(
+        flip ? roomAbove : roomBelow,
+        0
+      );
 
       const height = Math.max(
         80,
-        Math.min(maxHeight, room, desired || maxHeight)
+        Math.min(maxHeight, room === 0 ? maxHeight : room, natural)
       );
-
-      const top = placeAbove
-        ? rect.top - gap - height
-        : rect.bottom + gap;
 
       const maxLeft = Math.max(
         padding,
@@ -95,20 +101,50 @@ export function useAnchoredPosition(
 
       setStyle({
         position: "fixed",
-        top: Math.round(top),
+
         left: Math.round(left),
         width: Math.round(rect.width),
         maxHeight: Math.round(height),
+
         zIndex: 50,
+
+        ...(flip
+          ? {
+              bottom: Math.round(
+                viewportHeight - rect.top + gap
+              ),
+            }
+          : {
+              top: Math.round(rect.bottom + gap),
+            }),
       });
-    }
+    };
 
     measure();
+
+    const frame =
+      typeof requestAnimationFrame === "function"
+        ? requestAnimationFrame(measure)
+        : 0;
+
+    const observer =
+      typeof ResizeObserver === "function" &&
+      floatingRef.current
+        ? new ResizeObserver(measure)
+        : null;
+
+    if (observer && floatingRef.current) {
+      observer.observe(floatingRef.current);
+    }
 
     window.addEventListener("resize", measure);
     window.addEventListener("scroll", measure, true);
 
     return () => {
+      if (frame) cancelAnimationFrame(frame);
+
+      observer?.disconnect();
+
       window.removeEventListener("resize", measure);
       window.removeEventListener("scroll", measure, true);
     };

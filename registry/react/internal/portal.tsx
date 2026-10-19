@@ -28,7 +28,16 @@ export function Portal({
   );
 
   useEffect(() => {
-    setHost(container ?? document.body);
+    /* A themed wrapper defines the tokens the surface needs, so a floating
+       panel mounts inside it when one exists instead of on <body>. */
+    const themed = document.querySelector(
+      "[data-pimolu-theme], [data-pimolu-style]"
+    );
+
+    setHost(
+      container ??
+        (themed instanceof HTMLElement ? themed : document.body)
+    );
   }, [container]);
 
   if (!host) return null;

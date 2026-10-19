@@ -266,6 +266,42 @@ describe("Pimolu Select (styled)", () => {
     );
   });
 
+  it("anchors the listbox under the trigger, above it when there is no room", async () => {
+    const user = userEvent.setup();
+
+    render(<Select label="Framework">{options}</Select>);
+
+    const trigger = screen.getByRole("combobox");
+
+    /* A trigger at the bottom of the viewport: nothing fits below. */
+    trigger.getBoundingClientRect = () =>
+      ({
+        top: 700,
+        bottom: 740,
+        left: 40,
+        right: 240,
+        width: 200,
+        height: 40,
+        x: 40,
+        y: 700,
+        toJSON: () => ({}),
+      }) as DOMRect;
+
+    await user.click(trigger);
+
+    const listbox = screen.getByRole("listbox");
+
+    expect(listbox.style.position).toBe("fixed");
+
+    /* Anchored by its bottom edge just above the trigger — not by a top
+       value computed from the viewport origin. */
+    expect(listbox.style.bottom).toBe(
+      `${window.innerHeight - 700 + 4}px`
+    );
+
+    expect(listbox.style.top).toBe("");
+  });
+
   it("keeps the native control behind the native prop", () => {
     render(
       <Select native label="Framework">
