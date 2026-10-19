@@ -1,0 +1,40 @@
+{
+  "light": {
+    "primary": "#5B55E7",
+    "primaryHover": "#4A44D4",
+    "primaryForeground": "#FFFFFF",
+    "secondary": "#ECEEF6",
+    "secondaryHover": "#E2E6F0",
+    "secondaryForeground": "#171B2B",
+    "background": "#F8F9FC",
+    "foreground": "#171B2B",
+    "muted": "#F1F3F9",
+    "mutedForeground": "#5C6479",
+    "border": "#E4E7EF",
+    "controlBorder": "#8A93A8",
+    "focusRing": "#5B55E7",
+    "surface": "#FFFFFF",
+    "surfaceForeground": "#171B2B",
+    "accent": "#0C9E8B",
+    "accentForeground": "#FFFFFF"
+  },
+  "dark": {
+    "primary": "#7C77F0",
+    "primaryHover": "#918DF5",
+    "primaryForeground": "#0E111A",
+    "secondary": "#232838",
+    "secondaryHover": "#2C3245",
+    "secondaryForeground": "#E8EAF2",
+    "background": "#0E111A",
+    "foreground": "#E8EAF2",
+    "muted": "#1C2130",
+    "mutedForeground": "#A7AEC0",
+    "border": "#262B3A",
+    "controlBorder": "#5A6378",
+    "focusRing": "#8A85F0",
+    "surface": "#161A26",
+    "surfaceForeground": "#E8EAF2",
+    "accent": "#2BC4AF",
+    "accentForeground": "#062A25"
+  }
+}

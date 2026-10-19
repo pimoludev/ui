@@ -8,10 +8,16 @@ import { fileURLToPath } from "node:url";
 import { pimoluPresets } from "@pimolu/themes/presets";
 
 test("exports preset data", () => {
-  assert.equal(Object.keys(pimoluPresets).length, 5);
+  assert.equal(Object.keys(pimoluPresets).length, 6);
 
   assert.equal(
     typeof pimoluPresets.cartoon.light.primary,
+    "string"
+  );
+
+  /* The adaptive candidate is discovered like any other palette. */
+  assert.equal(
+    typeof pimoluPresets.adaptive.light.primary,
     "string"
   );
 });
