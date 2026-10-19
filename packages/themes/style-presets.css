@@ -14,3 +14,6 @@
 
 /* Radius is a dimension of its own, applied after the presets */
 @import "./radius.css";
+
+/* Density composes with radius, after it */
+@import "./density.css";

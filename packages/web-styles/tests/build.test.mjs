@@ -60,6 +60,9 @@ test("full bundle includes themes and components", async () => {
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
+    '[data-pimolu-density=compact]',
+    '[data-pimolu-density=comfortable]',
+    '[data-pimolu-density=spacious]',
   ]) {
     assert.ok(
       css.includes(token),

@@ -1,0 +1,85 @@
+
+/* =========================================
+   PIMOLU THEMES — DENSITY DIMENSION
+
+   Box metrics only: heights and paddings are multiplied by a factor,
+   never the font, the icons or the radii. Density has to make a form
+   denser, not smaller to read.
+
+   Select and Combobox are height-only on purpose: their inline padding
+   also reserves the chevron space, so scaling it would push the text
+   under the icon.
+
+   Button is not covered yet: it takes its padding from the spacing
+   scale instead of a dedicated variable (see docs/ai/DENSITY.md).
+========================================= */
+
+[data-pimolu-density="compact"] {
+  --pimolu-density-factor: 0.875;
+}
+
+[data-pimolu-density="comfortable"] {
+  --pimolu-density-factor: 1;
+}
+
+[data-pimolu-density="spacious"] {
+  --pimolu-density-factor: 1.125;
+}
+
+[data-pimolu-density] .pimolu-input {
+  min-height:
+    calc(
+      var(--pimolu-input-height) *
+      var(--pimolu-density-factor)
+    );
+
+  padding-inline:
+    calc(
+      var(--pimolu-input-padding) *
+      var(--pimolu-density-factor)
+    );
+}
+
+[data-pimolu-density] .pimolu-select__control {
+  height:
+    calc(
+      var(--pimolu-select-height) *
+      var(--pimolu-density-factor)
+    );
+}
+
+[data-pimolu-density] .pimolu-combobox__input {
+  height:
+    calc(
+      var(--pimolu-combobox-height) *
+      var(--pimolu-density-factor)
+    );
+}
+
+[data-pimolu-density] .pimolu-multiselect__value-area {
+  min-height:
+    calc(
+      var(--pimolu-multiselect-height) *
+      var(--pimolu-density-factor)
+    );
+
+  padding:
+    calc(
+      var(--pimolu-multiselect-padding) *
+      var(--pimolu-density-factor)
+    );
+}
+
+[data-pimolu-density] .pimolu-textarea__control {
+  padding-block:
+    calc(
+      var(--pimolu-textarea-padding-y) *
+      var(--pimolu-density-factor)
+    );
+
+  padding-inline:
+    calc(
+      var(--pimolu-textarea-padding-x) *
+      var(--pimolu-density-factor)
+    );
+}
