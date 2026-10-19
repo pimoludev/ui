@@ -66,7 +66,7 @@ pnpm "playground dev"
 
 | Commande | Rôle |
 | --- | --- |
-| `pnpm build:all` | Générer les tokens, les thèmes et les presets |
+| `pnpm build:all` | Générer les tokens, thèmes, presets, tokens visuels et CSS des composants |
 | `pnpm verify` | Pipeline complet : build, types, audit des thèmes, tests, lint, build du playground |
 | `pnpm test:react` | Exécuter les tests de composants |
 | `pnpm audit:themes` | Contrôle d'intégrité des thèmes et presets, en lecture seule |
@@ -77,16 +77,14 @@ pnpm "playground dev"
 Sur le web, importez la feuille de style générée et appliquez un thème et un style par attributs. Les styles personnalisés s'écrivent à partir des variables sémantiques telles que `var(--pimolu-primary)` et `var(--pimolu-radius-md)`.
 
 ```tsx
-import "@pimolu/themes/styles.css";
-import "@pimolu/themes/presets.css";
+import "@pimolu/web-styles/styles.css";
 ```
 
 En React, le provider et les composants s'appuient sur les mêmes fondations : le balisage reste stable tandis que le design évolue autour de lui.
 
 ```tsx
 import { Button, PimoluProvider } from "@pimolu/react";
-import "@pimolu/themes/styles.css";
-import "@pimolu/themes/presets.css";
+import "@pimolu/web-styles/styles.css";
 
 export function App() {
   return (
@@ -103,13 +101,13 @@ Un exemple complet d'application Next.js App Router, avec lecture des préféren
 
 ## Qualité, automatisée
 
-La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verify`, génère les ressources, vérifie les types, audite le système de thèmes, exécute toutes les suites de tests, analyse l'application et construit le playground. La même commande s'exécute en intégration continue.
+La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verify`, génère les ressources, vérifie les types, audite le système de thèmes, exécute toutes les suites de tests, analyse l'application et construit le playground. La CI GitHub reste désactivée pendant le polissage de la bibliothèque existante.
 
 Un auditeur dédié, en lecture seule, protège spécifiquement le système de thèmes. Il confirme la parité clair/sombre, valide chaque preset, vérifie que les palettes et leurs styles restent cohérents, contrôle les types générés, et signale tout emplacement où un thème ou un preset doit encore être déclaré. Des hooks Git lancent une vérification rapide avant chaque commit et le pipeline complet avant chaque push, pour que le dépôt reste sain sans que personne n'ait à y penser.
 
 ## État du projet
 
-Pimolu UI est en développement actif. La chaîne de tokens, le système de thèmes et de presets, ainsi qu'un premier composant React accessible sont disponibles et couverts par des tests. Le registre React est la priorité actuelle ; d'autres registres de plateforme et une couverture de composants plus riche figurent sur la feuille de route. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue.
+Pimolu UI est en développement actif. La chaîne de tokens, deux thèmes de couleur, six presets visuels et 20 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) pour l'architecture vérifiée et ses limites.
 
 ## Contribution
 

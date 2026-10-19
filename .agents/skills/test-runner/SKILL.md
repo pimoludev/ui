@@ -17,7 +17,8 @@ component/package, or when the user asks whether something works.
 ## Scope selection
 | Change touches | Run |
 | --- | --- |
-| `packages/design-tokens`, `packages/themes` | `pnpm build:all` + `pnpm test` |
+| `packages/design-tokens`, `packages/themes` | `pnpm build:all` + `pnpm test` + `pnpm test:themes` + `pnpm audit:themes` |
+| `packages/web-styles` | `pnpm build:all` + `pnpm test:web-styles` |
 | `registry/react/**` | `pnpm test:react` + `pnpm typecheck` |
 | `apps/playground/**` | `pnpm lint` + `pnpm --dir apps/playground run build` |
 | Anything (safe default) | `pnpm verify` |
@@ -30,9 +31,11 @@ component/package, or when the user asks whether something works.
   Filter: `pnpm --dir registry/react test <name-substring>`.
 - TypeScript (whole repo, tokens + components + core): `pnpm typecheck`.
 - Lint (currently `apps/playground` only — ESLint is configured there): `pnpm lint`.
-- Build generated assets (tokens, themes, presets): `pnpm build:all`.
+- Build generated assets (tokens, themes, presets, visual tokens and web CSS): `pnpm build:all`.
+- Theme audit: `pnpm audit:themes` (or `pnpm audit:themes:strict`).
+- Web styles tests: `pnpm test:web-styles`.
 - Playground production build (`tsc -b && vite build`): `pnpm --dir apps/playground run build`.
-- Full pipeline: `pnpm verify` = `build:all → typecheck → lint → test → test:react → playground build`.
+- Full pipeline: `pnpm verify` = `build:all → typecheck → audit:themes → test → test:themes → test:react → test:web-styles → lint → skills:check → playground build`. `pnpm check` also builds `examples/nextjs`.
 
 ## Steps
 1. Identify what changed (paths) and pick the scope above.

@@ -55,7 +55,7 @@ Builders: `build:presets` and `build:visuals` (both part of `build:all`).
 ## Hand-written CSS that remains
 
 - `style-base.css`: shared default tokens (`:where([data-pimolu-style])`), the semantic
-  derivations (`--pimolu-secondary`, `--pimolu-neutral`), base radii, fonts,
+  derivations (`--pimolu-secondary`, `--pimolu-neutral`), shared font defaults,
   `color-scheme` per theme, and the component override hooks
   (`--pimolu-control-shadow`, `--pimolu-soft-border-color`,
   `--pimolu-button-active-transform`, …).
@@ -79,13 +79,12 @@ Selectors used: `[data-pimolu-theme="dark"]`, `[data-pimolu-style="<preset>"]`,
   `color-mix(…)`). Web consumes them directly; a native renderer must resolve them.
 - `--pimolu-glass-orb-1|2` are defined but unused by any component.
 
-## Known token gaps (warnings, not breakage)
-Components reference `--pimolu-success*`, `--pimolu-warning*`, `--pimolu-danger-hover`,
-`--pimolu-danger-foreground` with hardcoded fallbacks; not defined by any theme or preset
-(`--pimolu-danger` comes from `themes.json`). `--pimolu-info` does not exist.
+## Status tokens
+`success`, `warning` and `danger` each have a base, hover and foreground token
+in both colour themes. `--pimolu-shadow-sm` is defined per visual preset in `src/visual/`.
+`--pimolu-info` does not exist.
 
 ## Planned direction
-Visual tokens are now data. The remaining steps are to move the shared web component CSS
-into a dedicated web layer (`packages/web-styles`) shared by React, Next, Electron, Angular
-and CDN consumers, and to give `registry/native` its own components reading the same
-generated data.
+Shared web component CSS already lives in `packages/web-styles`. Native, Angular
+and CDN integration remain future work; no platform implementation is implied by
+the presence of web assets.

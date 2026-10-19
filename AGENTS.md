@@ -2,21 +2,25 @@
 
 Pimolu UI — a pnpm-workspace monorepo for a cross-platform design system. The READMEs are bilingual (`README.md` in English, `README.fr.md` in French); many comments and test names are in French.
 
+Start with `docs/ai/PROJECT_CONTEXT.md`; follow its links to the verified architecture, design system, component inventory, development guide and roadmap. Recheck the source files relevant to each task because this reference is a snapshot.
+
 ## Setup & commands (run from repo root)
 
 - Node >= 20; use `pnpm` (pinned via `packageManager`). `pnpm install` first.
 - `pnpm build` — design-tokens build only. Writes `packages/design-tokens/dist/{tokens.json,tokens.css}` and `packages/themes/dist/{themes.json,styles.css}`.
-- `pnpm build:all` — `build` + `packages/themes build:presets`. Also writes `packages/themes/dist/{presets.css,presets.js,presets.d.ts}`. Prefer this when unsure.
+- `pnpm build:all` — `build` + Default palette, five other preset palettes, six visual token sets and the shared web CSS bundle. Prefer this when unsure.
 - `pnpm test` — `node --test` on `packages/design-tokens/tests/*.test.mjs` ONLY (self-contained; re-runs the build).
 - `pnpm test:themes` — `node --test` in `packages/themes` (preset validation + generated output).
 - `pnpm test:react` — vitest (jsdom) in `registry/react`; `pnpm test:watch` to watch.
+- `pnpm test:web-styles` — Node tests for generated component CSS bundles.
 - Single React test file: `pnpm --dir registry/react exec vitest run button/button.test.tsx`.
 - `pnpm typecheck` — repo-wide `tsc` over `tsconfig.json` (covers `registry/**` + `packages/**`).
 - `pnpm lint` — ESLint, scoped to `apps/playground` (no root ESLint config).
 - `pnpm audit:themes` — read-only theme/preset integrity check (add `--strict` to also fail on warnings).
 - `pnpm skills:check` — validates the `.agents/skills` catalog (frontmatter, names, duplicates).
-- `pnpm verify:quick` — `build:all → typecheck → audit:themes → test → test:themes → test:react`.
+- `pnpm verify:quick` — `build:all → typecheck → audit:themes → test → test:themes → test:react → test:web-styles`.
 - `pnpm verify` — `verify:quick + lint + skills:check + playground build`. The canonical full check.
+- `pnpm check` — `verify + examples/nextjs build`.
 - `pnpm "playground dev"` — Vite dev server for `apps/playground` (the script name contains a space).
 
 ## Skills (`.agents/skills/<name>/SKILL.md`)
@@ -57,7 +61,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 ## Generated code — do not hand-edit
 
 - `packages/design-tokens/dist/*` and `packages/themes/dist/*` are generated and gitignored.
-- Packages export from `dist/`, so a fresh clone must run `pnpm build:all` before `apps/playground` (or anything importing `@pimolu/themes/styles.css`, `@pimolu/themes/presets.css`, or `@pimolu/themes/presets`) can resolve.
+- `@pimolu/design-tokens`, `@pimolu/themes` and `@pimolu/web-styles` export generated assets from `dist/`; `@pimolu/react` and `@pimolu/core` export source TypeScript. A fresh clone must run `pnpm build:all` before the playground or generated theme/style imports can resolve.
 - `pnpm build` alone does NOT regenerate the preset or visual assets; use `build:all` (or `pnpm --dir packages/themes build:presets` / `build:visuals`).
 
 ## Token pipeline
@@ -82,7 +86,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 
 - `packages/design-tokens`, `packages/themes`: build-driven CSS/JSON outputs.
 - `packages/core`: `createVariants()` returns a className string (no `cn`/Tailwind helper).
-- `registry/react`: source-only package (private; exports `./index.ts`, no build step). A component lives in `registry/react/<name>/` with `<name>.tsx`, `<name>.variants.ts`, `<name>.css`, `<name>.test.tsx`, and is re-exported from `registry/react/index.ts`. `Button` is the reference implementation.
+- `registry/react`: source-only package (private; exports `./index.ts`, no build step). A component lives in `registry/react/<name>/` with `<name>.tsx`, `<name>.types.ts`, `<name>.variants.ts` and `<name>.test.tsx`; its CSS lives in `packages/web-styles/src/<name>.css`. Re-export from `registry/react/index.ts`, include the stylesheet in the web-styles build and add a playground page. `Button` is the reference implementation.
 - `@pimolu/react` and `@pimolu/core` expose raw TS source (no build); `@pimolu/themes` exports generated files and needs `build:all`.
 - Styling is plain CSS classes (`pimolu-*`) + CSS variables. No Tailwind / CSS-in-JS. Theming is attribute-driven: `PimoluProvider` sets `data-pimolu-theme` and `data-pimolu-style` on a wrapping `<div>`.
 - Packages are `private: true` except `@pimolu/design-tokens`, so nothing is publishable as-is today.
@@ -91,6 +95,6 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 ## Tests
 
 - Vitest + Testing Library, jsdom; setup file is `registry/react/test/setup.ts` (auto-cleanup).
-- CSS imports are transformed by Vite; `registry/react/css.d.ts` declares `*.css` for TS.
+- Component CSS is loaded through `@pimolu/web-styles`; `registry/react/css.d.ts` remains a CSS module declaration but React sources do not currently import component CSS.
 - Follow the existing style in tests (mixed EN/FR `it(...)` descriptions are normal).
 - No E2E or visual runner is installed. `playground-visual-tests` handles visual review via manual inspection and may *propose* Playwright — do not install it without approval.

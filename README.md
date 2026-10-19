@@ -66,7 +66,7 @@ pnpm "playground dev"
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm build:all` | Generate tokens, themes and presets |
+| `pnpm build:all` | Generate tokens, themes, presets, visual tokens and component CSS |
 | `pnpm verify` | Full pipeline: build, typecheck, theme audit, tests, lint, playground build |
 | `pnpm test:react` | Run the component tests |
 | `pnpm audit:themes` | Read-only theme and preset integrity check |
@@ -77,16 +77,14 @@ pnpm "playground dev"
 On the web, import the generated stylesheet and apply a theme and a style through attributes. Custom styles are written against semantic variables such as `var(--pimolu-primary)` and `var(--pimolu-radius-md)`.
 
 ```tsx
-import "@pimolu/themes/styles.css";
-import "@pimolu/themes/presets.css";
+import "@pimolu/web-styles/styles.css";
 ```
 
 In React, the provider and components wrap the same foundations, so markup stays stable while the design evolves around it.
 
 ```tsx
 import { Button, PimoluProvider } from "@pimolu/react";
-import "@pimolu/themes/styles.css";
-import "@pimolu/themes/presets.css";
+import "@pimolu/web-styles/styles.css";
 
 export function App() {
   return (
@@ -103,13 +101,13 @@ A complete Next.js App Router example, including server-read theme cookies, live
 
 ## Quality, automated
 
-Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. The same command runs in continuous integration.
+Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI is currently disabled while the existing library is being refined.
 
 A dedicated read-only auditor guards the theme system specifically. It confirms light and dark parity, validates every preset, checks that palettes and their styles stay consistent, verifies the generated types, and reports any place where a theme or preset must still be registered. Git hooks run a quick verification before each commit and the full pipeline before each push, so the repository stays healthy without anyone having to think about it.
 
 ## Project status
 
-Pimolu UI is under active development. The token pipeline, the theme and preset system, and a first accessible React component are available and covered by tests. The React registry is the current focus; additional platform registries and richer component coverage are on the roadmap. Packages are consumed from the workspace today, with registry distribution planned.
+Pimolu UI is under active development. The token pipeline, two color themes, six visual presets and 20 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. Packages are consumed from the workspace today, with registry distribution planned. See [technical context](docs/ai/PROJECT_CONTEXT.md) for the verified architecture and current limits.
 
 ## Contributing
 

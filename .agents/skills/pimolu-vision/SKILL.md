@@ -44,10 +44,10 @@ own. The playground has one page per component (hash routes). There is no native
 registry yet.
 
 ## Roadmap order
-1. Preset visual tokens as data — done.
-2. Shared web styles layer and bundle — in progress (Button and Input moved).
-3. Native registry reading the same generated data.
-4. More components, one at a time, on the stable foundation.
+1. Preset visual tokens and shared web styles — implemented for the current React families.
+2. Polish and validate existing components and presets; see `docs/ai/ROADMAP.md`.
+3. Prepare packaging and public documentation.
+4. Native registry reading the same generated data.
 
 ## Decision filter
 Before starting, answer these. A "no" means redesign the approach.
