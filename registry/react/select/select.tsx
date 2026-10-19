@@ -5,6 +5,7 @@ import {
   Fragment,
   forwardRef,
   isValidElement,
+  useEffect,
   useId,
   useRef,
   useState,
@@ -53,6 +54,11 @@ function parseOptions(children: ReactNode): ParsedOption[] {
         disabled?: boolean;
         children?: ReactNode;
       };
+
+      if (child.type === Fragment) {
+        walk(props.children, group);
+        return;
+      }
 
       if (child.type === "optgroup") {
         walk(props.children, props.label ?? "");
@@ -215,6 +221,19 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
       setOpen(false);
       setActiveIndex(-1);
     });
+
+    /* The panel keeps the active option in view while the arrows move
+       through a long list. */
+
+    useEffect(() => {
+      if (!open || activeIndex < 0) return;
+
+      const node = listboxRef.current?.querySelector(
+        `[id="${optionId(activeIndex)}"]`
+      );
+
+      node?.scrollIntoView?.({ block: "nearest" });
+    }, [open, activeIndex]);
 
     /* Accessibility */
 

@@ -17,6 +17,15 @@ export type {
   PimoluSelectAppearance,
 };
 
+/**
+ * The `children` are the option list: literal `<option>` elements, grouped by
+ * literal `<optgroup>` elements, inside an optional fragment. A component
+ * intermediary would hide them from the parser, so keep them inline.
+ *
+ * The forwarded ref points to the control element of the active path: the
+ * `<button role="combobox">` by default, the `<select>` when `native` is set.
+ * Type it as `HTMLElement` and narrow with `instanceof` when needed.
+ */
 export interface PimoluSelectProps
   extends Omit<
     SelectHTMLAttributes<HTMLSelectElement>,

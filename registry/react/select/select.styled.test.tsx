@@ -298,6 +298,47 @@ describe("Pimolu Select (styled)", () => {
     expect(trigger).toHaveTextContent("Next.js");
   });
 
+  it("reads the options wrapped in a fragment", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Select label="Framework">
+        <>
+          <option value="react">React</option>
+          <option value="vue">Vue</option>
+        </>
+      </Select>
+    );
+
+    expect(screen.getByRole("combobox")).toHaveTextContent(
+      "React"
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(screen.getAllByRole("option")).toHaveLength(2);
+  });
+
+  it("keeps the active option in view", async () => {
+    const scrollIntoView = vi.fn();
+
+    Object.defineProperty(Element.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+
+    const user = userEvent.setup();
+
+    render(<Select label="Framework">{options}</Select>);
+
+    await user.click(screen.getByRole("combobox"));
+    await user.keyboard("{ArrowDown}");
+
+    expect(scrollIntoView).toHaveBeenLastCalledWith({
+      block: "nearest",
+    });
+  });
+
   it("anchors the listbox under the trigger, above it when there is no room", async () => {
     const user = userEvent.setup();
 
