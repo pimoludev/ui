@@ -1,0 +1,110 @@
+/* =========================================
+   PIMOLU UI - LINK
+   Shared Web Styles
+========================================= */
+
+.pimolu-link {
+  color: var(--pimolu-primary);
+
+  font: inherit;
+
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+
+  cursor: pointer;
+
+  transition: color 150ms ease;
+}
+
+.pimolu-link--primary {
+  color: var(--pimolu-primary);
+}
+
+.pimolu-link--muted {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-link--inherit {
+  color: inherit;
+}
+
+.pimolu-link--underline-always {
+  text-decoration-line: underline;
+}
+
+.pimolu-link--underline-hover {
+  text-decoration-line: none;
+}
+
+.pimolu-link--underline-none {
+  text-decoration-line: none;
+}
+
+.pimolu-link--underline-hover:hover {
+  text-decoration-line: underline;
+}
+
+.pimolu-link--primary:hover {
+  color: var(--pimolu-primary-hover, var(--pimolu-primary));
+}
+
+.pimolu-link--muted:hover {
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-link:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+
+  border-radius: 2px;
+}
+
+.pimolu-link[aria-disabled="true"] {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+  text-decoration-line: none;
+}
+
+/* =========================================
+   EXTERNAL ICON
+========================================= */
+
+.pimolu-link__external {
+  display: inline-block;
+
+  margin-inline-start: 0.2em;
+
+  font-size: 0.8em;
+  line-height: 1;
+
+  text-decoration: none;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-link {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-link {
+    color: LinkText;
+  }
+
+  .pimolu-link:focus-visible {
+    outline-color: Highlight;
+  }
+}

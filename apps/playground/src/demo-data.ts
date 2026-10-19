@@ -13,6 +13,12 @@ import {
   popoverVariantMap,
   dialogVariantMap,
   tabsVariantMap,
+  toggleVariantMap,
+  segmentedControlVariantMap,
+  linkVariantMap,
+  typographyVariantMap,
+  codeVariantMap,
+  labelVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
   rangeSliderVariantMap,
@@ -185,6 +191,46 @@ export const tabsVariants = optionsOf(
 
 export const tabsSizes = optionsOf(
   tabsVariantMap.size,
+);
+
+export const toggleVariants = optionsOf(
+  toggleVariantMap.variant,
+);
+
+export const toggleSizes = optionsOf(
+  toggleVariantMap.size,
+);
+
+export const segmentedControlSizes = optionsOf(
+  segmentedControlVariantMap.size,
+);
+
+export const linkVariants = optionsOf(
+  linkVariantMap.variant,
+);
+
+export const linkUnderlines = optionsOf(
+  linkVariantMap.underline,
+);
+
+export const typographySizes = optionsOf(
+  typographyVariantMap.size,
+);
+
+export const typographyWeights = optionsOf(
+  typographyVariantMap.weight,
+);
+
+export const typographyTones = optionsOf(
+  typographyVariantMap.tone,
+);
+
+export const codeSizes = optionsOf(
+  codeVariantMap.size,
+);
+
+export const labelSizes = optionsOf(
+  labelVariantMap.size,
 );
 
 export const sliderSizes = optionsOf(sliderVariantMap.size);

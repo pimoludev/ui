@@ -11,12 +11,18 @@ export const pages = [
   { id: "overview", label: "Overview", group: "Getting started" },
 
   { id: "button", label: "Button", group: "Actions" },
+  { id: "toggle", label: "Toggle", group: "Actions" },
+  { id: "toggle-group", label: "ToggleGroup", group: "Actions" },
 
   { id: "tabs", label: "Tabs", group: "Navigation" },
+  { id: "segmented-control", label: "SegmentedControl", group: "Navigation" },
+  { id: "link", label: "Link", group: "Navigation" },
 
   { id: "checkbox", label: "Checkbox", group: "Forms" },
   { id: "combobox", label: "Combobox", group: "Forms" },
+  { id: "form-field", label: "FormField", group: "Forms" },
   { id: "input", label: "Input", group: "Forms" },
+  { id: "label", label: "Label", group: "Forms" },
   { id: "multi-select", label: "MultiSelect", group: "Forms" },
   { id: "radio", label: "Radio", group: "Forms" },
   { id: "range-slider", label: "RangeSlider", group: "Forms" },
@@ -28,6 +34,9 @@ export const pages = [
   { id: "avatar", label: "Avatar", group: "Data display" },
   { id: "badge", label: "Badge", group: "Data display" },
   { id: "card", label: "Card", group: "Data display" },
+
+  { id: "typography", label: "Typography", group: "Typography" },
+  { id: "code", label: "Code & Kbd", group: "Typography" },
 
   { id: "separator", label: "Separator", group: "Layout" },
 

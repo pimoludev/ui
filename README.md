@@ -107,7 +107,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development. The token pipeline, two color themes, six visual presets and 23 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. Packages are consumed from the workspace today, with registry distribution planned. See [technical context](docs/ai/PROJECT_CONTEXT.md) for the verified architecture and current limits.
+Pimolu UI is under active development. The token pipeline, two color themes, six visual presets and 31 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. Packages are consumed from the workspace today, with registry distribution planned. See [technical context](docs/ai/PROJECT_CONTEXT.md) for the verified architecture and current limits.
 
 ## Contributing
 

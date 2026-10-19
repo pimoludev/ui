@@ -40,6 +40,14 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "popover.css",
     "dialog.css",
     "tabs.css",
+    "toggle.css",
+    "toggle-group.css",
+    "segmented-control.css",
+    "link.css",
+    "typography.css",
+    "code.css",
+    "label.css",
+    "form-field.css",
   ]) {
     const css = await load(file);
 
@@ -63,6 +71,16 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-popover",
     ".pimolu-dialog",
     ".pimolu-tabs",
+    ".pimolu-toggle",
+    ".pimolu-toggle-group",
+    ".pimolu-segmented-control",
+    ".pimolu-link",
+    ".pimolu-text",
+    ".pimolu-heading",
+    ".pimolu-code",
+    ".pimolu-kbd",
+    ".pimolu-label",
+    ".pimolu-form-field",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
@@ -1340,4 +1358,59 @@ test("Tabs styles are included in the CSS build", async () => {
     tabs.includes("forced-colors"),
     "Missing forced colors support"
   );
+});
+
+test("Toggle, SegmentedControl, Link and Typography styles are bundled", async () => {
+  const full = await load("pimolu.css");
+  const toggle = await load("toggle.css");
+  const toggleGroup = await load("toggle-group.css");
+  const segmented = await load("segmented-control.css");
+  const link = await load("link.css");
+  const typography = await load("typography.css");
+  const code = await load("code.css");
+  const label = await load("label.css");
+  const formField = await load("form-field.css");
+
+  const expectations = [
+    [toggle, ".pimolu-toggle"],
+    [toggle, "[data-state=on]"],
+    [toggleGroup, ".pimolu-toggle-group--vertical"],
+    [segmented, ".pimolu-segmented-control--full-width"],
+    [segmented, "[data-state=active]"],
+    [link, ".pimolu-link--underline-hover"],
+    [link, ".pimolu-link__external"],
+    [typography, ".pimolu-typography--3xl"],
+    [typography, ".pimolu-typography--tone-danger"],
+    [code, ".pimolu-code-block"],
+    [code, ".pimolu-kbd"],
+    [label, ".pimolu-label__required"],
+    [formField, ".pimolu-form-message--error"],
+    [formField, ".pimolu-fieldset"],
+  ];
+
+  for (const [css, selector] of expectations) {
+    assert.ok(
+      css.includes(selector),
+      `Missing selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  for (const css of [
+    toggle,
+    segmented,
+    link,
+    code,
+    formField,
+  ]) {
+    assert.ok(
+      css.includes("forced-colors") ||
+        css.includes("prefers-reduced-motion"),
+      "Missing an accessibility media query"
+    );
+  }
 });

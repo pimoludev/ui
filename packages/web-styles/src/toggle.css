@@ -1,0 +1,168 @@
+/* =========================================
+   PIMOLU UI - TOGGLE
+   Shared Web Styles
+========================================= */
+
+.pimolu-toggle {
+  --pimolu-toggle-height: 40px;
+  --pimolu-toggle-padding-x: 14px;
+  --pimolu-toggle-font-size: 0.875rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  height: var(--pimolu-toggle-height);
+
+  padding-block: 0;
+  padding-inline: var(--pimolu-toggle-padding-x);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid transparent;
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  font-family: inherit;
+  font-size: var(--pimolu-toggle-font-size);
+  font-weight: 500;
+  line-height: 1;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-toggle:hover:not(:disabled) {
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-toggle:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-toggle:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   VARIANTS
+========================================= */
+
+/* Default: a filled neutral button that becomes the primary action when on. */
+
+.pimolu-toggle--default {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-toggle--default:hover:not(:disabled):not(
+    [data-state="on"]
+  ) {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 6%,
+    var(--pimolu-muted)
+  );
+}
+
+.pimolu-toggle--default[data-state="on"] {
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+}
+
+.pimolu-toggle--default[data-state="on"]:hover {
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+}
+
+.pimolu-toggle--outline {
+  border-color: var(--pimolu-border);
+}
+
+.pimolu-toggle--ghost {
+  border-color: transparent;
+}
+
+.pimolu-toggle--outline[data-state="on"] {
+  border-color: var(--pimolu-foreground);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-toggle--ghost[data-state="on"] {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-toggle--outline:hover:not(:disabled),
+.pimolu-toggle--ghost:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-toggle--sm {
+  --pimolu-toggle-height: 32px;
+  --pimolu-toggle-padding-x: 10px;
+  --pimolu-toggle-font-size: 0.8125rem;
+}
+
+.pimolu-toggle--md {
+  --pimolu-toggle-height: 40px;
+  --pimolu-toggle-padding-x: 14px;
+  --pimolu-toggle-font-size: 0.875rem;
+}
+
+.pimolu-toggle--lg {
+  --pimolu-toggle-height: 48px;
+  --pimolu-toggle-padding-x: 18px;
+  --pimolu-toggle-font-size: 1rem;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-toggle {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-toggle[data-state="on"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+
+  .pimolu-toggle:focus-visible {
+    outline-color: Highlight;
+  }
+}

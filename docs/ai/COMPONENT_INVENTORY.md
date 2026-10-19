@@ -31,9 +31,17 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Popover | `registry/react/popover/` | Anchored interactive panel | Present and tested |
 | Dialog | `registry/react/dialog/` | Modal panel, focus trap and scroll lock | Present and tested |
 | Tabs | `registry/react/tabs/` | Roving tabs, segmented controls and scrollable bars | Present and tested |
+| Toggle | `registry/react/toggle/` | Pressable on/off button | Present and tested |
+| ToggleGroup | `registry/react/toggle-group/` | Single or multiple toggle set | Present and tested |
+| SegmentedControl | `registry/react/segmented-control/` | Compact exclusive selection | Present and tested |
+| Link | `registry/react/link/` | Styled navigation and external links | Present and tested |
+| Typography | `registry/react/typography/` | Text, Paragraph and Heading scale | Present and tested |
+| Code, Kbd | `registry/react/code/` | Inline code, blocks and keys | Present and tested |
+| Label | `registry/react/label/` | Form labels and required hints | Present and tested |
+| FormField | `registry/react/form-field/` | Field, control, message, group and fieldset | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
-utilities in `registry/react/internal/`. The playground pages cover the 23
+utilities in `registry/react/internal/`. The playground pages cover the 31
 families (AvatarGroup and RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

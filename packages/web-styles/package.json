@@ -41,7 +41,15 @@
     "./tooltip.css": "./dist/tooltip.css",
     "./popover.css": "./dist/popover.css",
     "./dialog.css": "./dist/dialog.css",
-    "./tabs.css": "./dist/tabs.css"
+    "./tabs.css": "./dist/tabs.css",
+    "./toggle.css": "./dist/toggle.css",
+    "./toggle-group.css": "./dist/toggle-group.css",
+    "./segmented-control.css": "./dist/segmented-control.css",
+    "./link.css": "./dist/link.css",
+    "./typography.css": "./dist/typography.css",
+    "./code.css": "./dist/code.css",
+    "./label.css": "./dist/label.css",
+    "./form-field.css": "./dist/form-field.css"
   },
 
   "dependencies": {

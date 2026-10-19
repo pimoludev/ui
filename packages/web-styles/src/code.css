@@ -1,0 +1,157 @@
+/* =========================================
+   PIMOLU UI - CODE / KBD
+   Shared Web Styles
+========================================= */
+
+.pimolu-code {
+  padding: 0.12em 0.35em;
+
+  border: 1px solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.85em;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-code-kbd--sm {
+  font-size: 0.85em;
+}
+
+.pimolu-code-kbd--md {
+  font-size: 0.95em;
+}
+
+.pimolu-code-kbd--lg {
+  font-size: 1.05em;
+}
+
+/* =========================================
+   BLOCK
+========================================= */
+
+.pimolu-code-block {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: var(--pimolu-spacing-4, 16px);
+
+  max-width: 100%;
+
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+
+  border: 1px solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.875rem;
+  line-height: 1.6;
+
+  tab-size: 2;
+}
+
+.pimolu-code-block > .pimolu-code {
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+
+  font-size: inherit;
+  line-height: inherit;
+
+  white-space: pre;
+}
+
+/* =========================================
+   KBD
+========================================= */
+
+.pimolu-kbd {
+  display: inline-grid;
+  place-items: center;
+
+  min-width: 1.6em;
+
+  padding: 0.1em 0.4em;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: var(--pimolu-surface, var(--pimolu-background));
+  color: var(--pimolu-foreground);
+
+  box-shadow: inset 0 -1px 0 var(--pimolu-border);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.85em;
+  font-weight: 500;
+  line-height: 1.5;
+
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pimolu-kbd.pimolu-code-kbd--sm {
+  font-size: 0.85em;
+}
+
+.pimolu-kbd.pimolu-code-kbd--md {
+  font-size: 0.95em;
+}
+
+.pimolu-kbd.pimolu-code-kbd--lg {
+  font-size: 1.05em;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-code,
+  .pimolu-code-block,
+  .pimolu-kbd {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+}

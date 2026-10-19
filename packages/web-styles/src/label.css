@@ -1,0 +1,61 @@
+/* =========================================
+   PIMOLU UI - LABEL
+   Shared Web Styles
+========================================= */
+
+.pimolu-label {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  color: var(--pimolu-foreground);
+
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-label--sm {
+  font-size: 0.8125rem;
+}
+
+.pimolu-label--md {
+  font-size: 0.875rem;
+}
+
+.pimolu-label--lg {
+  font-size: 1rem;
+}
+
+.pimolu-label__required {
+  color: var(--pimolu-danger, #dc2626);
+
+  font-weight: 400;
+}
+
+.pimolu-label__optional {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+.pimolu-label[data-disabled="true"] {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-label {
+    color: CanvasText;
+  }
+}

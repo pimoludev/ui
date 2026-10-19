@@ -1,0 +1,195 @@
+/* =========================================
+   PIMOLU UI - SEGMENTED CONTROL
+   Shared Web Styles
+========================================= */
+
+.pimolu-segmented-control {
+  --pimolu-segmented-height: 32px;
+  --pimolu-segmented-padding-x: 12px;
+  --pimolu-segmented-font-size: 0.875rem;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  padding: 4px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(--pimolu-muted);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-segmented-control--full-width {
+  display: flex;
+
+  width: 100%;
+}
+
+.pimolu-segmented-control--vertical {
+  flex-direction: column;
+  align-items: stretch;
+
+  width: fit-content;
+  min-width: 12rem;
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+.pimolu-segmented-control--full-width.pimolu-segmented-control--vertical {
+  width: 100%;
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-segmented-control__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  height: var(--pimolu-segmented-height);
+
+  padding-block: 0;
+  padding-inline: var(--pimolu-segmented-padding-x);
+
+  border: 0;
+  border-radius: 999px;
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  font-family: inherit;
+  font-size: var(--pimolu-segmented-font-size);
+  font-weight: 500;
+  line-height: 1;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-segmented-control--full-width
+  .pimolu-segmented-control__item {
+  flex: 1 1 0;
+
+  min-width: 0;
+}
+
+.pimolu-segmented-control--vertical
+  .pimolu-segmented-control__item {
+  flex: 0 0 auto;
+
+  justify-content: flex-start;
+
+  width: 100%;
+}
+
+.pimolu-segmented-control__item:hover:not(:disabled):not(
+    [data-state="active"]
+  ) {
+  color: var(--pimolu-foreground);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 6%,
+    transparent
+  );
+}
+
+.pimolu-segmented-control__item[data-state="active"] {
+  color: var(--pimolu-foreground);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-foreground) 10%,
+    var(--pimolu-muted)
+  );
+
+  box-shadow: var(
+    --pimolu-shadow-sm,
+    0 1px 2px rgba(15, 23, 42, 0.12)
+  );
+}
+
+.pimolu-segmented-control__item:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-segmented-control__item:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-segmented-control--sm {
+  --pimolu-segmented-height: 28px;
+  --pimolu-segmented-padding-x: 10px;
+  --pimolu-segmented-font-size: 0.8125rem;
+}
+
+.pimolu-segmented-control--md {
+  --pimolu-segmented-height: 32px;
+  --pimolu-segmented-padding-x: 12px;
+  --pimolu-segmented-font-size: 0.875rem;
+}
+
+.pimolu-segmented-control--lg {
+  --pimolu-segmented-height: 40px;
+  --pimolu-segmented-padding-x: 16px;
+  --pimolu-segmented-font-size: 1rem;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-segmented-control__item {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-segmented-control__item[data-state="active"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+
+  .pimolu-segmented-control__item:focus-visible {
+    outline-color: Highlight;
+  }
+}

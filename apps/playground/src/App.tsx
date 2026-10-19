@@ -9,16 +9,21 @@ import { BadgePage } from "./pages/badge-page";
 import { ButtonPage } from "./pages/button-page";
 import { CardPage } from "./pages/card-page";
 import { CheckboxPage } from "./pages/checkbox-page";
+import { CodePage } from "./pages/code-page";
 import { ComboboxPage } from "./pages/combobox-page";
 import { CircularProgressPage } from "./pages/circular-progress-page";
 import { DialogPage } from "./pages/dialog-page";
+import { FormFieldPage } from "./pages/form-field-page";
 import { InputPage } from "./pages/input-page";
+import { LabelPage } from "./pages/label-page";
+import { LinkPage } from "./pages/link-page";
 import { MultiSelectPage } from "./pages/multi-select-page";
 import { OverviewPage } from "./pages/overview-page";
 import { PopoverPage } from "./pages/popover-page";
 import { ProgressPage } from "./pages/progress-page";
 import { RadioPage } from "./pages/radio-page";
 import { RangeSliderPage } from "./pages/range-slider-page";
+import { SegmentedControlPage } from "./pages/segmented-control-page";
 import { SeparatorPage } from "./pages/separator-page";
 import { SelectPage } from "./pages/select-page";
 import { SkeletonPage } from "./pages/skeleton-page";
@@ -28,6 +33,9 @@ import { TooltipPage } from "./pages/tooltip-page";
 import { SwitchPage } from "./pages/switch-page";
 import { TabsPage } from "./pages/tabs-page";
 import { TextareaPage } from "./pages/textarea-page";
+import { TogglePage } from "./pages/toggle-page";
+import { ToggleGroupPage } from "./pages/toggle-group-page";
+import { TypographyPage } from "./pages/typography-page";
 
 import "./playground.css";
 
@@ -47,6 +55,10 @@ const pageComponents = {
   spinner: SpinnerPage,
   tooltip: TooltipPage,
   tabs: TabsPage,
+  toggle: TogglePage,
+  "toggle-group": ToggleGroupPage,
+  "segmented-control": SegmentedControlPage,
+  link: LinkPage,
   switch: SwitchPage,
   checkbox: CheckboxPage,
   radio: RadioPage,
@@ -56,6 +68,10 @@ const pageComponents = {
   slider: SliderPage,
   combobox: ComboboxPage,
   "multi-select": MultiSelectPage,
+  label: LabelPage,
+  "form-field": FormFieldPage,
+  typography: TypographyPage,
+  code: CodePage,
 } as const;
 
 function App() {

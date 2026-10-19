@@ -1,0 +1,155 @@
+/* =========================================
+   PIMOLU UI - FORM FIELD
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   FIELD
+========================================= */
+
+.pimolu-form-field {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.pimolu-form-message {
+  margin: 0;
+
+  font-family: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-form-message--helper {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-form-message--error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   GROUP
+========================================= */
+
+.pimolu-form-group {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.pimolu-form-group__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pimolu-form-group__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-form-group__items {
+  display: grid;
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.pimolu-form-group--horizontal
+  .pimolu-form-group__items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.pimolu-form-group--horizontal
+  .pimolu-form-group__items
+  > .pimolu-form-field {
+  flex: 1 1 12rem;
+
+  min-width: 0;
+}
+
+/* =========================================
+   FIELDSET
+========================================= */
+
+.pimolu-fieldset {
+  display: grid;
+  gap: 12px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
+
+.pimolu-fieldset__legend {
+  padding: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pimolu-fieldset__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-fieldset__items {
+  display: grid;
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.pimolu-fieldset[disabled]
+  .pimolu-fieldset__legend,
+.pimolu-fieldset[disabled]
+  .pimolu-fieldset__description {
+  opacity: 0.6;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-form-message--error {
+    color: LinkText;
+  }
+
+  .pimolu-fieldset__legend {
+    color: CanvasText;
+  }
+}

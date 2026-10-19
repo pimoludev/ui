@@ -31,6 +31,7 @@
 
   --pimolu-font-body: var(--pimolu-font-family-sans, system-ui, sans-serif);
   --pimolu-font-heading: inherit;
+  --pimolu-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --pimolu-button-font-weight: 400;
   --pimolu-button-letter-spacing: normal;

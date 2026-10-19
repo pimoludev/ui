@@ -137,6 +137,46 @@ const outputs = [
     output: "tabs.css",
     minify: false,
   },
+  {
+    input: "toggle.css",
+    output: "toggle.css",
+    minify: false,
+  },
+  {
+    input: "toggle-group.css",
+    output: "toggle-group.css",
+    minify: false,
+  },
+  {
+    input: "segmented-control.css",
+    output: "segmented-control.css",
+    minify: false,
+  },
+  {
+    input: "link.css",
+    output: "link.css",
+    minify: false,
+  },
+  {
+    input: "typography.css",
+    output: "typography.css",
+    minify: false,
+  },
+  {
+    input: "code.css",
+    output: "code.css",
+    minify: false,
+  },
+  {
+    input: "label.css",
+    output: "label.css",
+    minify: false,
+  },
+  {
+    input: "form-field.css",
+    output: "form-field.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

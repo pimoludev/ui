@@ -1,0 +1,36 @@
+/* =========================================
+   PIMOLU UI - TOGGLE GROUP
+   Shared Web Styles
+========================================= */
+
+.pimolu-toggle-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.pimolu-toggle-group--vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.pimolu-toggle-group--vertical
+  .pimolu-toggle-group__item {
+  justify-content: flex-start;
+
+  width: 100%;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-toggle-group__item[data-state="on"] {
+    border: 1px solid Highlight;
+
+    color: Highlight;
+  }
+}
