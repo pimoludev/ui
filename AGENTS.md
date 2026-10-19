@@ -48,7 +48,7 @@ theme/preset is created, modified, renamed or deleted; when colors/tokens/CSS va
 change; or when "verify all themes" is requested. Audits are read-only: never edit inside
 an audit without an explicit go-ahead.
 
-Hard rules (see the skills for detail): never claim unexecuted tests passed; never delete/weaken a failing test; never update visual snapshots silently; never commit, push or publish without an explicit request from the user; a component change is not complete until its playground page demonstrates it — every new prop, variant, state, placement or behaviour lands in `apps/playground` in the same commit, not in a follow-up.
+Hard rules (see the skills for detail): never claim unexecuted tests passed; never delete/weaken a failing test; never update visual snapshots silently; never commit, push or publish without an explicit request from the user; a component change is not complete until its playground page demonstrates it — every new prop, variant, state, placement or behaviour lands in `apps/playground` in the same commit, not in a follow-up; and it has been looked at in the six presets × light and dark, because automated tests secure behaviour, not visual quality.
 
 ## Automated validation (not agent-dependent)
 

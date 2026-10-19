@@ -48,7 +48,10 @@ playground should demonstrate it. Also usable to review playground freshness.
    when an image helps, a local asset under `apps/playground/public/`. Prop
    permutations are not enough: the section must show the component solving a
    plausible interface problem.
-9. Check responsive behavior (the layout uses flex-wrap; verify narrow widths).
+9. Validate visually before calling it done: the page in the six presets × light
+   and dark, every size, the hover/focus/disabled/error states, contrast, and the
+   layout at narrow widths (the layout uses flex-wrap). Automated tests secure the
+   behaviour; they never replace this judgment.
 10. Run the checks: `pnpm lint`, `pnpm --dir apps/playground run build`, and
     `test-runner`; the dev server hot-reloads changes (`pnpm "playground dev"`).
 11. Present the edits.
