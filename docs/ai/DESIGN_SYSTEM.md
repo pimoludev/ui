@@ -1,21 +1,62 @@
-# Design system Pimolu
+# Pimolu design system
 
-## Sources de vérité
+## Sources of truth
 
-- Primitives : `packages/design-tokens/src/tokens.json` (couleurs, espacements, rayons, tailles et famille de caractères).
-- Alias sémantiques clair/sombre : `packages/themes/src/themes.json`. Les clés doivent être identiques dans les deux modes et les références `{color.*}` doivent résoudre une primitive.
-- Preset Default : palette issue des alias par `packages/themes/scripts/build-default.mjs`, tokens visuels dans `packages/themes/src/visual/default.json`.
-- Autres presets : palettes dans `packages/themes/src/presets/<nom>.json` et valeurs visuelles dans `packages/themes/src/visual/<nom>.json`.
-- Défauts CSS partagés et exceptions web : `packages/themes/style-base.css`, `style-glass.css`, `style-luxury.css`. Les styles internes des composants restent dans `packages/web-styles/src/`.
+- Primitives: `packages/design-tokens/src/tokens.json` (colours, spacing,
+  radii, sizes and font family).
+- Light/dark semantic aliases: `packages/themes/src/themes.json`. Keys must be
+  identical in both modes and every `{color.*}` reference must resolve to a
+  primitive.
+- Default preset: palette derived from the aliases by
+  `packages/themes/scripts/build-default.mjs`; visual tokens in
+  `packages/themes/src/visual/default.json`.
+- Other presets: palettes in `packages/themes/src/presets/<name>.json` and
+  visual values in `packages/themes/src/visual/<name>.json`.
+- Shared CSS defaults and web exceptions: `packages/themes/style-base.css`,
+  `style-glass.css`, `style-luxury.css`. Component internals stay in
+  `packages/web-styles/src/`.
 
-`build:presets` valide le nom, les clés requises, la parité light/dark et les couleurs des palettes. `build:visuals` produit CSS et exports JavaScript (`pimoluPresetVisuals`), utilisables comme données sur une future plateforme native. `pnpm audit:themes` examine les points d'intégration et les variables manquantes. `system` suit `prefers-color-scheme` dans le CSS généré. Le provider peut conserver les préférences si `persist` est activé ; consulter `registry/react/provider/pimolu-provider.tsx` avant de modifier cette logique.
+`build:presets` validates the name, the required keys, light/dark parity and the
+palette colours. `build:visuals` produces CSS and JavaScript exports
+(`pimoluPresetVisuals`), usable as data on a future native platform.
+`pnpm audit:themes` checks the integration points and the missing variables.
+`system` follows `prefers-color-scheme` in the generated CSS. The provider can
+persist preferences when `persist` is enabled; read
+`registry/react/provider/pimolu-provider.tsx` before changing that logic.
 
-## Direction artistique proposée pour Default
+## Dimensions independent of the preset
 
-Default doit être la référence calme et précise : neutres ardoise lisibles, indigo concentré sur les actions primaires, signaux success/warning/danger sémantiques, typographie sans empattement, rythmes d'espacement issus des primitives et rayons cohérents entre contrôles et surfaces. Les frontières doivent être nettes, l'ombre discrète et réservée à la hiérarchie ; les états hover, focus, pressed, disabled et invalid doivent rester reconnaissables en light, dark, clavier et forced colors. Garder les cinq autres presets expressifs par leurs tokens plutôt que par des branches de composants.
+- **Radius**: `packages/themes/radius.css` redefines the three radius tokens
+  under `data-pimolu-radius="sharp" | "medium" | "round"`. Imported after the
+  generated visuals, so an explicit choice wins over the preset.
+- **Density**: `packages/themes/density.css` multiplies box metrics by
+  `0.875 / 1 / 1.125` under `data-pimolu-density`. It never changes the font,
+  the icons or the radii: density makes a form denser, not smaller to read.
+  Contract and variable map in [Density](DENSITY.md).
+- **Brand colour**: `PimoluProvider` accepts a `#RRGGBB` value and overrides
+  only `primary`, its derived hover and the focus ring. Foregrounds, surfaces
+  and semantic colours stay with the palette, so a brand colour cannot make text
+  unreadable.
 
-La direction est une proposition de design, pas une validation visuelle complète. Avant de figer de nouvelles valeurs, comparer les six presets sur les pages du playground en ordinateur et mobile, vérifier les contrastes et conserver des captures de référence. Le projet ne possède pas de tests visuels automatisés aujourd'hui.
+## Proposed art direction for Default
 
-## Ajouter un preset
+Default should be the calm and precise reference: readable slate neutrals,
+indigo concentrated on primary actions, semantic success/warning/danger signals,
+a sans-serif typeface, spacing rhythms drawn from the primitives and radii
+consistent between controls and surfaces. Borders should be crisp, the shadow
+discreet and reserved for hierarchy; hover, focus, pressed, disabled and invalid
+states must stay recognisable in light, dark, keyboard and forced colors. Keep
+the other presets expressive through their tokens rather than through component
+branches.
 
-Créer palette et valeurs visuelles JSON, maintenir light/dark, enregistrer les points manuels (notamment le type de thème si un thème est ajouté et la liste du playground), puis exécuter `pnpm build:all`, `pnpm audit:themes:strict`, les tests et une revue visuelle. Ne jamais éditer `dist` à la main.
+The direction is a design proposal, not a complete visual validation. Before
+freezing new values, compare the seven presets on the playground pages on desktop
+and mobile, check the contrasts and keep reference captures. The project has no
+automated visual tests today.
+
+## Adding a preset
+
+Create the palette and the visual JSON, keep light/dark in sync, register the
+manual points (notably the theme type if a theme is added, and the playground
+list), then run `pnpm build:all`, `pnpm audit:themes:strict`, the tests and a
+visual review. Never edit `dist` by hand.

@@ -1,33 +1,53 @@
-# Guide de développement
+# Development guide
 
-## Préparer le workspace
+## Preparing the workspace
 
-Node >= 20 et pnpm épinglé dans `package.json`. À la racine : `pnpm install`, puis `pnpm build:all` pour produire les sorties ignorées par Git. Le playground démarre par `pnpm "playground dev"`.
+Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, then
+`pnpm build:all` to produce the Git-ignored outputs. The playground starts with
+`pnpm "playground dev"`.
 
-## Commandes vérifiées dans `package.json`
+## Commands verified in `package.json`
 
-| Commande | Effet |
+| Command | Effect |
 | --- | --- |
-| `pnpm build` | Génère les primitives et thèmes de base seulement. |
-| `pnpm build:all` | Génère aussi Default, les cinq palettes, les six jeux visuels et le CSS web. |
-| `pnpm test` | Tests Node des design tokens ; relance leur build. |
-| `pnpm test:themes` | Tests Node des thèmes et presets. |
-| `pnpm test:react` | Vitest + Testing Library dans `registry/react`. |
-| `pnpm test:web-styles` | Tests des bundles CSS générés. |
-| `pnpm typecheck` | TypeScript racine sur packages et registry. |
-| `pnpm lint` | ESLint du playground. |
-| `pnpm audit:themes:strict` | Audit de thèmes, échec également sur avertissement. |
-| `pnpm skills:check` | Valide le catalogue `.agents/skills`. |
-| `pnpm verify:quick` | Build, typecheck, audit, tests tokens, thèmes, React et CSS. |
-| `pnpm verify` | Vérification rapide + lint + skills + build du playground. |
-| `pnpm check` | Vérification complète + build de `examples/nextjs`. |
+| `pnpm build` | Generates the primitives and the base themes only. |
+| `pnpm build:all` | Also generates Default, the six palettes, the six visual sets and the web CSS. |
+| `pnpm test` | Node tests for the design tokens; reruns their build. |
+| `pnpm test:themes` | Node tests for themes and presets, contrast included. |
+| `pnpm test:react` | Vitest + Testing Library in `registry/react`. |
+| `pnpm test:web-styles` | Tests for the generated CSS bundles. |
+| `pnpm typecheck` | Root TypeScript over packages and registry. |
+| `pnpm lint` | ESLint for the playground. |
+| `pnpm audit:themes:strict` | Theme audit, also failing on a warning. |
+| `pnpm skills:check` | Validates the `.agents/skills` catalog. |
+| `pnpm verify:quick` | Build, typecheck, audit, tokens, themes, React and CSS tests. |
+| `pnpm verify` | Quick verification + lint + skills + playground build. |
+| `pnpm check` | Full verification + `examples/nextjs` build. |
 
-`pnpm --dir registry/react exec vitest run button/button.test.tsx` cible un test React. Le hook pre-commit lance `verify:quick` et contrôle les fichiers indexés ; pre-push lance `verify`. Le workflow GitHub `.github/workflows/ci.yml.disabled` doit rester désactivé jusqu'à une décision explicite du mainteneur.
+`pnpm --dir registry/react exec vitest run button/button.test.tsx` targets one
+React test. The pre-commit hook runs `verify:quick` and checks the staged files;
+pre-push runs `verify`. The GitHub workflow
+`.github/workflows/ci.yml.disabled` must stay disabled until an explicit
+maintainer decision.
 
-Les configurations TypeScript de la racine, du playground et de l'exemple Next.js utilisent `strict`. Le typecheck racine couvre packages et registry ; les builds du playground et de Next.js vérifient leurs propres applications.
+The TypeScript configurations of the root, the playground and the Next.js example
+use `strict`. The root typecheck covers packages and registry; the playground and
+Next.js builds check their own applications.
 
-## Ajouter ou modifier un composant
+## Adding or changing a component
 
-Lire `registry/react/button/` comme modèle, puis le composant proche du besoin. Mettre React, types, variantes et tests dans `registry/react/<nom>/`, le CSS dans `packages/web-styles/src/<nom>.css`, déclarer le bundle dans `packages/web-styles/scripts/build.mjs` et les exports dans `packages/web-styles/package.json` et `registry/react/index.ts`. Synchroniser `apps/playground/src/pages/`, son routage et, si nécessaire, `src/demo-data.ts`. Vérifier les états contrôlés/non contrôlés, les formulaires, le clavier, les lecteurs d'écran, reduced motion, forced colors et RTL suivant le composant. Mettre à jour les READMEs et docs pour les changements publics.
+Read `registry/react/button/` as the model, then the component closest to the
+need. Put React, types, variants and tests in `registry/react/<name>/`, the CSS in
+`packages/web-styles/src/<name>.css`, declare the bundle in
+`packages/web-styles/scripts/build.mjs` and the exports in
+`packages/web-styles/package.json` and `registry/react/index.ts`. Synchronise
+`apps/playground/src/pages/`, its routing and, when needed,
+`src/demo-data.ts`. Check controlled/uncontrolled states, forms, keyboard,
+screen readers, reduced motion, forced colors and RTL as the component requires.
+Update the READMEs and the docs for public changes.
 
-Les données de design vivent dans les JSON source, jamais dans `dist`. Utiliser les variables `--pimolu-*` et les classes `pimolu-*`, sans introduire de framework de styles. Lancer `pnpm verify`, puis examiner le rendu réel des six presets et modes de couleur pour toute modification visuelle. Ne pas prétendre avoir exécuté un contrôle non lancé.
+Design data lives in the source JSON, never in `dist`. Use the `--pimolu-*`
+variables and the `pimolu-*` classes, without introducing a styling framework.
+Run `pnpm verify`, then look at the real rendering across the seven presets and
+both colour modes for any visual change. Do not claim a check was run when it was
+not.

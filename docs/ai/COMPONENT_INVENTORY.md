@@ -1,30 +1,42 @@
-# Inventaire des composants React
+# React component inventory
 
-Les chemins ci-dessous sont relatifs à la racine. Chaque famille citée est exportée dans `registry/react/index.ts`, possède un CSS dans `packages/web-styles/src/`, des tests sous son dossier React et une page dans `apps/playground/src/pages/`. « Présent » atteste l'implémentation et les tests, pas une certification exhaustive d'accessibilité ou une API figée.
+The paths below are relative to the repository root. Every listed family is
+exported from `registry/react/index.ts`, has a stylesheet in
+`packages/web-styles/src/`, tests inside its React folder and a page in
+`apps/playground/src/pages/`. "Present and tested" attests an implementation and
+its tests, not an exhaustive accessibility certification or a frozen API.
 
-| Famille | Source React | Rôle | État |
+| Family | React source | Role | State |
 | --- | --- | --- | --- |
-| Button | `registry/react/button/` | Actions, apparences et états | Présent et testé |
-| Input | `registry/react/input/` | Saisie texte, actions et validation | Présent et testé |
-| Card | `registry/react/card/` | Surface et sous-composants | Présent et testé |
-| Badge | `registry/react/badge/` | Statut compact | Présent et testé |
-| Avatar, AvatarGroup | `registry/react/avatar/` | Identité et groupe | Présents et testés |
-| Separator | `registry/react/separator/` | Séparation de contenu | Présent et testé |
-| Skeleton | `registry/react/skeleton/` | Attente de contenu | Présent et testé |
-| Spinner | `registry/react/spinner/` | Activité | Présent et testé |
-| Switch | `registry/react/switch/` | Choix binaire | Présent et testé |
-| Checkbox | `registry/react/checkbox/` | Choix multiple | Présent et testé |
-| Radio, RadioGroup | `registry/react/radio/` | Choix exclusif | Présents et testés |
-| Textarea | `registry/react/textarea/` | Saisie multilignes | Présent et testé |
-| Select | `registry/react/select/` | Sélection native ou stylée | Présent et testé |
-| Combobox | `registry/react/combobox/` | Recherche et sélection | Présent et testé |
-| MultiSelect | `registry/react/multi-select/` | Sélection multiple | Présent et testé |
-| Slider | `registry/react/slider/` | Valeur sur piste | Présent et testé |
-| RangeSlider | `registry/react/range-slider/` | Intervalle | Présent et testé |
-| Progress | `registry/react/progress/` | Progression linéaire | Présent et testé |
-| CircularProgress | `registry/react/circular-progress/` | Progression circulaire | Présent et testé |
-| Tooltip | `registry/react/tooltip/` | Aide contextuelle | Présent et testé |
+| Button | `registry/react/button/` | Actions, appearances and states | Present and tested |
+| Input | `registry/react/input/` | Text entry, actions and validation | Present and tested |
+| Card | `registry/react/card/` | Surface and sub-components | Present and tested |
+| Badge | `registry/react/badge/` | Compact status | Present and tested |
+| Avatar, AvatarGroup | `registry/react/avatar/` | Identity and group | Present and tested |
+| Separator | `registry/react/separator/` | Content separation | Present and tested |
+| Skeleton | `registry/react/skeleton/` | Pending content | Present and tested |
+| Spinner | `registry/react/spinner/` | Activity | Present and tested |
+| Switch | `registry/react/switch/` | Binary choice | Present and tested |
+| Checkbox | `registry/react/checkbox/` | Multiple choice | Present and tested |
+| Radio, RadioGroup | `registry/react/radio/` | Exclusive choice | Present and tested |
+| Textarea | `registry/react/textarea/` | Multi-line entry | Present and tested |
+| Select | `registry/react/select/` | Native or styled selection | Present and tested |
+| Combobox | `registry/react/combobox/` | Search and selection | Present and tested |
+| MultiSelect | `registry/react/multi-select/` | Multiple selection | Present and tested |
+| Slider | `registry/react/slider/` | Value on a track | Present and tested |
+| RangeSlider | `registry/react/range-slider/` | Interval | Present and tested |
+| Progress | `registry/react/progress/` | Linear progress | Present and tested |
+| CircularProgress | `registry/react/circular-progress/` | Circular progress | Present and tested |
+| Tooltip | `registry/react/tooltip/` | Contextual help | Present and tested |
 
-Le provider est dans `registry/react/provider/`; les utilitaires de positionnement et portail dans `registry/react/internal/`. Les pages de playground couvrent les 20 familles (AvatarGroup et RadioGroup sont montrés avec leur famille). `registry/native/`, `registry/angular/` et `registry/web/` sont des emplacements vides : aucun composant de ces plateformes ne doit être annoncé comme existant.
+The provider lives in `registry/react/provider/`; the positioning and portal
+utilities in `registry/react/internal/`. The playground pages cover the 20
+families (AvatarGroup and RadioGroup are shown with their family).
+`registry/native/`, `registry/angular/` and `registry/web/` are empty
+placeholders: no component from those platforms may be announced as existing.
 
-Pour connaître exactement props, variantes, tailles et états d'un composant, lire son fichier `.types.ts`, `.variants.ts`, `.tsx`, ses tests et son CSS ; les axes diffèrent selon la famille. Des revues manuelles clavier, lecteurs d'écran, RTL, forced colors et responsive restent nécessaires avant de qualifier l'ensemble de terminé.
+To know the exact props, variants, sizes and states of a component, read its
+`.types.ts`, `.variants.ts` and `.tsx` files, its tests and its CSS; the axes
+differ per family. Manual reviews of keyboard, screen readers, RTL, forced
+colors and responsive behaviour remain necessary before calling the whole set
+finished.

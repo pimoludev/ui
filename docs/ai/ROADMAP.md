@@ -1,12 +1,28 @@
-# Roadmap proposée
+# Proposed roadmap
 
-Ce document ordonne le travail selon les dépendances techniques. Il ne promet pas de date ni de fonctionnalité déjà livrée.
+This document orders the work by technical dependency. It promises neither a
+date nor a feature that is already delivered.
 
-1. **Stabiliser l'existant.** Traiter les écarts trouvés par l'audit, vérifier le rendu et les interactions des 20 familles en light/dark et six presets, puis compléter les cas d'accessibilité à risque (menus, focus, formulaires, forced colors, RTL).
-2. **Fixer les contrats du design system.** Documenter les tokens publics, contrôler contraste et états, établir des références visuelles pour Default et les autres presets, puis réduire les valeurs CSS isolées encore présentes.
-3. **Fiabiliser la distribution.** Définir le packaging compilé, les exports et peer dependencies, une matrice React/Next.js, des exemples d'installation hors monorepo et la politique SemVer. Ne publier qu'après validation de ces contrats.
-4. **Compléter l'expérience développeur.** Documentation bilingue des composants, exemples de production, meilleure navigation et éventuellement tests visuels/E2E après choix d'outil.
-5. **Étendre les plateformes.** Réutiliser palettes et tokens visuels comme données sur React Native, puis définir des composants natifs adaptés. Évaluer Angular, Electron et CDN séparément avec une matrice de capacités ; ne pas partager aveuglément le code React.
-6. **Étendre l'écosystème.** Site public, outils IA/MCP et autres produits après stabilisation de la bibliothèque et de sa distribution.
+1. **Stabilise what exists.** Address the gaps found by the audit, review the
+   rendering and the interactions of the 20 families in light/dark and the seven
+   presets, then complete the risky accessibility cases (menus, focus, forms,
+   forced colors, RTL).
+2. **Fix the design system contracts.** Document the public tokens, check
+   contrast and states, establish visual references for Default and the other
+   presets, then reduce the remaining isolated CSS values.
+3. **Make the distribution reliable.** Define the compiled packaging, the
+   exports and peer dependencies, a React/Next.js matrix, installation examples
+   outside the monorepo and the SemVer policy. Publish only after those
+   contracts are validated.
+4. **Complete the developer experience.** Bilingual component documentation,
+   production examples, better navigation and possibly visual/E2E tests once a
+   tool is chosen.
+5. **Extend the platforms.** Reuse palettes and visual tokens as data on React
+   Native, then define suitable native components. Evaluate Angular, Electron
+   and CDN separately with a capability matrix; never share React code blindly.
+6. **Extend the ecosystem.** Public website, AI/MCP tooling and other products
+   after the library and its distribution are stable.
 
-La CI GitHub reste volontairement désactivée pendant le polissage de l'existant. Sa réactivation et la protection de branche demandent une décision explicite du mainteneur.
+The GitHub CI stays deliberately disabled while the existing work is being
+polished. Re-enabling it and branch protection require an explicit maintainer
+decision.

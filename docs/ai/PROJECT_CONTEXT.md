@@ -1,26 +1,46 @@
-# Pimolu UI — contexte technique
+# Pimolu UI — technical context
 
-Mise à jour : 2026-10-19. Ce dossier décrit le dépôt local et sert de point de départ aux prochaines sessions. Relire le code concerné avant toute modification : ces notes ne remplacent pas la source.
+Updated: 2026-10-19. This folder describes the local repository and is the
+starting point for the next sessions. Re-read the relevant source before any
+change: these notes do not replace it.
 
-## État vérifié
+## Verified state
 
-- Monorepo pnpm et TypeScript, avec bibliothèque React source dans `registry/react`, styles CSS partagés dans `packages/web-styles`, tokens et thèmes dans `packages/design-tokens` et `packages/themes`.
-- Deux modes de couleur (`light`, `dark`) et le mode `system` ; six presets : `default`, `monochrome`, `cartoon`, `glass`, `luxury`, `neo-brutalism`.
-- 20 familles de composants React exportées par `registry/react/index.ts`, chacune montrée dans le playground. `examples/nextjs` illustre l'intégration App Router.
-- `apps/website`, les autres exemples et `registry/native`, `registry/angular`, `registry/web` sont des emplacements futurs, sans implémentation de plateforme.
-- `@pimolu/react`, `@pimolu/core`, `@pimolu/themes` et `@pimolu/web-styles` sont privés et ne constituent pas encore une distribution npm prête à publier.
-- GitHub CI reste désactivé dans `.github/workflows/ci.yml.disabled`. Les hooks locaux `.githooks` et `pnpm verify` sont les contrôles en service.
+- pnpm and TypeScript monorepo, with the React source library in
+  `registry/react`, the shared CSS in `packages/web-styles`, and tokens and
+  themes in `packages/design-tokens` and `packages/themes`.
+- Two colour modes (`light`, `dark`) plus `system`; seven presets: `default`,
+  `monochrome`, `cartoon`, `glass`, `luxury`, `neo-brutalism` and `adaptive`
+  (candidate palette, not yet adopted as Default).
+- 20 React component families exported by `registry/react/index.ts`, each shown
+  in the playground. `examples/nextjs` illustrates the App Router integration.
+- Three design dimensions are independent of the preset: radius
+  (`data-pimolu-radius`), density (`data-pimolu-density`) and a brand colour
+  carried by `PimoluProvider`.
+- `apps/website`, the remaining examples and `registry/native`,
+  `registry/angular`, `registry/web` are future placeholders with no platform
+  implementation.
+- `@pimolu/react`, `@pimolu/core`, `@pimolu/themes` and `@pimolu/web-styles` are
+  private and are not yet a publishable npm distribution.
+- GitHub CI stays disabled in `.github/workflows/ci.yml.disabled`. The local
+  `.githooks` and `pnpm verify` are the checks in service.
 
-## Vision exprimée par le mainteneur
+## Vision expressed by the maintainer
 
-Une identité visuelle commune entre React, Next.js, React Native, Angular, Electron et éventuellement HTML/CSS via CDN. À terme : documentation publique, outils de développement, intégrations IA et MCP. Ces cibles ne sont pas des fonctionnalités présentes dans le dépôt.
+One shared visual identity across React, Next.js, React Native, Angular,
+Electron and eventually HTML/CSS through a CDN. Longer term: public
+documentation, developer tooling, AI integrations and MCP. Those targets are not
+features present in the repository.
 
-## Documents connexes
+## Related documents
 
-- [Architecture](ARCHITECTURE.md) : flux des packages et sorties générées.
-- [Design system](DESIGN_SYSTEM.md) : sources des thèmes, presets et direction artistique Default.
-- [Composants](COMPONENT_INVENTORY.md) : inventaire et limites.
-- [Développement](DEVELOPMENT_GUIDE.md) : commandes et conventions.
-- [Roadmap](ROADMAP.md) : priorités proposées, sans engagement de livraison.
+- [Architecture](ARCHITECTURE.md): package flow and generated outputs.
+- [Design system](DESIGN_SYSTEM.md): theme sources, presets, dimensions and the
+  Default direction.
+- [Components](COMPONENT_INVENTORY.md): inventory and limits.
+- [Development](DEVELOPMENT_GUIDE.md): commands and conventions.
+- [Density](DENSITY.md): the density contract and its variable map.
+- [Roadmap](ROADMAP.md): proposed priorities, with no delivery commitment.
 
-Les deux READMEs publics sont `README.md` et `README.fr.md`. Les instructions d'agent se trouvent dans `AGENTS.md` et `.agents/skills/`.
+The two public READMEs are `README.md` and `README.fr.md`. Agent instructions
+live in `AGENTS.md` and `.agents/skills/`.
