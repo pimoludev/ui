@@ -20,32 +20,15 @@ import type {
 
 import { multiSelectVariants } from "./multi-select.variants";
 
+import { filterByQuery } from "../internal/search";
+import { useCustomValidity } from "../internal/use-custom-validity";
+import { useFormReset } from "../internal/use-form-reset";
+import { useOutsidePointer } from "../internal/use-outside-pointer";
+
 /* =========================================
-   SEARCH HELPERS
+   SEARCH
+   Filtering lives in ../internal/search
 ========================================= */
-
-function normalize(value: string): string {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLocaleLowerCase()
-    .trim();
-}
-
-function filterOptions(
-  options: readonly PimoluMultiSelectOption[],
-  query: string
-): PimoluMultiSelectOption[] {
-  const search = normalize(query);
-
-  if (!search) return [...options];
-
-  return options.filter((option) =>
-    normalize(
-      [option.label, ...(option.keywords ?? [])].join(" ")
-    ).includes(search)
-  );
-}
 
 /* =========================================
    MULTI SELECT
@@ -145,7 +128,7 @@ export const MultiSelect = forwardRef<
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const filteredOptions = useMemo(
-    () => filterOptions(options, query),
+    () => filterByQuery(options, query),
     [options, query]
   );
 
@@ -265,7 +248,7 @@ export const MultiSelect = forwardRef<
     event: ChangeEvent<HTMLInputElement>
   ) {
     const nextQuery = event.currentTarget.value;
-    const nextOptions = filterOptions(
+    const nextOptions = filterByQuery(
       options,
       nextQuery
     );
@@ -376,88 +359,24 @@ export const MultiSelect = forwardRef<
   }
 
   /* ======================================
-     CLICK OUTSIDE
+     SHARED BEHAVIOURS
   ====================================== */
 
-  useEffect(() => {
-    if (!isOpen) return;
+  useOutsidePointer(rootRef, isOpen, closeMenu);
 
-    function handlePointerDown(event: PointerEvent) {
-      if (
-        event.target instanceof Node &&
-        !rootRef.current?.contains(event.target)
-      ) {
-        setIsOpen(false);
-        setActiveIndex(-1);
-        setQuery("");
-        onQueryChange?.("");
-      }
-    }
+  useFormReset(inputRef, !controlled, () => {
+    setInternalValues([...new Set(defaultValue)]);
+    setQuery("");
+    setIsOpen(false);
+    setActiveIndex(-1);
+  });
 
-    document.addEventListener(
-      "pointerdown",
-      handlePointerDown
-    );
-
-    return () => {
-      document.removeEventListener(
-        "pointerdown",
-        handlePointerDown
-      );
-    };
-  }, [isOpen, onQueryChange]);
-
-  /* ======================================
-     NATIVE FORM RESET
-  ====================================== */
-
-  useEffect(() => {
-    if (controlled) return;
-
-    const nativeForm = inputRef.current?.form;
-    if (!nativeForm) return;
-
-    function handleReset() {
-      setInternalValues([
-        ...new Set(defaultValue),
-      ]);
-
-      setQuery("");
-      setIsOpen(false);
-      setActiveIndex(-1);
-    }
-
-    nativeForm.addEventListener("reset", handleReset);
-
-    return () => {
-      nativeForm.removeEventListener(
-        "reset",
-        handleReset
-      );
-    };
-  }, [controlled, defaultValue]);
-
-  /* ======================================
-     NATIVE FORM VALIDATION
-  ====================================== */
-
-  useEffect(() => {
-    const input = inputRef.current;
-    if (!input) return;
-
-    input.setCustomValidity(
-      required &&
-      !disabled &&
-      selectedValues.length === 0
-        ? requiredMessage
-        : ""
-    );
-  }, [
-    required,
-    disabled,
-    selectedValues,
-    requiredMessage,
-  ]);
+  useCustomValidity(
+    inputRef,
+    required && !disabled && selectedValues.length === 0
+      ? requiredMessage
+      : ""
+  );
 
   /* ======================================
      ACTIVE OPTION SCROLL

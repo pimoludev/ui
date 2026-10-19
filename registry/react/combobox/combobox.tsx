@@ -19,35 +19,15 @@ import type {
 
 import { comboboxVariants } from "./combobox.variants";
 
+import { filterByQuery } from "../internal/search";
+import { useCustomValidity } from "../internal/use-custom-validity";
+import { useFormReset } from "../internal/use-form-reset";
+import { useOutsidePointer } from "../internal/use-outside-pointer";
+
 /* =========================================
-   SEARCH HELPERS
+   SEARCH
+   Filtering lives in ../internal/search
 ========================================= */
-
-function normalizeSearch(value: string): string {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLocaleLowerCase()
-    .trim();
-}
-
-function filterOptions(
-  options: readonly PimoluComboboxOption[],
-  query: string
-): PimoluComboboxOption[] {
-  const search = normalizeSearch(query);
-
-  if (!search) return [...options];
-
-  return options.filter((option) => {
-    const searchableText = [
-      option.label,
-      ...(option.keywords ?? []),
-    ].join(" ");
-
-    return normalizeSearch(searchableText).includes(search);
-  });
-}
 
 /* =========================================
    COMBOBOX
@@ -156,7 +136,7 @@ export const Combobox = forwardRef<
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const filteredOptions = useMemo(
-    () => filterOptions(options, query ?? ""),
+    () => filterByQuery(options, query ?? ""),
     [options, query]
   );
 
@@ -247,7 +227,7 @@ export const Combobox = forwardRef<
     setQuery(nextQuery);
     onQueryChange?.(nextQuery);
 
-    const nextOptions = filterOptions(
+    const nextOptions = filterByQuery(
       options,
       nextQuery
     );
@@ -341,87 +321,24 @@ export const Combobox = forwardRef<
   }
 
   /* ======================================
-     CLICK OUTSIDE
+     SHARED BEHAVIOURS
   ====================================== */
 
-  useEffect(() => {
-    if (!isOpen) return;
+  useOutsidePointer(rootRef, isOpen, closeMenu);
 
-    function handlePointerDown(event: PointerEvent) {
-      const target = event.target;
+  useFormReset(inputRef, !isControlled, () => {
+    setInternalValue(defaultValue);
+    setQuery(null);
+    setIsOpen(false);
+    setActiveIndex(-1);
+  });
 
-      if (
-        target instanceof Node &&
-        !rootRef.current?.contains(target)
-      ) {
-        closeMenu();
-      }
-    }
-
-    document.addEventListener(
-      "pointerdown",
-      handlePointerDown
-    );
-
-    return () => {
-      document.removeEventListener(
-        "pointerdown",
-        handlePointerDown
-      );
-    };
-  }, [isOpen]);
-
-  /* ======================================
-     FORM RESET
-  ====================================== */
-
-  useEffect(() => {
-    if (isControlled) return;
-
-    const nativeForm = inputRef.current?.form;
-
-    if (!nativeForm) return;
-
-    function handleReset() {
-      setInternalValue(defaultValue);
-      setQuery(null);
-      setIsOpen(false);
-      setActiveIndex(-1);
-    }
-
-    nativeForm.addEventListener(
-      "reset",
-      handleReset
-    );
-
-    return () => {
-      nativeForm.removeEventListener(
-        "reset",
-        handleReset
-      );
-    };
-  }, [isControlled, defaultValue]);
-
-  /* ======================================
-     NATIVE FORM VALIDATION
-  ====================================== */
-
-  useEffect(() => {
-    const input = inputRef.current;
-
-    if (!input) return;
-
-    input.setCustomValidity(
-      required && !disabled && selectedValue === ""
-        ? requiredMessage
-        : ""
-    );
-  }, [
-    required,
-    disabled,
-    selectedValue,
-    requiredMessage,
-  ]);
+  useCustomValidity(
+    inputRef,
+    required && !disabled && selectedValue === ""
+      ? requiredMessage
+      : ""
+  );
 
   /* ======================================
      KEEP THE ACTIVE OPTION VISIBLE

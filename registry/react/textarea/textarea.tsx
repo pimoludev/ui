@@ -2,7 +2,6 @@
 
 import {
   forwardRef,
-  useEffect,
   useId,
   useRef,
   useState,
@@ -14,6 +13,8 @@ import type {
 } from "./textarea.types";
 
 import { textareaVariants } from "./textarea.variants";
+
+import { useFormReset } from "../internal/use-form-reset";
 
 export const Textarea = forwardRef<
   HTMLTextAreaElement,
@@ -77,24 +78,11 @@ export const Textarea = forwardRef<
 
   /* Native form reset synchronization */
 
-  useEffect(() => {
-    if (isControlled) return;
-
-    const textarea = textareaRef.current;
-    const form = textarea?.form;
-
-    if (!textarea || !form) return;
-
-    function handleReset() {
-      setLocalValue(textarea!.defaultValue);
-    }
-
-    form.addEventListener("reset", handleReset);
-
-    return () => {
-      form.removeEventListener("reset", handleReset);
-    };
-  }, [isControlled]);
+  useFormReset(textareaRef, !isControlled, () => {
+    setLocalValue(
+      textareaRef.current?.defaultValue ?? ""
+    );
+  });
 
   /* Ref forwarding */
 
