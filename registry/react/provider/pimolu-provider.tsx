@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
   useSyncExternalStore,
+  type CSSProperties,
   type ReactNode,
 } from "react";
 
@@ -31,6 +32,33 @@ export type PimoluDensity =
   | "comfortable"
   | "spacious";
 
+const HEX_COLOR = /^#[0-9a-f]{6}$/i;
+
+/** Mixes a hex colour towards another one, for a derived hover tone. */
+function mixHex(
+  hex: string,
+  target: string,
+  amount: number
+): string {
+  const parse = (value: string) =>
+    [1, 3, 5].map((index) =>
+      parseInt(value.slice(index, index + 2), 16)
+    );
+
+  const from = parse(hex);
+  const to = parse(target);
+
+  return `#${from
+    .map((channel, index) =>
+      Math.round(
+        channel + (to[index] - channel) * amount
+      )
+        .toString(16)
+        .padStart(2, "0")
+    )
+    .join("")}`;
+}
+
 const DEFAULT_STORAGE_KEY = "pimolu:preferences";
 const MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
@@ -45,10 +73,14 @@ interface PimoluContextValue {
   /** Undefined means "the comfortable default". */
   density: PimoluDensity | undefined;
 
+  /** Brand primary, or undefined to keep the preset's. */
+  brandColor: string | undefined;
+
   setTheme: (theme: PimoluThemeMode) => void;
   setStylePreset: (preset: PimoluStylePreset) => void;
   setRadius: (radius: PimoluRadius | undefined) => void;
   setDensity: (density: PimoluDensity | undefined) => void;
+  setBrandColor: (color: string | undefined) => void;
 }
 
 const PimoluContext = createContext<PimoluContextValue | null>(
@@ -151,12 +183,20 @@ export interface PimoluProviderProps {
   density?: PimoluDensity;
   defaultDensity?: PimoluDensity;
 
+  /**
+   * Brand colour as a #RRGGBB string. It overrides primary,
+   * primary-hover (derived) and the focus ring; undefined keeps
+   * the preset's own primary.
+   */
+  brandColor?: string;
+
   onThemeChange?: (theme: PimoluThemeMode) => void;
   onStylePresetChange?: (preset: PimoluStylePreset) => void;
   onRadiusChange?: (radius: PimoluRadius | undefined) => void;
   onDensityChange?: (
     density: PimoluDensity | undefined
   ) => void;
+  onBrandColorChange?: (color: string | undefined) => void;
 
   persist?: boolean;
   storageKey?: string;
@@ -179,10 +219,13 @@ export function PimoluProvider({
   density: controlledDensity,
   defaultDensity,
 
+  brandColor: controlledBrand,
+
   onThemeChange,
   onStylePresetChange,
   onRadiusChange,
   onDensityChange,
+  onBrandColorChange,
 
   persist = false,
   storageKey = DEFAULT_STORAGE_KEY,
@@ -204,6 +247,10 @@ export function PimoluProvider({
 
   const [localDensity, setLocalDensity] =
     useState<PimoluDensity | undefined>(defaultDensity);
+
+  const [localBrand, setLocalBrand] = useState<
+    string | undefined
+  >();
 
   const [loadedKey, setLoadedKey] =
     useState<string | null>(null);
@@ -295,12 +342,35 @@ export function PimoluProvider({
     localDensity ??
     parent?.density;
 
+  const brandColor =
+    controlledBrand ??
+    localBrand ??
+    parent?.brandColor;
+
   const resolvedTheme: PimoluTheme =
     theme === "system"
       ? systemDark
         ? "dark"
         : "light"
       : theme;
+
+  /* The brand colour only overrides what a brand owns: the primary
+     tone, its hover (derived) and the focus ring. */
+
+  const brandStyle =
+    brandColor !== undefined && HEX_COLOR.test(brandColor)
+      ? ({
+          "--pimolu-primary": brandColor,
+
+          "--pimolu-primary-hover": mixHex(
+            brandColor,
+            resolvedTheme === "dark" ? "#ffffff" : "#000000",
+            0.12
+          ),
+
+          "--pimolu-focus-ring": brandColor,
+        } as CSSProperties)
+      : undefined;
 
   /* Save preferences */
 
@@ -398,6 +468,14 @@ export function PimoluProvider({
     onDensityChange?.(value);
   }
 
+  function setBrandColor(value: string | undefined) {
+    if (controlledBrand === undefined) {
+      setLocalBrand(value);
+    }
+
+    onBrandColorChange?.(value);
+  }
+
   return (
     <PimoluContext.Provider
       value={{
@@ -406,10 +484,12 @@ export function PimoluProvider({
         stylePreset,
         radius,
         density,
+        brandColor,
         setTheme,
         setStylePreset,
         setRadius,
         setDensity,
+        setBrandColor,
       }}
     >
       <div
@@ -417,6 +497,7 @@ export function PimoluProvider({
         data-pimolu-style={stylePreset}
         data-pimolu-radius={radius}
         data-pimolu-density={density}
+        style={brandStyle}
         className={className}
       >
         {children}

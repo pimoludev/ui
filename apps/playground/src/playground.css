@@ -405,7 +405,6 @@
 }
 
 /* Visible feedback for a hash that names no page */
-
 .pg-notice {
   margin: 0;
   padding: 10px 16px;
@@ -436,6 +435,48 @@
 
   border: 1px dashed var(--pimolu-border);
   border-radius: var(--pimolu-radius-sm);
+}
+
+/* Brand colour control */
+
+.pg-brand-color {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 13px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pg-brand-color input[type="color"] {
+  width: 32px;
+  height: 24px;
+
+  padding: 0;
+
+  border: 1px solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-sm);
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.pg-brand-color__reset {
+  padding: 0;
+
+  border: 0;
+
+  background: none;
+
+  color: var(--pimolu-primary);
+
+  font: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /* Component index on the overview */

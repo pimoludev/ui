@@ -20,10 +20,12 @@ export function Toolbar() {
     stylePreset,
     radius,
     density,
+    brandColor,
     setTheme,
     setStylePreset,
     setRadius,
     setDensity,
+    setBrandColor,
   } = usePimoluTheme();
 
   return (
@@ -118,6 +120,27 @@ export function Toolbar() {
                 </option>
               ))}
             </select>
+          </label>
+
+          <label className="pg-brand-color">
+            <span>Brand</span>
+            <input
+              type="color"
+              value={brandColor ?? "#5B55E7"}
+              onChange={(event) =>
+                setBrandColor(event.target.value)
+              }
+            />
+
+            {brandColor && (
+              <button
+                type="button"
+                className="pg-brand-color__reset"
+                onClick={() => setBrandColor(undefined)}
+              >
+                reset
+              </button>
+            )}
           </label>
         </div>
       </div>
