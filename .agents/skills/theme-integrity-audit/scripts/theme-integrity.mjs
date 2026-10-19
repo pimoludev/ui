@@ -246,6 +246,7 @@ for (const file of visualFiles) {
 const cssFiles = [
   ...(await walkCss(themesPkg)),
   ...(await walkCss(join(root, "registry"))),
+  ...(await walkCss(join(root, "packages/web-styles/src"))),
   ...["visual.css", "presets.css", "default.css"]
     .map((f) => join(themesPkg, "dist", f))
     .filter((f) => existsSync(f)),

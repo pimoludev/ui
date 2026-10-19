@@ -86,7 +86,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 - `@pimolu/react` and `@pimolu/core` expose raw TS source (no build); `@pimolu/themes` exports generated files and needs `build:all`.
 - Styling is plain CSS classes (`pimolu-*`) + CSS variables. No Tailwind / CSS-in-JS. Theming is attribute-driven: `PimoluProvider` sets `data-pimolu-theme` and `data-pimolu-style` on a wrapping `<div>`.
 - Packages are `private: true` except `@pimolu/design-tokens`, so nothing is publishable as-is today.
-- `apps/playground` is the manual verification app: one hash-routed page per component (`src/pages/*`, registered in `src/router.ts`), shared demo data in `src/demo-data.ts`, and styles imported from `@pimolu/web-styles/styles.css` (so `pnpm build:all` must run first). `examples/nextjs` is a working Next.js App Router integration example (`pnpm --dir examples/nextjs build`). `apps/website`, the remaining `examples/*` and non-`react` `registry/*` are empty placeholders.
+- `apps/playground` is the manual verification app: one hash-routed page per component (`src/pages/*`, registered in `src/router.ts`), shared demo data in `src/demo-data.ts`, and styles imported from `@pimolu/web-styles/styles.css` (so `pnpm build:all` must run first). Each component page ends with real-world examples, not just prop permutations. `examples/nextjs` is a working Next.js App Router integration example (`pnpm --dir examples/nextjs build`). `apps/website`, the remaining `examples/*` and non-`react` `registry/*` are empty placeholders.
 
 ## Tests
 
