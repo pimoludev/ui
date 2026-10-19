@@ -52,6 +52,13 @@ export interface PimoluSelectProps
   /** Stretch to parent width. */
   fullWidth?: boolean;
 
+  /**
+   * Render the native `<select>` instead of the styled listbox. The open menu
+   * is then drawn by the platform, which is the right choice on touch devices
+   * and in a strongly constrained environment.
+   */
+  native?: boolean;
+
   /** Controlled selection. */
   value?: string;
 

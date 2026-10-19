@@ -14,7 +14,10 @@ import { useEffect, useRef, type RefObject } from "react";
  */
 export function useFormReset(
   ref: RefObject<
-    HTMLInputElement | HTMLTextAreaElement | null
+    | HTMLInputElement
+    | HTMLTextAreaElement
+    | HTMLSelectElement
+    | null
   >,
   enabled: boolean,
   onReset: () => void

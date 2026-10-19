@@ -214,6 +214,42 @@ export function SelectPage() {
       </Section>
 
       <Section
+        title="Menus"
+        hint="The styled listbox is the default; native renders the platform menu instead."
+      >
+        <div className="pg-grid pg-grid--start">
+          <div className="pg-demo-item">
+            <Select label="Styled listbox" defaultValue="react">
+              <option value="react">React</option>
+              <option value="vue">Vue</option>
+              <option value="svelte">Svelte</option>
+              <option value="angular" disabled>
+                Angular
+              </option>
+            </Select>
+            <span className="pg-meta">
+              default · arrows, Home/End, typeahead, Escape
+            </span>
+          </div>
+
+          <div className="pg-demo-item">
+            <Select
+              label="Native menu"
+              native
+              defaultValue="react"
+            >
+              <option value="react">React</option>
+              <option value="vue">Vue</option>
+              <option value="svelte">Svelte</option>
+            </Select>
+            <span className="pg-meta">
+              native · the platform draws the menu
+            </span>
+          </div>
+        </div>
+      </Section>
+
+      <Section
         title="Examples"
         hint="Real compositions built from the same parts."
       >

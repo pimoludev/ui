@@ -9,9 +9,21 @@ import {
 
 import userEvent from "@testing-library/user-event";
 
-import { Select } from "./select";
+import { Select as PimoluSelect } from "./select";
+import type { PimoluSelectProps } from "./select.types";
+import type { Ref } from "react";
 
-describe("Pimolu Select", () => {
+/**
+ * This suite covers the native control. The styled listbox, which is the
+ * default, has its own block at the end of the file.
+ */
+function Select(
+  props: PimoluSelectProps & { ref?: Ref<HTMLElement> },
+) {
+  return <PimoluSelect {...props} native />;
+}
+
+describe("Pimolu Select (native)", () => {
   it("renders a native combobox", () => {
     render(
       <Select label="Framework">
