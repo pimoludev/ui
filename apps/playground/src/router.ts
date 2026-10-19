@@ -30,6 +30,8 @@ export const pages = [
   { id: "separator", label: "Separator", group: "Layout" },
 
   { id: "circular-progress", label: "CircularProgress", group: "Feedback" },
+  { id: "dialog", label: "Dialog", group: "Feedback" },
+  { id: "popover", label: "Popover", group: "Feedback" },
   { id: "progress", label: "Progress", group: "Feedback" },
   { id: "skeleton", label: "Skeleton", group: "Feedback" },
   { id: "spinner", label: "Spinner", group: "Feedback" },

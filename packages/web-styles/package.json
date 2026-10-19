@@ -38,7 +38,9 @@
     "./range-slider.css": "./dist/range-slider.css",
     "./progress.css": "./dist/progress.css",
     "./circular-progress.css": "./dist/circular-progress.css",
-    "./tooltip.css": "./dist/tooltip.css"
+    "./tooltip.css": "./dist/tooltip.css",
+    "./popover.css": "./dist/popover.css",
+    "./dialog.css": "./dist/dialog.css"
   },
 
   "dependencies": {

@@ -36,9 +36,10 @@ their appearance.
   container, and writes the brand colour as inline custom properties. The
   stylesheets derive their appearance from those attributes and from the
   `--pimolu-*` variables.
-- The floating menus of Select, Combobox, MultiSelect and Tooltip render through
-  a portal attached to the theme container closest to the trigger, so tokens
-  survive nested providers.
+- The floating menus of Select, Combobox, MultiSelect, Tooltip and Popover render
+  through a portal attached to the theme container closest to the trigger, so
+  tokens survive nested providers. Dialog portals to the theme scope of its
+  root, so a trigger-less controlled dialog keeps the surrounding theme.
 - `apps/playground/src/router.ts` declares the demo pages;
   `apps/playground/src/demo-data.ts` derives the option lists from the public
   variant maps. `examples/nextjs` is a separate integration example.

@@ -163,8 +163,7 @@ export function useAnchoredPosition(
             80,
             Math.min(
               maxHeight,
-              room === 0 ? maxHeight : room,
-              panel?.scrollHeight || maxHeight
+              room === 0 ? maxHeight : room
             )
           )
         );
@@ -221,8 +220,7 @@ export function useAnchoredPosition(
             80,
             Math.min(
               maxWidth,
-              room === 0 ? maxWidth : room,
-              panel?.offsetWidth || maxWidth
+              room === 0 ? maxWidth : room
             )
           )
         );

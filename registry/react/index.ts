@@ -282,3 +282,40 @@ export type {
   PimoluTooltipProps,
   PimoluTooltipPlacement,
 } from "./tooltip/tooltip.types";
+
+/* Popover */
+export { Popover } from "./popover/popover";
+
+export { popoverVariantMap } from "./popover/popover.variants";
+
+export type {
+  PimoluPopoverProps,
+  PimoluPopoverPlacement,
+  PimoluPopoverPadding,
+} from "./popover/popover.types";
+
+/* Dialog */
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "./dialog/dialog";
+
+export { dialogVariantMap } from "./dialog/dialog.variants";
+
+export type {
+  PimoluDialogProps,
+  PimoluDialogTriggerProps,
+  PimoluDialogContentProps,
+  PimoluDialogHeaderProps,
+  PimoluDialogTitleProps,
+  PimoluDialogDescriptionProps,
+  PimoluDialogFooterProps,
+  PimoluDialogCloseProps,
+  PimoluDialogSize,
+} from "./dialog/dialog.types";

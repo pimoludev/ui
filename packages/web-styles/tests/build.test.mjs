@@ -37,6 +37,8 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "progress.css",
     "circular-progress.css",
     "tooltip.css",
+    "popover.css",
+    "dialog.css",
   ]) {
     const css = await load(file);
 
@@ -57,6 +59,8 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-button",
     ".pimolu-input",
     ".pimolu-tooltip",
+    ".pimolu-popover",
+    ".pimolu-dialog",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
@@ -1180,6 +1184,107 @@ test("CircularProgress styles are included in the CSS build", async () => {
 
   assert.ok(
     circular.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+test("Popover styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const popover = await load("popover.css");
+
+  const selectors = [
+    ".pimolu-popover",
+    ".pimolu-popover--padding-none",
+    ".pimolu-popover--padding-sm",
+    ".pimolu-popover--padding-md",
+    ".pimolu-popover--padding-lg",
+    ".pimolu-popover--match-width",
+    ".pimolu-popover[data-state=open]",
+    ".pimolu-popover[data-state=closing]",
+    ".pimolu-popover[data-side=top]",
+    ".pimolu-popover[data-side=bottom]",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      popover.includes(selector),
+      `Missing Popover selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    popover.includes("--pimolu-popover-padding"),
+    "The panel padding must be driven by a custom property"
+  );
+
+  assert.ok(
+    popover.includes("pimolu-popover-in"),
+    "Missing the entrance animation"
+  );
+
+  assert.ok(
+    popover.includes("prefers-reduced-motion"),
+    "Missing reduced motion support"
+  );
+
+  assert.ok(
+    popover.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+test("Dialog styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const dialog = await load("dialog.css");
+
+  const selectors = [
+    ".pimolu-dialog",
+    ".pimolu-dialog__overlay",
+    ".pimolu-dialog__content",
+    ".pimolu-dialog__content--sm",
+    ".pimolu-dialog__content--md",
+    ".pimolu-dialog__content--lg",
+    ".pimolu-dialog__header",
+    ".pimolu-dialog__title",
+    ".pimolu-dialog__description",
+    ".pimolu-dialog__footer",
+    ".pimolu-dialog__close",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      dialog.includes(selector),
+      `Missing Dialog selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    dialog.includes("--pimolu-dialog-width"),
+    "The panel width must be driven by a custom property"
+  );
+
+  assert.ok(
+    dialog.includes("pimolu-dialog-content-in"),
+    "Missing the entrance animation"
+  );
+
+  assert.ok(
+    dialog.includes("prefers-reduced-motion"),
+    "Missing reduced motion support"
+  );
+
+  assert.ok(
+    dialog.includes("forced-colors"),
     "Missing forced colors support"
   );
 });

@@ -1,0 +1,180 @@
+/* =========================================
+   PIMOLU UI - POPOVER
+   Shared Web Styles
+========================================= */
+
+.pimolu-popover {
+  /* Motion comes from the side the panel sits on: it slides away from the
+     trigger, whichever side the placement resolved to. */
+  --pimolu-popover-shift-x: 0px;
+  --pimolu-popover-shift-y: 6px;
+
+  box-sizing: border-box;
+
+  min-width: 12rem;
+
+  padding: var(--pimolu-popover-padding, 16px);
+
+  /* Long content scrolls inside the panel, never off the viewport. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  /* The panel is focused only as a fallback when it holds nothing focusable:
+     a ring around the whole surface would read as a selected dialog. */
+  outline: none;
+}
+
+/* =========================================
+   PADDING
+========================================= */
+
+.pimolu-popover--padding-none {
+  --pimolu-popover-padding: 0px;
+}
+
+.pimolu-popover--padding-sm {
+  --pimolu-popover-padding: var(
+    --pimolu-spacing-3,
+    12px
+  );
+}
+
+.pimolu-popover--padding-md {
+  --pimolu-popover-padding: var(
+    --pimolu-spacing-4,
+    16px
+  );
+}
+
+.pimolu-popover--padding-lg {
+  --pimolu-popover-padding: var(
+    --pimolu-spacing-6,
+    24px
+  );
+}
+
+/* The 12rem floor suits a natural panel, but must not defeat an explicit
+   width when the panel is asked to match a narrow trigger. */
+
+.pimolu-popover--match-width {
+  min-width: 0;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-popover[data-side="top"] {
+  --pimolu-popover-shift-x: 0px;
+  --pimolu-popover-shift-y: 6px;
+}
+
+.pimolu-popover[data-side="bottom"] {
+  --pimolu-popover-shift-x: 0px;
+  --pimolu-popover-shift-y: -6px;
+}
+
+.pimolu-popover[data-side="left"] {
+  --pimolu-popover-shift-x: 6px;
+  --pimolu-popover-shift-y: 0px;
+}
+
+.pimolu-popover[data-side="right"] {
+  --pimolu-popover-shift-x: -6px;
+  --pimolu-popover-shift-y: 0px;
+}
+
+.pimolu-popover[data-state="open"] {
+  animation:
+    pimolu-popover-in
+    160ms
+    ease-out;
+}
+
+.pimolu-popover[data-state="closing"] {
+  animation:
+    pimolu-popover-out
+    120ms
+    ease-in
+    forwards;
+}
+
+@keyframes pimolu-popover-in {
+  from {
+    opacity: 0;
+
+    transform: translate(
+        var(--pimolu-popover-shift-x),
+        var(--pimolu-popover-shift-y)
+      )
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes pimolu-popover-out {
+  from {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: scale(0.98);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-popover[data-state="open"],
+  .pimolu-popover[data-state="closing"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-popover {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+}

@@ -1,5 +1,6 @@
 import {
   Button,
+  Select,
   usePimoluTheme,
   type PimoluDensity,
   type PimoluRadius,
@@ -60,67 +61,65 @@ export function Toolbar() {
             ))}
           </div>
 
-          <label className="pg-select">
-            <span>Style</span>
-            <select
-              value={stylePreset}
-              onChange={(event) =>
-                setStylePreset(
-                  event.target.value as PimoluStylePreset
-                )
-              }
-            >
-              {presets.map((preset) => (
-                <option key={preset} value={preset}>
-                  {preset}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Select
+            size="sm"
+            label="Style"
+            value={stylePreset}
+            onValueChange={(value) =>
+              setStylePreset(value as PimoluStylePreset)
+            }
+            containerClassName="pg-toolbar__select pg-toolbar__select--style"
+          >
+            {presets.map((preset) => (
+              <option key={preset} value={preset}>
+                {preset}
+              </option>
+            ))}
+          </Select>
 
-          <label className="pg-select">
-            <span>Radius</span>
-            <select
-              value={radius ?? "preset"}
-              onChange={(event) =>
-                setRadius(
-                  event.target.value === "preset"
-                    ? undefined
-                    : (event.target.value as PimoluRadius)
-                )
-              }
-            >
-              <option value="preset">preset</option>
+          <Select
+            size="sm"
+            label="Radius"
+            value={radius ?? "preset"}
+            onValueChange={(value) =>
+              setRadius(
+                value === "preset"
+                  ? undefined
+                  : (value as PimoluRadius)
+              )
+            }
+            containerClassName="pg-toolbar__select pg-toolbar__select--radius"
+          >
+            <option value="preset">preset</option>
 
-              {radii.map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          </label>
+            {radii.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
 
-          <label className="pg-select">
-            <span>Density</span>
-            <select
-              value={density ?? "default"}
-              onChange={(event) =>
-                setDensity(
-                  event.target.value === "default"
-                    ? undefined
-                    : (event.target.value as PimoluDensity)
-                )
-              }
-            >
-              <option value="default">default</option>
+          <Select
+            size="sm"
+            label="Density"
+            value={density ?? "default"}
+            onValueChange={(value) =>
+              setDensity(
+                value === "default"
+                  ? undefined
+                  : (value as PimoluDensity)
+              )
+            }
+            containerClassName="pg-toolbar__select pg-toolbar__select--density"
+          >
+            <option value="default">default</option>
 
-              {densities.map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          </label>
+            {densities.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
 
           <label className="pg-brand-color">
             <span>Brand</span>

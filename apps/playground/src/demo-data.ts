@@ -10,6 +10,8 @@ import {
   inputVariantMap,
   multiSelectVariantMap,
   progressVariantMap,
+  popoverVariantMap,
+  dialogVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
   rangeSliderVariantMap,
@@ -166,6 +168,14 @@ export const multiSelectVariants = optionsOf(
 );
 export const multiSelectAppearances = optionsOf(
   multiSelectVariantMap.appearance,
+);
+
+export const popoverPaddings = optionsOf(
+  popoverVariantMap.padding,
+);
+
+export const dialogSizes = optionsOf(
+  dialogVariantMap.size,
 );
 
 export const sliderSizes = optionsOf(sliderVariantMap.size);

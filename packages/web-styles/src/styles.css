@@ -36,3 +36,5 @@
 @import "./progress.css";
 @import "./circular-progress.css";
 @import "./tooltip.css";
+@import "./popover.css";
+@import "./dialog.css";

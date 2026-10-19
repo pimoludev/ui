@@ -11,9 +11,11 @@ import { CardPage } from "./pages/card-page";
 import { CheckboxPage } from "./pages/checkbox-page";
 import { ComboboxPage } from "./pages/combobox-page";
 import { CircularProgressPage } from "./pages/circular-progress-page";
+import { DialogPage } from "./pages/dialog-page";
 import { InputPage } from "./pages/input-page";
 import { MultiSelectPage } from "./pages/multi-select-page";
 import { OverviewPage } from "./pages/overview-page";
+import { PopoverPage } from "./pages/popover-page";
 import { ProgressPage } from "./pages/progress-page";
 import { RadioPage } from "./pages/radio-page";
 import { RangeSliderPage } from "./pages/range-slider-page";
@@ -37,6 +39,8 @@ const pageComponents = {
   avatar: AvatarPage,
   separator: SeparatorPage,
   "circular-progress": CircularProgressPage,
+  dialog: DialogPage,
+  popover: PopoverPage,
   progress: ProgressPage,
   skeleton: SkeletonPage,
   spinner: SpinnerPage,

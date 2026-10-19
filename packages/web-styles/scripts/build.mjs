@@ -122,6 +122,16 @@ const outputs = [
     output: "tooltip.css",
     minify: false,
   },
+  {
+    input: "popover.css",
+    output: "popover.css",
+    minify: false,
+  },
+  {
+    input: "dialog.css",
+    output: "dialog.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });
