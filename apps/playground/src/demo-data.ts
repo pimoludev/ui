@@ -22,6 +22,7 @@ import {
   textareaVariantMap,
   type PimoluStylePreset,
   type PimoluRadius,
+  type PimoluDensity,
   type PimoluTheme,
   type PimoluThemeMode,
 } from "@pimolu/react";
@@ -44,6 +45,13 @@ export const radii: PimoluRadius[] = [
   "sharp",
   "medium",
   "round",
+];
+
+/* Density is a dimension too: factor 0.875 / 1 / 1.125. */
+export const densities: PimoluDensity[] = [
+  "compact",
+  "comfortable",
+  "spacious",
 ];
 
 /* Derived from each component's own variant map, never duplicated here. */

@@ -21,6 +21,7 @@ export type {
   PimoluThemeMode,
   PimoluStylePreset,
   PimoluRadius,
+  PimoluDensity,
 } from "./provider/pimolu-provider";
 
 

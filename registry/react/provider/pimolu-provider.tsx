@@ -26,6 +26,11 @@ export type PimoluThemeMode = PimoluTheme | "system";
 
 export type PimoluRadius = "sharp" | "medium" | "round";
 
+export type PimoluDensity =
+  | "compact"
+  | "comfortable"
+  | "spacious";
+
 const DEFAULT_STORAGE_KEY = "pimolu:preferences";
 const MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
@@ -37,9 +42,13 @@ interface PimoluContextValue {
   /** Undefined means "whatever the preset declares". */
   radius: PimoluRadius | undefined;
 
+  /** Undefined means "the comfortable default". */
+  density: PimoluDensity | undefined;
+
   setTheme: (theme: PimoluThemeMode) => void;
   setStylePreset: (preset: PimoluStylePreset) => void;
   setRadius: (radius: PimoluRadius | undefined) => void;
+  setDensity: (density: PimoluDensity | undefined) => void;
 }
 
 const PimoluContext = createContext<PimoluContextValue | null>(
@@ -113,6 +122,16 @@ function isRadius(
   );
 }
 
+function isDensity(
+  value: unknown
+): value is PimoluDensity {
+  return (
+    value === "compact" ||
+    value === "comfortable" ||
+    value === "spacious"
+  );
+}
+
 /* Provider */
 
 export interface PimoluProviderProps {
@@ -128,9 +147,16 @@ export interface PimoluProviderProps {
   radius?: PimoluRadius;
   defaultRadius?: PimoluRadius;
 
+  /** Density axis; undefined keeps the comfortable default. */
+  density?: PimoluDensity;
+  defaultDensity?: PimoluDensity;
+
   onThemeChange?: (theme: PimoluThemeMode) => void;
   onStylePresetChange?: (preset: PimoluStylePreset) => void;
   onRadiusChange?: (radius: PimoluRadius | undefined) => void;
+  onDensityChange?: (
+    density: PimoluDensity | undefined
+  ) => void;
 
   persist?: boolean;
   storageKey?: string;
@@ -150,9 +176,13 @@ export function PimoluProvider({
   radius: controlledRadius,
   defaultRadius,
 
+  density: controlledDensity,
+  defaultDensity,
+
   onThemeChange,
   onStylePresetChange,
   onRadiusChange,
+  onDensityChange,
 
   persist = false,
   storageKey = DEFAULT_STORAGE_KEY,
@@ -171,6 +201,9 @@ export function PimoluProvider({
 
   const [localRadius, setLocalRadius] =
     useState<PimoluRadius | undefined>(defaultRadius);
+
+  const [localDensity, setLocalDensity] =
+    useState<PimoluDensity | undefined>(defaultDensity);
 
   const [loadedKey, setLoadedKey] =
     useState<string | null>(null);
@@ -192,6 +225,7 @@ export function PimoluProvider({
     let nextTheme = defaultTheme;
     let nextStyle = defaultStylePreset;
     let nextRadius = defaultRadius;
+    let nextDensity = defaultDensity;
 
     try {
       const raw = window.localStorage.getItem(storageKey);
@@ -213,6 +247,10 @@ export function PimoluProvider({
           if (isRadius(values.radius)) {
             nextRadius = values.radius;
           }
+
+          if (isDensity(values.density)) {
+            nextDensity = values.density;
+          }
         }
       }
     } catch {
@@ -222,6 +260,7 @@ export function PimoluProvider({
     setLocalTheme(nextTheme);
     setLocalStyle(nextStyle);
     setLocalRadius(nextRadius);
+    setLocalDensity(nextDensity);
     setLoadedKey(storageKey);
   }, [
     persist,
@@ -229,6 +268,7 @@ export function PimoluProvider({
     defaultTheme,
     defaultStylePreset,
     defaultRadius,
+    defaultDensity,
   ]);
 
   /* Resolve values */
@@ -250,6 +290,11 @@ export function PimoluProvider({
     localRadius ??
     parent?.radius;
 
+  const density =
+    controlledDensity ??
+    localDensity ??
+    parent?.density;
+
   const resolvedTheme: PimoluTheme =
     theme === "system"
       ? systemDark
@@ -268,6 +313,7 @@ export function PimoluProvider({
       theme?: PimoluThemeMode;
       stylePreset?: PimoluStylePreset;
       radius?: PimoluRadius;
+      density?: PimoluDensity;
     } = {};
 
     if (controlledTheme === undefined) {
@@ -283,6 +329,13 @@ export function PimoluProvider({
       radius !== undefined
     ) {
       preferences.radius = radius;
+    }
+
+    if (
+      controlledDensity === undefined &&
+      density !== undefined
+    ) {
+      preferences.density = density;
     }
 
     if (Object.keys(preferences).length === 0) {
@@ -304,9 +357,11 @@ export function PimoluProvider({
     theme,
     stylePreset,
     radius,
+    density,
     controlledTheme,
     controlledStyle,
     controlledRadius,
+    controlledDensity,
   ]);
 
   /* Public setters */
@@ -335,6 +390,14 @@ export function PimoluProvider({
     onRadiusChange?.(value);
   }
 
+  function setDensity(value: PimoluDensity | undefined) {
+    if (controlledDensity === undefined) {
+      setLocalDensity(value);
+    }
+
+    onDensityChange?.(value);
+  }
+
   return (
     <PimoluContext.Provider
       value={{
@@ -342,15 +405,18 @@ export function PimoluProvider({
         resolvedTheme,
         stylePreset,
         radius,
+        density,
         setTheme,
         setStylePreset,
         setRadius,
+        setDensity,
       }}
     >
       <div
         data-pimolu-theme={theme}
         data-pimolu-style={stylePreset}
         data-pimolu-radius={radius}
+        data-pimolu-density={density}
         className={className}
       >
         {children}

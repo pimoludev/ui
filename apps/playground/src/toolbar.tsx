@@ -1,11 +1,17 @@
 import {
   Button,
   usePimoluTheme,
+  type PimoluDensity,
   type PimoluRadius,
   type PimoluStylePreset,
 } from "@pimolu/react";
 
-import { presets, radii, themeModes } from "./demo-data";
+import {
+  densities,
+  presets,
+  radii,
+  themeModes,
+} from "./demo-data";
 import { pageHref } from "./router";
 
 export function Toolbar() {
@@ -13,9 +19,11 @@ export function Toolbar() {
     theme,
     stylePreset,
     radius,
+    density,
     setTheme,
     setStylePreset,
     setRadius,
+    setDensity,
   } = usePimoluTheme();
 
   return (
@@ -83,6 +91,28 @@ export function Toolbar() {
               <option value="preset">preset</option>
 
               {radii.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="pg-select">
+            <span>Density</span>
+            <select
+              value={density ?? "default"}
+              onChange={(event) =>
+                setDensity(
+                  event.target.value === "default"
+                    ? undefined
+                    : (event.target.value as PimoluDensity)
+                )
+              }
+            >
+              <option value="default">default</option>
+
+              {densities.map((value) => (
                 <option key={value} value={value}>
                   {value}
                 </option>
