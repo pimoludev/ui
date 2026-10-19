@@ -53,15 +53,23 @@ const pageComponents = {
 } as const;
 
 function App() {
-  const page = usePage();
-  const Page = pageComponents[page];
+  const route = usePage();
+  const Page = pageComponents[route.id];
 
   return (
     <PimoluProvider persist className="pg-root">
       <Toolbar />
 
+      {route.unknown && (
+        <p className="pg-notice" role="status">
+          Unknown route <code>#/{route.unknown}</code> — showing
+          Overview. Check the spelling, or reload the tab: a bundle
+          opened before a page was added does not know it yet.
+        </p>
+      )}
+
       <div className="pg-layout">
-        <Sidebar current={page} />
+        <Sidebar current={route.id} />
 
         <main className="pg-main">
           <Page />

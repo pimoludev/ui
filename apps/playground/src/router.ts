@@ -74,23 +74,41 @@ export function groupPages(
 
 const FALLBACK: PageId = "overview";
 
-function readPage(): PageId {
+export interface ResolvedRoute {
+  id: PageId;
+
+  /** The requested hash when it named an unknown route. */
+  unknown?: string;
+}
+
+export function readRoute(): ResolvedRoute {
   const raw = window.location.hash.replace(/^#\/?/, "");
+
+  if (!raw) return { id: FALLBACK };
+
   const known = pages.some((page) => page.id === raw);
 
-  return known ? (raw as PageId) : FALLBACK;
+  return known
+    ? { id: raw as PageId }
+    : { id: FALLBACK, unknown: raw };
 }
 
 export function pageHref(id: PageId): string {
   return `#/${id}`;
 }
 
-export function usePage(): PageId {
-  const [page, setPage] = useState<PageId>(readPage);
+/**
+ * Returns the current route and, when the hash named something that does not
+ * exist, the requested value: a silent fallback makes a typo or a stale bundle
+ * look like a page that was never written.
+ */
+export function usePage(): ResolvedRoute {
+  const [route, setRoute] =
+    useState<ResolvedRoute>(readRoute);
 
   useEffect(() => {
     function handleChange() {
-      setPage(readPage());
+      setRoute(readRoute());
     }
 
     window.addEventListener("hashchange", handleChange);
@@ -99,5 +117,5 @@ export function usePage(): PageId {
       window.removeEventListener("hashchange", handleChange);
   }, []);
 
-  return page;
+  return route;
 }

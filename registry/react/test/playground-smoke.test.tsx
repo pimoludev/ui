@@ -43,4 +43,14 @@ describe("playground routes", () => {
       ).toHaveTextContent(label);
     }
   );
+
+  it("says so when the hash names no page", () => {
+    window.location.hash = "#/does-not-exist";
+
+    render(<App />);
+
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "#/does-not-exist"
+    );
+  });
 });

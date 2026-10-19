@@ -393,6 +393,24 @@
   height: 44px;
 }
 
+/* Visible feedback for a hash that names no page */
+
+.pg-notice {
+  margin: 0;
+  padding: 10px 16px;
+
+  border-bottom: 1px solid var(--pimolu-border);
+
+  background: var(--pimolu-surface);
+  color: var(--pimolu-surface-foreground);
+
+  font-size: 14px;
+}
+
+.pg-notice code {
+  font-family: ui-monospace, monospace;
+}
+
 /* A clipping ancestor, to show that a portaled tooltip escapes it */
 
 .pg-scroll-demo {
