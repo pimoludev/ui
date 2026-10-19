@@ -68,7 +68,12 @@ const themeCss = [];
 
 for (const [name, vars] of Object.entries(themeSrc)) {
   resolvedThemes[name] = {};
-  const declarations = [];
+
+  /* Native widgets — select popups, scrollbars, date pickers, autofill —
+     follow the active color scheme. */
+  const declarations = name === 'light' || name === 'dark'
+    ? [`  color-scheme: ${name};`]
+    : [];
   for (const [semantic, ref] of Object.entries(vars)) {
     const { key, value } = getAlias(ref);
     if (!key.startsWith('color.')) throw new Error(`Expected color token in theme ${name}: ${ref}`);
