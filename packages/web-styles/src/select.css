@@ -470,13 +470,23 @@
   cursor: pointer;
 }
 
-.pimolu-select__option[data-active="true"] {
-  background: var(--pimolu-muted, rgba(0, 0, 0, 0.06));
-}
+/* Selection is carried by the weight and by the trigger label, not by a
+   tint: several presets define --pimolu-muted close to the background, which
+   reads as a translucent highlight. */
 
 .pimolu-select__option[aria-selected="true"] {
-  color: var(--pimolu-primary);
-  font-weight: 500;
+  font-weight: 600;
+}
+
+/* The row under the pointer or the keyboard uses the primary pair, the one
+   every preset designs for contrast. */
+
+.pimolu-select__option[data-active="true"],
+.pimolu-select__option[data-active="true"][aria-selected="true"] {
+  background: var(--pimolu-primary);
+
+  color:
+    var(--pimolu-primary-foreground, var(--pimolu-background));
 }
 
 .pimolu-select__option[aria-disabled="true"] {

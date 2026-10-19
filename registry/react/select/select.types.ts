@@ -65,7 +65,12 @@ export interface PimoluSelectProps
   /** Initial uncontrolled selection. */
   defaultValue?: string;
 
-  /** Called with the selected value. */
+  /**
+   * Called with the selected value. This is the callback to use: the styled
+   * control reports every selection through it, while the native React
+   * `onChange` only fires when the platform menu is the one being used
+   * (`native`).
+   */
   onValueChange?: (value: string) => void;
 
   /** Class applied to the outer container. */
