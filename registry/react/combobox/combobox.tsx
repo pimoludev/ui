@@ -20,6 +20,8 @@ import type {
 import { comboboxVariants } from "./combobox.variants";
 
 import { filterByQuery } from "../internal/search";
+import { Portal } from "../internal/portal";
+import { useAnchoredPosition } from "../internal/use-anchored-position";
 import { useCustomValidity } from "../internal/use-custom-validity";
 import { useFormReset } from "../internal/use-form-reset";
 import { useOutsidePointer } from "../internal/use-outside-pointer";
@@ -324,7 +326,17 @@ export const Combobox = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  useOutsidePointer(rootRef, isOpen, closeMenu);
+  const popupStyle = useAnchoredPosition(
+    rootRef,
+    listboxRef,
+    isOpen && !disabled
+  );
+
+  useOutsidePointer(
+    [rootRef, listboxRef],
+    isOpen,
+    closeMenu
+  );
 
   useFormReset(inputRef, !isControlled, () => {
     setInternalValue(defaultValue);
@@ -521,10 +533,12 @@ export const Combobox = forwardRef<
         {/* Custom listbox */}
 
         {isOpen && !disabled && (
+          <Portal>
           <ul
             ref={listboxRef}
             id={listboxId}
             className="pimolu-combobox__listbox"
+            style={popupStyle}
             role="listbox"
             aria-label={
               label ? `Options : ${label}` : "Options"
@@ -594,6 +608,7 @@ export const Combobox = forwardRef<
               ))
             )}
           </ul>
+          </Portal>
         )}
       </div>
 

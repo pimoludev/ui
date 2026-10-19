@@ -21,6 +21,8 @@ import type {
 import { multiSelectVariants } from "./multi-select.variants";
 
 import { filterByQuery } from "../internal/search";
+import { Portal } from "../internal/portal";
+import { useAnchoredPosition } from "../internal/use-anchored-position";
 import { useCustomValidity } from "../internal/use-custom-validity";
 import { useFormReset } from "../internal/use-form-reset";
 import { useOutsidePointer } from "../internal/use-outside-pointer";
@@ -362,7 +364,17 @@ export const MultiSelect = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  useOutsidePointer(rootRef, isOpen, closeMenu);
+  const popupStyle = useAnchoredPosition(
+    rootRef,
+    listboxRef,
+    isOpen && !disabled
+  );
+
+  useOutsidePointer(
+    [rootRef, listboxRef],
+    isOpen,
+    closeMenu
+  );
 
   useFormReset(inputRef, !controlled, () => {
     setInternalValues([...new Set(defaultValue)]);
@@ -584,6 +596,7 @@ export const MultiSelect = forwardRef<
           ))}
 
         {isOpen && !disabled && (
+          <Portal>
           <ul
             ref={listboxRef}
             id={listboxId}
@@ -595,6 +608,7 @@ export const MultiSelect = forwardRef<
                 : "Options"
             }
             className="pimolu-multiselect__listbox"
+            style={popupStyle}
           >
             {filteredOptions.length === 0 ? (
               <li
@@ -653,6 +667,7 @@ export const MultiSelect = forwardRef<
               })
             )}
           </ul>
+          </Portal>
         )}
       </div>
 
