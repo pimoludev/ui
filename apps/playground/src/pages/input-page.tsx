@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Input } from "@pimolu/react";
+import { Button, Input } from "@pimolu/react";
 
 import {
   inputAppearances,
@@ -194,6 +194,38 @@ export function InputPage() {
               />
             </div>
           </div>
+        </div>
+      </Section>
+
+      <Section
+        title="Example: account sign in"
+        hint="Native form fields, autofill and a clear primary action."
+      >
+        <div className="pg-grid">
+          <form
+            className="pg-panel pg-stack"
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <Input
+              name="email"
+              type="email"
+              label="Email address"
+              placeholder="you@example.com"
+              autoComplete="email"
+              required
+              fullWidth
+            />
+            <Input
+              name="password"
+              type="password"
+              label="Password"
+              autoComplete="current-password"
+              passwordToggle
+              required
+              fullWidth
+            />
+            <Button type="submit">Sign in</Button>
+          </form>
         </div>
       </Section>
     </>

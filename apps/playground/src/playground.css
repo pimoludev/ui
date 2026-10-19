@@ -275,6 +275,17 @@
   flex-wrap: nowrap;
 }
 
+@media (max-width: 600px) {
+  .pg-example-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pg-example-actions__buttons {
+    justify-content: flex-end;
+  }
+}
+
 .pg-stack {
   display: grid;
   gap: 14px;

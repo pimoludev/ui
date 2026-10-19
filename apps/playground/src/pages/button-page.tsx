@@ -81,6 +81,24 @@ export function ButtonPage() {
           />
         </div>
       </Section>
+
+      <Section
+        title="Example: project actions"
+        hint="A primary action and a quiet escape route in a compact toolbar."
+      >
+        <div className="pg-panel">
+          <div className="pg-row pg-row--between pg-example-actions">
+            <div>
+              <strong>New project</strong>
+              <p>Review the details before creating your workspace.</p>
+            </div>
+            <div className="pg-row pg-example-actions__buttons">
+              <Button appearance="ghost">Cancel</Button>
+              <Button variant="primary">Create project</Button>
+            </div>
+          </div>
+        </div>
+      </Section>
     </>
   );
 }
