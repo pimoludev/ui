@@ -60,7 +60,9 @@
     "./scroll-area.css": "./dist/scroll-area.css",
     "./tree-view.css": "./dist/tree-view.css",
     "./list.css": "./dist/list.css",
-    "./description-list.css": "./dist/description-list.css"
+    "./description-list.css": "./dist/description-list.css",
+    "./dropdown-menu.css": "./dist/dropdown-menu.css",
+    "./toast.css": "./dist/toast.css"
   },
 
   "dependencies": {

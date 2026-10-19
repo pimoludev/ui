@@ -1,4 +1,4 @@
-import { PimoluProvider } from "@pimolu/react";
+import { PimoluProvider, Toaster } from "@pimolu/react";
 
 import { pages, usePage } from "./router";
 import { Sidebar } from "./sidebar";
@@ -6,6 +6,7 @@ import { Toolbar } from "./toolbar";
 
 import { AvatarPage } from "./pages/avatar-page";
 import { AccordionPage } from "./pages/accordion-page";
+import { AlertDialogPage } from "./pages/alert-dialog-page";
 import { BadgePage } from "./pages/badge-page";
 import { BreadcrumbsPage } from "./pages/breadcrumbs-page";
 import { ButtonPage } from "./pages/button-page";
@@ -16,6 +17,7 @@ import { ComboboxPage } from "./pages/combobox-page";
 import { CircularProgressPage } from "./pages/circular-progress-page";
 import { DescriptionListPage } from "./pages/description-list-page";
 import { DialogPage } from "./pages/dialog-page";
+import { DropdownMenuPage } from "./pages/dropdown-menu-page";
 import { FormFieldPage } from "./pages/form-field-page";
 import { InputPage } from "./pages/input-page";
 import { LabelPage } from "./pages/label-page";
@@ -42,6 +44,7 @@ import { StepperPage } from "./pages/stepper-page";
 import { SwitchPage } from "./pages/switch-page";
 import { TabsPage } from "./pages/tabs-page";
 import { TextareaPage } from "./pages/textarea-page";
+import { ToastPage } from "./pages/toast-page";
 import { TogglePage } from "./pages/toggle-page";
 import { ToggleGroupPage } from "./pages/toggle-group-page";
 import { TooltipPage } from "./pages/tooltip-page";
@@ -60,10 +63,13 @@ const pageComponents = {
   separator: SeparatorPage,
   "circular-progress": CircularProgressPage,
   dialog: DialogPage,
+  "alert-dialog": AlertDialogPage,
+  "dropdown-menu": DropdownMenuPage,
   popover: PopoverPage,
   progress: ProgressPage,
   skeleton: SkeletonPage,
   spinner: SpinnerPage,
+  toast: ToastPage,
   tooltip: TooltipPage,
   tabs: TabsPage,
   toggle: TogglePage,
@@ -127,6 +133,8 @@ function App() {
           instantly.
         </div>
       </footer>
+
+      <Toaster position="bottom-right" />
     </PimoluProvider>
   );
 }

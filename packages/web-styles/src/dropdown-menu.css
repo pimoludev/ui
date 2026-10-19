@@ -1,0 +1,146 @@
+/* =========================================
+   PIMOLU UI - DROPDOWN MENU
+   Shared Web Styles
+========================================= */
+
+.pimolu-dropdown-menu {
+  display: grid;
+  gap: 2px;
+
+  box-sizing: border-box;
+
+  min-width: 12rem;
+  max-width: 17.5rem;
+
+  padding: 6px;
+
+  overflow-y: auto;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  box-shadow: var(
+    --pimolu-shadow-raised,
+    none
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+
+  outline: none;
+}
+
+.pimolu-dropdown-menu[data-state="open"] {
+  animation:
+    pimolu-dropdown-in
+    140ms
+    ease-out;
+}
+
+@keyframes pimolu-dropdown-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-dropdown-menu__item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 8px 10px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: start;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.pimolu-dropdown-menu__item:hover:not(:disabled),
+.pimolu-dropdown-menu__item:focus-visible {
+  background: var(--pimolu-muted);
+
+  outline: none;
+}
+
+.pimolu-dropdown-menu__item:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-dropdown-menu__label {
+  padding: 6px 10px 4px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pimolu-dropdown-menu__separator {
+  height: 1px;
+
+  margin: 4px 0;
+
+  background: var(--pimolu-border);
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-dropdown-menu[data-state="open"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-dropdown-menu {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-dropdown-menu__item:focus-visible {
+    outline: 1px solid Highlight;
+  }
+}

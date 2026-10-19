@@ -51,6 +51,9 @@ export interface PimoluDialogContentProps {
   /** Accessible name of the corner close button. Defaults to "Close". */
   closeLabel?: string;
 
+  /** Semantics of the panel. Defaults to "dialog". */
+  role?: "dialog" | "alertdialog";
+
   /**
    * Accessible name of the dialog. Use it only when there is no
    * `DialogTitle`; a title automatically names the dialog.

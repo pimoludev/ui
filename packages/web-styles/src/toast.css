@@ -1,0 +1,229 @@
+/* =========================================
+   PIMOLU UI - TOAST
+   Shared Web Styles
+========================================= */
+
+.pimolu-toaster {
+  position: fixed;
+
+  z-index: 60;
+
+  display: grid;
+  gap: 8px;
+
+  width: min(20rem, calc(100vw - 32px));
+
+  pointer-events: none;
+}
+
+.pimolu-toaster[data-position="top-right"] {
+  inset-block-start: 16px;
+  inset-inline-end: 16px;
+}
+
+.pimolu-toaster[data-position="top-center"] {
+  inset-block-start: 16px;
+  inset-inline-start: 50%;
+
+  transform: translateX(-50%);
+}
+
+.pimolu-toaster[data-position="bottom-right"] {
+  inset-block-end: 16px;
+  inset-inline-end: 16px;
+}
+
+.pimolu-toaster[data-position="bottom-center"] {
+  inset-block-end: 16px;
+  inset-inline-start: 50%;
+
+  transform: translateX(-50%);
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.pimolu-toast {
+  --pimolu-toast-tone: var(--pimolu-border);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+
+  padding: 12px 12px 12px 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-inline-start: 3px solid var(--pimolu-toast-tone);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  box-shadow: var(
+    --pimolu-shadow-raised,
+    none
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+
+  pointer-events: auto;
+
+  animation:
+    pimolu-toast-in
+    160ms
+    ease-out;
+}
+
+.pimolu-toast--success {
+  --pimolu-toast-tone: var(--pimolu-success, #15803d);
+}
+
+.pimolu-toast--warning {
+  --pimolu-toast-tone: var(--pimolu-warning, #d97706);
+}
+
+.pimolu-toast--danger {
+  --pimolu-toast-tone: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-toast__body {
+  display: grid;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-toast__title {
+  margin: 0;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-toast__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-toast__actions {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  flex: none;
+}
+
+.pimolu-toast__action {
+  padding: 2px 6px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-primary);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.pimolu-toast__action:hover {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-toast__close {
+  display: inline-grid;
+  place-items: center;
+
+  width: 24px;
+  height: 24px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  line-height: 0;
+
+  cursor: pointer;
+}
+
+.pimolu-toast__close:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-toast__action:focus-visible,
+.pimolu-toast__close:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+@keyframes pimolu-toast-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-toast {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-toast {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-toast__action,
+  .pimolu-toast__close {
+    color: LinkText;
+  }
+}

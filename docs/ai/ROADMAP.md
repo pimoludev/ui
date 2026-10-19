@@ -4,7 +4,7 @@ This document orders the work by technical dependency. It promises neither a
 date nor a feature that is already delivered.
 
 1. **Stabilise what exists.** Address the gaps found by the audit, review the
-   rendering and the interactions of the 42 families in light/dark and the seven
+   rendering and the interactions of the 45 families in light/dark and the seven
    presets, then complete the risky accessibility cases (menus, focus, forms,
    forced colors, RTL).
 2. **Fix the design system contracts.** Document the public tokens, check

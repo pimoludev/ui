@@ -50,9 +50,12 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | TreeView | `registry/react/tree-view/` | Keyboard-driven tree | Present and tested |
 | List, ListItem | `registry/react/list/` | Visual list rows | Present and tested |
 | DescriptionList | `registry/react/description-list/` | Term/details properties | Present and tested |
+| AlertDialog | `registry/react/alert-dialog/` | Explicit modal confirmation | Present and tested |
+| DropdownMenu | `registry/react/dropdown-menu/` | Anchored action menu | Present and tested |
+| Toast, Toaster | `registry/react/toast/` | Temporary notifications | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
-utilities in `registry/react/internal/`. The playground pages cover the 42
+utilities in `registry/react/internal/`. The playground pages cover the 45
 families (AvatarGroup and RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

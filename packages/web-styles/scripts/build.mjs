@@ -232,6 +232,16 @@ const outputs = [
     output: "description-list.css",
     minify: false,
   },
+  {
+    input: "dropdown-menu.css",
+    output: "dropdown-menu.css",
+    minify: false,
+  },
+  {
+    input: "toast.css",
+    output: "toast.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

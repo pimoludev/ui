@@ -40,6 +40,11 @@ their appearance.
   through a portal attached to the theme container closest to the trigger, so
   tokens survive nested providers. Dialog portals to the theme scope of its
   root, so a trigger-less controlled dialog keeps the surrounding theme.
+- `registry/react/internal/` also provides the shared overlay hooks:
+  `usePresence` for exit animation, `useDismissableLayer` for outside/Escape
+  dismissal, and `useFocusTrap` for modal focus. Combobox and MultiSelect use
+  the shared dismissal layer; Dialog and Popover keep their specialized focus
+  and positioning paths.
 - `apps/playground/src/router.ts` declares the demo pages;
   `apps/playground/src/demo-data.ts` derives the option lists from the public
   variant maps. `examples/nextjs` is a separate integration example.

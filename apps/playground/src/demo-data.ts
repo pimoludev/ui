@@ -23,6 +23,7 @@ import {
   paginationVariantMap,
   listVariantMap,
   descriptionListVariantMap,
+  toastVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
   rangeSliderVariantMap,
@@ -263,6 +264,10 @@ export const descriptionListVariants = optionsOf(
 
 export const descriptionListSizes = optionsOf(
   descriptionListVariantMap.size,
+);
+
+export const toastVariants = optionsOf(
+  toastVariantMap.variant,
 );
 
 export const sliderSizes = optionsOf(sliderVariantMap.size);

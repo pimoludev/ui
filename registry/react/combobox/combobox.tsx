@@ -24,7 +24,7 @@ import { Portal } from "../internal/portal";
 import { useAnchoredPosition } from "../internal/use-anchored-position";
 import { useCustomValidity } from "../internal/use-custom-validity";
 import { useFormReset } from "../internal/use-form-reset";
-import { useOutsidePointer } from "../internal/use-outside-pointer";
+import { useDismissableLayer } from "../internal/use-dismissable-layer";
 
 /* =========================================
    SEARCH
@@ -313,7 +313,6 @@ export const Combobox = forwardRef<
 
     if (event.key === "Escape" && isOpen) {
       event.preventDefault();
-      closeMenu();
       return;
     }
 
@@ -332,11 +331,11 @@ export const Combobox = forwardRef<
       isOpen && !disabled
     );
 
-  useOutsidePointer(
-    [rootRef, listboxRef],
-    isOpen,
-    closeMenu
-  );
+  useDismissableLayer({
+    open: isOpen,
+    target: [rootRef, listboxRef],
+    onDismiss: closeMenu,
+  });
 
   useFormReset(inputRef, !isControlled, () => {
     setInternalValue(defaultValue);

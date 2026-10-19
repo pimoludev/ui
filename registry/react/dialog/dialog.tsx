@@ -277,6 +277,7 @@ interface DialogSurfaceProps {
   closeOnEscape: boolean;
   showCloseButton: boolean;
   closeLabel: string;
+  role: "dialog" | "alertdialog";
 
   labelledBy?: string;
   describedBy?: string;
@@ -298,6 +299,7 @@ function DialogSurface({
   closeOnEscape,
   showCloseButton,
   closeLabel,
+  role,
   labelledBy,
   describedBy,
   ariaLabel,
@@ -398,7 +400,7 @@ function DialogSurface({
     <div
       ref={contentRef}
       id={id}
-      role="dialog"
+      role={role}
       aria-modal="true"
       aria-label={labelledBy ? undefined : ariaLabel}
       aria-labelledby={labelledBy}
@@ -436,6 +438,7 @@ export function DialogContent({
   closeOnEscape = true,
   showCloseButton = true,
   closeLabel = "Close",
+  role = "dialog",
 
   className,
 
@@ -541,6 +544,7 @@ export function DialogContent({
           closeOnEscape={closeOnEscape}
           showCloseButton={showCloseButton}
           closeLabel={closeLabel}
+          role={role}
           labelledBy={labelledBy}
           describedBy={describedBy}
           ariaLabel={ariaLabel}

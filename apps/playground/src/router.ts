@@ -53,10 +53,13 @@ export const pages = [
 
   { id: "circular-progress", label: "CircularProgress", group: "Feedback" },
   { id: "dialog", label: "Dialog", group: "Feedback" },
+  { id: "alert-dialog", label: "AlertDialog", group: "Feedback" },
+  { id: "dropdown-menu", label: "DropdownMenu", group: "Feedback" },
   { id: "popover", label: "Popover", group: "Feedback" },
   { id: "progress", label: "Progress", group: "Feedback" },
   { id: "skeleton", label: "Skeleton", group: "Feedback" },
   { id: "spinner", label: "Spinner", group: "Feedback" },
+  { id: "toast", label: "Toast", group: "Feedback" },
   { id: "tooltip", label: "Tooltip", group: "Feedback" },
 ] as const;
 

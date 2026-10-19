@@ -59,6 +59,8 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "tree-view.css",
     "list.css",
     "description-list.css",
+    "dropdown-menu.css",
+    "toast.css",
   ]) {
     const css = await load(file);
 
@@ -103,6 +105,8 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-tree",
     ".pimolu-list",
     ".pimolu-description-list",
+    ".pimolu-dropdown-menu",
+    ".pimolu-toast",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',
@@ -1479,5 +1483,22 @@ test("Phase 2 navigation styles are bundled", async () => {
       full.includes(selector),
       `Missing bundled selector: ${selector}`
     );
+  }
+});
+
+test("Overlay styles are bundled", async () => {
+  const full = await load("pimolu.css");
+  const dropdown = await load("dropdown-menu.css");
+  const toast = await load("toast.css");
+
+  for (const [css, selector] of [
+    [dropdown, ".pimolu-dropdown-menu__item"],
+    [dropdown, ".pimolu-dropdown-menu__separator"],
+    [toast, ".pimolu-toaster"],
+    [toast, ".pimolu-toast--danger"],
+    [toast, ".pimolu-toast__close"],
+  ]) {
+    assert.ok(css.includes(selector));
+    assert.ok(full.includes(selector));
   }
 });
