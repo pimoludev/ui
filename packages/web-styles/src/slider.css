@@ -15,6 +15,9 @@
 
   --pimolu-slider-tone: var(--pimolu-primary);
 
+  /* Default fill; the component overrides it inline from the value. */
+  --pimolu-slider-progress: 0%;
+
   --pimolu-slider-track:
     var(--pimolu-muted, rgba(0, 0, 0, 0.12));
 
