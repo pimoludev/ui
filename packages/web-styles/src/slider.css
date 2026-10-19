@@ -1,0 +1,288 @@
+
+/* =========================================
+   PIMOLU UI — SLIDER
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-slider {
+  --pimolu-slider-track-height: 6px;
+  --pimolu-slider-thumb-size: 18px;
+  --pimolu-slider-gap: 8px;
+
+  --pimolu-slider-tone: var(--pimolu-primary);
+
+  --pimolu-slider-track:
+    var(--pimolu-muted, rgba(0, 0, 0, 0.12));
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-slider-gap);
+
+  width: 100%;
+  min-width: 0;
+
+  font-family: var(--pimolu-font-body, inherit);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-slider--sm {
+  --pimolu-slider-track-height: 4px;
+  --pimolu-slider-thumb-size: 14px;
+  --pimolu-slider-gap: 6px;
+}
+
+.pimolu-slider--md {
+  --pimolu-slider-track-height: 6px;
+  --pimolu-slider-thumb-size: 18px;
+  --pimolu-slider-gap: 8px;
+}
+
+.pimolu-slider--lg {
+  --pimolu-slider-track-height: 8px;
+  --pimolu-slider-thumb-size: 22px;
+  --pimolu-slider-gap: 10px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-slider__header {
+  display: flex;
+
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.pimolu-slider__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-slider__required {
+  margin-inline-start: 2px;
+
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-slider__value {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+
+  color: var(--pimolu-muted-foreground, currentColor);
+}
+
+/* =========================================
+   CONTROL
+========================================= */
+
+.pimolu-slider__control {
+  -webkit-appearance: none;
+  appearance: none;
+
+  display: block;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: var(--pimolu-slider-thumb-size);
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.pimolu-slider__control:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+
+  border-radius: 9999px;
+}
+
+/* WebKit — the fill is driven by --pimolu-slider-progress,
+   which the component sets from the current value. */
+
+.pimolu-slider__control::-webkit-slider-runnable-track {
+  height: var(--pimolu-slider-track-height);
+
+  border-radius: 9999px;
+
+  background:
+    linear-gradient(
+      to right,
+      var(--pimolu-slider-tone) 0,
+      var(--pimolu-slider-tone) var(--pimolu-slider-progress, 0%),
+      var(--pimolu-slider-track) var(--pimolu-slider-progress, 0%),
+      var(--pimolu-slider-track) 100%
+    );
+}
+
+.pimolu-slider__control::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: var(--pimolu-slider-thumb-size);
+  height: var(--pimolu-slider-thumb-size);
+
+  margin-top: calc(
+    (
+      var(--pimolu-slider-track-height) -
+      var(--pimolu-slider-thumb-size)
+    ) / 2
+  );
+
+  border:
+    2px solid
+    var(--pimolu-slider-tone);
+
+  border-radius: 50%;
+
+  background: var(--pimolu-background, #ffffff);
+}
+
+/* Firefox — it has a native progress pseudo-element. */
+
+.pimolu-slider__control::-moz-range-track {
+  height: var(--pimolu-slider-track-height);
+
+  border-radius: 9999px;
+
+  background: var(--pimolu-slider-track);
+}
+
+.pimolu-slider__control::-moz-range-progress {
+  height: var(--pimolu-slider-track-height);
+
+  border-radius: 9999px;
+
+  background: var(--pimolu-slider-tone);
+}
+
+.pimolu-slider__control::-moz-range-thumb {
+  width: var(--pimolu-slider-thumb-size);
+  height: var(--pimolu-slider-thumb-size);
+
+  border:
+    2px solid
+    var(--pimolu-slider-tone);
+
+  border-radius: 50%;
+
+  background: var(--pimolu-background, #ffffff);
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-slider--neutral {
+  --pimolu-slider-tone:
+    var(--pimolu-neutral, var(--pimolu-foreground));
+}
+
+.pimolu-slider--primary {
+  --pimolu-slider-tone: var(--pimolu-primary);
+}
+
+.pimolu-slider--secondary {
+  --pimolu-slider-tone:
+    var(--pimolu-secondary, currentColor);
+}
+
+.pimolu-slider--success {
+  --pimolu-slider-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-slider--warning {
+  --pimolu-slider-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-slider--danger {
+  --pimolu-slider-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-slider--invalid {
+  --pimolu-slider-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-slider--invalid .pimolu-slider__label {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-slider--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-slider--disabled .pimolu-slider__control,
+.pimolu-slider__control:disabled {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-slider__helper,
+.pimolu-slider__error {
+  margin: 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.pimolu-slider__helper {
+  color: var(--pimolu-muted-foreground, currentColor);
+}
+
+.pimolu-slider__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-slider {
+    --pimolu-slider-tone: Highlight;
+    --pimolu-slider-track: GrayText;
+  }
+
+  .pimolu-slider__control::-webkit-slider-thumb {
+    border-color: ButtonText;
+    background: ButtonFace;
+  }
+
+  .pimolu-slider__control::-moz-range-thumb {
+    border-color: ButtonText;
+    background: ButtonFace;
+  }
+}

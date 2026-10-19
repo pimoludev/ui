@@ -225,3 +225,14 @@ export type {
   PimoluMultiSelectVariant,
   PimoluMultiSelectAppearance,
 } from "./multi-select/multi-select.types";
+
+/* Slider */
+export { Slider } from "./slider/slider";
+
+export { sliderVariantMap } from "./slider/slider.variants";
+
+export type {
+  PimoluSliderProps,
+  PimoluSliderSize,
+  PimoluSliderVariant,
+} from "./slider/slider.types";

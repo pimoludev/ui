@@ -13,6 +13,7 @@ import {
   selectVariantMap,
   separatorVariantMap,
   skeletonVariantMap,
+  sliderVariantMap,
   spinnerVariantMap,
   switchVariantMap,
   textareaVariantMap,
@@ -146,4 +147,9 @@ export const multiSelectVariants = optionsOf(
 );
 export const multiSelectAppearances = optionsOf(
   multiSelectVariantMap.appearance,
+);
+
+export const sliderSizes = optionsOf(sliderVariantMap.size);
+export const sliderVariants = optionsOf(
+  sliderVariantMap.variant,
 );

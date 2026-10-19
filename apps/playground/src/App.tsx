@@ -17,6 +17,7 @@ import { RadioPage } from "./pages/radio-page";
 import { SeparatorPage } from "./pages/separator-page";
 import { SelectPage } from "./pages/select-page";
 import { SkeletonPage } from "./pages/skeleton-page";
+import { SliderPage } from "./pages/slider-page";
 import { SpinnerPage } from "./pages/spinner-page";
 import { SwitchPage } from "./pages/switch-page";
 import { TextareaPage } from "./pages/textarea-page";
@@ -38,6 +39,7 @@ const pageComponents = {
   radio: RadioPage,
   textarea: TextareaPage,
   select: SelectPage,
+  slider: SliderPage,
   combobox: ComboboxPage,
   "multi-select": MultiSelectPage,
 } as const;

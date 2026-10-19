@@ -33,7 +33,8 @@
     "./textarea.css": "./dist/textarea.css",
     "./select.css": "./dist/select.css",
     "./combobox.css": "./dist/combobox.css",
-    "./multi-select.css": "./dist/multi-select.css"
+    "./multi-select.css": "./dist/multi-select.css",
+    "./slider.css": "./dist/slider.css"
   },
 
   "dependencies": {

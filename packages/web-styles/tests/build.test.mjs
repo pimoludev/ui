@@ -32,6 +32,7 @@ test("generates all four CSS files", async () => {
     "select.css",
     "combobox.css",
     "multi-select.css",
+    "slider.css",
   ]) {
     const css = await load(file);
 
@@ -915,6 +916,68 @@ test("MultiSelect styles are included in the CSS build", async () => {
 
   assert.ok(
     css.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+
+test("Slider styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const slider = await load("slider.css");
+
+  const selectors = [
+    ".pimolu-slider",
+    ".pimolu-slider--sm",
+    ".pimolu-slider--md",
+    ".pimolu-slider--lg",
+
+    ".pimolu-slider--neutral",
+    ".pimolu-slider--primary",
+    ".pimolu-slider--secondary",
+    ".pimolu-slider--success",
+    ".pimolu-slider--warning",
+    ".pimolu-slider--danger",
+
+    ".pimolu-slider__header",
+    ".pimolu-slider__label",
+    ".pimolu-slider__value",
+    ".pimolu-slider__control",
+    ".pimolu-slider__helper",
+    ".pimolu-slider__error",
+
+    ".pimolu-slider--invalid",
+    ".pimolu-slider--disabled",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      slider.includes(selector),
+      `Missing Slider selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    slider.includes("--pimolu-slider-progress"),
+    "The fill must be driven by the value custom property"
+  );
+
+  assert.ok(
+    slider.includes("webkit-slider-runnable-track"),
+    "The native track must be reset before styling"
+  );
+
+  assert.ok(
+    slider.includes("moz-range-progress"),
+    "Firefox must use its native progress pseudo-element"
+  );
+
+  assert.ok(
+    slider.includes("forced-colors"),
     "Missing forced colors support"
   );
 });

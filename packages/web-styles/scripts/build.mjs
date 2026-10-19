@@ -97,6 +97,11 @@ const outputs = [
     output: "multi-select.css",
     minify: false,
   },
+  {
+    input: "slider.css",
+    output: "slider.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });
