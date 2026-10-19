@@ -10,8 +10,8 @@
    also reserves the chevron space, so scaling it would push the text
    under the icon.
 
-   Button is not covered yet: it takes its padding from the spacing
-   scale instead of a dedicated variable (see docs/ai/DENSITY.md).
+   Icon-only buttons keep their square size: they are sized by the
+   height token, not by the inline padding.
 ========================================= */
 
 [data-pimolu-density="compact"] {
@@ -24,6 +24,21 @@
 
 [data-pimolu-density="spacious"] {
   --pimolu-density-factor: 1.125;
+}
+
+[data-pimolu-density]
+  .pimolu-button:not(.pimolu-button--icon-only) {
+  min-height:
+    calc(
+      var(--pimolu-button-height) *
+      var(--pimolu-density-factor)
+    );
+
+  padding-inline:
+    calc(
+      var(--pimolu-button-padding-x) *
+      var(--pimolu-density-factor)
+    );
 }
 
 [data-pimolu-density] .pimolu-input {
