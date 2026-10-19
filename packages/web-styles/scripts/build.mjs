@@ -102,6 +102,11 @@ const outputs = [
     output: "slider.css",
     minify: false,
   },
+  {
+    input: "range-slider.css",
+    output: "range-slider.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

@@ -33,6 +33,7 @@ test("generates all four CSS files", async () => {
     "combobox.css",
     "multi-select.css",
     "slider.css",
+    "range-slider.css",
   ]) {
     const css = await load(file);
 
@@ -978,6 +979,80 @@ test("Slider styles are included in the CSS build", async () => {
 
   assert.ok(
     slider.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+
+test("RangeSlider styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const rangeSlider = await load("range-slider.css");
+
+  const selectors = [
+    ".pimolu-range-slider",
+    ".pimolu-range-slider--sm",
+    ".pimolu-range-slider--md",
+    ".pimolu-range-slider--lg",
+
+    ".pimolu-range-slider--neutral",
+    ".pimolu-range-slider--primary",
+    ".pimolu-range-slider--secondary",
+    ".pimolu-range-slider--success",
+    ".pimolu-range-slider--warning",
+    ".pimolu-range-slider--danger",
+
+    ".pimolu-range-slider__header",
+    ".pimolu-range-slider__label",
+    ".pimolu-range-slider__value",
+    ".pimolu-range-slider__control",
+    ".pimolu-range-slider__track",
+    ".pimolu-range-slider__input",
+    ".pimolu-range-slider__helper",
+    ".pimolu-range-slider__error",
+
+    ".pimolu-range-slider--invalid",
+    ".pimolu-range-slider--disabled",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      rangeSlider.includes(selector),
+      `Missing RangeSlider selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    rangeSlider.includes("--pimolu-range-slider-start"),
+    "The selected segment must start at a custom property"
+  );
+
+  assert.ok(
+    rangeSlider.includes("--pimolu-range-slider-end"),
+    "The selected segment must end at a custom property"
+  );
+
+  assert.ok(
+    rangeSlider.includes("webkit-slider-thumb"),
+    "Missing WebKit thumb styling"
+  );
+
+  assert.ok(
+    rangeSlider.includes("moz-range-thumb"),
+    "Missing Firefox thumb styling"
+  );
+
+  assert.ok(
+    rangeSlider.includes("pointer-events"),
+    "The stacked inputs must let the other thumb receive the pointer"
+  );
+
+  assert.ok(
+    rangeSlider.includes("forced-colors"),
     "Missing forced colors support"
   );
 });

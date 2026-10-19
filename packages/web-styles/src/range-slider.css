@@ -1,0 +1,335 @@
+
+/* =========================================
+   PIMOLU UI — RANGE SLIDER
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-range-slider {
+  --pimolu-range-slider-track-height: 6px;
+  --pimolu-range-slider-thumb-size: 18px;
+  --pimolu-range-slider-gap: 8px;
+
+  --pimolu-range-slider-tone: var(--pimolu-primary);
+
+  --pimolu-range-slider-track:
+    var(--pimolu-muted, rgba(0, 0, 0, 0.12));
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-range-slider-gap);
+
+  width: 100%;
+  min-width: 0;
+
+  font-family: var(--pimolu-font-body, inherit);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-range-slider--sm {
+  --pimolu-range-slider-track-height: 4px;
+  --pimolu-range-slider-thumb-size: 14px;
+  --pimolu-range-slider-gap: 6px;
+}
+
+.pimolu-range-slider--md {
+  --pimolu-range-slider-track-height: 6px;
+  --pimolu-range-slider-thumb-size: 18px;
+  --pimolu-range-slider-gap: 8px;
+}
+
+.pimolu-range-slider--lg {
+  --pimolu-range-slider-track-height: 8px;
+  --pimolu-range-slider-thumb-size: 22px;
+  --pimolu-range-slider-gap: 10px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-range-slider__header {
+  display: flex;
+
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.pimolu-range-slider__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-range-slider__required {
+  margin-inline-start: 2px;
+
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-range-slider__value {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+
+  color: var(--pimolu-muted-foreground, currentColor);
+}
+
+/* =========================================
+   CONTROL
+========================================= */
+
+.pimolu-range-slider__control {
+  /* Defaults; the component overrides both from the two values. */
+  --pimolu-range-slider-start: 0%;
+  --pimolu-range-slider-end: 100%;
+
+  position: relative;
+
+  display: block;
+
+  height: var(--pimolu-range-slider-thumb-size);
+}
+
+.pimolu-range-slider__track {
+  position: absolute;
+
+  inset-inline: 0;
+  top: 50%;
+
+  height: var(--pimolu-range-slider-track-height);
+
+  transform: translateY(-50%);
+
+  border-radius: 9999px;
+
+  background:
+    linear-gradient(
+      to right,
+      var(--pimolu-range-slider-track) 0,
+      var(--pimolu-range-slider-track)
+        var(--pimolu-range-slider-start),
+      var(--pimolu-range-slider-tone)
+        var(--pimolu-range-slider-start),
+      var(--pimolu-range-slider-tone)
+        var(--pimolu-range-slider-end),
+      var(--pimolu-range-slider-track)
+        var(--pimolu-range-slider-end),
+      var(--pimolu-range-slider-track) 100%
+    );
+}
+
+/* The two native inputs are stacked and transparent; only their thumbs
+   receive pointer events, so each handle stays draggable. */
+
+.pimolu-range-slider__input {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  -webkit-appearance: none;
+  appearance: none;
+
+  pointer-events: none;
+}
+
+.pimolu-range-slider__input:focus {
+  outline: none;
+}
+
+/* WebKit */
+
+.pimolu-range-slider__input::-webkit-slider-runnable-track {
+  height: var(--pimolu-range-slider-thumb-size);
+
+  border: 0;
+
+  background: transparent;
+}
+
+.pimolu-range-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: var(--pimolu-range-slider-thumb-size);
+  height: var(--pimolu-range-slider-thumb-size);
+
+  border:
+    2px solid
+    var(--pimolu-range-slider-tone);
+
+  border-radius: 50%;
+
+  background: var(--pimolu-background, #ffffff);
+
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.pimolu-range-slider__input:focus-visible::-webkit-slider-thumb {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* Firefox */
+
+.pimolu-range-slider__input::-moz-range-track {
+  height: var(--pimolu-range-slider-thumb-size);
+
+  border: 0;
+
+  background: transparent;
+}
+
+.pimolu-range-slider__input::-moz-range-progress {
+  background: transparent;
+}
+
+.pimolu-range-slider__input::-moz-range-thumb {
+  width: var(--pimolu-range-slider-thumb-size);
+  height: var(--pimolu-range-slider-thumb-size);
+
+  border:
+    2px solid
+    var(--pimolu-range-slider-tone);
+
+  border-radius: 50%;
+
+  background: var(--pimolu-background, #ffffff);
+
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.pimolu-range-slider__input:focus-visible::-moz-range-thumb {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+.pimolu-range-slider__input:active::-webkit-slider-thumb,
+.pimolu-range-slider__input:active::-moz-range-thumb {
+  cursor: grabbing;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-range-slider--neutral {
+  --pimolu-range-slider-tone:
+    var(--pimolu-neutral, var(--pimolu-foreground));
+}
+
+.pimolu-range-slider--primary {
+  --pimolu-range-slider-tone: var(--pimolu-primary);
+}
+
+.pimolu-range-slider--secondary {
+  --pimolu-range-slider-tone:
+    var(--pimolu-secondary, currentColor);
+}
+
+.pimolu-range-slider--success {
+  --pimolu-range-slider-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-range-slider--warning {
+  --pimolu-range-slider-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-range-slider--danger {
+  --pimolu-range-slider-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-range-slider--invalid {
+  --pimolu-range-slider-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-range-slider--invalid .pimolu-range-slider__label {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-range-slider--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-range-slider--disabled .pimolu-range-slider__input::-webkit-slider-thumb,
+.pimolu-range-slider--disabled .pimolu-range-slider__input::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-range-slider__helper,
+.pimolu-range-slider__error {
+  margin: 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.pimolu-range-slider__helper {
+  color: var(--pimolu-muted-foreground, currentColor);
+}
+
+.pimolu-range-slider__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-range-slider {
+    --pimolu-range-slider-tone: Highlight;
+    --pimolu-range-slider-track: GrayText;
+  }
+
+  .pimolu-range-slider__input::-webkit-slider-thumb {
+    border-color: ButtonText;
+    background: ButtonFace;
+  }
+
+  .pimolu-range-slider__input::-moz-range-thumb {
+    border-color: ButtonText;
+    background: ButtonFace;
+  }
+}

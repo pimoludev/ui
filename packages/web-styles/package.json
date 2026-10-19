@@ -34,7 +34,8 @@
     "./select.css": "./dist/select.css",
     "./combobox.css": "./dist/combobox.css",
     "./multi-select.css": "./dist/multi-select.css",
-    "./slider.css": "./dist/slider.css"
+    "./slider.css": "./dist/slider.css",
+    "./range-slider.css": "./dist/range-slider.css"
   },
 
   "dependencies": {

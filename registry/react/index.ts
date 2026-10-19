@@ -236,3 +236,15 @@ export type {
   PimoluSliderSize,
   PimoluSliderVariant,
 } from "./slider/slider.types";
+
+/* RangeSlider */
+export { RangeSlider } from "./range-slider/range-slider";
+
+export { rangeSliderVariantMap } from "./range-slider/range-slider.variants";
+
+export type {
+  PimoluRangeSliderProps,
+  PimoluRangeSliderValue,
+  PimoluRangeSliderSize,
+  PimoluRangeSliderVariant,
+} from "./range-slider/range-slider.types";

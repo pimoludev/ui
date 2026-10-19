@@ -14,6 +14,7 @@ import { InputPage } from "./pages/input-page";
 import { MultiSelectPage } from "./pages/multi-select-page";
 import { OverviewPage } from "./pages/overview-page";
 import { RadioPage } from "./pages/radio-page";
+import { RangeSliderPage } from "./pages/range-slider-page";
 import { SeparatorPage } from "./pages/separator-page";
 import { SelectPage } from "./pages/select-page";
 import { SkeletonPage } from "./pages/skeleton-page";
@@ -37,6 +38,7 @@ const pageComponents = {
   switch: SwitchPage,
   checkbox: CheckboxPage,
   radio: RadioPage,
+  "range-slider": RangeSliderPage,
   textarea: TextareaPage,
   select: SelectPage,
   slider: SliderPage,

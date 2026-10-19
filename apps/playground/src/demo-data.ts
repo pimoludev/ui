@@ -10,6 +10,7 @@ import {
   multiSelectVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
+  rangeSliderVariantMap,
   selectVariantMap,
   separatorVariantMap,
   skeletonVariantMap,
@@ -152,4 +153,11 @@ export const multiSelectAppearances = optionsOf(
 export const sliderSizes = optionsOf(sliderVariantMap.size);
 export const sliderVariants = optionsOf(
   sliderVariantMap.variant,
+);
+
+export const rangeSliderSizes = optionsOf(
+  rangeSliderVariantMap.size,
+);
+export const rangeSliderVariants = optionsOf(
+  rangeSliderVariantMap.variant,
 );

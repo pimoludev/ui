@@ -17,6 +17,7 @@ export const pages = [
   { id: "input", label: "Input", group: "Forms" },
   { id: "multi-select", label: "MultiSelect", group: "Forms" },
   { id: "radio", label: "Radio", group: "Forms" },
+  { id: "range-slider", label: "RangeSlider", group: "Forms" },
   { id: "select", label: "Select", group: "Forms" },
   { id: "slider", label: "Slider", group: "Forms" },
   { id: "switch", label: "Switch", group: "Forms" },
