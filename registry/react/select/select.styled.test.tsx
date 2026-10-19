@@ -266,6 +266,38 @@ describe("Pimolu Select (styled)", () => {
     );
   });
 
+  it("reads the options of an optgroup", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Select label="Framework" defaultValue="react">
+        <optgroup label="UI libraries">
+          <option value="react">React</option>
+          <option value="vue">Vue</option>
+        </optgroup>
+
+        <optgroup label="Frameworks">
+          <option value="nextjs">Next.js</option>
+        </optgroup>
+      </Select>
+    );
+
+    const trigger = screen.getByRole("combobox");
+
+    expect(trigger).toHaveTextContent("React");
+
+    await user.click(trigger);
+
+    expect(screen.getAllByRole("option")).toHaveLength(3);
+    expect(screen.getByText("UI libraries")).toBeInTheDocument();
+
+    fireEvent.pointerDown(
+      screen.getByRole("option", { name: "Next.js" })
+    );
+
+    expect(trigger).toHaveTextContent("Next.js");
+  });
+
   it("anchors the listbox under the trigger, above it when there is no room", async () => {
     const user = userEvent.setup();
 

@@ -2,6 +2,7 @@
 
 import {
   Children,
+  Fragment,
   forwardRef,
   isValidElement,
   useId,
@@ -31,40 +32,53 @@ interface ParsedOption {
   value: string;
   label: string;
   disabled: boolean;
+  group?: string;
 }
 
 /**
  * The public API stays `<option>` children, so the styled control and the
- * native control read the same source.
+ * native control read the same source. `<optgroup>` are walked through and
+ * only keep their label, which the listbox renders as a heading.
  */
 function parseOptions(children: ReactNode): ParsedOption[] {
   const options: ParsedOption[] = [];
 
-  Children.forEach(children, (child) => {
-    if (!isValidElement(child)) return;
+  function walk(nodes: ReactNode, group?: string) {
+    Children.forEach(nodes, (child) => {
+      if (!isValidElement(child)) return;
 
-    const props = child.props as {
-      value?: unknown;
-      disabled?: boolean;
-      children?: ReactNode;
-    };
+      const props = child.props as {
+        value?: unknown;
+        label?: string;
+        disabled?: boolean;
+        children?: ReactNode;
+      };
 
-    const label =
-      typeof props.children === "string" ||
-      typeof props.children === "number"
-        ? String(props.children)
-        : "";
+      if (child.type === "optgroup") {
+        walk(props.children, props.label ?? "");
+        return;
+      }
 
-    options.push({
-      value:
-        props.value !== undefined
-          ? String(props.value)
-          : label,
+      const label =
+        typeof props.children === "string" ||
+        typeof props.children === "number"
+          ? String(props.children)
+          : "";
 
-      label,
-      disabled: Boolean(props.disabled),
+      options.push({
+        value:
+          props.value !== undefined
+            ? String(props.value)
+            : label,
+
+        label,
+        disabled: Boolean(props.disabled),
+        group,
+      });
     });
-  });
+  }
+
+  walk(children);
 
   return options;
 }
@@ -547,8 +561,19 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
               aria-labelledby={label ? labelId : undefined}
             >
               {options.map((option, index) => (
-                <div
-                  key={`${option.value}-${index}`}
+                <Fragment key={`${option.value}-${index}`}>
+                  {option.group &&
+                    option.group !==
+                      options[index - 1]?.group && (
+                      <div
+                        className="pimolu-select__group"
+                        role="presentation"
+                      >
+                        {option.group}
+                      </div>
+                    )}
+
+                  <div
                   id={optionId(index)}
                   role="option"
                   className="pimolu-select__option"
@@ -565,6 +590,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
                 >
                   {option.label}
                 </div>
+                </Fragment>
               ))}
             </div>
           </Portal>

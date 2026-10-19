@@ -483,3 +483,16 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Heading rendered for each <optgroup> of the source. */
+
+.pimolu-select__group {
+  padding: 8px 10px 4px;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+
+  color: var(--pimolu-muted-foreground, currentColor);
+}
