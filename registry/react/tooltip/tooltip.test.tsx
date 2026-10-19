@@ -75,6 +75,16 @@ describe("Pimolu Tooltip", () => {
     open();
     fireEvent.mouseLeave(trigger);
 
+    /* The bubble stays mounted while it animates out. */
+    expect(screen.getByRole("tooltip")).toHaveAttribute(
+      "data-state",
+      "closing"
+    );
+
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
+
     expect(screen.queryByRole("tooltip")).toBeNull();
   });
 
@@ -108,6 +118,10 @@ describe("Pimolu Tooltip", () => {
     open();
 
     fireEvent.keyDown(trigger, { key: "Escape" });
+
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
 
     expect(screen.queryByRole("tooltip")).toBeNull();
   });
@@ -162,6 +176,111 @@ describe("Pimolu Tooltip", () => {
 
     expect(bubble.style.bottom).toBe("");
     expect(bubble.style.top).toBe("88px");
+  });
+
+  it("draws a caret pointing at the trigger", () => {
+    vi.useFakeTimers();
+
+    render(
+      <Tooltip content="Saved" arrow>
+        <button type="button">Save</button>
+      </Tooltip>
+    );
+
+    const trigger = screen.getByRole("button");
+
+    /* Room above: the default placement is kept. */
+    trigger.getBoundingClientRect = () =>
+      ({
+        top: 400,
+        bottom: 440,
+        left: 100,
+        right: 200,
+        width: 100,
+        height: 40,
+        x: 100,
+        y: 400,
+        toJSON: () => ({}),
+      }) as DOMRect;
+
+    fireEvent.mouseEnter(trigger);
+    open();
+
+    const bubble = screen.getByRole("tooltip");
+
+    expect(bubble).toHaveAttribute("data-side", "top");
+
+    expect(
+      bubble.querySelector(".pimolu-tooltip__arrow")
+    ).not.toBeNull();
+  });
+
+  it("flips horizontally when the preferred side has no room", () => {
+    vi.useFakeTimers();
+
+    render(
+      <Tooltip content="Saved" placement="left">
+        <button type="button">Save</button>
+      </Tooltip>
+    );
+
+    const trigger = screen.getByRole("button");
+
+    /* 24px from the left edge: nothing fits on the left. */
+    trigger.getBoundingClientRect = () =>
+      ({
+        top: 200,
+        bottom: 240,
+        left: 24,
+        right: 124,
+        width: 100,
+        height: 40,
+        x: 24,
+        y: 200,
+        toJSON: () => ({}),
+      }) as DOMRect;
+
+    fireEvent.mouseEnter(trigger);
+    open();
+
+    const bubble = screen.getByRole("tooltip");
+
+    expect(bubble).toHaveAttribute("data-side", "right");
+    expect(bubble.style.left).toBe("132px");
+    expect(bubble.style.right).toBe("");
+  });
+
+  it("animates in and out", () => {
+    vi.useFakeTimers();
+
+    render(
+      <Tooltip content="Saved">
+        <button type="button">Save</button>
+      </Tooltip>
+    );
+
+    const trigger = screen.getByRole("button");
+
+    fireEvent.mouseEnter(trigger);
+    open();
+
+    expect(screen.getByRole("tooltip")).toHaveAttribute(
+      "data-state",
+      "open"
+    );
+
+    fireEvent.mouseLeave(trigger);
+
+    expect(screen.getByRole("tooltip")).toHaveAttribute(
+      "data-state",
+      "closing"
+    );
+
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
+
+    expect(screen.queryByRole("tooltip")).toBeNull();
   });
 
   it("never opens when disabled", () => {

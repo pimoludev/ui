@@ -5,6 +5,13 @@
 ========================================= */
 
 .pimolu-tooltip {
+  /* Motion comes from the side the bubble sits on: it slides away from the
+     trigger, whichever side the placement resolved to. */
+  --pimolu-tooltip-shift-x: 0px;
+  --pimolu-tooltip-shift-y: 4px;
+
+  position: relative;
+
   padding: 6px 10px;
 
   border-radius: var(--pimolu-radius-sm);
@@ -21,6 +28,126 @@
 
   /* A tooltip is purely informative: it must not swallow the pointer. */
   pointer-events: none;
+}
+
+.pimolu-tooltip[data-side="top"] {
+  --pimolu-tooltip-shift-x: 0px;
+  --pimolu-tooltip-shift-y: 4px;
+}
+
+.pimolu-tooltip[data-side="bottom"] {
+  --pimolu-tooltip-shift-x: 0px;
+  --pimolu-tooltip-shift-y: -4px;
+}
+
+.pimolu-tooltip[data-side="left"] {
+  --pimolu-tooltip-shift-x: 4px;
+  --pimolu-tooltip-shift-y: 0px;
+}
+
+.pimolu-tooltip[data-side="right"] {
+  --pimolu-tooltip-shift-x: -4px;
+  --pimolu-tooltip-shift-y: 0px;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-tooltip[data-state="open"] {
+  animation:
+    pimolu-tooltip-in
+    120ms
+    ease-out;
+}
+
+.pimolu-tooltip[data-state="closing"] {
+  animation:
+    pimolu-tooltip-out
+    100ms
+    ease-in
+    forwards;
+}
+
+@keyframes pimolu-tooltip-in {
+  from {
+    opacity: 0;
+
+    transform: translate(
+      var(--pimolu-tooltip-shift-x),
+      var(--pimolu-tooltip-shift-y)
+    );
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes pimolu-tooltip-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   ARROW
+========================================= */
+
+.pimolu-tooltip__arrow {
+  position: absolute;
+
+  width: 8px;
+  height: 8px;
+
+  background: inherit;
+
+  transform: rotate(45deg);
+}
+
+.pimolu-tooltip[data-side="top"] .pimolu-tooltip__arrow {
+  bottom: -4px;
+  left: 50%;
+
+  margin-left: -4px;
+}
+
+.pimolu-tooltip[data-side="bottom"] .pimolu-tooltip__arrow {
+  top: -4px;
+  left: 50%;
+
+  margin-left: -4px;
+}
+
+.pimolu-tooltip[data-side="left"] .pimolu-tooltip__arrow {
+  right: -4px;
+  top: 50%;
+
+  margin-top: -4px;
+}
+
+.pimolu-tooltip[data-side="right"] .pimolu-tooltip__arrow {
+  left: -4px;
+  top: 50%;
+
+  margin-top: -4px;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-tooltip[data-state="open"],
+  .pimolu-tooltip[data-state="closing"] {
+    animation: none;
+  }
 }
 
 /* =========================================

@@ -20,19 +20,27 @@ export function TooltipPage() {
       />
 
       <Section
-        title="Sides"
-        hint="The preferred side is a request: the bubble flips when there is no room."
+        title="Placement"
+        hint="Four sides, a caret, and an automatic flip when the preferred side has no room."
       >
         <div className="pg-row">
-          <Tooltip content="Above the trigger" side="top">
-            <Button appearance="outline">Above</Button>
+          <Tooltip content="Above the trigger" placement="top" arrow>
+            <Button appearance="outline">Top</Button>
           </Tooltip>
 
-          <Tooltip content="Below the trigger" side="bottom">
-            <Button appearance="outline">Below</Button>
+          <Tooltip content="Below the trigger" placement="bottom">
+            <Button appearance="outline">Bottom</Button>
           </Tooltip>
 
-          <Tooltip content="This one keeps its two children unchanged">
+          <Tooltip content="On the left" placement="left" arrow>
+            <Button appearance="outline">Left</Button>
+          </Tooltip>
+
+          <Tooltip content="On the right" placement="right">
+            <Button appearance="outline">Right</Button>
+          </Tooltip>
+
+          <Tooltip content="Any element can be the trigger" arrow>
             <Badge variant="primary">Badge trigger</Badge>
           </Tooltip>
         </div>
@@ -95,7 +103,7 @@ export function TooltipPage() {
             </CardHeader>
             <CardContent>
               <div className="pg-row">
-                <Tooltip content="Search everything (⌘ K)">
+                <Tooltip content="Search everything (⌘ K)" arrow>
                   <Button>Search</Button>
                 </Tooltip>
 

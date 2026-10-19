@@ -3,7 +3,6 @@
 import {
   cloneElement,
   isValidElement,
-  useCallback,
   useEffect,
   useId,
   useRef,
@@ -20,8 +19,21 @@ import { Portal } from "../internal/portal";
 import { useAnchoredPosition } from "../internal/use-anchored-position";
 
 /* =========================================
-   TOOLTIP
+   HELPERS
 ========================================= */
+
+/** Must match the exit animation duration of tooltip.css. */
+const EXIT_DURATION = 100;
+
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+  );
+}
 
 interface TriggerProps {
   ref?: unknown;
@@ -33,10 +45,15 @@ interface TriggerProps {
   onKeyDown?: (event: KeyboardEvent) => void;
 }
 
+/* =========================================
+   TOOLTIP
+========================================= */
+
 export function Tooltip({
   content,
   children,
-  side = "top",
+  placement = "top",
+  arrow = false,
   delay = 500,
   disabled = false,
   className,
@@ -46,52 +63,87 @@ export function Tooltip({
 
   const triggerRef = useRef<HTMLElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(
-    null
-  );
 
-  const [open, setOpen] = useState(false);
+  const openTimer = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
 
-  const panelStyle = useAnchoredPosition(
+  const closeTimer = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+
+  const [phase, setPhase] = useState<
+    "closed" | "open" | "closing"
+  >("closed");
+
+  const visible = phase !== "closed";
+
+  const { style: panelStyle, side } = useAnchoredPosition(
     triggerRef,
     panelRef,
-    open,
+    visible,
     {
-      placement: side,
+      placement,
       matchWidth: false,
-      gap: 8,
+
+      /* The caret needs a little more room than a bare edge. */
+      gap: arrow ? 10 : 8,
+
       maxHeight: 240,
+      maxWidth: 320,
     }
   );
 
-  const cancel = useCallback(() => {
-    if (timeout.current !== null) {
-      clearTimeout(timeout.current);
-      timeout.current = null;
+  function cancelTimers() {
+    if (openTimer.current !== null) {
+      clearTimeout(openTimer.current);
+      openTimer.current = null;
     }
-  }, []);
 
-  const show = useCallback(() => {
+    if (closeTimer.current !== null) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }
+
+  function show() {
     if (disabled) return;
 
-    cancel();
+    cancelTimers();
 
     if (delay <= 0) {
-      setOpen(true);
+      setPhase("open");
       return;
     }
 
-    timeout.current = setTimeout(() => setOpen(true), delay);
-  }, [cancel, delay, disabled]);
+    openTimer.current = setTimeout(
+      () => setPhase("open"),
+      delay
+    );
+  }
 
-  const hide = useCallback(() => {
-    cancel();
-    setOpen(false);
-  }, [cancel]);
+  function hide() {
+    cancelTimers();
+
+    if (phase === "closed") return;
+
+    /* Without motion there is nothing to wait for. */
+    if (prefersReducedMotion()) {
+      setPhase("closed");
+      return;
+    }
+
+    setPhase("closing");
+
+    closeTimer.current = setTimeout(
+      () => setPhase("closed"),
+      EXIT_DURATION
+    );
+  }
 
   /* A pending delay must not outlive the component. */
 
-  useEffect(() => cancel, [cancel]);
+  useEffect(() => () => cancelTimers(), []);
 
   if (!isValidElement(children)) return children;
 
@@ -101,7 +153,7 @@ export function Tooltip({
   const describedBy =
     [
       props["aria-describedby"],
-      open ? tooltipId : null,
+      visible ? tooltipId : null,
     ]
       .filter(Boolean)
       .join(" ") || undefined;
@@ -161,7 +213,7 @@ export function Tooltip({
     <>
       {cloneElement(trigger, triggerProps)}
 
-      {open && (
+      {visible && (
         <Portal>
           <div
             ref={panelRef}
@@ -173,8 +225,19 @@ export function Tooltip({
                 .join(" ")
             }
             style={panelStyle}
+            data-state={
+              phase === "open" ? "open" : "closing"
+            }
+            data-side={side}
           >
             {content}
+
+            {arrow && (
+              <span
+                className="pimolu-tooltip__arrow"
+                aria-hidden="true"
+              />
+            )}
           </div>
         </Portal>
       )}

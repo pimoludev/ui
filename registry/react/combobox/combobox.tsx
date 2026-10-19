@@ -326,11 +326,11 @@ export const Combobox = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  const popupStyle = useAnchoredPosition(
-    rootRef,
-    listboxRef,
-    isOpen && !disabled
-  );
+    const { style: popupStyle } = useAnchoredPosition(
+      rootRef,
+      listboxRef,
+      isOpen && !disabled
+    );
 
   useOutsidePointer(
     [rootRef, listboxRef],

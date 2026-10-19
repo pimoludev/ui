@@ -7,6 +7,12 @@ import {
   type RefObject,
 } from "react";
 
+export type AnchoredPlacement =
+  | "top"
+  | "bottom"
+  | "left"
+  | "right";
+
 export interface AnchoredPositionOptions {
   /** Distance between the anchor and the floating surface. */
   gap?: number;
@@ -17,27 +23,51 @@ export interface AnchoredPositionOptions {
   /** Upper bound of the floating surface height. */
   maxHeight?: number;
 
+  /** Upper bound of the floating surface width. */
+  maxWidth?: number;
+
   /** Preferred side of the anchor. Defaults to "bottom". */
-  placement?: "bottom" | "top";
+  placement?: AnchoredPlacement;
 
   /**
    * Match the anchor width. A menu wants it; a tooltip does not, since it is
-   * centred on the anchor instead.
+   * centred on the anchor instead. Only applies to vertical placements.
    */
   matchWidth?: boolean;
 }
 
+export interface AnchoredPosition {
+  /** Inline placement, or undefined while the surface is closed. */
+  style: CSSProperties | undefined;
+
+  /** Side the surface actually sits on, after flipping. */
+  side: AnchoredPlacement;
+}
+
+function opposite(
+  placement: AnchoredPlacement
+): AnchoredPlacement {
+  if (placement === "top") return "bottom";
+  if (placement === "bottom") return "top";
+  if (placement === "left") return "right";
+
+  return "left";
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
 /**
- * Positions a floating surface against its anchor with fixed coordinates.
+ * Positions a floating surface against its anchor with fixed coordinates, on
+ * any of the four sides, and flips it to the opposite side when the preferred
+ * one has less room than the other.
  *
  * The anchor is measured on open, then again on the next frame and whenever
- * the surface resizes: a panel rendered through a portal only exists one
- * render after `open`, so its height is unknown on the first pass. Until it is
- * known the panel is assumed to be as tall as `maxHeight`, which keeps the
- * flip decision honest.
- *
- * When the surface does not fit below the anchor it is anchored by its bottom
- * edge instead of its top, so it hugs the trigger whatever its height is.
+ * the surface resizes: a panel rendered through a portal only exists one render
+ * after `open`, so its size is unknown on the first pass. Until it is known the
+ * surface is assumed to be as large as the cap, which keeps the flip decision
+ * honest.
  */
 export function useAnchoredPosition(
   anchorRef: RefObject<HTMLElement | null>,
@@ -47,13 +77,17 @@ export function useAnchoredPosition(
     gap = 4,
     padding = 8,
     maxHeight = 320,
+    maxWidth = 320,
     placement = "bottom",
     matchWidth = true,
   }: AnchoredPositionOptions = {}
-): CSSProperties | undefined {
+): AnchoredPosition {
   const [style, setStyle] = useState<
     CSSProperties | undefined
   >(undefined);
+
+  const [side, setSide] =
+    useState<AnchoredPlacement>(placement);
 
   useLayoutEffect(() => {
     if (!open) {
@@ -74,86 +108,141 @@ export function useAnchoredPosition(
       const viewportWidth =
         window.innerWidth || padding * 2;
 
-      const measured =
-        floatingRef.current?.scrollHeight ?? 0;
+      const vertical =
+        placement === "top" || placement === "bottom";
 
-      /* Before the panel exists, assume the biggest size it may take. */
-      const natural =
-        measured > 0 ? measured : maxHeight;
+      const panel = floatingRef.current;
 
-      const roomBelow =
-        viewportHeight - rect.bottom - gap - padding;
+      const naturalPrimary = vertical
+        ? panel?.scrollHeight || maxHeight
+        : panel?.offsetWidth || maxWidth;
 
-      const roomAbove = rect.top - gap - padding;
+      const roomOn = (target: AnchoredPlacement) => {
+        if (target === "top") {
+          return rect.top - gap - padding;
+        }
 
-      const preferredRoom =
-        placement === "top" ? roomAbove : roomBelow;
+        if (target === "bottom") {
+          return (
+            viewportHeight - rect.bottom - gap - padding
+          );
+        }
 
-      const oppositeRoom =
-        placement === "top" ? roomBelow : roomAbove;
+        if (target === "left") {
+          return rect.left - gap - padding;
+        }
+
+        return viewportWidth - rect.right - gap - padding;
+      };
+
+      const cap = vertical ? maxHeight : maxWidth;
+
+      const primaryRoom = roomOn(placement);
+      const oppositeRoom = roomOn(opposite(placement));
 
       const flip =
-        preferredRoom < Math.min(natural, maxHeight) &&
-        oppositeRoom > preferredRoom;
+        primaryRoom < Math.min(naturalPrimary, cap) &&
+        oppositeRoom > primaryRoom;
 
-      const side = flip
-        ? placement === "top"
-          ? "bottom"
-          : "top"
+      const resolved = flip
+        ? opposite(placement)
         : placement;
 
-      const room = Math.max(
-        side === "top" ? roomAbove : roomBelow,
-        0
-      );
+      setSide(resolved);
 
-      const height = Math.max(
-        80,
-        Math.min(maxHeight, room === 0 ? maxHeight : room, natural)
-      );
+      const room = Math.max(roomOn(resolved), 0);
 
-      const panelWidth =
-        (matchWidth
-          ? rect.width
-          : floatingRef.current?.offsetWidth) || rect.width;
-
-      const maxLeft = Math.max(
-        padding,
-        viewportWidth - panelWidth - padding
-      );
-
-      const left = matchWidth
-        ? Math.min(Math.max(rect.left, padding), maxLeft)
-        : Math.min(
-            Math.max(
-              rect.left + rect.width / 2 - panelWidth / 2,
-              padding
-            ),
-            maxLeft
-          );
-
-      setStyle({
+      const next: CSSProperties = {
         position: "fixed",
-
-        left: Math.round(left),
-        maxHeight: Math.round(height),
-
         zIndex: 50,
+      };
 
-        ...(matchWidth
-          ? { width: Math.round(rect.width) }
-          : null),
+      if (vertical) {
+        next.maxHeight = Math.round(
+          Math.max(
+            80,
+            Math.min(
+              maxHeight,
+              room === 0 ? maxHeight : room,
+              panel?.scrollHeight || maxHeight
+            )
+          )
+        );
 
-        ...(side === "top"
-          ? {
-              bottom: Math.round(
-                viewportHeight - rect.top + gap
-              ),
-            }
-          : {
-              top: Math.round(rect.bottom + gap),
-            }),
-      });
+        next.maxWidth = Math.round(maxWidth);
+
+        if (resolved === "top") {
+          next.bottom = Math.round(
+            viewportHeight - rect.top + gap
+          );
+        } else {
+          next.top = Math.round(rect.bottom + gap);
+        }
+
+        if (matchWidth) {
+          next.width = Math.round(rect.width);
+
+          next.left = Math.round(
+            clamp(
+              rect.left,
+              padding,
+              Math.max(
+                padding,
+                viewportWidth - rect.width - padding
+              )
+            )
+          );
+        } else {
+          const panelWidth = panel?.offsetWidth || rect.width;
+
+          next.left = Math.round(
+            clamp(
+              rect.left + rect.width / 2 - panelWidth / 2,
+              padding,
+              Math.max(
+                padding,
+                viewportWidth - panelWidth - padding
+              )
+            )
+          );
+        }
+      } else {
+        next.maxWidth = Math.round(
+          Math.max(
+            80,
+            Math.min(
+              maxWidth,
+              room === 0 ? maxWidth : room,
+              panel?.offsetWidth || maxWidth
+            )
+          )
+        );
+
+        if (resolved === "left") {
+          next.right = Math.round(
+            viewportWidth - rect.left + gap
+          );
+        } else {
+          next.left = Math.round(rect.right + gap);
+        }
+
+        /* Centre on the anchor, then keep it inside the viewport. */
+        const panelHeight =
+          panel?.offsetHeight || rect.height;
+
+        next.top = Math.round(
+          clamp(
+            rect.top + rect.height / 2 - panelHeight / 2,
+            padding,
+            Math.max(
+              padding,
+              viewportHeight - panelHeight - padding
+            )
+          )
+        );
+      }
+
+      setStyle(next);
     };
 
     measure();
@@ -191,9 +280,10 @@ export function useAnchoredPosition(
     gap,
     padding,
     maxHeight,
+    maxWidth,
     placement,
     matchWidth,
   ]);
 
-  return style;
+  return { style, side };
 }

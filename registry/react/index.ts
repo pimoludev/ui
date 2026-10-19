@@ -278,4 +278,5 @@ export { Tooltip } from "./tooltip/tooltip";
 
 export type {
   PimoluTooltipProps,
+  PimoluTooltipPlacement,
 } from "./tooltip/tooltip.types";
