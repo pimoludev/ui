@@ -51,16 +51,25 @@
 
   padding-inline: var(--pimolu-spacing-4, 16px);
 
+  border-start-start-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+  border-start-end-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
   border-block-end:
     var(--pimolu-control-border-width, 1px)
     solid var(--pimolu-border);
 }
 
 .pimolu-command__field:focus-within {
-  outline: 2px solid
-    var(--pimolu-focus-ring, var(--pimolu-primary));
+  outline: none;
 
-  outline-offset: -2px;
+  box-shadow: inset 0 0 0 2px
+    var(--pimolu-focus-ring, var(--pimolu-primary));
 }
 
 .pimolu-command__search-icon {

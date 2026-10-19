@@ -81,7 +81,9 @@ export function CommandPage() {
             onSelect={(item) => setSelected(item.label)}
           />
 
-          <Badge variant="neutral">selected: {selected}</Badge>
+          <div className="pg-row">
+            <Badge variant="neutral">selected: {selected}</Badge>
+          </div>
         </div>
       </Section>
 
@@ -147,9 +149,11 @@ export function CommandPage() {
             </CardHeader>
 
             <CardContent>
-              <Badge variant="neutral">
-                last command: {selected}
-              </Badge>
+              <div className="pg-row">
+                <Badge variant="neutral">
+                  last command: {selected}
+                </Badge>
+              </div>
             </CardContent>
           </Card>
         </div>
