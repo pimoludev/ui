@@ -44,7 +44,9 @@ their appearance.
   `usePresence` for exit animation, `useDismissableLayer` for outside/Escape
   dismissal, and `useFocusTrap` for modal focus. Combobox and MultiSelect use
   the shared dismissal layer; Dialog and Popover keep their specialized focus
-  and positioning paths.
+  and positioning paths. Drawer, ContextMenu, HoverCard, CommandPalette and
+  Toast build on these helpers. `Portal` is exported publicly as a low-level
+  utility for custom overlays.
 - `apps/playground/src/router.ts` declares the demo pages;
   `apps/playground/src/demo-data.ts` derives the option lists from the public
   variant maps. `examples/nextjs` is a separate integration example.

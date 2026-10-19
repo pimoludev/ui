@@ -242,6 +242,26 @@ const outputs = [
     output: "toast.css",
     minify: false,
   },
+  {
+    input: "drawer.css",
+    output: "drawer.css",
+    minify: false,
+  },
+  {
+    input: "context-menu.css",
+    output: "context-menu.css",
+    minify: false,
+  },
+  {
+    input: "hover-card.css",
+    output: "hover-card.css",
+    minify: false,
+  },
+  {
+    input: "command.css",
+    output: "command.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

@@ -53,10 +53,15 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | AlertDialog | `registry/react/alert-dialog/` | Explicit modal confirmation | Present and tested |
 | DropdownMenu | `registry/react/dropdown-menu/` | Anchored action menu | Present and tested |
 | Toast, Toaster | `registry/react/toast/` | Temporary notifications | Present and tested |
+| Drawer | `registry/react/drawer/` | Modal panel sliding from a side | Present and tested |
+| ContextMenu | `registry/react/context-menu/` | Pointer-positioned action menu | Present and tested |
+| HoverCard | `registry/react/hover-card/` | Rich hover/focus preview | Present and tested |
+| Command, CommandPalette | `registry/react/command/` | Searchable command list and modal palette | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
-utilities in `registry/react/internal/`. The playground pages cover the 45
-families (AvatarGroup and RadioGroup are shown with their family).
+utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
+low-level utility. The playground pages cover the 49 families (AvatarGroup and
+RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.
 

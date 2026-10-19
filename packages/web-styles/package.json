@@ -62,7 +62,11 @@
     "./list.css": "./dist/list.css",
     "./description-list.css": "./dist/description-list.css",
     "./dropdown-menu.css": "./dist/dropdown-menu.css",
-    "./toast.css": "./dist/toast.css"
+    "./toast.css": "./dist/toast.css",
+    "./drawer.css": "./dist/drawer.css",
+    "./context-menu.css": "./dist/context-menu.css",
+    "./hover-card.css": "./dist/hover-card.css",
+    "./command.css": "./dist/command.css"
   },
 
   "dependencies": {

@@ -1,0 +1,193 @@
+/* =========================================
+   PIMOLU UI - CONTEXT MENU
+   Shared Web Styles
+========================================= */
+
+.pimolu-context-menu {
+  box-sizing: border-box;
+
+  min-width: min(12rem, calc(100vw - 16px));
+  max-width: 20rem;
+
+  padding: 6px;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground)
+  );
+
+  box-shadow: var(
+    --pimolu-shadow-raised,
+    none
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  outline: none;
+
+  transform-origin: top left;
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-context-menu__item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 8px 10px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: start;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.pimolu-context-menu__item:hover:not(:disabled),
+.pimolu-context-menu__item:focus-visible {
+  background: var(--pimolu-muted);
+
+  outline: none;
+}
+
+.pimolu-context-menu__item:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   LABEL AND SEPARATOR
+========================================= */
+
+.pimolu-context-menu__label {
+  padding: 6px 10px 4px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pimolu-context-menu__separator {
+  height: 1px;
+
+  margin: 4px 0;
+
+  background: var(--pimolu-border);
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-context-menu[data-state="open"] {
+  animation:
+    pimolu-context-menu-in
+    140ms
+    ease-out;
+}
+
+.pimolu-context-menu[data-state="closing"] {
+  animation:
+    pimolu-context-menu-out
+    120ms
+    ease-in
+    forwards;
+
+  pointer-events: none;
+}
+
+@keyframes pimolu-context-menu-in {
+  from {
+    opacity: 0;
+
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+@keyframes pimolu-context-menu-out {
+  from {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: scale(0.96);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-context-menu[data-state="open"],
+  .pimolu-context-menu[data-state="closing"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-context-menu {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-context-menu__item:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pimolu-context-menu__separator {
+    background: CanvasText;
+  }
+}

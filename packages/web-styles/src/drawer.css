@@ -1,0 +1,451 @@
+/* =========================================
+   PIMOLU UI - DRAWER
+   Shared Web Styles
+========================================= */
+
+.pimolu-drawer {
+  position: fixed;
+  inset: 0;
+
+  z-index: 50;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.pimolu-drawer__overlay {
+  position: absolute;
+  inset: 0;
+
+  /* Same scrim as the dialog overlay: there is no semantic scrim token. */
+  background: rgba(15, 23, 42, 0.55);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-drawer__content {
+  --pimolu-drawer-size: 24rem;
+  --pimolu-drawer-shift-x: 100%;
+  --pimolu-drawer-shift-y: 0%;
+
+  position: absolute;
+  z-index: 1;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  padding: var(--pimolu-spacing-6, 24px);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  /* Presets with a translucent surface (glass) read as frosted glass; an
+     opaque surface is unaffected. */
+  -webkit-backdrop-filter: blur(
+    var(--pimolu-glass-blur, 18px)
+  );
+
+  backdrop-filter: blur(
+    var(--pimolu-glass-blur, 18px)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  /* The panel receives focus only as a fallback when it holds nothing
+     focusable; a ring around the whole surface would read as a wrong state. */
+  outline: none;
+}
+
+/* =========================================
+   SIDES
+========================================= */
+
+.pimolu-drawer__content--right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: min(100%, var(--pimolu-drawer-size));
+
+  border-top-left-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  border-bottom-left-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  --pimolu-drawer-shift-x: 100%;
+  --pimolu-drawer-shift-y: 0%;
+}
+
+.pimolu-drawer__content--left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: min(100%, var(--pimolu-drawer-size));
+
+  border-top-right-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  border-bottom-right-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  --pimolu-drawer-shift-x: -100%;
+  --pimolu-drawer-shift-y: 0%;
+}
+
+.pimolu-drawer__content--top {
+  top: 0;
+  right: 0;
+  left: 0;
+
+  height: min(100%, var(--pimolu-drawer-size));
+
+  border-bottom-right-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  border-bottom-left-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  --pimolu-drawer-shift-x: 0%;
+  --pimolu-drawer-shift-y: -100%;
+}
+
+.pimolu-drawer__content--bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: min(100%, var(--pimolu-drawer-size));
+
+  border-top-left-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  border-top-right-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+
+  --pimolu-drawer-shift-x: 0%;
+  --pimolu-drawer-shift-y: 100%;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-drawer__content--sm {
+  --pimolu-drawer-size: 20rem;
+}
+
+.pimolu-drawer__content--md {
+  --pimolu-drawer-size: 24rem;
+}
+
+.pimolu-drawer__content--lg {
+  --pimolu-drawer-size: 32rem;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-drawer__header {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+
+  margin-block-end: var(
+    --pimolu-spacing-4,
+    16px
+  );
+}
+
+/* The corner button must not sit on the title. */
+
+.pimolu-drawer__content[data-close-button="true"]
+  .pimolu-drawer__header {
+  padding-inline-end: var(
+    --pimolu-spacing-8,
+    32px
+  );
+}
+
+.pimolu-drawer__title {
+  margin: 0;
+
+  color: inherit;
+
+  font-family: var(
+    --pimolu-font-heading,
+    inherit
+  );
+
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-drawer__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.pimolu-drawer__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  margin-block-start: var(
+    --pimolu-spacing-6,
+    24px
+  );
+}
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.pimolu-drawer__close {
+  position: absolute;
+
+  inset-block-start: 12px;
+  inset-inline-end: 12px;
+
+  display: inline-grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  line-height: 0;
+
+  cursor: pointer;
+}
+
+.pimolu-drawer__close:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-drawer__close:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-drawer[data-state="open"]
+  .pimolu-drawer__overlay {
+  animation:
+    pimolu-drawer-overlay-in
+    180ms
+    ease-out;
+}
+
+.pimolu-drawer[data-state="closing"]
+  .pimolu-drawer__overlay {
+  animation:
+    pimolu-drawer-overlay-out
+    180ms
+    ease-in
+    forwards;
+}
+
+.pimolu-drawer[data-state="open"]
+  .pimolu-drawer__content {
+  animation:
+    pimolu-drawer-content-in
+    220ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pimolu-drawer[data-state="closing"]
+  .pimolu-drawer__content {
+  animation:
+    pimolu-drawer-content-out
+    180ms
+    ease-in
+    forwards;
+}
+
+/* The shift is set per side, so one keyframe pair slides every drawer away
+   from the edge it came from. */
+
+@keyframes pimolu-drawer-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pimolu-drawer-overlay-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes pimolu-drawer-content-in {
+  from {
+    opacity: 0;
+
+    transform: translate(
+      var(--pimolu-drawer-shift-x),
+      var(--pimolu-drawer-shift-y)
+    );
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes pimolu-drawer-content-out {
+  from {
+    opacity: 1;
+
+    transform: translate(0, 0);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: translate(
+      var(--pimolu-drawer-shift-x),
+      var(--pimolu-drawer-shift-y)
+    );
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .pimolu-drawer__content {
+    padding: var(--pimolu-spacing-4, 16px);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-drawer[data-state="open"]
+    .pimolu-drawer__overlay,
+  .pimolu-drawer[data-state="closing"]
+    .pimolu-drawer__overlay,
+  .pimolu-drawer[data-state="open"]
+    .pimolu-drawer__content,
+  .pimolu-drawer[data-state="closing"]
+    .pimolu-drawer__content {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-drawer__overlay {
+    background: CanvasText;
+
+    opacity: 0.5;
+  }
+
+  .pimolu-drawer__content {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-drawer__close:focus-visible {
+    outline-color: Highlight;
+  }
+}

@@ -61,6 +61,10 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "description-list.css",
     "dropdown-menu.css",
     "toast.css",
+    "drawer.css",
+    "context-menu.css",
+    "hover-card.css",
+    "command.css",
   ]) {
     const css = await load(file);
 
@@ -107,6 +111,10 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-description-list",
     ".pimolu-dropdown-menu",
     ".pimolu-toast",
+    ".pimolu-drawer",
+    ".pimolu-context-menu",
+    ".pimolu-hover-card",
+    ".pimolu-command",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',

@@ -15,10 +15,14 @@ import { CheckboxPage } from "./pages/checkbox-page";
 import { CodePage } from "./pages/code-page";
 import { ComboboxPage } from "./pages/combobox-page";
 import { CircularProgressPage } from "./pages/circular-progress-page";
+import { CommandPage } from "./pages/command-page";
+import { ContextMenuPage } from "./pages/context-menu-page";
 import { DescriptionListPage } from "./pages/description-list-page";
 import { DialogPage } from "./pages/dialog-page";
+import { DrawerPage } from "./pages/drawer-page";
 import { DropdownMenuPage } from "./pages/dropdown-menu-page";
 import { FormFieldPage } from "./pages/form-field-page";
+import { HoverCardPage } from "./pages/hover-card-page";
 import { InputPage } from "./pages/input-page";
 import { LabelPage } from "./pages/label-page";
 import { LinkPage } from "./pages/link-page";
@@ -64,7 +68,11 @@ const pageComponents = {
   "circular-progress": CircularProgressPage,
   dialog: DialogPage,
   "alert-dialog": AlertDialogPage,
+  "context-menu": ContextMenuPage,
+  command: CommandPage,
   "dropdown-menu": DropdownMenuPage,
+  drawer: DrawerPage,
+  "hover-card": HoverCardPage,
   popover: PopoverPage,
   progress: ProgressPage,
   skeleton: SkeletonPage,

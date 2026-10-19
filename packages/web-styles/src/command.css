@@ -1,0 +1,363 @@
+/* =========================================
+   PIMOLU UI - COMMAND
+   Shared Web Styles
+========================================= */
+
+/* BASE */
+
+.pimolu-command {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   SEARCH FIELD
+========================================= */
+
+.pimolu-command__field {
+  display: flex;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  box-sizing: border-box;
+
+  padding-inline: var(--pimolu-spacing-4, 16px);
+
+  border-block-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+.pimolu-command__field:focus-within {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: -2px;
+}
+
+.pimolu-command__search-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--pimolu-muted-foreground);
+
+  pointer-events: none;
+}
+
+.pimolu-command__search-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-command__input {
+  flex: 1 1 auto;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+  color: var(--pimolu-foreground);
+
+  border: 0;
+  border-radius: 0;
+
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+
+  outline: none;
+}
+
+.pimolu-command__input::placeholder {
+  color: var(--pimolu-muted-foreground);
+  opacity: 1;
+}
+
+.pimolu-command__input:disabled {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   LISTBOX
+========================================= */
+
+.pimolu-command__list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+
+  box-sizing: border-box;
+
+  max-height: 320px;
+
+  margin: 0;
+  padding: var(--pimolu-spacing-2, 8px);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  scroll-padding-block: var(
+    --pimolu-spacing-2,
+    8px
+  );
+}
+
+/* =========================================
+   GROUPS
+========================================= */
+
+.pimolu-command__group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-command__group
+  + .pimolu-command__group {
+  margin-block-start: var(
+    --pimolu-spacing-2,
+    8px
+  );
+}
+
+.pimolu-command__group-label {
+  padding:
+    var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-3, 12px)
+    var(--pimolu-spacing-1, 4px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   ITEMS
+========================================= */
+
+.pimolu-command__item {
+  display: flex;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  box-sizing: border-box;
+
+  min-height: 40px;
+
+  padding:
+    var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-3, 12px);
+
+  color: var(--pimolu-foreground);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+/* Pointer hover */
+
+.pimolu-command__item:hover:not(
+  [aria-disabled="true"]
+) {
+  background: var(--pimolu-muted);
+}
+
+/* Keyboard-active item */
+
+.pimolu-command__item[data-active="true"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+}
+
+/* Disabled item */
+
+.pimolu-command__item[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pimolu-command__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-command__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-command__main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-command__label,
+.pimolu-command__description {
+  overflow-wrap: anywhere;
+}
+
+.pimolu-command__label {
+  color: inherit;
+}
+
+.pimolu-command__description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.pimolu-command__shortcut {
+  flex: 0 0 auto;
+
+  min-width: 24px;
+  margin-inline-start: auto;
+  padding: 2px 6px;
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-family: inherit;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.pimolu-command__empty {
+  margin: 0;
+
+  padding:
+    var(--pimolu-spacing-6, 24px)
+    var(--pimolu-spacing-4, 16px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   PALETTE DIALOG
+========================================= */
+
+.pimolu-dialog__content.pimolu-command-palette {
+  --pimolu-dialog-width: 36rem;
+
+  padding: 0;
+
+  overflow: hidden;
+}
+
+.pimolu-command-palette .pimolu-command {
+  background: transparent;
+
+  border: 0;
+  border-radius: 0;
+}
+
+.pimolu-command-palette .pimolu-command__list {
+  max-height: min(420px, 60vh);
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-command__field:focus-within {
+    outline-color: Highlight;
+  }
+
+  .pimolu-command__item[data-active="true"] {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-command__shortcut {
+    border-color: ButtonText;
+  }
+}

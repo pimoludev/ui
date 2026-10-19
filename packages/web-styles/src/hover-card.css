@@ -1,0 +1,146 @@
+/* =========================================
+   PIMOLU UI - HOVER CARD
+   Shared Web Styles
+========================================= */
+
+.pimolu-hover-card {
+  /* Motion comes from the side the panel sits on: it slides away from the
+     trigger, whichever side the placement resolved to. */
+  --pimolu-hover-card-shift-x: 0px;
+  --pimolu-hover-card-shift-y: 6px;
+
+  box-sizing: border-box;
+
+  min-width: 12rem;
+  max-width: 22rem;
+
+  padding: var(
+    --pimolu-spacing-4,
+    16px
+  );
+
+  /* Long content scrolls inside the card, never off the viewport. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-hover-card[data-side="top"] {
+  --pimolu-hover-card-shift-x: 0px;
+  --pimolu-hover-card-shift-y: 6px;
+}
+
+.pimolu-hover-card[data-side="bottom"] {
+  --pimolu-hover-card-shift-x: 0px;
+  --pimolu-hover-card-shift-y: -6px;
+}
+
+.pimolu-hover-card[data-side="left"] {
+  --pimolu-hover-card-shift-x: 6px;
+  --pimolu-hover-card-shift-y: 0px;
+}
+
+.pimolu-hover-card[data-side="right"] {
+  --pimolu-hover-card-shift-x: -6px;
+  --pimolu-hover-card-shift-y: 0px;
+}
+
+.pimolu-hover-card[data-state="open"] {
+  animation:
+    pimolu-hover-card-in
+    160ms
+    ease-out;
+}
+
+.pimolu-hover-card[data-state="closing"] {
+  animation:
+    pimolu-hover-card-out
+    120ms
+    ease-in
+    forwards;
+}
+
+@keyframes pimolu-hover-card-in {
+  from {
+    opacity: 0;
+
+    transform: translate(
+        var(--pimolu-hover-card-shift-x),
+        var(--pimolu-hover-card-shift-y)
+      )
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes pimolu-hover-card-out {
+  from {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: scale(0.98);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-hover-card[data-state="open"],
+  .pimolu-hover-card[data-state="closing"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-hover-card {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+}

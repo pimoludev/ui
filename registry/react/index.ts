@@ -667,3 +667,79 @@ export type {
   PimoluToastPosition,
   PimoluToasterProps,
 } from "./toast/toast.types";
+
+/* Drawer */
+export {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerClose,
+} from "./drawer/drawer";
+
+export type {
+  PimoluDrawerProps,
+  PimoluDrawerTriggerProps,
+  PimoluDrawerContentProps,
+  PimoluDrawerHeaderProps,
+  PimoluDrawerTitleProps,
+  PimoluDrawerDescriptionProps,
+  PimoluDrawerFooterProps,
+  PimoluDrawerCloseProps,
+  PimoluDrawerSide,
+  PimoluDrawerSize,
+} from "./drawer/drawer.types";
+
+/* ContextMenu */
+export {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuLabel,
+} from "./context-menu/context-menu";
+
+export type {
+  PimoluContextMenuProps,
+  PimoluContextMenuTriggerProps,
+  PimoluContextMenuContentProps,
+  PimoluContextMenuItemProps,
+  PimoluContextMenuSeparatorProps,
+  PimoluContextMenuLabelProps,
+} from "./context-menu/context-menu.types";
+
+/* HoverCard */
+export {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "./hover-card/hover-card";
+
+export type {
+  PimoluHoverCardProps,
+  PimoluHoverCardTriggerProps,
+  PimoluHoverCardContentProps,
+  PimoluHoverCardPlacement,
+  PimoluHoverCardLabelling,
+} from "./hover-card/hover-card.types";
+
+/* Command */
+export {
+  Command,
+  CommandPalette,
+} from "./command/command";
+
+export type {
+  PimoluCommandItem,
+  PimoluCommandProps,
+  PimoluCommandPaletteProps,
+} from "./command/command.types";
+
+/* Portal */
+export { Portal } from "./portal/portal";
+
+export type { PimoluPortalProps } from "./portal/portal";
