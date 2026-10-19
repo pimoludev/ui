@@ -11,7 +11,7 @@ import {
   useState,
   type ChangeEvent,
   type KeyboardEvent,
-  type ButtonHTMLAttributes,
+  type HTMLAttributes,
   type ReactNode,
   type Ref,
 } from "react";
@@ -193,6 +193,14 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
     const displayLabel = selectedOption
       ? selectedOption.label
       : placeholder ?? current;
+
+    /* Select-specific DOM events belong to the native fallback. Only
+       attributes shared by both controls reach the styled button. */
+    const triggerAttributes = Object.fromEntries(
+      Object.entries(nativeProps).filter(([key]) =>
+        key.startsWith("aria-") || key.startsWith("data-")
+      )
+    ) as HTMLAttributes<HTMLButtonElement>;
 
     /* Styled control state */
 
@@ -486,7 +494,13 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
 
         <div className="pimolu-select__field" ref={rootRef}>
           <button
-            {...(nativeProps as ButtonHTMLAttributes<HTMLButtonElement>)}
+            {...triggerAttributes}
+            autoFocus={nativeProps.autoFocus}
+            dir={nativeProps.dir}
+            lang={nativeProps.lang}
+            title={nativeProps.title}
+            tabIndex={nativeProps.tabIndex}
+            form={nativeProps.form}
             ref={(node) => {
               triggerRef.current = node;
 
@@ -570,7 +584,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
         </div>
 
         {open && (
-          <Portal>
+          <Portal anchorRef={rootRef}>
             <div
               ref={listboxRef}
               id={listboxId}
@@ -593,22 +607,30 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
                     )}
 
                   <div
-                  id={optionId(index)}
-                  role="option"
-                  className="pimolu-select__option"
-                  aria-selected={option.value === current}
-                  aria-disabled={option.disabled || undefined}
-                  data-active={
-                    index === activeIndex ? "true" : undefined
-                  }
-                  onPointerDown={(event) => {
-                    event.preventDefault();
-                    selectOption(option);
-                  }}
-                  onPointerMove={() => setActiveIndex(index)}
-                >
-                  {option.label}
-                </div>
+                    id={optionId(index)}
+                    role="option"
+                    className="pimolu-select__option"
+                    aria-selected={option.value === current}
+                    aria-disabled={option.disabled || undefined}
+                    data-active={
+                      index === activeIndex ? "true" : undefined
+                    }
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                      selectOption(option);
+                    }}
+                    onPointerMove={() => setActiveIndex(index)}
+                  >
+                    {option.label}
+                    {option.value === current && (
+                      <span
+                        className="pimolu-select__check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+                    )}
+                  </div>
                 </Fragment>
               ))}
             </div>

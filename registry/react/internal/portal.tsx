@@ -3,6 +3,7 @@
 import {
   useEffect,
   useState,
+  type RefObject,
   type ReactNode,
 } from "react";
 
@@ -19,18 +20,19 @@ import { createPortal } from "react-dom";
 export function Portal({
   children,
   container,
+  anchorRef,
 }: {
   children: ReactNode;
   container?: HTMLElement | null;
+  anchorRef?: RefObject<HTMLElement | null>;
 }) {
   const [host, setHost] = useState<HTMLElement | null>(
     null
   );
 
   useEffect(() => {
-    /* A themed wrapper defines the tokens the surface needs, so a floating
-       panel mounts inside it when one exists instead of on <body>. */
-    const themed = document.querySelector(
+    /* Use the trigger's own theme scope, including nested providers. */
+    const themed = anchorRef?.current?.closest(
       "[data-pimolu-theme], [data-pimolu-style]"
     );
 
@@ -38,7 +40,7 @@ export function Portal({
       container ??
         (themed instanceof HTMLElement ? themed : document.body)
     );
-  }, [container]);
+  }, [container, anchorRef]);
 
   if (!host) return null;
 

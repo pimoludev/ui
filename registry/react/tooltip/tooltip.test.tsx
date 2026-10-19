@@ -20,6 +20,28 @@ function open() {
 }
 
 describe("Pimolu Tooltip", () => {
+  it("mounts the bubble in the trigger's nearest style scope", () => {
+    vi.useFakeTimers();
+
+    render(
+      <>
+        <div data-pimolu-style="cartoon" />
+        <div data-pimolu-style="glass" data-testid="own-style">
+          <Tooltip content="Saved">
+            <button type="button">Save</button>
+          </Tooltip>
+        </div>
+      </>
+    );
+
+    fireEvent.mouseEnter(screen.getByRole("button"));
+    open();
+
+    expect(screen.getByRole("tooltip").parentElement).toBe(
+      screen.getByTestId("own-style")
+    );
+  });
+
   it("renders nothing until the trigger is hovered", () => {
     render(
       <Tooltip content="Saved two minutes ago">

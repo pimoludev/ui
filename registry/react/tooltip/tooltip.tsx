@@ -214,7 +214,7 @@ export function Tooltip({
       {cloneElement(trigger, triggerProps)}
 
       {visible && (
-        <Portal>
+        <Portal anchorRef={triggerRef}>
           <div
             ref={panelRef}
             id={tooltipId}

@@ -12,6 +12,7 @@ import {
 } from "vitest";
 
 import {
+  fireEvent,
   render,
   screen,
   waitFor,
@@ -620,6 +621,26 @@ describe("Pimolu MultiSelect", () => {
     expect(
       screen.queryByRole("listbox")
     ).toBeNull();
+  });
+
+  it("closes on page scroll but stays open while scrolling options", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MultiSelect label="Frameworks" options={options} />
+    );
+
+    const input = screen.getByRole("combobox");
+
+    await user.click(input);
+    fireEvent.scroll(screen.getByRole("listbox"));
+
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+    fireEvent.scroll(window);
+
+    expect(screen.queryByRole("listbox")).toBeNull();
+    expect(input).toHaveAttribute("aria-expanded", "false");
   });
 
   it("preserves accessible descriptions", () => {

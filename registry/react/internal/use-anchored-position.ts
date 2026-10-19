@@ -169,7 +169,11 @@ export function useAnchoredPosition(
           )
         );
 
-        next.maxWidth = Math.round(maxWidth);
+        next.maxWidth = Math.round(
+          matchWidth
+            ? Math.max(0, viewportWidth - padding * 2)
+            : maxWidth
+        );
 
         if (resolved === "top") {
           next.bottom = Math.round(
@@ -180,7 +184,12 @@ export function useAnchoredPosition(
         }
 
         if (matchWidth) {
-          next.width = Math.round(rect.width);
+          const width = Math.min(
+            rect.width,
+            Math.max(0, viewportWidth - padding * 2)
+          );
+
+          next.width = Math.round(width);
 
           next.left = Math.round(
             clamp(
@@ -188,7 +197,7 @@ export function useAnchoredPosition(
               padding,
               Math.max(
                 padding,
-                viewportWidth - rect.width - padding
+                viewportWidth - width - padding
               )
             )
           );

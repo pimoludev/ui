@@ -533,7 +533,7 @@ export const Combobox = forwardRef<
         {/* Custom listbox */}
 
         {isOpen && !disabled && (
-          <Portal>
+          <Portal anchorRef={rootRef}>
           <ul
             ref={listboxRef}
             id={listboxId}

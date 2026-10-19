@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import type { PimoluInputProps, PimoluInputAction } from "./input.types";
+import { inputVariants } from "./input.variants";
 
 const CLEARABLE_TYPES = new Set([
   "text",
@@ -240,10 +241,7 @@ const [passwordVisible, setPasswordVisible] = useState(false);
   /* Classes */
 
   const fieldClassName = [
-    "pimolu-input",
-    `pimolu-input--${size}`,
-    `pimolu-input--${variant}`,
-    `pimolu-input--${appearance}`,
+    inputVariants({ size, variant, appearance }),
     fullWidth && "pimolu-input--full-width",
     hasError && "pimolu-input--invalid",
     disabled && "pimolu-input--disabled",

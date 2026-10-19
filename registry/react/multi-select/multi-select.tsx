@@ -364,11 +364,34 @@ export const MultiSelect = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-    const { style: popupStyle } = useAnchoredPosition(
-      rootRef,
-      listboxRef,
-      isOpen && !disabled
-    );
+  const { style: popupStyle } = useAnchoredPosition(
+    rootRef,
+    listboxRef,
+    isOpen && !disabled
+  );
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleScroll(event: Event) {
+      const target = event.target;
+
+      if (
+        target instanceof Node &&
+        listboxRef.current?.contains(target)
+      ) {
+        return;
+      }
+
+      closeMenu();
+    }
+
+    window.addEventListener("scroll", handleScroll, true);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, [isOpen]);
 
   useOutsidePointer(
     [rootRef, listboxRef],
@@ -466,118 +489,123 @@ export const MultiSelect = forwardRef<
           className="pimolu-multiselect__value-area"
           onClick={(event) => {
             if (
-              event.target === event.currentTarget
+              !(event.target instanceof Element) ||
+              !event.target.closest("button, input")
             ) {
               inputRef.current?.focus();
             }
           }}
         >
-          {/* Selected tags */}
+          <div className="pimolu-multiselect__selection">
+            {/* Selected tags */}
 
-          {selectedValues.map((selectedValue) => {
-            const option = options.find(
-              (item) => item.value === selectedValue
-            );
+            {selectedValues.map((selectedValue) => {
+              const option = options.find(
+                (item) => item.value === selectedValue
+              );
 
-            const selectedLabel =
-              option?.label ?? selectedValue;
+              const selectedLabel =
+                option?.label ?? selectedValue;
 
-            return (
-              <span
-                key={selectedValue}
-                className="pimolu-multiselect__tag"
-              >
-                <span className="pimolu-multiselect__tag-label">
-                  {selectedLabel}
+              return (
+                <span
+                  key={selectedValue}
+                  className="pimolu-multiselect__tag"
+                >
+                  <span className="pimolu-multiselect__tag-label">
+                    {selectedLabel}
+                  </span>
+
+                  <button
+                    type="button"
+                    className="pimolu-multiselect__tag-remove"
+                    aria-label={`Remove ${selectedLabel}`}
+                    disabled={disabled}
+                    onClick={() =>
+                      removeValue(selectedValue)
+                    }
+                  >
+                    <span aria-hidden="true">
+                      ×
+                    </span>
+                  </button>
                 </span>
+              );
+            })}
 
+            {/* Search combobox */}
+
+            <input
+              ref={assignRef}
+              id={inputId}
+              form={form}
+              type="text"
+
+              className={[
+                "pimolu-multiselect__input",
+                inputClassName,
+              ].filter(Boolean).join(" ")}
+
+              value={query}
+              placeholder={
+                selectedValues.length === 0
+                  ? placeholder
+                  : ""
+              }
+
+              disabled={disabled}
+              autoComplete="off"
+
+              role="combobox"
+              aria-autocomplete="list"
+              aria-haspopup="listbox"
+              aria-expanded={isOpen}
+              aria-controls={
+                isOpen ? listboxId : undefined
+              }
+              aria-activedescendant={activeDescendant}
+              aria-label={ariaLabel}
+              aria-labelledby={ariaLabelledBy}
+              aria-describedby={describedBy}
+              aria-required={required || undefined}
+              aria-invalid={hasError || undefined}
+
+              onFocus={openMenu}
+              onClick={openMenu}
+              onChange={handleQueryChange}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+
+          <div className="pimolu-multiselect__actions">
+            {clearable &&
+              selectedValues.length > 0 &&
+              !disabled && (
                 <button
                   type="button"
-                  className="pimolu-multiselect__tag-remove"
-                  aria-label={`Remove ${selectedLabel}`}
-                  disabled={disabled}
-                  onClick={() =>
-                    removeValue(selectedValue)
-                  }
+                  className="pimolu-multiselect__clear"
+                  aria-label="Clear all selections"
+                  onClick={clearAll}
                 >
-                  <span aria-hidden="true">
-                    ×
-                  </span>
+                  <span aria-hidden="true">×</span>
                 </button>
-              </span>
-            );
-          })}
+              )}
 
-          {/* Search combobox */}
-
-          <input
-            ref={assignRef}
-            id={inputId}
-            form={form}
-            type="text"
-
-            className={[
-              "pimolu-multiselect__input",
-              inputClassName,
-            ].filter(Boolean).join(" ")}
-
-            value={query}
-            placeholder={
-              selectedValues.length === 0
-                ? placeholder
-                : ""
-            }
-
-            disabled={disabled}
-            autoComplete="off"
-
-            role="combobox"
-            aria-autocomplete="list"
-            aria-haspopup="listbox"
-            aria-expanded={isOpen}
-            aria-controls={
-              isOpen ? listboxId : undefined
-            }
-            aria-activedescendant={activeDescendant}
-            aria-label={ariaLabel}
-            aria-labelledby={ariaLabelledBy}
-            aria-describedby={describedBy}
-            aria-required={required || undefined}
-            aria-invalid={hasError || undefined}
-
-            onFocus={openMenu}
-            onClick={openMenu}
-            onChange={handleQueryChange}
-            onKeyDown={handleKeyDown}
-          />
-
-          {clearable &&
-            selectedValues.length > 0 &&
-            !disabled && (
-              <button
-                type="button"
-                className="pimolu-multiselect__clear"
-                aria-label="Clear all selections"
-                onClick={clearAll}
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            )}
-
-          <span
-            className="pimolu-multiselect__chevron"
-            aria-hidden="true"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
+            <span
+              className="pimolu-multiselect__chevron"
+              aria-hidden="true"
             >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+          </div>
         </div>
 
         {/* FormData.getAll(name) returns the array */}
@@ -596,7 +624,7 @@ export const MultiSelect = forwardRef<
           ))}
 
         {isOpen && !disabled && (
-          <Portal>
+          <Portal anchorRef={rootRef}>
           <ul
             ref={listboxRef}
             id={listboxId}

@@ -23,6 +23,23 @@ const options = [
 ];
 
 describe("Pimolu Select (styled)", () => {
+  it("mounts the listbox in the trigger's nearest theme scope", async () => {
+    render(
+      <>
+        <div data-pimolu-theme="light" data-testid="other-theme" />
+        <div data-pimolu-theme="dark" data-testid="own-theme">
+          <Select label="Framework">{options}</Select>
+        </div>
+      </>
+    );
+
+    await userEvent.setup().click(screen.getByRole("combobox"));
+
+    expect(screen.getByRole("listbox").parentElement).toBe(
+      screen.getByTestId("own-theme")
+    );
+  });
+
   it("renders a combobox trigger with a native fallback in the form", () => {
     render(<Select label="Framework">{options}</Select>);
 
@@ -42,6 +59,23 @@ describe("Pimolu Select (styled)", () => {
 
     expect(native).toHaveValue("react");
     expect(native).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("forwards shared accessibility and data attributes to the styled trigger", () => {
+    render(
+      <Select
+        label="Framework"
+        aria-description="Choose a framework"
+        data-testid="framework-trigger"
+      >
+        {options}
+      </Select>
+    );
+
+    expect(screen.getByTestId("framework-trigger")).toHaveAttribute(
+      "aria-description",
+      "Choose a framework"
+    );
   });
 
   it("opens the listbox on click", async () => {
