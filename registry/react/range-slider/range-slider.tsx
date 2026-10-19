@@ -7,6 +7,7 @@ import {
   useState,
   type ChangeEvent,
   type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 
 import type {
@@ -106,13 +107,12 @@ export const RangeSlider = forwardRef<
   const minId = `${baseId}-min`;
   const maxId = `${baseId}-max`;
 
-  const minRef = useRef<HTMLInputElement | null>(null);
-  const maxRef = useRef<HTMLInputElement | null>(null);
+  const lowerRef = useRef<HTMLInputElement | null>(null);
+  const upperRef = useRef<HTMLInputElement | null>(null);
 
   const controlled = value !== undefined;
 
-  /* The DOM default must stay at the mount value, otherwise a native
-     reset would restore the value the user just dragged to. */
+  const safeStep = step > 0 ? step : 1;
 
   const [initialValue] = useState<PimoluRangeSliderValue>(
     () => order(defaultValue ?? [min, max], min, max)
@@ -127,18 +127,43 @@ export const RangeSlider = forwardRef<
 
   const [lower, upper] = current;
 
-  useFormReset(minRef, !controlled, () => {
+  /* The native reset restores the DOM default; the state follows it. */
+
+  useFormReset(lowerRef, !controlled, () => {
     setInternalValue(initialValue);
   });
 
-  function emit(
-    next: PimoluRangeSliderValue
-  ) {
+  function commit(next: PimoluRangeSliderValue) {
     if (!controlled) {
       setInternalValue(next);
     }
 
     onValueChange?.(next);
+  }
+
+  function snap(raw: number) {
+    const steps = Math.round((raw - min) / safeStep);
+
+    return clamp(min + steps * safeStep, min, max);
+  }
+
+  /**
+   * Moves one handle and keeps the other one untouched. Pass a raw value:
+   * it is snapped to the step and clamped against its neighbour.
+   */
+  function moveHandle(
+    handle: "lower" | "upper",
+    raw: number
+  ) {
+    const snapped = snap(raw);
+
+    if (handle === "lower") {
+      commit([Math.min(snapped, upper), upper]);
+      lowerRef.current?.focus();
+    } else {
+      commit([lower, Math.max(snapped, lower)]);
+      upperRef.current?.focus();
+    }
   }
 
   function handleLowerChange(
@@ -148,7 +173,7 @@ export const RangeSlider = forwardRef<
 
     if (!Number.isFinite(next)) return;
 
-    emit([Math.min(next, upper), upper]);
+    commit([Math.min(snap(next), upper), upper]);
   }
 
   function handleUpperChange(
@@ -158,7 +183,39 @@ export const RangeSlider = forwardRef<
 
     if (!Number.isFinite(next)) return;
 
-    emit([lower, Math.max(next, lower)]);
+    commit([lower, Math.max(snap(next), lower)]);
+  }
+
+  /**
+   * Click anywhere on the track to move the closest handle, as the
+   * established sliders do. Pointer events coming from a thumb are left to
+   * the native input, which is already dragging it.
+   */
+  function handleTrackPointerDown(
+    event: ReactPointerEvent<HTMLDivElement>
+  ) {
+    if (disabled) return;
+
+    if (event.target instanceof HTMLInputElement) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    if (rect.width <= 0) return;
+
+    const ratio = clamp(
+      (event.clientX - rect.left) / rect.width,
+      0,
+      1
+    );
+
+    const raw = min + ratio * (max - min);
+
+    moveHandle(
+      Math.abs(raw - lower) <= Math.abs(raw - upper)
+        ? "lower"
+        : "upper",
+      raw
+    );
   }
 
   /* Accessibility */
@@ -273,28 +330,30 @@ export const RangeSlider = forwardRef<
       <div
         className="pimolu-range-slider__control"
         style={controlStyle}
+        onPointerDown={handleTrackPointerDown}
       >
         <div
           className="pimolu-range-slider__track"
           aria-hidden="true"
         />
 
+        {/* Both inputs span the full range so their thumbs line up
+            with the filled segment; the crossing is prevented by the
+            handlers, not by narrowed min/max. */}
+
         <input
           {...props}
-          ref={minRef}
+          ref={lowerRef}
           id={minId}
           type="range"
 
           className={`${inputClasses} pimolu-range-slider__input--min`}
 
           min={min}
-          max={upper}
-          step={step}
+          max={max}
+          step={safeStep}
 
-          value={controlled ? lower : undefined}
-          defaultValue={
-            controlled ? undefined : initialValue[0]
-          }
+          value={lower}
 
           name={resolvedNameMin}
           disabled={disabled}
@@ -309,20 +368,17 @@ export const RangeSlider = forwardRef<
 
         <input
           {...props}
-          ref={maxRef}
+          ref={upperRef}
           id={maxId}
           type="range"
 
           className={`${inputClasses} pimolu-range-slider__input--max`}
 
-          min={lower}
+          min={min}
           max={max}
-          step={step}
+          step={safeStep}
 
-          value={controlled ? upper : undefined}
-          defaultValue={
-            controlled ? undefined : initialValue[1]
-          }
+          value={upper}
 
           name={resolvedNameMax}
           disabled={disabled}

@@ -30,6 +30,26 @@ function handles(name = "Price") {
   };
 }
 
+/* jsdom has no layout, so the track needs a measured width. */
+
+function mockTrackWidth(
+  element: HTMLElement,
+  width = 200
+) {
+  element.getBoundingClientRect = () =>
+    ({
+      left: 0,
+      right: width,
+      width,
+      top: 0,
+      bottom: 20,
+      height: 20,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    }) as DOMRect;
+}
+
 describe("Pimolu RangeSlider", () => {
   it("renders two native sliders inside a named group", () => {
     render(<RangeSlider label="Price" />);
@@ -62,6 +82,28 @@ describe("Pimolu RangeSlider", () => {
 
     expect(lower).toHaveValue("20");
     expect(upper).toHaveValue("80");
+  });
+
+  it("gives both handles the full range", () => {
+    render(
+      <RangeSlider
+        label="Price"
+        min={0}
+        max={100}
+        defaultValue={[20, 80]}
+      />
+    );
+
+    const { lower, upper } = handles();
+
+    /* Narrowing max/min to the neighbour would move the thumbs off
+       the filled segment, so both inputs must span the whole range. */
+
+    expect(lower).toHaveAttribute("min", "0");
+    expect(lower).toHaveAttribute("max", "100");
+
+    expect(upper).toHaveAttribute("min", "0");
+    expect(upper).toHaveAttribute("max", "100");
   });
 
   it("supports uncontrolled changes", () => {
@@ -101,6 +143,7 @@ describe("Pimolu RangeSlider", () => {
     });
 
     expect(onValueChange).toHaveBeenLastCalledWith([80, 80]);
+    expect(handles().lower).toHaveValue("80");
   });
 
   it("keeps the upper handle above the lower one", () => {
@@ -119,6 +162,7 @@ describe("Pimolu RangeSlider", () => {
     });
 
     expect(onValueChange).toHaveBeenLastCalledWith([20, 20]);
+    expect(handles().upper).toHaveValue("20");
   });
 
   it("supports controlled values", () => {
@@ -286,6 +330,119 @@ describe("Pimolu RangeSlider", () => {
     expect(
       lower.closest(".pimolu-range-slider")
     ).toHaveClass("pimolu-range-slider--disabled");
+  });
+
+  it("moves the closest handle on a track click", () => {
+    const onValueChange = vi.fn();
+
+    render(
+      <RangeSlider
+        label="Price"
+        defaultValue={[20, 80]}
+        onValueChange={onValueChange}
+      />
+    );
+
+    const control = handles().lower.closest(
+      ".pimolu-range-slider__control"
+    ) as HTMLElement;
+
+    mockTrackWidth(control);
+
+    fireEvent.pointerDown(control, { clientX: 20 });
+
+    expect(onValueChange).toHaveBeenLastCalledWith([10, 80]);
+
+    expect(handles().lower).toHaveValue("10");
+    expect(handles().lower).toHaveFocus();
+  });
+
+  it("moves the upper handle when the click is on its side", () => {
+    const onValueChange = vi.fn();
+
+    render(
+      <RangeSlider
+        label="Price"
+        defaultValue={[20, 80]}
+        onValueChange={onValueChange}
+      />
+    );
+
+    const control = handles().lower.closest(
+      ".pimolu-range-slider__control"
+    ) as HTMLElement;
+
+    mockTrackWidth(control);
+
+    fireEvent.pointerDown(control, { clientX: 180 });
+
+    expect(onValueChange).toHaveBeenLastCalledWith([20, 90]);
+
+    expect(handles().upper).toHaveValue("90");
+    expect(handles().upper).toHaveFocus();
+  });
+
+  it("snaps a track click to the step", () => {
+    const onValueChange = vi.fn();
+
+    render(
+      <RangeSlider
+        label="Price"
+        step={10}
+        defaultValue={[20, 80]}
+        onValueChange={onValueChange}
+      />
+    );
+
+    const control = handles().lower.closest(
+      ".pimolu-range-slider__control"
+    ) as HTMLElement;
+
+    mockTrackWidth(control);
+
+    /* 26% of the track is 26, which snaps to 30. */
+
+    fireEvent.pointerDown(control, { clientX: 52 });
+
+    expect(onValueChange).toHaveBeenLastCalledWith([30, 80]);
+  });
+
+  it("leaves a pointer event on a handle to the native input", () => {
+    const onValueChange = vi.fn();
+
+    render(
+      <RangeSlider
+        label="Price"
+        defaultValue={[20, 80]}
+        onValueChange={onValueChange}
+      />
+    );
+
+    fireEvent.pointerDown(handles().lower, {
+      clientX: 120,
+    });
+
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("ignores a track click without a measured width", () => {
+    const onValueChange = vi.fn();
+
+    render(
+      <RangeSlider
+        label="Price"
+        defaultValue={[20, 80]}
+        onValueChange={onValueChange}
+      />
+    );
+
+    const control = handles().lower.closest(
+      ".pimolu-range-slider__control"
+    ) as HTMLElement;
+
+    fireEvent.pointerDown(control, { clientX: 20 });
+
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   it("submits both handles", () => {
