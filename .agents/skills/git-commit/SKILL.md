@@ -23,7 +23,7 @@ Do NOT use when the user only asks to review diffs or explain changes.
    `theme-integrity-audit` (tokens/themes/presets/CSS), `playground-sync` (new/changed component).
 6. Run `test-coverage-audit` to flag mandatory untested scenarios for the change.
 7. Confirm lint, TypeScript, formatting, build and any applicable control pass.
-8. If a public change needs documentation or a playground demo, verify it is handled (`documentation-sync`, `playground-sync`) or explicitly list it as pending.
+8. A component, prop, variant, state or placement change is **not committed** without its playground page update in the same commit (`playground-sync`): each new capability needs a demo a human can click, not a description. Documentation changes follow `documentation-sync`. Do not defer a demo to a follow-up.
 9. **Stop** on any mandatory failure. Do not commit a red tree.
 10. Write a message that records the changes actually made — facts about the commit, never a task list.
 

@@ -64,6 +64,7 @@ data in `src/demo-data.ts`; a page file should contain demos, not option lists.
 
 ## Failure conditions
 - A public variant has no demo after a component change.
+- A new prop, state, placement or behaviour has no demo on the page.
 - Demo re-implements the component instead of importing it.
 - Playground does not build (`pnpm --dir apps/playground run build` fails).
 
