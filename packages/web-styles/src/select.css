@@ -109,7 +109,6 @@
   color: var(--pimolu-foreground);
 
   font-size: 0.875rem;
-  font-weight: 500;
   line-height: 1.5;
 
   overflow-wrap: anywhere;
@@ -470,12 +469,9 @@
   cursor: pointer;
 }
 
-/* Selection is carried by the weight and by the trigger label, not by a
-   tint: several presets define --pimolu-muted close to the background, which
-   reads as a translucent highlight. */
-
-.pimolu-select__option[aria-selected="true"] {
-  font-weight: 600;
+.pimolu-select__check {
+  margin-inline-start: auto;
+  color: var(--pimolu-primary);
 }
 
 /* The row under the pointer or the keyboard uses the primary pair, the one
@@ -489,6 +485,11 @@
     var(--pimolu-primary-foreground, var(--pimolu-background));
 }
 
+.pimolu-select__option[data-active="true"]
+  .pimolu-select__check {
+  color: inherit;
+}
+
 .pimolu-select__option[aria-disabled="true"] {
   opacity: 0.5;
   cursor: not-allowed;
@@ -500,7 +501,6 @@
   padding: 8px 10px 4px;
 
   font-size: 0.75rem;
-  font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 

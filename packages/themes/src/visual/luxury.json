@@ -5,14 +5,16 @@
     "control-border-width": "1px",
     "solid-border-color": "transparent",
     "shadow-raised": "0 6px 20px rgba(36, 33, 30, 0.08)",
+    "shadow-sm": "0 1px 3px rgba(36, 33, 30, 0.12)",
     "radius-sm": "2px",
     "radius-md": "4px",
     "radius-lg": "8px",
-    "button-font-weight": "500",
+    "button-font-weight": "400",
     "button-letter-spacing": "0.04em",
     "outline-hover-border": "var(--pimolu-luxury-gold)"
   },
   "dark": {
-    "shadow-raised": "0 6px 24px rgba(0, 0, 0, 0.3)"
+    "shadow-raised": "0 6px 24px rgba(0, 0, 0, 0.3)",
+    "shadow-sm": "0 1px 3px rgba(0, 0, 0, 0.35)"
   }
 }

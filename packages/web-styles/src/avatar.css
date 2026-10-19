@@ -44,7 +44,6 @@
 
   font-family: var(--pimolu-font-body, inherit);
   font-size: var(--pimolu-avatar-font-size);
-  font-weight: 600;
   line-height: 1;
 
   vertical-align: middle;

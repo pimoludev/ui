@@ -263,7 +263,6 @@
   color: var(--pimolu-foreground);
 
   font-size: 0.875rem;
-  font-weight: 500;
   line-height: 1.4;
 
   overflow-wrap: anywhere;
@@ -317,7 +316,6 @@
   color: var(--pimolu-foreground);
 
   font-size: 0.9375rem;
-  font-weight: 600;
   line-height: 1.5;
 }
 

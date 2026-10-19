@@ -11,7 +11,15 @@
     "primary-hover": "{color.indigo.700}",
     "primary-foreground": "{color.white}",
     "focus-ring": "{color.indigo.500}",
-    "danger": "{color.red.500}"
+    "success": "{color.green.700}",
+    "success-hover": "{color.green.800}",
+    "success-foreground": "{color.white}",
+    "warning": "{color.amber.500}",
+    "warning-hover": "{color.amber.600}",
+    "warning-foreground": "{color.slate.950}",
+    "danger": "{color.red.600}",
+    "danger-hover": "{color.red.700}",
+    "danger-foreground": "{color.white}"
   },
   "dark": {
     "background": "{color.slate.950}",
@@ -25,6 +33,14 @@
     "primary-hover": "{color.indigo.500}",
     "primary-foreground": "{color.slate.950}",
     "focus-ring": "{color.indigo.400}",
-    "danger": "{color.red.400}"
+    "success": "{color.green.500}",
+    "success-hover": "{color.green.600}",
+    "success-foreground": "{color.slate.950}",
+    "warning": "{color.amber.500}",
+    "warning-hover": "{color.amber.600}",
+    "warning-foreground": "{color.slate.950}",
+    "danger": "{color.red.400}",
+    "danger-hover": "{color.red.500}",
+    "danger-foreground": "{color.slate.950}"
   }
 }

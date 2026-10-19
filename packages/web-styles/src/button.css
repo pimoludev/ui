@@ -9,7 +9,7 @@
   border: var(--pimolu-control-border-width, 1px) solid transparent;
 
   font: inherit;
-  font-weight: var(--pimolu-button-font-weight, 500);
+  font-weight: var(--pimolu-button-font-weight, 400);
 
   border-radius: var(--pimolu-radius-md);
 

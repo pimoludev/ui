@@ -110,7 +110,6 @@
   color: var(--pimolu-foreground);
 
   font-size: 0.875rem;
-  font-weight: 500;
   line-height: 1.5;
 
   overflow-wrap: anywhere;
@@ -131,8 +130,7 @@
 
 .pimolu-multiselect__value-area {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
 
   gap: 6px;
 
@@ -159,6 +157,26 @@
     background-color 150ms ease,
     border-color 150ms ease,
     box-shadow 150ms ease;
+}
+
+.pimolu-multiselect__selection {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+  min-width: 0;
+}
+
+.pimolu-multiselect__actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: flex-start;
+
+  gap: 4px;
+  min-height: 26px;
 }
 
 /* APPEARANCES */
@@ -215,7 +233,7 @@
 
   box-sizing: border-box;
 
-  width: 100%;
+  width: auto;
   min-width: 7ch;
   max-width: 100%;
   height: 26px;
@@ -337,7 +355,6 @@
   width: 28px;
   height: 28px;
 
-  margin-inline-start: auto;
   padding: 0;
 
   background: transparent;
@@ -376,8 +393,6 @@
 
   width: 18px;
   height: 18px;
-
-  margin-inline-start: auto;
 
   color: var(--pimolu-muted-foreground);
 
@@ -433,11 +448,10 @@
 /* LISTBOX */
 
 .pimolu-multiselect__listbox {
-  position: absolute;
+  --pimolu-multiselect-surface:
+    var(--pimolu-surface, var(--pimolu-background));
 
-  inset-block-start: calc(100% + 6px);
-  inset-inline-start: 0;
-  inset-inline-end: 0;
+  position: fixed;
 
   z-index: 50;
 
@@ -446,7 +460,6 @@
 
   box-sizing: border-box;
 
-  width: 100%;
   max-height: 240px;
 
   margin: 0;
@@ -467,6 +480,8 @@
   border-radius: var(--pimolu-radius-lg, 12px);
 
   box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
 }
 
 /* LISTBOX OPTION */
@@ -516,10 +531,6 @@
 }
 
 /* SELECTED */
-
-.pimolu-multiselect__option--selected {
-  font-weight: 600;
-}
 
 .pimolu-multiselect__option-indicator {
   display: inline-flex;

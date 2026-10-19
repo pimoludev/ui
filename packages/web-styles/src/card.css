@@ -177,7 +177,7 @@
 
   font-family: var(--pimolu-font-heading, inherit);
   font-size: var(--pimolu-card-title-size);
-  font-weight: 600;
+  font-weight: inherit;
   line-height: 1.3;
 
   overflow-wrap: anywhere;

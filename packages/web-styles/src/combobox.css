@@ -114,7 +114,6 @@
   color: var(--pimolu-foreground);
 
   font-size: 0.875rem;
-  font-weight: 500;
   line-height: 1.5;
 
   overflow-wrap: anywhere;
@@ -447,12 +446,6 @@
   .pimolu-combobox__option--disabled
 ) {
   background: var(--pimolu-muted);
-}
-
-/* Selected option */
-
-.pimolu-combobox__option[aria-selected="true"] {
-  font-weight: 600;
 }
 
 /* Disabled option */

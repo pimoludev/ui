@@ -3,14 +3,16 @@
     "control-border-width": "2px",
     "solid-border-color": "#171717",
     "shadow-raised": "4px 4px 0 #171717",
+    "shadow-sm": "1px 2px 0 #171717",
     "radius-md": "12px",
-    "button-font-weight": "800",
+    "button-font-weight": "400",
     "control-shadow": "var(--pimolu-shadow-raised)",
     "button-active-transform": "translate(2px, 2px)",
     "button-active-shadow": "2px 2px 0 var(--pimolu-border)"
   },
   "dark": {
     "solid-border-color": "#ffffff",
-    "shadow-raised": "4px 4px 0 #ffffff"
+    "shadow-raised": "4px 4px 0 #ffffff",
+    "shadow-sm": "1px 2px 0 #ffffff"
   }
 }

@@ -12,7 +12,7 @@ async function load(name) {
   );
 }
 
-test("generates all four CSS files", async () => {
+test("generates the full CSS bundles and every component stylesheet", async () => {
   for (const file of [
     "pimolu.css",
     "pimolu.min.css",
@@ -56,6 +56,7 @@ test("full bundle includes themes and components", async () => {
     "prefers-color-scheme",
     ".pimolu-button",
     ".pimolu-input",
+    ".pimolu-tooltip",
   ]) {
     assert.ok(
       css.includes(token),

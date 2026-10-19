@@ -3,12 +3,6 @@
    PIMOLU — SHARED STYLE DEFAULTS
 ================================== */
 
-:root {
-  --pimolu-base-radius-sm: 4px;
-  --pimolu-base-radius-md: 8px;
-  --pimolu-base-radius-lg: 12px;
-}
-
 :where([data-pimolu-style]) {
   
   /* Semantic defaults */
@@ -33,18 +27,12 @@
   --pimolu-shadow-raised: none;
   --pimolu-control-shadow: none;
 
-  /* Radius */
-
-  --pimolu-radius-sm: var(--pimolu-base-radius-sm);
-  --pimolu-radius-md: var(--pimolu-base-radius-md);
-  --pimolu-radius-lg: var(--pimolu-base-radius-lg);
-
   /* Typography */
 
-  --pimolu-font-body: system-ui, sans-serif;
+  --pimolu-font-body: var(--pimolu-font-family-sans, system-ui, sans-serif);
   --pimolu-font-heading: inherit;
 
-  --pimolu-button-font-weight: 500;
+  --pimolu-button-font-weight: 400;
   --pimolu-button-letter-spacing: normal;
 
   /* Interactions */
