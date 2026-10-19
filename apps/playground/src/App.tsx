@@ -13,6 +13,7 @@ import { ComboboxPage } from "./pages/combobox-page";
 import { InputPage } from "./pages/input-page";
 import { MultiSelectPage } from "./pages/multi-select-page";
 import { OverviewPage } from "./pages/overview-page";
+import { ProgressPage } from "./pages/progress-page";
 import { RadioPage } from "./pages/radio-page";
 import { RangeSliderPage } from "./pages/range-slider-page";
 import { SeparatorPage } from "./pages/separator-page";
@@ -33,6 +34,7 @@ const pageComponents = {
   badge: BadgePage,
   avatar: AvatarPage,
   separator: SeparatorPage,
+  progress: ProgressPage,
   skeleton: SkeletonPage,
   spinner: SpinnerPage,
   switch: SwitchPage,

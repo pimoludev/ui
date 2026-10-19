@@ -248,3 +248,14 @@ export type {
   PimoluRangeSliderSize,
   PimoluRangeSliderVariant,
 } from "./range-slider/range-slider.types";
+
+/* Progress */
+export { Progress } from "./progress/progress";
+
+export { progressVariantMap } from "./progress/progress.variants";
+
+export type {
+  PimoluProgressProps,
+  PimoluProgressSize,
+  PimoluProgressVariant,
+} from "./progress/progress.types";

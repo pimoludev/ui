@@ -8,6 +8,7 @@ import {
   comboboxVariantMap,
   inputVariantMap,
   multiSelectVariantMap,
+  progressVariantMap,
   radioGroupVariantMap,
   radioVariantMap,
   rangeSliderVariantMap,
@@ -160,4 +161,9 @@ export const rangeSliderSizes = optionsOf(
 );
 export const rangeSliderVariants = optionsOf(
   rangeSliderVariantMap.variant,
+);
+
+export const progressSizes = optionsOf(progressVariantMap.size);
+export const progressVariants = optionsOf(
+  progressVariantMap.variant,
 );

@@ -1,0 +1,193 @@
+
+/* =========================================
+   PIMOLU UI — PROGRESS
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-progress {
+  --pimolu-progress-track-height: 8px;
+  --pimolu-progress-gap: 8px;
+
+  --pimolu-progress-tone: var(--pimolu-primary);
+
+  --pimolu-progress-track:
+    var(--pimolu-muted, rgba(0, 0, 0, 0.12));
+
+  /* Default fill; the component overrides it inline from the value. */
+  --pimolu-progress-value: 0%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-progress-gap);
+
+  width: 100%;
+  min-width: 0;
+
+  font-family: var(--pimolu-font-body, inherit);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-progress--sm {
+  --pimolu-progress-track-height: 4px;
+  --pimolu-progress-gap: 6px;
+}
+
+.pimolu-progress--md {
+  --pimolu-progress-track-height: 8px;
+  --pimolu-progress-gap: 8px;
+}
+
+.pimolu-progress--lg {
+  --pimolu-progress-track-height: 12px;
+  --pimolu-progress-gap: 10px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-progress__header {
+  display: flex;
+
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.pimolu-progress__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.pimolu-progress__value {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+
+  color: var(--pimolu-muted-foreground, currentColor);
+}
+
+/* =========================================
+   TRACK AND FILL
+========================================= */
+
+.pimolu-progress__track {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 100%;
+  height: var(--pimolu-progress-track-height);
+
+  border-radius: 9999px;
+
+  background: var(--pimolu-progress-track);
+}
+
+.pimolu-progress__fill {
+  width: var(--pimolu-progress-value);
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--pimolu-progress-tone);
+
+  transition: width 200ms ease;
+}
+
+/* Unknown completion: a short bar sweeps across the track. */
+
+.pimolu-progress--indeterminate .pimolu-progress__fill {
+  width: 40%;
+
+  animation:
+    pimolu-progress-sweep
+    1.4s
+    ease-in-out
+    infinite;
+}
+
+@keyframes pimolu-progress-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(300%);
+  }
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-progress--neutral {
+  --pimolu-progress-tone:
+    var(--pimolu-neutral, var(--pimolu-foreground));
+}
+
+.pimolu-progress--primary {
+  --pimolu-progress-tone: var(--pimolu-primary);
+}
+
+.pimolu-progress--secondary {
+  --pimolu-progress-tone:
+    var(--pimolu-secondary, currentColor);
+}
+
+.pimolu-progress--success {
+  --pimolu-progress-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-progress--warning {
+  --pimolu-progress-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-progress--danger {
+  --pimolu-progress-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-progress__fill {
+    transition: none;
+  }
+
+  .pimolu-progress--indeterminate .pimolu-progress__fill {
+    animation: none;
+
+    transform: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-progress {
+    --pimolu-progress-tone: Highlight;
+    --pimolu-progress-track: Canvas;
+  }
+
+  .pimolu-progress__track {
+    border: 1px solid CanvasText;
+  }
+}

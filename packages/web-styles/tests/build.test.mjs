@@ -34,6 +34,7 @@ test("generates all four CSS files", async () => {
     "multi-select.css",
     "slider.css",
     "range-slider.css",
+    "progress.css",
   ]) {
     const css = await load(file);
 
@@ -1053,6 +1054,65 @@ test("RangeSlider styles are included in the CSS build", async () => {
 
   assert.ok(
     rangeSlider.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+
+test("Progress styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const progress = await load("progress.css");
+
+  const selectors = [
+    ".pimolu-progress",
+    ".pimolu-progress--sm",
+    ".pimolu-progress--md",
+    ".pimolu-progress--lg",
+
+    ".pimolu-progress--neutral",
+    ".pimolu-progress--primary",
+    ".pimolu-progress--secondary",
+    ".pimolu-progress--success",
+    ".pimolu-progress--warning",
+    ".pimolu-progress--danger",
+
+    ".pimolu-progress__header",
+    ".pimolu-progress__label",
+    ".pimolu-progress__value",
+    ".pimolu-progress__track",
+    ".pimolu-progress__fill",
+    ".pimolu-progress--indeterminate",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      progress.includes(selector),
+      `Missing Progress selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    progress.includes("--pimolu-progress-value"),
+    "The fill must be driven by the value custom property"
+  );
+
+  assert.ok(
+    progress.includes("pimolu-progress-sweep"),
+    "Missing the indeterminate animation"
+  );
+
+  assert.ok(
+    progress.includes("prefers-reduced-motion"),
+    "Missing reduced motion support"
+  );
+
+  assert.ok(
+    progress.includes("forced-colors"),
     "Missing forced colors support"
   );
 });
