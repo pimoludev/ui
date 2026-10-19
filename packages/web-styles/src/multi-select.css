@@ -1,0 +1,657 @@
+
+/* =========================================
+   PIMOLU UI — MULTI SELECT
+========================================= */
+
+/* BASE */
+
+.pimolu-multiselect {
+  --pimolu-multiselect-height: 40px;
+  --pimolu-multiselect-padding: 8px;
+  --pimolu-multiselect-font-size: 0.875rem;
+
+  --pimolu-multiselect-tone:
+    var(--pimolu-border, currentColor);
+
+  --pimolu-multiselect-surface:
+    var(--pimolu-surface, var(--pimolu-background));
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-sizing: border-box;
+  width: min(100%, 24rem);
+  min-width: 0;
+  max-width: 100%;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-multiselect--full-width {
+  display: flex;
+  width: 100%;
+}
+
+/* SIZES */
+
+.pimolu-multiselect--xs {
+  --pimolu-multiselect-height: 28px;
+  --pimolu-multiselect-padding: 4px;
+  --pimolu-multiselect-font-size: 0.75rem;
+}
+
+.pimolu-multiselect--sm {
+  --pimolu-multiselect-height: 32px;
+  --pimolu-multiselect-padding: 5px;
+  --pimolu-multiselect-font-size: 0.8125rem;
+}
+
+.pimolu-multiselect--md {
+  --pimolu-multiselect-height: 40px;
+  --pimolu-multiselect-padding: 8px;
+  --pimolu-multiselect-font-size: 0.875rem;
+}
+
+.pimolu-multiselect--lg {
+  --pimolu-multiselect-height: 44px;
+  --pimolu-multiselect-padding: 9px;
+  --pimolu-multiselect-font-size: 1rem;
+}
+
+.pimolu-multiselect--xl {
+  --pimolu-multiselect-height: 52px;
+  --pimolu-multiselect-padding: 11px;
+  --pimolu-multiselect-font-size: 1.125rem;
+}
+
+.pimolu-multiselect--xxl {
+  --pimolu-multiselect-height: 60px;
+  --pimolu-multiselect-padding: 13px;
+  --pimolu-multiselect-font-size: 1.25rem;
+}
+
+/* SEMANTIC VARIANTS */
+
+.pimolu-multiselect--neutral {
+  --pimolu-multiselect-tone:
+    var(--pimolu-border, currentColor);
+}
+
+.pimolu-multiselect--primary {
+  --pimolu-multiselect-tone:
+    var(--pimolu-primary, currentColor);
+}
+
+.pimolu-multiselect--secondary {
+  --pimolu-multiselect-tone:
+    var(--pimolu-secondary, currentColor);
+}
+
+.pimolu-multiselect--success {
+  --pimolu-multiselect-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-multiselect--warning {
+  --pimolu-multiselect-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-multiselect--danger {
+  --pimolu-multiselect-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* LABEL */
+
+.pimolu-multiselect__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-multiselect__required {
+  margin-inline-start: 3px;
+  color: var(--pimolu-danger, currentColor);
+}
+
+/* FIELD */
+
+.pimolu-multiselect__field {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.pimolu-multiselect__value-area {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  width: 100%;
+  min-height: var(--pimolu-multiselect-height);
+
+  padding: var(--pimolu-multiselect-padding);
+
+  background: var(--pimolu-multiselect-surface);
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  cursor: text;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+/* APPEARANCES */
+
+.pimolu-multiselect--outline
+  .pimolu-multiselect__value-area {
+  border-color: var(--pimolu-multiselect-tone);
+}
+
+.pimolu-multiselect--soft
+  .pimolu-multiselect__value-area {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-multiselect-tone) 8%,
+    var(--pimolu-multiselect-surface)
+  );
+
+  border-color: transparent;
+}
+
+.pimolu-multiselect--filled
+  .pimolu-multiselect__value-area {
+  background: var(--pimolu-muted);
+  border-color: transparent;
+}
+
+.pimolu-multiselect--glass
+  .pimolu-multiselect__value-area {
+  background: var(
+    --pimolu-glass-bg,
+    var(--pimolu-multiselect-surface)
+  );
+
+  border-color: var(
+    --pimolu-glass-border,
+    var(--pimolu-border)
+  );
+
+  box-shadow: var(--pimolu-glass-shadow, none);
+
+  -webkit-backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+
+  backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+}
+
+/* SEARCH INPUT */
+
+.pimolu-multiselect__input {
+  display: block;
+
+  flex: 1 1 8ch;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 7ch;
+  max-width: 100%;
+  height: 26px;
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+  color: inherit;
+
+  border: 0;
+  outline: 0;
+
+  font-family: inherit;
+  font-size: var(--pimolu-multiselect-font-size);
+  line-height: 1.4;
+}
+
+.pimolu-multiselect__input::placeholder {
+  color: var(--pimolu-muted-foreground);
+  opacity: 1;
+}
+
+.pimolu-multiselect__input:disabled {
+  cursor: not-allowed;
+}
+
+/* TAGS */
+
+.pimolu-multiselect__tag {
+  display: inline-flex;
+  align-items: center;
+
+  flex: 0 0 auto;
+
+  gap: 5px;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+  min-height: 24px;
+
+  padding-block: 2px;
+  padding-inline-start: 8px;
+  padding-inline-end: 4px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-multiselect-tone) 14%,
+    var(--pimolu-multiselect-surface)
+  );
+
+  color: var(--pimolu-foreground);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.pimolu-multiselect__tag-label {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-multiselect__tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 24px;
+  height: 24px;
+
+  padding: 0;
+
+  background: transparent;
+  color: inherit;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 18px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.pimolu-multiselect__tag-remove:hover:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    currentColor 12%,
+    transparent
+  );
+}
+
+.pimolu-multiselect__tag-remove:focus-visible {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 1px;
+}
+
+/* CLEAR ALL */
+
+.pimolu-multiselect__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 28px;
+  height: 28px;
+
+  margin-inline-start: auto;
+  padding: 0;
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.pimolu-multiselect__clear:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-multiselect__clear:focus-visible {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 2px;
+}
+
+/* CHEVRON */
+
+.pimolu-multiselect__chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  margin-inline-start: auto;
+
+  color: var(--pimolu-muted-foreground);
+
+  pointer-events: none;
+}
+
+.pimolu-multiselect__chevron svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* HOVER AND FOCUS */
+
+.pimolu-multiselect__value-area:hover {
+  border-color: var(--pimolu-multiselect-tone);
+}
+
+.pimolu-multiselect__value-area:focus-within {
+  border-color: var(--pimolu-multiselect-tone);
+
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 2px;
+}
+
+/* INVALID */
+
+.pimolu-multiselect--invalid
+  .pimolu-multiselect__value-area {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-multiselect--invalid
+  .pimolu-multiselect__value-area:focus-within {
+  outline-color: var(--pimolu-danger, #dc2626);
+}
+
+/* DISABLED */
+
+.pimolu-multiselect--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-multiselect--disabled
+  .pimolu-multiselect__value-area {
+  cursor: not-allowed;
+}
+
+/* LISTBOX */
+
+.pimolu-multiselect__listbox {
+  position: absolute;
+
+  inset-block-start: calc(100% + 6px);
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  max-height: 240px;
+
+  margin: 0;
+  padding: 5px;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  list-style: none;
+
+  background: var(--pimolu-multiselect-surface);
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+}
+
+/* LISTBOX OPTION */
+
+.pimolu-multiselect__option {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  box-sizing: border-box;
+
+  min-height: 36px;
+  padding: 8px 10px;
+
+  color: var(--pimolu-foreground);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  cursor: pointer;
+}
+
+.pimolu-multiselect__option-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* KEYBOARD ACTIVE */
+
+.pimolu-multiselect__option[data-active="true"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    var(--pimolu-multiselect-surface)
+  );
+}
+
+/* HOVER */
+
+.pimolu-multiselect__option:hover:not(
+  .pimolu-multiselect__option--disabled
+) {
+  background: var(--pimolu-muted);
+}
+
+/* SELECTED */
+
+.pimolu-multiselect__option--selected {
+  font-weight: 600;
+}
+
+.pimolu-multiselect__option-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 13px;
+  line-height: 1;
+}
+
+.pimolu-multiselect__option--selected
+  .pimolu-multiselect__option-indicator {
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground, #fff);
+
+  border-color: var(--pimolu-primary);
+}
+
+/* DISABLED OPTION */
+
+.pimolu-multiselect__option--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* EMPTY */
+
+.pimolu-multiselect__empty {
+  padding: 14px 12px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* HELPER, ERROR, COUNT */
+
+.pimolu-multiselect__helper,
+.pimolu-multiselect__error,
+.pimolu-multiselect__count {
+  margin: 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-multiselect__helper,
+.pimolu-multiselect__count {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-multiselect__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-multiselect__count {
+  font-variant-numeric: tabular-nums;
+}
+
+/* SCREEN READER ONLY */
+
+.pimolu-multiselect__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-multiselect__value-area {
+    transition: none;
+  }
+}
+
+/* FORCED COLORS */
+
+@media (forced-colors: active) {
+  .pimolu-multiselect {
+    opacity: 1;
+  }
+
+  .pimolu-multiselect__value-area,
+  .pimolu-multiselect__listbox {
+    background: Field;
+    color: FieldText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-multiselect__tag {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-multiselect__option[data-active="true"] {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-multiselect__option--selected
+    .pimolu-multiselect__option-indicator {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  .pimolu-multiselect__value-area:focus-within {
+    outline-color: Highlight;
+  }
+}

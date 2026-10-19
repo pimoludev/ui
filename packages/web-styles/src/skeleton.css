@@ -1,0 +1,183 @@
+
+/* =========================================
+   PIMOLU UI — SKELETON
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-skeleton {
+  --pimolu-skeleton-background: var(
+    --pimolu-muted,
+    var(--pimolu-border, currentColor)
+  );
+
+  --pimolu-skeleton-highlight: color-mix(
+    in srgb,
+    var(--pimolu-foreground, currentColor) 12%,
+    transparent
+  );
+
+  position: relative;
+
+  display: inline-block;
+  box-sizing: border-box;
+
+  flex-shrink: 0;
+
+  width: 100%;
+  height: 1em;
+
+  min-width: 0;
+  max-width: 100%;
+
+  overflow: hidden;
+
+  background-color:
+    var(--pimolu-skeleton-background);
+
+  border: 0;
+  border-radius: 0;
+
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+/* =========================================
+   SHAPES
+========================================= */
+
+/* Text line */
+
+.pimolu-skeleton--text {
+  height: 0.875em;
+
+  border-radius:
+    var(--pimolu-radius-sm, 4px);
+}
+
+/* Sharp rectangle */
+
+.pimolu-skeleton--rectangular {
+  height: 1rem;
+  border-radius: 0;
+}
+
+/* Rounded rectangle */
+
+.pimolu-skeleton--rounded {
+  height: 1rem;
+
+  border-radius:
+    var(--pimolu-radius-lg, 12px);
+}
+
+/* Circle */
+
+.pimolu-skeleton--circular {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+}
+
+/* =========================================
+   PULSE ANIMATION
+========================================= */
+
+.pimolu-skeleton--pulse {
+  animation:
+    pimolu-skeleton-pulse
+    1.7s
+    ease-in-out
+    infinite;
+}
+
+@keyframes pimolu-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* =========================================
+   WAVE ANIMATION
+========================================= */
+
+.pimolu-skeleton--wave::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--pimolu-skeleton-highlight) 50%,
+    transparent 100%
+  );
+
+  transform: translateX(-100%);
+
+  animation:
+    pimolu-skeleton-wave
+    1.8s
+    ease-in-out
+    infinite;
+
+  pointer-events: none;
+}
+
+@keyframes pimolu-skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* =========================================
+   NO ANIMATION
+========================================= */
+
+.pimolu-skeleton--none {
+  animation: none;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-skeleton--pulse {
+    animation: none;
+  }
+
+  .pimolu-skeleton--wave::after {
+    animation: none;
+    display: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-skeleton {
+    background-color: GrayText;
+    animation: none;
+  }
+
+  .pimolu-skeleton--wave::after {
+    display: none;
+  }
+}

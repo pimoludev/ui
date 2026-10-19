@@ -1,0 +1,135 @@
+
+/* =========================================
+   PIMOLU UI — AVATAR GROUP
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-avatar-group {
+  --pimolu-avatar-group-overlap-ratio: -0.3;
+
+  --pimolu-avatar-group-ring-width: 2px;
+
+  --pimolu-avatar-group-ring-color: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+  min-width: 0;
+
+  isolation: isolate;
+
+  vertical-align: middle;
+}
+
+/* =========================================
+   SPACING
+========================================= */
+
+/* Strong overlap */
+
+.pimolu-avatar-group--spacing-tight {
+  --pimolu-avatar-group-overlap-ratio: -0.42;
+}
+
+/* Balanced overlap */
+
+.pimolu-avatar-group--spacing-normal {
+  --pimolu-avatar-group-overlap-ratio: -0.3;
+}
+
+/* Light overlap */
+
+.pimolu-avatar-group--spacing-loose {
+  --pimolu-avatar-group-overlap-ratio: -0.16;
+}
+
+/* =========================================
+   AVATAR ITEMS
+========================================= */
+
+.pimolu-avatar-group > .pimolu-avatar {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  box-shadow:
+    0 0 0
+    var(--pimolu-avatar-group-ring-width)
+    var(--pimolu-avatar-group-ring-color);
+}
+
+/* Overlap every avatar after the first */
+
+.pimolu-avatar-group
+  > .pimolu-avatar
+  + .pimolu-avatar {
+  margin-inline-start: calc(
+    var(--pimolu-avatar-size) *
+    var(--pimolu-avatar-group-overlap-ratio)
+  );
+}
+
+/* =========================================
+   OVERFLOW COUNTER
+========================================= */
+
+.pimolu-avatar-group__more {
+  background: var(
+    --pimolu-muted,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pimolu-avatar-group__more-label {
+  display: block;
+
+  max-width: 100%;
+  padding-inline: 2px;
+
+  overflow: hidden;
+
+  font-size: clamp(
+    0.55rem,
+    calc(var(--pimolu-avatar-size) * 0.27),
+    var(--pimolu-avatar-font-size)
+  );
+
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-avatar-group > .pimolu-avatar {
+    box-shadow: none;
+
+    outline: 2px solid Canvas;
+    outline-offset: 0;
+  }
+
+  .pimolu-avatar-group__more {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+}

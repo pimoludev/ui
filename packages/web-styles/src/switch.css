@@ -1,0 +1,372 @@
+
+/* =========================================
+   PIMOLU UI — SWITCH
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-switch {
+  --pimolu-switch-track-width: 42px;
+  --pimolu-switch-track-height: 24px;
+  --pimolu-switch-thumb-size: 18px;
+  --pimolu-switch-inset: 2px;
+
+  --pimolu-switch-gap: 12px;
+
+  --pimolu-switch-active:
+    var(--pimolu-primary);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-primary-foreground, #fff);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pimolu-switch-gap);
+
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+
+  font-family: var(--pimolu-font-body, inherit);
+
+  color: var(--pimolu-foreground);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-switch--sm {
+  --pimolu-switch-track-width: 34px;
+  --pimolu-switch-track-height: 20px;
+  --pimolu-switch-thumb-size: 14px;
+  --pimolu-switch-gap: 8px;
+}
+
+.pimolu-switch--md {
+  --pimolu-switch-track-width: 42px;
+  --pimolu-switch-track-height: 24px;
+  --pimolu-switch-thumb-size: 18px;
+  --pimolu-switch-gap: 12px;
+}
+
+.pimolu-switch--lg {
+  --pimolu-switch-track-width: 50px;
+  --pimolu-switch-track-height: 30px;
+  --pimolu-switch-thumb-size: 24px;
+  --pimolu-switch-gap: 14px;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-switch--neutral {
+  --pimolu-switch-active:
+    var(--pimolu-foreground);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-background);
+}
+
+.pimolu-switch--primary {
+  --pimolu-switch-active:
+    var(--pimolu-primary);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-primary-foreground, #fff);
+}
+
+.pimolu-switch--secondary {
+  --pimolu-switch-active:
+    var(--pimolu-secondary);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-secondary-foreground, #fff);
+}
+
+.pimolu-switch--success {
+  --pimolu-switch-active:
+    var(--pimolu-success, #15803d);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-success-foreground, #fff);
+}
+
+.pimolu-switch--warning {
+  --pimolu-switch-active:
+    var(--pimolu-warning, #d97706);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-warning-foreground, #171717);
+}
+
+.pimolu-switch--danger {
+  --pimolu-switch-active:
+    var(--pimolu-danger, #dc2626);
+
+  --pimolu-switch-active-foreground:
+    var(--pimolu-danger-foreground, #fff);
+}
+
+/* =========================================
+   CONTROL
+========================================= */
+
+/* Keep a comfortable pointer target
+   even for the small switch. */
+
+.pimolu-switch__control {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: var(--pimolu-switch-track-width);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Native checkbox remains accessible */
+
+.pimolu-switch__input {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   TRACK
+========================================= */
+
+.pimolu-switch__track {
+  position: relative;
+
+  display: block;
+
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: var(--pimolu-switch-track-width);
+  height: var(--pimolu-switch-track-height);
+
+  background: var(--pimolu-muted);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 9999px);
+
+  pointer-events: none;
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+/* =========================================
+   THUMB
+========================================= */
+
+.pimolu-switch__thumb {
+  position: absolute;
+
+  inset-block-start: 50%;
+  inset-inline-start: var(--pimolu-switch-inset);
+
+  display: block;
+
+  box-sizing: border-box;
+
+  width: var(--pimolu-switch-thumb-size);
+  height: var(--pimolu-switch-thumb-size);
+
+  background: var(--pimolu-background);
+
+  border-radius: var(--pimolu-radius-lg, 9999px);
+
+  box-shadow: var(--pimolu-shadow-sm, none);
+
+  transform: translateY(-50%);
+
+  transition:
+    inset-inline-start 180ms ease,
+    background-color 180ms ease;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   CHECKED STATE
+========================================= */
+
+.pimolu-switch__input:checked
+  + .pimolu-switch__track {
+  background: var(--pimolu-switch-active);
+  border-color: var(--pimolu-switch-active);
+}
+
+.pimolu-switch__input:checked
+  + .pimolu-switch__track
+  .pimolu-switch__thumb {
+  inset-inline-start: calc(
+    100%
+    - var(--pimolu-switch-thumb-size)
+    - var(--pimolu-switch-inset)
+  );
+
+  background: var(--pimolu-switch-active-foreground);
+}
+
+/* =========================================
+   KEYBOARD FOCUS
+========================================= */
+
+.pimolu-switch__input:focus-visible
+  + .pimolu-switch__track {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 3px;
+}
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.pimolu-switch--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pimolu-switch__input:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-switch--disabled
+  .pimolu-switch__label {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   LABEL AND DESCRIPTION
+========================================= */
+
+.pimolu-switch__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.pimolu-switch__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.pimolu-switch--lg .pimolu-switch__label {
+  font-size: 1rem;
+}
+
+.pimolu-switch--sm .pimolu-switch__label {
+  font-size: 0.8125rem;
+}
+
+.pimolu-switch__description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-switch__required {
+  margin-inline-start: 3px;
+
+  color: var(--pimolu-danger, currentColor);
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-switch__track,
+  .pimolu-switch__thumb {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-switch {
+    opacity: 1;
+  }
+
+  .pimolu-switch__track {
+    background: Canvas;
+    border-color: ButtonText;
+  }
+
+  .pimolu-switch__thumb {
+    background: ButtonText;
+    box-shadow: none;
+  }
+
+  .pimolu-switch__input:checked
+    + .pimolu-switch__track {
+    background: Highlight;
+    border-color: Highlight;
+  }
+
+  .pimolu-switch__input:checked
+    + .pimolu-switch__track
+    .pimolu-switch__thumb {
+    background: HighlightText;
+  }
+
+  .pimolu-switch__input:focus-visible
+    + .pimolu-switch__track {
+    outline-color: Highlight;
+  }
+
+  .pimolu-switch__input:disabled
+    + .pimolu-switch__track {
+    border-color: GrayText;
+  }
+}

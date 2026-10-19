@@ -1,0 +1,363 @@
+
+/* =========================================
+   PIMOLU UI — SELECT
+   Shared Web Styles
+========================================= */
+
+/* BASE */
+
+.pimolu-select {
+  --pimolu-select-height: 40px;
+  --pimolu-select-padding-x: 12px;
+  --pimolu-select-font-size: 0.875rem;
+
+  --pimolu-select-tone:
+    var(--pimolu-border, currentColor);
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  width: min(100%, 20rem);
+  max-width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-select--full-width {
+  display: flex;
+  width: 100%;
+}
+
+/* SIZES */
+
+.pimolu-select--xs {
+  --pimolu-select-height: 28px;
+  --pimolu-select-padding-x: 8px;
+  --pimolu-select-font-size: 0.75rem;
+}
+
+.pimolu-select--sm {
+  --pimolu-select-height: 32px;
+  --pimolu-select-padding-x: 10px;
+  --pimolu-select-font-size: 0.8125rem;
+}
+
+.pimolu-select--md {
+  --pimolu-select-height: 40px;
+  --pimolu-select-padding-x: 12px;
+  --pimolu-select-font-size: 0.875rem;
+}
+
+.pimolu-select--lg {
+  --pimolu-select-height: 44px;
+  --pimolu-select-padding-x: 14px;
+  --pimolu-select-font-size: 1rem;
+}
+
+.pimolu-select--xl {
+  --pimolu-select-height: 52px;
+  --pimolu-select-padding-x: 16px;
+  --pimolu-select-font-size: 1.125rem;
+}
+
+.pimolu-select--xxl {
+  --pimolu-select-height: 60px;
+  --pimolu-select-padding-x: 18px;
+  --pimolu-select-font-size: 1.25rem;
+}
+
+/* SEMANTIC VARIANTS */
+
+.pimolu-select--neutral {
+  --pimolu-select-tone:
+    var(--pimolu-border, currentColor);
+}
+
+.pimolu-select--primary {
+  --pimolu-select-tone:
+    var(--pimolu-primary);
+}
+
+.pimolu-select--secondary {
+  --pimolu-select-tone:
+    var(--pimolu-secondary);
+}
+
+.pimolu-select--success {
+  --pimolu-select-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-select--warning {
+  --pimolu-select-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-select--danger {
+  --pimolu-select-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* LABEL */
+
+.pimolu-select__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-select__required {
+  margin-inline-start: 3px;
+
+  color: var(--pimolu-danger, currentColor);
+}
+
+/* FIELD WRAPPER */
+
+.pimolu-select__field {
+  position: relative;
+  display: block;
+
+  min-width: 0;
+  width: 100%;
+}
+
+/* NATIVE SELECT */
+
+.pimolu-select__control {
+  display: block;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+  height: var(--pimolu-select-height);
+
+  margin: 0;
+
+  padding-block: 0;
+  padding-inline-start:
+    var(--pimolu-select-padding-x);
+  padding-inline-end: calc(
+    var(--pimolu-select-padding-x) + 26px
+  );
+
+  -webkit-appearance: none;
+  appearance: none;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font-family: inherit;
+  font-size: var(--pimolu-select-font-size);
+  font-weight: 400;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+/* Required field with unselected placeholder */
+
+.pimolu-select__control:required:invalid {
+  color: var(--pimolu-muted-foreground);
+}
+
+/* CHEVRON */
+
+.pimolu-select__chevron {
+  position: absolute;
+
+  inset-block-start: 50%;
+  inset-inline-end:
+    var(--pimolu-select-padding-x);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  color: var(--pimolu-muted-foreground);
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
+}
+
+.pimolu-select__chevron svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* APPEARANCES */
+
+.pimolu-select--outline
+  .pimolu-select__control {
+  border-color: var(--pimolu-select-tone);
+}
+
+.pimolu-select--soft
+  .pimolu-select__control {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-select-tone) 8%,
+    var(
+      --pimolu-surface,
+      var(--pimolu-background)
+    )
+  );
+
+  border-color: transparent;
+}
+
+.pimolu-select--filled
+  .pimolu-select__control {
+  background: var(--pimolu-muted);
+  border-color: transparent;
+}
+
+.pimolu-select--glass
+  .pimolu-select__control {
+  background: var(
+    --pimolu-glass-bg,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  border-color: var(
+    --pimolu-glass-border,
+    var(--pimolu-border)
+  );
+
+  box-shadow: var(--pimolu-glass-shadow, none);
+
+  -webkit-backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+
+  backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+}
+
+/* HOVER */
+
+.pimolu-select__control:hover:not(:disabled) {
+  border-color: var(--pimolu-select-tone);
+}
+
+/* FOCUS */
+
+.pimolu-select__control:focus-visible {
+  border-color: var(--pimolu-select-tone);
+
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 2px;
+}
+
+/* INVALID */
+
+.pimolu-select--invalid
+  .pimolu-select__control {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-select--invalid
+  .pimolu-select__control:focus-visible {
+  outline-color: var(--pimolu-danger, #dc2626);
+}
+
+/* DISABLED */
+
+.pimolu-select--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-select__control:disabled {
+  cursor: not-allowed;
+}
+
+/* HELPER AND ERROR */
+
+.pimolu-select__helper,
+.pimolu-select__error {
+  margin: 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-select__helper {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-select__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-select__control {
+    transition: none;
+  }
+}
+
+/* FORCED COLORS */
+
+@media (forced-colors: active) {
+  .pimolu-select__control {
+    background: Field;
+    color: FieldText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-select__chevron {
+    color: ButtonText;
+  }
+
+  .pimolu-select__control:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-select--invalid
+    .pimolu-select__control {
+    border-style: dashed;
+  }
+
+  .pimolu-select__error {
+    color: CanvasText;
+  }
+}

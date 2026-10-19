@@ -1,0 +1,365 @@
+
+/* =========================================
+   PIMOLU UI — TEXTAREA
+   Shared Web Styles
+========================================= */
+
+/* BASE */
+
+.pimolu-textarea {
+  --pimolu-textarea-padding-x: 12px;
+  --pimolu-textarea-padding-y: 10px;
+  --pimolu-textarea-font-size: 0.875rem;
+
+  --pimolu-textarea-tone:
+    var(--pimolu-border, currentColor);
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-sizing: border-box;
+  width: min(100%, 24rem);
+  max-width: 100%;
+  min-width: 0;
+
+  font-family: var(--pimolu-font-body, inherit);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-textarea--full-width {
+  display: flex;
+  width: 100%;
+}
+
+/* SIZES */
+
+.pimolu-textarea--xs {
+  --pimolu-textarea-padding-x: 8px;
+  --pimolu-textarea-padding-y: 6px;
+  --pimolu-textarea-font-size: 0.75rem;
+}
+
+.pimolu-textarea--sm {
+  --pimolu-textarea-padding-x: 10px;
+  --pimolu-textarea-padding-y: 8px;
+  --pimolu-textarea-font-size: 0.8125rem;
+}
+
+.pimolu-textarea--md {
+  --pimolu-textarea-padding-x: 12px;
+  --pimolu-textarea-padding-y: 10px;
+  --pimolu-textarea-font-size: 0.875rem;
+}
+
+.pimolu-textarea--lg {
+  --pimolu-textarea-padding-x: 14px;
+  --pimolu-textarea-padding-y: 12px;
+  --pimolu-textarea-font-size: 1rem;
+}
+
+.pimolu-textarea--xl {
+  --pimolu-textarea-padding-x: 16px;
+  --pimolu-textarea-padding-y: 14px;
+  --pimolu-textarea-font-size: 1.125rem;
+}
+
+.pimolu-textarea--xxl {
+  --pimolu-textarea-padding-x: 18px;
+  --pimolu-textarea-padding-y: 16px;
+  --pimolu-textarea-font-size: 1.25rem;
+}
+
+/* SEMANTIC VARIANTS */
+
+.pimolu-textarea--neutral {
+  --pimolu-textarea-tone:
+    var(--pimolu-border, currentColor);
+}
+
+.pimolu-textarea--primary {
+  --pimolu-textarea-tone:
+    var(--pimolu-primary);
+}
+
+.pimolu-textarea--secondary {
+  --pimolu-textarea-tone:
+    var(--pimolu-secondary);
+}
+
+.pimolu-textarea--success {
+  --pimolu-textarea-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-textarea--warning {
+  --pimolu-textarea-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-textarea--danger {
+  --pimolu-textarea-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* LABEL */
+
+.pimolu-textarea__label {
+  display: block;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-textarea__required {
+  margin-inline-start: 3px;
+  color: var(--pimolu-danger, currentColor);
+}
+
+/* NATIVE CONTROL */
+
+.pimolu-textarea__control {
+  display: block;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  margin: 0;
+
+  padding:
+    var(--pimolu-textarea-padding-y)
+    var(--pimolu-textarea-padding-x);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font-family: inherit;
+  font-size: var(--pimolu-textarea-font-size);
+  font-weight: 400;
+  line-height: 1.5;
+
+  resize: vertical;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-textarea__control::placeholder {
+  color: var(--pimolu-muted-foreground);
+  opacity: 1;
+}
+
+/* APPEARANCES */
+
+.pimolu-textarea--outline
+  .pimolu-textarea__control {
+  border-color: var(--pimolu-textarea-tone);
+}
+
+.pimolu-textarea--soft
+  .pimolu-textarea__control {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-textarea-tone) 8%,
+    var(
+      --pimolu-surface,
+      var(--pimolu-background)
+    )
+  );
+
+  border-color: transparent;
+}
+
+.pimolu-textarea--filled
+  .pimolu-textarea__control {
+  background: var(--pimolu-muted);
+  border-color: transparent;
+}
+
+.pimolu-textarea--glass
+  .pimolu-textarea__control {
+  background: var(
+    --pimolu-glass-bg,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  border-color: var(
+    --pimolu-glass-border,
+    var(--pimolu-border)
+  );
+
+  box-shadow: var(--pimolu-glass-shadow, none);
+
+  -webkit-backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+
+  backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+}
+
+/* RESIZE MODES */
+
+.pimolu-textarea--resize-none
+  .pimolu-textarea__control {
+  resize: none;
+}
+
+.pimolu-textarea--resize-vertical
+  .pimolu-textarea__control {
+  resize: vertical;
+}
+
+.pimolu-textarea--resize-horizontal
+  .pimolu-textarea__control {
+  resize: horizontal;
+}
+
+.pimolu-textarea--resize-both
+  .pimolu-textarea__control {
+  resize: both;
+}
+
+/* FOCUS */
+
+.pimolu-textarea__control:focus-visible {
+  border-color: var(--pimolu-textarea-tone);
+
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 2px;
+}
+
+/* INVALID */
+
+.pimolu-textarea--invalid
+  .pimolu-textarea__control {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-textarea--invalid
+  .pimolu-textarea__control:focus-visible {
+  outline-color: var(--pimolu-danger, #dc2626);
+}
+
+/* DISABLED */
+
+.pimolu-textarea--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-textarea__control:disabled {
+  cursor: not-allowed;
+  resize: none;
+}
+
+/* READ ONLY */
+
+.pimolu-textarea__control:read-only:not(:disabled) {
+  cursor: default;
+  resize: none;
+}
+
+/* FOOTER */
+
+.pimolu-textarea__footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+
+  min-width: 0;
+}
+
+/* HELPER */
+
+.pimolu-textarea__helper {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* ERROR */
+
+.pimolu-textarea__error {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* CHARACTER COUNTER */
+
+.pimolu-textarea__counter {
+  margin-inline-start: auto;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-textarea__control {
+    transition: none;
+  }
+}
+
+/* FORCED COLORS */
+
+@media (forced-colors: active) {
+  .pimolu-textarea__control {
+    background: Field;
+    color: FieldText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-textarea__control:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-textarea--invalid
+    .pimolu-textarea__control {
+    border-style: dashed;
+  }
+
+  .pimolu-textarea__error {
+    color: CanvasText;
+  }
+}

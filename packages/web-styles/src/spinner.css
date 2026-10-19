@@ -1,0 +1,300 @@
+
+/* =========================================
+   PIMOLU UI — SPINNER
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-spinner {
+  --pimolu-spinner-size: 20px;
+  --pimolu-spinner-dot-size:
+    calc(var(--pimolu-spinner-size) * 0.27);
+
+  --pimolu-spinner-color: currentColor;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  color: var(--pimolu-spinner-color);
+
+  line-height: 1;
+  vertical-align: middle;
+
+  /* Prevent accidental movement of text */
+  user-select: none;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-spinner--xs {
+  --pimolu-spinner-size: 12px;
+}
+
+.pimolu-spinner--sm {
+  --pimolu-spinner-size: 16px;
+}
+
+.pimolu-spinner--md {
+  --pimolu-spinner-size: 20px;
+}
+
+.pimolu-spinner--lg {
+  --pimolu-spinner-size: 24px;
+}
+
+.pimolu-spinner--xl {
+  --pimolu-spinner-size: 32px;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-spinner--inherit {
+  --pimolu-spinner-color: currentColor;
+}
+
+.pimolu-spinner--neutral {
+  --pimolu-spinner-color:
+    var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-spinner--primary {
+  --pimolu-spinner-color:
+    var(--pimolu-primary, currentColor);
+}
+
+.pimolu-spinner--secondary {
+  --pimolu-spinner-color:
+    var(--pimolu-secondary, currentColor);
+}
+
+.pimolu-spinner--success {
+  --pimolu-spinner-color:
+    var(--pimolu-success, currentColor);
+}
+
+.pimolu-spinner--warning {
+  --pimolu-spinner-color:
+    var(--pimolu-warning, currentColor);
+}
+
+.pimolu-spinner--danger {
+  --pimolu-spinner-color:
+    var(--pimolu-danger, currentColor);
+}
+
+/* =========================================
+   VISUAL CONTAINER
+========================================= */
+
+.pimolu-spinner__visual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: var(--pimolu-spinner-size);
+  height: var(--pimolu-spinner-size);
+}
+
+/* =========================================
+   CIRCULAR & ARC
+========================================= */
+
+.pimolu-spinner__svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  transform-origin: center;
+
+  animation:
+    pimolu-spinner-rotate
+    1s
+    linear
+    infinite;
+}
+
+.pimolu-spinner__track,
+.pimolu-spinner__indicator {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.pimolu-spinner__track {
+  opacity: 0.18;
+}
+
+.pimolu-spinner__indicator {
+  stroke-linecap: round;
+}
+
+/* Circular: short active segment */
+
+.pimolu-spinner--circular
+  .pimolu-spinner__indicator {
+  stroke-dasharray: 16 57;
+}
+
+/* Arc: longer active segment */
+
+.pimolu-spinner--arc
+  .pimolu-spinner__indicator {
+  stroke-dasharray: 42 57;
+}
+
+/* Arc does not show a background track */
+
+.pimolu-spinner--arc
+  .pimolu-spinner__track {
+  opacity: 0;
+}
+
+.pimolu-spinner--arc
+  .pimolu-spinner__svg {
+  animation-duration: 1.3s;
+}
+
+@keyframes pimolu-spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   DOTS
+========================================= */
+
+.pimolu-spinner--dots
+  .pimolu-spinner__visual {
+  width: calc(var(--pimolu-spinner-size) * 1.5);
+
+  gap: calc(var(--pimolu-spinner-size) * 0.14);
+}
+
+.pimolu-spinner__dot {
+  display: block;
+
+  flex: 0 0 auto;
+
+  width: var(--pimolu-spinner-dot-size);
+  height: var(--pimolu-spinner-dot-size);
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  animation:
+    pimolu-spinner-dot
+    1.1s
+    ease-in-out
+    infinite;
+}
+
+/* Staggered dots */
+
+.pimolu-spinner__dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.pimolu-spinner__dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.pimolu-spinner__dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes pimolu-spinner-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(-25%);
+  }
+}
+
+/* =========================================
+   ACCESSIBLE LABEL
+========================================= */
+
+/* Visually hidden, but readable by
+   assistive technologies */
+
+.pimolu-spinner__label {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-spinner__svg,
+  .pimolu-spinner__dot {
+    animation: none;
+  }
+
+  .pimolu-spinner__dot {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-spinner {
+    color: CanvasText;
+  }
+
+  .pimolu-spinner__track {
+    opacity: 0.4;
+  }
+
+  .pimolu-spinner__dot {
+    background: currentColor;
+  }
+}

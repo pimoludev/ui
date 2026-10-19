@@ -1,0 +1,143 @@
+
+/* =========================================
+   PIMOLU UI — SEPARATOR
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-separator {
+  --pimolu-separator-base-thickness:
+    var(--pimolu-control-border-width, 1px);
+
+  --pimolu-separator-thickness:
+    var(--pimolu-separator-base-thickness);
+
+  --pimolu-separator-tone:
+    var(--pimolu-border, currentColor);
+
+  --pimolu-separator-line-style: solid;
+
+  display: block;
+
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================
+   ORIENTATION
+========================================= */
+
+/* Horizontal */
+
+.pimolu-separator--horizontal {
+  width: 100%;
+  height: 0;
+
+  border: 0;
+
+  border-block-start:
+    var(--pimolu-separator-thickness)
+    var(--pimolu-separator-line-style)
+    var(--pimolu-separator-tone);
+}
+
+/* Vertical */
+
+.pimolu-separator--vertical {
+  width: 0;
+  height: auto;
+
+  align-self: stretch;
+
+  border: 0;
+
+  border-inline-start:
+    var(--pimolu-separator-thickness)
+    var(--pimolu-separator-line-style)
+    var(--pimolu-separator-tone);
+}
+
+/* =========================================
+   APPEARANCES
+========================================= */
+
+.pimolu-separator--solid {
+  --pimolu-separator-line-style: solid;
+}
+
+.pimolu-separator--dashed {
+  --pimolu-separator-line-style: dashed;
+}
+
+.pimolu-separator--dotted {
+  --pimolu-separator-line-style: dotted;
+}
+
+/* =========================================
+   THICKNESS
+========================================= */
+
+.pimolu-separator--thin {
+  --pimolu-separator-thickness:
+    var(--pimolu-separator-base-thickness);
+}
+
+.pimolu-separator--medium {
+  --pimolu-separator-thickness:
+    calc(var(--pimolu-separator-base-thickness) + 1px);
+}
+
+.pimolu-separator--thick {
+  --pimolu-separator-thickness:
+    calc(var(--pimolu-separator-base-thickness) + 2px);
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-separator--neutral {
+  --pimolu-separator-tone:
+    var(--pimolu-border, currentColor);
+}
+
+.pimolu-separator--primary {
+  --pimolu-separator-tone:
+    var(--pimolu-primary);
+}
+
+.pimolu-separator--secondary {
+  --pimolu-separator-tone:
+    var(--pimolu-secondary);
+}
+
+.pimolu-separator--success {
+  --pimolu-separator-tone:
+    var(--pimolu-success, #15803d);
+}
+
+.pimolu-separator--warning {
+  --pimolu-separator-tone:
+    var(--pimolu-warning, #d97706);
+}
+
+.pimolu-separator--danger {
+  --pimolu-separator-tone:
+    var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-separator {
+    --pimolu-separator-tone: CanvasText;
+  }
+}

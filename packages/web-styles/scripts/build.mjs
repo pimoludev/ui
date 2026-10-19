@@ -27,6 +27,76 @@ const outputs = [
     output: "input.css",
     minify: false,
   },
+  {
+    input: "card.css",
+    output: "card.css",
+    minify: false,
+  },
+  {
+    input: "badge.css",
+    output: "badge.css",
+    minify: false,
+  },
+  {
+    input: "avatar.css",
+    output: "avatar.css",
+    minify: false,
+  },
+  {
+    input: "avatar-group.css",
+    output: "avatar-group.css",
+    minify: false,
+  },
+  {
+    input: "separator.css",
+    output: "separator.css",
+    minify: false,
+  },
+  {
+    input: "skeleton.css",
+    output: "skeleton.css",
+    minify: false,
+  },
+  {
+    input: "spinner.css",
+    output: "spinner.css",
+    minify: false,
+  },
+  {
+    input: "switch.css",
+    output: "switch.css",
+    minify: false,
+  },
+  {
+    input: "checkbox.css",
+    output: "checkbox.css",
+    minify: false,
+  },
+  {
+    input: "radio.css",
+    output: "radio.css",
+    minify: false,
+  },
+  {
+    input: "textarea.css",
+    output: "textarea.css",
+    minify: false,
+  },
+  {
+    input: "select.css",
+    output: "select.css",
+    minify: false,
+  },
+  {
+    input: "combobox.css",
+    output: "combobox.css",
+    minify: false,
+  },
+  {
+    input: "multi-select.css",
+    output: "multi-select.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

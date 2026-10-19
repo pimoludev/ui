@@ -1,0 +1,340 @@
+
+/* =========================================
+   PIMOLU UI — CHECKBOX
+   Shared Web Styles
+========================================= */
+
+/* BASE */
+
+.pimolu-checkbox {
+  --pimolu-checkbox-size: 20px;
+  --pimolu-checkbox-gap: 12px;
+
+  --pimolu-checkbox-active:
+    var(--pimolu-primary);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-primary-foreground, #fff);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pimolu-checkbox-gap);
+
+  min-width: 0;
+  max-width: 100%;
+
+  box-sizing: border-box;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+
+  vertical-align: middle;
+}
+
+/* SIZES */
+
+.pimolu-checkbox--sm {
+  --pimolu-checkbox-size: 16px;
+  --pimolu-checkbox-gap: 8px;
+}
+
+.pimolu-checkbox--md {
+  --pimolu-checkbox-size: 20px;
+  --pimolu-checkbox-gap: 12px;
+}
+
+.pimolu-checkbox--lg {
+  --pimolu-checkbox-size: 24px;
+  --pimolu-checkbox-gap: 14px;
+}
+
+/* SEMANTIC VARIANTS */
+
+.pimolu-checkbox--neutral {
+  --pimolu-checkbox-active:
+    var(--pimolu-foreground);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-background);
+}
+
+.pimolu-checkbox--primary {
+  --pimolu-checkbox-active:
+    var(--pimolu-primary);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-primary-foreground, #fff);
+}
+
+.pimolu-checkbox--secondary {
+  --pimolu-checkbox-active:
+    var(--pimolu-secondary);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-secondary-foreground, #fff);
+}
+
+.pimolu-checkbox--success {
+  --pimolu-checkbox-active:
+    var(--pimolu-success, #15803d);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-success-foreground, #fff);
+}
+
+.pimolu-checkbox--warning {
+  --pimolu-checkbox-active:
+    var(--pimolu-warning, #d97706);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-warning-foreground, #171717);
+}
+
+.pimolu-checkbox--danger {
+  --pimolu-checkbox-active:
+    var(--pimolu-danger, #dc2626);
+
+  --pimolu-checkbox-active-foreground:
+    var(--pimolu-danger-foreground, #fff);
+}
+
+/* CONTROL AND HIT TARGET */
+
+.pimolu-checkbox__control {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 44px;
+  height: 44px;
+
+  box-sizing: border-box;
+}
+
+/* Native input remains keyboard-accessible */
+
+.pimolu-checkbox__input {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+/* VISUAL BOX */
+
+.pimolu-checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--pimolu-checkbox-size);
+  height: var(--pimolu-checkbox-size);
+
+  box-sizing: border-box;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-checkbox-active-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  pointer-events: none;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+/* CHECKED AND INDETERMINATE */
+
+.pimolu-checkbox__input:checked
+  + .pimolu-checkbox__box,
+.pimolu-checkbox__input:indeterminate
+  + .pimolu-checkbox__box {
+  background: var(--pimolu-checkbox-active);
+  border-color: var(--pimolu-checkbox-active);
+}
+
+/* ICONS */
+
+.pimolu-checkbox__check,
+.pimolu-checkbox__minus {
+  display: none;
+
+  width: 80%;
+  height: 80%;
+
+  flex: 0 0 auto;
+}
+
+/* Fully checked */
+
+.pimolu-checkbox__input:checked:not(:indeterminate)
+  + .pimolu-checkbox__box
+  .pimolu-checkbox__check {
+  display: block;
+}
+
+/* Partially checked */
+
+.pimolu-checkbox__input:indeterminate
+  + .pimolu-checkbox__box
+  .pimolu-checkbox__minus {
+  display: block;
+}
+
+/* HOVER */
+
+.pimolu-checkbox__input:hover:not(:disabled)
+  + .pimolu-checkbox__box {
+  border-color: var(--pimolu-checkbox-active);
+}
+
+/* KEYBOARD FOCUS */
+
+.pimolu-checkbox__input:focus-visible
+  + .pimolu-checkbox__box {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 3px;
+}
+
+/* INVALID */
+
+.pimolu-checkbox__input[aria-invalid="true"]
+  + .pimolu-checkbox__box {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+/* DISABLED */
+
+.pimolu-checkbox--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-checkbox__input:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-checkbox--disabled
+  .pimolu-checkbox__label {
+  cursor: not-allowed;
+}
+
+/* CONTENT */
+
+.pimolu-checkbox__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+/* LABEL */
+
+.pimolu-checkbox__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  color: var(--pimolu-foreground);
+
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.pimolu-checkbox--sm .pimolu-checkbox__label {
+  font-size: 0.8125rem;
+}
+
+.pimolu-checkbox--lg .pimolu-checkbox__label {
+  font-size: 1rem;
+}
+
+/* DESCRIPTION */
+
+.pimolu-checkbox__description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* REQUIRED INDICATOR */
+
+.pimolu-checkbox__required {
+  margin-inline-start: 3px;
+
+  color: var(--pimolu-danger, currentColor);
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-checkbox__box {
+    transition: none;
+  }
+}
+
+/* FORCED COLORS */
+
+@media (forced-colors: active) {
+  .pimolu-checkbox {
+    opacity: 1;
+  }
+
+  .pimolu-checkbox__box {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .pimolu-checkbox__input:checked
+    + .pimolu-checkbox__box,
+  .pimolu-checkbox__input:indeterminate
+    + .pimolu-checkbox__box {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  .pimolu-checkbox__input:focus-visible
+    + .pimolu-checkbox__box {
+    outline-color: Highlight;
+  }
+
+  .pimolu-checkbox__input:disabled
+    + .pimolu-checkbox__box {
+    border-color: GrayText;
+  }
+}

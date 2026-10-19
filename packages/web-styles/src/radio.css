@@ -1,0 +1,409 @@
+
+/* =========================================
+   PIMOLU UI — RADIO & RADIO GROUP
+========================================= */
+
+/* =========================================
+   RADIO BASE
+========================================= */
+
+.pimolu-radio {
+  --pimolu-radio-size: 20px;
+  --pimolu-radio-gap: 12px;
+
+  --pimolu-radio-active: var(--pimolu-primary);
+
+  --pimolu-radio-on-active:
+    var(--pimolu-primary-foreground, #fff);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pimolu-radio-gap);
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+
+  vertical-align: middle;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-radio--sm {
+  --pimolu-radio-size: 16px;
+  --pimolu-radio-gap: 8px;
+}
+
+.pimolu-radio--md {
+  --pimolu-radio-size: 20px;
+  --pimolu-radio-gap: 12px;
+}
+
+.pimolu-radio--lg {
+  --pimolu-radio-size: 24px;
+  --pimolu-radio-gap: 14px;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-radio--neutral {
+  --pimolu-radio-active: var(--pimolu-foreground);
+  --pimolu-radio-on-active: var(--pimolu-background);
+}
+
+.pimolu-radio--primary {
+  --pimolu-radio-active: var(--pimolu-primary);
+  --pimolu-radio-on-active:
+    var(--pimolu-primary-foreground, #fff);
+}
+
+.pimolu-radio--secondary {
+  --pimolu-radio-active: var(--pimolu-secondary);
+  --pimolu-radio-on-active:
+    var(--pimolu-secondary-foreground, #fff);
+}
+
+.pimolu-radio--success {
+  --pimolu-radio-active:
+    var(--pimolu-success, #15803d);
+
+  --pimolu-radio-on-active:
+    var(--pimolu-success-foreground, #fff);
+}
+
+.pimolu-radio--warning {
+  --pimolu-radio-active:
+    var(--pimolu-warning, #d97706);
+
+  --pimolu-radio-on-active:
+    var(--pimolu-warning-foreground, #171717);
+}
+
+.pimolu-radio--danger {
+  --pimolu-radio-active:
+    var(--pimolu-danger, #dc2626);
+
+  --pimolu-radio-on-active:
+    var(--pimolu-danger-foreground, #fff);
+}
+
+/* =========================================
+   CONTROL
+========================================= */
+
+.pimolu-radio__control {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: 44px;
+  height: 44px;
+}
+
+/* Keep the native input accessible */
+
+.pimolu-radio__input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   VISUAL CIRCLE
+========================================= */
+
+.pimolu-radio__circle {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: var(--pimolu-radio-size);
+  height: var(--pimolu-radio-size);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+/* Inner selection indicator */
+
+.pimolu-radio__circle::after {
+  content: "";
+
+  display: block;
+
+  width: 45%;
+  height: 45%;
+
+  border-radius: 50%;
+
+  background: var(--pimolu-radio-on-active);
+
+  transform: scale(0);
+
+  transition: transform 160ms ease;
+}
+
+/* =========================================
+   CHECKED
+========================================= */
+
+.pimolu-radio__input:checked
+  + .pimolu-radio__circle {
+  background: var(--pimolu-radio-active);
+  border-color: var(--pimolu-radio-active);
+}
+
+.pimolu-radio__input:checked
+  + .pimolu-radio__circle::after {
+  transform: scale(1);
+}
+
+/* =========================================
+   HOVER AND FOCUS
+========================================= */
+
+.pimolu-radio__input:hover:not(:disabled)
+  + .pimolu-radio__circle {
+  border-color: var(--pimolu-radio-active);
+}
+
+.pimolu-radio__input:focus-visible
+  + .pimolu-radio__circle {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 3px;
+}
+
+/* =========================================
+   INVALID
+========================================= */
+
+.pimolu-radio__input[aria-invalid="true"]
+  + .pimolu-radio__circle {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.pimolu-radio--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-radio__input:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-radio--disabled
+  .pimolu-radio__label {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   LABEL AND DESCRIPTION
+========================================= */
+
+.pimolu-radio__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.pimolu-radio__label {
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.pimolu-radio--sm .pimolu-radio__label {
+  font-size: 0.8125rem;
+}
+
+.pimolu-radio--lg .pimolu-radio__label {
+  font-size: 1rem;
+}
+
+.pimolu-radio__description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   RADIO GROUP
+========================================= */
+
+.pimolu-radio-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-radio-group__legend {
+  padding: 0;
+  margin: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pimolu-radio-group__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-radio-group__options {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 6px;
+  min-width: 0;
+}
+
+/* Vertical layout (the default, made explicit) */
+
+.pimolu-radio-group--vertical
+  .pimolu-radio-group__options {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Horizontal layout */
+
+.pimolu-radio-group--horizontal
+  .pimolu-radio-group__options {
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  column-gap: 20px;
+  row-gap: 6px;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-radio__circle,
+  .pimolu-radio__circle::after {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-radio {
+    opacity: 1;
+  }
+
+  .pimolu-radio__circle {
+    background: Canvas;
+    border-color: CanvasText;
+  }
+
+  .pimolu-radio__input:checked
+    + .pimolu-radio__circle {
+    background: Highlight;
+    border-color: Highlight;
+  }
+
+  .pimolu-radio__input:checked
+    + .pimolu-radio__circle::after {
+    background: HighlightText;
+  }
+
+  .pimolu-radio__input:focus-visible
+    + .pimolu-radio__circle {
+    outline-color: Highlight;
+  }
+
+  .pimolu-radio__input:disabled
+    + .pimolu-radio__circle {
+    border-color: GrayText;
+  }
+}

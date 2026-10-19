@@ -1,0 +1,261 @@
+
+/* =========================================
+   PIMOLU UI — BADGE
+   Shared Web Styles
+========================================= */
+
+/* Base */
+
+.pimolu-badge {
+  --pimolu-badge-height: 24px;
+  --pimolu-badge-padding-x: 8px;
+  --pimolu-badge-gap: 5px;
+  --pimolu-badge-font-size: 12px;
+  --pimolu-badge-icon-size: 14px;
+
+  --pimolu-badge-tone: var(--pimolu-neutral, var(--pimolu-foreground));
+  --pimolu-badge-on-tone: var(--pimolu-neutral-foreground, var(--pimolu-background));
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--pimolu-badge-gap);
+
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  min-height: var(--pimolu-badge-height);
+
+  padding: 2px var(--pimolu-badge-padding-x);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid transparent;
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: var(--pimolu-badge-font-size);
+  font-weight: 600;
+  line-height: 1.3;
+
+  vertical-align: middle;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-badge--sm {
+  --pimolu-badge-height: 20px;
+  --pimolu-badge-padding-x: 6px;
+  --pimolu-badge-gap: 4px;
+  --pimolu-badge-font-size: 11px;
+  --pimolu-badge-icon-size: 12px;
+}
+
+.pimolu-badge--md {
+  --pimolu-badge-height: 24px;
+  --pimolu-badge-padding-x: 8px;
+  --pimolu-badge-gap: 5px;
+  --pimolu-badge-font-size: 12px;
+  --pimolu-badge-icon-size: 14px;
+}
+
+.pimolu-badge--lg {
+  --pimolu-badge-height: 28px;
+  --pimolu-badge-padding-x: 10px;
+  --pimolu-badge-gap: 6px;
+  --pimolu-badge-font-size: 14px;
+  --pimolu-badge-icon-size: 16px;
+}
+
+/* =========================================
+   SEMANTIC VARIANTS
+========================================= */
+
+.pimolu-badge--neutral {
+  --pimolu-badge-tone: var(--pimolu-neutral, var(--pimolu-foreground));
+  --pimolu-badge-on-tone: var(--pimolu-neutral-foreground, var(--pimolu-background));
+}
+
+.pimolu-badge--primary {
+  --pimolu-badge-tone: var(--pimolu-primary);
+  --pimolu-badge-on-tone: var(--pimolu-primary-foreground);
+}
+
+.pimolu-badge--secondary {
+  --pimolu-badge-tone: var(--pimolu-secondary);
+  --pimolu-badge-on-tone: var(--pimolu-secondary-foreground);
+}
+
+.pimolu-badge--success {
+  --pimolu-badge-tone: var(--pimolu-success, #15803d);
+  --pimolu-badge-on-tone: var(--pimolu-success-foreground, #ffffff);
+}
+
+.pimolu-badge--warning {
+  --pimolu-badge-tone: var(--pimolu-warning, #d97706);
+  --pimolu-badge-on-tone: var(--pimolu-warning-foreground, #171717);
+}
+
+.pimolu-badge--danger {
+  --pimolu-badge-tone: var(--pimolu-danger, #dc2626);
+  --pimolu-badge-on-tone: var(--pimolu-danger-foreground, #ffffff);
+}
+
+/* =========================================
+   APPEARANCES
+========================================= */
+
+/* Solid */
+
+.pimolu-badge--solid {
+  background: var(--pimolu-badge-tone);
+  color: var(--pimolu-badge-on-tone);
+}
+
+/* Soft */
+
+.pimolu-badge--soft {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-badge-tone) 12%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  color: var(--pimolu-foreground);
+}
+
+/* Outline */
+
+.pimolu-badge--outline {
+  background: transparent;
+
+  border-color: var(--pimolu-badge-tone);
+
+  color: var(--pimolu-foreground);
+}
+
+/* Glass */
+
+.pimolu-badge--glass {
+  background: var(
+    --pimolu-glass-bg,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+
+  color: var(--pimolu-foreground);
+
+  border-color: var(
+    --pimolu-glass-border,
+    var(--pimolu-border)
+  );
+
+  box-shadow: var(--pimolu-glass-shadow, none);
+
+  -webkit-backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+
+  backdrop-filter:
+    blur(var(--pimolu-glass-blur, 18px));
+}
+
+/* =========================================
+   RADIUS
+========================================= */
+
+.pimolu-badge--radius-none {
+  border-radius: 0;
+}
+
+.pimolu-badge--radius-sm {
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-badge--radius-md {
+  border-radius: var(--pimolu-radius-md, 8px);
+}
+
+.pimolu-badge--radius-lg {
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+.pimolu-badge--radius-full {
+  border-radius: 9999px;
+}
+
+/* =========================================
+   LABEL — RESPONSIVE
+========================================= */
+
+.pimolu-badge__label {
+  min-width: 0;
+  max-width: 100%;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+
+  text-align: center;
+}
+
+/* =========================================
+   STATUS DOT
+========================================= */
+
+.pimolu-badge__dot {
+  display: inline-block;
+  flex-shrink: 0;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--pimolu-badge-tone);
+}
+
+/* Keep the dot visible on solid badges */
+
+.pimolu-badge--solid .pimolu-badge__dot {
+  background: currentColor;
+}
+
+/* =========================================
+   ICONS
+========================================= */
+
+.pimolu-badge__start-icon,
+.pimolu-badge__end-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.pimolu-badge__start-icon svg,
+.pimolu-badge__end-icon svg {
+  width: var(--pimolu-badge-icon-size);
+  height: var(--pimolu-badge-icon-size);
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-badge {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-badge__dot {
+    background: currentColor;
+  }
+}

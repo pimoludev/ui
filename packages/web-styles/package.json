@@ -19,7 +19,21 @@
     "./styles.css": "./dist/pimolu.css",
     "./pimolu.min.css": "./dist/pimolu.min.css",
     "./button.css": "./dist/button.css",
-    "./input.css": "./dist/input.css"
+    "./input.css": "./dist/input.css",
+    "./card.css": "./dist/card.css",
+    "./badge.css": "./dist/badge.css",
+    "./avatar.css": "./dist/avatar.css",
+    "./avatar-group.css": "./dist/avatar-group.css",
+    "./separator.css": "./dist/separator.css",
+    "./skeleton.css": "./dist/skeleton.css",
+    "./spinner.css": "./dist/spinner.css",
+    "./switch.css": "./dist/switch.css",
+    "./checkbox.css": "./dist/checkbox.css",
+    "./radio.css": "./dist/radio.css",
+    "./textarea.css": "./dist/textarea.css",
+    "./select.css": "./dist/select.css",
+    "./combobox.css": "./dist/combobox.css",
+    "./multi-select.css": "./dist/multi-select.css"
   },
 
   "dependencies": {
