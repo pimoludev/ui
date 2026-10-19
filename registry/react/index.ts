@@ -20,6 +20,7 @@ export type {
   PimoluTheme,
   PimoluThemeMode,
   PimoluStylePreset,
+  PimoluRadius,
 } from "./provider/pimolu-provider";
 
 

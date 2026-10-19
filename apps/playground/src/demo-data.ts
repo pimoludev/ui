@@ -21,6 +21,7 @@ import {
   switchVariantMap,
   textareaVariantMap,
   type PimoluStylePreset,
+  type PimoluRadius,
   type PimoluTheme,
   type PimoluThemeMode,
 } from "@pimolu/react";
@@ -37,6 +38,13 @@ export const presets: PimoluStylePreset[] = [
 export const themes: PimoluTheme[] = ["light", "dark"];
 
 export const themeModes: PimoluThemeMode[] = ["light", "dark", "system"];
+
+/* Radius is a dimension, not a preset axis: the list is exhaustive. */
+export const radii: PimoluRadius[] = [
+  "sharp",
+  "medium",
+  "round",
+];
 
 /* Derived from each component's own variant map, never duplicated here. */
 export function optionsOf<T extends Record<string, string>>(

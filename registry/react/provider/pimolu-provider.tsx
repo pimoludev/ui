@@ -24,6 +24,8 @@ export type {
 
 export type PimoluThemeMode = PimoluTheme | "system";
 
+export type PimoluRadius = "sharp" | "medium" | "round";
+
 const DEFAULT_STORAGE_KEY = "pimolu:preferences";
 const MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
@@ -31,8 +33,13 @@ interface PimoluContextValue {
   theme: PimoluThemeMode;
   resolvedTheme: PimoluTheme;
   stylePreset: PimoluStylePreset;
+
+  /** Undefined means "whatever the preset declares". */
+  radius: PimoluRadius | undefined;
+
   setTheme: (theme: PimoluThemeMode) => void;
   setStylePreset: (preset: PimoluStylePreset) => void;
+  setRadius: (radius: PimoluRadius | undefined) => void;
 }
 
 const PimoluContext = createContext<PimoluContextValue | null>(
@@ -96,6 +103,16 @@ function isStylePreset(
   );
 }
 
+function isRadius(
+  value: unknown
+): value is PimoluRadius {
+  return (
+    value === "sharp" ||
+    value === "medium" ||
+    value === "round"
+  );
+}
+
 /* Provider */
 
 export interface PimoluProviderProps {
@@ -107,8 +124,13 @@ export interface PimoluProviderProps {
   stylePreset?: PimoluStylePreset;
   defaultStylePreset?: PimoluStylePreset;
 
+  /** Radius axis; undefined keeps the preset's own radii. */
+  radius?: PimoluRadius;
+  defaultRadius?: PimoluRadius;
+
   onThemeChange?: (theme: PimoluThemeMode) => void;
   onStylePresetChange?: (preset: PimoluStylePreset) => void;
+  onRadiusChange?: (radius: PimoluRadius | undefined) => void;
 
   persist?: boolean;
   storageKey?: string;
@@ -125,8 +147,12 @@ export function PimoluProvider({
   stylePreset: controlledStyle,
   defaultStylePreset,
 
+  radius: controlledRadius,
+  defaultRadius,
+
   onThemeChange,
   onStylePresetChange,
+  onRadiusChange,
 
   persist = false,
   storageKey = DEFAULT_STORAGE_KEY,
@@ -142,6 +168,9 @@ export function PimoluProvider({
     useState<PimoluStylePreset | undefined>(
       defaultStylePreset
     );
+
+  const [localRadius, setLocalRadius] =
+    useState<PimoluRadius | undefined>(defaultRadius);
 
   const [loadedKey, setLoadedKey] =
     useState<string | null>(null);
@@ -162,6 +191,7 @@ export function PimoluProvider({
 
     let nextTheme = defaultTheme;
     let nextStyle = defaultStylePreset;
+    let nextRadius = defaultRadius;
 
     try {
       const raw = window.localStorage.getItem(storageKey);
@@ -179,6 +209,10 @@ export function PimoluProvider({
           if (isStylePreset(values.stylePreset)) {
             nextStyle = values.stylePreset;
           }
+
+          if (isRadius(values.radius)) {
+            nextRadius = values.radius;
+          }
         }
       }
     } catch {
@@ -187,12 +221,14 @@ export function PimoluProvider({
 
     setLocalTheme(nextTheme);
     setLocalStyle(nextStyle);
+    setLocalRadius(nextRadius);
     setLoadedKey(storageKey);
   }, [
     persist,
     storageKey,
     defaultTheme,
     defaultStylePreset,
+    defaultRadius,
   ]);
 
   /* Resolve values */
@@ -208,6 +244,11 @@ export function PimoluProvider({
     localStyle ??
     parent?.stylePreset ??
     "default";
+
+  const radius =
+    controlledRadius ??
+    localRadius ??
+    parent?.radius;
 
   const resolvedTheme: PimoluTheme =
     theme === "system"
@@ -226,6 +267,7 @@ export function PimoluProvider({
     const preferences: {
       theme?: PimoluThemeMode;
       stylePreset?: PimoluStylePreset;
+      radius?: PimoluRadius;
     } = {};
 
     if (controlledTheme === undefined) {
@@ -234,6 +276,13 @@ export function PimoluProvider({
 
     if (controlledStyle === undefined) {
       preferences.stylePreset = stylePreset;
+    }
+
+    if (
+      controlledRadius === undefined &&
+      radius !== undefined
+    ) {
+      preferences.radius = radius;
     }
 
     if (Object.keys(preferences).length === 0) {
@@ -254,8 +303,10 @@ export function PimoluProvider({
     storageKey,
     theme,
     stylePreset,
+    radius,
     controlledTheme,
     controlledStyle,
+    controlledRadius,
   ]);
 
   /* Public setters */
@@ -276,19 +327,30 @@ export function PimoluProvider({
     onStylePresetChange?.(value);
   }
 
+  function setRadius(value: PimoluRadius | undefined) {
+    if (controlledRadius === undefined) {
+      setLocalRadius(value);
+    }
+
+    onRadiusChange?.(value);
+  }
+
   return (
     <PimoluContext.Provider
       value={{
         theme,
         resolvedTheme,
         stylePreset,
+        radius,
         setTheme,
         setStylePreset,
+        setRadius,
       }}
     >
       <div
         data-pimolu-theme={theme}
         data-pimolu-style={stylePreset}
+        data-pimolu-radius={radius}
         className={className}
       >
         {children}

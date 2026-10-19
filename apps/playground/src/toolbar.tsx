@@ -1,18 +1,21 @@
 import {
   Button,
   usePimoluTheme,
+  type PimoluRadius,
   type PimoluStylePreset,
 } from "@pimolu/react";
 
-import { presets, themeModes } from "./demo-data";
+import { presets, radii, themeModes } from "./demo-data";
 import { pageHref } from "./router";
 
 export function Toolbar() {
   const {
     theme,
     stylePreset,
+    radius,
     setTheme,
     setStylePreset,
+    setRadius,
   } = usePimoluTheme();
 
   return (
@@ -60,6 +63,28 @@ export function Toolbar() {
               {presets.map((preset) => (
                 <option key={preset} value={preset}>
                   {preset}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="pg-select">
+            <span>Radius</span>
+            <select
+              value={radius ?? "preset"}
+              onChange={(event) =>
+                setRadius(
+                  event.target.value === "preset"
+                    ? undefined
+                    : (event.target.value as PimoluRadius)
+                )
+              }
+            >
+              <option value="preset">preset</option>
+
+              {radii.map((value) => (
+                <option key={value} value={value}>
+                  {value}
                 </option>
               ))}
             </select>
