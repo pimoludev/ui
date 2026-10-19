@@ -35,6 +35,7 @@ test("generates all four CSS files", async () => {
     "slider.css",
     "range-slider.css",
     "progress.css",
+    "circular-progress.css",
   ]) {
     const css = await load(file);
 
@@ -1113,6 +1114,64 @@ test("Progress styles are included in the CSS build", async () => {
 
   assert.ok(
     progress.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
+
+test("CircularProgress styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const circular = await load("circular-progress.css");
+
+  const selectors = [
+    ".pimolu-circular-progress",
+    ".pimolu-circular-progress--sm",
+    ".pimolu-circular-progress--md",
+    ".pimolu-circular-progress--lg",
+
+    ".pimolu-circular-progress--neutral",
+    ".pimolu-circular-progress--primary",
+    ".pimolu-circular-progress--secondary",
+    ".pimolu-circular-progress--success",
+    ".pimolu-circular-progress--warning",
+    ".pimolu-circular-progress--danger",
+
+    ".pimolu-circular-progress__svg",
+    ".pimolu-circular-progress__track",
+    ".pimolu-circular-progress__indicator",
+    ".pimolu-circular-progress__value",
+    ".pimolu-circular-progress--indeterminate",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      circular.includes(selector),
+      `Missing CircularProgress selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    circular.includes("--pimolu-circular-progress-offset"),
+    "The ring must be driven by the offset custom property"
+  );
+
+  assert.ok(
+    circular.includes("pimolu-circular-progress-rotate"),
+    "Missing the indeterminate rotation"
+  );
+
+  assert.ok(
+    circular.includes("prefers-reduced-motion"),
+    "Missing reduced motion support"
+  );
+
+  assert.ok(
+    circular.includes("forced-colors"),
     "Missing forced colors support"
   );
 });

@@ -259,3 +259,16 @@ export type {
   PimoluProgressSize,
   PimoluProgressVariant,
 } from "./progress/progress.types";
+
+/* CircularProgress */
+export { CircularProgress } from "./circular-progress/circular-progress";
+
+export {
+  circularProgressVariantMap,
+} from "./circular-progress/circular-progress.variants";
+
+export type {
+  PimoluCircularProgressProps,
+  PimoluCircularProgressSize,
+  PimoluCircularProgressVariant,
+} from "./circular-progress/circular-progress.types";

@@ -10,6 +10,7 @@ import { ButtonPage } from "./pages/button-page";
 import { CardPage } from "./pages/card-page";
 import { CheckboxPage } from "./pages/checkbox-page";
 import { ComboboxPage } from "./pages/combobox-page";
+import { CircularProgressPage } from "./pages/circular-progress-page";
 import { InputPage } from "./pages/input-page";
 import { MultiSelectPage } from "./pages/multi-select-page";
 import { OverviewPage } from "./pages/overview-page";
@@ -34,6 +35,7 @@ const pageComponents = {
   badge: BadgePage,
   avatar: AvatarPage,
   separator: SeparatorPage,
+  "circular-progress": CircularProgressPage,
   progress: ProgressPage,
   skeleton: SkeletonPage,
   spinner: SpinnerPage,

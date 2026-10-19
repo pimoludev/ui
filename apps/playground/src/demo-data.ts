@@ -6,6 +6,7 @@ import {
   cardVariantMap,
   checkboxVariantMap,
   comboboxVariantMap,
+  circularProgressVariantMap,
   inputVariantMap,
   multiSelectVariantMap,
   progressVariantMap,
@@ -166,4 +167,11 @@ export const rangeSliderVariants = optionsOf(
 export const progressSizes = optionsOf(progressVariantMap.size);
 export const progressVariants = optionsOf(
   progressVariantMap.variant,
+);
+
+export const circularProgressSizes = optionsOf(
+  circularProgressVariantMap.size,
+);
+export const circularProgressVariants = optionsOf(
+  circularProgressVariantMap.variant,
 );

@@ -112,6 +112,11 @@ const outputs = [
     output: "progress.css",
     minify: false,
   },
+  {
+    input: "circular-progress.css",
+    output: "circular-progress.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });
