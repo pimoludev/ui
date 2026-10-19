@@ -57,6 +57,9 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-button",
     ".pimolu-input",
     ".pimolu-tooltip",
+    '[data-pimolu-radius=sharp]',
+    '[data-pimolu-radius=medium]',
+    '[data-pimolu-radius=round]',
   ]) {
     assert.ok(
       css.includes(token),

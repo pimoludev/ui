@@ -1,0 +1,30 @@
+
+/* =========================================
+   PIMOLU THEMES — RADIUS DIMENSION
+
+   Independent from the style preset: a container marked with
+   data-pimolu-radius redefines the three radius tokens for its
+   subtree, so the same palette can be rendered sharp, medium or
+   round without a new preset.
+
+   Imported after the generated visual tokens on purpose: an explicit
+   radius choice wins over the radius a preset may declare.
+========================================= */
+
+[data-pimolu-radius="sharp"] {
+  --pimolu-radius-sm: 0px;
+  --pimolu-radius-md: 2px;
+  --pimolu-radius-lg: 4px;
+}
+
+[data-pimolu-radius="medium"] {
+  --pimolu-radius-sm: 6px;
+  --pimolu-radius-md: 8px;
+  --pimolu-radius-lg: 12px;
+}
+
+[data-pimolu-radius="round"] {
+  --pimolu-radius-sm: 10px;
+  --pimolu-radius-md: 14px;
+  --pimolu-radius-lg: 18px;
+}
