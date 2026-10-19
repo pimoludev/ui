@@ -16,6 +16,15 @@ export interface AnchoredPositionOptions {
 
   /** Upper bound of the floating surface height. */
   maxHeight?: number;
+
+  /** Preferred side of the anchor. Defaults to "bottom". */
+  placement?: "bottom" | "top";
+
+  /**
+   * Match the anchor width. A menu wants it; a tooltip does not, since it is
+   * centred on the anchor instead.
+   */
+  matchWidth?: boolean;
 }
 
 /**
@@ -38,6 +47,8 @@ export function useAnchoredPosition(
     gap = 4,
     padding = 8,
     maxHeight = 320,
+    placement = "bottom",
+    matchWidth = true,
   }: AnchoredPositionOptions = {}
 ): CSSProperties | undefined {
   const [style, setStyle] = useState<
@@ -75,12 +86,24 @@ export function useAnchoredPosition(
 
       const roomAbove = rect.top - gap - padding;
 
+      const preferredRoom =
+        placement === "top" ? roomAbove : roomBelow;
+
+      const oppositeRoom =
+        placement === "top" ? roomBelow : roomAbove;
+
       const flip =
-        roomBelow < Math.min(natural, maxHeight) &&
-        roomAbove > roomBelow;
+        preferredRoom < Math.min(natural, maxHeight) &&
+        oppositeRoom > preferredRoom;
+
+      const side = flip
+        ? placement === "top"
+          ? "bottom"
+          : "top"
+        : placement;
 
       const room = Math.max(
-        flip ? roomAbove : roomBelow,
+        side === "top" ? roomAbove : roomBelow,
         0
       );
 
@@ -89,26 +112,39 @@ export function useAnchoredPosition(
         Math.min(maxHeight, room === 0 ? maxHeight : room, natural)
       );
 
+      const panelWidth =
+        (matchWidth
+          ? rect.width
+          : floatingRef.current?.offsetWidth) || rect.width;
+
       const maxLeft = Math.max(
         padding,
-        viewportWidth - rect.width - padding
+        viewportWidth - panelWidth - padding
       );
 
-      const left = Math.min(
-        Math.max(rect.left, padding),
-        maxLeft
-      );
+      const left = matchWidth
+        ? Math.min(Math.max(rect.left, padding), maxLeft)
+        : Math.min(
+            Math.max(
+              rect.left + rect.width / 2 - panelWidth / 2,
+              padding
+            ),
+            maxLeft
+          );
 
       setStyle({
         position: "fixed",
 
         left: Math.round(left),
-        width: Math.round(rect.width),
         maxHeight: Math.round(height),
 
         zIndex: 50,
 
-        ...(flip
+        ...(matchWidth
+          ? { width: Math.round(rect.width) }
+          : null),
+
+        ...(side === "top"
           ? {
               bottom: Math.round(
                 viewportHeight - rect.top + gap
@@ -155,6 +191,8 @@ export function useAnchoredPosition(
     gap,
     padding,
     maxHeight,
+    placement,
+    matchWidth,
   ]);
 
   return style;

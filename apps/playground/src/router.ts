@@ -33,6 +33,7 @@ export const pages = [
   { id: "progress", label: "Progress", group: "Feedback" },
   { id: "skeleton", label: "Skeleton", group: "Feedback" },
   { id: "spinner", label: "Spinner", group: "Feedback" },
+  { id: "tooltip", label: "Tooltip", group: "Feedback" },
 ] as const;
 
 export type Page = (typeof pages)[number];

@@ -1,0 +1,37 @@
+
+/* =========================================
+   PIMOLU UI — TOOLTIP
+   Shared Web Styles
+========================================= */
+
+.pimolu-tooltip {
+  padding: 6px 10px;
+
+  border-radius: var(--pimolu-radius-sm);
+
+  /* Inverted surface: the bubble never blends into the page it describes. */
+  background: var(--pimolu-foreground);
+  color: var(--pimolu-background);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+
+  max-width: 20rem;
+
+  /* A tooltip is purely informative: it must not swallow the pointer. */
+  pointer-events: none;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-tooltip {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+}

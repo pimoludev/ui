@@ -272,3 +272,10 @@ export type {
   PimoluCircularProgressSize,
   PimoluCircularProgressVariant,
 } from "./circular-progress/circular-progress.types";
+
+/* Tooltip */
+export { Tooltip } from "./tooltip/tooltip";
+
+export type {
+  PimoluTooltipProps,
+} from "./tooltip/tooltip.types";

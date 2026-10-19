@@ -393,10 +393,25 @@
   height: 44px;
 }
 
+/* A clipping ancestor, to show that a portaled tooltip escapes it */
+
+.pg-scroll-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-height: 132px;
+  overflow: hidden;
+
+  padding: 6px;
+
+  border: 1px dashed var(--pimolu-border);
+  border-radius: var(--pimolu-radius-sm);
+}
+
 /* Component index on the overview */
 
-.pg-index {
-  display: flex;
+.pg-index {  display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }

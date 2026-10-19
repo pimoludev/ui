@@ -22,6 +22,7 @@ import { SelectPage } from "./pages/select-page";
 import { SkeletonPage } from "./pages/skeleton-page";
 import { SliderPage } from "./pages/slider-page";
 import { SpinnerPage } from "./pages/spinner-page";
+import { TooltipPage } from "./pages/tooltip-page";
 import { SwitchPage } from "./pages/switch-page";
 import { TextareaPage } from "./pages/textarea-page";
 
@@ -39,6 +40,7 @@ const pageComponents = {
   progress: ProgressPage,
   skeleton: SkeletonPage,
   spinner: SpinnerPage,
+  tooltip: TooltipPage,
   switch: SwitchPage,
   checkbox: CheckboxPage,
   radio: RadioPage,

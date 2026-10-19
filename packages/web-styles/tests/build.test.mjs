@@ -36,6 +36,7 @@ test("generates all four CSS files", async () => {
     "range-slider.css",
     "progress.css",
     "circular-progress.css",
+    "tooltip.css",
   ]) {
     const css = await load(file);
 
