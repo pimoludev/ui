@@ -30,6 +30,7 @@ import { DataTablePage } from "./pages/data-table-page";
 import { DatePickerPage } from "./pages/date-picker-page";
 import { DateRangePickerPage } from "./pages/date-range-picker-page";
 import { DescriptionListPage } from "./pages/description-list-page";
+import { DesignLabPage } from "./pages/design-lab-page";
 import { DialogPage } from "./pages/dialog-page";
 import { DrawerPage } from "./pages/drawer-page";
 import { DropdownMenuPage } from "./pages/dropdown-menu-page";
@@ -93,6 +94,7 @@ import "./playground.css";
 
 const pageComponents = {
   overview: OverviewPage,
+  "design-lab": DesignLabPage,
   button: ButtonPage,
   input: InputPage,
   card: CardPage,
@@ -181,9 +183,13 @@ const pageComponents = {
 function App() {
   const route = usePage();
   const Page = pageComponents[route.id];
+  const isDesignLab = route.id === "design-lab";
 
   return (
-    <PimoluProvider persist className="pg-root">
+    <PimoluProvider
+      persist
+      className={`pg-root ${isDesignLab ? "pg-root--design-lab" : ""}`}
+    >
       <Toolbar />
 
       {route.unknown && (
@@ -194,7 +200,9 @@ function App() {
         </p>
       )}
 
-      <div className="pg-layout">
+      <div
+        className={`pg-layout ${isDesignLab ? "pg-layout--design-lab" : ""}`}
+      >
         <Sidebar current={route.id} />
 
         <main className="pg-main">

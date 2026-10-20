@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
  */
 export const pages = [
   { id: "overview", label: "Overview", group: "Getting started" },
+  { id: "design-lab", label: "Design Lab", group: "Getting started" },
 
   { id: "button", label: "Button", group: "Actions" },
   { id: "toggle", label: "Toggle", group: "Actions" },
