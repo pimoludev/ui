@@ -1,0 +1,631 @@
+/* =========================================
+   PIMOLU UI — SCHEDULER
+   Shared Web Styles
+========================================= */
+
+.pimolu-scheduler {
+  --pimolu-scheduler-time-width: 64px;
+  --pimolu-scheduler-header-height: 54px;
+  --pimolu-scheduler-allday-height: 42px;
+  --pimolu-scheduler-hour-height: 56px;
+  --pimolu-scheduler-day-count: 7;
+  --pimolu-scheduler-event-color: var(--pimolu-primary, #4f46e5);
+  --pimolu-scheduler-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+  --pimolu-scheduler-border: var(
+    --pimolu-border,
+    #e2e8f0
+  );
+  --pimolu-scheduler-muted: var(
+    --pimolu-muted,
+    #f1f5f9
+  );
+  --pimolu-scheduler-surface: var(
+    --pimolu-surface,
+    #ffffff
+  );
+  --pimolu-scheduler-muted-foreground: var(
+    --pimolu-muted-foreground,
+    #64748b
+  );
+  --pimolu-scheduler-primary: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+  --pimolu-scheduler-danger: var(
+    --pimolu-danger,
+    #dc2626
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.pimolu-scheduler__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.pimolu-scheduler__navigation {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pimolu-scheduler__navigation .pimolu-button svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.pimolu-scheduler__title {
+  flex: 1 1 14rem;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.011em;
+  text-align: center;
+}
+
+.pimolu-scheduler__empty {
+  margin: 0;
+  padding: 8px 12px;
+
+  color: var(--pimolu-scheduler-muted-foreground);
+
+  background: var(--pimolu-scheduler-muted);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font-size: 0.8125rem;
+}
+
+/* =========================================
+   BOARD
+========================================= */
+
+.pimolu-scheduler__scroll {
+  width: 100%;
+  min-width: 0;
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.pimolu-scheduler__board {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  min-width: 640px;
+
+  background: var(--pimolu-scheduler-surface);
+
+  border: 1px solid var(--pimolu-scheduler-border);
+  border-radius: var(--pimolu-scheduler-radius);
+
+  overflow: hidden;
+}
+
+.pimolu-scheduler__grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.pimolu-scheduler__header-row,
+.pimolu-scheduler__allday-row,
+.pimolu-scheduler__hour-row {
+  display: grid;
+
+  grid-template-columns:
+    var(--pimolu-scheduler-time-width)
+    repeat(
+      var(--pimolu-scheduler-day-count, 7),
+      minmax(0, 1fr)
+    );
+}
+
+.pimolu-scheduler__header-row {
+  height: var(--pimolu-scheduler-header-height);
+
+  border-bottom: 1px solid
+    var(--pimolu-scheduler-border);
+}
+
+.pimolu-scheduler__corner,
+.pimolu-scheduler__time {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  box-sizing: border-box;
+
+  padding: 0 8px;
+
+  color: var(--pimolu-scheduler-muted-foreground);
+
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.pimolu-scheduler__corner {
+  border-right: 1px solid
+    var(--pimolu-scheduler-border);
+}
+
+.pimolu-scheduler__day-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  padding: 6px 8px;
+
+  color: var(--pimolu-scheduler-muted-foreground);
+
+  border-left: 1px solid
+    var(--pimolu-scheduler-border);
+
+  text-align: center;
+}
+
+.pimolu-scheduler__weekday {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pimolu-scheduler__day-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  min-width: 26px;
+  height: 26px;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  font-size: 0.9375rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.pimolu-scheduler__day-header--today
+  .pimolu-scheduler__day-number {
+  background: var(--pimolu-scheduler-primary);
+  color: var(--pimolu-primary-foreground, #ffffff);
+}
+
+.pimolu-scheduler__day-header--today
+  .pimolu-scheduler__weekday {
+  color: var(--pimolu-scheduler-primary);
+}
+
+/* =========================================
+   ALL-DAY ROW
+========================================= */
+
+.pimolu-scheduler__allday-row {
+  height: var(--pimolu-scheduler-allday-height);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-scheduler-muted) 55%,
+    transparent
+  );
+
+  border-bottom: 1px solid
+    var(--pimolu-scheduler-border);
+}
+
+.pimolu-scheduler__allday-label {
+  align-items: center;
+
+  border-right: 1px solid
+    var(--pimolu-scheduler-border);
+
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pimolu-scheduler__allday-cell {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: 3px 4px;
+
+  border-left: 1px solid
+    var(--pimolu-scheduler-border);
+
+  overflow: hidden;
+}
+
+.pimolu-scheduler__allday-event {
+  display: block;
+
+  min-width: 0;
+  max-width: 100%;
+
+  padding: 3px 7px;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  background: color-mix(
+    in srgb,
+    var(
+        --pimolu-scheduler-event-color,
+        var(--pimolu-scheduler-primary)
+      )
+      18%,
+    var(--pimolu-scheduler-surface)
+  );
+
+  border: 0;
+  border-left: 3px solid
+    var(
+      --pimolu-scheduler-event-color,
+      var(--pimolu-scheduler-primary)
+    );
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pimolu-scheduler__allday-event:hover {
+  filter: brightness(0.97);
+}
+
+.pimolu-scheduler__allday-event:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-scheduler-primary));
+  outline-offset: 1px;
+}
+
+/* =========================================
+   HOUR GRID
+========================================= */
+
+.pimolu-scheduler__hour-row {
+  height: var(--pimolu-scheduler-hour-height);
+}
+
+.pimolu-scheduler__hour-row
+  .pimolu-scheduler__time {
+  align-items: flex-start;
+
+  padding-top: 2px;
+
+  border-right: 1px solid
+    var(--pimolu-scheduler-border);
+  border-top: 1px solid
+    var(--pimolu-scheduler-border);
+
+  transform: translateY(-0.55em);
+
+  background: var(--pimolu-scheduler-surface);
+}
+
+.pimolu-scheduler__slot-cell {
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: 0;
+
+  border-left: 1px solid
+    var(--pimolu-scheduler-border);
+  border-top: 1px solid
+    var(--pimolu-scheduler-border);
+}
+
+.pimolu-scheduler__slot {
+  display: block;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+
+  cursor: pointer;
+}
+
+.pimolu-scheduler__slot:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-scheduler-primary) 7%,
+    transparent
+  );
+}
+
+.pimolu-scheduler__slot:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-scheduler-primary));
+  outline-offset: -2px;
+}
+
+/* =========================================
+   TIMED EVENTS OVERLAY
+========================================= */
+
+.pimolu-scheduler__events {
+  position: absolute;
+  top: calc(
+    var(--pimolu-scheduler-header-height) +
+      var(--pimolu-scheduler-allday-height)
+  );
+  right: 0;
+  bottom: 0;
+  left: var(--pimolu-scheduler-time-width);
+
+  display: grid;
+  grid-template-columns: repeat(
+    var(--pimolu-scheduler-day-count, 7),
+    minmax(0, 1fr)
+  );
+
+  pointer-events: none;
+}
+
+.pimolu-scheduler__events-day {
+  position: relative;
+
+  min-width: 0;
+
+  border-left: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-scheduler-border) 70%,
+      transparent
+    );
+
+  pointer-events: none;
+}
+
+.pimolu-scheduler__event {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  box-sizing: border-box;
+
+  padding: 3px 5px;
+  margin: 1px;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  background: color-mix(
+    in srgb,
+    var(
+        --pimolu-scheduler-event-color,
+        var(--pimolu-scheduler-primary)
+      )
+      17%,
+    var(--pimolu-scheduler-surface)
+  );
+
+  border: 0;
+  border-left: 3px solid
+    var(
+      --pimolu-scheduler-event-color,
+      var(--pimolu-scheduler-primary)
+    );
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  text-align: left;
+
+  pointer-events: auto;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  transition:
+    background-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.pimolu-scheduler__event:hover {
+  background: color-mix(
+    in srgb,
+    var(
+        --pimolu-scheduler-event-color,
+        var(--pimolu-scheduler-primary)
+      )
+      24%,
+    var(--pimolu-scheduler-surface)
+  );
+}
+
+.pimolu-scheduler__event:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-scheduler-primary));
+  outline-offset: -1px;
+}
+
+.pimolu-scheduler__event-title {
+  overflow: hidden;
+
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-scheduler__event-time {
+  overflow: hidden;
+
+  color: var(--pimolu-scheduler-muted-foreground);
+
+  font-size: 0.625rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   CURRENT TIME
+========================================= */
+
+.pimolu-scheduler__now {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 2;
+
+  height: 2px;
+
+  background: var(--pimolu-scheduler-danger);
+
+  pointer-events: none;
+}
+
+.pimolu-scheduler__now > span {
+  position: absolute;
+  top: 50%;
+  left: -3px;
+
+  width: 8px;
+  height: 8px;
+
+  background: var(--pimolu-scheduler-danger);
+  border-radius: 50%;
+
+  transform: translateY(-50%);
+}
+
+/* =========================================
+   UTILITIES
+========================================= */
+
+.pimolu-scheduler__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  border: 0;
+
+  clip-path: inset(50%);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 640px) {
+  .pimolu-scheduler__toolbar {
+    align-items: stretch;
+  }
+
+  .pimolu-scheduler__title {
+    order: -1;
+
+    flex-basis: 100%;
+    text-align: left;
+  }
+
+  .pimolu-scheduler__board {
+    min-width: 560px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-scheduler__event {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-scheduler__board,
+  .pimolu-scheduler__event,
+  .pimolu-scheduler__allday-event {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-scheduler__now {
+    background: CanvasText;
+  }
+
+  .pimolu-scheduler__now > span {
+    background: CanvasText;
+  }
+
+  .pimolu-scheduler__event:focus-visible,
+  .pimolu-scheduler__allday-event:focus-visible,
+  .pimolu-scheduler__slot:focus-visible {
+    outline: 2px solid Highlight;
+  }
+
+  .pimolu-scheduler__day-header--today
+    .pimolu-scheduler__day-number {
+    background: Highlight;
+    color: HighlightText;
+  }
+}

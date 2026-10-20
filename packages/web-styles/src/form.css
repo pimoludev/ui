@@ -1,0 +1,61 @@
+/* =========================================
+   PIMOLU UI - FORM
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-form {
+  display: grid;
+
+  gap: 16px;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(
+    --pimolu-font-body,
+    var(--pimolu-font-family-sans, inherit)
+  );
+}
+
+/* The submit action sits on its own line, aligned with the fields. */
+.pimolu-form > .pimolu-form__submit {
+  justify-self: start;
+}
+
+/* =========================================
+   ERROR
+========================================= */
+
+.pimolu-form__error {
+  margin: 0;
+
+  color: var(--pimolu-danger, #dc2626);
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-form__error {
+    color: LinkText;
+  }
+
+  .pimolu-form > .pimolu-form__submit {
+    border: 1px solid ButtonText;
+  }
+}

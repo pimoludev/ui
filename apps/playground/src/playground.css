@@ -748,3 +748,27 @@
   white-space: nowrap;
 }
 
+
+/* DataGrid / DataTable member cell */
+
+.pg-member-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.pg-member-cell__text {
+  min-width: 0;
+}
+
+.pg-member-cell__email {
+  display: block;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

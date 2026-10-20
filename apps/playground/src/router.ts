@@ -14,6 +14,8 @@ export const pages = [
   { id: "button", label: "Button", group: "Actions" },
   { id: "toggle", label: "Toggle", group: "Actions" },
   { id: "toggle-group", label: "ToggleGroup", group: "Actions" },
+  { id: "toolbar", label: "Toolbar", group: "Actions" },
+  { id: "popconfirm", label: "Popconfirm", group: "Actions" },
 
   { id: "tabs", label: "Tabs", group: "Navigation" },
   { id: "segmented-control", label: "SegmentedControl", group: "Navigation" },
@@ -23,6 +25,7 @@ export const pages = [
   { id: "pagination", label: "Pagination", group: "Navigation" },
   { id: "stepper", label: "Stepper", group: "Navigation" },
   { id: "navigation-menu", label: "NavigationMenu", group: "Navigation" },
+  { id: "menubar", label: "Menubar", group: "Navigation" },
 
   { id: "checkbox", label: "Checkbox", group: "Forms" },
   { id: "combobox", label: "Combobox", group: "Forms" },
@@ -46,6 +49,13 @@ export const pages = [
   { id: "file-upload", label: "FileUpload", group: "Forms" },
   { id: "dropzone", label: "Dropzone", group: "Forms" },
   { id: "color-picker", label: "ColorPicker", group: "Forms" },
+  { id: "form", label: "Form", group: "Forms" },
+  { id: "masked-input", label: "MaskedInput", group: "Forms" },
+  { id: "currency-input", label: "CurrencyInput", group: "Forms" },
+  { id: "phone-input", label: "PhoneInput", group: "Forms" },
+  { id: "mentions", label: "Mentions", group: "Forms" },
+  { id: "cascader", label: "Cascader", group: "Forms" },
+  { id: "transfer", label: "Transfer", group: "Forms" },
 
   { id: "avatar", label: "Avatar", group: "Data display" },
   { id: "badge", label: "Badge", group: "Data display" },
@@ -54,6 +64,9 @@ export const pages = [
   { id: "description-list", label: "DescriptionList", group: "Data display" },
   { id: "table", label: "Table", group: "Data display" },
   { id: "data-table", label: "DataTable", group: "Data display" },
+  { id: "data-grid", label: "DataGrid", group: "Data display" },
+  { id: "tree-table", label: "TreeTable", group: "Data display" },
+  { id: "chart", label: "Charts", group: "Data display" },
   { id: "stat", label: "Stat", group: "Data display" },
   { id: "timeline", label: "Timeline", group: "Data display" },
   { id: "rating", label: "Rating", group: "Data display" },
@@ -62,12 +75,26 @@ export const pages = [
   { id: "virtual-list", label: "VirtualList", group: "Data display" },
   { id: "tree-view", label: "TreeView", group: "Data display" },
 
+  { id: "kanban", label: "Kanban", group: "Complex" },
+  { id: "scheduler", label: "Scheduler", group: "Complex" },
+  { id: "gantt", label: "Gantt", group: "Complex" },
+  { id: "chat", label: "Chat", group: "Complex" },
+  { id: "file-manager", label: "FileManager", group: "Complex" },
+
+  { id: "video-player", label: "VideoPlayer", group: "Media" },
+  { id: "audio-player", label: "AudioPlayer", group: "Media" },
+  { id: "pdf-viewer", label: "PDFViewer", group: "Media" },
+  { id: "lightbox", label: "Lightbox", group: "Media" },
+  { id: "image-cropper", label: "ImageCropper", group: "Media" },
+  { id: "qr-code", label: "QRCode", group: "Media" },
+
   { id: "typography", label: "Typography", group: "Typography" },
   { id: "code", label: "Code & Kbd", group: "Typography" },
 
   { id: "navbar", label: "Navbar", group: "Layout" },
   { id: "sidebar", label: "Sidebar", group: "Layout" },
   { id: "dashboard-layout", label: "DashboardLayout", group: "Layout" },
+  { id: "app-shell", label: "AppShell", group: "Layout" },
   { id: "box", label: "Box", group: "Layout" },
   { id: "stack", label: "Stack", group: "Layout" },
   { id: "flex", label: "Flex", group: "Layout" },
@@ -100,6 +127,8 @@ export const pages = [
   { id: "skeleton", label: "Skeleton", group: "Feedback" },
   { id: "spinner", label: "Spinner", group: "Feedback" },
   { id: "toast", label: "Toast", group: "Feedback" },
+  { id: "tour", label: "Tour", group: "Feedback" },
+  { id: "notification-center", label: "NotificationCenter", group: "Feedback" },
   { id: "tooltip", label: "Tooltip", group: "Feedback" },
 ] as const;
 

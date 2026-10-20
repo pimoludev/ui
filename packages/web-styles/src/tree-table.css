@@ -1,0 +1,289 @@
+/* =========================================
+   PIMOLU UI - TREE TABLE
+   Shared Web Styles
+========================================= */
+
+.pimolu-tree-table {
+  --pimolu-tree-table-radius: var(
+    --pimolu-radius-md,
+    8px
+  );
+  --pimolu-tree-table-indent: 18px;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   TABLE CONTAINER
+========================================= */
+
+.pimolu-tree-table__table-wrapper {
+  min-width: 0;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-tree-table-radius);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.pimolu-tree-table__table-wrapper:focus-visible {
+  outline-offset: -2px;
+  border-radius: var(--pimolu-tree-table-radius);
+}
+
+.pimolu-tree-table__table {
+  width: 100%;
+}
+
+/* =========================================
+   HEADERS AND CELLS
+========================================= */
+
+.pimolu-tree-table__head,
+.pimolu-tree-table__cell {
+  white-space: nowrap;
+}
+
+.pimolu-tree-table__head--start,
+.pimolu-tree-table__cell--start {
+  text-align: start;
+}
+
+.pimolu-tree-table__head--center,
+.pimolu-tree-table__cell--center {
+  text-align: center;
+}
+
+.pimolu-tree-table__head--end,
+.pimolu-tree-table__cell--end {
+  text-align: end;
+}
+
+.pimolu-tree-table__cell {
+  vertical-align: middle;
+}
+
+.pimolu-tree-table__select-cell {
+  width: 44px;
+  padding-inline-end: 0;
+
+  vertical-align: middle;
+}
+
+/* =========================================
+   TREE COLUMN
+========================================= */
+
+.pimolu-tree-table__tree-content {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.pimolu-tree-table__guides {
+  display: inline-flex;
+  flex: none;
+  align-self: stretch;
+
+  height: 1.5em;
+
+  pointer-events: none;
+}
+
+.pimolu-tree-table__guide {
+  flex: none;
+
+  width: var(--pimolu-tree-table-indent);
+
+  box-sizing: border-box;
+
+  border-inline-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+.pimolu-tree-table__expander,
+.pimolu-tree-table__expander-spacer {
+  flex: none;
+
+  width: 20px;
+  height: 20px;
+}
+
+.pimolu-tree-table__expander {
+  display: inline-grid;
+  place-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.pimolu-tree-table__expander:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-tree-table__expander:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: -2px;
+}
+
+.pimolu-tree-table__expander:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-tree-table__chevron {
+  transition: transform 120ms ease;
+}
+
+.pimolu-tree-table__expander[aria-expanded="true"]
+  .pimolu-tree-table__chevron {
+  transform: rotate(90deg);
+}
+
+.pimolu-tree-table__label {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   ROWS
+========================================= */
+
+.pimolu-tree-table__row:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: -2px;
+}
+
+/* Paint the cells so the selected state survives the table row hover. */
+
+.pimolu-tree-table__row--selected
+  > .pimolu-tree-table__cell,
+.pimolu-tree-table__row--selected
+  > .pimolu-tree-table__select-cell {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 10%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+}
+
+.pimolu-tree-table__row--selected
+  > .pimolu-tree-table__tree-cell
+  .pimolu-tree-table__label {
+  font-weight: 500;
+}
+
+.pimolu-tree-table__row--disabled
+  > .pimolu-tree-table__cell,
+.pimolu-tree-table__row--disabled
+  > .pimolu-tree-table__select-cell {
+  opacity: 0.55;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.pimolu-tree-table__empty {
+  padding: 32px 16px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  text-align: center;
+  white-space: normal;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-tree-table__expander,
+  .pimolu-tree-table__chevron {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-tree-table__table-wrapper {
+    border-color: CanvasText;
+  }
+
+  .pimolu-tree-table__guide {
+    border-inline-start-color: CanvasText;
+  }
+
+  .pimolu-tree-table__expander {
+    border: 1px solid ButtonText;
+    color: ButtonText;
+  }
+
+  .pimolu-tree-table__expander:focus-visible,
+  .pimolu-tree-table__row:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-tree-table__row--selected
+    > .pimolu-tree-table__cell,
+  .pimolu-tree-table__row--selected
+    > .pimolu-tree-table__select-cell {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-tree-table__row--selected
+    > .pimolu-tree-table__tree-cell
+    .pimolu-tree-table__expander {
+    color: HighlightText;
+  }
+}

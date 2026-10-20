@@ -1,0 +1,900 @@
+/* =========================================
+   PIMOLU UI — CHAT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-chat {
+  --pimolu-chat-height: 34rem;
+  --pimolu-chat-bubble-gap: 4px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: var(--pimolu-chat-height);
+  min-height: 22rem;
+  max-height: 80vh;
+
+  overflow: hidden;
+
+  border: var(--pimolu-control-border-width, 1px) solid
+    var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-lg, 14px);
+
+  background: var(--pimolu-background, #fff);
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: var(--pimolu-font-size-sm, 14px);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-chat__header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  padding: var(--pimolu-spacing-3, 12px)
+    var(--pimolu-spacing-4, 16px);
+
+  border-bottom: 1px solid
+    var(--pimolu-border, #e2e8f0);
+
+  background: var(--pimolu-surface, var(--pimolu-background, #fff));
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+}
+
+.pimolu-chat__header > * {
+  min-width: 0;
+}
+
+/* =========================================
+   BODY AND LOG
+========================================= */
+
+.pimolu-chat__body {
+  position: relative;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+.pimolu-chat__log {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  gap: var(--pimolu-spacing-4, 16px);
+
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: var(--pimolu-spacing-4, 16px);
+
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--pimolu-border, #e2e8f0) transparent;
+
+  list-style: none;
+}
+
+/* =========================================
+   DATE SEPARATOR
+========================================= */
+
+.pimolu-chat__date {
+  display: flex;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  margin-block: 2px;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  list-style: none;
+}
+
+.pimolu-chat__date::before,
+.pimolu-chat__date::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: var(--pimolu-border, #e2e8f0);
+}
+
+.pimolu-chat__date > span {
+  flex: none;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.pimolu-chat__message {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  max-width: 100%;
+  min-width: 0;
+
+  list-style: none;
+}
+
+.pimolu-chat__message--own {
+  flex-direction: row-reverse;
+}
+
+.pimolu-chat__avatar {
+  flex: none;
+
+  margin-block-start: 18px;
+}
+
+.pimolu-chat__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-chat-bubble-gap);
+
+  min-width: 0;
+  max-width: min(82%, 42rem);
+}
+
+.pimolu-chat__message--own .pimolu-chat__content {
+  align-items: flex-end;
+}
+
+.pimolu-chat__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.pimolu-chat__author {
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.pimolu-chat__message--own .pimolu-chat__author {
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+}
+
+.pimolu-chat__time {
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.pimolu-chat__status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 3px;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.pimolu-chat__status--sent {
+  color: var(--pimolu-success, #15803d);
+}
+
+.pimolu-chat__status--error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-chat__status-spinner {
+  display: inline-block;
+
+  box-sizing: border-box;
+
+  width: 10px;
+  height: 10px;
+
+  border: 1.5px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  animation: pimolu-chat-spin 800ms linear infinite;
+}
+
+.pimolu-chat__status-text {
+  font-weight: 550;
+}
+
+/* =========================================
+   BUBBLE
+========================================= */
+
+.pimolu-chat__bubble {
+  box-sizing: border-box;
+
+  max-width: 100%;
+  padding: 9px 12px;
+
+  border: 1px solid transparent;
+  border-radius: var(--pimolu-radius-lg, 14px)
+    var(--pimolu-radius-lg, 14px)
+    var(--pimolu-radius-lg, 14px)
+    var(--pimolu-radius-sm, 6px);
+
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, currentColor);
+
+  line-height: 1.55;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-chat__message--own .pimolu-chat__bubble {
+  border-color: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+
+  border-radius: var(--pimolu-radius-lg, 14px)
+    var(--pimolu-radius-lg, 14px)
+    var(--pimolu-radius-sm, 6px)
+    var(--pimolu-radius-lg, 14px);
+
+  background: var(--pimolu-primary, #4f46e5);
+  color: var(
+    --pimolu-primary-foreground,
+    #fff
+  );
+}
+
+.pimolu-chat__message[data-status="error"]
+  .pimolu-chat__bubble {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   ATTACHMENTS
+========================================= */
+
+.pimolu-chat__attachments {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-chat-bubble-gap);
+
+  box-sizing: border-box;
+
+  width: min(100%, 20rem);
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-chat__attachment {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  padding: 6px 8px;
+
+  border: 1px solid var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: var(--pimolu-surface, #f8fafc);
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+}
+
+.pimolu-chat__message--own .pimolu-chat__attachment {
+  align-self: flex-end;
+}
+
+.pimolu-chat__attachment-icon {
+  display: inline-flex;
+  flex: none;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+}
+
+.pimolu-chat__attachment-name {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: var(--pimolu-primary, #4f46e5);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+a.pimolu-chat__attachment-name {
+  text-underline-offset: 2px;
+}
+
+a.pimolu-chat__attachment-name:hover {
+  text-decoration: underline;
+}
+
+a.pimolu-chat__attachment-name:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+
+  border-radius: 2px;
+}
+
+.pimolu-chat__attachment-size {
+  flex: none;
+
+  margin-inline-start: auto;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================
+   TYPING
+========================================= */
+
+.pimolu-chat__typing {
+  display: flex;
+  flex: none;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  padding: 0 var(--pimolu-spacing-4, 16px)
+    var(--pimolu-spacing-2, 8px);
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+}
+
+.pimolu-chat__typing-dots {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 3px;
+
+  height: 12px;
+}
+
+.pimolu-chat__typing-dots > span {
+  width: 4px;
+  height: 4px;
+
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  background: currentColor;
+
+  animation: pimolu-chat-bounce 1s ease-in-out infinite;
+}
+
+.pimolu-chat__typing-dots > span:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.pimolu-chat__typing-dots > span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+/* =========================================
+   COMPOSER
+========================================= */
+
+.pimolu-chat__composer {
+  display: flex;
+  flex: none;
+  align-items: flex-end;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  padding: var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-3, 12px);
+
+  border-top: 1px solid
+    var(--pimolu-border, #e2e8f0);
+
+  background: var(--pimolu-background, #fff);
+}
+
+.pimolu-chat__input {
+  flex: 1;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 38px;
+  max-height: 8rem;
+  padding: 9px 12px;
+
+  border: 1px solid var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-lg, 14px);
+
+  background: var(--pimolu-surface, #f8fafc);
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  line-height: 1.4;
+
+  resize: none;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.pimolu-chat__input::placeholder {
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  opacity: 0.8;
+}
+
+.pimolu-chat__input:hover:not(:disabled) {
+  border-color: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 30%,
+    var(--pimolu-border, #e2e8f0)
+  );
+}
+
+.pimolu-chat__input:focus {
+  outline: none;
+
+  border-color: var(--pimolu-primary, #4f46e5);
+
+  box-shadow: 0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--pimolu-primary, #4f46e5) 20%,
+      transparent
+    );
+}
+
+.pimolu-chat__input:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+.pimolu-chat__input:disabled {
+  background: var(--pimolu-muted, #f1f5f9);
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.pimolu-chat__attach,
+.pimolu-chat__send {
+  display: inline-grid;
+  place-items: center;
+
+  flex: none;
+
+  box-sizing: border-box;
+
+  width: 38px;
+  height: 38px;
+  padding: 0;
+
+  border: 0;
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+.pimolu-chat__attach {
+  background: transparent;
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+}
+
+.pimolu-chat__attach:hover:not(:disabled) {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-chat__send {
+  background: var(--pimolu-primary, #4f46e5);
+  color: var(
+    --pimolu-primary-foreground,
+    #fff
+  );
+}
+
+.pimolu-chat__send:hover:not(:disabled) {
+  background: var(
+    --pimolu-primary-hover,
+    var(--pimolu-primary, #4f46e5)
+  );
+}
+
+.pimolu-chat__attach:focus-visible,
+.pimolu-chat__send:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+.pimolu-chat__attach:disabled,
+.pimolu-chat__send:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* =========================================
+   EMPTY AND LOADING
+========================================= */
+
+.pimolu-chat__empty,
+.pimolu-chat__loading {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  padding: var(--pimolu-spacing-8, 32px)
+    var(--pimolu-spacing-6, 24px);
+
+  text-align: center;
+}
+
+.pimolu-chat__empty-icon {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+  margin-block-end: 4px;
+
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 10%,
+    var(--pimolu-surface, var(--pimolu-background, #fff))
+  );
+
+  color: var(--pimolu-primary, #4f46e5);
+}
+
+.pimolu-chat__empty-title {
+  margin: 0;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: var(--pimolu-font-size-sm, 14px);
+  font-weight: 600;
+}
+
+.pimolu-chat__empty-description {
+  max-width: 36ch;
+  margin: 0;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+  line-height: 1.55;
+}
+
+.pimolu-chat__loading {
+  flex-direction: row;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+}
+
+.pimolu-chat__spinner {
+  display: inline-block;
+
+  box-sizing: border-box;
+
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-primary, #4f46e5) 25%,
+      transparent
+    );
+  border-top-color: var(--pimolu-primary, #4f46e5);
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  animation: pimolu-chat-spin 900ms linear infinite;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.pimolu-chat__sr {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes pimolu-chat-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pimolu-chat-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+
+    opacity: 0.45;
+  }
+
+  30% {
+    transform: translateY(-3px);
+
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 640px) {
+  .pimolu-chat {
+    --pimolu-chat-height: 30rem;
+  }
+
+  .pimolu-chat__log {
+    padding: var(--pimolu-spacing-3, 12px);
+  }
+
+  .pimolu-chat__content {
+    max-width: 88%;
+  }
+
+  .pimolu-chat__composer {
+    padding-inline: var(--pimolu-spacing-2, 8px);
+  }
+
+  .pimolu-chat__header {
+    padding-inline: var(--pimolu-spacing-3, 12px);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-chat__log {
+    scroll-behavior: auto;
+  }
+
+  .pimolu-chat__typing-dots > span {
+    animation: none;
+
+    opacity: 0.7;
+  }
+
+  .pimolu-chat__input,
+  .pimolu-chat__attach,
+  .pimolu-chat__send {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-chat,
+  .pimolu-chat__header,
+  .pimolu-chat__composer,
+  .pimolu-chat__bubble,
+  .pimolu-chat__attachment,
+  .pimolu-chat__input {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-chat__message--own .pimolu-chat__bubble {
+    border: 2px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-chat__status--sent {
+    color: CanvasText;
+  }
+
+  .pimolu-chat__status--error {
+    color: Mark;
+  }
+
+  .pimolu-chat__send {
+    border: 1px solid ButtonText;
+
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .pimolu-chat__send:hover:not(:disabled),
+  .pimolu-chat__attach:hover:not(:disabled) {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-chat__send:disabled,
+  .pimolu-chat__attach:disabled,
+  .pimolu-chat__input:disabled {
+    color: GrayText;
+
+    opacity: 1;
+  }
+
+  .pimolu-chat__time,
+  .pimolu-chat__author,
+  .pimolu-chat__typing,
+  .pimolu-chat__empty-description,
+  .pimolu-chat__attachment-size {
+    color: CanvasText;
+  }
+
+  .pimolu-chat__date::before,
+  .pimolu-chat__date::after {
+    background: CanvasText;
+  }
+
+  .pimolu-chat__attachment-name {
+    color: LinkText;
+  }
+
+  .pimolu-chat__attach:focus-visible,
+  .pimolu-chat__send:focus-visible,
+  .pimolu-chat__input:focus-visible,
+  a.pimolu-chat__attachment-name:focus-visible {
+    outline: 2px solid Highlight;
+  }
+
+  .pimolu-chat__typing-dots > span {
+    background: CanvasText;
+  }
+}

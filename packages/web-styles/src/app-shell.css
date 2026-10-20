@@ -1,0 +1,223 @@
+/* =========================================
+   PIMOLU UI - APP SHELL
+   Shared Web Styles
+========================================= */
+
+.pimolu-app-shell {
+  --pimolu-app-shell-sidebar-width: 16rem;
+  --pimolu-app-shell-aside-width: 18rem;
+
+  display: grid;
+  grid-template-columns:
+    var(--pimolu-app-shell-sidebar-width)
+    minmax(0, 1fr);
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+
+  box-sizing: border-box;
+
+  min-height: 100dvh;
+
+  background: var(--pimolu-background);
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-app-shell[data-aside="true"] {
+  grid-template-columns:
+    var(--pimolu-app-shell-sidebar-width)
+    minmax(0, 1fr)
+    var(--pimolu-app-shell-aside-width);
+  grid-template-areas:
+    "header header header"
+    "sidebar main aside"
+    "footer footer footer";
+}
+
+.pimolu-app-shell[data-sidebar="false"] {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.pimolu-app-shell[data-sidebar="false"][data-aside="true"] {
+  grid-template-columns:
+    minmax(0, 1fr)
+    var(--pimolu-app-shell-aside-width);
+  grid-template-areas:
+    "header header"
+    "main aside"
+    "footer footer";
+}
+
+/* =========================================
+   REGIONS
+========================================= */
+
+.pimolu-app-shell__header {
+  grid-area: header;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: 12px var(--pimolu-spacing-6, 24px);
+
+  border-block-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-app-shell[data-sticky-header="true"]
+  .pimolu-app-shell__header {
+  position: sticky;
+  inset-block-start: 0;
+
+  z-index: 20;
+}
+
+.pimolu-app-shell__sidebar {
+  grid-area: sidebar;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  border-inline-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-app-shell__main {
+  grid-area: main;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: var(--pimolu-spacing-6, 24px);
+}
+
+.pimolu-app-shell__aside {
+  grid-area: aside;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: var(--pimolu-spacing-6, 24px);
+
+  border-inline-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-app-shell__footer {
+  grid-area: footer;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: 16px var(--pimolu-spacing-6, 24px);
+
+  border-block-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 960px) {
+  .pimolu-app-shell,
+  .pimolu-app-shell[data-aside="true"],
+  .pimolu-app-shell[data-sidebar="false"],
+  .pimolu-app-shell[data-sidebar="false"][data-aside="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "main"
+      "aside"
+      "footer";
+  }
+
+  .pimolu-app-shell[data-sidebar="false"] {
+    grid-template-areas:
+      "header"
+      "main"
+      "aside"
+      "footer";
+  }
+
+  .pimolu-app-shell__sidebar {
+    border-inline-end: 0;
+    border-block-end:
+      var(--pimolu-control-border-width, 1px)
+      solid var(--pimolu-border);
+  }
+
+  .pimolu-app-shell__aside {
+    border-inline-start: 0;
+    border-block-start:
+      var(--pimolu-control-border-width, 1px)
+      solid var(--pimolu-border);
+  }
+}
+
+@media (max-width: 640px) {
+  .pimolu-app-shell__header {
+    padding: 12px 16px;
+  }
+
+  .pimolu-app-shell__main,
+  .pimolu-app-shell__aside {
+    padding: 16px;
+  }
+
+  .pimolu-app-shell__footer {
+    padding: 14px 16px;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-app-shell__header,
+  .pimolu-app-shell__sidebar,
+  .pimolu-app-shell__aside,
+  .pimolu-app-shell__footer {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+}

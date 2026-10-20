@@ -92,10 +92,37 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Carousel | `registry/react/carousel/` | Slide navigation | Present and tested |
 | Resizable | `registry/react/resizable/` | Draggable split panels | Present and tested |
 | VirtualList | `registry/react/virtual-list/` | Windowed large lists | Present and tested |
+| DataGrid | `registry/react/data-grid/` | Server mode, resizable and hideable columns, grouping | Present and tested |
+| TreeTable | `registry/react/tree-table/` | Hierarchical tree grid | Present and tested |
+| Charts | `registry/react/chart/` | Bar, line, area, donut and sparkline charts | Present and tested |
+| Form | `registry/react/form/` | Validation, submission and field registration | Present and tested |
+| MaskedInput | `registry/react/masked-input/` | Pattern-masked text input | Present and tested |
+| CurrencyInput | `registry/react/currency-input/` | Locale-aware currency field | Present and tested |
+| PhoneInput | `registry/react/phone-input/` | Country-aware phone field | Present and tested |
+| Mentions | `registry/react/mentions/` | Triggered mention suggestions | Present and tested |
+| Cascader | `registry/react/cascader/` | Hierarchical single selection | Present and tested |
+| Transfer | `registry/react/transfer/` | Two-list selection transfer | Present and tested |
+| VideoPlayer | `registry/react/video-player/` | Accessible custom video controls | Present and tested |
+| AudioPlayer | `registry/react/audio-player/` | Accessible custom audio controls | Present and tested |
+| PDFViewer | `registry/react/pdf-viewer/` | Embedded PDF document viewer | Present and tested |
+| Lightbox | `registry/react/lightbox/` | Modal image gallery | Present and tested |
+| ImageCropper | `registry/react/image-cropper/` | Pointer and keyboard crop editor | Present and tested |
+| QRCode | `registry/react/qr-code/` | Offline SVG QR encoder | Present and tested |
+| AppShell | `registry/react/app-shell/` | Header, sidebar, main, aside and footer shell | Present and tested |
+| Menubar | `registry/react/menubar/` | Horizontal application menus | Present and tested |
+| Toolbar | `registry/react/toolbar/` | Grouped action toolbar | Present and tested |
+| Popconfirm | `registry/react/popconfirm/` | Anchored confirmation | Present and tested |
+| Tour | `registry/react/tour/` | Step-by-step onboarding spotlight | Present and tested |
+| NotificationCenter | `registry/react/notification-center/` | Bell panel with read state | Present and tested |
+| Kanban | `registry/react/kanban/` | Drag-and-drop board | Present and tested |
+| Chat | `registry/react/chat/` | Message log and composer | Present and tested |
+| Scheduler | `registry/react/scheduler/` | Day and week event calendar | Present and tested |
+| Gantt | `registry/react/gantt/` | Task timeline with dependencies | Present and tested |
+| FileManager | `registry/react/file-manager/` | File browser with list/grid views | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
 utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
-low-level utility. The playground pages cover the 84 families (AvatarGroup and
+low-level utility. The playground pages cover the 111 families (AvatarGroup and
 RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

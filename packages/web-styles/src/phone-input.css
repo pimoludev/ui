@@ -1,0 +1,355 @@
+/* =========================================
+   PIMOLU UI - PHONE INPUT
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-phone-input {
+  --pimolu-phone-input-height: 40px;
+  --pimolu-phone-input-padding: 12px;
+  --pimolu-phone-input-font-size: 14px;
+
+  --pimolu-phone-input-tone: var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary, #6366f1)
+  );
+
+  --pimolu-phone-input-elevation: var(
+    --pimolu-control-shadow,
+    var(--pimolu-shadow-raised, none)
+  );
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  width: min(100%, 380px);
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(
+    --pimolu-font-body,
+    var(--pimolu-font-family-sans, inherit)
+  );
+}
+
+.pimolu-phone-input--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.pimolu-phone-input__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.pimolu-phone-input__required {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   ROW
+========================================= */
+
+.pimolu-phone-input__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  gap: 8px;
+
+  min-width: 0;
+}
+
+/* =========================================
+   COUNTRY SELECT
+========================================= */
+
+.pimolu-phone-input__country {
+  flex: 0 1 42%;
+
+  box-sizing: border-box;
+  min-width: 7.5rem;
+  min-height: var(--pimolu-phone-input-height);
+
+  padding-inline: 10px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-phone-input-elevation);
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  font-size: 0.875rem;
+
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.pimolu-phone-input__country:hover:not(:disabled) {
+  border-color: var(--pimolu-phone-input-tone);
+}
+
+.pimolu-phone-input__country:focus-visible {
+  border-color: var(--pimolu-phone-input-tone);
+
+  outline: 2px solid var(--pimolu-phone-input-tone);
+  outline-offset: 2px;
+}
+
+.pimolu-phone-input__country:disabled {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   NUMBER FIELD
+========================================= */
+
+.pimolu-phone-input__field {
+  display: flex;
+  align-items: center;
+
+  flex: 1 1 12rem;
+
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: var(--pimolu-phone-input-height);
+
+  padding-inline: var(--pimolu-phone-input-padding);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  border: var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-phone-input-elevation);
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.pimolu-phone-input:not(.pimolu-phone-input--disabled)
+  .pimolu-phone-input__field:hover {
+  border-color: var(--pimolu-phone-input-tone);
+}
+
+.pimolu-phone-input__field:focus-within {
+  border-color: var(--pimolu-phone-input-tone);
+
+  box-shadow:
+    0 0 0 3px
+      color-mix(
+        in srgb,
+        var(--pimolu-phone-input-tone) 22%,
+        transparent
+      ),
+    var(--pimolu-phone-input-elevation);
+}
+
+.pimolu-phone-input__dial {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+
+  margin-inline-end: 8px;
+  padding-inline-end: 8px;
+
+  border-inline-end: 1px solid
+    var(--pimolu-border, #e2e8f0);
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+.pimolu-phone-input__control {
+  display: block;
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--pimolu-phone-input-height);
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font: inherit;
+  font-size: var(--pimolu-phone-input-font-size);
+  font-variant-numeric: tabular-nums;
+
+  caret-color: var(--pimolu-phone-input-tone);
+}
+
+.pimolu-phone-input__control::placeholder {
+  color: var(--pimolu-muted-foreground, #64748b);
+  opacity: 1;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.pimolu-phone-input__helper,
+.pimolu-phone-input__error {
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-phone-input__helper {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+.pimolu-phone-input__error {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.pimolu-phone-input--sm {
+  --pimolu-phone-input-height: 32px;
+  --pimolu-phone-input-padding: 10px;
+  --pimolu-phone-input-font-size: 13px;
+}
+
+.pimolu-phone-input--md {
+  --pimolu-phone-input-height: 40px;
+  --pimolu-phone-input-padding: 12px;
+  --pimolu-phone-input-font-size: 14px;
+}
+
+.pimolu-phone-input--lg {
+  --pimolu-phone-input-height: 48px;
+  --pimolu-phone-input-padding: 16px;
+  --pimolu-phone-input-font-size: 16px;
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-phone-input--invalid {
+  --pimolu-phone-input-tone: var(
+    --pimolu-danger,
+    #dc2626
+  );
+}
+
+.pimolu-phone-input--invalid
+  .pimolu-phone-input__field,
+.pimolu-phone-input--invalid
+  .pimolu-phone-input__country {
+  border-color: var(--pimolu-phone-input-tone);
+}
+
+.pimolu-phone-input--disabled
+  .pimolu-phone-input__field {
+  background: var(--pimolu-muted, #f1f5f9);
+  box-shadow: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.pimolu-phone-input__control:disabled {
+  cursor: not-allowed;
+}
+
+.pimolu-phone-input__control:read-only {
+  cursor: default;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-phone-input__country,
+  .pimolu-phone-input__field {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-phone-input__country,
+  .pimolu-phone-input__field {
+    border: 1px solid ButtonText;
+  }
+
+  .pimolu-phone-input__field:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-phone-input__dial {
+    border-inline-end-color: ButtonText;
+  }
+
+  .pimolu-phone-input--invalid
+    .pimolu-phone-input__field,
+  .pimolu-phone-input--invalid
+    .pimolu-phone-input__country {
+    border-color: Mark;
+  }
+}

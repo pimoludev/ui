@@ -1,0 +1,241 @@
+/* =========================================
+   PIMOLU UI - MENUBAR
+   Shared Web Styles
+========================================= */
+
+.pimolu-menubar {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 4px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+}
+
+.pimolu-menubar__menu {
+  position: relative;
+
+  display: flex;
+}
+
+/* =========================================
+   TRIGGER
+========================================= */
+
+.pimolu-menubar__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  box-sizing: border-box;
+  min-height: 30px;
+
+  padding: 0 10px;
+
+  border: 1px solid transparent;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.pimolu-menubar__trigger:hover:not(:disabled),
+.pimolu-menubar__trigger[data-state="open"] {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-menubar__trigger:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, Highlight);
+  outline-offset: 1px;
+}
+
+.pimolu-menubar__trigger:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-menubar__content {
+  display: grid;
+  gap: 2px;
+
+  box-sizing: border-box;
+
+  min-width: 12rem;
+  max-width: 20rem;
+
+  padding: 6px;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+
+  outline: none;
+}
+
+.pimolu-menubar__content[data-state="open"] {
+  animation:
+    pimolu-menubar-in
+    140ms
+    ease-out;
+}
+
+@keyframes pimolu-menubar-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.pimolu-menubar__item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 8px 10px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: start;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.pimolu-menubar__item:hover:not(:disabled),
+.pimolu-menubar__item:focus-visible {
+  background: var(--pimolu-muted);
+
+  outline: none;
+}
+
+.pimolu-menubar__item:focus-visible {
+  box-shadow: inset 0 0 0 2px
+    var(--pimolu-focus-ring, Highlight);
+}
+
+.pimolu-menubar__item:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-menubar__label {
+  padding: 6px 10px 4px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.pimolu-menubar__separator {
+  height: 1px;
+
+  margin: 4px 0;
+
+  background: var(--pimolu-border);
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-menubar__content[data-state="open"] {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-menubar,
+  .pimolu-menubar__content {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-menubar__trigger[data-state="open"],
+  .pimolu-menubar__item:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

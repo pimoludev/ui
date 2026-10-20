@@ -1,0 +1,219 @@
+/* =========================================
+   PIMOLU UI - TOOLBAR
+   Shared Web Styles
+========================================= */
+
+.pimolu-toolbar {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 3px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-toolbar[data-orientation="vertical"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.pimolu-toolbar__group {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-toolbar[data-orientation="vertical"]
+  .pimolu-toolbar__group {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.pimolu-toolbar__button,
+.pimolu-toolbar__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+  min-height: 30px;
+
+  padding: 0 8px;
+
+  border: 1px solid transparent;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.pimolu-toolbar__link {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-toolbar__button:hover:not(:disabled),
+.pimolu-toolbar__link:hover:not([aria-disabled="true"]) {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-toolbar__button:focus-visible,
+.pimolu-toolbar__link:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, Highlight);
+  outline-offset: 1px;
+}
+
+.pimolu-toolbar__button:disabled,
+.pimolu-toolbar__link[aria-disabled="true"] {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+.pimolu-toolbar__link[aria-current="page"] {
+  color: var(--pimolu-foreground);
+
+  font-weight: 600;
+}
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+.pimolu-toolbar__toggle-group {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  min-width: 0;
+
+  padding: 1px;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted) 55%,
+    transparent
+  );
+}
+
+.pimolu-toolbar[data-orientation="vertical"]
+  .pimolu-toolbar__toggle-group {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.pimolu-toolbar__toggle[aria-pressed="true"] {
+  background: var(
+    --pimolu-primary,
+    var(--pimolu-foreground)
+  );
+
+  color: var(--pimolu-primary-foreground);
+
+  box-shadow: var(--pimolu-shadow-sm, none);
+}
+
+.pimolu-toolbar__toggle[aria-pressed="true"]:hover {
+  background: var(
+    --pimolu-primary-hover,
+    var(--pimolu-primary, var(--pimolu-foreground))
+  );
+}
+
+/* =========================================
+   SEPARATOR
+========================================= */
+
+.pimolu-toolbar__separator {
+  flex: 0 0 auto;
+
+  width: 1px;
+  height: 20px;
+
+  margin: 0 3px;
+
+  background: var(--pimolu-border);
+}
+
+.pimolu-toolbar[data-orientation="vertical"]
+  .pimolu-toolbar__separator {
+  width: auto;
+  height: 1px;
+
+  margin: 3px 0;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 480px) {
+  .pimolu-toolbar {
+    flex-wrap: wrap;
+
+    max-width: 100%;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-toolbar {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-toolbar__toggle[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-toolbar__separator {
+    background: CanvasText;
+  }
+}

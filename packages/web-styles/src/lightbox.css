@@ -1,0 +1,488 @@
+/* =========================================
+   PIMOLU UI — LIGHTBOX
+   Shared Web Styles
+========================================= */
+
+.pimolu-lightbox {
+  position: fixed;
+  inset: 0;
+
+  z-index: 60;
+
+  display: grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  padding: var(--pimolu-spacing-6, 24px);
+
+  overflow: hidden;
+
+  color: #fff;
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.pimolu-lightbox__overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgb(3 7 18 / 92%);
+
+  -webkit-backdrop-filter: blur(4px);
+
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================
+   PANEL
+========================================= */
+
+.pimolu-lightbox__panel {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  box-sizing: border-box;
+
+  width: min(100%, 72rem);
+  max-height: 100%;
+
+  padding:
+    var(--pimolu-spacing-8, 32px)
+    var(--pimolu-spacing-12, 48px)
+    0;
+
+  outline: none;
+
+  animation:
+    pimolu-lightbox-panel-in
+    180ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pimolu-lightbox__panel:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 4px;
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+/* =========================================
+   FIGURE
+========================================= */
+
+.pimolu-lightbox__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  min-width: 0;
+  min-height: 0;
+
+  max-width: 100%;
+
+  margin: 0;
+}
+
+.pimolu-lightbox__image {
+  display: block;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+  max-height: calc(100vh - 16rem);
+  max-height: calc(100dvh - 16rem);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  object-fit: contain;
+
+  background: rgb(255 255 255 / 6%);
+}
+
+.pimolu-lightbox__caption {
+  max-width: 52rem;
+
+  margin: 0;
+
+  color: rgb(255 255 255 / 76%);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  text-align: center;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   CLOSE
+========================================= */
+
+.pimolu-lightbox__close {
+  position: absolute;
+
+  inset-block-start: 0;
+  inset-inline-end: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  padding: 0;
+
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: rgb(15 23 42 / 72%);
+  color: #fff;
+
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    border-color 150ms;
+}
+
+.pimolu-lightbox__close:hover {
+  background: rgb(255 255 255 / 18%);
+}
+
+.pimolu-lightbox__close:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-lightbox__close svg {
+  display: block;
+
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* =========================================
+   PREVIOUS / NEXT
+========================================= */
+
+.pimolu-lightbox__nav {
+  position: absolute;
+  inset-block-start: 50%;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  padding: 0;
+
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: rgb(15 23 42 / 72%);
+  color: #fff;
+
+  line-height: 0;
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+
+  transition:
+    background-color 150ms,
+    opacity 150ms;
+}
+
+.pimolu-lightbox__nav--previous {
+  inset-inline-start: 0;
+}
+
+.pimolu-lightbox__nav--next {
+  inset-inline-end: 0;
+}
+
+.pimolu-lightbox__nav:hover:not(:disabled) {
+  background: rgb(255 255 255 / 18%);
+}
+
+.pimolu-lightbox__nav:disabled {
+  opacity: 0.3;
+
+  cursor: default;
+}
+
+.pimolu-lightbox__nav:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-lightbox__nav svg {
+  display: block;
+
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* =========================================
+   COUNTER
+========================================= */
+
+.pimolu-lightbox__counter {
+  margin: 0;
+
+  color: rgb(255 255 255 / 68%);
+
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+}
+
+/* =========================================
+   THUMBNAILS
+========================================= */
+
+.pimolu-lightbox__thumbnails {
+  display: flex;
+  justify-content: flex-start;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  padding-block-end: var(--pimolu-spacing-2, 8px);
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: thin;
+
+  scroll-snap-type: x proximity;
+}
+
+.pimolu-lightbox__thumbnail {
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: 3.5rem;
+  height: 3.5rem;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 2px solid transparent;
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: rgb(255 255 255 / 8%);
+
+  cursor: pointer;
+
+  opacity: 0.55;
+
+  scroll-snap-align: start;
+
+  transition:
+    opacity 150ms,
+    border-color 150ms;
+}
+
+.pimolu-lightbox__thumbnail[data-active="true"] {
+  border-color: #fff;
+
+  opacity: 1;
+}
+
+.pimolu-lightbox__thumbnail:hover {
+  opacity: 1;
+}
+
+.pimolu-lightbox__thumbnail:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-lightbox__thumbnail img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-lightbox[data-state="open"]
+  .pimolu-lightbox__overlay {
+  animation:
+    pimolu-lightbox-overlay-in
+    150ms
+    ease-out;
+}
+
+@keyframes pimolu-lightbox-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pimolu-lightbox-panel-in {
+  from {
+    opacity: 0;
+
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .pimolu-lightbox {
+    padding: var(--pimolu-spacing-2, 8px);
+  }
+
+  .pimolu-lightbox__panel {
+    padding:
+      var(--pimolu-spacing-8, 32px)
+      var(--pimolu-spacing-2, 8px)
+      0;
+  }
+
+  .pimolu-lightbox__image {
+    max-height: calc(100vh - 14rem);
+    max-height: calc(100dvh - 14rem);
+  }
+
+  .pimolu-lightbox__nav {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .pimolu-lightbox__close {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .pimolu-lightbox__thumbnail {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-lightbox[data-state="open"]
+    .pimolu-lightbox__overlay,
+  .pimolu-lightbox__panel {
+    animation: none;
+  }
+
+  .pimolu-lightbox__close,
+  .pimolu-lightbox__nav,
+  .pimolu-lightbox__thumbnail {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-lightbox__overlay {
+    background: Canvas;
+  }
+
+  .pimolu-lightbox__panel {
+    color: CanvasText;
+  }
+
+  .pimolu-lightbox__close,
+  .pimolu-lightbox__nav {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-lightbox__close:hover,
+  .pimolu-lightbox__nav:hover:not(:disabled) {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-lightbox__nav:disabled {
+    color: GrayText;
+  }
+
+  .pimolu-lightbox__caption,
+  .pimolu-lightbox__counter {
+    color: CanvasText;
+  }
+
+  .pimolu-lightbox__thumbnail {
+    border-color: CanvasText;
+  }
+
+  .pimolu-lightbox__thumbnail[data-active="true"] {
+    border-color: Highlight;
+  }
+
+  .pimolu-lightbox__close:focus-visible,
+  .pimolu-lightbox__nav:focus-visible,
+  .pimolu-lightbox__thumbnail:focus-visible,
+  .pimolu-lightbox__panel:focus-visible {
+    outline-color: Highlight;
+  }
+}

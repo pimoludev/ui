@@ -1,0 +1,659 @@
+/* =========================================
+   PIMOLU UI — GANTT
+   Shared Web Styles
+========================================= */
+
+.pimolu-gantt {
+  --pimolu-gantt-task-width: 220px;
+  --pimolu-gantt-timeline-width: 640px;
+  --pimolu-gantt-bar-color: var(--pimolu-primary, #4f46e5);
+  --pimolu-gantt-header-height: 48px;
+  --pimolu-gantt-row-height: 44px;
+  --pimolu-gantt-group-height: 32px;
+  --pimolu-gantt-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+  --pimolu-gantt-border: var(
+    --pimolu-border,
+    #e2e8f0
+  );
+  --pimolu-gantt-muted: var(
+    --pimolu-muted,
+    #f1f5f9
+  );
+  --pimolu-gantt-surface: var(
+    --pimolu-surface,
+    #ffffff
+  );
+  --pimolu-gantt-muted-foreground: var(
+    --pimolu-muted-foreground,
+    #64748b
+  );
+  --pimolu-gantt-primary: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+  --pimolu-gantt-danger: var(
+    --pimolu-danger,
+    #dc2626
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.pimolu-gantt__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pimolu-gantt__navigation,
+.pimolu-gantt__controls,
+.pimolu-gantt__zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pimolu-gantt__navigation .pimolu-button svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.pimolu-gantt__range {
+  margin-left: 6px;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.011em;
+  white-space: nowrap;
+}
+
+.pimolu-gantt__zoom-value {
+  min-width: 3.2rem;
+
+  color: var(--pimolu-gantt-muted-foreground);
+
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.pimolu-gantt__empty {
+  margin: 0;
+  padding: 30px 20px;
+
+  color: var(--pimolu-gantt-muted-foreground);
+
+  background: var(--pimolu-gantt-muted);
+  border: 1px dashed var(--pimolu-gantt-border);
+  border-radius: var(--pimolu-gantt-radius);
+
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* =========================================
+   SCROLL AND CANVAS
+========================================= */
+
+.pimolu-gantt__scroll {
+  width: 100%;
+  min-width: 0;
+
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  border: 1px solid var(--pimolu-gantt-border);
+  border-radius: var(--pimolu-gantt-radius);
+
+  background: var(--pimolu-gantt-surface);
+}
+
+.pimolu-gantt__canvas {
+  position: relative;
+
+  box-sizing: border-box;
+  min-width: calc(
+    var(--pimolu-gantt-task-width) +
+      var(--pimolu-gantt-timeline-width)
+  );
+
+  background: var(--pimolu-gantt-surface);
+}
+
+.pimolu-gantt__chart {
+  width: 100%;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-gantt__header {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+
+  background: var(--pimolu-gantt-surface);
+  border-bottom: 1px solid
+    var(--pimolu-gantt-border);
+}
+
+.pimolu-gantt__header-row {
+  display: grid;
+  grid-template-columns:
+    var(--pimolu-gantt-task-width)
+    minmax(var(--pimolu-gantt-timeline-width), 1fr);
+
+  height: var(--pimolu-gantt-header-height);
+
+  box-sizing: border-box;
+}
+
+.pimolu-gantt__task-head {
+  position: sticky;
+  left: 0;
+  z-index: 7;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0 14px;
+
+  color: var(--pimolu-gantt-muted-foreground);
+
+  background: var(--pimolu-gantt-surface);
+  border-right: 1px solid
+    var(--pimolu-gantt-border);
+
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pimolu-gantt__timeline-head {
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+.pimolu-gantt__ticks {
+  display: flex;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-gantt__tick {
+  display: flex;
+  align-items: flex-end;
+
+  box-sizing: border-box;
+  min-width: 0;
+  height: 100%;
+
+  padding: 0 5px 8px;
+
+  color: var(--pimolu-gantt-muted-foreground);
+
+  border-left: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-gantt-border) 72%,
+      transparent
+    );
+
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-gantt--day .pimolu-gantt__tick {
+  justify-content: center;
+
+  padding-right: 1px;
+  padding-left: 1px;
+}
+
+/* =========================================
+   ROWS
+========================================= */
+
+.pimolu-gantt__body {
+  position: relative;
+}
+
+.pimolu-gantt__row {
+  display: grid;
+  grid-template-columns:
+    var(--pimolu-gantt-task-width)
+    minmax(var(--pimolu-gantt-timeline-width), 1fr);
+
+  height: var(--pimolu-gantt-row-height);
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-gantt-border) 70%,
+      transparent
+    );
+}
+
+.pimolu-gantt__row:last-child {
+  border-bottom: 0;
+}
+
+.pimolu-gantt__task {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: 0 12px;
+
+  background: var(--pimolu-gantt-surface);
+  border-right: 1px solid
+    var(--pimolu-gantt-border);
+
+  overflow: hidden;
+}
+
+.pimolu-gantt__task-button {
+  display: block;
+
+  box-sizing: border-box;
+  max-width: 100%;
+
+  padding: 3px 5px;
+  margin-left: -5px;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  background: transparent;
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pimolu-gantt__task-button:hover {
+  background: var(--pimolu-gantt-muted);
+}
+
+.pimolu-gantt__task-button:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-gantt-primary));
+  outline-offset: 1px;
+}
+
+.pimolu-gantt__group-row {
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  height: var(--pimolu-gantt-group-height);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-gantt-muted) 70%,
+    transparent
+  );
+
+  border-bottom: 1px solid
+    var(--pimolu-gantt-border);
+}
+
+.pimolu-gantt__group-title {
+  position: sticky;
+  left: 0;
+
+  padding: 0 14px;
+
+  color: var(--pimolu-gantt-muted-foreground);
+
+  font-size: 0.6875rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   TRACK AND BARS
+========================================= */
+
+.pimolu-gantt__track {
+  position: relative;
+
+  min-width: 0;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+.pimolu-gantt__grid {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+
+  pointer-events: none;
+}
+
+.pimolu-gantt__grid > span {
+  box-sizing: border-box;
+  height: 100%;
+
+  border-left: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-gantt-border) 55%,
+      transparent
+    );
+}
+
+.pimolu-gantt__row:nth-child(even)
+  .pimolu-gantt__track {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-gantt-muted) 28%,
+    transparent
+  );
+}
+
+.pimolu-gantt__bar {
+  position: absolute;
+  top: 10px;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  height: calc(var(--pimolu-gantt-row-height) - 20px);
+  min-height: 18px;
+
+  padding: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-gantt-bar-color, var(--pimolu-gantt-primary))
+      24%,
+    var(--pimolu-gantt-surface)
+  );
+
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-gantt-bar-color, var(--pimolu-gantt-primary))
+        38%,
+      transparent
+    );
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  transition:
+    filter 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.pimolu-gantt__bar:hover {
+  filter: brightness(0.98);
+  box-shadow: 0 1px 3px
+    color-mix(
+      in srgb,
+      var(--pimolu-gantt-bar-color, var(--pimolu-gantt-primary))
+        22%,
+      transparent
+    );
+}
+
+.pimolu-gantt__bar:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-gantt-primary));
+  outline-offset: 1px;
+}
+
+.pimolu-gantt__bar-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  background: var(
+    --pimolu-gantt-bar-color,
+    var(--pimolu-gantt-primary)
+  );
+
+  opacity: 0.42;
+
+  pointer-events: none;
+}
+
+.pimolu-gantt__bar-label {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+
+  padding: 0 8px;
+
+  font-size: 0.6875rem;
+  font-weight: 650;
+  line-height: 1;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  overflow: hidden;
+}
+
+/* =========================================
+   OVERLAY: DEPENDENCIES AND TODAY
+========================================= */
+
+.pimolu-gantt__overlay {
+  position: absolute;
+  top: var(--pimolu-gantt-header-height);
+  right: 0;
+  bottom: 0;
+  left: var(--pimolu-gantt-task-width);
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+.pimolu-gantt__dependencies {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.pimolu-gantt__dependencies path {
+  fill: none;
+  stroke: var(--pimolu-gantt-muted-foreground);
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  opacity: 0.55;
+}
+
+.pimolu-gantt__dependencies circle {
+  fill: var(--pimolu-gantt-muted-foreground);
+
+  opacity: 0.7;
+}
+
+.pimolu-gantt__today {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  width: 2px;
+
+  background: var(--pimolu-gantt-danger);
+
+  transform: translateX(-1px);
+}
+
+.pimolu-gantt__today::before {
+  content: "";
+
+  position: absolute;
+  top: -3px;
+  left: 50%;
+
+  width: 8px;
+  height: 8px;
+
+  background: var(--pimolu-gantt-danger);
+  border-radius: 50%;
+
+  transform: translateX(-50%);
+}
+
+/* =========================================
+   UTILITIES
+========================================= */
+
+.pimolu-gantt__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  border: 0;
+
+  clip-path: inset(50%);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 720px) {
+  .pimolu-gantt__toolbar {
+    align-items: stretch;
+  }
+
+  .pimolu-gantt__navigation,
+  .pimolu-gantt__controls {
+    flex-wrap: wrap;
+  }
+
+  .pimolu-gantt__range {
+    flex-basis: 100%;
+
+    margin-left: 0;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-gantt__bar {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-gantt__scroll,
+  .pimolu-gantt__bar {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-gantt__bar-progress {
+    background: Highlight;
+  }
+
+  .pimolu-gantt__today {
+    background: CanvasText;
+  }
+
+  .pimolu-gantt__today::before {
+    background: CanvasText;
+  }
+
+  .pimolu-gantt__dependencies path {
+    stroke: CanvasText;
+
+    opacity: 1;
+  }
+
+  .pimolu-gantt__dependencies circle {
+    fill: CanvasText;
+
+    opacity: 1;
+  }
+
+  .pimolu-gantt__task-button:focus-visible,
+  .pimolu-gantt__bar:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

@@ -1,0 +1,375 @@
+/* =========================================
+   PIMOLU UI — AUDIO PLAYER
+   Shared Web Styles
+========================================= */
+
+.pimolu-audio-player {
+  display: block;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+
+  outline: none;
+}
+
+.pimolu-audio-player:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 3px;
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+/* The native element is the playback engine; the custom surface is the UI. */
+
+.pimolu-audio-player__media {
+  display: none;
+}
+
+/* =========================================
+   SURFACE
+========================================= */
+
+.pimolu-audio-player__surface {
+  display: grid;
+  grid-template-columns:
+    auto minmax(0, 1fr) auto auto;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  box-sizing: border-box;
+
+  padding: var(--pimolu-spacing-3, 12px)
+    var(--pimolu-spacing-4, 16px);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, currentColor);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, Canvas)
+  );
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+}
+
+/* =========================================
+   PLAY / PAUSE
+========================================= */
+
+.pimolu-audio-player__toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: var(
+    --pimolu-primary,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  color: var(
+    --pimolu-primary-foreground,
+    var(--pimolu-background, #fff)
+  );
+
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    transform 150ms;
+}
+
+.pimolu-audio-player__toggle:hover {
+  background: var(
+    --pimolu-primary-hover,
+    var(--pimolu-primary, currentColor)
+  );
+}
+
+.pimolu-audio-player__toggle:active {
+  transform: scale(0.96);
+}
+
+.pimolu-audio-player__toggle:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-audio-player__toggle svg {
+  display: block;
+
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* =========================================
+   TRACK INFO
+========================================= */
+
+.pimolu-audio-player__info {
+  display: grid;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-audio-player__title {
+  overflow: hidden;
+
+  color: var(
+    --pimolu-foreground,
+    currentColor
+  );
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-audio-player__subtitle {
+  overflow: hidden;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   TIME
+========================================= */
+
+.pimolu-audio-player__time {
+  color: var(--pimolu-muted-foreground);
+
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   VOLUME
+========================================= */
+
+.pimolu-audio-player__volume-group {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-audio-player__mute {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 1.75rem;
+  height: 1.75rem;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: transparent;
+
+  color: var(--pimolu-muted-foreground);
+
+  line-height: 0;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+
+.pimolu-audio-player__mute:hover {
+  background: var(--pimolu-muted);
+
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-audio-player__mute:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-audio-player__mute svg {
+  display: block;
+
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.pimolu-audio-player__volume {
+  box-sizing: border-box;
+
+  width: 4.5rem;
+  height: 1.25rem;
+
+  margin: 0;
+
+  accent-color: var(
+    --pimolu-primary,
+    currentColor
+  );
+
+  cursor: pointer;
+}
+
+/* =========================================
+   TIMELINE
+========================================= */
+
+.pimolu-audio-player__timeline {
+  grid-column: 1 / -1;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 1.25rem;
+
+  margin: 0;
+
+  accent-color: var(
+    --pimolu-primary,
+    currentColor
+  );
+
+  cursor: pointer;
+}
+
+.pimolu-audio-player__timeline:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.pimolu-audio-player__timeline:focus-visible,
+.pimolu-audio-player__volume:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 520px) {
+  .pimolu-audio-player__surface {
+    gap: var(--pimolu-spacing-2, 8px);
+
+    padding: var(--pimolu-spacing-2, 8px)
+      var(--pimolu-spacing-3, 12px);
+  }
+
+  .pimolu-audio-player__volume {
+    width: 3.5rem;
+  }
+
+  .pimolu-audio-player__time {
+    display: none;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-audio-player__toggle,
+  .pimolu-audio-player__mute {
+    transition: none;
+  }
+
+  .pimolu-audio-player__toggle:active {
+    transform: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-audio-player__surface {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-audio-player__toggle {
+    border: 1px solid CanvasText;
+
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-audio-player__mute {
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-audio-player__title,
+  .pimolu-audio-player__subtitle,
+  .pimolu-audio-player__time {
+    color: CanvasText;
+  }
+
+  .pimolu-audio-player__toggle:focus-visible,
+  .pimolu-audio-player__mute:focus-visible,
+  .pimolu-audio-player__timeline:focus-visible,
+  .pimolu-audio-player__volume:focus-visible,
+  .pimolu-audio-player:focus-visible {
+    outline-color: Highlight;
+  }
+}

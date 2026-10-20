@@ -52,6 +52,12 @@ their appearance.
   alignment as classes plus local CSS custom properties; they never introduce a
   CSS-in-JS layer. `FocusScope` reuses the shared focus-trap hook without
   requiring a modal.
+- The advanced layer composes the same primitives: `DataGrid` and
+  `TreeTable` extend the table family, `Chart` renders accessible SVG,
+  `Form` orchestrates validation without a dependency, and the media,
+  application and complex families (players, lightbox, QR code, Menubar,
+  Toolbar, Tour, Kanban, Chat, Scheduler, Gantt, FileManager) remain
+  data-driven and CSS-token based.
 - `apps/playground/src/router.ts` declares the demo pages;
   `apps/playground/src/demo-data.ts` derives the option lists from the public
   variant maps. `examples/nextjs` is a separate integration example.

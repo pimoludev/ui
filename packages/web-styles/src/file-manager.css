@@ -1,0 +1,491 @@
+/* =========================================
+   PIMOLU UI — FILE MANAGER
+   Shared Web Styles
+========================================= */
+
+.pimolu-file-manager {
+  --pimolu-file-manager-radius: var(
+    --pimolu-radius-lg,
+    12px
+  );
+  --pimolu-file-manager-border: var(
+    --pimolu-border,
+    #e2e8f0
+  );
+  --pimolu-file-manager-muted: var(
+    --pimolu-muted,
+    #f1f5f9
+  );
+  --pimolu-file-manager-surface: var(
+    --pimolu-surface,
+    #ffffff
+  );
+  --pimolu-file-manager-muted-foreground: var(
+    --pimolu-muted-foreground,
+    #64748b
+  );
+  --pimolu-file-manager-primary: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.pimolu-file-manager__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pimolu-file-manager__search {
+  flex: 1 1 220px;
+
+  max-width: 340px;
+  min-width: 160px;
+}
+
+.pimolu-file-manager__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.pimolu-file-manager__select {
+  box-sizing: border-box;
+  height: 32px;
+
+  padding: 0 28px 0 9px;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  background-color: var(--pimolu-file-manager-surface);
+
+  border: 1px solid
+    var(--pimolu-file-manager-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font: inherit;
+  font-size: 0.8125rem;
+
+  cursor: pointer;
+}
+
+.pimolu-file-manager__select:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-file-manager-primary));
+  outline-offset: 2px;
+}
+
+/* =========================================
+   LOCATION AND BREADCRUMBS
+========================================= */
+
+.pimolu-file-manager__location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.pimolu-file-manager__location .pimolu-breadcrumbs {
+  min-width: 0;
+}
+
+.pimolu-file-manager__count {
+  color: var(--pimolu-file-manager-muted-foreground);
+
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* =========================================
+   SHARED ITEM PARTS
+========================================= */
+
+.pimolu-file-manager__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 30px;
+  height: 30px;
+
+  color: var(--pimolu-file-manager-muted-foreground);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+}
+
+.pimolu-file-manager__icon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.pimolu-file-manager__icon--folder {
+  color: var(--pimolu-file-manager-primary);
+}
+
+.pimolu-file-manager__icon--image {
+  color: var(--pimolu-success, #15803d);
+}
+
+.pimolu-file-manager__icon--video {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 62%,
+    var(--pimolu-danger, #dc2626)
+  );
+}
+
+.pimolu-file-manager__icon--audio {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-danger, #dc2626) 55%,
+    var(--pimolu-file-manager-primary)
+  );
+}
+
+.pimolu-file-manager__icon--archive {
+  color: var(--pimolu-warning, #d97706);
+}
+
+.pimolu-file-manager__icon--pdf {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-file-manager__icon--spreadsheet {
+  color: var(--pimolu-success, #15803d);
+}
+
+.pimolu-file-manager__icon--code {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 70%,
+    var(--pimolu-success, #15803d)
+  );
+}
+
+.pimolu-file-manager__icon--document {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 45%,
+    var(--pimolu-file-manager-muted-foreground)
+  );
+}
+
+.pimolu-file-manager__name,
+.pimolu-file-manager__tile-name {
+  min-width: 0;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  font-weight: 550;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-file-manager__meta,
+.pimolu-file-manager__tile-meta {
+  color: var(--pimolu-file-manager-muted-foreground);
+
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   LIST VIEW
+========================================= */
+
+.pimolu-file-manager__list {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  width: 100%;
+
+  border: 1px solid
+    var(--pimolu-file-manager-border);
+  border-radius: var(--pimolu-file-manager-radius);
+
+  background: var(--pimolu-file-manager-surface);
+
+  overflow: hidden;
+}
+
+.pimolu-file-manager__item {
+  display: grid;
+  grid-template-columns:
+    32px minmax(0, 1fr) 132px 96px;
+  align-items: center;
+  gap: 10px;
+
+  box-sizing: border-box;
+  min-height: 46px;
+
+  padding: 6px 12px;
+
+  border-bottom: 1px solid
+    color-mix(
+      in srgb,
+      var(--pimolu-file-manager-border) 72%,
+      transparent
+    );
+
+  cursor: default;
+
+  user-select: none;
+
+  transition: background-color 130ms ease;
+}
+
+.pimolu-file-manager__item:last-child {
+  border-bottom: 0;
+}
+
+.pimolu-file-manager__item:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-muted) 72%,
+    transparent
+  );
+}
+
+.pimolu-file-manager__item--selected {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 13%,
+    var(--pimolu-file-manager-surface)
+  );
+}
+
+.pimolu-file-manager__item--selected:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 18%,
+    var(--pimolu-file-manager-surface)
+  );
+}
+
+.pimolu-file-manager__item:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-file-manager-primary));
+  outline-offset: -2px;
+}
+
+.pimolu-file-manager__meta--modified,
+.pimolu-file-manager__meta--size {
+  text-align: right;
+}
+
+/* =========================================
+   GRID VIEW
+========================================= */
+
+.pimolu-file-manager__grid {
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 10px;
+
+  border: 1px solid
+    var(--pimolu-file-manager-border);
+  border-radius: var(--pimolu-file-manager-radius);
+
+  background: var(--pimolu-file-manager-surface);
+}
+
+.pimolu-file-manager__grid-row {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(150px, 1fr)
+  );
+  gap: 8px;
+}
+
+.pimolu-file-manager__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 132px;
+
+  padding: 12px;
+
+  background: var(--pimolu-file-manager-surface);
+
+  border: 1px solid
+    var(--pimolu-file-manager-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  cursor: default;
+
+  user-select: none;
+
+  transition:
+    background-color 130ms ease,
+    border-color 130ms ease;
+}
+
+.pimolu-file-manager__tile .pimolu-file-manager__icon {
+  width: 40px;
+  height: 40px;
+}
+
+.pimolu-file-manager__tile .pimolu-file-manager__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.pimolu-file-manager__tile:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-muted) 65%,
+    transparent
+  );
+}
+
+.pimolu-file-manager__tile--selected {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 13%,
+    var(--pimolu-file-manager-surface)
+  );
+
+  border-color: color-mix(
+    in srgb,
+    var(--pimolu-file-manager-primary) 52%,
+    var(--pimolu-file-manager-border)
+  );
+}
+
+.pimolu-file-manager__tile:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-file-manager-primary));
+  outline-offset: -2px;
+}
+
+.pimolu-file-manager__tile-name {
+  width: 100%;
+
+  margin-top: 2px;
+
+  font-size: 0.8125rem;
+}
+
+.pimolu-file-manager__tile-meta {
+  width: 100%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 720px) {
+  .pimolu-file-manager__toolbar {
+    align-items: stretch;
+  }
+
+  .pimolu-file-manager__search {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .pimolu-file-manager__actions {
+    width: 100%;
+  }
+
+  .pimolu-file-manager__item {
+    grid-template-columns:
+      32px minmax(0, 1fr) 88px;
+  }
+
+  .pimolu-file-manager__meta--modified {
+    display: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .pimolu-file-manager__item {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .pimolu-file-manager__meta--size {
+    display: none;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-file-manager__item,
+  .pimolu-file-manager__tile {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-file-manager__list,
+  .pimolu-file-manager__grid,
+  .pimolu-file-manager__tile,
+  .pimolu-file-manager__item {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-file-manager__item--selected,
+  .pimolu-file-manager__tile--selected {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pimolu-file-manager__icon {
+    color: CanvasText;
+  }
+
+  .pimolu-file-manager__item:focus-visible,
+  .pimolu-file-manager__tile:focus-visible,
+  .pimolu-file-manager__select:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

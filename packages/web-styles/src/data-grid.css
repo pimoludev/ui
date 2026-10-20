@@ -1,0 +1,659 @@
+/* =========================================
+   PIMOLU UI - DATA GRID
+   Shared Web Styles
+========================================= */
+
+.pimolu-data-grid {
+  --pimolu-data-grid-gap: 12px;
+  --pimolu-data-grid-radius: var(
+    --pimolu-radius-md,
+    8px
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--pimolu-data-grid-gap);
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.pimolu-data-grid__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--pimolu-data-grid-gap);
+}
+
+.pimolu-data-grid__filter {
+  flex: 1 1 220px;
+
+  min-width: 12rem;
+  max-width: 22rem;
+}
+
+.pimolu-data-grid__filter-input {
+  width: 100%;
+}
+
+.pimolu-data-grid__toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  margin-inline-start: auto;
+}
+
+/* =========================================
+   COLUMN VISIBILITY
+========================================= */
+
+.pimolu-data-grid__columns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  min-width: 180px;
+}
+
+.pimolu-data-grid__columns-title {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.pimolu-data-grid__columns-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-height: 18rem;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* =========================================
+   SELECTION BAR
+========================================= */
+
+.pimolu-data-grid__selection-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px 6px 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-data-grid-radius);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-data-grid__selection-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.pimolu-data-grid__clear-selection {
+  margin-inline-start: auto;
+}
+
+/* =========================================
+   TABLE CONTAINER
+========================================= */
+
+.pimolu-data-grid__table-container {
+  position: relative;
+
+  min-width: 0;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-data-grid-radius);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  overflow: hidden;
+}
+
+.pimolu-data-grid__table {
+  width: 100%;
+}
+
+.pimolu-data-grid__table-wrapper {
+  min-width: 0;
+}
+
+.pimolu-data-grid__table-wrapper:focus-visible {
+  outline-offset: -2px;
+  border-radius: var(--pimolu-data-grid-radius);
+}
+
+/* Sticky header needs a bounded scroll area. */
+
+.pimolu-data-grid--sticky
+  .pimolu-data-grid__table-wrapper {
+  max-height: 30rem;
+
+  overflow-y: auto;
+}
+
+/* =========================================
+   HEADERS AND SORTING
+========================================= */
+
+.pimolu-data-grid__head,
+.pimolu-data-grid__cell {
+  white-space: nowrap;
+}
+
+.pimolu-data-grid__head--start,
+.pimolu-data-grid__cell--start {
+  text-align: start;
+}
+
+.pimolu-data-grid__head--center,
+.pimolu-data-grid__cell--center {
+  text-align: center;
+}
+
+.pimolu-data-grid__head--end,
+.pimolu-data-grid__cell--end {
+  text-align: end;
+}
+
+.pimolu-data-grid__head--sized {
+  overflow: hidden;
+}
+
+.pimolu-data-grid__head-inner {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.pimolu-data-grid__head-inner[data-align="center"] {
+  justify-content: center;
+}
+
+.pimolu-data-grid__head-inner[data-align="end"] {
+  justify-content: flex-end;
+}
+
+.pimolu-data-grid__head-label {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-data-grid__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  min-width: 0;
+  max-width: 100%;
+
+  margin: -4px;
+  padding: 4px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: none;
+  color: inherit;
+
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+
+  cursor: pointer;
+
+  transition: color 150ms ease;
+}
+
+.pimolu-data-grid__sort-button:hover {
+  color: var(--pimolu-primary);
+}
+
+.pimolu-data-grid__sort-button:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-data-grid__sort-icon {
+  flex: none;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.pimolu-data-grid__sort-icon[data-active="true"] {
+  color: var(--pimolu-primary);
+}
+
+/* =========================================
+   COLUMN RESIZER
+========================================= */
+
+.pimolu-data-grid__resizer {
+  position: absolute;
+  inset-block: -12px;
+  inset-inline-end: -10px;
+  z-index: 2;
+
+  width: 10px;
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  cursor: col-resize;
+  touch-action: none;
+
+  transition: background-color 120ms ease;
+}
+
+.pimolu-data-grid__resizer::after {
+  content: "";
+
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 4px;
+
+  width: 1px;
+
+  background: var(--pimolu-border);
+
+  transition:
+    background-color 120ms ease,
+    width 120ms ease;
+}
+
+.pimolu-data-grid__resizer:hover::after,
+.pimolu-data-grid__resizer[data-resizing="true"]::after {
+  width: 2px;
+
+  background: var(--pimolu-primary);
+}
+
+.pimolu-data-grid__resizer[data-resizing="true"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    transparent
+  );
+}
+
+.pimolu-data-grid__resizer:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: -1px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    transparent
+  );
+}
+
+/* =========================================
+   SELECTION AND ROWS
+========================================= */
+
+.pimolu-data-grid__select-cell {
+  width: 44px;
+  padding-inline-end: 0;
+
+  vertical-align: middle;
+}
+
+.pimolu-data-grid__cell {
+  vertical-align: middle;
+}
+
+/* Paint the cells so the selected state survives the table row hover. */
+
+.pimolu-data-grid__row--selected
+  > .pimolu-data-grid__cell,
+.pimolu-data-grid__row--selected
+  > .pimolu-data-grid__select-cell {
+  background: var(--pimolu-muted);
+}
+
+/* =========================================
+   GROUPS
+========================================= */
+
+.pimolu-data-grid__group-row
+  > .pimolu-data-grid__group-cell {
+  padding-block: 6px;
+
+  border-block-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted) 70%,
+    var(--pimolu-surface, var(--pimolu-background))
+  );
+}
+
+.pimolu-data-grid__group-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+
+  margin: 0;
+  padding: 4px 6px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: none;
+  color: var(--pimolu-foreground);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: start;
+
+  cursor: pointer;
+}
+
+.pimolu-data-grid__group-toggle:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 8%,
+    transparent
+  );
+}
+
+.pimolu-data-grid__group-toggle:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 0;
+}
+
+.pimolu-data-grid__group-chevron {
+  flex: none;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1;
+
+  transition: transform 120ms ease;
+}
+
+.pimolu-data-grid__group-chevron[data-expanded="true"] {
+  transform: rotate(90deg);
+}
+
+.pimolu-data-grid__group-label {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-data-grid__group-count {
+  flex: none;
+
+  margin-inline-start: 2px;
+  padding: 1px 8px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* =========================================
+   EMPTY STATE AND LOADING
+========================================= */
+
+.pimolu-data-grid__empty {
+  padding: 32px 16px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  text-align: center;
+  white-space: normal;
+}
+
+.pimolu-data-grid__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+}
+
+.pimolu-data-grid__overlay-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: 999px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.pimolu-data-grid__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pimolu-data-grid-gap);
+}
+
+.pimolu-data-grid__status {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.pimolu-data-grid__footer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pimolu-data-grid-gap);
+}
+
+.pimolu-data-grid__page-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.pimolu-data-grid__page-size-label {
+  white-space: nowrap;
+}
+
+.pimolu-data-grid__page-size-select {
+  box-sizing: border-box;
+
+  min-height: 2rem;
+
+  padding: 4px 8px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+  color: var(--pimolu-foreground);
+
+  font: inherit;
+  font-size: 0.875rem;
+
+  cursor: pointer;
+}
+
+.pimolu-data-grid__page-size-select:hover {
+  border-color: var(--pimolu-primary);
+}
+
+.pimolu-data-grid__page-size-select:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-data-grid__sort-button,
+  .pimolu-data-grid__resizer,
+  .pimolu-data-grid__resizer::after,
+  .pimolu-data-grid__group-chevron {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-data-grid__table-container,
+  .pimolu-data-grid__selection-bar,
+  .pimolu-data-grid__overlay-label,
+  .pimolu-data-grid__page-size-select,
+  .pimolu-data-grid__group-count {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-data-grid__sort-button:focus-visible,
+  .pimolu-data-grid__group-toggle:focus-visible,
+  .pimolu-data-grid__page-size-select:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-data-grid__resizer::after {
+    background: CanvasText;
+  }
+
+  .pimolu-data-grid__resizer:hover::after,
+  .pimolu-data-grid__resizer[data-resizing="true"]::after {
+    background: Highlight;
+  }
+
+  .pimolu-data-grid__row--selected
+    > .pimolu-data-grid__cell,
+  .pimolu-data-grid__row--selected
+    > .pimolu-data-grid__select-cell {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-data-grid__group-row
+    > .pimolu-data-grid__group-cell {
+    background: Canvas;
+  }
+}

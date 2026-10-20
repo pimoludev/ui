@@ -1,0 +1,32 @@
+/* =========================================
+   PIMOLU UI — QR CODE
+   Shared Web Styles
+========================================= */
+
+.pimolu-qr-code {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  overflow: hidden;
+
+  /* The path is drawn on the pixel grid; keep the edges crisp when scaled. */
+  shape-rendering: crispEdges;
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-qr-code__background {
+    fill: Canvas;
+  }
+
+  .pimolu-qr-code__modules {
+    fill: CanvasText;
+  }
+}

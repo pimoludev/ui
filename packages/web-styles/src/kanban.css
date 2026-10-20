@@ -1,0 +1,753 @@
+/* =========================================
+   PIMOLU UI — KANBAN
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-kanban {
+  --pimolu-kanban-column-width: clamp(16rem, 21vw, 19rem);
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--pimolu-spacing-4, 16px);
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: var(--pimolu-spacing-1, 4px)
+    var(--pimolu-spacing-1, 4px)
+    var(--pimolu-spacing-4, 16px);
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-color: var(--pimolu-border, #e2e8f0) transparent;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: var(--pimolu-font-size-sm, 14px);
+}
+
+/* =========================================
+   COLUMN
+========================================= */
+
+.pimolu-kanban__column {
+  display: flex;
+  flex: 0 0 var(--pimolu-kanban-column-width);
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  min-width: 15rem;
+  max-height: min(72vh, 46rem);
+
+  border: var(--pimolu-control-border-width, 1px) solid
+    var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-lg, 14px);
+
+  background: var(--pimolu-surface, var(--pimolu-background, #fff));
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  scroll-snap-align: start;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-kanban__column--drop {
+  border-color: var(--pimolu-primary, #4f46e5);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 5%,
+    var(--pimolu-surface, var(--pimolu-background, #fff))
+  );
+
+  box-shadow: inset 0 0 0 1px
+    color-mix(
+      in srgb,
+      var(--pimolu-primary, #4f46e5) 35%,
+      transparent
+    );
+}
+
+.pimolu-kanban__column-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  padding: var(--pimolu-spacing-3, 12px);
+
+  border-bottom: 1px solid
+    var(--pimolu-border, #e2e8f0);
+}
+
+.pimolu-kanban__column-title {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+
+  min-width: 0;
+  margin: 0;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: var(--pimolu-font-size-sm, 14px);
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-kanban__count {
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+  font-weight: 450;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================
+   LIST
+========================================= */
+
+.pimolu-kanban__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  box-sizing: border-box;
+
+  min-height: 4.5rem;
+  margin: 0;
+  padding: var(--pimolu-spacing-2, 8px);
+
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-color: var(--pimolu-border, #e2e8f0) transparent;
+
+  list-style: none;
+}
+
+.pimolu-kanban__item {
+  min-width: 0;
+
+  list-style: none;
+}
+
+.pimolu-kanban__empty {
+  display: grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  min-height: 4rem;
+  padding: var(--pimolu-spacing-4, 16px);
+
+  border: 1px dashed var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-md, 10px);
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+  text-align: center;
+}
+
+/* =========================================
+   DROP INDICATOR
+========================================= */
+
+.pimolu-kanban__drop-indicator {
+  position: relative;
+
+  height: 2px;
+  margin-block: 1px;
+
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  background: var(--pimolu-primary, #4f46e5);
+
+  list-style: none;
+
+  box-shadow: 0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--pimolu-primary, #4f46e5) 18%,
+      transparent
+    );
+}
+
+.pimolu-kanban__drop-indicator::before {
+  content: "";
+
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+
+  width: 6px;
+  height: 6px;
+
+  transform: translate(-40%, -50%);
+
+  border-radius: var(
+    --pimolu-radius-full,
+    9999px
+  );
+
+  background: var(--pimolu-primary, #4f46e5);
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.pimolu-kanban__card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  padding: 10px var(--pimolu-spacing-3, 12px);
+
+  border: var(--pimolu-control-border-width, 1px) solid
+    var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-md, 10px);
+
+  background: var(--pimolu-background, #fff);
+  color: var(--pimolu-foreground, currentColor);
+
+  box-shadow: var(
+    --pimolu-shadow-sm,
+    0 1px 2px rgb(15 23 42 / 6%)
+  );
+
+  cursor: grab;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease,
+    transform 150ms ease;
+}
+
+.pimolu-kanban__card:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 35%,
+    var(--pimolu-border, #e2e8f0)
+  );
+}
+
+.pimolu-kanban__card:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+.pimolu-kanban__card:active {
+  cursor: grabbing;
+}
+
+.pimolu-kanban__card--dragging {
+  opacity: 0.45;
+}
+
+.pimolu-kanban__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  min-height: 20px;
+}
+
+.pimolu-kanban__grip {
+  display: inline-flex;
+
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  opacity: 0.55;
+}
+
+.pimolu-kanban__card:hover .pimolu-kanban__grip,
+.pimolu-kanban__card:focus-within .pimolu-kanban__grip {
+  opacity: 0.9;
+}
+
+.pimolu-kanban__priority {
+  text-transform: capitalize;
+}
+
+.pimolu-kanban__labels {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.pimolu-kanban__card-title {
+  display: block;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground, currentColor);
+
+  font-size: var(--pimolu-font-size-sm, 14px);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: start;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-kanban__card-title--button {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  background: none;
+  color: inherit;
+
+  font: inherit;
+  font-weight: 600;
+  text-align: start;
+
+  cursor: pointer;
+}
+
+.pimolu-kanban__card-title--button:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pimolu-kanban__card-title--button:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+}
+
+.pimolu-kanban__card-description {
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-font-size-xs, 12px);
+  line-height: 1.55;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-kanban__card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  margin-top: 2px;
+}
+
+.pimolu-kanban__card-meta {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+}
+
+/* =========================================
+   MOVE MENU
+========================================= */
+
+.pimolu-kanban__move {
+  position: relative;
+
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.pimolu-kanban__move-trigger {
+  display: inline-grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  width: 28px;
+  height: 28px;
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: transparent;
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-kanban__move-trigger:hover {
+  background: var(--pimolu-muted, #f1f5f9);
+  color: var(--pimolu-foreground, currentColor);
+}
+
+.pimolu-kanban__move-trigger:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 1px;
+}
+
+.pimolu-kanban__move-menu {
+  position: absolute;
+  inset-block-start: calc(100% + 4px);
+  inset-inline-end: 0;
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 1px;
+
+  box-sizing: border-box;
+
+  min-width: 12.5rem;
+  max-height: 18rem;
+  margin: 0;
+  padding: 4px;
+
+  overflow-y: auto;
+
+  border: 1px solid var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-md, 10px);
+
+  background: var(--pimolu-background, #fff);
+  color: var(--pimolu-foreground, currentColor);
+
+  box-shadow:
+    0 12px 28px rgb(15 23 42 / 16%),
+    0 2px 6px rgb(15 23 42 / 8%);
+
+  list-style: none;
+}
+
+.pimolu-kanban__move-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  width: 100%;
+  padding: 6px 8px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  font-size: var(--pimolu-font-size-xs, 12px);
+  text-align: start;
+
+  cursor: pointer;
+}
+
+.pimolu-kanban__move-item:hover:not(:disabled),
+.pimolu-kanban__move-item:focus-visible {
+  background: var(--pimolu-muted, #f1f5f9);
+}
+
+.pimolu-kanban__move-item:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: -2px;
+}
+
+.pimolu-kanban__move-item:disabled {
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pimolu-kanban__move-separator {
+  display: block;
+
+  height: 1px;
+  margin: 4px 2px;
+
+  background: var(--pimolu-border, #e2e8f0);
+}
+
+.pimolu-kanban__move-full {
+  color: var(
+    --pimolu-warning,
+    #d97706
+  );
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   ADD CARD
+========================================= */
+
+.pimolu-kanban__column-footer {
+  padding: 0 var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-2, 8px);
+}
+
+.pimolu-kanban__add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 10px;
+
+  border: 1px dashed var(--pimolu-border, #e2e8f0);
+  border-radius: var(--pimolu-radius-md, 10px);
+
+  background: transparent;
+  color: var(
+    --pimolu-muted-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font: inherit;
+  font-size: var(--pimolu-font-size-xs, 12px);
+  font-weight: 550;
+
+  cursor: pointer;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.pimolu-kanban__add:hover {
+  border-color: var(--pimolu-primary, #4f46e5);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 6%,
+    transparent
+  );
+
+  color: var(--pimolu-primary, #4f46e5);
+}
+
+.pimolu-kanban__add:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 2px;
+}
+
+.pimolu-kanban__add:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.pimolu-kanban__sr {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+.pimolu-kanban__announcement {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 640px) {
+  .pimolu-kanban {
+    --pimolu-kanban-column-width: min(82vw, 18rem);
+
+    gap: var(--pimolu-spacing-3, 12px);
+
+    padding-block-end: var(--pimolu-spacing-3, 12px);
+  }
+
+  .pimolu-kanban__column {
+    max-height: min(68vh, 40rem);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-kanban {
+    scroll-behavior: auto;
+  }
+
+  .pimolu-kanban__column,
+  .pimolu-kanban__card,
+  .pimolu-kanban__move-trigger,
+  .pimolu-kanban__add {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-kanban__column,
+  .pimolu-kanban__card,
+  .pimolu-kanban__empty,
+  .pimolu-kanban__move-menu,
+  .pimolu-kanban__add {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-kanban__column--drop {
+    border-color: Highlight;
+
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pimolu-kanban__drop-indicator,
+  .pimolu-kanban__drop-indicator::before {
+    background: Highlight;
+
+    box-shadow: none;
+  }
+
+  .pimolu-kanban__card--dragging {
+    opacity: 0.55;
+  }
+
+  .pimolu-kanban__move-trigger:focus-visible,
+  .pimolu-kanban__card:focus-visible,
+  .pimolu-kanban__card-title--button:focus-visible,
+  .pimolu-kanban__add:focus-visible,
+  .pimolu-kanban__move-item:focus-visible {
+    outline: 2px solid Highlight;
+  }
+
+  .pimolu-kanban__move-item:disabled,
+  .pimolu-kanban__add:disabled,
+  .pimolu-kanban__count,
+  .pimolu-kanban__card-description,
+  .pimolu-kanban__empty {
+    color: GrayText;
+  }
+
+  .pimolu-kanban__move-item:hover:not(:disabled) {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-kanban__move-full {
+    color: CanvasText;
+  }
+
+  .pimolu-kanban__move-separator {
+    background: CanvasText;
+  }
+}

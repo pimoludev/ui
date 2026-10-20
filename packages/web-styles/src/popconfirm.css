@@ -1,0 +1,156 @@
+/* =========================================
+   PIMOLU UI - POPCONFIRM
+   Shared Web Styles
+========================================= */
+
+.pimolu-popconfirm {
+  display: grid;
+  gap: 14px;
+
+  box-sizing: border-box;
+
+  min-width: 15rem;
+  max-width: 22rem;
+}
+
+.pimolu-popconfirm__header {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+}
+
+.pimolu-popconfirm__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+
+  margin-block-start: 1px;
+
+  color: var(--pimolu-warning, #d97706);
+}
+
+.pimolu-popconfirm[data-variant="destructive"]
+  .pimolu-popconfirm__icon {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-popconfirm__body {
+  min-width: 0;
+}
+
+.pimolu-popconfirm__title {
+  margin: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.pimolu-popconfirm__description {
+  margin: 4px 0 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.pimolu-popconfirm__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.pimolu-popconfirm__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  min-height: 32px;
+
+  padding: 0 12px;
+
+  border: 1px solid transparent;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.pimolu-popconfirm__button:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, Highlight);
+  outline-offset: 2px;
+}
+
+.pimolu-popconfirm__button--cancel {
+  border-color: var(--pimolu-border);
+
+  background: transparent;
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-popconfirm__button--cancel:hover {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-popconfirm__button--confirm {
+  background: var(
+    --pimolu-primary,
+    var(--pimolu-foreground)
+  );
+
+  color: var(--pimolu-primary-foreground);
+}
+
+.pimolu-popconfirm__button--confirm:hover {
+  background: var(
+    --pimolu-primary-hover,
+    var(--pimolu-primary, var(--pimolu-foreground))
+  );
+}
+
+.pimolu-popconfirm[data-variant="destructive"]
+  .pimolu-popconfirm__button--confirm {
+  background: var(--pimolu-danger, #dc2626);
+
+  color: var(--pimolu-danger-foreground, #ffffff);
+}
+
+.pimolu-popconfirm[data-variant="destructive"]
+  .pimolu-popconfirm__button--confirm:hover {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-danger, #dc2626) 86%,
+    black
+  );
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-popconfirm__button {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-popconfirm__button:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

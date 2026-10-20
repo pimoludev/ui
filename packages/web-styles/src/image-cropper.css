@@ -1,0 +1,540 @@
+/* =========================================
+   PIMOLU UI — IMAGE CROPPER
+   Shared Web Styles
+========================================= */
+
+.pimolu-image-cropper {
+  --pimolu-image-cropper-shade: rgb(15 23 42 / 55%);
+  --pimolu-image-cropper-handle: #fff;
+
+  position: relative;
+
+  display: grid;
+  gap: var(--pimolu-spacing-3, 12px);
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   INSTRUCTIONS
+========================================= */
+
+.pimolu-image-cropper__instructions {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   STAGE
+========================================= */
+
+.pimolu-image-cropper__stage {
+  position: relative;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow: hidden;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, currentColor);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  background: var(--pimolu-muted);
+
+  touch-action: none;
+
+  user-select: none;
+}
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.pimolu-image-cropper__image {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform-origin: center;
+
+  pointer-events: none;
+  user-select: none;
+
+  transition: transform 160ms ease-out;
+}
+
+.pimolu-image-cropper[data-dragging="true"]
+  .pimolu-image-cropper__image {
+  transition: none;
+}
+
+/* =========================================
+   CROP AREA
+========================================= */
+
+.pimolu-image-cropper__crop {
+  position: absolute;
+  z-index: 1;
+
+  box-sizing: border-box;
+
+  border: 2px solid
+    var(--pimolu-image-cropper-handle);
+
+  border-radius: 2px;
+
+  box-shadow:
+    0 0 0 9999px
+      var(--pimolu-image-cropper-shade),
+    inset 0 0 0 1px rgb(15 23 42 / 45%);
+
+  cursor: move;
+
+  outline: none;
+
+  touch-action: none;
+}
+
+.pimolu-image-cropper__crop:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* Rule-of-thirds guides. */
+
+.pimolu-image-cropper__crop::before,
+.pimolu-image-cropper__crop::after {
+  content: "";
+
+  position: absolute;
+
+  pointer-events: none;
+}
+
+.pimolu-image-cropper__crop::before {
+  inset-block: 0;
+  inset-inline-start: 33.3333%;
+  inset-inline-end: 33.3333%;
+
+  border-inline: 1px solid rgb(255 255 255 / 38%);
+}
+
+.pimolu-image-cropper__crop::after {
+  inset-inline: 0;
+  inset-block-start: 33.3333%;
+  inset-block-end: 33.3333%;
+
+  border-block: 1px solid rgb(255 255 255 / 38%);
+}
+
+/* =========================================
+   HANDLES
+========================================= */
+
+.pimolu-image-cropper__handle {
+  position: absolute;
+  z-index: 2;
+
+  box-sizing: border-box;
+
+  width: 0.875rem;
+  height: 0.875rem;
+
+  padding: 0;
+
+  border: 2px solid
+    var(--pimolu-image-cropper-handle);
+
+  border-radius: 3px;
+
+  background: var(
+    --pimolu-primary,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  box-shadow: 0 1px 2px rgb(15 23 42 / 45%);
+
+  cursor: pointer;
+}
+
+.pimolu-image-cropper__handle--nw {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+
+  transform: translate(-50%, -50%);
+
+  cursor: nwse-resize;
+}
+
+.pimolu-image-cropper__handle--n {
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+
+  transform: translate(-50%, -50%);
+
+  cursor: ns-resize;
+}
+
+.pimolu-image-cropper__handle--ne {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+
+  transform: translate(50%, -50%);
+
+  cursor: nesw-resize;
+}
+
+.pimolu-image-cropper__handle--e {
+  inset-block-start: 50%;
+  inset-inline-end: 0;
+
+  transform: translate(50%, -50%);
+
+  cursor: ew-resize;
+}
+
+.pimolu-image-cropper__handle--se {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+
+  transform: translate(50%, 50%);
+
+  cursor: nwse-resize;
+}
+
+.pimolu-image-cropper__handle--s {
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+
+  transform: translate(-50%, 50%);
+
+  cursor: ns-resize;
+}
+
+.pimolu-image-cropper__handle--sw {
+  inset-block-end: 0;
+  inset-inline-start: 0;
+
+  transform: translate(-50%, 50%);
+
+  cursor: nesw-resize;
+}
+
+.pimolu-image-cropper__handle--w {
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+
+  transform: translate(-50%, -50%);
+
+  cursor: ew-resize;
+}
+
+.pimolu-image-cropper__handle:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.pimolu-image-cropper[data-disabled="true"]
+  .pimolu-image-cropper__crop,
+.pimolu-image-cropper[data-disabled="true"]
+  .pimolu-image-cropper__handle {
+  pointer-events: none;
+}
+
+.pimolu-image-cropper[data-disabled="true"]
+  .pimolu-image-cropper__crop {
+  cursor: default;
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.pimolu-image-cropper__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-3, 12px);
+}
+
+.pimolu-image-cropper__zoom {
+  display: grid;
+  flex: 1 1 13rem;
+  grid-template-columns: auto minmax(4rem, 1fr) auto;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.pimolu-image-cropper__zoom-input {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 1.25rem;
+
+  margin: 0;
+
+  accent-color: var(
+    --pimolu-primary,
+    currentColor
+  );
+
+  cursor: pointer;
+}
+
+.pimolu-image-cropper__zoom-input:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.pimolu-image-cropper__zoom-input:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-image-cropper__zoom-value {
+  color: var(--pimolu-foreground);
+
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+
+  white-space: nowrap;
+}
+
+.pimolu-image-cropper__size {
+  color: var(--pimolu-muted-foreground);
+
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.pimolu-image-cropper__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  min-height: 2rem;
+
+  padding: var(--pimolu-spacing-1, 4px)
+    var(--pimolu-spacing-3, 12px);
+
+  border: 1px solid transparent;
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    color 150ms;
+}
+
+.pimolu-image-cropper__action:focus-visible {
+  outline: 2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+.pimolu-image-cropper__action:disabled {
+  opacity: 0.5;
+
+  cursor: default;
+}
+
+.pimolu-image-cropper__action--secondary {
+  border-color: var(--pimolu-border);
+
+  background: transparent;
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-image-cropper__action--secondary:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-image-cropper__action--primary {
+  background: var(
+    --pimolu-primary,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  color: var(
+    --pimolu-primary-foreground,
+    var(--pimolu-background, #fff)
+  );
+}
+
+.pimolu-image-cropper__action--primary:hover:not(:disabled) {
+  background: var(
+    --pimolu-primary-hover,
+    var(--pimolu-primary, currentColor)
+  );
+}
+
+/* =========================================
+   LIVE STATUS
+========================================= */
+
+.pimolu-image-cropper__status {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 0;
+
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 520px) {
+  .pimolu-image-cropper__zoom {
+    flex-basis: 100%;
+  }
+
+  .pimolu-image-cropper__size {
+    display: none;
+  }
+
+  .pimolu-image-cropper__action {
+    flex: 1 1 auto;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-image-cropper__image {
+    transition: none;
+  }
+
+  .pimolu-image-cropper__action {
+    transition: none;
+  }
+}
+
+/* =========================================
+   FORCED COLORS
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-image-cropper__stage {
+    border-color: CanvasText;
+
+    background: Canvas;
+  }
+
+  .pimolu-image-cropper__crop {
+    border-color: Highlight;
+
+    box-shadow: none;
+  }
+
+  .pimolu-image-cropper__crop::before,
+  .pimolu-image-cropper__crop::after {
+    border-color: CanvasText;
+  }
+
+  .pimolu-image-cropper__handle {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-image-cropper__action--secondary {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-image-cropper__action--primary {
+    border-color: CanvasText;
+
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-image-cropper__crop:focus-visible,
+  .pimolu-image-cropper__handle:focus-visible,
+  .pimolu-image-cropper__zoom-input:focus-visible,
+  .pimolu-image-cropper__action:focus-visible {
+    outline-color: Highlight;
+  }
+}

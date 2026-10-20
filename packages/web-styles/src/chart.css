@@ -1,0 +1,501 @@
+
+/* =========================================
+   PIMOLU UI — CHART
+   Shared Web Styles
+========================================= */
+
+/* =========================================
+   BASE
+========================================= */
+
+.pimolu-chart {
+  --pimolu-chart-axis:
+    var(--pimolu-muted-foreground, #6b7280);
+
+  --pimolu-chart-grid:
+    var(--pimolu-border, rgba(0, 0, 0, 0.12));
+
+  --pimolu-chart-surface:
+    var(--pimolu-surface, #ffffff);
+
+  --pimolu-chart-color:
+    var(--pimolu-primary, #4f46e5);
+
+  --pimolu-chart-label-size: 12px;
+  --pimolu-chart-axis-title-size: 12px;
+  --pimolu-chart-value-size: 11px;
+  --pimolu-chart-legend-size: 0.8125rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-chart__canvas {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.pimolu-chart__svg {
+  display: block;
+
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+
+  overflow: visible;
+}
+
+/* =========================================
+   AXES AND GRID
+========================================= */
+
+.pimolu-chart__grid {
+  stroke: var(--pimolu-chart-grid);
+
+  stroke-width: 1;
+
+  shape-rendering: crispEdges;
+  vector-effect: non-scaling-stroke;
+}
+
+.pimolu-chart__axis {
+  stroke: var(--pimolu-chart-grid);
+
+  stroke-width: 1;
+
+  shape-rendering: crispEdges;
+  vector-effect: non-scaling-stroke;
+}
+
+.pimolu-chart__axis-label {
+  fill: var(--pimolu-chart-axis);
+
+  font-size: var(--pimolu-chart-label-size);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.pimolu-chart__axis-title {
+  fill: var(--pimolu-chart-axis);
+
+  font-size: var(--pimolu-chart-axis-title-size);
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* =========================================
+   BARS
+========================================= */
+
+.pimolu-chart__bar {
+  fill: var(
+    --pimolu-chart-color,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  stroke: none;
+
+  transition: opacity 160ms ease;
+}
+
+.pimolu-chart__bar--vertical {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+
+  animation:
+    pimolu-chart-rise-y
+    420ms
+    ease-out
+    both;
+}
+
+.pimolu-chart__bar--horizontal {
+  transform-box: fill-box;
+  transform-origin: left center;
+
+  animation:
+    pimolu-chart-rise-x
+    420ms
+    ease-out
+    both;
+}
+
+/* =========================================
+   LINES, AREAS AND POINTS
+========================================= */
+
+.pimolu-chart__line {
+  fill: none;
+
+  stroke: var(
+    --pimolu-chart-color,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  /* Paired with pathLength="1" on the path. */
+  stroke-dasharray: 1;
+
+  animation:
+    pimolu-chart-draw
+    650ms
+    ease-out
+    both;
+}
+
+.pimolu-chart__area {
+  fill: var(
+    --pimolu-chart-color,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  fill-opacity: 0.16;
+  stroke: none;
+
+  animation:
+    pimolu-chart-fade
+    420ms
+    ease-out
+    both;
+}
+
+.pimolu-chart__point {
+  fill: var(
+    --pimolu-chart-color,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  stroke: var(--pimolu-chart-surface);
+  stroke-width: 1.5;
+
+  animation:
+    pimolu-chart-fade
+    300ms
+    ease-out
+    both;
+}
+
+.pimolu-chart__sparkline-line {
+  stroke-width: 2;
+}
+
+/* =========================================
+   VALUE LABELS
+========================================= */
+
+.pimolu-chart__value-label {
+  fill: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: var(--pimolu-chart-value-size);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* =========================================
+   DONUT
+========================================= */
+
+.pimolu-chart__donut-track {
+  stroke: var(
+    --pimolu-muted,
+    rgba(0, 0, 0, 0.08)
+  );
+}
+
+.pimolu-chart__segment {
+  stroke: var(
+    --pimolu-chart-color,
+    var(--pimolu-primary, #4f46e5)
+  );
+
+  transition: opacity 160ms ease;
+
+  animation:
+    pimolu-chart-fade
+    420ms
+    ease-out
+    both;
+}
+
+.pimolu-chart__center-value {
+  fill: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-size: 26px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.pimolu-chart__center-label {
+  fill: var(--pimolu-chart-axis);
+
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   LEGEND
+========================================= */
+
+.pimolu-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px 16px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-chart__legend-item {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  color: var(--pimolu-chart-axis);
+
+  font-size: var(--pimolu-chart-legend-size);
+  line-height: 1.4;
+}
+
+.pimolu-chart__legend-swatch {
+  flex: none;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 3px;
+
+  background: var(
+    --pimolu-chart-color,
+    var(--pimolu-primary, #4f46e5)
+  );
+}
+
+.pimolu-chart__legend-label {
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-chart__legend-value {
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground, currentColor)
+  );
+
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.pimolu-chart__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  min-height: 160px;
+  margin: 0;
+  padding: 16px;
+
+  border:
+    1px dashed
+    var(--pimolu-chart-grid);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  color: var(--pimolu-chart-axis);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.pimolu-chart--sparkline .pimolu-chart__empty {
+  min-height: 56px;
+
+  padding: 8px;
+}
+
+.pimolu-chart--donut .pimolu-chart__empty {
+  min-height: 200px;
+}
+
+/* =========================================
+   VISUALLY HIDDEN DATA TABLE
+========================================= */
+
+.pimolu-chart__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes pimolu-chart-rise-y {
+  from {
+    opacity: 0.35;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pimolu-chart-rise-x {
+  from {
+    opacity: 0.35;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pimolu-chart-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pimolu-chart-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-chart__bar,
+  .pimolu-chart__area,
+  .pimolu-chart__point,
+  .pimolu-chart__segment {
+    animation: none;
+    transition: none;
+  }
+
+  .pimolu-chart__line {
+    stroke-dasharray: none;
+
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-chart__bar,
+  .pimolu-chart__area {
+    fill: CanvasText;
+  }
+
+  .pimolu-chart__line,
+  .pimolu-chart__segment {
+    stroke: CanvasText;
+  }
+
+  .pimolu-chart__point {
+    fill: CanvasText;
+
+    stroke: Canvas;
+  }
+
+  .pimolu-chart__grid,
+  .pimolu-chart__axis {
+    stroke: GrayText;
+  }
+
+  .pimolu-chart__donut-track {
+    stroke: GrayText;
+  }
+
+  .pimolu-chart__axis-label,
+  .pimolu-chart__axis-title,
+  .pimolu-chart__center-label {
+    fill: CanvasText;
+  }
+
+  .pimolu-chart__center-value,
+  .pimolu-chart__value-label {
+    fill: CanvasText;
+  }
+
+  .pimolu-chart__legend-swatch {
+    background: CanvasText;
+
+    outline: 1px solid CanvasText;
+    outline-offset: 1px;
+  }
+
+  .pimolu-chart__empty {
+    border-color: GrayText;
+    color: CanvasText;
+  }
+}

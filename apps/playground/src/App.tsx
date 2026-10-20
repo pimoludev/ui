@@ -90,6 +90,33 @@ import { TreeViewPage } from "./pages/tree-view-page";
 import { TypographyPage } from "./pages/typography-page";
 import { VirtualListPage } from "./pages/virtual-list-page";
 import { VisuallyHiddenPage } from "./pages/visually-hidden-page";
+import { AppShellPage } from "./pages/app-shell-page";
+import { AudioPlayerPage } from "./pages/audio-player-page";
+import { CascaderPage } from "./pages/cascader-page";
+import { ChartPage } from "./pages/chart-page";
+import { ChatPage } from "./pages/chat-page";
+import { CurrencyInputPage } from "./pages/currency-input-page";
+import { DataGridPage } from "./pages/data-grid-page";
+import { FileManagerPage } from "./pages/file-manager-page";
+import { FormPage } from "./pages/form-page";
+import { GanttPage } from "./pages/gantt-page";
+import { ImageCropperPage } from "./pages/image-cropper-page";
+import { KanbanPage } from "./pages/kanban-page";
+import { LightboxPage } from "./pages/lightbox-page";
+import { MaskedInputPage } from "./pages/masked-input-page";
+import { MenubarPage } from "./pages/menubar-page";
+import { MentionsPage } from "./pages/mentions-page";
+import { NotificationCenterPage } from "./pages/notification-center-page";
+import { PDFViewerPage } from "./pages/pdf-viewer-page";
+import { PhoneInputPage } from "./pages/phone-input-page";
+import { PopconfirmPage } from "./pages/popconfirm-page";
+import { QRCodePage } from "./pages/qr-code-page";
+import { SchedulerPage } from "./pages/scheduler-page";
+import { ToolbarPage } from "./pages/toolbar-page";
+import { TourPage } from "./pages/tour-page";
+import { TransferPage } from "./pages/transfer-page";
+import { TreeTablePage } from "./pages/tree-table-page";
+import { VideoPlayerPage } from "./pages/video-player-page";
 
 import "./playground.css";
 
@@ -180,6 +207,33 @@ const pageComponents = {
   carousel: CarouselPage,
   resizable: ResizablePage,
   "virtual-list": VirtualListPage,
+  "app-shell": AppShellPage,
+  "audio-player": AudioPlayerPage,
+  cascader: CascaderPage,
+  chart: ChartPage,
+  chat: ChatPage,
+  "currency-input": CurrencyInputPage,
+  "data-grid": DataGridPage,
+  "file-manager": FileManagerPage,
+  form: FormPage,
+  gantt: GanttPage,
+  "image-cropper": ImageCropperPage,
+  kanban: KanbanPage,
+  lightbox: LightboxPage,
+  "masked-input": MaskedInputPage,
+  menubar: MenubarPage,
+  mentions: MentionsPage,
+  "notification-center": NotificationCenterPage,
+  "pdf-viewer": PDFViewerPage,
+  "phone-input": PhoneInputPage,
+  popconfirm: PopconfirmPage,
+  "qr-code": QRCodePage,
+  scheduler: SchedulerPage,
+  toolbar: ToolbarPage,
+  tour: TourPage,
+  transfer: TransferPage,
+  "tree-table": TreeTablePage,
+  "video-player": VideoPlayerPage,
 } as const;
 
 function App() {

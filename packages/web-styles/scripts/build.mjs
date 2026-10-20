@@ -437,6 +437,141 @@ const outputs = [
     output: "dashboard-layout.css",
     minify: false,
   },
+  {
+    input: "data-grid.css",
+    output: "data-grid.css",
+    minify: false,
+  },
+  {
+    input: "tree-table.css",
+    output: "tree-table.css",
+    minify: false,
+  },
+  {
+    input: "chart.css",
+    output: "chart.css",
+    minify: false,
+  },
+  {
+    input: "form.css",
+    output: "form.css",
+    minify: false,
+  },
+  {
+    input: "masked-input.css",
+    output: "masked-input.css",
+    minify: false,
+  },
+  {
+    input: "currency-input.css",
+    output: "currency-input.css",
+    minify: false,
+  },
+  {
+    input: "phone-input.css",
+    output: "phone-input.css",
+    minify: false,
+  },
+  {
+    input: "mentions.css",
+    output: "mentions.css",
+    minify: false,
+  },
+  {
+    input: "cascader.css",
+    output: "cascader.css",
+    minify: false,
+  },
+  {
+    input: "transfer.css",
+    output: "transfer.css",
+    minify: false,
+  },
+  {
+    input: "video-player.css",
+    output: "video-player.css",
+    minify: false,
+  },
+  {
+    input: "audio-player.css",
+    output: "audio-player.css",
+    minify: false,
+  },
+  {
+    input: "pdf-viewer.css",
+    output: "pdf-viewer.css",
+    minify: false,
+  },
+  {
+    input: "lightbox.css",
+    output: "lightbox.css",
+    minify: false,
+  },
+  {
+    input: "image-cropper.css",
+    output: "image-cropper.css",
+    minify: false,
+  },
+  {
+    input: "qr-code.css",
+    output: "qr-code.css",
+    minify: false,
+  },
+  {
+    input: "app-shell.css",
+    output: "app-shell.css",
+    minify: false,
+  },
+  {
+    input: "menubar.css",
+    output: "menubar.css",
+    minify: false,
+  },
+  {
+    input: "toolbar.css",
+    output: "toolbar.css",
+    minify: false,
+  },
+  {
+    input: "popconfirm.css",
+    output: "popconfirm.css",
+    minify: false,
+  },
+  {
+    input: "tour.css",
+    output: "tour.css",
+    minify: false,
+  },
+  {
+    input: "notification-center.css",
+    output: "notification-center.css",
+    minify: false,
+  },
+  {
+    input: "kanban.css",
+    output: "kanban.css",
+    minify: false,
+  },
+  {
+    input: "chat.css",
+    output: "chat.css",
+    minify: false,
+  },
+  {
+    input: "scheduler.css",
+    output: "scheduler.css",
+    minify: false,
+  },
+  {
+    input: "gantt.css",
+    output: "gantt.css",
+    minify: false,
+  },
+  {
+    input: "file-manager.css",
+    output: "file-manager.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

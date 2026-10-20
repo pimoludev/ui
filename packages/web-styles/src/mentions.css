@@ -1,0 +1,346 @@
+
+/* =========================================
+   PIMOLU UI — MENTIONS
+   Shared Web Styles
+========================================= */
+
+/* BASE */
+
+.pimolu-mentions {
+  --pimolu-mentions-surface:
+    var(--pimolu-surface, var(--pimolu-background));
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  width: min(100%, 28rem);
+  max-width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-mentions--full-width {
+  display: flex;
+  width: 100%;
+}
+
+/* LABEL */
+
+.pimolu-mentions__label {
+  display: block;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-mentions__required {
+  margin-inline-start: 3px;
+  color: var(--pimolu-danger, currentColor);
+}
+
+.pimolu-mentions__helper {
+  margin: 4px 0 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* FIELD */
+
+.pimolu-mentions__field {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+.pimolu-mentions__textarea {
+  display: block;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 5.5rem;
+
+  margin: 0;
+  padding: 10px 12px;
+
+  background: var(--pimolu-mentions-surface);
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+
+  resize: vertical;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pimolu-mentions__textarea::placeholder {
+  color: var(--pimolu-muted-foreground);
+  opacity: 1;
+}
+
+.pimolu-mentions__textarea:hover:not(:disabled) {
+  border-color: var(--pimolu-primary);
+}
+
+.pimolu-mentions__textarea:focus-visible {
+  border-color: var(--pimolu-primary);
+
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 2px;
+}
+
+/* DISABLED */
+
+.pimolu-mentions--disabled {
+  opacity: 0.55;
+}
+
+.pimolu-mentions__textarea:disabled {
+  cursor: not-allowed;
+  resize: none;
+}
+
+/* SUGGESTION LIST */
+
+.pimolu-mentions__listbox {
+  position: fixed;
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  box-sizing: border-box;
+
+  min-width: 13rem;
+  max-height: 280px;
+
+  margin: 0;
+  padding: 5px;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  list-style: none;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* OPTION */
+
+.pimolu-mentions__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  box-sizing: border-box;
+
+  min-height: 44px;
+  padding: 7px 9px;
+
+  color: var(--pimolu-foreground);
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  cursor: pointer;
+}
+
+.pimolu-mentions__option[data-active="true"] {
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 12%,
+    var(
+      --pimolu-surface,
+      var(--pimolu-background)
+    )
+  );
+}
+
+.pimolu-mentions__option:hover {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-mentions__option--create {
+  color: var(--pimolu-primary);
+  font-weight: 500;
+}
+
+.pimolu-mentions__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 28px;
+  height: 28px;
+
+  overflow: hidden;
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-muted-foreground);
+
+  border-radius: var(--pimolu-radius-full, 9999px);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.pimolu-mentions__avatar img,
+.pimolu-mentions__avatar > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pimolu-mentions__option-main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  gap: 2px;
+  min-width: 0;
+}
+
+.pimolu-mentions__option-label {
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-mentions__option-description {
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.75rem;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-mentions__create-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 14%,
+    transparent
+  );
+
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+/* EMPTY */
+
+.pimolu-mentions__empty {
+  padding: 14px 12px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-mentions__textarea {
+    transition: none;
+  }
+}
+
+/* FORCED COLORS */
+
+@media (forced-colors: active) {
+  .pimolu-mentions {
+    opacity: 1;
+  }
+
+  .pimolu-mentions__textarea,
+  .pimolu-mentions__listbox {
+    background: Field;
+    color: FieldText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-mentions__textarea:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-mentions__option[data-active="true"] {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-mentions__avatar {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-mentions__option-description {
+    color: CanvasText;
+  }
+}
