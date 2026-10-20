@@ -31,6 +31,42 @@ function select(
   fireEvent.change(input, { target: { files } });
 }
 
+function mockObjectUrls() {
+  const createObjectURL = vi.fn(() => "blob:preview");
+  const revokeObjectURL = vi.fn();
+
+  const original = {
+    create: URL.createObjectURL,
+    revoke: URL.revokeObjectURL,
+  };
+
+  Object.defineProperty(URL, "createObjectURL", {
+    configurable: true,
+    value: createObjectURL,
+  });
+
+  Object.defineProperty(URL, "revokeObjectURL", {
+    configurable: true,
+    value: revokeObjectURL,
+  });
+
+  return {
+    createObjectURL,
+    revokeObjectURL,
+    restore() {
+      Object.defineProperty(URL, "createObjectURL", {
+        configurable: true,
+        value: original.create,
+      });
+
+      Object.defineProperty(URL, "revokeObjectURL", {
+        configurable: true,
+        value: original.revoke,
+      });
+    },
+  };
+}
+
 describe("Pimolu FileUpload", () => {
   it("renders an empty state and the native constraints", () => {
     const { container } = render(
@@ -306,6 +342,81 @@ describe("Pimolu FileUpload", () => {
     expect(
       screen.getByText("second.png")
     ).toBeInTheDocument();
+  });
+
+  it("shows image thumbnails and revokes their object URLs", () => {
+    const mock = mockObjectUrls();
+
+    try {
+      const image = makeFile("cover.png");
+      const pdf = makeFile(
+        "brief.pdf",
+        "pdf",
+        "application/pdf"
+      );
+
+      const { container, unmount } = render(
+        <FileUpload defaultFiles={[image, pdf]} />
+      );
+
+      const thumbnail = container.querySelector(
+        'img[data-file-preview="image"]'
+      );
+
+      expect(thumbnail).toHaveAttribute(
+        "src",
+        "blob:preview"
+      );
+
+      expect(
+        container.querySelectorAll("img")
+      ).toHaveLength(1);
+
+      expect(
+        container.querySelector(
+          '[data-file-preview="fallback"]'
+        )
+      ).toBeInTheDocument();
+
+      expect(mock.createObjectURL).toHaveBeenCalledWith(
+        image
+      );
+
+      unmount();
+
+      expect(
+        mock.revokeObjectURL
+      ).toHaveBeenCalledWith("blob:preview");
+    } finally {
+      mock.restore();
+    }
+  });
+
+  it("can disable previews while keeping the document icon", () => {
+    const mock = mockObjectUrls();
+
+    try {
+      const { container } = render(
+        <FileUpload
+          defaultFiles={[makeFile("cover.png")]}
+          showPreviews={false}
+        />
+      );
+
+      expect(
+        container.querySelector("img")
+      ).toBeNull();
+
+      expect(
+        container.querySelector(
+          '[data-file-preview="fallback"]'
+        )
+      ).toBeInTheDocument();
+
+      expect(mock.createObjectURL).not.toHaveBeenCalled();
+    } finally {
+      mock.restore();
+    }
   });
 
   it("disables the trigger, the input and every remove button", () => {

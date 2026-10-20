@@ -13,6 +13,8 @@ import type {
   PimoluFileValidator,
 } from "./file-upload.types";
 
+import { FilePreview } from "../internal/file-preview";
+
 /* =========================================
    HELPERS
 ======================================== */
@@ -204,6 +206,7 @@ export const FileUpload = forwardRef<
     buttonLabel,
     emptyText = "No files selected",
     removeFileLabel,
+    showPreviews = true,
 
     className,
     ...props
@@ -435,23 +438,32 @@ export const FileUpload = forwardRef<
                 key={`${file.name}-${file.size}-${file.lastModified}-${index}`}
                 className="pimolu-file-upload__item"
               >
-                <span
-                  className="pimolu-file-upload__file-icon"
-                  aria-hidden="true"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.7}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    focusable="false"
+                {showPreviews ? (
+                  <FilePreview
+                    file={file}
+                    imageClassName="pimolu-file-upload__preview"
+                    fallbackClassName="pimolu-file-upload__file-icon"
+                  />
+                ) : (
+                  <span
+                    className="pimolu-file-upload__file-icon"
+                    data-file-preview="fallback"
+                    aria-hidden="true"
                   >
-                    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
-                    <path d="M14 3v5h5" />
-                  </svg>
-                </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.7}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      focusable="false"
+                    >
+                      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+                      <path d="M14 3v5h5" />
+                    </svg>
+                  </span>
+                )}
 
                 <span
                   className="pimolu-file-upload__file-name"

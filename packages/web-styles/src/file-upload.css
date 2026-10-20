@@ -231,6 +231,25 @@
   height: 100%;
 }
 
+.pimolu-file-upload__preview {
+  display: block;
+
+  flex: none;
+
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: var(--pimolu-muted);
+
+  object-fit: cover;
+}
+
 .pimolu-file-upload__file-name {
   flex: 1 1 auto;
 

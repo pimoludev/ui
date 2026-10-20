@@ -12,6 +12,10 @@ import {
 } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
+import {
+  previewImageFile,
+  previewPdfFile,
+} from "../demo-files";
 
 function RequestAttachments() {
   const [files, setFiles] = useState<File[]>([]);
@@ -139,6 +143,55 @@ export function FileUploadPage() {
 
             <CardContent>
               <SinglePhoto />
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
+      <Section
+        title="Image previews"
+        hint="Image files show a local object URL thumbnail; other formats keep the document icon. showPreviews={false} restores the icon-only list."
+      >
+        <div className="pg-grid pg-grid--two pg-grid--start">
+          <Card>
+            <CardHeader>
+              <CardTitle>Brand cover and notes</CardTitle>
+              <CardDescription>
+                The SVG is previewed; the PDF keeps the document
+                icon until it is removed.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <FileUpload
+                label="Campaign assets"
+                description="SVG, PNG or JPG, plus a short PDF."
+                accept=".pdf,image/*"
+                maxFiles={3}
+                defaultFiles={[
+                  previewImageFile,
+                  previewPdfFile,
+                ]}
+              />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Previews disabled</CardTitle>
+              <CardDescription>
+                showPreviews=false keeps the compact file icon.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <FileUpload
+                label="Archive"
+                description="The file list stays icon-only."
+                accept="image/*"
+                defaultFiles={[previewImageFile]}
+                showPreviews={false}
+              />
             </CardContent>
           </Card>
         </div>

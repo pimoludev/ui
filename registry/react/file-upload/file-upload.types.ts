@@ -67,4 +67,10 @@ export interface PimoluFileUploadProps
 
   /** Accessible name of a remove button. Defaults to `Remove <name>`. */
   removeFileLabel?: (file: File) => string;
+
+  /**
+   * Show an image thumbnail for image files. Other files keep the document
+   * icon. Defaults to true.
+   */
+  showPreviews?: boolean;
 }

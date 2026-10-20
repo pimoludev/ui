@@ -12,6 +12,10 @@ import {
 } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
+import {
+  previewImageFile,
+  previewPdfFile,
+} from "../demo-files";
 
 function BrandAssets() {
   const [files, setFiles] = useState<File[]>([]);
@@ -101,6 +105,55 @@ export function DropzonePage() {
                 accept="image/png,image/jpeg"
                 multiple={false}
                 maxSize={2 * 1024 * 1024}
+              />
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
+      <Section
+        title="Image previews"
+        hint="Dropped or selected images show a thumbnail from a local object URL; other files keep the document icon. showPreviews={false} opts out."
+      >
+        <div className="pg-grid pg-grid--two pg-grid--start">
+          <Card>
+            <CardHeader>
+              <CardTitle>Press assets</CardTitle>
+              <CardDescription>
+                An SVG cover and a PDF fact sheet in the same
+                dropzone.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <Dropzone
+                label="Press kit"
+                description="SVG, PNG, JPG or PDF, up to 6 files."
+                accept=".pdf,image/*"
+                maxFiles={6}
+                defaultFiles={[
+                  previewImageFile,
+                  previewPdfFile,
+                ]}
+              />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Previews disabled</CardTitle>
+              <CardDescription>
+                showPreviews=false keeps the icon-only list.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <Dropzone
+                label="Archive"
+                description="Images are listed without thumbnails."
+                accept="image/*"
+                defaultFiles={[previewImageFile]}
+                showPreviews={false}
               />
             </CardContent>
           </Card>

@@ -15,6 +15,8 @@ import type {
   PimoluDropzoneValidator,
 } from "./dropzone.types";
 
+import { FilePreview } from "../internal/file-preview";
+
 /* =========================================
    HELPERS
 ======================================== */
@@ -214,6 +216,7 @@ export const Dropzone = forwardRef<
     validateFile,
 
     removeFileLabel,
+    showPreviews = true,
 
     className,
     ...props
@@ -524,23 +527,32 @@ export const Dropzone = forwardRef<
               key={`${file.name}-${file.size}-${file.lastModified}-${index}`}
               className="pimolu-dropzone__item"
             >
-              <span
-                className="pimolu-dropzone__file-icon"
-                aria-hidden="true"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.7}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  focusable="false"
+              {showPreviews ? (
+                <FilePreview
+                  file={file}
+                  imageClassName="pimolu-dropzone__preview"
+                  fallbackClassName="pimolu-dropzone__file-icon"
+                />
+              ) : (
+                <span
+                  className="pimolu-dropzone__file-icon"
+                  data-file-preview="fallback"
+                  aria-hidden="true"
                 >
-                  <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
-                  <path d="M14 3v5h5" />
-                </svg>
-              </span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.7}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    focusable="false"
+                  >
+                    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+                    <path d="M14 3v5h5" />
+                  </svg>
+                </span>
+              )}
 
               <span
                 className="pimolu-dropzone__file-name"
