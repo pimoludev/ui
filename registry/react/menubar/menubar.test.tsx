@@ -172,6 +172,34 @@ describe("Pimolu Menubar", () => {
     expect(help).toHaveFocus();
   });
 
+  it("reverses horizontal arrow navigation in RTL", () => {
+    render(
+      <div dir="rtl">
+        <Example />
+      </div>
+    );
+
+    const file = screen.getByRole("menuitem", {
+      name: "File",
+    });
+    const edit = screen.getByRole("menuitem", {
+      name: "Edit",
+    });
+    const help = screen.getByRole("menuitem", {
+      name: "Help",
+    });
+
+    file.focus();
+    fireEvent.keyDown(file, { key: "ArrowLeft" });
+    expect(edit).toHaveFocus();
+
+    fireEvent.keyDown(edit, { key: "ArrowRight" });
+    expect(file).toHaveFocus();
+
+    fireEvent.keyDown(file, { key: "ArrowRight" });
+    expect(help).toHaveFocus();
+  });
+
   it("moves through enabled items and skips disabled ones", () => {
     render(<Example />);
 

@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-19. This folder describes the local repository and is the
+Updated: 2026-10-20. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it.
 
@@ -41,6 +41,8 @@ features present in the repository.
 - [Development](DEVELOPMENT_GUIDE.md): commands and conventions.
 - [Density](DENSITY.md): the density contract and its variable map.
 - [Roadmap](ROADMAP.md): proposed priorities, with no delivery commitment.
+- [Quality audit](QUALITY_AUDIT.md): verified browser coverage and remaining
+  visual and accessibility reviews.
 
 The two public READMEs are `README.md` and `README.fr.md`. Agent instructions
 live in `AGENTS.md` and `.agents/skills/`.

@@ -29,13 +29,13 @@ describe("playground routes", () => {
     pages.map((page) => [page.id, page.label])
   )(
     "#/%s renders a page and marks it current",
-    (id, label) => {
+    async (id, label) => {
       window.location.hash = `#/${id}`;
 
       render(<App />);
 
       expect(
-        screen.getByRole("heading", { level: 1 })
+        await screen.findByRole("heading", { level: 1 })
       ).toBeInTheDocument();
 
       const current = screen
@@ -54,8 +54,12 @@ describe("playground routes", () => {
 
     render(<App />);
 
-    expect(screen.getByRole("status")).toHaveTextContent(
-      "#/does-not-exist"
-    );
+    expect(
+      screen
+        .getAllByRole("status")
+        .find((status) =>
+          status.classList.contains("pg-notice")
+        )
+    ).toHaveTextContent("#/does-not-exist");
   });
 });

@@ -163,9 +163,15 @@ export function SidebarItem({
   className,
   ...props
 }: PimoluSidebarItemProps) {
+  const fallbackIcon =
+    typeof children === "string" && children.trim()
+      ? Array.from(children.trim())[0].toLocaleUpperCase()
+      : "•";
+
   return (
     <Link
       {...props}
+      title={props.title ?? (typeof children === "string" ? children : undefined)}
       variant="muted"
       underline="none"
       disabled={disabled}
@@ -175,14 +181,12 @@ export function SidebarItem({
         className
       )}
     >
-      {icon && (
-        <span
-          className="pimolu-sidebar__icon"
-          aria-hidden="true"
-        >
-          {icon}
-        </span>
-      )}
+      <span
+        className={classes("pimolu-sidebar__icon", icon ? undefined : "pimolu-sidebar__icon--fallback")}
+        aria-hidden="true"
+      >
+        {icon ?? fallbackIcon}
+      </span>
 
       <span className="pimolu-sidebar__label">
         {children}

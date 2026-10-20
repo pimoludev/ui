@@ -12,23 +12,23 @@ import {
 
 import { PageHeader, Section } from "../section";
 
-const EPISODE_SRC = "/media/design-notes-12.mp3";
+const EPISODE_SRC = "/media/design-notes-12.wav";
 
 const episodes = [
   {
     title: "Token pipelines without surprises",
-    subtitle: "Episode 12 · 18 min",
-    src: "/media/design-notes-12.mp3",
+    subtitle: "Episode 12 · 16 sec sample",
+    src: "/media/design-notes-12.wav",
   },
   {
     title: "One API for web and native",
-    subtitle: "Episode 11 · 24 min",
-    src: "/media/design-notes-11.mp3",
+    subtitle: "Episode 11 · 16 sec sample",
+    src: "/media/design-notes-11.wav",
   },
   {
     title: "Auditing themes in practice",
-    subtitle: "Episode 10 · 16 min",
-    src: "/media/design-notes-10.mp3",
+    subtitle: "Episode 10 · 14 sec sample",
+    src: "/media/design-notes-10.wav",
   },
 ];
 
@@ -39,7 +39,7 @@ export function AudioPlayerPage() {
     <>
       <PageHeader
         title="AudioPlayer"
-        hint="A compact audio player built on the native <audio> element: play/pause, seek bar, current/duration, mute and volume. The layout collapses cleanly on narrow screens and every control has an accessible name. The demo uses placeholder media paths."
+        hint="A compact audio player built on the native <audio> element: play/pause, seek bar, current/duration, mute and volume. The demo includes three original narrated samples."
       />
 
       <Section
@@ -49,7 +49,7 @@ export function AudioPlayerPage() {
         <AudioPlayer
           src={EPISODE_SRC}
           title="Design notes — episode 12"
-          subtitle="Token pipelines without surprises · 18 min"
+          subtitle="Token pipelines without surprises · 16 sec sample"
         />
       </Section>
 
@@ -60,7 +60,7 @@ export function AudioPlayerPage() {
         <AudioPlayer
           src={EPISODE_SRC}
           title="Quick note"
-          subtitle="A 30-second update"
+          subtitle="A short narrated update"
           showVolume={false}
           showTime={false}
         />

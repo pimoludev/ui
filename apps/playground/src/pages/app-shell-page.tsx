@@ -19,6 +19,7 @@ import {
 } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
+import { DemoNavIcon } from "../demo-nav-icon";
 
 function ShellHeader() {
   return (
@@ -69,17 +70,17 @@ function WorkspaceSidebar({ compact = false }: { compact?: boolean }) {
       <SidebarContent aria-label="Workspace">
         <SidebarGroup>
           <SidebarGroupLabel>Workspace</SidebarGroupLabel>
-          <SidebarItem href="#/app-shell" active>
+          <SidebarItem href="#/app-shell" active icon={<DemoNavIcon name="overview" />}>
             Overview
           </SidebarItem>
-          <SidebarItem href="#/data-table">Projects</SidebarItem>
-          <SidebarItem href="#/stat">Analytics</SidebarItem>
+          <SidebarItem href="#/data-table" icon={<DemoNavIcon name="projects" />}>Projects</SidebarItem>
+          <SidebarItem href="#/stat" icon={<DemoNavIcon name="analytics" />}>Analytics</SidebarItem>
         </SidebarGroup>
 
         <SidebarGroup>
           <SidebarGroupLabel>Manage</SidebarGroupLabel>
-          <SidebarItem href="#/form-field">Billing</SidebarItem>
-          <SidebarItem href="#/dialog">Settings</SidebarItem>
+          <SidebarItem href="#/form-field" icon={<DemoNavIcon name="billing" />}>Billing</SidebarItem>
+          <SidebarItem href="#/dialog" icon={<DemoNavIcon name="settings" />}>Settings</SidebarItem>
         </SidebarGroup>
       </SidebarContent>
 

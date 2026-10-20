@@ -31,6 +31,7 @@ import {
 } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
+import { DemoNavIcon } from "../demo-nav-icon";
 
 function DashboardSidebar() {
   return (
@@ -47,17 +48,17 @@ function DashboardSidebar() {
       <SidebarContent aria-label="Workspace">
         <SidebarGroup>
           <SidebarGroupLabel>Workspace</SidebarGroupLabel>
-          <SidebarItem href="#/dashboard-layout" active>
+          <SidebarItem href="#/dashboard-layout" active icon={<DemoNavIcon name="overview" />}>
             Overview
           </SidebarItem>
-          <SidebarItem href="#/data-table">Members</SidebarItem>
-          <SidebarItem href="#/stat">Analytics</SidebarItem>
+          <SidebarItem href="#/data-table" icon={<DemoNavIcon name="people" />}>Members</SidebarItem>
+          <SidebarItem href="#/stat" icon={<DemoNavIcon name="analytics" />}>Analytics</SidebarItem>
         </SidebarGroup>
 
         <SidebarGroup>
           <SidebarGroupLabel>Settings</SidebarGroupLabel>
-          <SidebarItem href="#/form-field">Billing</SidebarItem>
-          <SidebarItem href="#/dialog">Preferences</SidebarItem>
+          <SidebarItem href="#/form-field" icon={<DemoNavIcon name="billing" />}>Billing</SidebarItem>
+          <SidebarItem href="#/dialog" icon={<DemoNavIcon name="settings" />}>Preferences</SidebarItem>
         </SidebarGroup>
       </SidebarContent>
 

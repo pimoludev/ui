@@ -1093,7 +1093,7 @@ export function FileManager({
         <div
           ref={itemsRef}
           className="pimolu-file-manager__grid"
-          role="grid"
+          role="listbox"
           aria-label={`${rootLabel} items`}
           aria-multiselectable={
             selectionMode === "multiple"
@@ -1103,7 +1103,7 @@ export function FileManager({
         >
           <div
             className="pimolu-file-manager__grid-row"
-            role="row"
+            role="presentation"
           >
             {visibleEntries.map((entry, index) => {
               const kind = getFileKind(entry);
@@ -1113,7 +1113,7 @@ export function FileManager({
               return (
                 <div
                   key={entry.id}
-                  role="gridcell"
+                  role="option"
                   aria-selected={isSelected}
                   aria-label={entryAccessibleName(entry)}
                   tabIndex={

@@ -79,3 +79,15 @@ color. `PhoneInput` accepts a replacement `countries` array. `Box` accepts
   --pimolu-time-picker-tone: var(--pimolu-primary);
 }
 ```
+
+## Choosing between related components
+
+| Need | Choose | Why |
+| --- | --- | --- |
+| A straightforward local data table | `DataTable` | Native table semantics with sorting, filtering, selection and pagination. |
+| A data workspace with server ownership, grouping or configurable columns | `DataGrid` | Adds explicit client/server mode, page size control, column visibility and keyboard/pointer resizing. It does not yet virtualize rows or pin/reorder columns. |
+| An application frame with a required full-width header and optional footer | `AppShell` | Header and footer span the rails; sidebar and aside are optional. |
+| A dashboard with sidebar navigation and a navbar over the main region | `DashboardLayout` | Supports sticky sidebar/navbar and an optional aside; it has no footer slot. |
+
+Start with the smaller component when its API covers the use case. The pairs
+are separate public APIs; one is not an alias of the other.

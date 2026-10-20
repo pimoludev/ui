@@ -14,7 +14,7 @@ import {
 
 import { PageHeader, Section } from "../section";
 
-const TOUR_SRC = "/media/pimolu-tour.mp4";
+const TOUR_SRC = "/media/pimolu-tour.webm";
 const TOUR_POSTER = "/product.svg";
 
 function Captions() {
@@ -35,7 +35,7 @@ export function VideoPlayerPage() {
     <>
       <PageHeader
         title="VideoPlayer"
-        hint="A native <video> with accessible custom controls: play/pause, timeline, mute, volume, fullscreen and a time readout. `playing` can be controlled, captions are rendered where the browser expects them, and the player stays usable when autoplay or fullscreen is denied. The demo uses placeholder media paths."
+        hint="A native <video> with accessible custom controls: play/pause, timeline, mute, volume, fullscreen and a time readout. `playing` can be controlled, and this demo includes a short original video with captions."
       />
 
       <Section
@@ -174,7 +174,7 @@ export function VideoPlayerPage() {
               </Badge>
 
               <span className="pg-meta">
-                12 min · Captions available
+                4 sec · Captions available
               </span>
             </div>
 

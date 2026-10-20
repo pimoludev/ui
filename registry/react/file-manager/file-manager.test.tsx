@@ -395,16 +395,19 @@ describe("Pimolu FileManager", () => {
       "grid"
     );
 
-    const grid = screen.getByRole("grid", {
+    const grid = screen.getByRole("listbox", {
       name: "Files items",
     });
 
     expect(
-      within(grid).getAllByRole("gridcell")
+      within(grid).getAllByRole("option")
     ).toHaveLength(4);
-    expect(
-      screen.queryByRole("listbox")
-    ).not.toBeInTheDocument();
+    expect(grid).toHaveClass("pimolu-file-manager__grid");
+
+    const tiles = within(grid).getAllByRole("option");
+    tiles[0].focus();
+    await user.keyboard("{ArrowDown}");
+    expect(tiles[1]).toHaveFocus();
 
     await user.click(
       screen.getByRole("radio", { name: "List" })

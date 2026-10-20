@@ -17,7 +17,7 @@ export function PDFViewerPage() {
     <>
       <PageHeader
         title="PDFViewer"
-        hint="An <object> embed with a toolbar for opening and downloading the file. Browsers with a built-in PDF viewer render the document; others show the fallback links inside the object. Page navigation belongs to the browser viewer — the standard #page fragment is passed through for an initial page. The demo uses a placeholder document path."
+        hint="An <object> embed with a toolbar for opening and downloading the file. Browsers with a built-in PDF viewer render the included two-page sample document; others show fallback links. The standard #page fragment selects an initial page."
       />
 
       <Section
@@ -97,7 +97,7 @@ export function PDFViewerPage() {
               </Badge>
 
               <span className="pg-meta">
-                24 pages · 3.8 MB
+                2 pages · Demo document
               </span>
             </div>
 

@@ -30,8 +30,9 @@ function CropperDemo({
   disabled?: boolean;
   labels?: PimoluImageCropperLabels;
 }) {
-  const [crop, setCrop] =
-    useState<PimoluCropArea | null>(null);
+  const [crop, setCrop] = useState<PimoluCropArea>(
+    defaultCrop ?? { x: 0, y: 0, width: 100, height: 100 }
+  );
 
   const [result, setResult] = useState<string | null>(
     null
@@ -69,14 +70,14 @@ function CropperDemo({
 
       <div className="pg-row">
         <Badge variant="secondary">
-          x {crop?.x ?? 0}%
+          x {crop.x}%
         </Badge>
         <Badge variant="secondary">
-          y {crop?.y ?? 0}%
+          y {crop.y}%
         </Badge>
         <Badge variant="secondary">
-          {crop?.width ?? 100}% ×{" "}
-          {crop?.height ?? 100}%
+          {crop.width}% ×{" "}
+          {crop.height}%
         </Badge>
 
         {result && (
@@ -85,16 +86,7 @@ function CropperDemo({
       </div>
 
       <Code block>
-        {JSON.stringify(
-          crop ?? {
-            x: 0,
-            y: 0,
-            width: 100,
-            height: 100,
-          },
-          null,
-          2
-        )}
+        {JSON.stringify(crop, null, 2)}
       </Code>
     </div>
   );

@@ -80,6 +80,15 @@ describe("Pimolu AudioPlayer", () => {
     ).toBeInTheDocument();
   });
 
+  it("reads a cached audio duration before a metadata event", () => {
+    vi.spyOn(HTMLMediaElement.prototype, "duration", "get").mockReturnValue(15.8);
+
+    render(<AudioPlayer src="/audio/cached-note.wav" title="Cached note" />);
+
+    expect(screen.getByText("0:00 / 0:15")).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: "Audio timeline" })).toBeEnabled();
+  });
+
   it("shows the duration once metadata arrives", () => {
     render(
       <AudioPlayer

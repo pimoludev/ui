@@ -213,6 +213,20 @@
       "footer";
   }
 
+  .pimolu-app-shell:has(.pimolu-sidebar[data-collapsed="true"]),
+  .pimolu-app-shell[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pimolu-app-shell .pimolu-sidebar[data-collapsed="true"] {
+    width: 100%;
+    min-height: 60px;
+  }
+
+  .pimolu-app-shell .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
+    display: none;
+  }
+
   .pimolu-app-shell[data-sidebar="false"] {
     grid-template-areas:
       "header"
@@ -271,5 +285,14 @@
   .pimolu-app-shell:has(.pimolu-sidebar[data-collapsed="true"]),
   .pimolu-app-shell[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pimolu-app-shell .pimolu-sidebar[data-collapsed="true"] {
+    width: 100%;
+    min-height: 60px;
+  }
+
+  .pimolu-app-shell .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
+    display: none;
   }
 }

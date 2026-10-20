@@ -3,10 +3,10 @@
 This document orders the work by technical dependency. It promises neither a
 date nor a feature that is already delivered.
 
-1. **Stabilise what exists.** Address the gaps found by the audit, review the
-   rendering and the interactions of the 111 families in light/dark and the seven
-   presets, then complete the risky accessibility cases (menus, focus, forms,
-   forced colors, RTL).
+1. **Stabilise what exists.** Track the verified work and the remaining
+   page-by-page review in [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Check the 113
+   Playground pages in light/dark and the seven presets, then complete the
+   complex-component accessibility cases, forced colors, reduced motion and RTL.
 2. **Fix the design system contracts.** Document the public tokens, check
    contrast and states, establish visual references for Default and the other
    presets, then reduce the remaining isolated CSS values.

@@ -301,6 +301,28 @@ export const VideoPlayer = forwardRef<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Cached local media can finish loading before React receives its metadata
+  // event. Read the element once and keep a native fallback listener so the
+  // timeline always gets its finite duration.
+  useEffect(() => {
+    const media = mediaRef.current;
+    if (!media) return;
+    const currentMedia = media;
+
+    function syncDuration() {
+      setDuration(normalizeDuration(currentMedia.duration));
+    }
+
+    syncDuration();
+    media.addEventListener("loadedmetadata", syncDuration);
+    media.addEventListener("durationchange", syncDuration);
+
+    return () => {
+      media.removeEventListener("loadedmetadata", syncDuration);
+      media.removeEventListener("durationchange", syncDuration);
+    };
+  }, [src]);
+
   /* A controlled `playing` prop drives the media element. */
 
   useEffect(() => {

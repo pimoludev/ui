@@ -170,12 +170,21 @@ export function Menubar({
       event.key === "End"
     ) {
       let nextIndex: number;
+      const closestDirection = menubarRef.current
+        ?.closest("[dir]")
+        ?.getAttribute("dir");
+      const isRtl = closestDirection
+        ? closestDirection.toLowerCase() === "rtl"
+        : window.getComputedStyle(target).direction === "rtl";
 
       if (event.key === "ArrowRight") {
-        nextIndex = (index + 1) % triggers.length;
+        nextIndex =
+          (index + (isRtl ? -1 : 1) + triggers.length) %
+          triggers.length;
       } else if (event.key === "ArrowLeft") {
         nextIndex =
-          (index - 1 + triggers.length) % triggers.length;
+          (index + (isRtl ? 1 : -1) + triggers.length) %
+          triggers.length;
       } else if (event.key === "Home") {
         nextIndex = 0;
       } else {

@@ -20,7 +20,7 @@ export function SidebarPage() {
     <>
       <PageHeader
         title="Sidebar"
-        hint="A complementary landmark with grouped navigation and a footer. Use the toggle to collapse or expand it; on narrow screens, it starts collapsed. Active links expose aria-current."
+        hint="A complementary landmark with grouped navigation and a footer. Collapse it to keep icon shortcuts on desktop; on narrow screens, the toggle opens the full navigation. Active links expose aria-current."
       />
 
       <Section

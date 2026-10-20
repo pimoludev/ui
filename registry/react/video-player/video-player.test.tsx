@@ -101,6 +101,15 @@ describe("Pimolu VideoPlayer", () => {
     ).toBeInTheDocument();
   });
 
+  it("reads a cached video's duration when metadata is already available", () => {
+    vi.spyOn(HTMLMediaElement.prototype, "duration", "get").mockReturnValue(4.1);
+
+    render(<VideoPlayer src="/media/cached-tour.webm" />);
+
+    expect(screen.getByText("0:00 / 0:04")).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: "Video timeline" })).toBeEnabled();
+  });
+
   it("shows the duration and seeks with the timeline", () => {
     render(<VideoPlayer src="/media/tour.mp4" />);
 

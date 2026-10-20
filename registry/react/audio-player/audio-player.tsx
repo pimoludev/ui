@@ -249,6 +249,26 @@ export const AudioPlayer = forwardRef<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // A cached source may have metadata before React observes the media event.
+  useEffect(() => {
+    const media = mediaRef.current;
+    if (!media) return;
+    const currentMedia = media;
+
+    function syncDuration() {
+      setDuration(normalizeDuration(currentMedia.duration));
+    }
+
+    syncDuration();
+    media.addEventListener("loadedmetadata", syncDuration);
+    media.addEventListener("durationchange", syncDuration);
+
+    return () => {
+      media.removeEventListener("loadedmetadata", syncDuration);
+      media.removeEventListener("durationchange", syncDuration);
+    };
+  }, [src]);
+
   useEffect(() => {
     if (!controlled) return;
 

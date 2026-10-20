@@ -135,4 +135,19 @@ describe("Pimolu Sidebar", () => {
     expect(screen.getByRole("complementary")).toHaveAttribute("data-collapsed", "true");
     expect(screen.getByRole("button", { name: "Show navigation" })).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("keeps collapsed links named and provides a fallback shortcut glyph", () => {
+    render(
+      <Sidebar collapsible defaultCollapsed>
+        <SidebarContent>
+          <SidebarItem href="/reports">Reports</SidebarItem>
+        </SidebarContent>
+      </Sidebar>
+    );
+
+    const link = screen.getByRole("link", { name: "Reports" });
+    expect(link).toHaveAttribute("title", "Reports");
+    expect(link.querySelector(".pimolu-sidebar__icon--fallback")).toHaveTextContent("R");
+    expect(screen.getByRole("button", { name: "Expand sidebar" })).toHaveAttribute("aria-expanded", "false");
+  });
 });

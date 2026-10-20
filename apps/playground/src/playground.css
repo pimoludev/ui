@@ -240,6 +240,13 @@
   padding: 44px 0 72px;
 }
 
+.pg-page-loading {
+  display: flex;
+  align-items: center;
+  min-height: 10rem;
+  color: var(--pimolu-muted-foreground);
+}
+
 /* Pages */
 
 .pg-page {
