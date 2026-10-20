@@ -13,6 +13,7 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarToggle,
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -33,7 +34,7 @@ import { PageHeader, Section } from "../section";
 
 function DashboardSidebar() {
   return (
-    <Sidebar>
+    <Sidebar collapsible>
       <SidebarHeader>
         <span className="pg-brand__mark">P</span>
 
@@ -69,8 +70,9 @@ function DashboardSidebar() {
 
 function DashboardNavbar() {
   return (
-    <Navbar bordered={false} itemsPosition="center">
+    <Navbar bordered={false} itemsPosition="center" collapsible>
       <NavbarBrand href="#/dashboard-layout">Dashboard</NavbarBrand>
+      <NavbarToggle />
 
       <NavbarContent aria-label="Dashboard navigation">
         <NavbarItem href="#/dashboard-layout" active>
@@ -275,7 +277,7 @@ export function DashboardLayoutPage() {
 
       <Section
         title="With a right rail"
-        hint="The aside is hidden below 1100px; the sidebar stacks above the content below 860px."
+        hint="At narrow widths, the sidebar collapses and stacks above the content. The right rail remains available below the main region."
       >
         <DashboardLayout
           sidebar={<DashboardSidebar />}

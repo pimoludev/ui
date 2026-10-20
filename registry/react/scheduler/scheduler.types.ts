@@ -76,7 +76,7 @@ export interface PimoluSchedulerProps {
   /** Shows a line for the current time on today's column. Defaults to true. */
   showCurrentTime?: boolean;
 
-  /** Height of one hour row, in pixels. Defaults to 56. */
+  /** Height of one hour row, in pixels. Defaults to 64. */
   hourHeight?: number;
 
   /** Called when an event button is activated. */

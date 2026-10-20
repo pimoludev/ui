@@ -392,7 +392,7 @@ function MenubarSurface({
       '[role="menuitem"]:not([aria-disabled="true"]):not(:disabled)'
     );
 
-    (first ?? panel).focus();
+    (first ?? panel).focus({ preventScroll: true });
   }, [contentRef]);
 
   function handleKeyDown(

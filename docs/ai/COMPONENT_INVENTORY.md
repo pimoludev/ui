@@ -44,7 +44,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Pagination | `registry/react/pagination/` | Page navigation with ellipses | Present and tested |
 | Stepper | `registry/react/stepper/` | Multi-step progress | Present and tested |
 | Navbar | `registry/react/navbar/` | Top navigation shell with item alignment and an optional collapsible menu | Present and tested |
-| Sidebar | `registry/react/sidebar/` | Grouped side navigation | Present and tested |
+| Sidebar | `registry/react/sidebar/` | Grouped side navigation with optional controlled/uncontrolled collapse and mobile initial collapse | Present and tested |
 | DashboardLayout | `registry/react/dashboard-layout/` | Sidebar, navbar, main content and optional aside shell | Present and tested |
 | NavigationMenu | `registry/react/navigation-menu/` | Menus with disclosure panels and a labelled navigation landmark | Present and tested |
 | ScrollArea | `registry/react/scroll-area/` | Styled scroll viewport | Present and tested |
@@ -77,7 +77,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | DateRangePicker | `registry/react/date-range-picker/` | Two-date range selection | Present and tested |
 | FileUpload | `registry/react/file-upload/` | File selection and validation | Present and tested |
 | Dropzone | `registry/react/dropzone/` | Drag-and-drop file selection | Present and tested |
-| ColorPicker | `registry/react/color-picker/` | Hex color and preset selection | Present and tested |
+| ColorPicker | `registry/react/color-picker/` | Hex and native arbitrary color selection with replaceable preset palette | Present and tested |
 | Box | `registry/react/box/` | Generic layout container | Present and tested |
 | Stack, HStack, VStack | `registry/react/stack/` | One-dimensional layout | Present and tested |
 | Flex | `registry/react/flex/` | Flexbox layout | Present and tested |
@@ -98,7 +98,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Form | `registry/react/form/` | Validation, submission and field registration | Present and tested |
 | MaskedInput | `registry/react/masked-input/` | Pattern-masked text input | Present and tested |
 | CurrencyInput | `registry/react/currency-input/` | Locale-aware currency field | Present and tested |
-| PhoneInput | `registry/react/phone-input/` | Country-aware phone field | Present and tested |
+| PhoneInput | `registry/react/phone-input/` | Country-aware phone field using the styled Pimolu Select | Present and tested |
 | Mentions | `registry/react/mentions/` | Triggered mention suggestions | Present and tested |
 | Cascader | `registry/react/cascader/` | Hierarchical single selection | Present and tested |
 | Transfer | `registry/react/transfer/` | Two-list selection transfer | Present and tested |

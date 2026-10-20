@@ -105,6 +105,8 @@ function WeekSchedulerExample() {
         onEventClick={setSelected}
         onSlotClick={setLastSlot}
         weekStartsOn={1}
+        minTime={8 * 60}
+        maxTime={19 * 60}
       />
 
       <div className="pg-grid pg-grid--two">

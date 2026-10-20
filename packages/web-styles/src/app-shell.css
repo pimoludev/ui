@@ -55,6 +55,51 @@
     "footer footer";
 }
 
+.pimolu-app-shell:has(.pimolu-sidebar[data-collapsed="true"]) {
+  --pimolu-app-shell-sidebar-width: 3.75rem;
+  grid-template-columns: 3.75rem minmax(0, 1fr);
+}
+
+.pimolu-app-shell[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
+  grid-template-columns: 3.75rem minmax(0, 1fr) var(--pimolu-app-shell-aside-width);
+}
+
+@container (max-width: 1100px) {
+  .pimolu-app-shell[data-aside="true"] {
+    grid-template-columns: var(--pimolu-app-shell-sidebar-width) minmax(0, 1fr);
+    grid-template-areas: "header header" "sidebar main" "aside aside" "footer footer";
+  }
+
+  .pimolu-app-shell[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
+    grid-template-columns: 3.75rem minmax(0, 1fr);
+  }
+
+  .pimolu-app-shell[data-sidebar="false"][data-aside="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "header" "main" "aside" "footer";
+  }
+
+  .pimolu-app-shell__aside {
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--pimolu-border);
+  }
+}
+
+@container (max-width: 720px) {
+  .pimolu-app-shell,
+  .pimolu-app-shell[data-aside="true"],
+  .pimolu-app-shell[data-sidebar="false"],
+  .pimolu-app-shell[data-sidebar="false"][data-aside="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "header" "sidebar" "main" "aside" "footer";
+  }
+
+  .pimolu-app-shell[data-sidebar="false"],
+  .pimolu-app-shell[data-sidebar="false"][data-aside="true"] {
+    grid-template-areas: "header" "main" "aside" "footer";
+  }
+}
+
 /* =========================================
    REGIONS
 ========================================= */
@@ -219,5 +264,12 @@
 
     background: Canvas;
     color: CanvasText;
+  }
+}
+
+@container (max-width: 720px) {
+  .pimolu-app-shell:has(.pimolu-sidebar[data-collapsed="true"]),
+  .pimolu-app-shell[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

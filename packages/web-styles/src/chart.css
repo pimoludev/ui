@@ -21,9 +21,9 @@
   --pimolu-chart-color:
     var(--pimolu-primary, #4f46e5);
 
-  --pimolu-chart-label-size: 12px;
-  --pimolu-chart-axis-title-size: 12px;
-  --pimolu-chart-value-size: 11px;
+  --pimolu-chart-label-size: 13px;
+  --pimolu-chart-axis-title-size: 13px;
+  --pimolu-chart-value-size: 12px;
   --pimolu-chart-legend-size: 0.8125rem;
 
   display: flex;
@@ -109,6 +109,7 @@
   );
 
   stroke: none;
+  rx: 4px;
 
   transition: opacity 160ms ease;
 }

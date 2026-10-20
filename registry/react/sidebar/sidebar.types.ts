@@ -9,6 +9,18 @@ export interface PimoluSidebarProps
   /** Stick to the top of the scroll container. */
   sticky?: boolean;
 
+  /** Show a built-in control to collapse and expand the navigation. */
+  collapsible?: boolean;
+  /** Controlled collapsed state. */
+  collapsed?: boolean;
+  /** Initial collapsed state when uncontrolled. */
+  defaultCollapsed?: boolean;
+  /** Start collapsed below 720px unless the state is controlled or explicitly set. */
+  collapseOnMobile?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  collapseLabel?: string;
+  expandLabel?: string;
+
   children: ReactNode;
 }
 

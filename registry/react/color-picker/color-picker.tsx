@@ -26,12 +26,28 @@ export const DEFAULT_COLOR_PICKER_VALUE = "#5B55E7";
 /** Cross-theme defaults for the preset row. */
 export const DEFAULT_COLOR_PICKER_PRESETS: readonly string[] = [
   "#5B55E7",
+  "#4338CA",
+  "#8B5CF6",
+  "#A855F7",
   "#0EA5E9",
+  "#2563EB",
+  "#06B6D4",
+  "#14B8A6",
   "#10B981",
+  "#22C55E",
+  "#84CC16",
   "#F59E0B",
+  "#F97316",
+  "#EAB308",
   "#EF4444",
+  "#F43F5E",
   "#EC4899",
+  "#D946EF",
+  "#64748B",
   "#111827",
+  "#78716C",
+  "#D1D5DB",
+  "#000000",
   "#FFFFFF",
 ];
 
@@ -287,14 +303,17 @@ export const ColorPicker = forwardRef<
         content={
           <>
             <div className="pimolu-color-picker__field-row">
-              <input
-                type="color"
-                className="pimolu-color-picker__native"
-                aria-label="Pick a color"
-                value={normalizedValue.toLowerCase()}
-                disabled={disabled || readOnly}
-                onChange={handleNativeColorChange}
-              />
+              <label className="pimolu-color-picker__custom">
+                <input
+                  type="color"
+                  className="pimolu-color-picker__native"
+                  aria-label="Pick a color"
+                  value={normalizedValue.toLowerCase()}
+                  disabled={disabled || readOnly}
+                  onChange={handleNativeColorChange}
+                />
+                <span>Any color</span>
+              </label>
 
               <input
                 type="text"
@@ -319,7 +338,7 @@ export const ColorPicker = forwardRef<
               id={hintId}
               className="pimolu-color-picker__hint"
             >
-              Enter a 3- or 6-digit hex value.
+              Pick any color or enter a 3- or 6-digit hex value.
             </p>
 
             {hexError && (

@@ -30,7 +30,7 @@ export function BoxPage() {
         title="Padding scale"
         hint="0, 1, 2, 3, 4, 6, 8 and 12 map to --pimolu-spacing-* tokens; the surface makes the padded area visible."
       >
-        <HStack gap={2} wrap align="start">
+        <HStack gap={2} wrap align="start" className="pg-box-scale-demo">
           {paddings.map((padding) => (
             <Box
               key={padding}
@@ -47,7 +47,7 @@ export function BoxPage() {
         title="Axes"
         hint="paddingX and paddingY refine the inline and block axes; p, px and py are aliases."
       >
-        <Stack gap={3}>
+        <Stack gap={3} className="pg-box-surface-demo">
           <Box
             padding={6}
             paddingX={12}
@@ -76,7 +76,7 @@ export function BoxPage() {
         title="Surfaces"
         hint="Only the semantic surface and muted tokens are available, so every preset and both themes stay consistent."
       >
-        <Stack gap={3}>
+        <Stack gap={3} className="pg-box-surface-demo">
           <Box padding={4} background="surface">
             <Text size="sm">surface</Text>
           </Box>
@@ -170,9 +170,9 @@ export function BoxPage() {
               </HStack>
 
               <Paragraph size="sm" tone="muted">
-                Padding changes with the density and radius
-                presets. Use the named aliases when the exact
-                step matters less than the rhythm.
+                Spacing follows the shared token scale. Use
+                named aliases when the exact step matters less
+                than a consistent rhythm.
               </Paragraph>
 
               <Box

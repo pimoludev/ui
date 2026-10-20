@@ -7,9 +7,9 @@
   --pimolu-gantt-task-width: 220px;
   --pimolu-gantt-timeline-width: 640px;
   --pimolu-gantt-bar-color: var(--pimolu-primary, #4f46e5);
-  --pimolu-gantt-header-height: 48px;
-  --pimolu-gantt-row-height: 44px;
-  --pimolu-gantt-group-height: 32px;
+  --pimolu-gantt-header-height: 52px;
+  --pimolu-gantt-row-height: 52px;
+  --pimolu-gantt-group-height: 38px;
   --pimolu-gantt-radius: var(
     --pimolu-radius-lg,
     12px
@@ -85,7 +85,7 @@
   color: var(--pimolu-foreground, #0f172a);
 
   font-size: 0.9375rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: -0.011em;
   white-space: nowrap;
 }
@@ -406,13 +406,13 @@
 
 .pimolu-gantt__bar {
   position: absolute;
-  top: 10px;
+  top: 11px;
 
   display: flex;
   align-items: center;
 
   box-sizing: border-box;
-  height: calc(var(--pimolu-gantt-row-height) - 20px);
+  height: calc(var(--pimolu-gantt-row-height) - 22px);
   min-height: 18px;
 
   padding: 0;
@@ -433,7 +433,7 @@
         38%,
       transparent
     );
-  border-radius: var(--pimolu-radius-sm, 4px);
+  border-radius: var(--pimolu-radius-md, 8px);
 
   font: inherit;
   text-align: left;
@@ -487,8 +487,8 @@
 
   padding: 0 8px;
 
-  font-size: 0.6875rem;
-  font-weight: 650;
+  font-size: 0.75rem;
+  font-weight: 600;
   line-height: 1;
 
   text-overflow: ellipsis;

@@ -1,4 +1,6 @@
 
+@import "./native-controls.css";
+
 /* =========================================
    PIMOLU UI — TRANSFER
    Shared Web Styles
@@ -253,8 +255,6 @@
   height: 16px;
 
   margin: 2px 0 0;
-
-  accent-color: var(--pimolu-primary);
 
   cursor: inherit;
 }

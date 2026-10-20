@@ -102,6 +102,8 @@ export const Box = forwardRef<HTMLElement, PimoluBoxProps>(
 
     const classes = [
       "pimolu-box",
+      resolvedPaddingX !== undefined && "pimolu-box--padding-x",
+      resolvedPaddingY !== undefined && "pimolu-box--padding-y",
       background !== "none" &&
         `pimolu-box--bg-${background}`,
       fullWidth && "pimolu-box--full-width",

@@ -20,15 +20,15 @@ export function SidebarPage() {
     <>
       <PageHeader
         title="Sidebar"
-        hint="A complementary landmark with a header, grouped navigation and a footer. Items are real links, the active one gets aria-current, and sticky mode keeps the sidebar in view. Styles come from @pimolu/web-styles/sidebar.css."
+        hint="A complementary landmark with grouped navigation and a footer. Use the toggle to collapse or expand it; on narrow screens, it starts collapsed. Active links expose aria-current."
       />
 
       <Section
         title="Dashboard"
-        hint="A sidebar and a content area side by side; the sidebar stays visible while the page scrolls."
+        hint="Collapse the navigation to give the content more room. On narrow screens, the navigation stacks above the content."
       >
         <div className="pg-sidebar-demo">
-          <Sidebar sticky>
+          <Sidebar sticky collapsible>
             <SidebarHeader>
               <span className="pg-brand__mark">P</span>
 

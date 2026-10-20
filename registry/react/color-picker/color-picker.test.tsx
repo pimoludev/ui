@@ -62,7 +62,7 @@ describe("Pimolu ColorPicker", () => {
       screen.getAllByRole("button", {
         name: /^Use color/,
       })
-    ).toHaveLength(8);
+    ).toHaveLength(24);
   });
 
   it("selects a preset, normalizes it and returns focus", () => {

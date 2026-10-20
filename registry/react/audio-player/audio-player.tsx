@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type SyntheticEvent,
 } from "react";
@@ -564,7 +565,10 @@ export const AudioPlayer = forwardRef<
           {showVolume && (
             <input
               type="range"
-              className="pimolu-audio-player__volume"
+              className="pimolu-native-range pimolu-audio-player__volume"
+              style={{
+                "--pimolu-native-range-progress": `${volume * 100}%`,
+              } as CSSProperties}
               min={0}
               max={1}
               step={0.05}
@@ -580,7 +584,10 @@ export const AudioPlayer = forwardRef<
 
         <input
           type="range"
-          className="pimolu-audio-player__timeline"
+          className="pimolu-native-range pimolu-audio-player__timeline"
+          style={{
+            "--pimolu-native-range-progress": `${duration > 0 ? (Math.min(currentTime, duration) / duration) * 100 : 0}%`,
+          } as CSSProperties}
           min={0}
           max={duration > 0 ? duration : 0}
           step={0.1}

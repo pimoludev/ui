@@ -9,20 +9,12 @@ import {
   CardHeader,
   CardTitle,
   ColorPicker,
+  DEFAULT_COLOR_PICKER_PRESETS,
 } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
 
-const brandPresets = [
-  "#5B55E7",
-  "#7C3AED",
-  "#2563EB",
-  "#0EA5E9",
-  "#10B981",
-  "#F59E0B",
-  "#EF4444",
-  "#111827",
-];
+const brandPresets = DEFAULT_COLOR_PICKER_PRESETS;
 
 function BrandStudio() {
   const [brand, setBrand] = useState("#5B55E7");

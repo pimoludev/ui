@@ -11,6 +11,7 @@
   --pimolu-time-picker-height: 40px;
   --pimolu-time-picker-padding: 12px;
   --pimolu-time-picker-font-size: 14px;
+  --pimolu-time-picker-indicator-filter: none;
 
   --pimolu-time-picker-tone: var(
     --pimolu-focus-ring,
@@ -117,13 +118,16 @@
 /* Native chrome, kept as an affordance and tinted to match the control. */
 .pimolu-time-picker__control::-webkit-calendar-picker-indicator {
   cursor: pointer;
-
-  opacity: 0.7;
-
-  transition: opacity 120ms;
+  padding: 5px;
+  border-radius: var(--pimolu-radius-sm, 4px);
+  background-color: var(--pimolu-muted, transparent);
+  opacity: 0.82;
+  filter: var(--pimolu-time-picker-indicator-filter, none);
+  transition: background-color 120ms, opacity 120ms;
 }
 
 .pimolu-time-picker__control::-webkit-calendar-picker-indicator:hover {
+  background-color: color-mix(in srgb, var(--pimolu-time-picker-tone) 12%, var(--pimolu-muted));
   opacity: 1;
 }
 

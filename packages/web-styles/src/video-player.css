@@ -1,3 +1,5 @@
+@import "./native-controls.css";
+
 /* =========================================
    PIMOLU UI — VIDEO PLAYER
    Shared Web Styles
@@ -186,11 +188,6 @@
 
   margin: 0;
 
-  accent-color: var(
-    --pimolu-primary,
-    #6366f1
-  );
-
   cursor: pointer;
 }
 
@@ -203,11 +200,6 @@
   height: 1.25rem;
 
   margin: 0;
-
-  accent-color: var(
-    --pimolu-primary,
-    #6366f1
-  );
 
   cursor: pointer;
 }

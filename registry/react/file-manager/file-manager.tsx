@@ -885,7 +885,7 @@ export function FileManager({
           />
 
           <select
-            className="pimolu-file-manager__select"
+            className="pimolu-native-select pimolu-file-manager__select"
             aria-label="Sort by"
             value={resolvedSort.by}
             onChange={(event) =>

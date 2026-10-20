@@ -5,9 +5,9 @@
 
 .pimolu-scheduler {
   --pimolu-scheduler-time-width: 64px;
-  --pimolu-scheduler-header-height: 54px;
+  --pimolu-scheduler-header-height: 60px;
   --pimolu-scheduler-allday-height: 42px;
-  --pimolu-scheduler-hour-height: 56px;
+  --pimolu-scheduler-hour-height: 64px;
   --pimolu-scheduler-day-count: 7;
   --pimolu-scheduler-event-color: var(--pimolu-primary, #4f46e5);
   --pimolu-scheduler-radius: var(
@@ -41,7 +41,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 
   box-sizing: border-box;
   width: 100%;
@@ -84,7 +84,7 @@
   color: var(--pimolu-foreground, #0f172a);
 
   font-size: 1rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: -0.011em;
   text-align: center;
 }
@@ -435,11 +435,11 @@
 
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 3px;
 
   box-sizing: border-box;
 
-  padding: 3px 5px;
+  padding: 6px 8px;
   margin: 1px;
 
   color: var(--pimolu-foreground, #0f172a);
@@ -460,7 +460,7 @@
       --pimolu-scheduler-event-color,
       var(--pimolu-scheduler-primary)
     );
-  border-radius: var(--pimolu-radius-sm, 4px);
+  border-radius: var(--pimolu-radius-md, 8px);
 
   font: inherit;
   text-align: left;
@@ -497,7 +497,7 @@
   overflow: hidden;
 
   font-size: 0.75rem;
-  font-weight: 650;
+  font-weight: 600;
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -508,7 +508,7 @@
 
   color: var(--pimolu-scheduler-muted-foreground);
 
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;

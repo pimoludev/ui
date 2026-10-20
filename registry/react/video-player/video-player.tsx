@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
   type SyntheticEvent,
@@ -669,7 +670,10 @@ export const VideoPlayer = forwardRef<
 
           <input
             type="range"
-            className="pimolu-video-player__timeline"
+            className="pimolu-native-range pimolu-video-player__timeline"
+            style={{
+              "--pimolu-native-range-progress": `${duration > 0 ? (Math.min(currentTime, duration) / duration) * 100 : 0}%`,
+            } as CSSProperties}
             min={0}
             max={duration > 0 ? duration : 0}
             step={0.1}
@@ -706,7 +710,10 @@ export const VideoPlayer = forwardRef<
 
           <input
             type="range"
-            className="pimolu-video-player__volume"
+            className="pimolu-native-range pimolu-video-player__volume"
+            style={{
+              "--pimolu-native-range-progress": `${volume * 100}%`,
+            } as CSSProperties}
             min={0}
             max={1}
             step={0.05}

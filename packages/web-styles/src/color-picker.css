@@ -199,6 +199,16 @@
   min-width: 0;
 }
 
+.pimolu-color-picker__custom {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 7px;
+  color: var(--pimolu-muted-foreground);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
 .pimolu-color-picker__native {
   flex: none;
 

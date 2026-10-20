@@ -1572,7 +1572,7 @@ export function DataGrid<T>({
               </span>
 
               <select
-                className="pimolu-data-grid__page-size-select"
+                className="pimolu-native-select pimolu-data-grid__page-size-select"
                 value={resolvedPageSize}
                 onChange={(event) =>
                   handlePageSizeChange(

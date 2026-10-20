@@ -13,6 +13,7 @@ import {
 } from "react";
 
 import { useFormReset } from "../internal/use-form-reset";
+import { Select } from "../select/select";
 
 import type {
   PimoluPhoneCountry,
@@ -521,13 +522,11 @@ export const PhoneInput = forwardRef<
     onValueChange?.(nextValue);
   }
 
-  function handleCountryChange(
-    event: ChangeEvent<HTMLSelectElement>
-  ) {
+  function handleCountryChange(code: string) {
     const next =
       countryList.find(
         (item) =>
-          item.code === event.currentTarget.value
+          item.code === code
       ) ?? selectedCountry;
 
     if (country === undefined) {
@@ -603,19 +602,19 @@ export const PhoneInput = forwardRef<
       )}
 
       <div className="pimolu-phone-input__row">
-        <select
-          className="pimolu-phone-input__country"
+        <Select
+          containerClassName="pimolu-phone-input__country"
           value={selectorCountry.code}
           aria-label={countryLabel}
-          onChange={handleCountryChange}
+          onValueChange={handleCountryChange}
           disabled={disabled || readOnly}
         >
           {countryList.map((item) => (
             <option key={item.code} value={item.code}>
-              {item.name} (+{item.dialCode})
+              {`${item.name} (+${item.dialCode})`}
             </option>
           ))}
-        </select>
+        </Select>
 
         <div className="pimolu-phone-input__field">
           <span

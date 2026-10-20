@@ -204,7 +204,7 @@ export function Scheduler({
 
   locale = "en-US",
   showCurrentTime = true,
-  hourHeight = 56,
+  hourHeight = 64,
 
   onEventClick,
   onSlotClick,

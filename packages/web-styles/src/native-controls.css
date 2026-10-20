@@ -1,0 +1,143 @@
+/* Shared visual treatment for native inputs used inside composite components. */
+
+.pimolu-native-select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-inline-end: 2rem;
+  background-image:
+    linear-gradient(45deg, transparent 42%, var(--pimolu-muted-foreground) 42% 60%, transparent 60%),
+    linear-gradient(135deg, transparent 42%, var(--pimolu-muted-foreground) 42% 60%, transparent 60%);
+  background-position:
+    right 17px center,
+    right 11px center;
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+}
+
+.pimolu-native-select:dir(rtl) {
+  background-position:
+    left 17px center,
+    left 11px center;
+}
+
+.pimolu-native-range {
+  --pimolu-native-range-track: var(--pimolu-muted);
+  --pimolu-native-range-tone: var(--pimolu-primary);
+  --pimolu-native-range-progress: 0%;
+
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: transparent;
+}
+
+.pimolu-native-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--pimolu-native-range-tone) 0,
+    var(--pimolu-native-range-tone) var(--pimolu-native-range-progress),
+    var(--pimolu-native-range-track) var(--pimolu-native-range-progress),
+    var(--pimolu-native-range-track) 100%
+  );
+}
+
+.pimolu-native-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border: 2px solid var(--pimolu-native-range-tone);
+  border-radius: 50%;
+  background: var(--pimolu-surface, var(--pimolu-background));
+}
+
+.pimolu-native-range::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--pimolu-native-range-track);
+}
+
+.pimolu-native-range::-moz-range-progress {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--pimolu-native-range-tone);
+}
+
+.pimolu-native-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--pimolu-native-range-tone);
+  border-radius: 50%;
+  background: var(--pimolu-surface, var(--pimolu-background));
+}
+
+.pimolu-native-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  border: 1px solid color-mix(
+    in srgb,
+    var(--pimolu-muted-foreground) 55%,
+    var(--pimolu-border)
+  );
+  border-radius: var(--pimolu-radius-sm, 4px);
+  background: var(--pimolu-surface, var(--pimolu-background));
+  color: var(--pimolu-primary-foreground, #fff);
+}
+
+.pimolu-native-checkbox:checked,
+.pimolu-native-checkbox:indeterminate {
+  border-color: var(--pimolu-primary);
+  background: var(--pimolu-primary);
+}
+
+.pimolu-native-checkbox:hover:not(:disabled) {
+  border-color: var(--pimolu-primary);
+}
+
+.pimolu-native-checkbox:checked::after {
+  content: "";
+  width: 4px;
+  height: 7px;
+  margin-top: -2px;
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.pimolu-native-checkbox:indeterminate::after {
+  content: "";
+  width: 8px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+@media (forced-colors: active) {
+  .pimolu-native-select,
+  .pimolu-native-range {
+    -webkit-appearance: auto;
+    appearance: auto;
+    background-image: none;
+  }
+
+  .pimolu-native-checkbox:checked,
+  .pimolu-native-checkbox:indeterminate {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .pimolu-native-range::-webkit-slider-thumb {
+    border-color: Highlight;
+  }
+
+  .pimolu-native-range::-moz-range-thumb {
+    border-color: Highlight;
+  }
+}

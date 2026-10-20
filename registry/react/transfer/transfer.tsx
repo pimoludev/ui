@@ -363,7 +363,7 @@ export function Transfer({
                   >
                     <input
                       type="checkbox"
-                      className="pimolu-transfer__checkbox"
+                      className="pimolu-native-checkbox pimolu-transfer__checkbox"
                       checked={checked}
                       disabled={itemDisabled}
                       aria-label={item.label}

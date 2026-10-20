@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useSyncExternalStore } from "react";
 import type {
   PimoluSidebarContentProps,
   PimoluSidebarFooterProps,
@@ -19,19 +20,64 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
+const mobileQuery = "(max-width: 720px)";
+
+function subscribeMobile(onChange: () => void) {
+  if (typeof window === "undefined" || !window.matchMedia) return () => {};
+  const media = window.matchMedia(mobileQuery);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
+function mobileSnapshot() {
+  return typeof window !== "undefined" && Boolean(window.matchMedia?.(mobileQuery).matches);
+}
+
 export function Sidebar({
   sticky = false,
+  collapsible = false,
+  collapsed,
+  defaultCollapsed,
+  collapseOnMobile = true,
+  onCollapsedChange,
+  collapseLabel = "Collapse sidebar",
+  expandLabel = "Expand sidebar",
   children,
   className,
   ...props
 }: PimoluSidebarProps) {
+  const mobile = useSyncExternalStore(subscribeMobile, mobileSnapshot, () => false);
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean | undefined>(defaultCollapsed);
+  const isCollapsed = collapsible && (collapsed ?? internalCollapsed ?? (collapseOnMobile && mobile));
+
+  function toggleCollapsed() {
+    const next = !isCollapsed;
+    if (collapsed === undefined) setInternalCollapsed(next);
+    onCollapsedChange?.(next);
+  }
+
   return (
     <aside
       {...props}
       data-sticky={sticky || undefined}
+      data-collapsed={isCollapsed || undefined}
       className={classes("pimolu-sidebar", className)}
     >
       {children}
+      {collapsible && (
+        <button
+          type="button"
+          className="pimolu-sidebar__toggle"
+          aria-label={isCollapsed ? expandLabel : collapseLabel}
+          aria-expanded={!isCollapsed}
+          onClick={toggleCollapsed}
+        >
+          <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+            <rect x="2.5" y="3" width="15" height="14" rx="2" />
+            <path d="M7 3v14" />
+          </svg>
+        </button>
+      )}
     </aside>
   );
 }

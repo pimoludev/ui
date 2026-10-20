@@ -46,7 +46,7 @@ describe("Pimolu PhoneInput", () => {
 
     expect(
       screen.getByRole("combobox", { name: "Country" })
-    ).toHaveValue("FR");
+    ).toHaveTextContent("France (+33)");
   });
 
   it("formats an uncontrolled national default value", () => {
@@ -87,7 +87,8 @@ describe("Pimolu PhoneInput", () => {
       name: "Country",
     });
 
-    await user.selectOptions(select, "FR");
+    await user.click(select);
+    await user.click(screen.getByRole("option", { name: "France (+33)" }));
 
     expect(onCountryChange).toHaveBeenCalledWith(
       expect.objectContaining({

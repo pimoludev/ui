@@ -1061,8 +1061,8 @@
 
 .pdl-presets {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
 }
 
 .pdl-preset {
@@ -1070,14 +1070,14 @@
 }
 
 .pdl-preset .pimolu-card {
-  min-height: 106px;
+  min-height: 120px;
   height: 100%;
-  padding: 12px;
+  padding: 16px;
 }
 
 .pdl-preset .pimolu-card__title {
   overflow-wrap: anywhere;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .pdl-preset__buttons {

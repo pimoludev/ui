@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
@@ -1051,7 +1052,10 @@ export function ImageCropper({
 
           <input
             type="range"
-            className="pimolu-image-cropper__zoom-input"
+            className="pimolu-native-range pimolu-image-cropper__zoom-input"
+            style={{
+              "--pimolu-native-range-progress": `${safeMaxZoom > safeMinZoom ? ((zoom - safeMinZoom) / (safeMaxZoom - safeMinZoom)) * 100 : 0}%`,
+            } as CSSProperties}
             min={safeMinZoom}
             max={safeMaxZoom}
             step={0.1}

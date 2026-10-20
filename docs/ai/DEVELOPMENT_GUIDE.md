@@ -51,3 +51,31 @@ variables and the `pimolu-*` classes, without introducing a styling framework.
 Run `pnpm verify`, then look at the real rendering across the seven presets and
 both colour modes for any visual change. Do not claim a check was run when it was
 not.
+
+## Consumer customization
+
+Start with the component props, then pass `className`/`style` or override its
+documented `--pimolu-*` variables in application CSS loaded after the Pimolu
+bundle. Avoid editing generated `dist` files. For example, `Sidebar` accepts
+`collapsible`, `collapsed`/`defaultCollapsed`, `onCollapsedChange` and
+`collapseOnMobile`; `AppShell` and `DashboardLayout` accept rail width props.
+`ColorPicker` accepts a replacement `presets` array and also allows any hex
+color. `PhoneInput` accepts a replacement `countries` array. `Box` accepts
+`padding`, `paddingX` and `paddingY` on the shared spacing scale.
+
+```tsx
+<Sidebar collapsible collapseOnMobile>
+  <SidebarContent aria-label="Workspace">...</SidebarContent>
+</Sidebar>
+
+<ColorPicker presets={["#5B55E7", "#0EA5E9"]} />
+
+<TimePicker className="booking-time" label="Arrival" />
+```
+
+```css
+.booking-time {
+  --pimolu-time-picker-height: 44px;
+  --pimolu-time-picker-tone: var(--pimolu-primary);
+}
+```

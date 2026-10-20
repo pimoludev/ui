@@ -54,7 +54,7 @@ function ShellHeader() {
 
 function WorkspaceSidebar({ compact = false }: { compact?: boolean }) {
   return (
-    <Sidebar>
+    <Sidebar collapsible>
       <SidebarHeader>
         <span className="pg-brand__mark">A</span>
 

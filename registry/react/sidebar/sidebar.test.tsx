@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   Sidebar,
@@ -92,5 +92,47 @@ describe("Pimolu Sidebar", () => {
     expect(
       screen.getByRole("complementary")
     ).toHaveAttribute("data-sticky", "true");
+  });
+
+  it("collapses and restores the navigation with an accessible control", () => {
+    render(
+      <Sidebar collapsible>
+        <SidebarContent>
+          <SidebarItem href="/">Overview</SidebarItem>
+        </SidebarContent>
+      </Sidebar>
+    );
+
+    const sidebar = screen.getByRole("complementary");
+    const collapse = screen.getByRole("button", { name: "Collapse sidebar" });
+    expect(collapse).toHaveAttribute("aria-expanded", "true");
+
+    fireEvent.click(collapse);
+    expect(sidebar).toHaveAttribute("data-collapsed", "true");
+    expect(screen.getByRole("button", { name: "Expand sidebar" })).toHaveAttribute("aria-expanded", "false");
+
+    fireEvent.click(screen.getByRole("button", { name: "Expand sidebar" }));
+    expect(sidebar).not.toHaveAttribute("data-collapsed");
+  });
+
+  it("supports a controlled collapsed state and custom control labels", () => {
+    const onCollapsedChange = vi.fn();
+    const { rerender } = render(
+      <Sidebar collapsible collapsed={false} onCollapsedChange={onCollapsedChange} collapseLabel="Hide navigation" expandLabel="Show navigation">
+        <SidebarContent>Navigation</SidebarContent>
+      </Sidebar>
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Hide navigation" }));
+    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(screen.getByRole("complementary")).not.toHaveAttribute("data-collapsed");
+
+    rerender(
+      <Sidebar collapsible collapsed onCollapsedChange={onCollapsedChange} collapseLabel="Hide navigation" expandLabel="Show navigation">
+        <SidebarContent>Navigation</SidebarContent>
+      </Sidebar>
+    );
+    expect(screen.getByRole("complementary")).toHaveAttribute("data-collapsed", "true");
+    expect(screen.getByRole("button", { name: "Show navigation" })).toHaveAttribute("aria-expanded", "false");
   });
 });
