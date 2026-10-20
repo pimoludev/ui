@@ -43,9 +43,10 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Breadcrumbs | `registry/react/breadcrumbs/` | Path to the current page | Present and tested |
 | Pagination | `registry/react/pagination/` | Page navigation with ellipses | Present and tested |
 | Stepper | `registry/react/stepper/` | Multi-step progress | Present and tested |
-| Navbar | `registry/react/navbar/` | Top navigation shell | Present and tested |
+| Navbar | `registry/react/navbar/` | Top navigation shell with item alignment and an optional collapsible menu | Present and tested |
 | Sidebar | `registry/react/sidebar/` | Grouped side navigation | Present and tested |
-| NavigationMenu | `registry/react/navigation-menu/` | Menus with disclosure panels | Present and tested |
+| DashboardLayout | `registry/react/dashboard-layout/` | Sidebar, navbar, main content and optional aside shell | Present and tested |
+| NavigationMenu | `registry/react/navigation-menu/` | Menus with disclosure panels and a labelled navigation landmark | Present and tested |
 | ScrollArea | `registry/react/scroll-area/` | Styled scroll viewport | Present and tested |
 | TreeView | `registry/react/tree-view/` | Keyboard-driven tree | Present and tested |
 | List, ListItem | `registry/react/list/` | Visual list rows | Present and tested |
@@ -94,7 +95,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 
 The provider lives in `registry/react/provider/`; the positioning and portal
 utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
-low-level utility. The playground pages cover the 83 families (AvatarGroup and
+low-level utility. The playground pages cover the 84 families (AvatarGroup and
 RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

@@ -1,0 +1,184 @@
+/* =========================================
+   PIMOLU UI - DASHBOARD LAYOUT
+   Shared Web Styles
+========================================= */
+
+.pimolu-dashboard-layout {
+  --pimolu-dashboard-sidebar-width: 16rem;
+  --pimolu-dashboard-aside-width: 20rem;
+
+  display: grid;
+  grid-template-columns:
+    var(--pimolu-dashboard-sidebar-width)
+    minmax(0, 1fr);
+  grid-template-areas: "sidebar main";
+
+  box-sizing: border-box;
+
+  min-height: 100dvh;
+
+  background: var(--pimolu-background);
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-dashboard-layout[data-sidebar="false"] {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "main";
+}
+
+.pimolu-dashboard-layout[data-aside="true"] {
+  grid-template-columns:
+    var(--pimolu-dashboard-sidebar-width)
+    minmax(0, 1fr)
+    var(--pimolu-dashboard-aside-width);
+  grid-template-areas: "sidebar main aside";
+}
+
+.pimolu-dashboard-layout[data-sidebar="false"][data-aside="true"] {
+  grid-template-columns: minmax(0, 1fr) var(--pimolu-dashboard-aside-width);
+  grid-template-areas: "main aside";
+}
+
+/* =========================================
+   REGIONS
+========================================= */
+
+.pimolu-dashboard-layout__sidebar {
+  grid-area: sidebar;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  border-inline-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+.pimolu-dashboard-layout[data-sticky-sidebar="true"]
+  .pimolu-dashboard-layout__sidebar {
+  position: sticky;
+  inset-block-start: 0;
+
+  align-self: start;
+
+  max-height: 100dvh;
+
+  overflow-y: auto;
+}
+
+.pimolu-dashboard-layout__main {
+  grid-area: main;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.pimolu-dashboard-layout__navbar {
+  min-width: 0;
+}
+
+.pimolu-dashboard-layout[data-sticky-navbar="true"]
+  .pimolu-dashboard-layout__navbar {
+  position: sticky;
+  inset-block-start: 0;
+
+  z-index: 10;
+}
+
+.pimolu-dashboard-layout__content {
+  flex: 1 1 auto;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  padding: var(--pimolu-spacing-6, 24px);
+}
+
+.pimolu-dashboard-layout__aside {
+  grid-area: aside;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: var(--pimolu-spacing-6, 24px);
+
+  border-inline-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(--pimolu-surface);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .pimolu-dashboard-layout[data-aside="true"] {
+    grid-template-columns:
+      var(--pimolu-dashboard-sidebar-width)
+      minmax(0, 1fr);
+    grid-template-areas: "sidebar main";
+  }
+
+  .pimolu-dashboard-layout[data-sidebar="false"][data-aside="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "main";
+  }
+
+  .pimolu-dashboard-layout__aside {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .pimolu-dashboard-layout,
+  .pimolu-dashboard-layout[data-aside="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "sidebar" "main";
+  }
+
+  .pimolu-dashboard-layout[data-sidebar="false"],
+  .pimolu-dashboard-layout[data-sidebar="false"][data-aside="true"] {
+    grid-template-areas: "main";
+  }
+
+  .pimolu-dashboard-layout__sidebar {
+    position: static;
+
+    max-height: none;
+    overflow: visible;
+
+    border-inline-end: 0;
+    border-block-end:
+      var(--pimolu-control-border-width, 1px)
+      solid var(--pimolu-border);
+  }
+
+  .pimolu-dashboard-layout__content {
+    padding: var(--pimolu-spacing-4, 16px);
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-dashboard-layout__sidebar {
+    border-color: CanvasText;
+  }
+
+  .pimolu-dashboard-layout__aside {
+    border-color: CanvasText;
+
+    background: Canvas;
+  }
+}

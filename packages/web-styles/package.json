@@ -100,7 +100,8 @@
     "./image.css": "./dist/image.css",
     "./carousel.css": "./dist/carousel.css",
     "./resizable.css": "./dist/resizable.css",
-    "./virtual-list.css": "./dist/virtual-list.css"
+    "./virtual-list.css": "./dist/virtual-list.css",
+    "./dashboard-layout.css": "./dist/dashboard-layout.css"
   },
 
   "dependencies": {

@@ -115,11 +115,28 @@ describe("Pimolu NavigationMenu", () => {
     });
 
     fireEvent.click(trigger);
+    screen.getByRole("link", { name: "One" }).focus();
     fireEvent.keyDown(document, { key: "Escape" });
 
     expect(
       screen.queryByRole("link", { name: "One" })
     ).toBeNull();
+    expect(trigger).toHaveFocus();
+  });
+
+  it("uses an explicit aria-label ahead of the label alias", () => {
+    render(
+      <NavigationMenu label="Main" aria-label="Documentation">
+        <NavigationMenuList>
+          <NavigationMenuItem value="docs">
+            <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+            <NavigationMenuContent>Content</NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    );
+
+    expect(screen.getByRole("navigation", { name: "Documentation" })).toBeInTheDocument();
   });
 
   it("closes on an outside pointerdown", () => {

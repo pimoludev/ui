@@ -1,0 +1,26 @@
+.pg-navbar-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+}
+
+.pg-navbar-preview {
+  min-width: 0;
+}
+
+.pg-navbar-preview__label {
+  margin: 0 0 10px;
+  color: var(--pimolu-muted-foreground);
+  font-size: 0.8125rem;
+}
+
+.pg-navbar-preview__frame {
+  max-width: 390px;
+  overflow: hidden;
+  border: 1px solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-lg);
+}
+
+.pg-navbar-preview__frame--wide {
+  max-width: none;
+}

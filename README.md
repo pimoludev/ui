@@ -99,6 +99,22 @@ Tokens are also available as JSON, so React Native and other JavaScript consumer
 
 A complete Next.js App Router example, including server-read theme cookies, lives in `examples/nextjs`.
 
+## Responsive navigation
+
+Add `collapsible` and `NavbarToggle` to put links and actions behind a menu when the navbar is narrow. The button uses a hamburger by default; `icon` and `closeIcon` accept custom icons. Set `itemsPosition` to `"center"` or `"right"` to move the navigation cluster while the brand stays at the start and the actions stay at the end; the default is `"left"`.
+
+```tsx
+import { Navbar, NavbarBrand, NavbarToggle, NavbarContent, NavbarItem } from "@pimolu/react";
+
+<Navbar collapsible>
+  <NavbarBrand href="/">Pimolu</NavbarBrand>
+  <NavbarToggle />
+  <NavbarContent aria-label="Main navigation">
+    <NavbarItem href="/docs">Docs</NavbarItem>
+  </NavbarContent>
+</Navbar>
+```
+
 ## Quality, automated
 
 Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI is currently disabled while the existing library is being refined.
@@ -107,7 +123,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development. The token pipeline, two color themes, six visual presets and 83 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. Packages are consumed from the workspace today, with registry distribution planned. See [technical context](docs/ai/PROJECT_CONTEXT.md) for the verified architecture and current limits.
+Pimolu UI is under active development. The token pipeline, two color themes, six visual presets and 84 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. Packages are consumed from the workspace today, with registry distribution planned. See [technical context](docs/ai/PROJECT_CONTEXT.md) for the verified architecture and current limits.
 
 ## Contributing
 

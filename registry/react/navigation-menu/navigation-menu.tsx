@@ -107,7 +107,8 @@ function useNavigationMenuItem(component: string) {
 
 export function NavigationMenu({
   children,
-  label = "Main",
+  label,
+  "aria-label": ariaLabel,
   className,
   ...props
 }: PimoluNavigationMenuProps) {
@@ -128,9 +129,12 @@ export function NavigationMenu({
     if (openValue === null) return;
 
     function handleKeyDown(event: globalThis.KeyboardEvent) {
-      if (event.key !== "Escape") return;
+      if (event.key !== "Escape" || openValue === null) return;
 
       event.preventDefault();
+      document
+        .getElementById(`${baseId}-trigger-${slug(openValue)}`)
+        ?.focus();
       setOpenValue(null);
     }
 
@@ -138,7 +142,7 @@ export function NavigationMenu({
 
     return () =>
       document.removeEventListener("keydown", handleKeyDown);
-  }, [openValue]);
+  }, [baseId, openValue]);
 
   return (
     <NavigationMenuContext.Provider
@@ -152,7 +156,7 @@ export function NavigationMenu({
       <nav
         {...props}
         ref={rootRef}
-        aria-label={label}
+        aria-label={ariaLabel ?? label ?? "Main"}
         className={classes(
           "pimolu-navigation-menu",
           className

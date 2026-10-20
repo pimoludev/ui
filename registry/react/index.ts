@@ -511,6 +511,7 @@ export type {
 export {
   Navbar,
   NavbarBrand,
+  NavbarToggle,
   NavbarContent,
   NavbarItem,
   NavbarActions,
@@ -519,6 +520,7 @@ export {
 export type {
   PimoluNavbarProps,
   PimoluNavbarBrandProps,
+  PimoluNavbarToggleProps,
   PimoluNavbarContentProps,
   PimoluNavbarItemProps,
   PimoluNavbarActionsProps,
@@ -1089,3 +1091,10 @@ export type {
   PimoluVirtualListItemsProps,
   PimoluVirtualListCountProps,
 } from "./virtual-list/virtual-list.types";
+
+/* DashboardLayout */
+export { DashboardLayout } from "./dashboard-layout/dashboard-layout";
+
+export type {
+  PimoluDashboardLayoutProps,
+} from "./dashboard-layout/dashboard-layout.types";

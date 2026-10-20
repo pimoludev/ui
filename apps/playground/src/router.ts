@@ -67,6 +67,7 @@ export const pages = [
 
   { id: "navbar", label: "Navbar", group: "Layout" },
   { id: "sidebar", label: "Sidebar", group: "Layout" },
+  { id: "dashboard-layout", label: "DashboardLayout", group: "Layout" },
   { id: "box", label: "Box", group: "Layout" },
   { id: "stack", label: "Stack", group: "Layout" },
   { id: "flex", label: "Flex", group: "Layout" },

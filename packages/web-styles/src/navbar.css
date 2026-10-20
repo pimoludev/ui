@@ -4,16 +4,11 @@
 ========================================= */
 
 .pimolu-navbar {
-  display: flex;
-  align-items: center;
-
-  gap: 16px;
-
   box-sizing: border-box;
-
   min-width: 0;
-
   padding: 12px 20px;
+
+  container: pimolu-navbar / inline-size;
 
   background: var(
     --pimolu-surface,
@@ -23,6 +18,13 @@
   color: var(--pimolu-foreground);
 
   font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
 }
 
 .pimolu-navbar[data-bordered="true"] {
@@ -108,6 +110,19 @@
   cursor: pointer;
 }
 
+.pimolu-navbar__item-icon {
+  display: inline-grid;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+}
+
+.pimolu-navbar__item-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
 .pimolu-navbar__item:hover {
   background: var(--pimolu-muted);
   color: var(--pimolu-foreground);
@@ -143,26 +158,154 @@
 }
 
 /* =========================================
+   ITEM POSITION
+========================================= */
+
+.pimolu-navbar[data-items-position="center"]
+  .pimolu-navbar__brand {
+  flex: 1 1 0;
+}
+
+.pimolu-navbar[data-items-position="center"]
+  .pimolu-navbar__content {
+  flex: 0 0 auto;
+
+  margin-inline: auto;
+}
+
+.pimolu-navbar[data-items-position="center"]
+  .pimolu-navbar__actions {
+  flex: 1 1 0;
+  justify-content: flex-end;
+
+  margin-inline-start: 0;
+}
+
+.pimolu-navbar[data-items-position="right"]
+  .pimolu-navbar__brand {
+  flex: 1 1 auto;
+}
+
+.pimolu-navbar[data-items-position="right"]
+  .pimolu-navbar__content {
+  margin-inline-start: auto;
+}
+
+.pimolu-navbar[data-items-position="right"]
+  .pimolu-navbar__actions {
+  margin-inline-start: 0;
+}
+
+.pimolu-navbar__toggle {
+  display: none;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: var(--pimolu-control-border-width, 1px) solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-md, 8px);
+  background: transparent;
+  color: var(--pimolu-foreground);
+  font: inherit;
+  cursor: pointer;
+}
+
+.pimolu-navbar__toggle:hover {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-navbar__toggle:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, currentColor);
+  outline-offset: 2px;
+}
+
+.pimolu-navbar__toggle-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+.pimolu-navbar__toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================
    RESPONSIVE
 ========================================= */
 
-@media (max-width: 700px) {
-  .pimolu-navbar {
+@container pimolu-navbar (max-width: 700px) {
+  .pimolu-navbar__inner {
     flex-wrap: wrap;
-
-    padding: 10px 16px;
+    gap: 8px 12px;
   }
 
   .pimolu-navbar__content {
     order: 3;
-
     width: 100%;
-
     overflow-x: auto;
   }
 
   .pimolu-navbar__actions {
     margin-inline-start: auto;
+  }
+
+  .pimolu-navbar[data-items-position] .pimolu-navbar__brand,
+  .pimolu-navbar[data-items-position] .pimolu-navbar__content,
+  .pimolu-navbar[data-items-position] .pimolu-navbar__actions {
+    flex: 0 1 auto;
+  }
+
+  .pimolu-navbar[data-items-position="center"]
+    .pimolu-navbar__content,
+  .pimolu-navbar[data-items-position="right"]
+    .pimolu-navbar__content {
+    margin-inline: 0;
+  }
+
+  .pimolu-navbar[data-collapsible="true"] .pimolu-navbar__toggle {
+    display: inline-flex;
+    margin-inline-start: auto;
+  }
+
+  .pimolu-navbar[data-collapsible="true"] .pimolu-navbar__content,
+  .pimolu-navbar[data-collapsible="true"] .pimolu-navbar__actions {
+    display: none;
+  }
+
+  .pimolu-navbar[data-collapsible="true"][data-open="true"]
+    .pimolu-navbar__content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding-block: 10px 4px;
+    border-block-start: 1px solid var(--pimolu-border);
+    overflow: visible;
+  }
+
+  .pimolu-navbar[data-collapsible="true"][data-open="true"]
+    .pimolu-navbar__item {
+    box-sizing: border-box;
+    width: 100%;
+    white-space: normal;
+  }
+
+  .pimolu-navbar[data-collapsible="true"][data-open="true"]
+    .pimolu-navbar__actions {
+    display: flex;
+    order: 4;
+    width: 100%;
+    margin-inline-start: 0;
+    padding-block-start: 10px;
+    border-block-start: 1px solid var(--pimolu-border);
+  }
+}
+
+@media (max-width: 700px) {
+  .pimolu-navbar {
+    padding: 10px 16px;
   }
 }
 
@@ -179,5 +322,9 @@
     border: 1px solid Highlight;
 
     color: Highlight;
+  }
+
+  .pimolu-navbar__toggle {
+    border-color: CanvasText;
   }
 }

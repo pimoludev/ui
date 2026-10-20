@@ -99,6 +99,22 @@ Les tokens sont également disponibles au format JSON : React Native et les autr
 
 Un exemple complet d'application Next.js App Router, avec lecture des préférences côté serveur, se trouve dans `examples/nextjs`.
 
+## Navigation adaptative
+
+Ajoutez `collapsible` et `NavbarToggle` pour placer les liens et les actions dans un menu lorsque la barre est étroite. Le bouton affiche un hamburger par défaut ; `icon` et `closeIcon` acceptent des icônes personnalisées. `itemsPosition` accepte `"center"` ou `"right"` pour déplacer le groupe de navigation tandis que la marque reste au début et les actions à la fin ; la valeur par défaut est `"left"`.
+
+```tsx
+import { Navbar, NavbarBrand, NavbarToggle, NavbarContent, NavbarItem } from "@pimolu/react";
+
+<Navbar collapsible>
+  <NavbarBrand href="/">Pimolu</NavbarBrand>
+  <NavbarToggle />
+  <NavbarContent aria-label="Navigation principale">
+    <NavbarItem href="/docs">Documentation</NavbarItem>
+  </NavbarContent>
+</Navbar>
+```
+
 ## Qualité, automatisée
 
 La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verify`, génère les ressources, vérifie les types, audite le système de thèmes, exécute toutes les suites de tests, analyse l'application et construit le playground. La CI GitHub reste désactivée pendant le polissage de la bibliothèque existante.
@@ -107,7 +123,7 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif. La chaîne de tokens, deux thèmes de couleur, six presets visuels et 83 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) pour l'architecture vérifiée et ses limites.
+Pimolu UI est en développement actif. La chaîne de tokens, deux thèmes de couleur, six presets visuels et 84 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) pour l'architecture vérifiée et ses limites.
 
 ## Contribution
 

@@ -99,6 +99,7 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "carousel.css",
     "resizable.css",
     "virtual-list.css",
+    "dashboard-layout.css",
   ]) {
     const css = await load(file);
 
@@ -183,6 +184,7 @@ test("full bundle includes themes and components", async () => {
     ".pimolu-carousel",
     ".pimolu-resizable",
     ".pimolu-virtual-list",
+    ".pimolu-dashboard-layout",
     '[data-pimolu-radius=sharp]',
     '[data-pimolu-radius=medium]',
     '[data-pimolu-radius=round]',

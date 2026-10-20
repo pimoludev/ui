@@ -27,6 +27,7 @@ import { CommandPage } from "./pages/command-page";
 import { ContainerPage } from "./pages/container-page";
 import { ContextMenuPage } from "./pages/context-menu-page";
 import { DataTablePage } from "./pages/data-table-page";
+import { DashboardLayoutPage } from "./pages/dashboard-layout-page";
 import { DatePickerPage } from "./pages/date-picker-page";
 import { DateRangePickerPage } from "./pages/date-range-picker-page";
 import { DescriptionListPage } from "./pages/description-list-page";
@@ -149,6 +150,7 @@ const pageComponents = {
   "tree-view": TreeViewPage,
   list: ListPage,
   "description-list": DescriptionListPage,
+  "dashboard-layout": DashboardLayoutPage,
   table: TablePage,
   "data-table": DataTablePage,
   stat: StatPage,

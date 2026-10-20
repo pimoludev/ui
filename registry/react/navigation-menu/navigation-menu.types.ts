@@ -6,7 +6,7 @@ import type {
 
 export interface PimoluNavigationMenuProps
   extends HTMLAttributes<HTMLElement> {
-  /** Accessible name of the navigation landmark. */
+  /** Accessible name of the navigation landmark; `aria-label` takes precedence. */
   label?: string;
 
   children: ReactNode;

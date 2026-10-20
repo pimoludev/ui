@@ -432,6 +432,11 @@ const outputs = [
     output: "virtual-list.css",
     minify: false,
   },
+  {
+    input: "dashboard-layout.css",
+    output: "dashboard-layout.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });
