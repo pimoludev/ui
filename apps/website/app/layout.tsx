@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import type { ReactNode } from "react";
+import { SiteProvider } from "@/components/site-provider";
+import { SiteHeader } from "@/components/site-header";
+import { Footer, Link } from "@/components/ui";
+import { parsePreset, parseTheme, presetCookie, themeCookie } from "@/lib/preferences";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://pimolu.com"),
+  title: { default: "Pimolu UI — One system. Your identity.", template: "%s · Pimolu UI" },
+  description: "A customizable React UI library built on shared design tokens, expressive presets and thoughtful defaults.",
+};
+
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const store = await cookies();
+  return (
+    <html lang="en">
+      <body>
+        <SiteProvider initialTheme={parseTheme(store.get(themeCookie)?.value)} initialPreset={parsePreset(store.get(presetCookie)?.value)}>
+          <a className="site-skip" href="#main-content">Skip to content</a>
+          <SiteHeader />
+          {children}
+          <div className="site-footer">
+            <Footer brand={<Link href="/" variant="muted">Pimolu UI</Link>}
+              description="One system. Your identity."
+              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Themes", href: "/themes" }] }, { title: "Open source", links: [{ label: "GitHub", href: "https://github.com/pimoludev/ui", external: true }] }]}
+              copyright="Pimolu UI · MIT License" />
+          </div>
+        </SiteProvider>
+      </body>
+    </html>
+  );
+}

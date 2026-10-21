@@ -119,10 +119,28 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Scheduler | `registry/react/scheduler/` | Day and week event calendar | Present and tested |
 | Gantt | `registry/react/gantt/` | Task timeline with dependencies | Present and tested |
 | FileManager | `registry/react/file-manager/` | File browser with list/grid views | Present and tested |
+| PageHeader | `registry/react/page-header/` | Documentation or marketing page intro | Present and tested |
+| Hero | `registry/react/hero/` | Marketing opener with media slot | Present and tested |
+| Footer | `registry/react/footer/` | Multi-column site footer | Present and tested |
+| DocsLayout | `registry/react/docs-layout/` | Sidebar, article and table-of-contents shell | Present and tested |
+| TableOfContents | `registry/react/table-of-contents/` | In-page section navigation | Present and tested |
+| Anchor | `registry/react/anchor/` | Heading with a copyable section link | Present and tested |
+| Prose | `registry/react/prose/` | Long-form article typography | Present and tested |
+| ApiTable | `registry/react/api-table/` | Prop and type reference table | Present and tested |
+| CodeBlock | `registry/react/code-block/` | Highlighted code sample with copy | Present and tested |
+| SearchInput | `registry/react/search-input/` | Search field with shortcut and clear | Present and tested |
+| ThemeBuilder | `registry/react/theme-builder/` | Preset, mode, radius and density customizer | Present and tested |
+| ButtonGroup | `registry/react/button-group/` | Attached button group | Present and tested |
+| SplitButton | `registry/react/split-button/` | Primary action and menu | Present and tested |
+| PasswordInput | `registry/react/password-input/` | Password field with visibility toggle | Present and tested |
+| InputGroup | `registry/react/input-group/` | Input with addons and actions | Present and tested |
+| TreeSelect | `registry/react/tree-select/` | Hierarchical tree selection | Present and tested |
+| Signature | `registry/react/signature/` | Canvas signature pad | Present and tested |
+| Watermark | `registry/react/watermark/` | Tiled text or image watermark | Present and tested |
 
 The provider lives in `registry/react/provider/`; the positioning and portal
 utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
-low-level utility. The playground pages cover the 111 families (AvatarGroup and
+low-level utility. The playground pages cover the 129 families (AvatarGroup and
 RadioGroup are shown with their family).
 `registry/native/`, `registry/angular/` and `registry/web/` are empty
 placeholders: no component from those platforms may be announced as existing.

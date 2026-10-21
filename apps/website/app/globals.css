@@ -1,0 +1,46 @@
+@layer theme, base, pimolu, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "@pimolu/web-styles/styles.css" layer(pimolu);
+
+/* No Tailwind Preflight: Pimolu owns its component defaults. */
+@theme inline {
+  --color-background: var(--pimolu-background);
+  --color-foreground: var(--pimolu-foreground);
+  --color-primary: var(--pimolu-primary);
+  --color-surface: var(--pimolu-surface);
+  --color-muted: var(--pimolu-muted-foreground);
+  --color-border: var(--pimolu-border);
+  --font-sans: var(--pimolu-font-body, system-ui, sans-serif);
+  --spacing: var(--pimolu-spacing-1, 4px);
+}
+@layer base {
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  h1, h2, h3, p { margin: 0; }
+}
+@layer components {
+  .site-root { min-height: 100dvh; color: var(--pimolu-foreground); background: var(--pimolu-background); font-family: var(--pimolu-font-body, system-ui, sans-serif); line-height: 1.6; }
+  .site-header { border-bottom: 1px solid var(--pimolu-border); background: var(--pimolu-background); }
+  .site-nav { padding: 16px 24px; border: 0; }
+  .site-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-inline-end: 8px; border: 1px solid var(--pimolu-primary); border-radius: var(--pimolu-radius-md); color: var(--pimolu-primary); font-size: 26px; font-weight: 600; line-height: 1; }
+  .site-wordmark-suffix { color: var(--pimolu-muted-foreground); font-weight: 400; }
+  .site-footer { border-top: 1px solid var(--pimolu-border); padding: 24px; }
+  .site-footer > * { max-width: 1232px; margin-inline: auto; }
+  .site-skip { position: fixed; top: 12px; left: 16px; transform: translateY(-200%); padding: 12px; background: var(--pimolu-surface); color: var(--pimolu-foreground); z-index: 1000; }
+  .site-skip:focus { transform: translateY(0); outline: 2px solid var(--pimolu-focus-ring); }
+  .site-docs { min-height: auto; }
+  .site-docs .pimolu-docs-layout__body { padding: 0; }
+  .site-docs .pimolu-docs-layout__main { min-width: 0; }
+  @media (max-width: 860px) {
+    .site-docs .pimolu-docs-layout__body { grid-template-columns: minmax(0, 1fr); }
+  }
+  .site-doc-nav { display: flex; flex-direction: column; gap: 16px; }
+  .site-main { min-height: 60vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-root *, .site-root *::before, .site-root *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+@media (forced-colors: active) {
+  .site-mark { border-color: CanvasText; color: CanvasText; }
+}

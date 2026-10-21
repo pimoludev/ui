@@ -9,6 +9,9 @@
     "build:playground": "pnpm --dir apps/playground build",
 
     "dev:examples:nextjs": "pnpm --dir examples/nextjs dev",
+    
+    "dev:website": "pnpm --dir apps/website dev",
+    "build:website": "pnpm --dir apps/website build",
 
     "build": "node packages/design-tokens/scripts/build.mjs",
     "test": "node --test packages/design-tokens/tests/*.test.mjs",

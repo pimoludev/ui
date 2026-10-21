@@ -6,15 +6,17 @@ accessibility review as complete.
 
 ## Playground and visual coverage
 
-- The router currently has **113 pages**. The generated CSS and presets expose
+- The router currently has **131 pages**. The generated CSS and presets expose
   **seven** styles: default, adaptive, cartoon, glass, luxury, monochrome and
   neo-brutalism. Keep adaptive during this review.
-- A Chromium smoke scan mounted all 113 routes and performed **2,147 layout
-  checks**: every style in light/dark at 1440 px, plus default forced colors,
-  reduced motion and RTL at 1440 px, and default light/dark at 390 px. It found
-  no page load error, runtime exception or page-level horizontal overflow.
-  This scan did **not** judge contrast, spacing, motion, keyboard behavior or
-  individual component overflow.
+- A Chromium smoke scan mounted the **113 routes present at the time** and
+  performed **2,147 layout checks**: every style in light/dark at 1440 px, plus
+  default forced colors, reduced motion and RTL at 1440 px, and default
+  light/dark at 390 px. It found no page load error, runtime exception or
+  page-level horizontal overflow. The 18 documentation, action and marketing
+  components added afterwards still need the same scan. This scan did **not**
+  judge contrast, spacing, motion, keyboard behavior or individual component
+  overflow.
 - The DashboardLayout collapsed sidebar was inspected at desktop and mobile
   widths. A contact sheet covers its seven presets in light/dark. The rail now
   keeps navigable shortcuts visible at desktop width; mobile uses an opening
@@ -56,7 +58,7 @@ screen-reader or keyboard quality across all presets.
 
 ## Next work, in order
 
-1. Review the 113 pages visually, page by page, in seven presets and both
+1. Review the 131 pages visually, page by page, in seven presets and both
    modes; add targeted RTL, forced-colors and reduced-motion interaction checks.
 2. Complete the seven focused browser and assistive-technology audits above
    with regression tests.
@@ -65,7 +67,6 @@ screen-reader or keyboard quality across all presets.
 4. Reduce the remaining shared Playground chunk after measuring its modules.
 5. Keep the DataTable/DataGrid and AppShell/DashboardLayout use cases distinct
    as documented in `DEVELOPMENT_GUIDE.md`.
-6. Only then assess new families: PageHeader, Footer, ButtonGroup, SplitButton,
-   PasswordInput, SearchInput, InputGroup, TreeSelect, Signature and Watermark.
-   Chart interactions and DataGrid virtualization, pinning and reordering need
-   separate API and accessibility designs.
+6. Only then assess new families such as RichTextEditor, MarkdownEditor, CodeEditor
+   and DiffViewer. Chart interactions and DataGrid virtualization, pinning and
+   reordering need separate API and accessibility designs.

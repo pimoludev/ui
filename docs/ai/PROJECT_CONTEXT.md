@@ -12,7 +12,7 @@ change: these notes do not replace it.
 - Two colour modes (`light`, `dark`) plus `system`; seven presets: `default`,
   `monochrome`, `cartoon`, `glass`, `luxury`, `neo-brutalism` and `adaptive`
   (candidate palette, not yet adopted as Default).
-- 111 React component families exported by `registry/react/index.ts`, each shown
+- 129 React component families exported by `registry/react/index.ts`, each shown
   in the playground. `examples/nextjs` illustrates the App Router integration.
 - Three design dimensions are independent of the preset: radius
   (`data-pimolu-radius`), density (`data-pimolu-density`) and a brand colour
