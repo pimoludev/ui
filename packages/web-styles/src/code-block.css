@@ -1,0 +1,329 @@
+/* =========================================
+   PIMOLU UI — CODE BLOCK
+   Shared Web Styles
+
+   Named `pimolu-codeblock` (no hyphen between "code" and "block") so the
+   documentation sample never collides with the existing `.pimolu-code-block`
+   preformatted element rendered by `Code`.
+========================================= */
+
+.pimolu-codeblock {
+  --pimolu-codeblock-padding-x: var(--pimolu-spacing-4, 16px);
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background, #ffffff)
+  );
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-codeblock__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding: var(--pimolu-spacing-2, 8px);
+  padding-inline-start: var(--pimolu-codeblock-padding-x);
+
+  border-bottom:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border, #e2e8f0);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-muted, #f1f5f9) 55%,
+    var(--pimolu-surface, #ffffff)
+  );
+}
+
+.pimolu-codeblock__meta {
+  display: flex;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  min-width: 0;
+}
+
+.pimolu-codeblock__filename {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: var(--pimolu-foreground, #0f172a);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.8125rem;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pimolu-codeblock__language {
+  flex-shrink: 0;
+
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+.pimolu-codeblock__copy {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   CODE SURFACE
+========================================= */
+
+.pimolu-codeblock__pre {
+  margin: 0;
+  padding: var(--pimolu-spacing-3, 12px) 0;
+
+  max-width: 100%;
+
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+
+  background: transparent;
+  color: inherit;
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.875rem;
+  line-height: 1.65;
+
+  tab-size: 2;
+}
+
+.pimolu-codeblock__code {
+  display: block;
+
+  box-sizing: border-box;
+  min-width: max-content;
+
+  background: transparent;
+
+  font: inherit;
+}
+
+.pimolu-codeblock__line {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--pimolu-spacing-4, 16px);
+
+  box-sizing: border-box;
+  min-height: 1.65em;
+
+  padding-inline: var(--pimolu-codeblock-padding-x);
+
+  border-inline-start: 2px solid transparent;
+}
+
+.pimolu-codeblock__line--highlighted {
+  border-inline-start-color: var(
+    --pimolu-primary,
+    #4f46e5
+  );
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 11%,
+    transparent
+  );
+}
+
+.pimolu-codeblock__line-number {
+  flex: 0 0 auto;
+
+  width: 3ch;
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.65;
+
+  text-align: end;
+
+  user-select: none;
+}
+
+.pimolu-codeblock__line-content {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  white-space: pre;
+}
+
+/* Wrapped mode */
+
+.pimolu-codeblock--wrap .pimolu-codeblock__code {
+  min-width: 100%;
+}
+
+.pimolu-codeblock--wrap .pimolu-codeblock__line-content {
+  overflow-wrap: anywhere;
+
+  white-space: pre-wrap;
+}
+
+/* =========================================
+   TOKENS
+========================================= */
+
+.pimolu-codeblock__token--comment {
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font-style: italic;
+}
+
+.pimolu-codeblock__token--string {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-success, #15803d) 78%,
+    var(--pimolu-foreground, #0f172a)
+  );
+}
+
+.pimolu-codeblock__token--number {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-warning, #b45309) 68%,
+    var(--pimolu-foreground, #0f172a)
+  );
+}
+
+.pimolu-codeblock__token--keyword {
+  color: var(--pimolu-primary, #4f46e5);
+
+  font-weight: 600;
+}
+
+.pimolu-codeblock__token--type {
+  color: color-mix(
+    in srgb,
+    var(--pimolu-primary, #4f46e5) 52%,
+    var(--pimolu-success, #15803d)
+  );
+}
+
+.pimolu-codeblock__token--punctuation {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+/* =========================================
+   LIVE STATUS
+========================================= */
+
+.pimolu-codeblock__status {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip-path: inset(50%);
+
+  border: 0;
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-codeblock * {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-codeblock {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-codeblock__header {
+    border-color: CanvasText;
+
+    background: Canvas;
+  }
+
+  .pimolu-codeblock__token {
+    color: CanvasText;
+  }
+
+  .pimolu-codeblock__token--comment {
+    color: GrayText;
+  }
+
+  .pimolu-codeblock__token--keyword,
+  .pimolu-codeblock__token--type {
+    color: LinkText;
+  }
+
+  .pimolu-codeblock__line--highlighted {
+    outline: 1px solid Highlight;
+  }
+}

@@ -1,0 +1,199 @@
+/* =========================================
+   PIMOLU UI - API TABLE
+   Shared Web Styles
+========================================= */
+
+.pimolu-api-table {
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.pimolu-api-table__title {
+  margin:
+    0
+    0 var(--pimolu-spacing-3, 12px);
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-heading, inherit);
+  font-size: var(--pimolu-font-size-lg, 1.125rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+
+  text-wrap: balance;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.pimolu-api-table__scroll {
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.pimolu-api-table__scroll:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+}
+
+.pimolu-api-table__table.pimolu-table {
+  min-width: 40rem;
+}
+
+.pimolu-api-table__table
+  :where(th, td):nth-child(1) {
+  width: 22%;
+}
+
+.pimolu-api-table__table
+  :where(th, td):nth-child(2) {
+  width: 26%;
+}
+
+.pimolu-api-table__table
+  :where(th, td):nth-child(3) {
+  width: 16%;
+}
+
+.pimolu-api-table__table
+  :where(th, td):nth-child(4) {
+  width: 36%;
+}
+
+/* =========================================
+   CELLS
+========================================= */
+
+.pimolu-api-table__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-1, 4px)
+    var(--pimolu-spacing-2, 8px);
+
+  min-width: 0;
+}
+
+.pimolu-api-table__code {
+  padding: 0.1em 0.35em;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-api-table__badge.pimolu-badge {
+  flex: none;
+}
+
+.pimolu-api-table__default-empty {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+}
+
+.pimolu-api-table__cell-description {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.pimolu-api-table__cell-name,
+.pimolu-api-table__cell-description {
+  overflow-wrap: anywhere;
+}
+
+.pimolu-api-table__row[data-deprecated="true"]
+  .pimolu-api-table__name
+  .pimolu-api-table__code {
+  color: var(--pimolu-muted-foreground);
+
+  text-decoration-line: line-through;
+  text-decoration-thickness: 1px;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.pimolu-api-table__empty.pimolu-table__cell {
+  padding-block: var(--pimolu-spacing-8, 32px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-api-table__scroll:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-api-table__title {
+    color: CanvasText;
+  }
+
+  .pimolu-api-table__code {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-api-table__default-empty,
+  .pimolu-api-table__cell-description,
+  .pimolu-api-table__empty.pimolu-table__cell {
+    color: CanvasText;
+  }
+}

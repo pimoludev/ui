@@ -1,0 +1,177 @@
+/* =========================================
+   PIMOLU UI - TABLE OF CONTENTS
+   Shared Web Styles
+========================================= */
+
+.pimolu-table-of-contents {
+  --pimolu-table-of-contents-offset: 0px;
+
+  box-sizing: border-box;
+
+  /* Sticky-friendly: the component fits a sticky parent without
+     overflowing the viewport. The offset is configurable when a
+     sticky header sits above it. */
+  align-self: start;
+
+  max-height:
+    calc(
+      100dvh
+        - var(--pimolu-table-of-contents-offset, 0px)
+        - var(--pimolu-spacing-6, 24px)
+    );
+
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.pimolu-table-of-contents__title {
+  margin:
+    0
+    0 var(--pimolu-spacing-3, 12px);
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   LISTS
+========================================= */
+
+.pimolu-table-of-contents__list {
+  display: grid;
+
+  gap: 2px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-table-of-contents__list--nested {
+  margin-block-start: 2px;
+  padding-inline-start: var(--pimolu-spacing-3, 12px);
+
+  border-inline-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+.pimolu-table-of-contents__item {
+  min-width: 0;
+}
+
+/* =========================================
+   LINKS
+========================================= */
+
+.pimolu-table-of-contents__link {
+  display: block;
+
+  padding:
+    var(--pimolu-spacing-1, 4px)
+    var(--pimolu-spacing-2, 8px);
+
+  border-inline-start:
+    2px solid transparent;
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+
+  overflow-wrap: anywhere;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.pimolu-table-of-contents__link:hover {
+  background: var(--pimolu-muted);
+
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-table-of-contents__link:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+.pimolu-table-of-contents__link[aria-current="location"] {
+  border-inline-start-color: var(--pimolu-primary);
+
+  background: color-mix(
+    in srgb,
+    var(--pimolu-primary) 9%,
+    transparent
+  );
+
+  color: var(--pimolu-primary);
+
+  font-weight: 600;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-table-of-contents__link {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-table-of-contents__title {
+    color: CanvasText;
+  }
+
+  .pimolu-table-of-contents__link {
+    color: LinkText;
+  }
+
+  .pimolu-table-of-contents__link:hover,
+  .pimolu-table-of-contents__link[aria-current="location"] {
+    background: Canvas;
+
+    color: Highlight;
+
+    outline: 1px solid Highlight;
+  }
+
+  .pimolu-table-of-contents__list--nested {
+    border-color: CanvasText;
+  }
+}

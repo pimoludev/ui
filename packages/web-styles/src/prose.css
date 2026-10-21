@@ -1,0 +1,536 @@
+/* =========================================
+   PIMOLU UI - PROSE
+   Shared Web Styles
+========================================= */
+
+.pimolu-prose {
+  --pimolu-prose-font-size: var(--pimolu-font-size-md, 1rem);
+  --pimolu-prose-line-height: 1.75;
+  --pimolu-prose-flow: var(--pimolu-spacing-4, 16px);
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 72ch;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: var(--pimolu-prose-font-size);
+  font-weight: 400;
+  line-height: var(--pimolu-prose-line-height);
+
+  text-wrap: pretty;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-prose--sm {
+  --pimolu-prose-font-size: var(--pimolu-font-size-sm, 0.875rem);
+  --pimolu-prose-line-height: 1.7;
+  --pimolu-prose-flow: var(--pimolu-spacing-3, 12px);
+}
+
+.pimolu-prose--md {
+  --pimolu-prose-font-size: var(--pimolu-font-size-md, 1rem);
+  --pimolu-prose-line-height: 1.75;
+  --pimolu-prose-flow: var(--pimolu-spacing-4, 16px);
+}
+
+.pimolu-prose--lg {
+  --pimolu-prose-font-size: var(--pimolu-font-size-lg, 1.125rem);
+  --pimolu-prose-line-height: 1.7;
+  --pimolu-prose-flow: var(--pimolu-spacing-5, 20px);
+}
+
+/* =========================================
+   FLOW
+========================================= */
+
+.pimolu-prose
+  > :where(
+    p,
+    ul,
+    ol,
+    dl,
+    blockquote,
+    figure,
+    pre,
+    table,
+    hr
+  ) {
+  margin-block: 0 var(--pimolu-prose-flow);
+}
+
+/* An Anchor carries its own heading; give it the same top spacing as a
+   direct heading while leaving the inner heading margin-free. */
+
+.pimolu-prose > .pimolu-anchor {
+  margin-block:
+    calc(var(--pimolu-prose-flow) * 1.75)
+    var(--pimolu-spacing-3, 12px);
+}
+
+.pimolu-prose > .pimolu-anchor:first-child {
+  margin-block-start: 0;
+}
+
+.pimolu-prose > :where(:first-child) {
+  margin-block-start: 0;
+}
+
+.pimolu-prose > :where(:last-child) {
+  margin-block-end: 0;
+}
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+.pimolu-prose :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-heading, inherit);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+
+  text-wrap: balance;
+
+  overflow-wrap: anywhere;
+
+  scroll-margin-top: 5rem;
+}
+
+.pimolu-prose
+  > :where(h1, h2, h3, h4, h5, h6) {
+  margin-block:
+    calc(var(--pimolu-prose-flow) * 1.75)
+    var(--pimolu-spacing-3, 12px);
+}
+
+.pimolu-prose
+  > :where(h1, h2, h3, h4, h5, h6):first-child {
+  margin-block-start: 0;
+}
+
+.pimolu-prose :where(h1) {
+  font-size: 2em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.pimolu-prose :where(h2) {
+  font-size: 1.5em;
+}
+
+.pimolu-prose :where(h3) {
+  font-size: 1.25em;
+}
+
+.pimolu-prose :where(h4) {
+  font-size: 1.125em;
+}
+
+.pimolu-prose :where(h5) {
+  font-size: 1em;
+}
+
+.pimolu-prose :where(h6) {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.pimolu-prose :where(strong, b) {
+  color: var(--pimolu-foreground);
+
+  font-weight: 600;
+}
+
+.pimolu-prose :where(em, i) {
+  font-style: italic;
+}
+
+.pimolu-prose :where(small) {
+  font-size: 0.875em;
+}
+
+.pimolu-prose :where(sub, sup) {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.pimolu-prose :where(a) {
+  border-radius: 2px;
+
+  color: var(--pimolu-primary);
+
+  font-weight: 500;
+
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+
+  transition: color 150ms ease;
+}
+
+.pimolu-prose :where(a):hover {
+  color:
+    var(--pimolu-primary-hover, var(--pimolu-primary));
+}
+
+.pimolu-prose :where(a):focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   LISTS
+========================================= */
+
+.pimolu-prose :where(ul, ol) {
+  padding-inline-start: 1.5em;
+}
+
+.pimolu-prose :where(ul) {
+  list-style-type: disc;
+}
+
+.pimolu-prose :where(ol) {
+  list-style-type: decimal;
+}
+
+.pimolu-prose :where(li) {
+  margin-block: 0.25em;
+
+  padding-inline-start: 0.15em;
+}
+
+.pimolu-prose :where(li)::marker {
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-prose
+  :where(ul ul, ul ol, ol ul, ol ol) {
+  margin-block: 0.35em 0;
+}
+
+.pimolu-prose :where(li > p) {
+  margin-block: 0 0.5em;
+}
+
+.pimolu-prose :where(li > p):last-child {
+  margin-block-end: 0;
+}
+
+.pimolu-prose :where(dt) {
+  color: var(--pimolu-foreground);
+
+  font-weight: 600;
+}
+
+.pimolu-prose :where(dd) {
+  margin-inline-start: 1.5em;
+}
+
+/* =========================================
+   BLOCKQUOTE
+========================================= */
+
+.pimolu-prose :where(blockquote) {
+  margin-inline: 0;
+
+  padding:
+    var(--pimolu-spacing-3, 12px)
+    var(--pimolu-spacing-4, 16px);
+
+  border-inline-start: 3px solid var(--pimolu-primary);
+
+  border-radius:
+    0
+    var(--pimolu-radius-sm, 6px)
+    var(--pimolu-radius-sm, 6px)
+    0;
+
+  background: var(--pimolu-muted);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-style: italic;
+}
+
+.pimolu-prose
+  :where(blockquote p) {
+  margin-block: 0 0.5em;
+}
+
+.pimolu-prose
+  :where(blockquote > :last-child) {
+  margin-block-end: 0;
+}
+
+/* =========================================
+   CODE
+========================================= */
+
+.pimolu-prose :where(code) {
+  padding: 0.12em 0.35em;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.875em;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-prose :where(kbd) {
+  display: inline-grid;
+  place-items: center;
+
+  min-width: 1.6em;
+
+  padding: 0.1em 0.4em;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  background: var(--pimolu-surface);
+
+  box-shadow: inset 0 -1px 0 var(--pimolu-border);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.85em;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.pimolu-prose :where(pre) {
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  margin-inline: 0;
+  padding: var(--pimolu-spacing-4, 16px);
+
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 10px);
+
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace
+  );
+
+  font-size: 0.875em;
+  line-height: 1.65;
+
+  tab-size: 2;
+}
+
+.pimolu-prose :where(pre code) {
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font-size: inherit;
+  line-height: inherit;
+
+  white-space: pre;
+}
+
+.pimolu-prose :where(pre):focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   TABLES
+========================================= */
+
+.pimolu-prose :where(table) {
+  display: block;
+
+  box-sizing: border-box;
+
+  width: max-content;
+  max-width: 100%;
+  max-height: 32rem;
+
+  margin-inline: 0;
+
+  overflow: auto;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  font-size: 0.9375em;
+  line-height: 1.5;
+}
+
+.pimolu-prose :where(caption) {
+  padding-block: var(--pimolu-spacing-2, 8px) 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875em;
+  font-weight: 400;
+  text-align: start;
+
+  caption-side: bottom;
+}
+
+.pimolu-prose :where(th, td) {
+  padding:
+    var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-3, 12px);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  text-align: start;
+  vertical-align: top;
+}
+
+.pimolu-prose :where(th) {
+  background: var(--pimolu-muted);
+
+  color: var(--pimolu-foreground);
+
+  font-weight: 600;
+}
+
+/* =========================================
+   MEDIA AND DIVIDERS
+========================================= */
+
+.pimolu-prose :where(figure) {
+  margin-inline: 0;
+}
+
+.pimolu-prose :where(img) {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+
+  border-radius: var(--pimolu-radius-md, 10px);
+}
+
+.pimolu-prose :where(figcaption) {
+  margin-block-start: var(--pimolu-spacing-2, 8px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875em;
+  text-align: center;
+}
+
+.pimolu-prose :where(hr) {
+  margin-block: calc(var(--pimolu-prose-flow) * 1.5);
+
+  border: 0;
+  border-block-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-prose :where(a) {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-prose {
+    color: CanvasText;
+  }
+
+  .pimolu-prose :where(a) {
+    color: LinkText;
+  }
+
+  .pimolu-prose :where(a):focus-visible,
+  .pimolu-prose :where(pre):focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-prose :where(code, pre, kbd, th, td, table) {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-prose :where(blockquote) {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+}

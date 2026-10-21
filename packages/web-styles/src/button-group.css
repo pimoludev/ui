@@ -1,0 +1,156 @@
+/* =========================================
+   PIMOLU UI - BUTTON GROUP
+   Shared Web Styles
+========================================= */
+
+.pimolu-button-group {
+  display: inline-flex;
+  align-items: stretch;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+  min-width: 0;
+
+  vertical-align: middle;
+
+  isolation: isolate;
+}
+
+.pimolu-button-group--horizontal {
+  flex-direction: row;
+}
+
+.pimolu-button-group--vertical {
+  flex-direction: column;
+
+  width: fit-content;
+}
+
+.pimolu-button-group--horizontal > .pimolu-button {
+  flex: 0 0 auto;
+}
+
+/* Detached groups keep a visible gap and wrap when space runs out. */
+
+.pimolu-button-group:not(.pimolu-button-group--attached).pimolu-button-group--horizontal {
+  flex-wrap: wrap;
+
+  gap: var(--pimolu-spacing-2, 8px);
+}
+
+.pimolu-button-group:not(.pimolu-button-group--attached).pimolu-button-group--vertical {
+  gap: var(--pimolu-spacing-2, 8px);
+}
+
+/* =========================================
+   ATTACHED
+========================================= */
+
+/* Collapse the shared border without changing the stacking order. */
+
+.pimolu-button-group--attached.pimolu-button-group--horizontal
+  > .pimolu-button
+  + .pimolu-button {
+  margin-inline-start: calc(
+    -1 * var(--pimolu-control-border-width, 1px)
+  );
+}
+
+.pimolu-button-group--attached.pimolu-button-group--vertical
+  > .pimolu-button
+  + .pimolu-button {
+  margin-block-start: calc(
+    -1 * var(--pimolu-control-border-width, 1px)
+  );
+}
+
+/* Only the outer corners keep a radius. */
+
+.pimolu-button-group--attached.pimolu-button-group--horizontal
+  > .pimolu-button:not(:first-child) {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.pimolu-button-group--attached.pimolu-button-group--horizontal
+  > .pimolu-button:not(:last-child) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.pimolu-button-group--attached.pimolu-button-group--vertical
+  > .pimolu-button:not(:first-child) {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+
+.pimolu-button-group--attached.pimolu-button-group--vertical
+  > .pimolu-button:not(:last-child) {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+/* Keep the focused or hovered edge above its neighbours. */
+
+.pimolu-button-group--attached
+  > .pimolu-button:hover:not(:disabled),
+.pimolu-button-group--attached
+  > .pimolu-button:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   SEPARATOR
+========================================= */
+
+.pimolu-button-group__separator {
+  flex: 0 0 auto;
+
+  align-self: stretch;
+
+  background: var(--pimolu-border);
+}
+
+.pimolu-button-group__separator--vertical {
+  width: var(--pimolu-control-border-width, 1px);
+
+  min-height: 1em;
+}
+
+.pimolu-button-group__separator--horizontal {
+  width: 100%;
+  height: var(--pimolu-control-border-width, 1px);
+}
+
+.pimolu-button-group:not(.pimolu-button-group--attached)
+  > .pimolu-button-group__separator {
+  margin-inline: 2px;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-button-group > .pimolu-button {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-button-group__separator {
+    background: CanvasText;
+  }
+
+  .pimolu-button-group--attached
+    > .pimolu-button:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}

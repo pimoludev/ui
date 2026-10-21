@@ -1,0 +1,80 @@
+/* =========================================
+   PIMOLU UI — SEARCH INPUT
+   Shared Web Styles
+
+   SearchInput composes the Input control, so the field surface, focus ring,
+   clear action and sizes stay consistent with every other form control.
+========================================= */
+
+.pimolu-search-input {
+  --pimolu-search-input-max-width: 26rem;
+
+  display: block;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--pimolu-search-input-max-width);
+
+  color: var(--pimolu-foreground, #0f172a);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-search-input__field {
+  width: 100%;
+}
+
+/* A search field reads as a single rounded surface. */
+
+.pimolu-search-input .pimolu-input__wrapper {
+  border-radius: var(--pimolu-radius-lg, 12px);
+}
+
+.pimolu-search-input .pimolu-input__start-icon {
+  color: var(--pimolu-muted-foreground, #64748b);
+}
+
+/* =========================================
+   SHORTCUT
+========================================= */
+
+.pimolu-search-input__shortcut {
+  flex-shrink: 0;
+
+  color: var(--pimolu-muted-foreground, #64748b);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.pimolu-search-input--disabled {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-search-input * {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-search-input__shortcut {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+}

@@ -1,0 +1,368 @@
+/* =========================================
+   PIMOLU UI - INPUT GROUP
+   Shared Web Styles
+========================================= */
+
+/*
+ * InputGroup reuses the Input control typography and sizing
+ * (`--pimolu-input-height`, `.pimolu-input__control`, ...).
+ * The size class `pimolu-input--<size>` is applied by the
+ * component; keep those variables available when this file is
+ * used alone.
+ */
+@import "./input.css";
+
+/* =========================================
+   GROUP
+========================================= */
+
+.pimolu-input-group {
+  --pimolu-input-tone: var(--pimolu-focus-ring);
+  --pimolu-input-elevation: var(
+    --pimolu-shadow-raised,
+    none
+  );
+
+  display: inline-flex;
+  align-items: stretch;
+
+  box-sizing: border-box;
+
+  width: min(100%, 360px);
+  min-width: 0;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  box-shadow: var(--pimolu-input-elevation);
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.pimolu-input-group--full-width {
+  width: 100%;
+}
+
+.pimolu-input-group--vertical {
+  flex-direction: column;
+  align-items: stretch;
+
+  width: fit-content;
+}
+
+.pimolu-input-group--vertical.pimolu-input-group--full-width {
+  width: 100%;
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.pimolu-input-group:hover:not(
+    [data-disabled="true"]
+  ) {
+  border-color: var(--pimolu-input-tone);
+}
+
+.pimolu-input-group:focus-within {
+  border-color: var(--pimolu-input-tone);
+
+  box-shadow:
+    0 0 0 3px
+      color-mix(
+        in srgb,
+        var(--pimolu-input-tone) 22%,
+        transparent
+      ),
+    var(--pimolu-input-elevation);
+}
+
+.pimolu-input-group--invalid,
+.pimolu-input-group[data-invalid="true"] {
+  --pimolu-input-tone: var(
+    --pimolu-danger,
+    #dc2626
+  );
+
+  border-color: var(--pimolu-input-tone);
+}
+
+.pimolu-input-group--disabled,
+.pimolu-input-group[data-disabled="true"] {
+  background: var(--pimolu-muted);
+
+  box-shadow: none;
+
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   INPUT
+========================================= */
+
+.pimolu-input-group__input {
+  flex: 1 1 auto;
+
+  width: 100%;
+  min-width: 0;
+
+  padding-inline: var(
+    --pimolu-input-padding,
+    12px
+  );
+
+  background: transparent;
+
+  border: 0;
+  outline: none;
+}
+
+.pimolu-input-group__input::placeholder {
+  color: var(--pimolu-muted-foreground);
+  opacity: 1;
+}
+
+.pimolu-input-group--disabled
+  .pimolu-input-group__input {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   ADDON
+========================================= */
+
+.pimolu-input-group__addon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  flex: 0 0 auto;
+
+  padding-inline: var(
+    --pimolu-input-padding,
+    12px
+  );
+
+  background: var(--pimolu-muted);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(
+    --pimolu-input-font-size,
+    0.875rem
+  );
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+.pimolu-input-group__addon svg {
+  flex: 0 0 auto;
+
+  width: 1em;
+  height: 1em;
+}
+
+/* Horizontal group: leading / trailing edge. */
+
+.pimolu-input-group--horizontal
+  > .pimolu-input-group__addon--inline-start {
+  border-inline-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-start-start-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+  border-end-start-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+}
+
+.pimolu-input-group--horizontal
+  > .pimolu-input-group__addon--inline-end {
+  border-inline-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-start-end-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+  border-end-end-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+}
+
+/* Vertical group: top / bottom edge. */
+
+.pimolu-input-group--vertical
+  > .pimolu-input-group__addon--inline-start {
+  border-block-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-start-start-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+  border-start-end-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+}
+
+.pimolu-input-group--vertical
+  > .pimolu-input-group__addon--inline-end {
+  border-block-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-end-start-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+  border-end-end-radius: calc(
+    var(--pimolu-radius-md, 8px) - 1px
+  );
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.pimolu-input-group__text {
+  display: inline-flex;
+  align-items: center;
+
+  flex: 0 0 auto;
+
+  padding-inline: var(
+    --pimolu-input-padding,
+    12px
+  );
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(
+    --pimolu-input-font-size,
+    0.875rem
+  );
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.pimolu-input-group__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  flex: 0 0 auto;
+  align-self: center;
+
+  min-height: calc(
+    var(--pimolu-input-height, 40px) - 6px
+  );
+
+  margin: 3px;
+  padding-block: 0;
+  padding-inline: 10px;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+
+.pimolu-input-group__button:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-input-group__button:focus-visible {
+  outline:
+    2px solid var(--pimolu-focus-ring, currentColor);
+  outline-offset: 1px;
+}
+
+.pimolu-input-group__button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-input-group,
+  .pimolu-input-group__button {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-input-group {
+    border: 1px solid CanvasText;
+  }
+
+  .pimolu-input-group:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .pimolu-input-group--invalid,
+  .pimolu-input-group[data-invalid="true"] {
+    border-color: Mark;
+  }
+
+  .pimolu-input-group__addon {
+    background: ButtonFace;
+    color: CanvasText;
+  }
+
+  .pimolu-input-group__button:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

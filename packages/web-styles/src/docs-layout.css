@@ -1,0 +1,373 @@
+/* =========================================
+   PIMOLU UI - DOCS LAYOUT
+   Shared Web Styles
+========================================= */
+
+.pimolu-docs-layout {
+  --pimolu-docs-sidebar-width: 16rem;
+  --pimolu-docs-toc-width: 14rem;
+  --pimolu-docs-layout-offset: 0px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  min-height: 100dvh;
+  min-width: 0;
+
+  background: var(--pimolu-background);
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   SKIP LINK
+========================================= */
+
+.pimolu-docs-layout__skip-link {
+  position: fixed;
+  inset-block-start: var(--pimolu-spacing-3, 12px);
+  inset-inline-start: var(--pimolu-spacing-3, 12px);
+
+  z-index: 100;
+
+  display: inline-block;
+
+  padding:
+    var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-4, 16px);
+
+  border-radius: var(--pimolu-radius-md, 10px);
+
+  background: var(--pimolu-primary);
+  color: var(--pimolu-primary-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+
+  transform: translateY(calc(-100% - 1.5rem));
+
+  transition: transform 150ms ease;
+}
+
+.pimolu-docs-layout__skip-link:focus-visible {
+  transform: translateY(0);
+
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   HEADER / FOOTER SLOTS
+========================================= */
+
+.pimolu-docs-layout__header,
+.pimolu-docs-layout__footer {
+  flex: none;
+
+  min-width: 0;
+}
+
+/* =========================================
+   BODY GRID
+========================================= */
+
+.pimolu-docs-layout__body {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns:
+    var(--pimolu-docs-sidebar-width)
+    minmax(0, 1fr)
+    var(--pimolu-docs-toc-width);
+  grid-template-areas: "sidebar main toc";
+
+  align-items: start;
+
+  gap: var(--pimolu-spacing-8, 32px);
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+
+  margin-inline: auto;
+  padding:
+    var(--pimolu-spacing-8, 32px)
+    var(--pimolu-spacing-6, 24px);
+
+  min-width: 0;
+}
+
+.pimolu-docs-layout[data-sidebar="false"]
+  .pimolu-docs-layout__body {
+  grid-template-columns: minmax(0, 1fr) var(--pimolu-docs-toc-width);
+  grid-template-areas: "main toc";
+}
+
+.pimolu-docs-layout[data-toc="false"]
+  .pimolu-docs-layout__body {
+  grid-template-columns:
+    var(--pimolu-docs-sidebar-width)
+    minmax(0, 1fr);
+  grid-template-areas: "sidebar main";
+}
+
+.pimolu-docs-layout[data-sidebar="false"][data-toc="false"]
+  .pimolu-docs-layout__body {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "main";
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.pimolu-docs-layout__sidebar {
+  grid-area: sidebar;
+
+  align-self: start;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding-inline-end: var(--pimolu-spacing-4, 16px);
+
+  border-inline-end:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.pimolu-docs-layout__main {
+  grid-area: main;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  outline: none;
+}
+
+.pimolu-docs-layout__main:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 4px;
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+}
+
+/* =========================================
+   TOC
+========================================= */
+
+.pimolu-docs-layout__toc {
+  grid-area: toc;
+
+  align-self: start;
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  padding-inline-start: var(--pimolu-spacing-4, 16px);
+
+  border-inline-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+}
+
+/* =========================================
+   STICKY COLUMNS
+========================================= */
+
+.pimolu-docs-layout[data-sticky="true"]
+  .pimolu-docs-layout__sidebar,
+.pimolu-docs-layout[data-sticky="true"]
+  .pimolu-docs-layout__toc {
+  position: sticky;
+  inset-block-start: var(--pimolu-docs-layout-offset, 0px);
+
+  max-height:
+    calc(
+      100dvh - var(--pimolu-docs-layout-offset, 0px)
+    );
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  scrollbar-gutter: stable;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/* Tablet: the TOC moves below the article so the article keeps a
+   readable measure next to the sidebar. */
+
+@media (max-width: 1180px) {
+  .pimolu-docs-layout__body {
+    grid-template-columns:
+      var(--pimolu-docs-sidebar-width)
+      minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar main"
+      "toc toc";
+
+    gap: var(--pimolu-spacing-6, 24px)
+      var(--pimolu-spacing-8, 32px);
+  }
+
+  .pimolu-docs-layout[data-sidebar="false"]
+    .pimolu-docs-layout__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "main"
+      "toc";
+  }
+
+  .pimolu-docs-layout[data-toc="false"]
+    .pimolu-docs-layout__body {
+    grid-template-columns:
+      var(--pimolu-docs-sidebar-width)
+      minmax(0, 1fr);
+    grid-template-areas: "sidebar main";
+  }
+
+  .pimolu-docs-layout[data-sidebar="false"][data-toc="false"]
+    .pimolu-docs-layout__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "main";
+  }
+
+  .pimolu-docs-layout__toc {
+    padding-block-start: var(--pimolu-spacing-4, 16px);
+    padding-inline-start: 0;
+
+    border-block-start:
+      var(--pimolu-control-border-width, 1px)
+      solid var(--pimolu-border);
+
+    border-inline-start: 0;
+  }
+
+  .pimolu-docs-layout[data-sticky="true"]
+    .pimolu-docs-layout__toc {
+    position: static;
+
+    max-height: none;
+
+    overflow: visible;
+  }
+}
+
+/* Mobile: one column. The sidebar keeps its place before the article
+   and becomes a bounded scroll region, so a long navigation cannot
+   push the article several screens down. */
+
+@media (max-width: 860px) {
+  .pimolu-docs-layout__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar"
+      "main"
+      "toc";
+
+    gap: var(--pimolu-spacing-6, 24px);
+
+    padding:
+      var(--pimolu-spacing-6, 24px)
+      var(--pimolu-spacing-4, 16px);
+  }
+
+  .pimolu-docs-layout[data-sidebar="false"]
+    .pimolu-docs-layout__body {
+    grid-template-areas:
+      "main"
+      "toc";
+  }
+
+  .pimolu-docs-layout[data-toc="false"]
+    .pimolu-docs-layout__body {
+    grid-template-areas:
+      "sidebar"
+      "main";
+  }
+
+  .pimolu-docs-layout[data-sidebar="false"][data-toc="false"]
+    .pimolu-docs-layout__body {
+    grid-template-areas: "main";
+  }
+
+  .pimolu-docs-layout__sidebar,
+  .pimolu-docs-layout[data-sticky="true"]
+    .pimolu-docs-layout__sidebar {
+    position: static;
+
+    max-height: 50dvh;
+
+    overflow-y: auto;
+
+    padding-block-end: var(--pimolu-spacing-4, 16px);
+    padding-inline-end: 0;
+
+    border-block-end:
+      var(--pimolu-control-border-width, 1px)
+      solid var(--pimolu-border);
+
+    border-inline-end: 0;
+
+    overscroll-behavior: contain;
+  }
+
+  .pimolu-docs-layout__toc {
+    position: static;
+
+    max-height: none;
+
+    overflow: visible;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-docs-layout__skip-link {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-docs-layout__skip-link {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: LinkText;
+  }
+
+  .pimolu-docs-layout__skip-link:focus-visible,
+  .pimolu-docs-layout__main:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-docs-layout__sidebar,
+  .pimolu-docs-layout__toc {
+    border-color: CanvasText;
+  }
+}

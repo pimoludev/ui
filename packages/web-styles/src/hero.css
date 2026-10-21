@@ -1,0 +1,305 @@
+/* =========================================
+   PIMOLU UI - HERO
+   Shared Web Styles
+========================================= */
+
+.pimolu-hero {
+  --pimolu-hero-content-width: 44rem;
+
+  position: relative;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: var(--pimolu-background);
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-hero[data-variant="muted"] {
+  background: var(--pimolu-muted);
+}
+
+.pimolu-hero[data-variant="gradient"] {
+  background:
+    radial-gradient(
+      ellipse at 15% 0%,
+      color-mix(
+        in srgb,
+        var(--pimolu-primary) 18%,
+        transparent
+      ),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at 90% 100%,
+      color-mix(
+        in srgb,
+        var(--pimolu-accent, var(--pimolu-primary)) 12%,
+        transparent
+      ),
+      transparent 55%
+    ),
+    var(--pimolu-background);
+}
+
+.pimolu-hero[data-variant="grid"] {
+  background-color: var(--pimolu-background);
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(
+        in srgb,
+        var(--pimolu-border) 45%,
+        transparent
+      ) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(
+        in srgb,
+        var(--pimolu-border) 45%,
+        transparent
+      ) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+}
+
+/* =========================================
+   INNER GRID
+========================================= */
+
+.pimolu-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: clamp(28px, 5vw, 64px);
+
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 1200px;
+
+  margin-inline: auto;
+
+  padding-inline: clamp(20px, 4vw, 48px);
+  padding-block: var(
+    --pimolu-hero-padding-block,
+    clamp(48px, 8vw, 112px)
+  );
+}
+
+.pimolu-hero[data-media="true"] .pimolu-hero__inner {
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(0, 0.9fr);
+
+  align-items: center;
+}
+
+.pimolu-hero[data-media="true"][data-media-position="bottom"]
+  .pimolu-hero__inner {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* =========================================
+   SIZE
+========================================= */
+
+.pimolu-hero[data-size="sm"] {
+  --pimolu-hero-padding-block: clamp(32px, 5vw, 64px);
+  --pimolu-hero-title-size: clamp(2rem, 4vw, 3rem);
+  --pimolu-hero-description-size: 1rem;
+}
+
+.pimolu-hero[data-size="md"] {
+  --pimolu-hero-padding-block: clamp(48px, 7vw, 88px);
+  --pimolu-hero-title-size: clamp(2.5rem, 5vw, 4rem);
+  --pimolu-hero-description-size: 1.0625rem;
+}
+
+.pimolu-hero[data-size="lg"] {
+  --pimolu-hero-padding-block: clamp(56px, 9vw, 120px);
+  --pimolu-hero-title-size: clamp(2.75rem, 6vw, 5rem);
+  --pimolu-hero-description-size: 1.125rem;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-hero__content-slot {
+  min-width: 0;
+}
+
+.pimolu-hero__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: var(--pimolu-hero-content-width);
+
+  min-width: 0;
+}
+
+.pimolu-hero[data-align="center"] .pimolu-hero__content {
+  align-items: center;
+
+  margin-inline: auto;
+
+  text-align: center;
+}
+
+.pimolu-hero__eyebrow {
+  margin: 0;
+
+  color: var(--pimolu-primary);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.pimolu-hero__title {
+  margin: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-heading, inherit);
+  font-size: var(--pimolu-hero-title-size, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-hero__description {
+  margin: 0;
+
+  max-width: 40rem;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(
+    --pimolu-hero-description-size,
+    1.0625rem
+  );
+  line-height: 1.65;
+
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.pimolu-hero[data-align="center"]
+  .pimolu-hero__actions {
+  justify-content: center;
+}
+
+/* =========================================
+   MEDIA
+========================================= */
+
+.pimolu-hero__media-slot {
+  min-width: 0;
+}
+
+.pimolu-hero__media {
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  background: var(--pimolu-surface);
+
+  box-shadow: var(
+    --pimolu-shadow-raised,
+    none
+  );
+}
+
+.pimolu-hero__media > img,
+.pimolu-hero__media > video {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .pimolu-hero[data-media="true"] .pimolu-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pimolu-hero__content {
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .pimolu-hero__title {
+    letter-spacing: -0.025em;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-hero {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-hero {
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-hero__media {
+    border: 1px solid CanvasText;
+
+    box-shadow: none;
+  }
+}

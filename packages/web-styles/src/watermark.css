@@ -1,0 +1,86 @@
+
+/* =========================================
+   PIMOLU UI — WATERMARK
+   Shared Web Styles
+========================================= */
+
+.pimolu-watermark {
+  --pimolu-watermark-z-index: 9;
+  --pimolu-watermark-opacity: 0.08;
+
+  position: relative;
+
+  display: block;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   LAYER
+========================================= */
+
+.pimolu-watermark__layer {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: var(--pimolu-watermark-z-index, 9);
+
+  box-sizing: border-box;
+
+  opacity: var(
+    --pimolu-watermark-opacity,
+    0.08
+  );
+
+  background-repeat: repeat;
+  background-position: 0 0;
+
+  pointer-events: none;
+  user-select: none;
+
+  -webkit-user-select: none;
+}
+
+/* Fullscreen mode covers the viewport while the content keeps its place in
+   the page; the layer is fixed so it is not clipped by an ancestor. */
+.pimolu-watermark--fullscreen
+  .pimolu-watermark__layer {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-watermark__content {
+  position: relative;
+
+  z-index: 1;
+
+  min-width: 0;
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+/* The watermark is decorative and never takes pointer input. In forced
+   colours it is removed rather than competing with real content. */
+@media (forced-colors: active) {
+  .pimolu-watermark__layer {
+    display: none;
+  }
+}

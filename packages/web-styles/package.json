@@ -128,7 +128,25 @@
     "./chat.css": "./dist/chat.css",
     "./scheduler.css": "./dist/scheduler.css",
     "./gantt.css": "./dist/gantt.css",
-    "./file-manager.css": "./dist/file-manager.css"
+    "./file-manager.css": "./dist/file-manager.css",
+    "./page-header.css": "./dist/page-header.css",
+    "./footer.css": "./dist/footer.css",
+    "./docs-layout.css": "./dist/docs-layout.css",
+    "./table-of-contents.css": "./dist/table-of-contents.css",
+    "./anchor.css": "./dist/anchor.css",
+    "./prose.css": "./dist/prose.css",
+    "./api-table.css": "./dist/api-table.css",
+    "./code-block.css": "./dist/code-block.css",
+    "./search-input.css": "./dist/search-input.css",
+    "./theme-builder.css": "./dist/theme-builder.css",
+    "./button-group.css": "./dist/button-group.css",
+    "./split-button.css": "./dist/split-button.css",
+    "./password-input.css": "./dist/password-input.css",
+    "./input-group.css": "./dist/input-group.css",
+    "./tree-select.css": "./dist/tree-select.css",
+    "./signature.css": "./dist/signature.css",
+    "./watermark.css": "./dist/watermark.css",
+    "./hero.css": "./dist/hero.css"
   },
 
   "dependencies": {

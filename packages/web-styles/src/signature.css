@@ -1,0 +1,320 @@
+
+/* =========================================
+   PIMOLU UI — SIGNATURE
+   Shared Web Styles
+========================================= */
+
+/* BASE */
+
+.pimolu-signature {
+  --pimolu-signature-width: 600px;
+  --pimolu-signature-background: #ffffff;
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  width: min(
+    100%,
+    var(--pimolu-signature-width, 600px)
+  );
+  max-width: 100%;
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* LABEL AND DESCRIPTION */
+
+.pimolu-signature__label {
+  display: block;
+
+  color: var(--pimolu-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-signature__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* STAGE */
+
+.pimolu-signature__stage {
+  position: relative;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow: hidden;
+
+  background: var(
+    --pimolu-signature-background,
+    #ffffff
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    dashed var(--pimolu-border, currentColor);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  touch-action: none;
+
+  user-select: none;
+}
+
+/* CANVAS */
+
+.pimolu-signature__canvas {
+  display: block;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: inherit;
+
+  outline: none;
+
+  touch-action: none;
+
+  cursor: crosshair;
+}
+
+.pimolu-signature__canvas:focus-visible {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: -3px;
+}
+
+/* PLACEHOLDER AND BASELINE */
+
+.pimolu-signature__placeholder {
+  position: absolute;
+
+  inset-block-start: 46%;
+  inset-inline-start: 50%;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.pimolu-signature__baseline {
+  position: absolute;
+
+  inset-block-end: 20%;
+  inset-inline: 8%;
+
+  border-block-end:
+    1px dashed var(--pimolu-border, currentColor);
+
+  opacity: 0.7;
+
+  pointer-events: none;
+}
+
+/* TOOLBAR */
+
+.pimolu-signature__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.pimolu-signature__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+
+  margin: 0;
+  padding: 6px 12px;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+  color: var(--pimolu-foreground);
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-md, 8px);
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+.pimolu-signature__action:hover:not(:disabled) {
+  background: var(--pimolu-muted);
+  border-color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-signature__action:focus-visible {
+  outline: 2px solid var(
+    --pimolu-focus-ring,
+    var(--pimolu-primary)
+  );
+
+  outline-offset: 2px;
+}
+
+.pimolu-signature__action:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.pimolu-signature__action--clear {
+  color: var(--pimolu-danger, #dc2626);
+}
+
+.pimolu-signature__action--clear:hover:not(:disabled) {
+  border-color: var(--pimolu-danger, #dc2626);
+}
+
+/* DISABLED AND READ-ONLY */
+
+.pimolu-signature--disabled {
+  opacity: 0.6;
+}
+
+.pimolu-signature--disabled
+  .pimolu-signature__canvas {
+  cursor: not-allowed;
+}
+
+.pimolu-signature--readonly
+  .pimolu-signature__canvas {
+  cursor: default;
+}
+
+.pimolu-signature--readonly
+  .pimolu-signature__stage {
+  border-style: solid;
+}
+
+.pimolu-signature[data-has-value="true"]
+  .pimolu-signature__placeholder {
+  display: none;
+}
+
+/* VISUALLY HIDDEN */
+
+.pimolu-signature__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-signature__action {
+    transition: none;
+  }
+}
+
+/* FORCED COLORS */
+
+@media (forced-colors: active) {
+  .pimolu-signature {
+    opacity: 1;
+  }
+
+  .pimolu-signature__stage {
+    border-color: CanvasText;
+  }
+
+  .pimolu-signature__canvas {
+    forced-color-adjust: none;
+  }
+
+  .pimolu-signature__canvas:focus-visible,
+  .pimolu-signature__action:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-signature__placeholder {
+    color: CanvasText;
+  }
+
+  .pimolu-signature__baseline {
+    border-block-end-color: CanvasText;
+  }
+
+  .pimolu-signature__action {
+    background: ButtonFace;
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+
+  .pimolu-signature__action:disabled {
+    color: GrayText;
+    border-color: GrayText;
+    opacity: 1;
+  }
+
+  .pimolu-signature__action--clear {
+    color: ButtonText;
+  }
+}

@@ -1,0 +1,182 @@
+/* =========================================
+   PIMOLU UI - SPLIT BUTTON
+   Shared Web Styles
+========================================= */
+
+.pimolu-split-button {
+  display: inline-flex;
+  align-items: stretch;
+
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  vertical-align: middle;
+
+  isolation: isolate;
+}
+
+/* =========================================
+   ATTACHED BUTTONS
+========================================= */
+
+.pimolu-split-button > .pimolu-split-button__trigger {
+  position: relative;
+
+  margin-inline-start: calc(
+    -1 * var(--pimolu-control-border-width, 1px)
+  );
+
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+/* Filled appearances have no visible border at the seam. */
+
+.pimolu-split-button
+  > .pimolu-split-button__trigger:is(
+    .pimolu-button--solid,
+    .pimolu-button--soft,
+    .pimolu-button--glow
+  )::before {
+  content: "";
+
+  position: absolute;
+  inset-block: 20%;
+  inset-inline-start: 0;
+
+  width: var(--pimolu-control-border-width, 1px);
+
+  background: currentColor;
+
+  opacity: 0.35;
+
+  pointer-events: none;
+}
+
+.pimolu-split-button > .pimolu-split-button__primary {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.pimolu-split-button
+  > .pimolu-split-button__primary:hover:not(:disabled),
+.pimolu-split-button
+  > .pimolu-split-button__primary:focus-visible,
+.pimolu-split-button
+  > .pimolu-split-button__trigger:hover:not(:disabled),
+.pimolu-split-button
+  > .pimolu-split-button__trigger:focus-visible,
+.pimolu-split-button
+  > .pimolu-split-button__trigger[data-state="open"] {
+  position: relative;
+  z-index: 1;
+}
+
+.pimolu-split-button__primary {
+  min-width: 0;
+}
+
+/* =========================================
+   MENU
+========================================= */
+
+.pimolu-split-button__menu {
+  min-width: 14rem;
+}
+
+.pimolu-split-button__item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.pimolu-split-button__item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 1.125em;
+  height: 1.125em;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-split-button__item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pimolu-split-button__item-label {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pimolu-split-button__item-shortcut {
+  flex: 0 0 auto;
+
+  margin-inline-start: 12px;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-family: var(
+    --pimolu-font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace
+  );
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+.pimolu-split-button__menu
+  .pimolu-dropdown-menu__item:disabled
+  .pimolu-split-button__item-shortcut {
+  opacity: 0.7;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-split-button > .pimolu-button {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-split-button
+    > .pimolu-split-button__trigger[data-state="open"] {
+    outline: 1px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .pimolu-split-button
+    > .pimolu-split-button__trigger::before {
+    background: CanvasText;
+    opacity: 1;
+  }
+
+  .pimolu-split-button__item-shortcut {
+    color: CanvasText;
+  }
+}

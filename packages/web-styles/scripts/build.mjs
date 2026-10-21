@@ -572,6 +572,96 @@ const outputs = [
     output: "file-manager.css",
     minify: false,
   },
+  {
+    input: "page-header.css",
+    output: "page-header.css",
+    minify: false,
+  },
+  {
+    input: "footer.css",
+    output: "footer.css",
+    minify: false,
+  },
+  {
+    input: "docs-layout.css",
+    output: "docs-layout.css",
+    minify: false,
+  },
+  {
+    input: "table-of-contents.css",
+    output: "table-of-contents.css",
+    minify: false,
+  },
+  {
+    input: "anchor.css",
+    output: "anchor.css",
+    minify: false,
+  },
+  {
+    input: "prose.css",
+    output: "prose.css",
+    minify: false,
+  },
+  {
+    input: "api-table.css",
+    output: "api-table.css",
+    minify: false,
+  },
+  {
+    input: "code-block.css",
+    output: "code-block.css",
+    minify: false,
+  },
+  {
+    input: "search-input.css",
+    output: "search-input.css",
+    minify: false,
+  },
+  {
+    input: "theme-builder.css",
+    output: "theme-builder.css",
+    minify: false,
+  },
+  {
+    input: "button-group.css",
+    output: "button-group.css",
+    minify: false,
+  },
+  {
+    input: "split-button.css",
+    output: "split-button.css",
+    minify: false,
+  },
+  {
+    input: "password-input.css",
+    output: "password-input.css",
+    minify: false,
+  },
+  {
+    input: "input-group.css",
+    output: "input-group.css",
+    minify: false,
+  },
+  {
+    input: "tree-select.css",
+    output: "tree-select.css",
+    minify: false,
+  },
+  {
+    input: "signature.css",
+    output: "signature.css",
+    minify: false,
+  },
+  {
+    input: "watermark.css",
+    output: "watermark.css",
+    minify: false,
+  },
+  {
+    input: "hero.css",
+    output: "hero.css",
+    minify: false,
+  },
 ];
 
 await mkdir(distDir, { recursive: true });

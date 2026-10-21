@@ -1,0 +1,227 @@
+/* =========================================
+   PIMOLU UI - PAGE HEADER
+   Shared Web Styles
+========================================= */
+
+.pimolu-page-header {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--pimolu-spacing-4, 16px);
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+/* =========================================
+   BREADCRUMBS
+========================================= */
+
+.pimolu-page-header__breadcrumbs {
+  display: flex;
+  justify-content: flex-start;
+
+  min-width: 0;
+}
+
+.pimolu-page-header a:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+
+  border-radius: 2px;
+}
+
+.pimolu-page-header__crumb {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   BODY
+========================================= */
+
+.pimolu-page-header__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-4, 16px);
+
+  min-width: 0;
+}
+
+.pimolu-page-header__content {
+  display: flex;
+  flex: 1 1 32rem;
+  flex-direction: column;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  min-width: 0;
+  max-width: 74ch;
+}
+
+.pimolu-page-header__eyebrow {
+  margin: 0;
+
+  color: var(--pimolu-primary);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-page-header__title {
+  margin: 0;
+
+  color: var(--pimolu-foreground);
+
+  font-family: var(--pimolu-font-heading, inherit);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+
+  text-wrap: balance;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-page-header__description {
+  margin: 0;
+
+  max-width: 68ch;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: var(--pimolu-font-size-lg, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+
+  text-wrap: pretty;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-page-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-4, 16px);
+
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pimolu-page-header__actions {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  min-width: 0;
+}
+
+/* =========================================
+   CENTERED
+========================================= */
+
+.pimolu-page-header--center {
+  align-items: center;
+
+  text-align: center;
+}
+
+.pimolu-page-header--center .pimolu-page-header__breadcrumbs {
+  justify-content: center;
+}
+
+.pimolu-page-header--center .pimolu-page-header__body {
+  justify-content: center;
+}
+
+.pimolu-page-header--center .pimolu-page-header__content {
+  align-items: center;
+
+  margin-inline: auto;
+
+  text-align: center;
+}
+
+.pimolu-page-header--center .pimolu-page-header__meta,
+.pimolu-page-header--center .pimolu-page-header__actions {
+  justify-content: center;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 640px) {
+  .pimolu-page-header__body {
+    align-items: flex-start;
+  }
+
+  .pimolu-page-header__actions {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+
+  .pimolu-page-header--center .pimolu-page-header__actions {
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-page-header a {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-page-header a:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-page-header__eyebrow,
+  .pimolu-page-header__title,
+  .pimolu-page-header__description,
+  .pimolu-page-header__crumb,
+  .pimolu-page-header__meta {
+    color: CanvasText;
+  }
+}

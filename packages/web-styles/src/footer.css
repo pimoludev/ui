@@ -1,0 +1,307 @@
+/* =========================================
+   PIMOLU UI - FOOTER
+   Shared Web Styles
+========================================= */
+
+.pimolu-footer {
+  box-sizing: border-box;
+
+  border-block-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  background: var(--pimolu-surface);
+  color: var(--pimolu-surface-foreground);
+
+  font-family: var(--pimolu-font-body, inherit);
+}
+
+.pimolu-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: var(--pimolu-spacing-8, 32px)
+    var(--pimolu-spacing-12, 48px);
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+
+  margin-inline: auto;
+  padding:
+    var(--pimolu-spacing-10, 40px)
+    var(--pimolu-spacing-6, 24px)
+    var(--pimolu-spacing-8, 32px);
+}
+
+/* =========================================
+   BRAND
+========================================= */
+
+.pimolu-footer__brand {
+  display: flex;
+  flex: 1 1 16rem;
+  flex-direction: column;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  min-width: 0;
+  max-width: 34rem;
+}
+
+.pimolu-footer__brand-mark {
+  min-width: 0;
+
+  color: var(--pimolu-surface-foreground);
+
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-footer__description {
+  margin: 0;
+
+  max-width: 48ch;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  min-width: 0;
+}
+
+/* =========================================
+   COLUMNS
+========================================= */
+
+.pimolu-footer__columns {
+  display: grid;
+  flex: 2 1 30rem;
+  grid-template-columns:
+    repeat(auto-fit, minmax(min(100%, 8.75rem), 1fr));
+
+  gap: var(--pimolu-spacing-6, 24px)
+    var(--pimolu-spacing-8, 32px);
+
+  min-width: 0;
+}
+
+.pimolu-footer__column {
+  min-width: 0;
+}
+
+.pimolu-footer__column-title {
+  margin:
+    0
+    0 var(--pimolu-spacing-3, 12px);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-footer__links {
+  display: grid;
+
+  gap: var(--pimolu-spacing-2, 8px);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pimolu-footer__item {
+  min-width: 0;
+}
+
+.pimolu-footer__link.pimolu-link {
+  position: relative;
+
+  display: inline-block;
+
+  max-width: 100%;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-footer__link.pimolu-link:hover {
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-footer a:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, var(--pimolu-primary));
+
+  outline-offset: 2px;
+
+  border-radius: 2px;
+}
+
+.pimolu-footer__external-hint {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.pimolu-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--pimolu-spacing-3, 12px)
+    var(--pimolu-spacing-6, 24px);
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+
+  margin-inline: auto;
+  padding:
+    var(--pimolu-spacing-4, 16px)
+    var(--pimolu-spacing-6, 24px)
+    var(--pimolu-spacing-6, 24px);
+
+  border-block-start:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pimolu-footer__copyright {
+  margin: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--pimolu-spacing-2, 8px)
+    var(--pimolu-spacing-4, 16px);
+
+  min-width: 0;
+
+  color: var(--pimolu-muted-foreground);
+}
+
+.pimolu-footer__legal .pimolu-link {
+  color: var(--pimolu-muted-foreground);
+
+  font-size: inherit;
+}
+
+.pimolu-footer__legal .pimolu-link:hover {
+  color: var(--pimolu-foreground);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 720px) {
+  .pimolu-footer__inner {
+    padding:
+      var(--pimolu-spacing-8, 32px)
+      var(--pimolu-spacing-4, 16px);
+  }
+
+  .pimolu-footer__bottom {
+    padding:
+      var(--pimolu-spacing-4, 16px)
+      var(--pimolu-spacing-4, 16px)
+      var(--pimolu-spacing-6, 24px);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-footer__link.pimolu-link {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-footer a:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .pimolu-footer {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pimolu-footer__column-title,
+  .pimolu-footer__description,
+  .pimolu-footer__bottom,
+  .pimolu-footer__copyright,
+  .pimolu-footer__legal {
+    color: CanvasText;
+  }
+
+  .pimolu-footer__bottom {
+    border-color: CanvasText;
+  }
+
+  .pimolu-footer__link.pimolu-link,
+  .pimolu-footer__legal .pimolu-link {
+    color: LinkText;
+  }
+}

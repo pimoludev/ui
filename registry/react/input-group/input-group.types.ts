@@ -1,0 +1,57 @@
+import type {
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+} from "react";
+
+import type { PimoluInputSize } from "../input/input.types";
+
+export type { PimoluInputSize };
+
+export type PimoluInputGroupOrientation =
+  | "horizontal"
+  | "vertical";
+
+export type PimoluInputGroupAddonAlign =
+  | "inline-start"
+  | "inline-end";
+
+export interface PimoluInputGroupProps
+  extends HTMLAttributes<HTMLDivElement> {
+  /** Addons, inputs and buttons composing the field. */
+  children?: ReactNode;
+
+  /** Layout direction. Defaults to "horizontal". */
+  orientation?: PimoluInputGroupOrientation;
+
+  /** Height and typography scale shared by the group. Defaults to "md". */
+  size?: PimoluInputSize;
+
+  /** Disables the input and every InputGroupButton of the group. */
+  disabled?: boolean;
+
+  /** Marks the group and its input as invalid. */
+  invalid?: boolean;
+
+  /** Stretch the group to the width of its container. */
+  fullWidth?: boolean;
+}
+
+export interface PimoluInputGroupAddonProps
+  extends HTMLAttributes<HTMLSpanElement> {
+  /**
+   * Edge the addon belongs to. It controls the separator and
+   * outer radii. Defaults to "inline-start".
+   */
+  align?: PimoluInputGroupAddonAlign;
+}
+
+export type PimoluInputGroupTextProps =
+  HTMLAttributes<HTMLSpanElement>;
+
+export type PimoluInputGroupButtonProps =
+  ButtonHTMLAttributes<HTMLButtonElement>;
+
+export type PimoluInputGroupInputProps =
+  InputHTMLAttributes<HTMLInputElement>;
