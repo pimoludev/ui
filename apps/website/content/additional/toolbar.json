@@ -1,0 +1,7 @@
+[
+  {
+    "file": "toolbar-history.tsx",
+    "title": "History actions",
+    "description": "A toolbar with disabled history actions and an observable save command."
+  }
+]

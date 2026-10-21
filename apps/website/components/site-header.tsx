@@ -7,9 +7,10 @@ import {
 } from "@pimolu/react";
 
 const navigation = [
-  { href: "/docs", label: "Documentation" },
+  { href: "/docs", label: "Docs" },
   { href: "/components", label: "Components" },
   { href: "/themes", label: "Themes" },
+  { href: "/releases", label: "Releases" },
 ];
 
 export function SiteHeader() {
@@ -17,7 +18,7 @@ export function SiteHeader() {
   const { theme, setTheme } = usePimoluTheme();
   return (
     <div className="site-header">
-      <Navbar key={path} collapsible className="site-nav mx-auto w-full max-w-7xl">
+      <Navbar key={path} appearance="transparent" bordered={false} collapsible className="site-nav mx-auto w-full max-w-7xl">
         <NavbarBrand href="/" aria-label="Pimolu UI home">
           <span className="site-mark" aria-hidden="true">p</span>
           <span>Pimolu<span className="site-wordmark-suffix"> UI</span></span>

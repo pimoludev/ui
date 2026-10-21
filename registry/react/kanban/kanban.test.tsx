@@ -285,7 +285,8 @@ describe("Pimolu Kanban", () => {
       name: /Done/,
     });
 
-    expect(done).toHaveAttribute("aria-disabled", "true");
+    expect(done).toHaveAttribute("data-full", "true");
+    expect(done).not.toHaveAttribute("aria-disabled");
 
     fireEvent.dragStart(card, { dataTransfer });
     fireEvent.dragOver(done, { dataTransfer });
@@ -456,4 +457,16 @@ describe("Pimolu Kanban", () => {
       })
     ).toBeInTheDocument();
   });
+  it("keeps cards in a full column enabled and lets them leave", async () => {
+    const user = userEvent.setup();
+    render(<Kanban defaultColumns={columns} />);
+    const card = cardGroup("Plan sprint", "Done");
+    expect(card.closest('[aria-disabled="true"]')).toBeNull();
+    const trigger = screen.getByRole("button", { name: "Move Plan sprint" });
+    expect(trigger).toBeEnabled();
+    await user.click(trigger);
+    await user.click(screen.getByRole("menuitem", { name: "Move to In progress" }));
+    expect(cardGroup("Plan sprint", "In progress")).toHaveFocus();
+  });
+
 });

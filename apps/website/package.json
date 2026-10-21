@@ -3,26 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.6" },
+  "engines": {
+    "node": ">=22.6"
+  },
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
+    "docs:generate": "node --experimental-strip-types scripts/build-docs.mjs",
+    "dev": "pnpm docs:generate && next dev -p 3001",
+    "build": "pnpm docs:generate && next build",
     "start": "next start -p 3001",
     "lint": "eslint .",
-    "typecheck": "next typegen && tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs"
+    "typecheck": "pnpm docs:generate && next typegen && tsc --noEmit",
+    "test": "pnpm docs:generate && node --experimental-strip-types --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install chromium firefox webkit",
+    "previews:capture": "node scripts/capture-previews.mjs",
+    "audit:a11y": "node scripts/audit-accessibility.mjs"
   },
   "dependencies": {
-    "next": "16.4.2",
-    "react": "19.3.1",
-    "react-dom": "19.3.1",
+    "@pimolu/design-tokens": "workspace:*",
     "@pimolu/react": "workspace:*",
     "@pimolu/themes": "workspace:*",
-    "@pimolu/design-tokens": "workspace:*",
     "@pimolu/web-styles": "workspace:*",
-    "motion": "^12.0.0"
+    "motion": "^12.0.0",
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

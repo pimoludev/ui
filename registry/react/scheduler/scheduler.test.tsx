@@ -395,4 +395,50 @@ describe("Pimolu Scheduler", () => {
       screen.getByText("Tuesday, October 20, 2026")
     ).toBeInTheDocument();
   });
+  it("has one grid tab stop and supports arrows, boundaries, activation and cell actions", async () => {
+    const user = userEvent.setup();
+    const onSlotClick = vi.fn();
+    render(<Scheduler events={events} defaultDate={TUESDAY} minTime={8 * 60} maxTime={12 * 60} onSlotClick={onSlotClick} />);
+    const grid = screen.getByRole("grid");
+    expect(grid.querySelectorAll('[tabindex="0"]')).toHaveLength(1);
+    const initial = grid.querySelector<HTMLElement>('[tabindex="0"]')!;
+    initial.focus();
+    await user.keyboard("{ArrowRight}{ArrowDown}");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-row", "2");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-column", "1");
+    await user.keyboard("{Enter}");
+    expect(onSlotClick).toHaveBeenCalledOnce();
+    await user.keyboard("{F2}");
+    expect(document.activeElement?.tagName).toBe("BUTTON");
+    await user.tab({ shift: true });
+    expect(document.activeElement).toHaveAttribute("role", "gridcell");
+    await user.keyboard("{ArrowRight}");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-column", "2");
+    await user.keyboard("{F2}");
+    await user.keyboard("{Escape}");
+    expect(document.activeElement).toHaveAttribute("role", "gridcell");
+    await user.keyboard("{Control>}{End}{/Control}");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-row", "4");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-column", "6");
+    await user.keyboard("{ArrowRight}{ArrowDown}");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-column", "6");
+    await user.keyboard("{Control>}{Home}{/Control}");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-row", "0");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-column", "0");
+  });
+
+  it("keeps a single valid cell after switching view and supports a read-only day", async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<Scheduler events={[]} defaultDate={TUESDAY} minTime={8 * 60} maxTime={10 * 60} />);
+    const grid = screen.getByRole("grid");
+    (grid.querySelector('[tabindex="0"]') as HTMLElement).focus();
+    await user.keyboard("{End}");
+    rerender(<Scheduler events={[]} defaultDate={TUESDAY} view="day" minTime={8 * 60} maxTime={10 * 60} />);
+    expect(grid.querySelectorAll('[tabindex="0"]')).toHaveLength(1);
+    (grid.querySelector('[tabindex="0"]') as HTMLElement).focus();
+    await user.keyboard("{ArrowDown}");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-column", "0");
+    expect(document.activeElement).toHaveAttribute("data-scheduler-row", "2");
+  });
+
 });

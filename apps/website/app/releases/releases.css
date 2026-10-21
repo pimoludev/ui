@@ -1,0 +1,12 @@
+@layer components {
+  .releases-page { max-width: 1120px; width: calc(100% - 48px); margin-inline: auto; padding-block: 64px 96px; }
+  .releases-page > .pimolu-page-header { max-width: 760px; }
+  .releases-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 64px; margin-block-start: 64px; align-items: start; }
+  .releases-grid .pimolu-card__header { gap: 20px; }
+  .releases-grid ul { padding-inline-start: 20px; margin-block: 24px; }
+  .releases-grid li + li { margin-block-start: 12px; }
+  .releases-grid p { line-height: 1.75; color: var(--pimolu-muted-foreground); }
+  .releases-grid aside > * + * { margin-block-start: 24px; }
+  .releases-grid aside h2 { font-size: 1.25rem; font-weight: 500; }
+  @media (max-width: 860px) { .releases-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; margin-block-start: 40px; } .releases-page { width: calc(100% - 40px); padding-block: 40px 64px; } }
+}

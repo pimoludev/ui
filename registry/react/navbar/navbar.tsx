@@ -1,5 +1,7 @@
 "use client";
 
+import { navbarVariants } from "./navbar.variants";
+
 import {
   createContext,
   useCallback,
@@ -65,6 +67,7 @@ function MenuIcon({ open }: { open: boolean }) {
 }
 
 export function Navbar({
+  appearance = "surface",
   sticky = false,
   bordered = true,
   itemsPosition = "left",
@@ -132,7 +135,7 @@ export function Navbar({
         data-items-position={itemsPosition}
         data-collapsible={collapsible || undefined}
         data-open={collapsible ? open : undefined}
-        className={classes("pimolu-navbar", className)}
+        className={navbarVariants({ appearance }, className)}
       >
         <div className="pimolu-navbar__inner">{children}</div>
       </header>

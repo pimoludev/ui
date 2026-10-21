@@ -1,0 +1,12 @@
+[
+  {
+    "file": "tour-short.tsx",
+    "title": "Focused one-step introduction",
+    "description": "A controlled tour highlights real targets and reports completion without changing global state."
+  },
+  {
+    "file": "tour-localized.tsx",
+    "title": "Localized tour controls",
+    "description": "A controlled tour highlights real targets and reports completion without changing global state."
+  }
+]

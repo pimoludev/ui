@@ -1,4 +1,5 @@
 import {
+  footerVariantMap,
   Button,
   Footer,
   Link,
@@ -43,6 +44,8 @@ export function FooterPage() {
         hint="A data-driven site footer with a brand block, named navigation columns, optional actions, a copyright line and a legal row. External links open in a new tab with rel=noopener noreferrer. Styles come from @pimolu/web-styles/footer.css."
       />
 
+
+      <Section title="Surface treatments" hint="Choose a surface, blend into the page, or use a floating frame. The transparent appearance avoids side edges caused by an inset background."><div className="pg-stack">{Object.keys(footerVariantMap.appearance).map((value) => { const appearance = value as keyof typeof footerVariantMap.appearance; return <div key={value} className="pg-stack"><span className="pg-meta">{value}</span><Footer appearance={appearance} bordered={appearance !== "transparent"} brand="Pimolu" description="One system. Your identity." columns={[{ title: "Explore", links: [{ label: "Components", href: "#/button" }, { label: "Documentation", href: "#/overview" }] }]} copyright="Example workspace" /></div>; })}</div></Section>
       <Section
         title="Complete footer"
         hint="Each column is its own navigation landmark, named by its visible heading. The grid wraps from three columns to one on narrow screens."

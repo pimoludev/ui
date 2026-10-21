@@ -1,3 +1,5 @@
+import type { PimoluFooterAppearance } from "./footer.variants";
+
 import type {
   HTMLAttributes,
   ReactNode,
@@ -30,6 +32,12 @@ export interface PimoluFooterColumn {
  */
 export interface PimoluFooterProps
   extends HTMLAttributes<HTMLElement> {
+  /** Surface treatment. Defaults to surface; transparent inherits the page background. */
+  appearance?: PimoluFooterAppearance;
+
+  /** Draw the top divider. Defaults to true. */
+  bordered?: boolean;
+
   /** Logo, wordmark or any brand node. */
   brand?: ReactNode;
 

@@ -211,4 +211,13 @@ describe("Pimolu Navbar", () => {
       "right"
     );
   });
+  it("preserves surface defaults and supports an unframed transparent appearance", () => {
+    const { container, rerender } = render(<Navbar>Navigation</Navbar>);
+    expect(container.firstChild).toHaveClass("pimolu-navbar--surface");
+    expect(container.firstChild).toHaveAttribute("data-bordered", "true");
+    rerender(<Navbar appearance="transparent" bordered={false}>Navigation</Navbar>);
+    expect(container.firstChild).toHaveClass("pimolu-navbar--transparent");
+    expect(container.firstChild).not.toHaveAttribute("data-bordered");
+  });
+
 });

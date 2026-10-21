@@ -1,0 +1,7 @@
+[
+  {
+    "file": "command-people.tsx",
+    "title": "Find a teammate",
+    "description": "Search includes descriptive keywords; selecting a result updates the active assignee."
+  }
+]

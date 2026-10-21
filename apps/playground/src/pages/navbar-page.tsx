@@ -1,4 +1,5 @@
 import {
+  navbarVariantMap,
   Button,
   Card,
   CardContent,
@@ -139,6 +140,8 @@ export function NavbarPage() {
         hint="A banner with a brand, a navigation landmark and trailing actions. Add NavbarToggle and collapsible for a mobile menu with a default or custom icon. Styles come from @pimolu/web-styles/navbar.css."
       />
 
+
+      <Section title="Surface treatments" hint="Choose a surface, blend into the page, or use a floating frame. The transparent appearance avoids side edges caused by an inset background."><div className="pg-stack">{Object.keys(navbarVariantMap.appearance).map((value) => { const appearance = value as keyof typeof navbarVariantMap.appearance; return <div key={value} className="pg-stack"><span className="pg-meta">{value}</span><Navbar appearance={appearance} bordered={appearance !== "transparent"} collapsible><NavbarBrand href="#/navbar">Pimolu</NavbarBrand><NavbarToggle /><NavbarContent aria-label={`${appearance} navigation`}><NavbarItem href="#/navbar" active>Overview</NavbarItem><NavbarItem href="#/button">Components</NavbarItem></NavbarContent><NavbarActions><Button size="sm">Get started</Button></NavbarActions></Navbar></div>; })}</div></Section>
       <Section
         title="Basic"
         hint="Brand, links and actions; the active link is marked for assistive technology."

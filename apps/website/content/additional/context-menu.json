@@ -1,0 +1,7 @@
+[
+  {
+    "file": "context-menu-document.tsx",
+    "title": "Document commands",
+    "description": "Right-click or press Shift+F10 on the focusable document; selection is reported."
+  }
+]

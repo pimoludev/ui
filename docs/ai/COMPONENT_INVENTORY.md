@@ -43,7 +43,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Breadcrumbs | `registry/react/breadcrumbs/` | Path to the current page | Present and tested |
 | Pagination | `registry/react/pagination/` | Page navigation with ellipses | Present and tested |
 | Stepper | `registry/react/stepper/` | Multi-step progress | Present and tested |
-| Navbar | `registry/react/navbar/` | Top navigation shell with item alignment and an optional collapsible menu | Present and tested |
+| Navbar | `registry/react/navbar/` | Top navigation with item alignment, collapsible menu and surface/transparent/floating appearances | Present and tested |
 | Sidebar | `registry/react/sidebar/` | Grouped side navigation with optional controlled/uncontrolled collapse and mobile initial collapse | Present and tested |
 | DashboardLayout | `registry/react/dashboard-layout/` | Sidebar, navbar, main content and optional aside shell | Present and tested |
 | NavigationMenu | `registry/react/navigation-menu/` | Menus with disclosure panels and a labelled navigation landmark | Present and tested |
@@ -116,12 +116,12 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | NotificationCenter | `registry/react/notification-center/` | Bell panel with read state | Present and tested |
 | Kanban | `registry/react/kanban/` | Drag-and-drop board | Present and tested |
 | Chat | `registry/react/chat/` | Message log and composer | Present and tested |
-| Scheduler | `registry/react/scheduler/` | Day and week event calendar | Present and tested |
+| Scheduler | `registry/react/scheduler/` | Day/week calendar with roving grid focus, arrows, RTL and F2 cell actions | Present and tested |
 | Gantt | `registry/react/gantt/` | Task timeline with dependencies | Present and tested |
 | FileManager | `registry/react/file-manager/` | File browser with list/grid views | Present and tested |
 | PageHeader | `registry/react/page-header/` | Documentation or marketing page intro | Present and tested |
 | Hero | `registry/react/hero/` | Marketing opener with media slot | Present and tested |
-| Footer | `registry/react/footer/` | Multi-column site footer | Present and tested |
+| Footer | `registry/react/footer/` | Multi-column footer with surface/transparent/floating appearances and an optional top divider | Present and tested |
 | DocsLayout | `registry/react/docs-layout/` | Sidebar, article and table-of-contents shell | Present and tested |
 | TableOfContents | `registry/react/table-of-contents/` | In-page section navigation | Present and tested |
 | Anchor | `registry/react/anchor/` | Heading with a copyable section link | Present and tested |

@@ -1,0 +1,36 @@
+/* Website-only composition helpers. Public component CSS is never overridden. */
+@layer components {
+  :is(.docs-preview, .demo-composition) { container-type: inline-size; min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-stack { display: grid; gap: 20px; min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-row--between { justify-content: space-between; }
+  :is(.docs-preview, .demo-composition) .pg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 24px; min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-grid--start { align-items: start; }
+  :is(.docs-preview, .demo-composition) .pg-grid > * { min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-meta,
+  :is(.docs-preview, .demo-composition) .pg-muted { font-size: .8125rem; color: var(--pimolu-muted-foreground); line-height: 1.6; }
+  :is(.docs-preview, .demo-composition) .pg-copy { line-height: 1.7; max-width: 65ch; }
+  :is(.docs-preview, .demo-composition) .pg-panel { padding: 24px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-demo-item { display: grid; gap: 12px; min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-section { margin-block-start: 32px; }
+  :is(.docs-preview, .demo-composition) .pg-section__title { font-size: 1.125rem; margin-block-end: 8px; }
+  :is(.docs-preview, .demo-composition) .pg-section__hint { color: var(--pimolu-muted-foreground); margin-block-end: 20px; }
+  :is(.docs-preview, .demo-composition) .pg-grow { flex: 1; min-width: 0; }
+  :is(.docs-preview, .demo-composition) .pg-example-actions { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; }
+  :is(.docs-preview, .demo-composition) .pg-media { display: block; width: 100%; max-height: 260px; object-fit: contain; border-radius: var(--pimolu-radius-md); background: var(--pimolu-muted); }
+  :is(.docs-preview, .demo-composition) .pg-price { font-size: 1.5rem; font-weight: 500; }
+  :is(.docs-preview, .demo-composition) .pg-popover-title { font-weight: 500; margin-block-end: 8px; }
+  :is(.docs-preview, .demo-composition) .pg-popover-hint { font-size: .8125rem; color: var(--pimolu-muted-foreground); }
+  :is(.docs-preview, .demo-composition) .pg-brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
+  :is(.docs-preview, .demo-composition) .pg-brand__mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: var(--pimolu-radius-md); background: var(--pimolu-primary); color: var(--pimolu-primary-foreground); }
+  :is(.docs-preview, .demo-composition) .pg-brand__tag { color: var(--pimolu-muted-foreground); font-size: .75rem; }
+  :is(.docs-preview, .demo-composition) .pg-separator-row { display: flex; align-items: center; gap: 16px; }
+  :is(.docs-preview, .demo-composition) .pg-surface-demo { padding: 24px; background: var(--pimolu-surface); border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-md); }
+  .demo-composition { padding: 32px; }
+  :is(.demo-composition--app-shell, .demo-composition--docs-layout, .demo-composition--dashboard-layout) { padding: 0; }
+  .docs-preview:is(.docs-preview--app-shell, .docs-preview--docs-layout, .docs-preview--table-of-contents, .docs-preview--anchor) { padding: 0; }
+  @container (max-width: 480px) {
+    :is(.docs-preview, .demo-composition) .pg-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 480px) { .demo-composition { padding: 20px; } :is(.docs-preview, .demo-composition) .pg-panel { padding: 16px; } }
+}

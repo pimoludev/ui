@@ -1,0 +1,7 @@
+[
+  {
+    "file": "kanban-inspection.tsx",
+    "title": "Inspect and move a task",
+    "description": "Move a card by keyboard or menu, then activate it to report the selected task."
+  }
+]

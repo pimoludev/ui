@@ -1039,7 +1039,7 @@ export function Kanban({
             <ol
               className="pimolu-kanban__list"
               aria-labelledby={headingId}
-              aria-disabled={full ? true : undefined}
+              data-full={full || undefined}
               onDragOver={(event) =>
                 handleColumnDragOver(event, column)
               }

@@ -1,0 +1,7 @@
+[
+  {
+    "file": "drawer-left.tsx",
+    "title": "Left navigation drawer",
+    "description": "A compact drawer from the left, with real links and an explicit close action."
+  }
+]

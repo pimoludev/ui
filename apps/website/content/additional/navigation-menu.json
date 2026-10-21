@@ -1,0 +1,12 @@
+[
+  {
+    "file": "navigation-menu-resources.tsx",
+    "title": "Resource directory",
+    "description": "Real documentation destinations, with disclosure or direct-link navigation."
+  },
+  {
+    "file": "navigation-menu-minimal.tsx",
+    "title": "Direct destinations",
+    "description": "Real documentation destinations, with disclosure or direct-link navigation."
+  }
+]

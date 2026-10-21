@@ -1,0 +1,7 @@
+[
+  {
+    "file": "scroll-area-log.tsx",
+    "title": "Keyboard-scrollable activity log",
+    "description": "Focus the viewport and scroll a labelled sequence without moving the page."
+  }
+]

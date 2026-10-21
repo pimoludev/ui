@@ -304,6 +304,7 @@ export function KanbanPage() {
         </div>
       </Section>
 
+      <Section title="Leave a full column" hint="A full column refuses incoming cards, but its existing cards stay enabled. Focus a card and use Control/Alt with an arrow to move it out."><Kanban defaultColumns={initialColumns} /></Section>
       <Section
         title="Limits and empty columns"
         hint="Triage is full at two cards, so it refuses new drops and disables that destination in the move menu. Resolved is empty and still accepts a drop. This board is uncontrolled through defaultColumns."

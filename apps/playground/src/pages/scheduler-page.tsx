@@ -248,6 +248,8 @@ export function SchedulerPage() {
         <WeekSchedulerExample />
       </Section>
 
+      <Section title="Keyboard navigation" hint="Tab enters one cell. Arrow keys move across days and hours; Home/End reach row edges. F2 enters cell actions and Escape returns to the cell."><DaySchedulerExample /></Section>
+      <Section title="Read-only schedule" hint="Cells remain keyboard navigable even without an add-event handler."><Scheduler events={teamEvents} defaultDate={DEMO_WEEK} defaultView="day" showCurrentTime={false} aria-label="Read-only team day" /></Section>
       <Section
         title="Day view"
         hint="The same component with a one-day window and a shorter hour range."

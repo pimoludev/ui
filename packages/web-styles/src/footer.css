@@ -6,9 +6,7 @@
 .pimolu-footer {
   box-sizing: border-box;
 
-  border-block-start:
-    var(--pimolu-control-border-width, 1px)
-    solid var(--pimolu-border);
+  border-block-start: 0;
 
   background: var(--pimolu-surface);
   color: var(--pimolu-surface-foreground);
@@ -204,9 +202,7 @@
     var(--pimolu-spacing-6, 24px)
     var(--pimolu-spacing-6, 24px);
 
-  border-block-start:
-    var(--pimolu-control-border-width, 1px)
-    solid var(--pimolu-border);
+  border-block-start: 0;
 
   color: var(--pimolu-muted-foreground);
 
@@ -305,3 +301,9 @@
     color: LinkText;
   }
 }
+
+.pimolu-footer[data-bordered="true"] { border-block-start: var(--pimolu-control-border-width, 1px) solid var(--pimolu-border); }
+.pimolu-footer--transparent { background: transparent; color: var(--pimolu-foreground); }
+.pimolu-footer--transparent .pimolu-footer__brand-mark { color: inherit; }
+.pimolu-footer--floating { border: var(--pimolu-control-border-width, 1px) solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); box-shadow: var(--pimolu-shadow-raised, none); }
+@media (forced-colors: active) { .pimolu-footer[data-bordered="true"], .pimolu-footer--floating { border-color: CanvasText; } }

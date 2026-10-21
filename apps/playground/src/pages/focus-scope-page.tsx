@@ -11,6 +11,7 @@ import {
   CardTitle,
   FocusScope,
   HStack,
+  Input,
   Heading,
   Paragraph,
   Stack,
@@ -130,12 +131,8 @@ export function FocusScopePage() {
               <CardContent>
                 <Stack gap={3}>
                   <Stack gap={1}>
-                    <Text size="sm" weight="medium">
-                      Email
-                    </Text>
-
-                    <input
-                      className="pimolu-input"
+                    <Input
+                      label="Invite email"
                       type="email"
                       placeholder="name@company.com"
                     />

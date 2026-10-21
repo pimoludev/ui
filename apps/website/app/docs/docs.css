@@ -1,0 +1,83 @@
+@layer components {
+  .docs-container { width: min(calc(100% - 48px), 1480px); margin-inline: auto; padding-block: 32px 72px; }
+  .docs-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-block-end: 32px; }
+  .docs-toolbar-label, .docs-nav-label { color: var(--pimolu-muted-foreground); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; }
+  .docs-toolbar-label { white-space: nowrap; }
+  .docs-layout .pimolu-docs-layout__body { gap: 40px; }
+  .docs-layout .pimolu-docs-layout__sidebar { border-inline-end: 0; padding-inline-end: 8px; }
+  .docs-layout[data-sticky="true"] .pimolu-docs-layout__sidebar { inset-block-start: 24px; max-height: calc(100dvh - 48px); }
+  .docs-navigation, .docs-nav-group { display: flex; flex-direction: column; gap: 4px; }
+  .docs-navigation { gap: 28px; }
+  .docs-nav-label { text-transform: uppercase; padding: 0 10px 8px; }
+  .docs-nav-group > a { display: block; padding: 6px 10px; border-radius: var(--pimolu-radius-sm); font-size: 0.875rem; line-height: 1.5; }
+  .docs-nav-group > a[aria-current="page"] { background: var(--pimolu-muted); color: var(--pimolu-primary); font-weight: 600; }
+  .docs-nav-group > a:hover { background: var(--pimolu-surface); text-decoration: none; }
+  .docs-mobile-navigation { display: none; }
+  .docs-navigation-drawer .docs-navigation { margin-block-start: 24px; }
+  .docs-search-dialog .pimolu-command { border: 0; }
+  .docs-document { outline: none; min-width: 0; }
+  .docs-article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 156px; align-items: start; gap: 40px; }
+  .docs-article { min-width: 0; overflow-wrap: anywhere; }
+  .docs-section { margin-block-start: 44px; scroll-margin-block-start: 24px; }
+  .docs-section > h2, .docs-section > div > h2 { font-size: 1.5rem; line-height: 1.3; letter-spacing: -0.025em; font-weight: 600; }
+  .docs-section > p { max-width: 72ch; color: var(--pimolu-muted-foreground); }
+  .docs-section > * + * { margin-block-start: 20px; }
+  .docs-section > ul { padding-inline-start: 24px; color: var(--pimolu-muted-foreground); }
+  .docs-section li + li { margin-block-start: 12px; }
+  .docs-preview { padding: 32px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-background); min-width: 0; }
+  .docs-preview p { font-size: 0.875rem; }
+  .docs-preview--chart > div { max-width: 360px; margin-inline: auto; }
+  .docs-preview--sidebar .pimolu-sidebar { min-height: 300px; }
+  .docs-preview--dashboard-layout { padding: 0; overflow: hidden; }
+  .docs-example-frame { display: block; border: 0; width: 100%; height: 500px; background: var(--pimolu-background); }
+  .additional-examples { display: grid; gap: 48px; margin-block: 32px; min-width: 0; }
+  .additional-example { min-width: 0; }
+  .additional-example-heading { display: flex; align-items: start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-block-end: 20px; }
+  .additional-example-heading > div { flex: 1 1 260px; }
+  .additional-example-heading h3 { font-size: 1.125rem; margin-block: 0 10px; }
+  .additional-example-heading p { margin: 0; }
+  .additional-example-frame { display: block; width: 100%; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-background); }
+  .additional-example-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-block: 16px; }
+  .additional-example-actions span { color: var(--pimolu-muted-foreground); font-size: .75rem; }
+  .docs-api-group { margin-block-start: 28px; min-width: 0; }
+  .docs-api-group h3 { font-family: ui-monospace, monospace; font-size: 0.9375rem; font-weight: 500; overflow-wrap: anywhere; }
+  .docs-api-group .pimolu-api-table { margin-block-start: 14px; }
+  .docs-api-mobile { display: none; }
+  .docs-api-type { white-space: normal; overflow-wrap: anywhere; }
+  .example-layout-source { border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-md); padding: 20px; }
+  .example-layout-source summary { cursor: pointer; }
+  .example-layout-source > p { margin-block: 20px; color: var(--pimolu-muted-foreground); line-height: 1.7; }
+  .docs-toc { position: sticky; inset-block-start: 24px; font-size: 0.8125rem; }
+  .docs-toc .pimolu-table-of-contents { padding: 0; }
+  .docs-pagination { display: flex; justify-content: space-between; gap: 24px; border-block-start: 1px solid var(--pimolu-border); margin-block-start: 56px; padding-block-start: 24px; }
+  .docs-pagination > a { display: flex; flex-direction: column; gap: 6px; }
+  .docs-pagination > a:last-child { text-align: end; }
+  /* Preserve the code's text newlines without adding visual blank rows. */
+  .docs-article .pimolu-codeblock__code { display: grid; }
+  .preview-workbench { display: flex; flex-direction: column; gap: 24px; }
+  .preview-settings { padding: 24px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-surface); display: flex; flex-direction: column; gap: 24px; }
+  .preview-settings[hidden] { display: none; }
+  .preview-settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 20px; }
+  .preview-sized-surface { width: 100%; margin-inline: auto; min-width: 0; }
+  .preview-sized-surface > div { background: var(--pimolu-background); color: var(--pimolu-foreground); border-radius: var(--pimolu-radius-lg); }
+  .preview-dimensions { font-family: ui-monospace, monospace; text-align: center; margin-block-start: 12px; font-size: .6875rem; color: var(--pimolu-muted-foreground); }
+  @media (max-width: 1180px) {
+    .docs-article-layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .docs-toc { display: none; }
+  }
+  @media (max-width: 860px) {
+    .preview-settings { padding: 20px; }
+    .docs-container { width: calc(100% - 40px); padding-block-start: 24px; }
+    .docs-toolbar-label { display: none; }
+    .docs-toolbar > div { width: 100%; justify-content: space-between; }
+    .docs-mobile-navigation { display: block; }
+    .docs-layout .pimolu-docs-layout__sidebar { display: none; }
+    .docs-layout .pimolu-docs-layout__body { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main"; gap: 0; }
+    .docs-preview { padding: 20px; }
+    .docs-preview--data-table, .docs-preview--data-grid { padding: 12px; }
+    .docs-preview--dashboard-layout { padding: 0; }
+    .docs-section { margin-block-start: 36px; }
+    .docs-api-desktop { display: none; }
+    .docs-api-mobile { display: block; margin-block-start: 16px; }
+  }
+}

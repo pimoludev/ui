@@ -1596,3 +1596,8 @@ export type {
   PimoluHeroSize,
   PimoluHeroMediaPosition,
 } from "./hero/hero.types";
+
+export { navbarVariantMap } from "./navbar/navbar.variants";
+export type { PimoluNavbarAppearance } from "./navbar/navbar.variants";
+export { footerVariantMap } from "./footer/footer.variants";
+export type { PimoluFooterAppearance } from "./footer/footer.variants";

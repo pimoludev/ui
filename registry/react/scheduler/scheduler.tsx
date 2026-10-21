@@ -3,8 +3,11 @@
 import {
   useEffect,
   useMemo,
+  useRef,
+  useId,
   useState,
   type CSSProperties,
+  type KeyboardEvent,
 } from "react";
 
 import { Button } from "../button/button";
@@ -260,6 +263,62 @@ export function Scheduler({
       ),
     [hourCount, minHour]
   );
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  const keyboardHintId = `scheduler-keys-${useId()}`;
+  const [activeCell, setActiveCell] = useState({ row: 1, column: 0 });
+  const [editingCell, setEditingCell] = useState<string | null>(null);
+  const focusedRow = Math.min(activeCell.row, hours.length);
+  const focusedColumn = Math.min(activeCell.column, days.length - 1);
+
+  function handleGridKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const target = event.target as HTMLElement;
+    const cell = target.closest<HTMLElement>('[data-scheduler-row]');
+    if (!cell || !gridRef.current?.contains(cell)) return;
+    const row = Number(cell.dataset.schedulerRow);
+    const column = Number(cell.dataset.schedulerColumn);
+    const key = `${row}:${column}`;
+    if (editingCell === key) {
+      if (event.key === "Escape" || event.key === "F2") {
+        event.preventDefault();
+        setEditingCell(null);
+        cell.focus();
+      }
+      return;
+    }
+    if ((event.key === "Enter" || event.key === " ") && target === cell) {
+      const buttons = cell.querySelectorAll<HTMLButtonElement>("button:not(:disabled)");
+      if (buttons.length) {
+        event.preventDefault();
+        if (buttons.length === 1) buttons[0].click();
+        else { setEditingCell(key); buttons[0].focus(); }
+      }
+      return;
+    }
+    if (event.key === "F2") {
+      const button = cell.querySelector<HTMLButtonElement>("button:not(:disabled)");
+      if (button) { event.preventDefault(); setEditingCell(key); button.focus(); }
+      return;
+    }
+    const rtl = getComputedStyle(gridRef.current).direction === "rtl";
+    let nextRow = row;
+    let nextColumn = column;
+    switch (event.key) {
+      case "ArrowRight": nextColumn += rtl ? -1 : 1; break;
+      case "ArrowLeft": nextColumn += rtl ? 1 : -1; break;
+      case "ArrowDown": nextRow++; break;
+      case "ArrowUp": nextRow--; break;
+      case "Home": nextColumn = 0; if (event.ctrlKey) nextRow = 0; break;
+      case "End": nextColumn = days.length - 1; if (event.ctrlKey) nextRow = hours.length; break;
+      default: return;
+    }
+    event.preventDefault();
+    nextRow = Math.max(0, Math.min(hours.length, nextRow));
+    nextColumn = Math.max(0, Math.min(days.length - 1, nextColumn));
+    const next = gridRef.current.querySelector<HTMLElement>(`[data-scheduler-row="${nextRow}"][data-scheduler-column="${nextColumn}"]`);
+    setActiveCell({ row: nextRow, column: nextColumn });
+    next?.focus();
+  }
 
   const normalizedEvents = useMemo<NormalisedEvent[]>(
     () =>
@@ -578,6 +637,7 @@ export function Scheduler({
         </p>
       )}
 
+      <p id={keyboardHintId} className="pimolu-scheduler__sr-only">Use arrow keys to navigate dates and times, Home and End to reach row boundaries, Control Home and Control End for the whole grid. Enter activates a slot. F2 explores actions inside a cell; Escape returns to the cell.</p>
       <div className="pimolu-scheduler__scroll">
         <div
           className="pimolu-scheduler__board"
@@ -590,6 +650,9 @@ export function Scheduler({
           <div
             className="pimolu-scheduler__grid"
             role="grid"
+            ref={gridRef}
+            onKeyDown={handleGridKeyDown}
+            aria-describedby={keyboardHintId}
             aria-label={ariaLabel}
             aria-rowcount={hours.length + 2}
             aria-colcount={days.length + 1}
@@ -651,16 +714,26 @@ export function Scheduler({
               All day
             </div>
 
-            {dayLayouts.map((layout) => (
+            {dayLayouts.map((layout, columnIndex) => (
               <div
                 key={`allday-${dayKey(layout.day)}`}
                 role="gridcell"
+                data-scheduler-row={0}
+                data-scheduler-column={columnIndex}
+                tabIndex={focusedRow === 0 && focusedColumn === columnIndex ? 0 : -1}
+                aria-label={`All day, ${fullDateFormatter.format(layout.day)}${layout.allDay.length ? `: ${layout.allDay.map((event) => event.source.title).join(", ")}` : ""}`}
+                onFocus={(event) => {
+                  setActiveCell({ row: 0, column: columnIndex });
+                  if (event.target === event.currentTarget) setEditingCell(null);
+                }}
+                onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setEditingCell(null); }}
                 className="pimolu-scheduler__allday-cell"
               >
                 {layout.allDay.map((event) => (
                   <button
                     key={`${event.source.id}-allday-${dayKey(layout.day)}`}
                     type="button"
+                    tabIndex={editingCell === `0:${columnIndex}` ? 0 : -1}
                     className="pimolu-scheduler__allday-event"
                     onClick={() =>
                       onEventClick?.(event.source)
@@ -697,7 +770,7 @@ export function Scheduler({
                 )}
               </div>
 
-              {days.map((day) => {
+              {days.map((day, columnIndex) => {
                 const slotStart = new Date(
                   day.getFullYear(),
                   day.getMonth(),
@@ -716,11 +789,21 @@ export function Scheduler({
                     key={`${dayKey(day)}-${hour}`}
                     className="pimolu-scheduler__slot-cell"
                     role="gridcell"
+                    data-scheduler-row={rowIndex + 1}
+                    data-scheduler-column={columnIndex}
+                    tabIndex={focusedRow === rowIndex + 1 && focusedColumn === columnIndex ? 0 : -1}
+                    aria-label={onSlotClick ? label : `${fullDateFormatter.format(day)}, ${timeFormatter.format(slotStart)}`}
+                    onFocus={(event) => {
+                      setActiveCell({ row: rowIndex + 1, column: columnIndex });
+                      if (event.target === event.currentTarget) setEditingCell(null);
+                    }}
+                    onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setEditingCell(null); }}
                   >
                     {onSlotClick ? (
                       <button
                         type="button"
                         className="pimolu-scheduler__slot"
+                        tabIndex={editingCell === `${rowIndex + 1}:${columnIndex}` ? 0 : -1}
                         aria-label={label}
                         onClick={() =>
                           onSlotClick({

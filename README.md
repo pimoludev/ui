@@ -115,6 +115,8 @@ import { Navbar, NavbarBrand, NavbarToggle, NavbarContent, NavbarItem } from "@p
 </Navbar>
 ```
 
+Navbar and Footer accept `appearance="surface"` (the existing default), `"transparent"` (no surface fill) or `"floating"` (a framed surface using preset radius and raised-shadow tokens). Use `bordered={false}` to remove the horizontal divider; the floating appearance keeps its surrounding frame. For an edge-to-edge site, place a transparent Navbar or Footer inside a full-width section and constrain only its content.
+
 ## Quality, automated
 
 Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI is currently disabled while the existing library is being refined.

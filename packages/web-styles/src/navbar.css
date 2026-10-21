@@ -328,3 +328,7 @@
     border-color: CanvasText;
   }
 }
+
+.pimolu-navbar--transparent { background: transparent; }
+.pimolu-navbar--floating { border: var(--pimolu-control-border-width, 1px) solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); box-shadow: var(--pimolu-shadow-raised, none); }
+@media (forced-colors: active) { .pimolu-navbar--floating { border-color: CanvasText; } }

@@ -1,0 +1,12 @@
+[
+  {
+    "file": "gantt-weeks.tsx",
+    "title": "Weekly planning",
+    "description": "Navigate the timeline and zoom; task details remain available as text."
+  },
+  {
+    "file": "gantt-inspection.tsx",
+    "title": "Task inspection",
+    "description": "Navigate the timeline and zoom; task details remain available as text."
+  }
+]

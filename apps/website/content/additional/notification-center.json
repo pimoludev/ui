@@ -1,0 +1,12 @@
+[
+  {
+    "file": "notification-center-read.tsx",
+    "title": "Read and dismiss",
+    "description": "The application owns read state and dismissal; the count and list reflect those changes."
+  },
+  {
+    "file": "notification-center-empty.tsx",
+    "title": "Empty inbox",
+    "description": "A calm empty message, with no invented notification count or action."
+  }
+]

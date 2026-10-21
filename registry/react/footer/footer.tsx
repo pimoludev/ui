@@ -1,19 +1,16 @@
 "use client";
 
+import { footerVariants } from "./footer.variants";
+
 import { useId } from "react";
 
 import { Link } from "../link/link";
 
 import type { PimoluFooterProps } from "./footer.types";
 
-function classes(
-  base: string,
-  ...extra: Array<string | false | undefined>
-) {
-  return [base, ...extra].filter(Boolean).join(" ");
-}
-
 export function Footer({
+  appearance = "surface",
+  bordered = true,
   brand,
   description,
   columns,
@@ -33,7 +30,8 @@ export function Footer({
   return (
     <footer
       {...props}
-      className={classes("pimolu-footer", className)}
+      data-bordered={bordered || undefined}
+      className={footerVariants({ appearance }, className)}
     >
       <div className="pimolu-footer__inner">
         {hasBrand && (

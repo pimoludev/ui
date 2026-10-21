@@ -172,4 +172,13 @@ describe("Pimolu Footer", () => {
       screen.queryByRole("navigation")
     ).toBeNull();
   });
+  it("preserves surface defaults and supports an unframed transparent appearance", () => {
+    const { container, rerender } = render(<Footer columns={[]} />);
+    expect(container.firstChild).toHaveClass("pimolu-footer--surface");
+    expect(container.firstChild).toHaveAttribute("data-bordered", "true");
+    rerender(<Footer columns={[]} appearance="transparent" bordered={false} />);
+    expect(container.firstChild).toHaveClass("pimolu-footer--transparent");
+    expect(container.firstChild).not.toHaveAttribute("data-bordered");
+  });
+
 });

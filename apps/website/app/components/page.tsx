@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { PageHeader, Link } from "@/components/ui";
-export const metadata: Metadata = { title: "Components" };
-export default function Components() {
-  return <main id="main-content" tabIndex={-1} className="site-main mx-auto max-w-7xl px-6 py-16">
-    <PageHeader eyebrow="The library" title="Building blocks, shared principles." description="Explore the React registry by responsibility." />
-    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {[["Actions", "Button, ButtonGroup, SplitButton", "button"], ["Forms", "Input, Select, FormField", "input"], ["Navigation", "Navbar, Sidebar, Tabs", "navbar"], ["Data", "Table, DataTable, DataGrid", "data-table"], ["Feedback", "Alert, Dialog, Toast", "alert"], ["Layout", "Stack, Grid, DocsLayout", "docs-layout"]].map(([title, text, folder]) => <section className="space-y-3 border-t border-border pt-5" key={title}><h2 className="text-xl">{title}</h2><p className="text-muted">{text}</p><Link external href={`https://github.com/pimoludev/ui/tree/dev/registry/react/${folder}`}>Explore the source</Link></section>)}
-    </div>
-  </main>;
+import { PageHeader } from "@/components/ui";
+import { CatalogBrowser } from "@/components/catalog/catalog-browser";
+import catalog from "@/content/generated/catalog.json";
+import { readCatalogFilter } from "@/lib/catalog";
+import "./catalog.css";
+export const metadata: Metadata = { title: "Component catalog", description: "Explore every exported Pimolu family, with searchable APIs and interactive guided examples.", alternates: { canonical: "/components" } };
+export default async function Components({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams;
+  const params = new URLSearchParams(Object.entries(query).flatMap(([key, value]) => typeof value === "string" ? [[key, value]] : []));
+  const initialFilter = readCatalogFilter(params, [...new Set(catalog.map((entry) => entry.group))]);
+  return <div className="catalog-page">
+    <header className="catalog-intro"><PageHeader eyebrow="The component library" title="Find your next building block." description="One visual language, from a single button to your entire workspace. Browse the real library, then make it your own." /><div className="catalog-summary"><div><strong>{catalog.length}</strong><span>component families</span></div><div><strong>{catalog.filter((entry) => entry.documented).length}</strong><span>guided examples</span></div></div></header>
+    <CatalogBrowser entries={catalog} initialFilter={initialFilter} />
+  </div>;
 }

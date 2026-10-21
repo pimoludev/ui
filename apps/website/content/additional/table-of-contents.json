@@ -1,0 +1,17 @@
+[
+  {
+    "file": "table-of-contents-flat.tsx",
+    "title": "Guide outline",
+    "description": "Every outline entry points to an actual heading in this isolated document."
+  },
+  {
+    "file": "table-of-contents-nested.tsx",
+    "title": "Nested article outline",
+    "description": "Every outline entry points to an actual heading in this isolated document."
+  },
+  {
+    "file": "table-of-contents-controlled.tsx",
+    "title": "Controlled active heading",
+    "description": "Every outline entry points to an actual heading in this isolated document."
+  }
+]

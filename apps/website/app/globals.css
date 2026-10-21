@@ -25,8 +25,8 @@
   .site-nav { padding: 16px 24px; border: 0; }
   .site-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-inline-end: 8px; border: 1px solid var(--pimolu-primary); border-radius: var(--pimolu-radius-md); color: var(--pimolu-primary); font-size: 26px; font-weight: 600; line-height: 1; }
   .site-wordmark-suffix { color: var(--pimolu-muted-foreground); font-weight: 400; }
-  .site-footer { border-top: 1px solid var(--pimolu-border); padding: 24px; }
-  .site-footer > * { max-width: 1232px; margin-inline: auto; }
+  .site-footer { border-top: 1px solid var(--pimolu-border); padding-block: 32px; }
+  .site-footer > * { width: 100%; }
   .site-skip { position: fixed; top: 12px; left: 16px; transform: translateY(-200%); padding: 12px; background: var(--pimolu-surface); color: var(--pimolu-foreground); z-index: 1000; }
   .site-skip:focus { transform: translateY(0); outline: 2px solid var(--pimolu-focus-ring); }
   .site-docs { min-height: auto; }

@@ -1,3 +1,5 @@
+import type { PimoluNavbarAppearance } from "./navbar.variants";
+
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
@@ -7,6 +9,9 @@ import type {
 
 export interface PimoluNavbarProps
   extends HTMLAttributes<HTMLElement> {
+  /** Surface treatment. Defaults to surface; transparent inherits the page background. */
+  appearance?: PimoluNavbarAppearance;
+
   /** Stick to the top of the scroll container. */
   sticky?: boolean;
 

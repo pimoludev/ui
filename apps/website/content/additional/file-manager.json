@@ -1,0 +1,12 @@
+[
+  {
+    "file": "file-manager-single.tsx",
+    "title": "Single-file selection",
+    "description": "Browse local mock files with real folder navigation and selection feedback."
+  },
+  {
+    "file": "file-manager-folder.tsx",
+    "title": "Open a nested folder",
+    "description": "Browse local mock files with real folder navigation and selection feedback."
+  }
+]

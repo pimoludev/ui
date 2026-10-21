@@ -1,0 +1,7 @@
+[
+  {
+    "file": "tree-table-selection.tsx",
+    "title": "Controlled row selection",
+    "description": "Select nested rows while the application owns the selected ids."
+  }
+]

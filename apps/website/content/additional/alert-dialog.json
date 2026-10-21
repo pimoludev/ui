@@ -1,0 +1,7 @@
+[
+  {
+    "file": "alert-dialog-archive.tsx",
+    "title": "Archive with a reported result",
+    "description": "Explicit confirmation changes local application state and returns focus to its trigger."
+  }
+]

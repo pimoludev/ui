@@ -1,0 +1,12 @@
+[
+  {
+    "file": "sidebar-controlled.tsx",
+    "title": "External collapse control",
+    "description": "Icon navigation keeps accessible item names when collapsed; expand to reveal labels."
+  },
+  {
+    "file": "sidebar-rail.tsx",
+    "title": "Start as an icon rail",
+    "description": "Icon navigation keeps accessible item names when collapsed; expand to reveal labels."
+  }
+]

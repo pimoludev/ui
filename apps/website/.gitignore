@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rebuilt from the library types and the live documentation examples.
+/content/generated/
+
+/test-results/
+/playwright-report/
+/public/demos/
+
+/.artifacts/

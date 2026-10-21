@@ -1,0 +1,9 @@
+@layer components {
+  .site-root:has(.docs-standalone) > .site-header,
+  .site-root:has(.docs-standalone) > .site-footer,
+  .site-root:has(.docs-standalone) > .site-skip { display: none; }
+  .docs-standalone { min-height: 100dvh; background: var(--pimolu-background); color: var(--pimolu-foreground); }
+  .docs-standalone .pimolu-dashboard-layout { min-height: 460px; }
+  .docs-standalone .demo-composition { padding: 32px; }
+  @media (max-width: 480px) { .docs-standalone .demo-composition { padding: 20px; } }
+}

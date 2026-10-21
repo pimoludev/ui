@@ -5,12 +5,15 @@ import { SiteProvider } from "@/components/site-provider";
 import { SiteHeader } from "@/components/site-header";
 import { Footer, Link } from "@/components/ui";
 import { parsePreset, parseTheme, presetCookie, themeCookie } from "@/lib/preferences";
+import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pimolu.com"),
-  title: { default: "Pimolu UI — One system. Your identity.", template: "%s · Pimolu UI" },
-  description: "A customizable React UI library built on shared design tokens, expressive presets and thoughtful defaults.",
+  metadataBase: new URL(siteUrl),
+  title: { default: siteTitle, template: "%s · Pimolu UI" },
+  description: siteDescription,
+  openGraph: { type: "website", siteName: "Pimolu UI", locale: "en_US" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
@@ -23,9 +26,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <SiteHeader />
           {children}
           <div className="site-footer">
-            <Footer brand={<Link href="/" variant="muted">Pimolu UI</Link>}
+            <Footer appearance="transparent" bordered={false} brand={<Link href="/" variant="muted">Pimolu UI</Link>}
               description="One system. Your identity."
-              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Themes", href: "/themes" }] }, { title: "Open source", links: [{ label: "GitHub", href: "https://github.com/pimoludev/ui", external: true }] }]}
+              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Themes", href: "/themes" }, { label: "Releases", href: "/releases" }] }, { title: "Open source", links: [{ label: "GitHub", href: "https://github.com/pimoludev/ui", external: true }] }]}
               copyright="Pimolu UI · MIT License" />
           </div>
         </SiteProvider>

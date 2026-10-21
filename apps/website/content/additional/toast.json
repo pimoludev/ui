@@ -1,0 +1,17 @@
+[
+  {
+    "file": "toast-persistent.tsx",
+    "title": "Persistent warning",
+    "description": "Open a real notification, dismiss it or wait for its configured duration."
+  },
+  {
+    "file": "toast-brief.tsx",
+    "title": "Brief status update",
+    "description": "Open a real notification, dismiss it or wait for its configured duration."
+  },
+  {
+    "file": "toast-undo.tsx",
+    "title": "Undo a local action",
+    "description": "Archive a draft and restore it through the toast action."
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "file": "docs-layout-toc.tsx",
+    "title": "Article with an outline",
+    "description": "A real article, guide destinations and headings inside this preview document."
+  },
+  {
+    "file": "docs-layout-narrow.tsx",
+    "title": "Narrow guide navigation",
+    "description": "A real article, guide destinations and headings inside this preview document."
+  }
+]

@@ -1,0 +1,7 @@
+[
+  {
+    "file": "menubar-localization.tsx",
+    "title": "Localized editing commands",
+    "description": "Choose a command and observe the result; unavailable actions remain disabled."
+  }
+]

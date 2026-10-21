@@ -1,0 +1,7 @@
+[
+  {
+    "file": "tree-view-navigation.tsx",
+    "title": "Controlled document selection",
+    "description": "Application state follows a selected document; expansion stays independent."
+  }
+]

@@ -115,6 +115,8 @@ import { Navbar, NavbarBrand, NavbarToggle, NavbarContent, NavbarItem } from "@p
 </Navbar>
 ```
 
+Navbar et Footer acceptent `appearance="surface"` (le défaut existant), `"transparent"` (sans fond de surface) ou `"floating"` (surface encadrée utilisant le rayon et l’ombre du preset). `bordered={false}` retire le séparateur horizontal ; l’apparence flottante conserve son cadre. Pour un site continu, placez une Navbar ou un Footer transparent dans une section pleine largeur et limitez uniquement son contenu.
+
 ## Qualité, automatisée
 
 La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verify`, génère les ressources, vérifie les types, audite le système de thèmes, exécute toutes les suites de tests, analyse l'application et construit le playground. La CI GitHub reste désactivée pendant le polissage de la bibliothèque existante.
