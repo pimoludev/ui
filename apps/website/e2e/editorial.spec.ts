@@ -23,14 +23,14 @@ test("blog filters, article navigation and global search work", async ({ page })
   await expect(page).toHaveURL(/\/blog\/one-system-many-identities$/);
 });
 
-test("release index opens the tagged preview without claiming a publication", async ({ page }) => {
+test("release index opens the tagged preview and explains its beta status", async ({ page }) => {
   await page.goto("/releases");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Releases");
   await expect(page.getByRole("heading", { name: "0.1.0-beta.1" })).toBeVisible();
   await page.getByRole("link", { name: "Read the release notes" }).first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("0.1.0-beta.1");
   await expect(page.locator("#packages")).toContainText("published on npm");
-  await expect(page.getByText("no public website deployment has been performed", { exact: false })).toBeVisible();
+  await expect(page.getByText("Pimolu UI remains a beta release.", { exact: false })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Release navigation" }).getByRole("link", { name: "0.1.0-beta.1" })).toHaveAttribute("aria-current", "page");
 });
 

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).slug.join("/");
   const entry = docNavigation.find((item) => item.slug === slug);
   if (!entry) notFound();
-  return { title: entry.title, description: entry.description, alternates: { canonical: slug.startsWith("components/") ? `/${slug}` : `/docs/${slug}` } };
+  return { title: `${entry.title} — React UI Guide`, description: entry.description, alternates: { canonical: slug.startsWith("components/") ? `/${slug}` : `/docs/${slug}` } };
 }
 
 export default async function DocumentationPage({ params, searchParams }: Props) {

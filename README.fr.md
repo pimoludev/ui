@@ -134,7 +134,7 @@ Navbar et Footer acceptent `appearance="surface"` (le défaut existant), `"trans
 
 ## Qualité, automatisée
 
-La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verify`, génère les ressources, vérifie les types, audite le système de thèmes, exécute toutes les suites de tests, analyse l'application et construit le playground. La CI GitHub reste désactivée pendant le polissage de la bibliothèque existante.
+La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verify`, génère les ressources, vérifie les types, audite le système de thèmes, exécute toutes les suites de tests, analyse l'application et construit le playground. La CI GitHub exécute cette vérification et un contrôle distinct du site : build de production, lint, tests de documentation et suite Chromium/Firefox/WebKit. Construisez le site depuis la racine avec `pnpm build:website`, puis lancez `pnpm start:website`.
 
 Un auditeur dédié, en lecture seule, protège spécifiquement le système de thèmes. Il confirme la parité clair/sombre, valide chaque preset, vérifie que les palettes et leurs styles restent cohérents, contrôle les types générés, et signale tout emplacement où un thème ou un preset doit encore être déclaré. Des hooks Git lancent une vérification rapide avant chaque commit et le pipeline complet avant chaque push, pour que le dépôt reste sain sans que personne n'ait à y penser.
 

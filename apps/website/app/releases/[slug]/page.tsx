@@ -6,6 +6,7 @@ import { ScrollOutline } from "@/components/scroll-outline";
 import { releaseNotes } from "@/content/releases";
 import { releaseContents } from "@/content/generated/releases/contents";
 import { releaseMDXComponents } from "@/components/editorial/release-mdx";
+import { BreadcrumbData } from "@/components/structured-data";
 import "../../editorial.css";
 import "../releases.css";
 
@@ -24,6 +25,7 @@ export default async function ReleasePage({ params }: Props) {
   const entry = findRelease((await params).slug);
   const Content = releaseContents[entry.slug];
   return <main id="main-content" tabIndex={-1} className="releases-page">
+    <BreadcrumbData items={[{ name: "Releases", path: "/releases" }, { name: entry.title, path: `/releases/${entry.slug}` }]} />
     <div className="release-layout">
       <ReleasesNavigation currentSlug={entry.slug} />
       <article className="release-main release-detail">

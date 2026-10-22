@@ -1,5 +1,46 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 22 octobre 2026 — Titres SEO et données structurées
+
+- Titre d'accueil : « Pimolu UI — Customizable React Component Library ».
+  Titres des guides, du catalogue et des références orientés React, exemples
+  et API ; titres blog/releases précisés. Slogan et titres visibles conservés.
+- `lib/structured-data.ts` centralise WebSite/Organization (accueil),
+  BlogPosting (articles) et BreadcrumbList (guides, catalogue/références,
+  blog/articles, releases). URL absolues sur le domaine canonique.
+- Les articles reprennent les données éditoriales réelles. Aucun faux avis,
+  date de modification ou moteur de recherche déclaré. Sérialisation JSON
+  échappant `<`, puis insertion côté serveur par `components/structured-data.tsx`.
+- README documenté. Tests unitaires sur l'échappement et les faits éditoriaux ;
+  test navigateur sur les titres, canoniques, hiérarchies, articles et previews.
+- Vérifications : lint, **26/26 tests Website**, build Next.js avec TypeScript,
+  **3/3 tests SEO Playwright** sur Chromium, Firefox et WebKit réussis.
+  Aucun changement des composants publics, aucun commit/push ni déploiement.
+  Rich Results Test et Search Console restent à vérifier sur le domaine déployé.
+
+## 22 octobre 2026 — Préparation du déploiement
+
+- Domaine canonique confirmé par le mainteneur : `https://pimolu.com`.
+- `pnpm build:website` lance `build:all` avant le build Next.js ;
+  `pnpm start:website` utilise le port de l'hébergeur (`PORT`, défaut 3000).
+- `.github/workflows/ci.yml` remplace le workflow désactivé : deux jobs Node 24,
+  `pnpm verify` pour la bibliothèque et build/lint/tests/Playwright pour le site.
+  Chromium, Firefox et WebKit sont installés avec leurs dépendances Linux ;
+  les rapports sont conservés sept jours. Aucun déploiement automatique ajouté.
+- Textes de non-déploiement retirés des releases et de `llms.txt` ; le statut
+  bêta reste explicite. Assertion navigateur mise à jour sur ce contrat.
+- README du site : commandes depuis la racine, runtime SSR, configuration d'un
+  hébergeur Next.js, étapes DNS/HTTPS et contrôles après déploiement. READMEs
+  bilingues, AGENTS et contexte AI synchronisés avec la CI et les commandes.
+- Vérifications locales : `pnpm build:website` réussi, démarrage réel avec
+  `PORT=3002`, lint et **24/24 tests Website**, **18/18 tests navigateur**
+  ciblés editorial/release-mdx sur les trois moteurs. `pnpm verify` réussi,
+  dont **1 406 tests React**, 30 tests CSS et audit thèmes sans constat.
+  Le build Playground conserve son avertissement de chunk supérieur à 500 kB.
+- YAML parsé avec le parseur js-yaml déjà installé. Le workflow GitHub lui-même
+  sera exécuté après push ; aucun commit/push ni changement DNS effectué.
+  Le passage précédent de l'audit production couvrait 483 tests navigateur.
+
 ## 22 octobre 2026 — Releases en MDX
 
 - Contenu migré vers `content/releases/0.1.0-beta.1.mdx` et `unreleased.mdx` :

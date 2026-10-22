@@ -10,6 +10,8 @@ Start with `docs/ai/PROJECT_CONTEXT.md`; follow its links to the verified archit
 - `pnpm build` — design-tokens build only. Writes `packages/design-tokens/dist/{tokens.json,tokens.css}` and `packages/themes/dist/{themes.json,styles.css}`.
 - `pnpm build:all` — `build` + Default palette, five other preset palettes, six visual token sets, the shared web CSS bundle and the compiled `@pimolu/core` / `@pimolu/react` packages. Prefer this when unsure.
 - `pnpm build:packages` — compile `@pimolu/core` and bundle `@pimolu/react` into `dist/` (JavaScript + declarations). Required after changing a React component before consuming the package exports.
+- `pnpm build:website` — build all workspace assets, then the production Next.js website.
+- `pnpm start:website` — serve the built website on the host's `PORT` (default 3000).
 - `pnpm release:plan` — read-only release analysis: commit range, SemVer decision, package/site versions and tag.
 - `pnpm release:pack-check` — builds every publishable package and validates its `npm pack --dry-run` contents, version and entry points.
 - `pnpm test` — `node --test` on `packages/design-tokens/tests/*.test.mjs` ONLY (self-contained; re-runs the build).
@@ -58,7 +60,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 - Git hooks in `.githooks/` (no dependency; enabled by `pnpm install` via the `prepare` script, which sets `core.hooksPath`):
   - `pre-commit` → blocks conflict markers / staged secrets, then `pnpm verify:quick`.
   - `pre-push` → `pnpm verify`.
-- CI is currently **disabled**: the workflow is kept as `.github/workflows/ci.yml.disabled` (GitHub ignores files that are not `.yml`/`.yaml`, so it never runs). Renaming it back to `ci.yml` re-enables `pnpm install --frozen-lockfile` + `pnpm verify` on push to `main`/`dev` and on PRs. When re-enabling, do **not** pass an explicit `version` to `pnpm/action-setup`: `packageManager` already pins pnpm, and specifying both fails with `ERR_PNPM_BAD_PM_VERSION`.
+- CI is enabled in `.github/workflows/ci.yml` for pushes to `main`/`dev`, PRs and manual runs. Node 24 jobs run `pnpm verify` and, separately, the website production build, lint, documentation tests and Playwright in three engines. Do **not** pass an explicit `version` to `pnpm/action-setup`: the root `packageManager` pins pnpm.
 - Branch protection (required status check on `verify`) is a **manual GitHub setting** — see `release-manager`/`github-push`. Local tooling cannot configure it.
 
 ## Generated code — do not hand-edit

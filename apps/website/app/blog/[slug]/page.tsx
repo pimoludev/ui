@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CodeBlock, Link } from "@/components/ui";
 import { EditorialArtwork } from "@/components/editorial/artwork";
+import { BreadcrumbData, StructuredData } from "@/components/structured-data";
+import { blogPostStructuredData } from "@/lib/structured-data";
 import { ScrollOutline } from "@/components/scroll-outline";
 import { journalPosts, readingMinutes, formatJournalDate } from "@/content/journal";
 import "../../editorial.css";
@@ -20,6 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function JournalArticle({ params }: Props) {
   const post = findPost((await params).slug);
   return <main id="main-content" tabIndex={-1} className="journal-page journal-article-page">
+    <StructuredData data={blogPostStructuredData(post)} />
+    <BreadcrumbData items={[{ name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }]} />
     <Link href="/blog" variant="muted">← All articles</Link>
     <header className="journal-article-header">
       <span className="editorial-eyebrow">{post.category}</span>

@@ -134,7 +134,7 @@ Navbar and Footer accept `appearance="surface"` (the existing default), `"transp
 
 ## Quality, automated
 
-Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI is currently disabled while the existing library is being refined.
+Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI runs this verification plus a separate website production build, lint, documentation tests and Chromium/Firefox/WebKit suite. Build the website from the monorepo root with `pnpm build:website`, then run `pnpm start:website`.
 
 A dedicated read-only auditor guards the theme system specifically. It confirms light and dark parity, validates every preset, checks that palettes and their styles stay consistent, verifies the generated types, and reports any place where a theme or preset must still be registered. Git hooks run a quick verification before each commit and the full pipeline before each push, so the repository stays healthy without anyone having to think about it.
 

@@ -23,6 +23,6 @@ date nor a feature that is already delivered.
 6. **Extend the ecosystem.** Public website, AI/MCP tooling and other products
    after the library and its distribution are stable.
 
-The GitHub CI stays deliberately disabled while the existing work is being
-polished. Re-enabling it and branch protection require an explicit maintainer
-decision.
+GitHub CI is enabled for library and website checks following the maintainer
+decision. Required status checks and branch protection still need configuration
+in GitHub after the workflow has run.

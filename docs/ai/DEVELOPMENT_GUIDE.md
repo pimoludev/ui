@@ -21,6 +21,8 @@ Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, the
 | `pnpm build` | Generates the primitives and the base themes only. |
 | `pnpm build:all` | Also generates Default, the six palettes, the six visual sets, the web CSS and the compiled core/React packages. |
 | `pnpm build:packages` | Compiles `@pimolu/core` and bundles `@pimolu/react` with declarations. |
+| `pnpm build:website` | Builds all workspace assets and the production Next.js website. |
+| `pnpm start:website` | Serves the production website on PORT (default 3000). |
 | `pnpm release:plan` | Read-only release analysis: range, SemVer, versions and tag. |
 | `pnpm release:pack-check` | Builds and validates every `npm pack --dry-run` payload. |
 | `pnpm test` | Node tests for the design tokens; reruns their build. |
@@ -41,8 +43,9 @@ React test. The website has its own checks:
 `audit:a11y` (the audit needs a running production server on port 3001).
 The pre-commit hook runs `verify:quick` and checks the staged files;
 pre-push runs `verify`. The GitHub workflow
-`.github/workflows/ci.yml.disabled` must stay disabled until an explicit
-maintainer decision.
+`.github/workflows/ci.yml` runs library verification and website production,
+lint, documentation and three-engine browser checks on Node 24. CI is enabled
+by maintainer request; it does not deploy.
 
 The TypeScript configurations of the root, the playground and the Next.js example
 use `strict`. The root typecheck covers packages and registry; the playground and

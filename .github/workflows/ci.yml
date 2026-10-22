@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify (library and playground)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify
+
+  website:
+    name: website (production and browsers)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:website
+      - run: pnpm --dir apps/website lint
+      - run: pnpm --dir apps/website test
+      - run: pnpm --dir apps/website exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm --dir apps/website test:e2e
+      - name: Upload browser reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-browser-results
+          path: |
+            apps/website/playwright-report/
+            apps/website/test-results/
+          retention-days: 7
+          if-no-files-found: ignore

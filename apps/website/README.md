@@ -19,7 +19,39 @@ pnpm build:all
 pnpm --filter @pimolu/website dev
 ```
 
-Open http://localhost:3001. For production: `pnpm --filter @pimolu/website build`, then `pnpm --filter @pimolu/website start`.
+Open http://localhost:3001. For production, run `pnpm build:website` from the
+repository root. It builds every workspace package before building Next.js.
+Start the production server with `pnpm start:website` (port 3000 by default,
+or the hosting platform's `PORT` environment variable).
+
+## Production deployment
+
+- Canonical domain: **https://pimolu.com**, confirmed by the maintainer. Metadata,
+  sitemap, RSS and machine-readable links share `lib/site.ts`.
+- Use a Node.js or Next.js hosting runtime with **Node 24** and the pnpm version
+  pinned by the root `packageManager`. The site reads theme cookies on the server
+  and requires SSR; a static-file host alone cannot serve it.
+- Repository root / working directory: the monorepo root. Install with
+  `pnpm install --frozen-lockfile`, build with `pnpm build:website`, and start
+  with `pnpm start:website`. Keep the workspace packages and their generated
+  `dist` files with the runtime, together with `apps/website/.next` and `public`.
+- On a managed Next.js host whose project root is `apps/website`, enable access
+  to files outside that directory and use `cd ../.. && pnpm build:website`
+  as the build override. Let its Next.js adapter serve the output; do not
+  configure a static export directory.
+- Attach `pimolu.com` to the hosting project, apply that host's required DNS
+  records at the registrar, and enable HTTPS. Redirect any configured `www`
+  alias to the canonical apex domain at the host.
+- After deployment, check `/`, `/docs/quick-start`, `/components`,
+  `/sitemap.xml`, `/robots.txt`, `/blog/feed.xml`, `/opengraph-image` and an
+  unknown URL (404). Check appearance persistence and global search over HTTPS.
+
+`.github/workflows/ci.yml` runs library verification and a separate website job
+on PRs and pushes to main/dev. The website job builds workspace assets and
+Next.js, runs lint and documentation tests, then the production Playwright suite
+in Chromium, Firefox and WebKit. Browser reports are retained for seven days.
+CI does not deploy. Configure required checks in GitHub branch protection
+after the workflow has run once.
 
 Checks: `pnpm --filter @pimolu/website typecheck`, `lint`, `test`, `build`.
 The Node test command requires Node 22.6+ for native TypeScript stripping (verified with Node 24).
@@ -110,6 +142,20 @@ Playwright reports/traces live in ignored `playwright-report/` and `test-results
 
 `/sitemap.xml` lists 152 canonical routes. `/themes` redirects to `/docs/theming`; site appearance lives in the header. `/robots.txt` and preview metadata exclude preview documents.
 `/opengraph-image` renders an original 1200 × 630 PNG from the generated Pimolu palette.
+
+The homepage title identifies Pimolu as a customizable React component library;
+catalog, component and guide titles describe their examples, API or integration.
+The visible brand slogan remains unchanged. `lib/structured-data.ts` provides
+JSON-LD builders and escapes `<` before server rendering via
+`components/structured-data.tsx`. The homepage declares WebSite and Organization;
+blog articles declare BlogPosting using authored titles, dates, categories and
+the displayed Pimolu editorial author. Documentation, components, blog and
+releases declare canonical BreadcrumbList paths. Preview documents omit this
+markup. No ratings, invented publication dates or search endpoint are declared.
+Run `e2e/seo.spec.ts` against the production build to check rendered titles,
+canonical links and JSON-LD on representative routes in all three engines.
+After deployment, inspect the live pages with Google's Rich Results Test and
+Schema Markup Validator; local validation does not certify Google indexing.
 
 Run website `typecheck`, `lint`, `test`, `build`, `test:e2e` and `audit:a11y` separately:
 root `pnpm verify` does not include this application. Release MDX is compiled at build time;

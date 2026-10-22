@@ -3,6 +3,8 @@ import { HomeReveal } from "@/components/home-reveal";
 import { IdentityDemo, WorkspaceDemo } from "@/components/home-demos";
 import { HomeComponentGallery, HomeDiscoveryStrip, HomeProductWorlds } from "@/components/home-discovery";
 import { presetNames } from "@/lib/preferences";
+import { StructuredData } from "@/components/structured-data";
+import { websiteStructuredData } from "@/lib/structured-data";
 import "./home.css";
 import "./home-discovery.css";
 export const metadata = { alternates: { canonical: "/" } };
@@ -16,6 +18,7 @@ const principles = [
 export default function Home() {
   return (
     <main id="main-content" tabIndex={-1} className="home-page">
+      <StructuredData data={websiteStructuredData} />
       <section className="home-hero home-container" aria-labelledby="home-title">
         <div className="home-hero-label flex flex-wrap items-center gap-3"><Badge variant="primary" appearance="soft">Pimolu UI</Badge><span className="home-eyebrow">Precise. Personal. Yours.</span></div>
         <div className="home-hero-grid">

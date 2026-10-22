@@ -10,6 +10,7 @@ import examples from "@/content/generated/examples.json";
 import additionalExamples from "@/content/generated/additional-examples.json";
 import { ScrollOutline } from "../scroll-outline";
 import { AdditionalExamples } from "./additional-examples";
+import { BreadcrumbData } from "../structured-data";
 
 export function DocArticle({ slug, initialSettings }: { slug: string; initialSettings?: PreviewSettings }) {
   const guide = guides.find((entry) => entry.slug === slug);
@@ -27,6 +28,9 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
   const previous = pageNavigation[position - 1];
   const next = pageNavigation[position + 1];
   return <div className="docs-article-layout">
+    <BreadcrumbData items={component
+      ? [{ name: "Components", path: "/components" }, { name: catalogEntry?.title ?? entry.title, path: docHref(slug) }]
+      : [{ name: "Documentation", path: "/docs" }, ...(slug ? [{ name: entry.title, path: docHref(slug) }] : [])]} />
     <article className="docs-article">
       <PageHeader eyebrow={guide ? docNavigation.find((item) => item.slug === slug)?.group ?? "Handbook" : "Component reference"} title={catalogEntry?.title ?? entry.title} description={entry.description} />
       {catalogEntry && <nav aria-label="Component sources" className="flex flex-wrap gap-5 mt-6 text-sm"><Link href={`https://github.com/pimoludev/ui/tree/dev/${catalogEntry.source}`} external>Implementation</Link>{catalogEntry.stylesheet && <Link href={`https://github.com/pimoludev/ui/blob/dev/${catalogEntry.stylesheet}`} external>Shared CSS</Link>}{catalogEntry.tests.map((file, index) => <Link key={file} href={`https://github.com/pimoludev/ui/blob/dev/${file}`} external>Source tests{catalogEntry.tests.length > 1 ? ` ${index + 1}` : ""}</Link>)}</nav>}
