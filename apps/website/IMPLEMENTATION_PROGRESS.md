@@ -1,5 +1,44 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 22 octobre 2026 — Contribution dédiée et retrait d'Installation
+
+- Nouvelle page `/docs/contributing`, intitulée Contribution sous Community : clonage,
+  préparation du workspace, applications locales et vérifications des contributions.
+- Page Installation supprimée du contenu, de la navigation, de la recherche et du
+  sitemap. Son ancienne URL redirige en **308** vers `/docs/quick-start`.
+- Quick start conserve le parcours npm complet et les informations utiles sur les
+  packages et les versions. Les commandes de clonage figurent uniquement dans Contribution.
+- Liens des releases et des exemples DocsLayout/HoverCard/NavigationMenu mis à jour.
+  README du site et contexte de développement synchronisés ; sources générées régénérées.
+- Vérifications : **21/21 tests Website**, lint et build (TypeScript inclus) réussis.
+  Contrôle des données de navigation/recherche, des routes de production (200/308), du
+  contenu Quick start sans clonage et du sitemap effectué. `git diff --check` passe.
+- Aucun commit ni push.
+
+## 22 octobre 2026 — Documentation après publication npm
+
+- Vérification en lecture seule du registre npm : les cinq packages sont publiés en
+  `0.1.0-beta.1`, avec `latest` et `beta` sur cette version ; React/React DOM 18 et 19
+  figurent dans les peer dependencies.
+- Installation et Quick start commencent par les packages npm, puis le CSS et le
+  Provider. L'exemple de première interface est complet. Les commandes du dépôt sont
+  identifiées comme réservées aux contributeurs ; aucun build Pimolu n'est demandé
+  aux consommateurs npm.
+- Rôle des cinq packages, dépendances transitives, version exacte et lockfile expliqués.
+  Guide Frameworks corrigé : les packages publiés sont compilés et ne nécessitent pas
+  `transpilePackages`. README anglais/français, notes de release, README du site et
+  contexte/roadmap/guide de développement synchronisés.
+- Vérifications : installation isolée depuis npm, sans lien workspace, de React 19
+  et des packages publiés ; compilation TypeScript du Quick start, bundle CSS et rendu
+  serveur réussis. La commande avec version exacte a aussi été exécutée.
+  Tests Website **21/21** (dont les **519 exemples** TypeScript), lint et build réussis.
+  Les quatre guides concernés et la release répondent 200 avec leur contenu actualisé
+  dans le build de production. `git diff --check` passe.
+- Fichiers : `content/docs.ts`, `content/handbook.ts`, `content/releases.ts`, les trois
+  README, `docs/ai/PROJECT_CONTEXT.md`, `ROADMAP.md`, `DEVELOPMENT_GUIDE.md` et ce suivi.
+  Les données de documentation et de recherche ont été régénérées par les scripts usuels.
+- Aucun package republié, aucune dépendance du workspace modifiée, aucun commit ni push.
+
 ## 22 octobre 2026 — Correction du zoom Gantt
 
 - Les flèches de navigation et les icônes moins/plus utilisent le slot `startIcon` de

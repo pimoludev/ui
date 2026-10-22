@@ -10,10 +10,10 @@ date nor a feature that is already delivered.
 2. **Fix the design system contracts.** Document the public tokens, check
    contrast and states, establish visual references for Default and the other
    presets, then reduce the remaining isolated CSS values.
-3. **Make the distribution reliable.** Define the compiled packaging, the
-   exports and peer dependencies, a React/Next.js matrix, installation examples
-   outside the monorepo and the SemVer policy. Publish only after those
-   contracts are validated.
+3. **Stabilise the published distribution.** Five compiled library packages are
+   available on npm at `0.1.0-beta.1`. Keep exports, peer dependencies and the
+   SemVer policy aligned; expand the React/Next.js compatibility matrix and
+   validate installation outside the monorepo before subsequent releases.
 4. **Complete the developer experience.** Bilingual component documentation,
    production examples, better navigation and possibly visual/E2E tests once a
    tool is chosen.

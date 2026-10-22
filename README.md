@@ -54,7 +54,19 @@ Components consume tokens exclusively through CSS custom properties and data att
 
 ## Getting started
 
-Pimolu UI requires Node.js 20 or newer and uses pnpm. Start by exploring the playground, where every component and preset is demonstrated live.
+Install the published beta in an existing React 18 or React 19 application:
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+# Or with pnpm
+pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+The current release is **0.1.0-beta.1**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
+
+### Contributing and running the Playground
+
+The source repository requires Node.js 20 or newer and the pnpm version pinned in `packageManager`. The website's test runner requires Node.js 22.6 or newer. Clone the repository only to contribute or explore the local Playground:
 
 ```bash
 git clone https://github.com/pimoludev/ui.git

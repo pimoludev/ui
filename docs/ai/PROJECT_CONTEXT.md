@@ -104,13 +104,19 @@ status colors. The header offers five real color swatches per preset, including 
 Its larger palette-panel geometry is local website CSS, not a public Popover API change.
 
 `apps/website/content/journal.ts` owns three original articles under `/blog`; its feed is
-`/blog/feed.xml`. `content/releases.ts` owns the release notes under `/releases/unreleased`.
+`/blog/feed.xml`. `content/releases.ts` owns the published preview and Unreleased notes.
 The repository preview is `0.1.0-beta.1` and is tagged `v0.1.0-beta.1`; the root
-`CHANGELOG.md` is the release source of truth. No npm publish or public website deployment has
-been performed. `/llms.txt` maps the actual guides, component references and articles; the AI
+`CHANGELOG.md` is the release source of truth. All five library packages are published on npm
+at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.
 The search index contains 149 generated entries plus four top-level destinations. Source files,
 validation scope and actual screenshots are recorded in the website's implementation progress.
+
+Quick start targets consumers of the published npm packages, with React 18/19,
+shared CSS and PimoluProvider. `/docs/contributing` groups repository setup and validation
+commands under Community. Installation is removed from navigation, search and sitemap;
+its old URL redirects permanently to `/docs/quick-start`.
+The published ESM entry points need no Pimolu-specific Next.js transpilePackages setting.
 
 ## Related documents
 

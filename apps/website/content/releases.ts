@@ -22,7 +22,7 @@ export const releaseNotes: ReleaseNote[] = [{
       "React ships as one ESM bundle with TypeScript declarations and the use client directive; core compiles to ESM.",
       "Install with pnpm add @pimolu/react@beta @pimolu/web-styles@beta. The tag v0.1.0-beta.1 marks the source state; no public website preview is deployed.",
     ] },
-    { id: "library", title: "The library", label: "Available in the source", items: [
+    { id: "library", title: "The library", label: "Available on npm", items: [
       "129 React component families, from everyday controls to data surfaces, application layouts and media.",
       "Shared CSS with seven visual presets, light and dark modes, brand color, radius and density settings.",
       "Platform-neutral palette and visual-token data, with generated web assets and integrity checks.",

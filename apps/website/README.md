@@ -2,6 +2,15 @@
 
 Next.js App Router application consuming Pimolu directly from the root workspace.
 
+The public guides target npm consumers: install `@pimolu/react@beta` and
+`@pimolu/web-styles@beta`, load the shared CSS and add `PimoluProvider`.
+The current published version is `0.1.0-beta.1` for all five library packages.
+Repository build instructions below are for contributors; npm consumers do not
+need a clone, `build:all` or `transpilePackages`. Quick start owns the npm setup;
+`/docs/contributing` contains repository setup and contributor checks. The removed
+`/docs/installation` URL redirects permanently to Quick start. Keep Frameworks
+and the Next.js guide aligned when package entry points change.
+
 Run all commands from the repository root. The root lockfile is the source of truth. The scaffold's nested workspace and lockfile are preserved as `pnpm-workspace.standalone.yaml` and `pnpm-lock.standalone.yaml`, and are not used by pnpm:
 
 ```sh
@@ -178,7 +187,7 @@ Run `pnpm previews:capture` while the website is available on localhost:3001. Se
 
 ### Journal, development notes and palette exploration
 
-`content/journal.ts` owns article metadata and sections; `content/releases.ts` owns the current Unreleased notes. These are authored source files, not generated history or an external CMS. Keep publication claims backed by a real version/tag when one exists. No dated version has been invented for the current workspace.
+`content/journal.ts` owns article metadata and sections; `content/releases.ts` owns the published `0.1.0-beta.1` notes and the Unreleased entry. These are authored source files, not generated history or an external CMS. Keep publication claims backed by the npm registry and the corresponding source tag.
 
 `lib/text-resources.ts` builds the RSS feed and documentation map from the same content. `scripts/build-docs.mjs` adds article and development-note text to the search index; `lib/site.ts` includes their canonical routes in the sitemap. The blog uses App Router navigation for article cards while preserving Pimolu Link and normal modified-click behavior.
 

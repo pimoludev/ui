@@ -23,11 +23,14 @@ for (const entry of catalog) {
 test("guides, visual catalog, releases and legacy redirects", async ({ page, request }) => {
   await page.goto("/docs");
   const navigation = page.getByRole("navigation", { name: "Documentation", exact: true });
-  await expect(navigation.getByRole("link", { name: "Installation", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Contribution", exact: true })).toBeVisible();
   await expect(navigation.getByRole("link", { name: "Button", exact: true })).toHaveCount(0);
   const response = await request.get("/docs/components/button?preset=cartoon&width=390", { maxRedirects: 0 });
   expect(response.status()).toBe(308);
   expect(response.headers().location).toBe("/components/button?preset=cartoon&width=390");
+  const installation = await request.get("/docs/installation", { maxRedirects: 0 });
+  expect(installation.status()).toBe(308);
+  expect(installation.headers().location).toBe("/docs/quick-start");
   await page.goto("/components?q=MultiSelect");
   await expect(page.getByRole("link", { name: "Explore MultiSelect", exact: true })).toBeVisible();
   const image = page.locator(".catalog-image-light").first();

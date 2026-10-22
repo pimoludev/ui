@@ -1,5 +1,13 @@
 # Development guide
 
+## Using the published library
+
+For an application, install `@pimolu/react@beta` and `@pimolu/web-styles@beta`
+from npm (current version: `0.1.0-beta.1`). Import the shared stylesheet and
+wrap the interface in `PimoluProvider`. A repository clone and `build:all` are
+only needed for source development. See the website's Quick start and Next.js
+guides for consumer setup, and `/docs/contributing` for repository workflows.
+
 ## Preparing the workspace
 
 Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, then

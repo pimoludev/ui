@@ -30,7 +30,7 @@ export default async function ReleasePage({ params }: Props) {
         {entry.sections.map((section) => <section key={section.id} id={section.id}>
           <span className="editorial-eyebrow">{section.label}</span><h2>{section.title}</h2><ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>
         </section>)}
-        <div className="release-entry-links"><Link href="/components">Explore components →</Link><Link href="/docs/installation">Installation guide →</Link></div>
+        <div className="release-entry-links"><Link href="/components">Explore components →</Link><Link href="/docs/quick-start">Quick start guide →</Link></div>
       </article>
       <aside className="editorial-outline"><ScrollOutline items={entry.sections.map(({ id, title }) => ({ id, label: title }))} /><Link href="https://github.com/pimoludev/ui/commits/dev" external>Source history</Link></aside>
     </div>
