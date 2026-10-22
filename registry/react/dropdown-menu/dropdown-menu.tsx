@@ -6,11 +6,9 @@ import {
   isValidElement,
   useCallback,
   useContext,
-  useEffect,
   useId,
   useRef,
   useState,
-  type CSSProperties,
   type KeyboardEvent,
   type MouseEvent,
   type ReactElement,
@@ -180,31 +178,24 @@ export function DropdownMenuContent({
       placement: "bottom",
       gap: sideOffset,
       matchWidth: false,
+      align,
       maxWidth: 280,
       maxHeight: 320,
     }
   );
 
-  useEffect(() => {
-    if (menu.open && menu.contentRef.current) {
-      menu.contentRef.current
-        .querySelector<HTMLElement>('[role="menuitem"]')
-        ?.focus();
+  // Portal mounts its host after the content's first effect. Focus when the
+  // actual menu node arrives, skipping disabled commands and avoiding scroll.
+  const attachContent = useCallback((node: HTMLDivElement | null) => {
+    menu.contentRef.current = node;
+    if (node && menu.open) {
+      node.querySelector<HTMLElement>(
+        '[role="menuitem"]:not([aria-disabled="true"]):not(:disabled)'
+      )?.focus({ preventScroll: true });
     }
   }, [menu.open, menu.contentRef]);
 
   if (!rendered) return null;
-
-  const alignedStyle: CSSProperties = {
-    ...style,
-  };
-
-  if (align === "end" && style?.left !== undefined) {
-    alignedStyle.left =
-      (style.left as number) -
-      (menu.contentRef.current?.offsetWidth ?? 0) +
-      (menu.triggerRef.current?.offsetWidth ?? 0);
-  }
 
   function handleKeyDown(
     event: KeyboardEvent<HTMLDivElement>
@@ -255,7 +246,7 @@ export function DropdownMenuContent({
   return (
     <Portal anchorRef={menu.scopeRef}>
       <div
-        ref={menu.contentRef}
+        ref={attachContent}
         id={menu.contentId}
         role="menu"
         data-state={state}
@@ -265,7 +256,7 @@ export function DropdownMenuContent({
         ]
           .filter(Boolean)
           .join(" ")}
-        style={alignedStyle}
+        style={style}
         onKeyDown={handleKeyDown}
       >
         {children}

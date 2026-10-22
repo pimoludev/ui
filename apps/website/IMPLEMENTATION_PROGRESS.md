@@ -1,5 +1,71 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 22 octobre 2026 — Releases, palettes, blog et enrichissement des guides
+
+### Réalisations
+
+- **Releases** : `/releases` a une navigation dédiée, un aperçu des améliorations et des ancres actives. `/releases/unreleased` présente les notes complètes. Aucun tag local ni changelog publié n'étant présent, aucune version ni date de publication n'a été inventée.
+- **Palettes** : cinq couleurs réelles par preset, description, sélection et valeur primaire active dans le header ; l'accent est représenté lorsqu'il existe. Le panneau utilise une hauteur bornée par le viewport et un bord logique stable dès son montage. Les ajustements restent dans le CSS du site ; Popover et les tokens publics sont conservés.
+- **Explorateur** : `/docs/colors` compare huit rôles sémantiques sur les sept presets et les deux modes, indépendamment du site. Les variables CSS se copient avec retour de statut et message d'échec si le presse-papiers est indisponible. Les palettes partielles héritent des couleurs sémantiques de base, comme le CSS réel.
+- **Blog** : `/blog`, trois articles originaux complets, recherche et filtres thématiques, illustrations vectorielles originales, lecture estimée, métadonnées, ancres et articles liés. La navigation des cartes utilise l'App Router avec Pimolu Link et conserve le comportement des clics modifiés. `/blog/feed.xml` fournit un flux RSS valide.
+- **Documentation** : neuf nouveaux guides — démarrage rapide, principes, frameworks, couleurs, mode sombre, styles, animation, composition et outils IA — pour un total de quinze. Les frameworks et outils futurs sont signalés comme tels. `/llms.txt` fournit une carte des vraies références ; aucun serveur MCP ni CLI fictif n'est annoncé.
+- **Intégration** : Blog dans le header et le footer, recherche globale enrichie et sitemap de **152 destinations**. Références HeroUI consultées pour le parcours et la hiérarchie ; textes, illustrations et implémentation propres à Pimolu.
+
+### Sources créées ou modifiées
+
+- `app/blog/`, `app/releases/`, `app/llms.txt/`, `app/editorial.css` : routes, feed, notes et présentation.
+- `components/editorial/`, `components/color-reference.tsx`, `components/site-appearance.tsx` : compositions réutilisant Pimolu.
+- `content/journal.ts`, `content/releases.ts`, `content/handbook.ts`, `content/docs.ts` : contenu éditorial et guides typés.
+- `lib/palettes.ts`, `lib/text-resources.ts`, `lib/site.ts`, `scripts/build-docs.mjs` : résolution des couleurs, ressources textuelles, indexation et recherche.
+- `app/layout.tsx`, `app/globals.css`, `app/docs/docs.css`, `components/site-header.tsx`, `components/site-search.tsx`, `components/docs/{doc-article,docs-search}.tsx` : navigation et intégration.
+- `tests/{editorial,docs,catalog}.test.mjs`, `e2e/{editorial,reader-experience,catalog}.spec.ts` : couverture et attentes actualisées.
+- `README.md`, ce suivi et `docs/ai/PROJECT_CONTEXT.md` : mémoire et fonctionnement.
+
+### Validation réelle
+
+| Vérification | Résultat |
+| --- | --- |
+| Tests Node du site | **21/21** ; les 516 exemples de composants et trois nouveaux exemples de guides compilent indépendamment |
+| TypeScript | Typecheck explicite réussi au début ; le build final inclut une nouvelle vérification TypeScript réussie |
+| ESLint du site | Réussi, sans erreur ni avertissement |
+| Build Next.js final | Réussi, nouvelles routes, feed et carte de documentation compris |
+| Navigateurs sur la version finale | **30/30**, Chromium, Firefox et WebKit : blog, notes, recherche, palettes, modes, responsive, RSS/XML, 404 et navigation clavier |
+| Captures | **36 captures**, clair/sombre × 1440 × 900, 768 × 1024 et 390 × 844 × six vues ; dimensions et bornes du popover consignées |
+| Revue visuelle | Six planches examinées couvrant les 36 vues : index blog, article, releases, notes, couleurs et panneau de palettes |
+
+Les captures et leurs mesures sont dans `.artifacts/editorial-review/`, avec `results.json` et `contact-{light|dark}-{1440|768|390}.png`. Journaux : `.artifacts/editorial-{unit,lint,build,browser-final,captures}.log`. Aucun débordement horizontal, erreur JavaScript ou panneau hors fenêtre dans ces scénarios finaux.
+
+Les premières passes ont découvert une vraie absence de valeurs héritées dans l'explorateur, corrigée dans le résolveur local ; un échec WebKit de raccourci après rechargement d'article, corrigé par navigation App Router ; et la limite de hauteur/position initiale du panneau, corrigée localement. Les tests n'ont pas été affaiblis : l'intégrité de toutes les palettes et la visibilité du dernier choix desktop sont vérifiées.
+
+Limites : revue visuelle réalisée avec Default en clair/sombre ; la sélection des sept presets est exercée dans les trois moteurs. Cela ne constitue pas une certification WCAG, une revue exhaustive des 129 familles ni une vérification par lecteur d'écran. Aucun composant de bibliothèque, token ou preset n'est modifié dans cette itération. Aucune dépendance installée, aucun commit/push ; CI GitHub toujours désactivée. Les changements locaux antérieurs sont conservés.
+
+## 22 octobre 2026 — Présentation du catalogue `/components`
+
+Terminé pour cette demande : galerie aérée, composants isolés et nom sous l'illustration, description courte, un seul lien par famille, recherche et catégories conservées. Les actions ouvrent la collection ; ThemeBuilder reste accessible en dernière catégorie. Grille adaptative de trois, deux ou une colonne selon la largeur disponible. Focus visible, couleurs forcées et réduction des transitions pris en charge dans le CSS local au catalogue.
+
+### Fichiers de cette itération
+
+- `app/components/page.tsx`, `app/components/catalog.css`, `components/catalog/catalog-browser.tsx` : hiérarchie et nouvelle galerie.
+- `scripts/capture-previews.mjs` : capture du composant complet au lieu d'une tranche de page, ouverture réelle des overlays, exemples courts existants pour les compositions longues, chargement des images après hydratation, isolation du contexte de démo.
+- `public/component-previews/` : **258 illustrations produit remplacées volontairement**, avec `capture-manifest.json` pour la couverture et le cadrage. Aucun snapshot de test automatiquement accepté.
+- `tests/catalog.test.mjs`, `e2e/catalog-gallery.spec.ts`, `e2e/site-polish.spec.ts` : intégrité des captures, grille, lien clavier, filtrage et ordre des catégories.
+- `eslint.config.mjs` : exclusion des scripts et sorties temporaires `.artifacts/` du lint.
+- `README.md`, ce suivi : pipeline et preuves de vérification.
+
+### Vérifications exécutées
+
+- Tests du site : **18/18**, dont compilation et formatage des 516 exemples, et couverture des 258 illustrations.
+- ESLint du site : réussi, sans erreur ni avertissement.
+- Build Next.js final : réussi, TypeScript inclus.
+- Première passe navigateur : **399/399**, Chromium, Firefox, WebKit, incluant les 129 références, le catalogue et les ancres.
+- Après le dernier ajustement de présentation et d'ordre : **12/12** ciblés sur ces trois moteurs, recherche/navigation, galerie responsive, mode système et ancres actives.
+- Six captures réellement obtenues et examinées : **1440 × 900**, **768 × 1024**, **390 × 844**, chacune en clair et sombre. Aucun débordement horizontal ni erreur JavaScript relevé dans ces scénarios. Fichiers et dimensions mesurées : `.artifacts/catalog-gallery/results.json` ; captures `catalog-{light|dark}-{1440|768|390}.png`.
+- Revue des 129 illustrations sombres par sept planches de contact ; contrôle des compositions grandes, des overlays ouverts et des images chargées. Les miniatures représentent le preset Default, les fiches gardent les exemples interactifs personnalisables.
+
+Limites : cette revue de galerie ne vaut pas audit visuel exhaustif des composants dans tous les presets, ni audit d'accessibilité complet. Un constat existant hors de cette modification a été observé sur Transfer à une fenêtre de 640 px : ses panneaux empilés se réduisent à 2 px de hauteur ; son illustration utilise le rendu desktop. Ce défaut de bibliothèque reste à corriger séparément.
+
+Aucune dépendance installée, aucun composant public ni token modifié dans cette itération, aucun commit ni push ; CI GitHub conservée désactivée. Les changements antérieurs du working tree sont conservés.
+
 ## Périmètre et état
 
 Phases 1 à 4 terminées pour le périmètre convenu : fondations, homepage, documentation pilote, catalogue complet des familles, personnalisation des aperçus et finalisation technique. Le catalogue comprend 129 références ; 20 disposent de démonstrations guidées, les 109 autres d'une référence source/API.
@@ -490,3 +556,145 @@ La suite complète précède la dernière retouche de sortie d’action par Shif
 Pas de lecteur d’écran natif exécuté, de certification WCAG ni de validation sur appareil physique. Les tests de montage ne remplacent pas un audit de chaque interaction des 516 compositions. Le chunk principal du Playground reste à **721,63 kB** avec l’avertissement Vite déjà connu ; aucune refonte du découpage dans cette demande.
 
 Branche `dev`, aucun commit, push ou changement de branche. CI GitHub toujours désactivée (`ci.yml.disabled`). Aucun preset ni token officiel remplacé, aucune dépendance ajoutée dans cette itération. Serveur de production local laissé sur `http://localhost:3001`.
+
+## Itération — identité, recherche globale et lecture des exemples
+
+### Réalisé
+
+- Icône SVG autonome dessinée depuis le « p » Georgia Italic de la composition d’accueil ; le header réutilise ce même tracé par masque CSS. Adaptation clair/sombre sans dépendance à une police côté navigateur.
+- Recherche globale dans le header : composants, propriétés d’API, guides, thèmes et releases, soit **139 destinations**. Un seul dialogue et gestionnaire Ctrl/Cmd+K ; bouton accessible même lorsque le menu mobile est fermé. Retour du focus corrigé pour l’activation au pointeur dans WebKit.
+- Onglets **Preview / Code** pour les aperçus principaux et supplémentaires. Les démonstrations restent montées pendant le changement d’onglet ; les sources supplémentaires sont chargées à la demande, avec reprise après erreur.
+- L’aperçu du composant Tabs est isolé dans une iframe, comme les autres démonstrations nécessitant une isolation. Cela évite que les onglets segmentés de présentation changent les styles de ses propres onglets linéaires.
+- Suppression des panneaux « Application layout styles used in this example » dans les fiches. Les sources de composition restent internes ; le vrai code d’utilisation reste consultable et copiable.
+- Nouveau badge Pimolu « Live preview » discret, avec un point statique. Scrollbars accordées aux tokens existants, avec respect des réglages natifs et de forced-colors.
+- Sommaires des catégories et des fiches synchronisés avec le défilement, y compris après filtrage ou navigation entre fiches. Header adapté aux largeurs intermédiaires, tablette et mobile.
+
+### Fichiers créés ou modifiés
+
+Chemins ci-dessous relatifs à `apps/website/`, sauf indication contraire.
+
+| Partie | Fichiers |
+| --- | --- |
+| Identité et styles | `app/icon.svg`, `app/globals.css`, `app/docs/docs.css` |
+| Recherche | nouveau `components/site-search.tsx`, `components/{site-header,site-provider}.tsx`, `components/docs/{docs-search,docs-shell}.tsx` |
+| Exemples | `components/docs/{preview-workbench,additional-examples,component-examples,doc-article}.tsx`, `components/docs/demo-compositions.css` |
+| Ancres | nouveau `components/scroll-outline.tsx`, `components/catalog/catalog-browser.tsx`, `components/docs/doc-article.tsx` |
+| Vérification | nouveau `e2e/site-polish.spec.ts`, `e2e/{accessibility,additional-examples}.spec.ts`, `playwright.config.ts` |
+| Références | `README.md`, ce journal, `docs/ai/PROJECT_CONTEXT.md` à la racine |
+
+### Vérifications réellement exécutées
+
+| Contrôle | Résultat |
+| --- | --- |
+| Build Next.js final, incluant TypeScript | Réussi après la correction de l’isolation Tabs |
+| Typecheck explicite du site | Réussi avant la dernière isolation ; la compilation TypeScript du build couvre les sources finales |
+| Lint du site | Réussi sur les sources finales |
+| Tests Node du site | **14/14** réussis |
+| Premier passage navigateur étendu | **430/435** réussis : les 129 fiches passent leurs contrôles initiaux sur les trois moteurs ; cinq échecs ciblés analysés ci-dessous |
+| Passage ciblé final Chromium / Firefox / WebKit | **24/24**, aucun ignoré ni flaky : recherche, focus, onglets imbriqués, conservation des valeurs, code supplémentaire, ancres, header, logo, scrollbars et Menubar |
+| Recherche avec le serveur de développement normal | **1/1** Chromium, avec la configuration Playwright standard sur `localhost:3001` |
+| `git diff --check` | Réussi |
+
+Les cinq échecs du premier passage étaient : retour du focus WebKit après clic (corrigé), trois attentes Menubar supposant assez de place sous le déclencheur (mise en place du test corrigée par défilement avant ouverture), et Firefox qui calcule `scrollbar-width: thin` comme `none` selon le réglage natif (comparaison avec un témoin indépendant portant la même déclaration). Une fermeture de contexte Firefox a ensuite échoué au nettoyage ; le passage séquentiel suivant a réussi, puis le passage final ci-dessus a confirmé les 24 scénarios.
+
+Le serveur Next bloquait HMR avec l’ancienne origine de test `127.0.0.1`. La configuration Playwright utilise désormais `localhost`, comme le serveur ; aucune extension des origines autorisées dans Next. Le rapport Playwright courant correspond aux **24 contrôles ciblés**, pas à un nouveau passage complet des 435 tests. Aucun audit exhaustif lecteurs d’écran ou de tous les états/presets n’est revendiqué.
+
+### Captures et limites
+
+- **10 PNG** dans `.artifacts/site-polish/`, dimensions consignées dans `viewports.json` : desktop **1440 × 900**, mobile **390 × 844**, tablette **768 × 1024**. Aucun débordement horizontal dans ces captures.
+- Vues obtenues : aperçu et code clair/sombre sur desktop ; aperçu et recherche clair/sombre sur mobile ; documentation sombre tablette ; catalogue avec catégorie active. Revue visuelle de vues représentatives en complément des mesures automatisées.
+- Argent a permis la revue desktop, mais conservait son viewport 1440 × 900 lors des essais de redimensionnement. Les captures mobile/tablette représentatives ont donc été réalisées avec Playwright déjà installé, avec dimensions réellement vérifiées.
+- Aucun snapshot de référence remplacé, aucun fichier public de la bibliothèque, preset ou token modifié. Aucune dépendance ajoutée ; CI GitHub toujours désactivée ; aucun commit ni push.
+- Le serveur de développement normal reste accessible à **http://localhost:3001**. Les serveurs de revue temporaires sont arrêtés en fin de session.
+
+
+## Itération — apparence dans le header et exemples lisibles
+
+### Changements
+
+- Le lien Themes et sa page de personnalisation disparaissent de la navigation. L’ancienne URL `/themes` redirige en 308 vers le guide existant `/docs/theming`, sans casser les favoris. Le sitemap contient désormais **138** routes canoniques ; la recherche couvre 135 références et trois destinations générales.
+- Nouvelle icône palette dans le header : sept presets existants présentés avec des pastilles dérivées de leurs vraies couleurs. Le choix s’applique au site et conserve les cookies existants. Toggle icône soleil/lune pour clair/sombre ; retour au mode système dans le panneau. Les deux contrôles restent accessibles lorsque le menu mobile est fermé.
+- Popconfirm : **24 px** entre les actions et la carte explicative. La correction se fait dans la génération des compositions : les blocs frères extraits retrouvent un conteneur avec espacement, sans modifier le composant public.
+- Tabs : quatre choix de style visibles via SegmentedControl, distincts du composant démontré. Son code documenté n’inclut pas le sélecteur du site. L’isolation du rendu des Tabs est conservée.
+- **516 snippets**, couvrant les 129 familles, passent par le nouveau compilateur `scripts/simplify-example.mjs`. Les galeries de variantes deviennent des composants explicites avec des props littérales. Les imports et fonctions d’énumération inutiles disparaissent ; aucun `VariantMap`, `optionsOf` ou classe `pg-*` n’est exposé dans les codes copiables. Les données métier, hooks et événements nécessaires restent présents.
+- Les exemples supplémentaires exécutent ces mêmes modules simplifiés : le code affiché correspond au rendu. Tailwind scanne explicitement les modules générés ignorés par Git. Les exemples principaux Button, Card, Badge et Alert présentent des usages directs, sans sélecteurs techniques.
+- La normalisation a révélé deux compositions Scheduler identiques après retrait du bruit. Un exemple court de demi-journée avec un vrai événement remplace le doublon ; le test d’unicité est conservé.
+- Les liens de trois compositions vers l’ancien chemin inexistant `/docs/themes` pointent maintenant vers `/docs/theming`.
+
+### Fichiers de cette itération
+
+Chemins relatifs à `apps/website/`, sauf le contexte partagé.
+
+| Partie | Fichiers |
+| --- | --- |
+| Header et navigation | nouveau `components/site-appearance.tsx`, `components/site-header.tsx`, `app/globals.css`, `app/layout.tsx`, `app/themes/page.tsx`, `lib/site.ts`, `components/docs/docs-search.tsx` |
+| Sources copiables | nouveau `scripts/simplify-example.mjs`, `scripts/{build-docs,build-additional-examples}.mjs`, `components/docs/examples/{button,card,badge,alert,tabs}.tsx`, `components/docs/component-examples.tsx` |
+| Compositions | nouveaux `components/docs/additional/scheduler-compact.tsx` et `content/additional/scheduler.json`, `components/docs/additional/{docs-layout-narrow,docs-layout-toc,navigation-menu-resources}.tsx` |
+| Vérification | nouveau `e2e/reader-experience.spec.ts`, `e2e/site-polish.spec.ts`, `tests/{docs,catalog}.test.mjs` |
+| Références | `README.md`, ce journal, `docs/ai/PROJECT_CONTEXT.md` à la racine |
+
+Les modules/JSON de `content/generated/` ont été régénérés par le script et restent ignorés. Aucun de ces fichiers n’a été modifié manuellement.
+
+### Vérifications
+
+| Contrôle | Résultat |
+| --- | --- |
+| Build Next.js final, incluant TypeScript | Réussi sur les dernières sources |
+| ESLint du site | Réussi |
+| Tests Node du site | **15/15** ; dont compilation stricte des **516 snippets indépendants**, contrôles de dépendances, syntaxe et unicité |
+| Suite navigateur complète | **843/843** réussis sur Chromium / Firefox / WebKit en 5,8 min : montage des 129 fiches et 387 suppléments, clavier/focus, navigation, responsive et expérience de lecture |
+| Revue visuelle | 10 captures réellement obtenues ; détail ci-dessous |
+| `git diff --check` | Réussi |
+
+Les premiers essais ont révélé un bouton palette dont le SVG était placé dans le label masqué d’un Button `iconOnly` : corrigé avec sa prop publique `startIcon`. Les attentes de tests ont aussi été alignées sur le vrai comportement : le mode système garde l’attribut `system` et suit les media queries ; Firefox attend que l’iframe lazy soit défilée dans la zone visible avant de la tester. Les tests vérifient les quatre signatures visuelles de Tabs, son clavier, les sept presets, la persistance, le retour du focus, le toggle mobile, la redirection et l’écart entre boutons et carte.
+
+### Captures et portée
+
+- `.artifacts/reader-experience/` : panneau d’apparence clair/sombre sur desktop **1440 × 900** et mobile **390 × 844** ; code de variantes Button ; espacement Popconfirm ; quatre styles Tabs. Les quatre captures du panneau ont leurs dimensions et absence de débordement consignées dans `viewports.json`.
+- Vues représentatives examinées : panneau sombre mobile, code Button, Popconfirm sombre et les quatre styles Tabs ; revue du header/panneau desktop via Argent et inspection des styles distincts dans les tests des trois moteurs. Aucune référence de snapshot remplacée.
+- Aucun composant public, CSS partagé, source de tokens ou preset modifié. Aucun ajout de dépendance, commit ou push. CI GitHub toujours désactivée.
+- La vérification navigateur couvre les états et scénarios effectivement testés ; elle ne constitue pas une certification WCAG ni une revue visuelle exhaustive des 516 exemples dans tous les presets. Le serveur de développement normal reste sur **http://localhost:3001**.
+
+Rapport HTML Playwright courant : suite complète **843/843**, aucun test ignoré ni flaky. Journal conservé dans `.artifacts/reader-experience-e2e.log`. Les captures Tabs attendent la variante choisie et sa mise en style avant capture ; une image prise au milieu d’un changement d’état n’est pas retenue comme preuve finale. Le serveur de production temporaire sur 3002 et le navigateur de revue sont arrêtés ; le serveur de développement sur 3001 est conservé.
+
+
+## Itération — SplitButton visible et formatage intégral des codes
+
+### Réalisé
+
+- Correction commune DropdownMenu/SplitButton : l’alignement start/end est appliqué **avant** le bornage à la fenêtre dans `use-anchored-position`. Le décalage supplémentaire, qui pouvait envoyer le menu à gauche hors écran, est supprimé. Alignement logique compatible RTL ; alignement centré par défaut inchangé pour les autres utilisateurs internes du hook.
+- Les contrôles navigateur ont révélé que l’effet de focus se déclenchait avant la création du portail. Le focus est désormais posé sur la première commande **activée** à l’attachement du menu réel, avec `preventScroll`. Échap restaure le déclencheur ; les commandes désactivées restent ignorées.
+- Exemple « Viewport edges » ajouté à `apps/playground/src/pages/split-button-page.tsx`.
+- Nouveau `scripts/format-example.mjs`, sans dépendance supplémentaire : retours à la ligne par analyse syntaxique, cible 88 colonnes, indentation de deux espaces, séparation des imports/déclarations, props JSX, enfants, objets, tableaux, appels, paramètres déstructurés et ternaires. Les descriptions et assets textuels longs sont découpés sans changer leur valeur. Les valeurs atomiques de classe ne sont pas cassées arbitrairement.
+- **Les 516 exemples**, couvrant les 129 familles, ont été régénérés. Le formatage atteint un résultat stable ; un test vérifie chaque sortie et refuse toute ligne de plus de **140 caractères**. Le test de compilation indépendante des 516 codes reste actif. Aucun fichier généré modifié à la main.
+- Les réglages Provider ajoutés aux codes personnalisés s’affichent également un par ligne.
+
+### Fichiers
+
+- Bibliothèque : `registry/react/internal/use-anchored-position.ts`, `registry/react/dropdown-menu/dropdown-menu.tsx` et son test. Aucun export ni prop publique ajouté, aucun token/preset/CSS partagé modifié.
+- Playground : `apps/playground/src/pages/split-button-page.tsx`.
+- Site : nouveau `apps/website/scripts/format-example.mjs`, `scripts/simplify-example.mjs`, `lib/preview-settings.ts`, `tests/docs.test.mjs`, `e2e/reader-experience.spec.ts`, README et ce journal.
+- Référence durable : `docs/ai/PROJECT_CONTEXT.md`.
+
+### Contrôles réellement exécutés
+
+| Contrôle | Résultat |
+| --- | --- |
+| Tests du site | **17/17**, dont les 516 sorties formatées/stables, leur compilation stricte et la conservation exacte des chaînes longues |
+| React ciblé final | **19/19** DropdownMenu/SplitButton : géométrie, RTL, bord gauche/droit, montage du portail, commandes désactivées, focus et Échap |
+| Suite React complète | **1 401/1 401** réussis, 136 fichiers, sur les sources finales |
+| Typecheck racine | Réussi après la dernière correction des tests |
+| ESLint site et Playground | Réussis |
+| Build Next.js final | Réussi, compilation TypeScript incluse |
+| Build Playground final | Réussi ; avertissement Vite de chunk déjà connu (**721,77 kB**), sans changement de découpage dans cette demande |
+| Navigateurs ciblés finaux | **54/54** sur Chromium, Firefox et WebKit : SplitButton, DropdownMenu, overlays, exemples contenant des chaînes SVG, Spinner/ternaires, code copiable, recherche et Menubar |
+| `git diff --check` | Vérifié en fin d’itération |
+
+Les premières passes ont identifié deux erreurs de typage dans les nouveaux tests (annotation de `this` dans un mock ; option `exact` de Playwright utilisée à tort avec Testing Library), corrigées avant le typecheck final. Trois échecs navigateur initiaux ont révélé le vrai défaut de focus du portail, corrigé et couvert par le passage final de 54 tests. La suite complète de 843 tests documentée plus haut appartient à l’itération précédente ; elle n’est pas revendiquée comme relancée ici.
+
+### Revue visuelle
+
+- **16 captures** dans `.artifacts/split-button-format/` : sept presets × clair/sombre à **390 × 844**, plus code SplitButton et code Button à **1440 × 900**.
+- Les 14 vues mobile ont été examinées via `light-contact.png` et `dark-contact.png`, avec la capture desktop du code et une ouverture réelle du menu via Argent. Le menu reste dans la fenêtre et le texte est entièrement visible ; les dimensions et bornes sont dans `results.json`.
+- Aucun snapshot de référence remplacé. Les planches ont été assemblées avec Sharp déjà installé ; aucune dépendance ajoutée. Journal navigateur : `.artifacts/code-format-split-button-e2e.log`.
+- CI GitHub maintenue désactivée, aucun commit ni push. Le serveur de développement utilisateur sur **http://localhost:3001** est conservé ; serveur temporaire et navigateur de revue arrêtés après les contrôles.

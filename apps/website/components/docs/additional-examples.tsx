@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import { Button, CodeBlock, Link, usePimoluTheme } from "@pimolu/react";
+import { useEffect, useRef, useState } from "react";
+import { Button, CodeBlock, Link, Tabs, TabsList, TabsTrigger, TabsContent, usePimoluTheme } from "@pimolu/react";
 
 export interface AdditionalExample {
   id: string;
@@ -15,10 +15,9 @@ function ExampleCard({ family, example }: { family: string; example: AdditionalE
   const iframe = useRef<HTMLIFrameElement>(null);
   const [height, setHeight] = useState(440);
   const [source, setSource] = useState<string>();
-  const [open, setOpen] = useState(false);
+  const [view, setView] = useState("preview");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const sourceId = useId();
   const query = new URLSearchParams({ example: example.id, theme: theme.resolvedTheme, preset: theme.stylePreset });
   if (theme.radius) query.set("radius", theme.radius);
   if (theme.density) query.set("density", theme.density);
@@ -32,24 +31,28 @@ function ExampleCard({ family, example }: { family: string; example: AdditionalE
     window.addEventListener("message", resize);
     return () => window.removeEventListener("message", resize);
   }, []);
-  async function toggleCode() {
-    if (open) { setOpen(false); return; }
-    if (source) { setOpen(true); return; }
+  async function loadCode() {
+    if (source || busy) return;
     setBusy(true); setError("");
     try {
       const response = await fetch(`/api/examples/${family}/${example.id}`);
       if (!response.ok) throw new Error("Source unavailable");
       const data = await response.json();
-      setSource(data.source); setOpen(true);
+      setSource(data.source);
     } catch { setError("The source could not be loaded. Try again."); }
     finally { setBusy(false); }
   }
   return <section className="additional-example" aria-labelledby={`${family}-${example.id}`}>
     <div className="additional-example-heading"><div><h3 id={`${family}-${example.id}`}>{example.title}</h3><p>{example.description}</p></div><Link href={url} external>Open preview</Link></div>
-    <iframe ref={iframe} className="additional-example-frame" title={`${family}: ${example.title}`} src={url} style={{ height }} loading="lazy" />
-    <div className="additional-example-actions"><Button appearance="outline" size="sm" variant="neutral" loading={busy} aria-expanded={open} aria-controls={sourceId} onClick={toggleCode}>{open ? "Hide code" : "Show code"}</Button><span>Independent interactive example</span></div>
-    {error && <p role="alert">{error}</p>}
-    <div id={sourceId} hidden={!open}>{source && <CodeBlock code={source} language="tsx" filename={`${family}-${example.id}.tsx`} maxHeight={480} wrap />}</div>
+    <Tabs className="example-switcher" variant="segmented" size="sm" value={view} onValueChange={(value) => { setView(value); if (value === "code") void loadCode(); }}>
+      <TabsList aria-label={`${example.title} example view`}><TabsTrigger value="preview">Preview</TabsTrigger><TabsTrigger value="code">Code</TabsTrigger></TabsList>
+      <TabsContent value="preview"><iframe ref={iframe} className="additional-example-frame" title={`${family}: ${example.title}`} src={url} style={{ height }} loading="lazy" /></TabsContent>
+      <TabsContent value="code">
+        {busy && <p className="example-code-status" role="status">Loading example source…</p>}
+        {error && <div className="example-code-status"><p role="alert">{error}</p><Button appearance="outline" size="sm" onClick={loadCode}>Try again</Button></div>}
+        {source && <CodeBlock code={source} language="tsx" filename={`${family}-${example.id}.tsx`} maxHeight={520} wrap />}
+      </TabsContent>
+    </Tabs>
   </section>;
 }
 

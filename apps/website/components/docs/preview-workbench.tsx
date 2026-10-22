@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Button, CodeBlock, Input, PimoluProvider, Select, usePimoluTheme } from "@pimolu/react";
+import { Button, CodeBlock, Input, PimoluProvider, Select, Tabs, TabsContent, TabsList, TabsTrigger, usePimoluTheme } from "@pimolu/react";
 import { customizeExample, defaultPreviewSettings, previewOptions, previewQuery, type PreviewSettings } from "@/lib/preview-settings";
 import { ComponentExample } from "./component-examples";
 
@@ -31,7 +31,9 @@ export function PreviewWorkbench({ family, example, source, initialSettings = de
     } catch { setMessage("Link could not be copied. Clipboard access is required."); }
   }
   const invalidBrand = brandInput !== "" && !/^#[0-9a-f]{6}$/i.test(brandInput);
-  return <div className="preview-workbench">
+  return <Tabs className="preview-workbench example-switcher" defaultValue="preview" variant="segmented" size="sm">
+    <TabsList aria-label={`${family} example view`}><TabsTrigger value="preview">Preview</TabsTrigger><TabsTrigger value="code">Code</TabsTrigger></TabsList>
+    <TabsContent value="preview" className="example-preview-panel">
     <div className="flex flex-wrap items-center justify-between gap-3"><Button appearance="outline" variant="neutral" aria-expanded={controlsOpen} aria-controls={settingsId} onClick={() => setControlsOpen(!controlsOpen)}>{controlsOpen ? "Hide customization" : "Customize preview"}</Button><div className="flex flex-wrap gap-3"><Button appearance="ghost" size="sm" variant="neutral" onClick={copyLink}>Copy preview link</Button><Button appearance="ghost" size="sm" variant="neutral" onClick={() => { setSettings(defaultPreviewSettings); setBrandInput(""); setRevision((value) => value + 1); setMessage("Preview reset."); }}>Reset preview</Button></div></div>
     <div id={settingsId} hidden={!controlsOpen} className="preview-settings" role="group" aria-label="Preview settings">
       <div className="preview-settings-grid">
@@ -53,6 +55,7 @@ export function PreviewWorkbench({ family, example, source, initialSettings = de
       </div>
       <p className="preview-dimensions">{measuredWidth !== undefined ? `${measuredWidth} px available to this example` : "Width adapts to the available space"}{settings.width !== "full" ? ` · capped at ${settings.width} px` : ""}</p>
     </div>
-    <CodeBlock code={customizeExample(source, example, settings)} language="tsx" filename={`${family}-example.tsx`} maxHeight={420} wrap />
-  </div>;
+    </TabsContent>
+    <TabsContent value="code"><CodeBlock code={customizeExample(source, example, settings)} language="tsx" filename={`${family}-example.tsx`} maxHeight={520} wrap /></TabsContent>
+  </Tabs>;
 }

@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-21. This folder describes the local repository and is the
+Updated: 2026-10-22. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it.
 
@@ -19,7 +19,7 @@ change: these notes do not replace it.
   carried by `PimoluProvider`.
 - `apps/website` is the Next.js App Router site: workspace integration,
   homepage, guides under `/docs`, an illustrated catalog and **129 live component
-  references** under `/components`, themes and a development-status `/releases` page.
+  references** under `/components` and a development-status `/releases` page.
   All families have curated examples, generated APIs, usage and accessibility notes.
   The original twenty are authored standalone; the additional 109 use curated
   Playground compositions with standalone overrides when needed. Preview settings
@@ -55,6 +55,53 @@ features present in the repository.
   `apps/website/content/additional/*.json`. Generator: `scripts/build-additional-examples.mjs` in that app.
   Generated files remain ignored. Source API accepts generated ids only; unknown previews return 404.
 - See `apps/website/IMPLEMENTATION_PROGRESS.md` and `ACCESSIBILITY_AUDIT.md` for actual verification scope.
+
+### Website reader experience
+
+The header and favicon share the outlined Georgia Italic p in `apps/website/app/icon.svg`.
+`SiteSearchProvider` owns the single global Dialog/Command search and Ctrl/Cmd K shortcut;
+do not add a second listener in DocsShell. Playwright uses localhost to match Next's dev origin.
+Primary and supplementary examples use Pimolu Preview/Code tabs. The actual Tabs demonstration
+runs in an isolated preview document to prevent the outer tab styles from changing its variants.
+`ScrollOutline` controls TableOfContents for catalogue categories and article sections; article
+outlines are keyed by route. Application-layout CSS details are not shown to readers.
+`SiteAppearance` owns header preset selection and the light/dark icon toggle; device mode remains
+available in its popup. `/themes` redirects to `/docs/theming`. Search and sitemap have 152 destinations.
+The docs generator runs `scripts/simplify-example.mjs` on all 516 copied examples: variant maps are
+expanded at build time, Playground layout classes become Tailwind utilities and sibling sections
+receive a gap. Supplemental previews render the same generated modules. Tests compile every copied
+snippet as an independent TypeScript module. TabsDemo owns presentation controls; TabsExample is
+the documented usage. Official component sources, CSS and presets are unchanged by this iteration.
+
+### SplitButton positioning and source formatting
+
+DropdownMenu passes its logical start/end alignment to `registry/react/internal/use-anchored-position.ts`
+before viewport clamping. Do not subtract menu width after clamping: SplitButton end-aligned menus
+were being shifted out of view. Other anchored consumers retain centered alignment by default.
+DropdownMenu focuses the first enabled command from its actual portal mount callback, with
+preventScroll, rather than an effect that can run before the portal exists.
+
+Website examples also run through `apps/website/scripts/format-example.mjs` (syntax-aware wrapping
+and TypeScript indentation). All 516 outputs must be stable, independently compilable and have no
+line over 140 characters. Preserve the exact values of strings and embedded assets when wrapping.
+A viewport-edge SplitButton demonstration is in its Playground page; the website browser regression
+checks menu visibility, disabled commands, initial focus, Escape and RTL.
+
+## Website journal and handbook
+
+`apps/website/content/handbook.ts` adds nine guides to the original six, including colors,
+frameworks, composition and AI tooling. `/docs/colors` has an independent palette explorer;
+`apps/website/lib/palettes.ts` resolves base semantics and preset overrides, preserving inherited
+status colors. The header offers five real color swatches per preset, including available accents.
+Its larger palette-panel geometry is local website CSS, not a public Popover API change.
+
+`apps/website/content/journal.ts` owns three original articles under `/blog`; its feed is
+`/blog/feed.xml`. `content/releases.ts` owns the Unreleased notes under `/releases/unreleased`.
+There are no local release tags or published-version changelog entries backing a public version.
+Do not invent release dates or npm installation commands. `/llms.txt` maps the actual guides,
+component references and articles; the AI guide states that a Pimolu MCP server is future work.
+The search index contains 148 generated entries plus four top-level destinations. Source files,
+validation scope and actual screenshots are recorded in the website's implementation progress.
 
 ## Related documents
 

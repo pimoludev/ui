@@ -34,6 +34,8 @@ export interface AnchoredPositionOptions {
    * centred on the anchor instead. Only applies to vertical placements.
    */
   matchWidth?: boolean;
+  /** Logical horizontal alignment for a vertical floating surface. */
+  align?: "start" | "center" | "end";
 }
 
 export interface AnchoredPosition {
@@ -80,6 +82,7 @@ export function useAnchoredPosition(
     maxWidth = 320,
     placement = "bottom",
     matchWidth = true,
+    align = "center",
   }: AnchoredPositionOptions = {}
 ): AnchoredPosition {
   const [style, setStyle] = useState<
@@ -202,10 +205,16 @@ export function useAnchoredPosition(
           );
         } else {
           const panelWidth = panel?.offsetWidth || rect.width;
+          const rtl = getComputedStyle(anchor).direction === "rtl";
+          const edge = align === "center" ? "center"
+            : (align === "start") !== rtl ? "left" : "right";
+          const desiredLeft = edge === "left" ? rect.left
+            : edge === "right" ? rect.right - panelWidth
+            : rect.left + rect.width / 2 - panelWidth / 2;
 
           next.left = Math.round(
             clamp(
-              rect.left + rect.width / 2 - panelWidth / 2,
+              desiredLeft,
               padding,
               Math.max(
                 padding,
@@ -290,6 +299,7 @@ export function useAnchoredPosition(
     maxWidth,
     placement,
     matchWidth,
+    align,
   ]);
 
   return { style, side };

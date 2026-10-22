@@ -23,13 +23,15 @@ See IMPLEMENTATION_PROGRESS.md for scope and next steps.
 
 ## Documentation and component catalog
 
-- `/docs`: introduction, installation, Next.js, themes, customization and accessibility.
+- `/docs`: 15 guides, from quick start and framework integration to colors, styling, composition and agent resources.
 - `/components`: a searchable visual catalog grouped by purpose, with a complete family sidebar.
 - `/components/<family>`: **129 component references, each with at least four interactive examples**, generated public APIs, copyable source, usage and accessibility advice.
-- `/releases`: truthful development status and source-history links. No unpublished version is presented as a release.
+- `/releases` and `/releases/unreleased`: release navigation and full development notes. No unpublished version is presented as a release.
+- `/blog` and `/blog/<slug>`: three original articles, topic/search filters, reading times, article outlines and related reading.
+- `/blog/feed.xml`: RSS feed. `/llms.txt`: a canonical documentation map with the current distribution status.
 - Old `/docs/components/<family>` URLs permanently redirect to the canonical component page, preserving query settings.
 
-`content/docs.ts` contains the original twenty examples and guides.
+`content/docs.ts` contains guide composition and the original twenty component-reference definitions; `content/handbook.ts` adds nine guides. Standalone guide snippets are compiled alongside the 516 component examples.
 `content/extended-components.ts` curates the other **109** compositions and their editorial notes.
 `components/docs/examples/` holds authored standalone overrides and the twenty original examples.
 Otherwise `scripts/extract-example.mjs` extracts the selected Playground helper or section **with its lexical dependencies**.
@@ -43,16 +45,16 @@ Edit the source/curation, then regenerate. Dev, typecheck, test and build run ge
 
 The dynamic example registry loads examples on demand. A small harness exposes a mounted marker after effects are installed:
 browser tests wait for a genuinely interactive example rather than clicking unhydrated server markup.
-DashboardLayout, AppShell, DocsLayout, Anchor and TableOfContents use isolated preview documents to preserve landmarks and fragment destinations.
+DashboardLayout, AppShell, DocsLayout, Anchor, TableOfContents and Tabs use isolated preview documents to preserve landmarks and fragment destinations.
 The other examples render directly inside the workbench.
 
-Search composes Pimolu Dialog and Command (Ctrl/Cmd K). It includes the **135** guide/component references and public API keywords.
+Search composes Pimolu Dialog and Command (Ctrl/Cmd K). It includes **148** generated guide, component, article and development-note references, plus Home, the catalogue, Blog and Releases (**152 destinations**).
 The search module loads on opening; deferred autofocus lets Dialog capture and restore the actual opener.
 The mobile sidebar uses Drawer. APIs and examples use ApiTable and CodeBlock.
 
 **Customize preview** isolates preset, mode, radius, density, brand, width and direction.
 Copied source includes Provider settings. Shared links restore validated settings, and Reset remounts local state.
-The displayed width is measured, capped by available space. Application layout helpers are also available as copyable CSS.
+The displayed width is measured, capped by available space. Copied compositions use Tailwind utilities; private Playground layout helpers are not shown.
 Check contrast after choosing a custom brand color.
 
 ## Real component illustrations
@@ -97,7 +99,7 @@ Playwright reports/traces live in ignored `playwright-report/` and `test-results
 
 ## SEO and validation
 
-`/sitemap.xml` lists 139 canonical routes. `/robots.txt` and preview metadata exclude preview documents.
+`/sitemap.xml` lists 152 canonical routes. `/themes` redirects to `/docs/theming`; site appearance lives in the header. `/robots.txt` and preview metadata exclude preview documents.
 `/opengraph-image` renders an original 1200 × 630 PNG from the generated Pimolu palette.
 
 Run website `typecheck`, `lint`, `test`, `build`, `test:e2e` and `audit:a11y` separately:
@@ -116,7 +118,7 @@ Generation fails if a family has fewer than three supplements. Do not hand-edit 
 Additional examples use lazy iframes to isolate ids, landmarks, overlays and shared stores. Their code is
 fetched only on demand from `/api/examples/<family>/<example-id>`; addresses are restricted to the generated
 manifest. Unknown examples return 404. Preview height messages validate both origin and source window.
-Composition CSS is available below the examples, alongside the copied TSX.
+Primary and additional compositions use Pimolu Preview/Code tabs. Switching views preserves demo state. Additional source is fetched on first opening of the Code tab. Local composition CSS is not exposed as a separate reader-facing panel.
 
 Navbar and Footer now accept `appearance="surface" | "transparent" | "floating"`.
 `surface` preserves their defaults; the website uses `transparent` inside full-width site regions.
@@ -131,3 +133,55 @@ pnpm --dir apps/website audit:a11y --all-examples
 
 The report is `.artifacts/accessibility-all-examples.json`. It checks initial named controls, ids,
 ARIA references and main landmarks; it is not a screen-reader or WCAG conformance audit.
+
+
+## Site navigation and identity
+
+`components/site-search.tsx` owns the shared Dialog/Command search and Ctrl/Cmd K shortcut on every route.
+`SiteSearchTrigger` presents a search bar on desktop and a visible icon before the mobile menu toggle.
+Pointer activation explicitly focuses the opener before the dialog mounts, including WebKit.
+
+`components/scroll-outline.tsx` controls the existing TableOfContents using section positions. Scroll and
+resize measurements are scheduled once per animation frame; ResizeObserver also tracks asynchronous
+preview layout changes. Both catalogue categories and article sections expose aria-current=location.
+
+The header mark and favicon share the vector silhouette in `app/icon.svg`, based on the homepage's
+Georgia Italic p. Header color follows the Pimolu primary token. Site scrollbar styles consume semantic
+colors and leave forced-colors and native scrollbar visibility preferences available.
+
+Playwright uses `http://localhost:3001`, matching Next's default development origin. Using 127.0.0.1 against
+the development server can cause Next's HMR origin check to block client hydration. Production review can
+run on a separate port so the existing development server stays available.
+
+## Readable examples and header appearance
+
+`SiteAppearance` provides a palette icon for the seven existing presets, an icon toggle for dark/light, and a device-mode reset. Validated cookies continue to preserve choices; the former `/themes` page redirects to the theming guide and is excluded from the sitemap and site navigation.
+
+`scripts/simplify-example.mjs` compiles the actual curated examples into readable TSX: variant galleries become explicit component props, unused enumeration helpers/imports disappear, and `pg-*` classes become Tailwind utilities. The generated modules are used by both the rendered supplements and their copyable code. Real data arrays, hooks and event handlers remain. It also restores a grid gap between extracted sibling blocks. `@source` in `app/globals.css` includes these ignored generated modules in Tailwind's scan. Never hand-edit generated outputs.
+
+All **516** snippets are compiled together as independent virtual modules in `tests/docs.test.mjs`, in addition to syntax, metadata, source dependency and distinctness checks. Main examples keep ordinary application behavior; Tabs' site-only style selector is outside its copyable component function.
+
+
+### Formatting every copied component example
+
+`scripts/format-example.mjs` wraps TSX by syntax (88-column target), then applies TypeScript indentation. It handles imports, JSX props/children, object and array literals, destructured parameters, calls, conditional expressions and return blocks. Long prose and embedded asset strings are split without changing their runtime value. Module/type names and CSS class tokens are not split blindly. Provider wrappers produced by customization also place settings on separate lines.
+
+Every one of the **516** primary/supplemental examples is checked for stable formatting, a **140-character maximum line**, valid standalone TypeScript and complete public imports. This runs through `pnpm test`; no formatting dependency is installed. Generated files remain ignored and must not be hand-edited.
+
+### Component gallery illustrations
+
+The catalogue uses 258 product illustrations: one light and one dark PNG for each of the 129 families. These are captures of real Pimolu components, isolated from documentation controls and fitted completely inside a 640 × 400 canvas with a consistent margin. They are static illustrations; the linked reference provides interactive examples. They show the Default preset.
+
+`scripts/capture-previews.mjs` selects the component root, opens real overlays when necessary, and uses shorter existing examples for large compositions. Images load after hydration so their loaded state is captured. Surrounding demo content is hidden while inherited tokens, original component styling and intentionally hidden descendants are preserved. Sharp is already provided by Next.js; no dependency was added.
+
+Run `pnpm previews:capture` while the website is available on localhost:3001. Set `PREVIEWS_BASE_URL` to use another running server (production review used localhost:3002). Optional family arguments regenerate only those illustrations, e.g. `pnpm previews:capture tabs accordion`. The tracked `public/component-previews/capture-manifest.json` records the selected examples, selectors, complete bounds and fitted dimensions. Review changed product illustrations before committing; these are not automatically accepted visual-test snapshots.
+
+### Journal, development notes and palette exploration
+
+`content/journal.ts` owns article metadata and sections; `content/releases.ts` owns the current Unreleased notes. These are authored source files, not generated history or an external CMS. Keep publication claims backed by a real version/tag when one exists. No dated version has been invented for the current workspace.
+
+`lib/text-resources.ts` builds the RSS feed and documentation map from the same content. `scripts/build-docs.mjs` adds article and development-note text to the search index; `lib/site.ts` includes their canonical routes in the sitemap. The blog uses App Router navigation for article cards while preserving Pimolu Link and normal modified-click behavior.
+
+`lib/palettes.ts` resolves generated base themes plus preset overrides and normalizes camelCase keys to CSS names. Inherited status colors must not appear empty in the explorer. `components/color-reference.tsx` compares eight semantic roles without changing the whole site's appearance and copies their CSS variables. The header shows five actual swatches per preset, including its accent when available. Its panel has a viewport-bounded height and a stable trailing edge, scoped to the website; public Popover and official tokens are unchanged.
+
+The AI guide describes the repository's actual agent instructions and `/llms.txt`. A public MCP server, component-install CLI and non-React adapters are explicitly future work.

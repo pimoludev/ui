@@ -2,8 +2,14 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import ts from "typescript";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { runInNewContext } from "node:vm";
 import { components, guides, docNavigation, docHref } from "../content/docs.ts";
 import { orderSearchDocuments } from "../lib/docs-search.ts";
+import { journalPosts } from "../content/journal.ts";
+import { releaseNotes } from "../content/releases.ts";
+import { formatExample } from "../scripts/format-example.mjs";
 
 const api = JSON.parse(await readFile(new URL("../content/generated/api.json", import.meta.url), "utf8"));
 const examples = JSON.parse(await readFile(new URL("../content/generated/examples.json", import.meta.url), "utf8"));
@@ -11,6 +17,51 @@ const index = JSON.parse(await readFile(new URL("../content/generated/search.jso
 const catalog = JSON.parse(await readFile(new URL("../content/generated/catalog.json", import.meta.url), "utf8"));
 const additional = JSON.parse(await readFile(new URL("../content/generated/additional-examples.json", import.meta.url), "utf8"));
 const additionalSources = JSON.parse(await readFile(new URL("../content/generated/additional-sources.json", import.meta.url), "utf8"));
+
+test("all 516 examples have stable formatting and multiline JSX props", () => {
+  for (const [key, source] of Object.entries({ ...examples, ...additionalSources })) {
+    assert.equal(formatExample(source), source, `${key}: copied source is not fully formatted`);
+    for (const [index, line] of source.split("\n").entries()) assert.ok(line.length <= 140, `${key}:${index + 1}: unreadably long line (${line.length})`);
+    const ast = ts.createSourceFile("example.tsx", source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+    function visit(node) {
+      if ((ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) && node.attributes.properties.length > 1 && node.getWidth(ast) > 88) {
+        const lines = node.attributes.properties.map((prop) => ast.getLineAndCharacterOfPosition(prop.getStart(ast)).line);
+        assert.equal(new Set(lines).size, lines.length, `${key}: multiple long props on the same line`);
+      }
+      ts.forEachChild(node, visit);
+    }
+    visit(ast);
+  }
+});
+
+test("formatting long strings preserves their exact value", () => {
+  const value = '<svg title="A long sample with quotes & spaces">' + "Hello, Pimolu! ".repeat(18) + "</svg>";
+  const source = `const value = ${JSON.stringify(value)}; value;`;
+  assert.equal(runInNewContext(formatExample(source)), value);
+  assert.equal(formatExample(formatExample(source)), formatExample(source));
+});
+
+test("all 516 component and 3 standalone guide examples typecheck independently", () => {
+  const website = fileURLToPath(new URL("..", import.meta.url));
+  const guideExamples = Object.fromEntries(guides.filter((guide) => ["quick-start", "dark-mode", "animation"].includes(guide.slug)).flatMap((guide) => guide.sections.filter((section) => section.language === "tsx").map((section) => [`guide-${guide.slug}-${section.id}`, section.code])));
+  assert.equal(Object.keys(guideExamples).length, 3);
+  const sources = new Map(Object.entries({ ...examples, ...additionalSources, ...guideExamples }).map(([key, source]) => {
+    assert.doesNotMatch(source, /\b\w*VariantMap\b|\boptionsOf\b|\bpg-[\w-]+/, `${key}: private demo machinery in copied code`);
+    return [path.join(website, "__snippets__", `${key}.tsx`).replaceAll("\\", "/"), source];
+  }));
+  assert.equal(sources.size, 519);
+  const config = ts.readConfigFile(path.join(website, "tsconfig.json"), ts.sys.readFile);
+  const { options } = ts.parseJsonConfigFileContent(config.config, ts.sys, website);
+  options.incremental = false;
+  const host = ts.createCompilerHost(options);
+  const read = host.readFile, exists = host.fileExists, directory = host.directoryExists;
+  host.readFile = (filename) => sources.get(filename.replaceAll("\\", "/")) ?? read(filename);
+  host.fileExists = (filename) => sources.has(filename.replaceAll("\\", "/")) || exists(filename);
+  host.directoryExists = (dirname) => dirname.includes("__snippets__") || directory(dirname);
+  const program = ts.createProgram([...sources.keys()], options, host);
+  const diagnostics = ts.getPreEmitDiagnostics(program);
+  assert.equal(diagnostics.length, 0, ts.formatDiagnosticsWithColorAndContext(diagnostics, { getCurrentDirectory: () => website, getCanonicalFileName: (name) => name, getNewLine: () => "\n" }));
+});
 
 test("every family has at least four distinct, parsable live examples with copyable source", () => {
   for (const component of catalog) {
@@ -53,7 +104,7 @@ test("API generation retains mapped variant unions and generic required props", 
 });
 
 test("search covers every route and includes public API keywords", () => {
-  assert.equal(index.length, docNavigation.length + catalog.filter((entry) => !entry.documented).length);
+  assert.equal(index.length, docNavigation.length + catalog.filter((entry) => !entry.documented).length + journalPosts.length + releaseNotes.length);
   assert.equal(new Set(index.map((entry) => entry.slug)).size, index.length);
   assert.ok(index.find((entry) => entry.slug === "components/select").keywords.some((word) => word.includes("onValueChange")));
   for (const guide of guides) {

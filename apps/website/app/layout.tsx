@@ -28,7 +28,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <div className="site-footer">
             <Footer appearance="transparent" bordered={false} brand={<Link href="/" variant="muted">Pimolu UI</Link>}
               description="One system. Your identity."
-              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Themes", href: "/themes" }, { label: "Releases", href: "/releases" }] }, { title: "Open source", links: [{ label: "GitHub", href: "https://github.com/pimoludev/ui", external: true }] }]}
+              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Theming guide", href: "/docs/theming" }, { label: "Releases", href: "/releases" }, { label: "Blog", href: "/blog" }] }, { title: "Open source", links: [{ label: "GitHub", href: "https://github.com/pimoludev/ui", external: true }] }]}
               copyright="Pimolu UI · MIT License" />
           </div>
         </SiteProvider>

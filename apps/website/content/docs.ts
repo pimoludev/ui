@@ -1,3 +1,4 @@
+import { handbookGuides } from "./handbook.ts";
 import { extendedComponents } from "./extended-components.ts";
 
 export interface GuideSection {
@@ -10,6 +11,7 @@ export interface GuideSection {
 }
 
 export interface GuideDoc {
+  group?: string;
   slug: string;
   title: string;
   description: string;
@@ -26,7 +28,7 @@ export interface ComponentDoc {
   related: string[];
 }
 
-export const guides: GuideDoc[] = [
+const baseGuides: GuideDoc[] = [
   {
     slug: "", title: "Introduction", description: "One visual language. A foundation you can make your own.",
     sections: [
@@ -84,6 +86,9 @@ export const guides: GuideDoc[] = [
   },
 ];
 
+const guideOrder = ["", "quick-start", "installation", "design-principles", "frameworks", "nextjs", "colors", "theming", "dark-mode", "customization", "styling", "animation", "composition", "accessibility", "agents"];
+export const guides: GuideDoc[] = [...baseGuides, ...handbookGuides].sort((a, b) => guideOrder.indexOf(a.slug) - guideOrder.indexOf(b.slug));
+
 const pilotComponents: ComponentDoc[] = [
   { family: "button", title: "Button", example: "ButtonExample", description: "Actions with consistent tone, appearance and interaction states.", usage: ["Use Button for an action and Link for navigation. The default button type is button; set type=submit deliberately inside a form.", "The example enumerates appearances from buttonVariantMap. loading disables the control and announces aria-busy; provide text that still explains the action."], accessibility: ["Keep a visible label, or give an icon-only action an aria-label.", "Disabled and loading controls cannot be activated. Do not put essential explanations only on a disabled control."], related: ["components/form", "components/dialog"] },
   { family: "input", title: "Input", example: "InputExample", description: "A native input with labels, feedback, clear actions and visual variants.", usage: ["Use the appropriate HTML type and name. value with onValueChange controls the text and keeps the clear action synchronized.", "errorMessage replaces helperText and marks the control invalid. className styles the input; containerClassName styles the field wrapper."], accessibility: ["A visible label is associated with the input automatically.", "Helper/error text is connected through aria-describedby. Keep required and invalid feedback understandable without color."], related: ["components/form", "components/select"] },
@@ -113,7 +118,7 @@ export const components: ComponentDoc[] = [...pilotComponents, ...extendedCompon
 }))];
 
 export const docNavigation = [
-  ...guides.map(({ slug, title, description }) => ({ slug, title, description, group: slug === "" || slug === "installation" || slug === "nextjs" ? "Getting started" : "Guides" })),
+  ...guides.map(({ slug, title, description, group }) => ({ slug, title, description, group: group ?? (slug === "" || slug === "installation" || slug === "nextjs" ? "Getting started" : slug === "accessibility" ? "Quality" : "Design system") })),
   ...components.map(({ family, title, description }) => ({ slug: `components/${family}`, title, description, group: "Components" })),
 ];
 

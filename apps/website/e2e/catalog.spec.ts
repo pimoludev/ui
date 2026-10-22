@@ -33,7 +33,7 @@ test("guides, visual catalog, releases and legacy redirects", async ({ page, req
   const image = page.locator(".catalog-image-light").first();
   await expect.poll(() => image.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBe(640);
   await page.goto("/releases");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Built in the open.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Releases");
   await expect(page.getByText("Unreleased · Development")).toBeVisible();
 });
 

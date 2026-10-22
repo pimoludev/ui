@@ -60,7 +60,9 @@ test("customized copied examples remain parsable with isolated Provider settings
 
 test("sitemap includes each canonical reference once and excludes preview routes", () => {
   const paths = indexablePaths(catalog, guides);
-  assert.equal(paths.length, 139);
+  assert.equal(paths.length, 152);
+  assert.ok(paths.includes("/blog") && paths.includes("/releases/unreleased"));
+  assert.ok(!paths.includes("/themes"), "The retired appearance page is not indexed");
   assert.equal(paths.length, new Set(paths).size);
   assert.ok(paths.includes("/components/button") && paths.includes("/components/multi-select"));
   assert.ok(!paths.includes("/docs/components/button") && !paths.some((path) => path.startsWith("/preview")));
@@ -73,5 +75,20 @@ test("catalog illustrations are real, complete PNG captures at the documented di
     assert.equal(png.subarray(1, 4).toString(), "PNG");
     assert.equal(png.readUInt32BE(16), 640, entry.family);
     assert.equal(png.readUInt32BE(20), 400, entry.family);
+  }
+});
+
+
+test("catalog specimens preserve complete bounds and a consistent breathing margin", async () => {
+  const captures = JSON.parse(await readFile(new URL("../public/component-previews/capture-manifest.json", import.meta.url), "utf8"));
+  assert.equal(captures.length, catalog.length * 2);
+  for (const entry of catalog) for (const theme of ["light", "dark"]) {
+    const matches = captures.filter((capture) => capture.family === entry.family && capture.theme === theme);
+    assert.equal(matches.length, 1, `${entry.family}/${theme}`);
+    const capture = matches[0];
+    assert.ok(capture.selector.startsWith(".pimolu-") || capture.selector.startsWith(".example-ready"));
+    assert.ok(capture.bounds.width > 0 && capture.bounds.height > 0);
+    assert.ok(capture.rendered.width > 0 && capture.rendered.width <= 544);
+    assert.ok(capture.rendered.height > 0 && capture.rendered.height <= 304);
   }
 });

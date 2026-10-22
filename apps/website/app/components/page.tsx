@@ -10,7 +10,7 @@ export default async function Components({ searchParams }: { searchParams: Promi
   const params = new URLSearchParams(Object.entries(query).flatMap(([key, value]) => typeof value === "string" ? [[key, value]] : []));
   const initialFilter = readCatalogFilter(params, [...new Set(catalog.map((entry) => entry.group))]);
   return <div className="catalog-page">
-    <header className="catalog-intro"><PageHeader eyebrow="The component library" title="Find your next building block." description="One visual language, from a single button to your entire workspace. Browse the real library, then make it your own." /><div className="catalog-summary"><div><strong>{catalog.length}</strong><span>component families</span></div><div><strong>{catalog.filter((entry) => entry.documented).length}</strong><span>guided examples</span></div></div></header>
+    <header className="catalog-intro"><PageHeader title="Components" description="Explore the building blocks of your next interface. Pick a component to discover its live examples, variants and API." /><p className="catalog-count">{catalog.length} component families</p></header>
     <CatalogBrowser entries={catalog} initialFilter={initialFilter} />
   </div>;
 }

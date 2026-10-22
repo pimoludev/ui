@@ -28,7 +28,7 @@
   :is(.docs-preview, .demo-composition) .pg-surface-demo { padding: 24px; background: var(--pimolu-surface); border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-md); }
   .demo-composition { padding: 32px; }
   :is(.demo-composition--app-shell, .demo-composition--docs-layout, .demo-composition--dashboard-layout) { padding: 0; }
-  .docs-preview:is(.docs-preview--app-shell, .docs-preview--docs-layout, .docs-preview--table-of-contents, .docs-preview--anchor) { padding: 0; }
+  .docs-preview:is(.docs-preview--app-shell, .docs-preview--docs-layout, .docs-preview--table-of-contents, .docs-preview--anchor, .docs-preview--tabs) { padding: 0; }
   @container (max-width: 480px) {
     :is(.docs-preview, .demo-composition) .pg-grid { grid-template-columns: minmax(0, 1fr); }
   }

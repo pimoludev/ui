@@ -3,6 +3,9 @@ import { test, expect } from "@playwright/test";
 test("Menubar: keyboard navigation, anchored panel and restored focus", async ({ page }) => {
   await page.goto("/components/menubar");
   await page.locator('.example-ready[data-example-hydrated="true"]').first().waitFor();
+  // Leave room below the trigger: otherwise collision handling legitimately
+  // opens above it now that the preview has its own tab bar.
+  await page.locator(".docs-preview").evaluate((node) => node.scrollIntoView({ block: "start" }));
   const trigger = page.locator(".docs-preview").getByRole("menuitem", { name: "File", exact: true });
   await trigger.focus();
   const before = await trigger.boundingBox();
@@ -138,7 +141,7 @@ test("Search restores deep article focus; mobile navigation remains usable", asy
   const button = page.getByRole("button", { name: "Customize preview", exact: true });
   await button.focus();
   await page.keyboard.press("Control+k");
-  await expect(page.getByRole("dialog", { name: "Search documentation" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "Search Pimolu", exact: true })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(button).toBeFocused();
   await page.setViewportSize({ width: 390, height: 844 });

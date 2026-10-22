@@ -16,7 +16,7 @@ export const componentExamples = {
   "input": dynamic(() => import("./examples/input").then((module) => readyExample(module.InputExample)), { loading: LoadingExample }),
   "select": dynamic(() => import("./examples/select").then((module) => readyExample(module.SelectExample)), { loading: LoadingExample }),
   "dialog": dynamic(() => import("./examples/dialog").then((module) => readyExample(module.DialogExample)), { loading: LoadingExample }),
-  "tabs": dynamic(() => import("./examples/tabs").then((module) => readyExample(module.TabsExample)), { loading: LoadingExample }),
+  "tabs": dynamic(() => import("./examples/tabs").then((module) => readyExample(module.TabsDemo)), { loading: LoadingExample }),
   "card": dynamic(() => import("./examples/card").then((module) => readyExample(module.CardExample)), { loading: LoadingExample }),
   "data-table": dynamic(() => import("./examples/data-table").then((module) => readyExample(module.DataTableExample)), { loading: LoadingExample }),
   "data-grid": dynamic(() => import("./examples/data-grid").then((module) => readyExample(module.DataGridExample)), { loading: LoadingExample }),
@@ -36,7 +36,9 @@ export const componentExamples = {
 
 export function ComponentExample({ family, direction = "ltr" }: { family: string; direction?: "ltr" | "rtl" }) {
   const { resolvedTheme, stylePreset, radius, density, brandColor } = usePimoluTheme();
-  if (["dashboard-layout", "app-shell", "docs-layout", "table-of-contents", "anchor"].includes(family)) {
+  // Isolate the Tabs demo too: outer Preview/Code variant selectors must not
+  // restyle the actual tab variants demonstrated by the component.
+  if (["dashboard-layout", "app-shell", "docs-layout", "table-of-contents", "anchor", "tabs"].includes(family)) {
     const query = new URLSearchParams({ theme: resolvedTheme, preset: stylePreset, direction });
     if (radius) query.set("radius", radius);
     if (density) query.set("density", density);

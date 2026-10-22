@@ -3,9 +3,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { components, guides, docNavigation } from "../content/docs.ts";
+import { journalPosts } from "../content/journal.ts";
+import { releaseNotes } from "../content/releases.ts";
 import { extendedComponents } from "../content/extended-components.ts";
 import { extractExample } from "./extract-example.mjs";
 import { buildAdditionalExamples } from "./build-additional-examples.mjs";
+import { createExampleSimplifier } from "./simplify-example.mjs";
 import { pimoluPresets } from "@pimolu/themes/presets";
 
 const website = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -61,15 +64,17 @@ for (const component of catalog) {
 }
 const demoFiles = catalog.map((entry) => path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`));
 const demoProgram = ts.createProgram(demoFiles, { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler, jsx: ts.JsxEmit.ReactJSX, strict: true });
+const simplifyExample = createExampleSimplifier(demoProgram);
 const demoOutput = path.join(output, "demos");
 await mkdir(demoOutput, { recursive: true });
-await buildAdditionalExamples({ catalog, extendedComponents, program: demoProgram, root, website, output });
+await buildAdditionalExamples({ catalog, extendedComponents, program: demoProgram, root, website, output, simplifyExample });
 const extendedSources = new Map();
 for (const entry of extendedComponents) {
   const filename = path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`);
   const source = (await readFile(path.join(website, `components/docs/examples/${entry.family}.tsx`), "utf8").catch((error) => { if (error.code !== "ENOENT") throw error; return null; })) ?? extractExample(demoProgram, filename, entry.selection, "DemoExample").replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"');
-  extendedSources.set(entry.family, source);
-  await writeFile(path.join(demoOutput, `${entry.family}.tsx`), source);
+  const readableSource = simplifyExample(source);
+  extendedSources.set(entry.family, readableSource);
+  await writeFile(path.join(demoOutput, `${entry.family}.tsx`), readableSource);
 }
 const loaders = extendedComponents.map(({ family }) => `  "${family}": dynamic(() => import("./demos/${family}").then((module) => readyExample(module.DemoExample))),`).join("\n");
 await writeFile(path.join(output, "example-loaders.tsx"), `"use client";\nimport dynamic from "next/dynamic";\nimport { readyExample } from "../../components/docs/example-ready";\nexport const extendedExamples = {\n${loaders}\n};\n`);
@@ -164,7 +169,7 @@ for (const component of catalog) {
     const names = statement.importClause.namedBindings.elements.filter((item) => identifiers.has(item.name.text)).map((item) => item.getText());
     if (names.length) imports.push(`import { ${names.join(", ")} } from ${statement.moduleSpecifier.getText()};`);
   }
-  examples[component.family] = `"use client";\n\n${imports.join("\n")}\n\n${fn.getText(exampleSource)}\n`;
+  examples[component.family] = simplifyExample(`"use client";\n\n${imports.join("\n")}\n\n${fn.getText(exampleSource)}\n`);
 }
 
 for (const component of catalog) {
@@ -184,6 +189,9 @@ for (const entry of docNavigation) {
       : guide.sections.flatMap((section) => [section.title, ...section.paragraphs]),
   });
 }
+
+for (const post of journalPosts) index.push({ slug: `blog/${post.slug}`, href: `/blog/${post.slug}`, title: post.title, description: post.description, group: "Journal", keywords: [post.category, ...post.sections.flatMap((section) => [section.title, ...section.paragraphs])] });
+for (const release of releaseNotes) index.push({ slug: `releases/${release.slug}`, href: `/releases/${release.slug}`, title: `${release.title} release notes`, description: release.summary, group: "Releases", keywords: release.sections.flatMap((section) => [section.title, ...section.items]) });
 
 for (const entry of catalog.filter((entry) => !entry.documented)) {
   index.push({ slug: `catalog/${entry.family}`, href: entry.href, title: entry.title, description: entry.description, group: "Source references", keywords: [...entry.exports, ...catalogApi[entry.family].flatMap((group) => group.rows.map((row) => row.name))] });

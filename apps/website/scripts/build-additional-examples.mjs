@@ -3,10 +3,10 @@ import path from "node:path";
 import ts from "typescript";
 import { extractExample } from "./extract-example.mjs";
 
-const normalize = (source) => source.replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"').replaceAll('"/components/themes"', '"/themes"');
+const normalize = (source) => source.replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"').replaceAll('"/components/themes"', '"/docs/theming"');
 
 /** Reuse real, independently mounted Playground compositions; never invent APIs. */
-export async function buildAdditionalExamples({ catalog, extendedComponents, program, root, website, output }) {
+export async function buildAdditionalExamples({ catalog, extendedComponents, program, root, website, output, simplifyExample }) {
   const manifest = {};
   const sources = {};
   const loaders = [];
@@ -70,11 +70,11 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
     manifest[entry.family] = chosen.map((item, index) => {
       const id = `example-${index + 2}`;
       const key = `${entry.family}/${id}`;
-      sources[key] = item.source;
+      sources[key] = simplifyExample(item.source);
       loaders.push(`  "${key}": dynamic(() => import("./additional/${entry.family}-${id}").then((module) => readyExample(module.DemoExample))),`);
       return { id, title: item.title, description: item.description, origin: item.file ? `apps/website/components/docs/additional/${item.file}` : `apps/playground/src/pages/${entry.family}-page.tsx`, selection: item.selection };
     });
-    for (let i = 0; i < chosen.length; i++) await writeFile(path.join(destination, `${entry.family}-example-${i + 2}.tsx`), chosen[i].source);
+    for (let i = 0; i < chosen.length; i++) await writeFile(path.join(destination, `${entry.family}-example-${i + 2}.tsx`), sources[`${entry.family}/example-${i + 2}`]);
   }
   await writeFile(path.join(output, "additional-examples.json"), JSON.stringify(manifest, null, 2));
   await writeFile(path.join(output, "additional-sources.json"), JSON.stringify(sources, null, 2));

@@ -216,6 +216,13 @@ export function SplitButtonPage() {
           </div>
         </div>
       </Section>
+
+      <Section title="Viewport edges" hint="Open both menus near the edges, then resize the window or try RTL. Alignment stays inside the viewport.">
+        <div className="pg-row pg-row--between">
+          <SplitButton menuLabel="Start edge actions" align="end" items={[{ id: "save", label: "Save a copy" }, { id: "export", label: "Export document" }]}>Start edge</SplitButton>
+          <SplitButton menuLabel="End edge actions" align="start" items={[{ id: "save", label: "Save a copy" }, { id: "export", label: "Export document" }]}>End edge</SplitButton>
+        </div>
+      </Section>
     </>
   );
 }

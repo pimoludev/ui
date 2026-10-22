@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     "content/generated/**",
     "playwright-report/**",
     "test-results/**",
+    ".artifacts/**",
   ]),
 ]);
 

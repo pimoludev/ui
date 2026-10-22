@@ -34,10 +34,10 @@ export function previewQuery(settings: PreviewSettings): string {
 }
 
 export function customizeExample(source: string, example: string, settings: PreviewSettings): string {
-  const props = [settings.mode !== "inherit" && `theme="${settings.mode}"`, settings.preset !== "inherit" && `stylePreset="${settings.preset}"`, settings.radius !== "inherit" && `radius="${settings.radius}"`, settings.density !== "inherit" && `density="${settings.density}"`, settings.brand && `brandColor="${settings.brand}"`].filter(Boolean).join(" ");
+  const props = [settings.mode !== "inherit" && `theme="${settings.mode}"`, settings.preset !== "inherit" && `stylePreset="${settings.preset}"`, settings.radius !== "inherit" && `radius="${settings.radius}"`, settings.density !== "inherit" && `density="${settings.density}"`, settings.brand && `brandColor="${settings.brand}"`].filter(Boolean).join("\n        ");
   if (!props && settings.direction === "ltr") return source;
   const providerImport = /import\s*\{[^}]*\bPimoluProvider\b[^}]*\}\s*from\s*["\']@pimolu\/react["\']/.test(source) ? "" : 'import { PimoluProvider } from "@pimolu/react";\n';
   const body = source.replace(/^"use client";\s*/, "");
-  const content = `<PimoluProvider${props ? ` ${props}` : ""}>\n        <${example} />\n      </PimoluProvider>`;
+  const content = `<PimoluProvider${props ? `\n        ${props}\n      ` : ""}>\n        <${example} />\n      </PimoluProvider>`;
   return `"use client";\n\n${providerImport}${body}\nexport function Customized${example}() {\n  return (\n    <div dir="${settings.direction}">\n      ${content}\n    </div>\n  );\n}\n`;
 }

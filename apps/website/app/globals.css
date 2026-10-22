@@ -1,6 +1,7 @@
 @layer theme, base, pimolu, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+@source "../content/generated";
 @import "@pimolu/web-styles/styles.css" layer(pimolu);
 
 /* No Tailwind Preflight: Pimolu owns its component defaults. */
@@ -23,7 +24,54 @@
   .site-root { min-height: 100dvh; color: var(--pimolu-foreground); background: var(--pimolu-background); font-family: var(--pimolu-font-body, system-ui, sans-serif); line-height: 1.6; }
   .site-header { border-bottom: 1px solid var(--pimolu-border); background: var(--pimolu-background); }
   .site-nav { padding: 16px 24px; border: 0; }
-  .site-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-inline-end: 8px; border: 1px solid var(--pimolu-primary); border-radius: var(--pimolu-radius-md); color: var(--pimolu-primary); font-size: 26px; font-weight: 600; line-height: 1; }
+  .site-mark { display: inline-block; flex: none; width: 38px; height: 42px; margin-inline-end: 6px; background: var(--pimolu-primary); mask: url("/icon.svg") center / contain no-repeat; }
+  .site-search-trigger.pimolu-button { width: clamp(208px, 20vw, 264px); justify-content: start; min-height: 38px; background: var(--pimolu-surface); color: var(--pimolu-muted-foreground); border-color: var(--pimolu-border); box-shadow: none; }
+  .site-search-trigger .pimolu-button__label { display: flex; width: 100%; gap: 10px; align-items: center; }
+  .site-search-placeholder { flex: 1; min-width: 0; text-align: start; font-size: .8125rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .site-search-trigger .pimolu-kbd { font-size: .625rem; white-space: nowrap; }
+  .site-search-dialog .pimolu-command { border: 0; }
+  .site-search-dialog { width: min(640px, calc(100vw - 32px)); }
+  .site-search-mobile { display: none; }
+  .site-appearance { display: flex; align-items: center; gap: 4px; }
+  .site-icon-control { width: 38px; height: 38px; padding: 8px; flex: none; }
+  /* This header-only panel has a stable trailing edge even on its first portal
+     frame. Its larger viewport-bounded height overrides Popover's 360px cap. */
+  .site-appearance-panel { width: min(420px, calc(100vw - 24px)); left: auto !important; inset-inline-end: max(12px, calc((100vw - 1280px) / 2 + 24px)) !important; max-height: min(760px, calc(100dvh - 112px)) !important; overflow-y: auto; }
+  .site-appearance-content { display: grid; gap: 20px; }
+  .site-appearance-content h2 { margin: 0 0 4px; font-size: 1rem; font-weight: 500; }
+  .site-appearance-content p { font-size: .8125rem; color: var(--pimolu-muted-foreground); }
+  .site-preset-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .site-preset-choice.pimolu-button { width: 100%; padding: 12px; min-height: 104px; height: auto; border: 1px solid var(--pimolu-border); border-radius: 10px; text-align: start; }
+  .site-preset-choice[aria-pressed="true"] { border-color: var(--pimolu-primary); background: var(--pimolu-muted); }
+  .site-preset-choice .pimolu-button__label { display: grid; gap: 10px; width: 100%; font-size: .75rem; white-space: normal; }
+  .site-preset-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-transform: capitalize; }
+  .site-preset-colors { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); height: 20px; overflow: hidden; border-radius: 5px; border: 1px solid var(--pimolu-border); }
+  .site-preset-colors > span + span { border-inline-start: 1px solid var(--pimolu-border); }
+  .site-preset-description { color: var(--pimolu-muted-foreground); font-size: .625rem; line-height: 1.4; }
+  .site-preset-check { min-width: 12px; color: var(--pimolu-primary); }
+  .site-appearance-eyebrow { display: block; margin-block-end: 8px; font-size: .625rem; letter-spacing: .08em; color: var(--pimolu-primary); text-transform: uppercase; }
+  .site-appearance-heading h2 { font-size: 1.25rem; letter-spacing: -.035em; }
+  .site-appearance-note { display: grid; gap: 10px; font-size: .8125rem; }
+  .site-appearance-note > p { display: flex; justify-content: space-between; gap: 12px; padding-block-start: 16px; border-block-start: 1px solid var(--pimolu-border); }
+  .site-appearance-note code { font-size: .75rem; color: var(--pimolu-foreground); }
+  @media (min-width: 701px) and (max-width: 1150px) {
+    .site-search-trigger.pimolu-button { width: 38px; padding: 8px; }
+    .site-search-trigger .site-search-placeholder, .site-search-trigger .pimolu-kbd { display: none; }
+  }
+  @media (max-width: 960px) {
+    .site-search-mobile { display: flex; align-items: center; gap: 2px; margin-inline-start: auto; }
+    .site-search-mobile .site-search-trigger.pimolu-button { width: 38px; padding: 8px; background: transparent; }
+    .site-search-mobile .site-search-placeholder, .site-search-mobile .pimolu-kbd { display: none; }
+    .site-nav .pimolu-navbar__actions > .site-search-trigger { display: none; }
+    .site-nav .pimolu-navbar__actions > .site-appearance { display: none; }
+    .site-nav .pimolu-navbar__toggle { margin-inline-start: 0; }
+    .site-nav .pimolu-navbar__inner { flex-wrap: wrap; gap: 8px 12px; }
+    .site-nav[data-collapsible] .pimolu-navbar__toggle { display: inline-flex; }
+    .site-nav[data-collapsible] .pimolu-navbar__content, .site-nav[data-collapsible] .pimolu-navbar__actions { display: none; }
+    .site-nav[data-open="true"] .pimolu-navbar__content { display: flex; flex-direction: column; order: 3; width: 100%; flex-basis: 100%; gap: 2px; padding-block: 10px 4px; border-block-start: 1px solid var(--pimolu-border); }
+    .site-nav[data-open="true"] .pimolu-navbar__item { white-space: normal; }
+    .site-nav[data-open="true"] .pimolu-navbar__actions { display: flex; order: 4; width: 100%; flex-basis: 100%; margin-inline-start: 0; padding-block-start: 10px; border-block-start: 1px solid var(--pimolu-border); }
+  }
   .site-wordmark-suffix { color: var(--pimolu-muted-foreground); font-weight: 400; }
   .site-footer { border-top: 1px solid var(--pimolu-border); padding-block: 32px; }
   .site-footer > * { width: 100%; }
@@ -42,5 +90,15 @@
   .site-root *, .site-root *::before, .site-root *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 @media (forced-colors: active) {
-  .site-mark { border-color: CanvasText; color: CanvasText; }
+  .site-mark { background: CanvasText; forced-color-adjust: none; }
 }
+
+/* The page and nested scroll areas share the site's semantic colors. */
+html, .site-root, .site-root * { scrollbar-width: thin; scrollbar-color: var(--pimolu-muted-foreground) transparent; }
+html::-webkit-scrollbar, .site-root::-webkit-scrollbar, .site-root *::-webkit-scrollbar { width: 10px; height: 10px; }
+html::-webkit-scrollbar-track, .site-root::-webkit-scrollbar-track, .site-root *::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb, .site-root::-webkit-scrollbar-thumb, .site-root *::-webkit-scrollbar-thumb { background: var(--pimolu-muted-foreground); border: 3px solid transparent; background-clip: padding-box; border-radius: 999px; }
+html::-webkit-scrollbar-thumb:hover, .site-root *::-webkit-scrollbar-thumb:hover { background-color: var(--pimolu-primary); }
+html:has(.site-root[data-pimolu-theme="dark"]) { color-scheme: dark; }
+@media (prefers-color-scheme: dark) { html:has(.site-root[data-pimolu-theme="system"]) { color-scheme: dark; } }
+@media (forced-colors: active) { html, .site-root, .site-root * { scrollbar-color: auto; scrollbar-width: auto; } html::-webkit-scrollbar-thumb, .site-root *::-webkit-scrollbar-thumb { background: ButtonText; } }

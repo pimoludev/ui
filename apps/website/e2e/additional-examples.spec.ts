@@ -20,9 +20,10 @@ test("additional examples expose real code and reject unknown addresses", async 
   await page.goto("/components/navbar");
   await expect(page.locator(".additional-example")).toHaveCount(3);
   const example = page.locator(".additional-example").first();
-  await example.getByRole("button", { name: "Show code", exact: true }).click();
-  await expect(example.locator("pre")).toContainText("export function DemoExample");
-  await expect(example.locator("pre")).toContainText("appearance");
+  await example.getByRole("tab", { name: "Code", exact: true }).click();
+  const code = example.getByRole("tabpanel", { name: "Code", exact: true });
+  await expect(code.locator("pre")).toContainText("export function DemoExample");
+  await expect(code.locator("pre")).toContainText("appearance");
   const result = await request.get("/api/examples/navbar/example-2");
   expect(result.status()).toBe(200);
   expect((await result.json()).source).toContain("@pimolu/react");
