@@ -1,5 +1,32 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 23 octobre 2026 — Blog et navigation releases sur mobile
+
+- Filtres du journal en grille de deux colonnes égales à 640 px et moins,
+  avec cibles de 40 px minimum et rayons adaptés aux deux rangées. Le contrôle
+  Pimolu conserve son état, son filtrage et sa navigation clavier.
+- `ReleasesNavigation` conserve sa sidebar sticky sur desktop ; à 720 px et
+  moins, un bouton ouvre un Drawer Pimolu gauche avec les mêmes liens et la
+  page courante. Fermeture après navigation, Échap et retour au desktop.
+  La liste ne se replie plus en liens dispersés au-dessus du contenu.
+- Vérifications : lint, **26/26 tests Website**, build avec TypeScript réussis ;
+  **24/24 tests Playwright** (editorial-mobile, editorial, release-mdx) sur
+  Chromium, Firefox et WebKit. Grille à 320/390/640 px, desktop à 1440 px,
+  filtrage réel et Home, focus du Drawer, Échap, navigation et resize.
+- Revue visuelle Argent : blog desktop clair, blog et releases mobile sombre
+  à 390 × 844, panneau ouvert. Aucun changement de l'API publique Pimolu.
+
+## 23 octobre 2026 — Lien Discord
+
+- GitHub et Discord utilisent désormais des icônes SVG communes au header et
+  au footer. Noms accessibles conservés, liens externes sécurisés, zones de
+  clic de 40 px et icônes du footer côte à côte. Lint et typecheck réussis.
+
+- Invitation officielle ajoutée au header (actions desktop et menu mobile) et
+  au footer, dans la rubrique Community avec GitHub :
+  `https://discord.gg/b2UDyvKAcH`. Réutilisation de NavbarItem et Footer.
+- Vérification : lint Website réussi. Aucun commit/push.
+
 ## 22 octobre 2026 — Titres SEO et données structurées
 
 - Titre d'accueil : « Pimolu UI — Customizable React Component Library ».

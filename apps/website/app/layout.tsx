@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import { SiteProvider } from "@/components/site-provider";
 import { SiteHeader } from "@/components/site-header";
+import { SocialLinkLabel } from "@/components/social-icon";
 import { Footer, Link } from "@/components/ui";
 import { parsePreset, parseTheme, presetCookie, themeCookie } from "@/lib/preferences";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
@@ -28,7 +29,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <div className="site-footer">
             <Footer appearance="transparent" bordered={false} brand={<Link href="/" variant="muted">Pimolu UI</Link>}
               description="One system. Your identity."
-              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Theming guide", href: "/docs/theming" }, { label: "Releases", href: "/releases" }, { label: "Blog", href: "/blog" }] }, { title: "Open source", links: [{ label: "GitHub", href: "https://github.com/pimoludev/ui", external: true }] }]}
+              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Theming guide", href: "/docs/theming" }, { label: "Releases", href: "/releases" }, { label: "Blog", href: "/blog" }] }, { title: "Community", links: [{ label: <SocialLinkLabel name="GitHub" />, href: "https://github.com/pimoludev/ui", external: true }, { label: <SocialLinkLabel name="Discord" />, href: "https://discord.gg/b2UDyvKAcH", external: true }] }]}
               copyright="Pimolu UI · MIT License" />
           </div>
         </SiteProvider>

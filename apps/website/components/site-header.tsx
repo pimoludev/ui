@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { SiteSearchTrigger } from "./site-search";
 import { SiteAppearance } from "./site-appearance";
+import { SocialIcon } from "./social-icon";
 import {
   Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarActions, NavbarToggle,
 } from "@pimolu/react";
@@ -33,7 +34,8 @@ export function SiteHeader() {
         <NavbarActions className="flex-nowrap">
           <SiteSearchTrigger />
           <SiteAppearance />
-          <NavbarItem href="https://github.com/pimoludev/ui" target="_blank" rel="noopener noreferrer">GitHub ↗</NavbarItem>
+          <NavbarItem className="site-social-link" href="https://discord.gg/b2UDyvKAcH" aria-label="Discord" title="Discord" target="_blank" rel="noopener noreferrer"><SocialIcon name="Discord" /></NavbarItem>
+          <NavbarItem className="site-social-link" href="https://github.com/pimoludev/ui" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><SocialIcon name="GitHub" /></NavbarItem>
         </NavbarActions>
       </Navbar>
     </div>
