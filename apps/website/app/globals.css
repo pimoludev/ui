@@ -22,7 +22,7 @@
 }
 @layer components {
   .site-root { min-height: 100dvh; color: var(--pimolu-foreground); background: var(--pimolu-background); font-family: var(--pimolu-font-body, system-ui, sans-serif); line-height: 1.6; }
-  .site-header { border-bottom: 1px solid var(--pimolu-border); background: var(--pimolu-background); }
+  .site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--pimolu-border); background: var(--pimolu-background); }
   .site-nav { padding: 16px 24px; border: 0; }
   .site-mark { display: inline-block; flex: none; width: 38px; height: 42px; margin-inline-end: 6px; background: var(--pimolu-primary); mask: url("/icon.svg") center / contain no-repeat; }
   .site-search-trigger.pimolu-button { width: clamp(208px, 20vw, 264px); justify-content: start; min-height: 38px; background: var(--pimolu-surface); color: var(--pimolu-muted-foreground); border-color: var(--pimolu-border); box-shadow: none; }
@@ -36,24 +36,18 @@
   .site-icon-control { width: 38px; height: 38px; padding: 8px; flex: none; }
   /* This header-only panel has a stable trailing edge even on its first portal
      frame. Its larger viewport-bounded height overrides Popover's 360px cap. */
-  .site-appearance-panel { width: min(420px, calc(100vw - 24px)); left: auto !important; inset-inline-end: max(12px, calc((100vw - 1280px) / 2 + 24px)) !important; max-height: min(760px, calc(100dvh - 112px)) !important; overflow-y: auto; }
-  .site-appearance-content { display: grid; gap: 20px; }
-  .site-appearance-content h2 { margin: 0 0 4px; font-size: 1rem; font-weight: 500; }
-  .site-appearance-content p { font-size: .8125rem; color: var(--pimolu-muted-foreground); }
-  .site-preset-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .site-preset-choice.pimolu-button { width: 100%; padding: 12px; min-height: 104px; height: auto; border: 1px solid var(--pimolu-border); border-radius: 10px; text-align: start; }
-  .site-preset-choice[aria-pressed="true"] { border-color: var(--pimolu-primary); background: var(--pimolu-muted); }
-  .site-preset-choice .pimolu-button__label { display: grid; gap: 10px; width: 100%; font-size: .75rem; white-space: normal; }
-  .site-preset-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-transform: capitalize; }
-  .site-preset-colors { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); height: 20px; overflow: hidden; border-radius: 5px; border: 1px solid var(--pimolu-border); }
-  .site-preset-colors > span + span { border-inline-start: 1px solid var(--pimolu-border); }
-  .site-preset-description { color: var(--pimolu-muted-foreground); font-size: .625rem; line-height: 1.4; }
-  .site-preset-check { min-width: 12px; color: var(--pimolu-primary); }
-  .site-appearance-eyebrow { display: block; margin-block-end: 8px; font-size: .625rem; letter-spacing: .08em; color: var(--pimolu-primary); text-transform: uppercase; }
-  .site-appearance-heading h2 { font-size: 1.25rem; letter-spacing: -.035em; }
-  .site-appearance-note { display: grid; gap: 10px; font-size: .8125rem; }
-  .site-appearance-note > p { display: flex; justify-content: space-between; gap: 12px; padding-block-start: 16px; border-block-start: 1px solid var(--pimolu-border); }
-  .site-appearance-note code { font-size: .75rem; color: var(--pimolu-foreground); }
+  .site-appearance-panel { width: min(300px, calc(100vw - 24px)); left: auto !important; inset-inline-end: max(12px, calc((100vw - 1280px) / 2 + 24px)) !important; max-height: min(760px, calc(100dvh - 112px)) !important; overflow-y: auto; }
+  .site-appearance-content { display: grid; gap: 16px; }
+  .site-appearance-content h2 { margin: 0; font-size: .875rem; font-weight: 500; }
+  .site-preset-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 4px; }
+  .site-preset-choice.pimolu-button { width: 100%; min-height: 76px; height: auto; padding: 8px 2px; border: 0; border-radius: 8px; background: transparent; }
+  .site-preset-choice.pimolu-button:hover { background: var(--pimolu-muted); }
+  .site-preset-choice .pimolu-button__label { display: grid; justify-items: center; gap: 8px; width: 100%; font-size: .6875rem; line-height: 1.4; white-space: normal; }
+  .site-preset-swatch { display: block; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--pimolu-border); }
+  .site-preset-choice[aria-pressed="true"] .site-preset-swatch { outline: 2px solid var(--pimolu-primary); outline-offset: 3px; }
+  .site-preset-title { text-align: center; text-transform: capitalize; color: var(--pimolu-muted-foreground); }
+  .site-preset-choice[aria-pressed="true"] .site-preset-title { color: var(--pimolu-foreground); }
+  .site-appearance-note { display: grid; gap: 8px; padding-block-start: 12px; border-block-start: 1px solid var(--pimolu-border); font-size: .75rem; text-align: center; }
   @media (min-width: 701px) and (max-width: 1150px) {
     .site-search-trigger.pimolu-button { width: 38px; padding: 8px; }
     .site-search-trigger .site-search-placeholder, .site-search-trigger .pimolu-kbd { display: none; }

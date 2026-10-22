@@ -698,3 +698,47 @@ Les premières passes ont identifié deux erreurs de typage dans les nouveaux te
 - Les 14 vues mobile ont été examinées via `light-contact.png` et `dark-contact.png`, avec la capture desktop du code et une ouverture réelle du menu via Argent. Le menu reste dans la fenêtre et le texte est entièrement visible ; les dimensions et bornes sont dans `results.json`.
 - Aucun snapshot de référence remplacé. Les planches ont été assemblées avec Sharp déjà installé ; aucune dépendance ajoutée. Journal navigateur : `.artifacts/code-format-split-button-e2e.log`.
 - CI GitHub maintenue désactivée, aucun commit ni push. Le serveur de développement utilisateur sur **http://localhost:3001** est conservé ; serveur temporaire et navigateur de revue arrêtés après les contrôles.
+
+
+## 2026-10-22 ? S?lecteur compact, header persistant et navigation des d?mos
+
+### R?alis?
+
+- S?lecteur r?duit ? sept pastilles issues des palettes existantes et leurs noms : trois colonnes,
+  s?lection visible et annonc?e par `aria-pressed`, focus clavier, persistance, clair/sombre et mode
+  syst?me conserv?s. Les cartes, descriptions, bandes de couleurs et HEX ont ?t? retir?s du popup.
+- Header du site sticky ; marges de d?filement et positions des sommaires/sidebar adapt?es dans
+  globals.css, docs/docs.css, components/catalog.css, editorial.css, home.css et releases/releases.css.
+- `components/docs/example-ready.tsx` prot?ge la navigation des 516 exemples : annulation du
+  comportement de navigation des liens sans arr?ter leurs gestionnaires, y compris liens de portails
+  React et `target="_top"`. Les v?ritables fragments locaux et t?l?chargements restent fonctionnels.
+  Les liens de documentation et ? Open preview ? hors de cette fronti?re restent utilisables.
+- Aucun changement des composants publics, tokens, presets ou du code d?exemple copiable.
+- `/blog/feed.xml` reste le flux RSS pour lecteurs de flux, pas une page ?ditoriale ? lire sur le site.
+
+### Fichiers et v?rifications
+
+Sources : les six CSS de page ci-dessus, `components/site-appearance.tsx`, `components/docs/example-ready.tsx`.
+Tests : nouveau `e2e/demo-navigation.spec.ts`, assertion visuelle de `e2e/editorial.spec.ts` adapt?e aux
+sept pastilles. README et `docs/ai/PROJECT_CONTEXT.md` mis ? jour.
+
+- Tests Node du site : **21/21**, avec compilation des **519 extraits** (516 composants et trois guides).
+- Build Next.js final : **r?ussi**, v?rification TypeScript incluse.
+- ESLint du site : **r?ussi**, z?ro erreur et z?ro warning ; `git diff --check` r?ussi.
+- Tests navigateur finaux : **60/60** sur Chromium, Firefox, WebKit (quatre fichiers cibl?s :
+  demo-navigation, reader-experience, editorial et site-polish). Navigation de Navbar surface/basic,
+  liens externes, Footer, Breadcrumbs, Sidebar, Drawer en portail, interactions contr?l?es, fragments,
+  t?l?chargement blob, header au scroll, persistance, responsive et recherche.
+- Contr?le Chromium ?tendu : **46 compositions contenant `href`**, **147 clics** sur liens visibles
+  non locaux, aucune navigation impr?vue ni nouvel onglet. 29 liens locaux exclus de ce contr?le
+  (le comportement des fragments est test? s?par?ment), un t?l?chargement exclu. Les liens dans les
+  panneaux ferm?s ne sont pas tous exerc?s par ce balayage ; le Drawer est couvert par les trois moteurs.
+- Captures : **18** dans `.artifacts/navigation-review/`, tailles r?ellement obtenues **1440 ? 900**,
+  **768 ? 1024**, **390 ? 844** ; Default clair/sombre aux trois tailles, sept presets clair/sombre sur
+  mobile. Planches `contact-light.png` / `contact-dark.png` et desktop sombre examin?es ; revue manuelle
+  Argent ? 1440 ? 900. Aucun d?bordement mesur?, header ? y=0 apr?s d?filement.
+- Journaux : `.artifacts/navigation-{unit,lint,build,browser-final}.log` ; mesure des captures dans
+  `navigation-review/visual-results.json`, d?tail des liens dans `navigation-review/link-audit.json`.
+- Pas de nouvelle d?pendance, commit, push ou activation de CI.
+
+Serveur de d?veloppement existant sur **http://localhost:3001** conserv?. Serveur de production temporaire et navigateur de revue arr?t?s apr?s les v?rifications.

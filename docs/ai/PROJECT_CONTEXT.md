@@ -117,3 +117,14 @@ validation scope and actual screenshots are recorded in the website's implementa
 
 The two public READMEs are `README.md` and `README.fr.md`. Agent instructions
 live in `AGENTS.md` and `.agents/skills/`.
+
+
+### Website demo navigation and compact appearance (2026-10-22)
+
+`readyExample` in `apps/website/components/docs/example-ready.tsx` provides the common website-only
+link boundary for all 516 examples. It cancels site/external navigation, including React portals,
+without stopping component event handlers; valid example-local fragments and genuine downloads
+remain functional. Keep this mechanism out of the generated copyable snippets and public library.
+The site header is sticky; section/sidebar/outline offsets account for its height. The appearance
+popup now shows seven labelled color circles instead of cards. RSS remains `/blog/feed.xml`.
+See the latest website progress entry for executed checks and screenshot scope.

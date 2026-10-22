@@ -61,7 +61,7 @@ test("new editorial pages, guides and palette popup stay contained at desktop an
   await page.getByRole("button", { name: "Customize site theme", exact: true }).filter({ visible: true }).click();
   const panel = page.getByRole("dialog", { name: "Site appearance" });
   await expect(panel.locator(".site-preset-choice")).toHaveCount(7);
-  await expect(panel.locator(".site-preset-colors > span")).toHaveCount(35);
+  await expect(panel.locator(".site-preset-swatch")).toHaveCount(7);
   await expect.poll(() => panel.evaluate((node) => { const rect = node.getBoundingClientRect(); return rect.left >= 0 && rect.right <= innerWidth + 1; })).toBe(true);
   await page.keyboard.press("Escape");
   expect(errors).toEqual([]);

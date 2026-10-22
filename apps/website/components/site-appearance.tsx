@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button, Link, Popover, Toggle, usePimoluTheme } from "@pimolu/react";
 import { presetNames } from "@/lib/preferences";
-import { paletteFor, presetDescriptions } from "@/lib/palettes";
+import { paletteFor } from "@/lib/palettes";
 
 export function SiteAppearance() {
   const { resolvedTheme, theme, setTheme, stylePreset, setStylePreset } = usePimoluTheme();
@@ -11,18 +11,17 @@ export function SiteAppearance() {
   return <div className="site-appearance">
     <Popover open={open} onOpenChange={setOpen} label="Site appearance" className="site-appearance-panel" content={
       <div className="site-appearance-content">
-        <div className="site-appearance-heading"><span className="site-appearance-eyebrow">One system. Your identity.</span><h2>Find your atmosphere.</h2><p>Seven characters. Your choice of light or dark.</p></div>
+        <h2>Choose your style</h2>
         <div className="site-preset-grid" role="group" aria-label="Visual preset">
           {presetNames.map((preset) => {
             const palette = paletteFor(preset, resolvedTheme);
             return <Button key={preset} appearance="ghost" variant="neutral" className="site-preset-choice" aria-label={preset.replaceAll("-", " ")} aria-pressed={stylePreset === preset} onClick={() => setStylePreset(preset)}>
-              <span className="site-preset-title"><span>{preset.replaceAll("-", " ")}</span><span className="site-preset-check" aria-hidden="true">{stylePreset === preset ? "✓" : ""}</span></span>
-              <span className="site-preset-colors" aria-hidden="true">{["primary", palette.accent ? "accent" : "background", "surface", "foreground", "border"].map((token) => <span key={token} style={{ background: palette[token] }} />)}</span>
-              <span className="site-preset-description">{presetDescriptions[preset]}</span>
+              <span className="site-preset-swatch" aria-hidden="true" style={{ background: `linear-gradient(135deg, ${palette.accent || palette.primary}, ${palette.primary})` }} />
+              <span className="site-preset-title">{preset.replaceAll("-", " ")}</span>
             </Button>;
           })}
         </div>
-        <div className="site-appearance-note"><p><span>Primary · {resolvedTheme}</span><code>{paletteFor(stylePreset, resolvedTheme).primary}</code></p><Link href="/docs/colors" onClick={() => setOpen(false)}>Explore all palette colors <span aria-hidden="true">→</span></Link><Button appearance="ghost" size="sm" variant="neutral" aria-pressed={theme === "system"} onClick={() => setTheme("system")}>Use device color mode</Button></div>
+        <div className="site-appearance-note"><Button appearance="ghost" size="sm" variant="neutral" aria-pressed={theme === "system"} onClick={() => setTheme("system")}>Use device color mode</Button><Link href="/docs/colors" onClick={() => setOpen(false)}>Explore palette colors <span aria-hidden="true">→</span></Link></div>
       </div>
     }>
       <Button className="site-icon-control" appearance="ghost" variant="neutral" iconOnly aria-label="Customize site theme" title="Customize site theme" startIcon={

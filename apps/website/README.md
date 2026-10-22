@@ -182,6 +182,20 @@ Run `pnpm previews:capture` while the website is available on localhost:3001. Se
 
 `lib/text-resources.ts` builds the RSS feed and documentation map from the same content. `scripts/build-docs.mjs` adds article and development-note text to the search index; `lib/site.ts` includes their canonical routes in the sitemap. The blog uses App Router navigation for article cards while preserving Pimolu Link and normal modified-click behavior.
 
-`lib/palettes.ts` resolves generated base themes plus preset overrides and normalizes camelCase keys to CSS names. Inherited status colors must not appear empty in the explorer. `components/color-reference.tsx` compares eight semantic roles without changing the whole site's appearance and copies their CSS variables. The header shows five actual swatches per preset, including its accent when available. Its panel has a viewport-bounded height and a stable trailing edge, scoped to the website; public Popover and official tokens are unchanged.
+`lib/palettes.ts` resolves generated base themes plus preset overrides and normalizes camelCase keys to CSS names. Inherited status colors must not appear empty in the explorer. `components/color-reference.tsx` compares eight semantic roles without changing the whole site's appearance and copies their CSS variables. The sticky header offers seven compact, labelled color circles; the accent appears in the Adaptive swatch. Its panel has a viewport-bounded height and a stable trailing edge, scoped to the website; public Popover and official tokens are unchanged.
 
 The AI guide describes the repository's actual agent instructions and `/llms.txt`. A public MCP server, component-install CLI and non-React adapters are explicitly future work.
+
+
+### Isolated demo navigation and sticky header
+
+`components/docs/example-ready.tsx` prevents example links from navigating to the actual site,
+including links in React portals and links targeting the parent window. Component click handlers,
+valid local fragments, and same-origin/blob/data downloads remain available. This boundary is
+website-only and is excluded from copyable examples. The documentation navigation and ?Open preview?
+links outside examples continue to work normally.
+
+The header stays visible while scrolling. Page sections, documentation sidebars and outlines have
+an offset below it. The appearance popup uses seven named circles, accessible pressed state,
+persistent selection, the existing dark/light toggle, and a device-mode reset.
+`/blog/feed.xml` is the machine-readable RSS feed for subscribing to articles in a feed reader.

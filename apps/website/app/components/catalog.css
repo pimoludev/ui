@@ -33,10 +33,10 @@
     .catalog-reference .docs-api-desktop { display: none; }
     .catalog-reference .docs-api-mobile { display: block; }
   }
-  .catalog-toc { position: sticky; top: 24px; }
+  .catalog-toc { position: sticky; top: 104px; }
   .catalog-toc .pimolu-table-of-contents { padding: 0; }
   .catalog-section + .catalog-section { margin-block-start: 64px; }
-  .catalog-section { scroll-margin-block-start: 24px; }
+  .catalog-section { scroll-margin-block-start: 104px; }
   .catalog-section-heading { display: flex; align-items: baseline; gap: 16px; margin-block-end: 24px; }
   .catalog-section-heading h2 { font-size: 1.5rem; font-weight: 500; letter-spacing: -.025em; }
   .catalog-section-heading span { color: var(--pimolu-muted-foreground); font-size: .75rem; }

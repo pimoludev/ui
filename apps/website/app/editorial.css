@@ -1,7 +1,7 @@
 @layer components {
   .editorial-eyebrow { display: block; color: var(--pimolu-primary); font-size: .6875rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
   .editorial-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--pimolu-muted-foreground); font-size: .75rem; }
-  .editorial-outline { position: sticky; top: 32px; display: grid; gap: 32px; font-size: .8125rem; }
+  .editorial-outline { position: sticky; top: 104px; display: grid; gap: 32px; font-size: .8125rem; }
   .editorial-outline .pimolu-table-of-contents { padding: 0; }
   .editorial-art { position: relative; overflow: hidden; min-width: 0; background: var(--pimolu-surface); color: var(--pimolu-primary); border-radius: 16px; }
   .editorial-art svg { display: block; width: 100%; height: auto; }
@@ -36,7 +36,7 @@
   .journal-reading-layout { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 72px; align-items: start; }
   .journal-article { min-width: 0; }
   .journal-article > .editorial-art { margin-block-end: 56px; }
-  .journal-article > section { margin-block: 44px; scroll-margin-block-start: 32px; }
+  .journal-article > section { margin-block: 44px; scroll-margin-block-start: 104px; }
   .journal-article h2 { font-size: 1.5rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.35; }
   .journal-article section p { margin-block-start: 20px; color: var(--pimolu-muted-foreground); line-height: 1.9; max-width: 72ch; }
   .journal-article .pimolu-codeblock { margin-block-start: 24px; }

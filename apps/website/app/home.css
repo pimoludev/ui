@@ -20,7 +20,7 @@
   .home-art-glyph { position: absolute; inset: 10%; display: grid; place-items: center; font-size: clamp(12rem, 24vw, 22rem); font-weight: 500; font-family: Georgia, serif; font-style: italic; line-height: 0.7; transform: translateY(-8%); }
   .home-art-glyph > span { position: absolute; width: 63%; aspect-ratio: 1; border: 1px dashed var(--pimolu-primary); border-radius: 50%; transform: translate(10%, 7%); opacity: 0.35; }
   .home-foundations { margin-block-start: 16px; }
-  .home-section { padding-block: clamp(64px, 7vw, 104px); scroll-margin-block-start: 32px; }
+  .home-section { padding-block: clamp(64px, 7vw, 104px); scroll-margin-block-start: 104px; }
   .home-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 48px; margin-block-end: 40px; }
   .home-section-title { font-size: clamp(2.125rem, 4vw, 3.5rem); font-weight: 550; letter-spacing: -0.045em; line-height: 1.1; }
   .home-section-description { max-width: 360px; color: var(--pimolu-muted-foreground); line-height: 1.75; }
