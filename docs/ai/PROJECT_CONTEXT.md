@@ -104,7 +104,11 @@ status colors. The header offers five real color swatches per preset, including 
 Its larger palette-panel geometry is local website CSS, not a public Popover API change.
 
 `apps/website/content/journal.ts` owns three original articles under `/blog`; its feed is
-`/blog/feed.xml`. `content/releases.ts` owns the published preview and Unreleased notes.
+`/blog/feed.xml`. `content/releases/*.mdx` owns the published preview and Unreleased notes.
+`scripts/build-releases.mjs` compiles local MDX and extracts literal metadata and section
+anchors before the usual docs generator runs. `content/releases.ts` is only a typed
+adapter over the generated index; generated MDX modules remain Server Components with
+Pimolu component mappings. Fenced code uses the client CodeBlock for copy support.
 The repository preview is `0.1.0-beta.1` and is tagged `v0.1.0-beta.1`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI

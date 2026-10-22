@@ -1,5 +1,31 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 22 octobre 2026 — Releases en MDX
+
+- Contenu migré vers `content/releases/0.1.0-beta.1.mdx` et `unreleased.mdx` :
+  métadonnées littérales, Markdown et sections MDX. Les URL et ancres existantes restent
+  identiques. `content/releases.ts` ne contient plus les textes, seulement l'adaptateur typé.
+- `scripts/build-releases.mjs` compile les fichiers locaux avec `@mdx-js/mdx` avant
+  `build-docs.mjs`. L'index, les highlights, la recherche et le sommaire dérivent des mêmes
+  sections. Métadonnées, dates, slug et unicité des ancres sont vérifiés ; sorties ignorées
+  sous `content/generated/releases/`. Aucun compilateur MDX livré au navigateur.
+- Les pages rendent le MDX côté serveur avec des composants Pimolu ; les blocs de code
+  utilisent un composant client CodeBlock pour la coloration et la copie. Un bloc npm
+  copiable illustre ce rendu dans la release publiée.
+- Documentation de rédaction ajoutée au README du site. Nouveau fichier MDX découvert
+  automatiquement par génération ; régénérer/re démarrer le dev après modification.
+- Fichiers : `content/releases/`, `content/releases.ts`, `scripts/build-releases.mjs`,
+  `components/editorial/release-mdx.tsx`, `release-code-block.tsx`, la page release,
+  `package.json`/lockfile, README, contexte AI et tests `releases-mdx.test.mjs` /
+  `e2e/release-mdx.spec.ts`.
+- Vérifications : **24/24 tests Website**, dont compilation et rendu MDX et rejet des
+  métadonnées invalides ; **519 exemples** TypeScript ; typecheck, lint et build réussis.
+  **3/3 tests navigateur** sur Chromium, Firefox et WebKit : rendu, copie réelle via le
+  bouton avec presse-papiers simulé, navigation et route inconnue 404 ; largeurs 1440,
+  768 et 390 px sans débordement. Rendu clair/sombre mobile/desktop inspecté, revue Argent.
+- `@mdx-js/mdx` ajouté comme dépendance de développement du site ; aucune modification
+  des packages publics. Aucun commit ni push.
+
 ## 22 octobre 2026 — Contribution dédiée et retrait d'Installation
 
 - Nouvelle page `/docs/contributing`, intitulée Contribution sous Community : clonage,

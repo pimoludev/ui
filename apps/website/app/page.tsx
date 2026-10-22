@@ -59,7 +59,15 @@ export default function Home() {
 
       <HomeProductWorlds />
 
-      <section className="home-closing" aria-labelledby="closing-title"><div className="home-container py-16 md:py-24"><p className="home-eyebrow">Made for what you have in mind.</p><div className="flex flex-wrap items-end justify-between gap-8 mt-6"><h2 id="closing-title" className="home-section-title">Your next idea.<br /><span className="text-primary">Already taking shape.</span></h2><div className="flex flex-wrap items-center gap-6"><Link href="/docs" className="home-cta">Find your starting point <span aria-hidden="true">↗</span></Link><Link href="https://github.com/pimoludev/ui" external variant="muted">View on GitHub</Link></div></div><p className="text-muted mt-8 max-w-2xl">Pimolu is growing in the open. Explore the source, try the components, and help shape what comes next.</p></div></section>
+      <section className="home-closing" aria-labelledby="closing-title">
+        <div className="home-container py-16 md:py-24">
+          <p className="home-eyebrow">Made for what you have in mind.</p>
+          <div className="flex flex-wrap items-end justify-between gap-8 mt-6">
+            <h2 id="closing-title" className="home-section-title">Your next idea.<br /><span className="text-primary">Already taking shape.</span>
+            </h2>
+            <div className="flex flex-wrap items-center gap-6">
+              <Link href="/docs" className="home-cta">Find your starting point <span aria-hidden="true">↗</span></Link>
+              <Link href="https://github.com/pimoludev/ui" external variant="muted">View on GitHub</Link></div></div><p className="text-muted mt-8 max-w-2xl">Pimolu is growing in the open. Explore the source, try the components, and help shape what comes next.</p></div></section>
     </main>
   );
 }

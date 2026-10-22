@@ -4,6 +4,8 @@ import { Badge, Link } from "@/components/ui";
 import { ReleasesNavigation } from "@/components/editorial/releases-navigation";
 import { ScrollOutline } from "@/components/scroll-outline";
 import { releaseNotes } from "@/content/releases";
+import { releaseContents } from "@/content/generated/releases/contents";
+import { releaseMDXComponents } from "@/components/editorial/release-mdx";
 import "../../editorial.css";
 import "../releases.css";
 
@@ -20,16 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 export default async function ReleasePage({ params }: Props) {
   const entry = findRelease((await params).slug);
+  const Content = releaseContents[entry.slug];
   return <main id="main-content" tabIndex={-1} className="releases-page">
     <div className="release-layout">
       <ReleasesNavigation currentSlug={entry.slug} />
       <article className="release-main release-detail">
         <Link href="/releases" variant="muted">← All releases</Link>
         <header><Badge appearance="soft" variant="neutral">{entry.status}</Badge><h1>{entry.title}</h1>{entry.tag ? <code className="release-tag">{entry.tag}</code> : null}<p>{entry.summary}</p></header>
-        <p className="release-status-note">{entry.tag ? "This preview tag records the verified source state. All five packages are published on npm at 0.1.0-beta.1 with the latest and beta tags; no public website deployment has been performed." : "These changes are available in the source workspace. This is not a published package version or a tagged release."}</p>
-        {entry.sections.map((section) => <section key={section.id} id={section.id}>
-          <span className="editorial-eyebrow">{section.label}</span><h2>{section.title}</h2><ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>
-        </section>)}
+        <p className="release-status-note">{entry.notice}</p>
+        <Content components={releaseMDXComponents} />
         <div className="release-entry-links"><Link href="/components">Explore components →</Link><Link href="/docs/quick-start">Quick start guide →</Link></div>
       </article>
       <aside className="editorial-outline"><ScrollOutline items={entry.sections.map(({ id, title }) => ({ id, label: title }))} /><Link href="https://github.com/pimoludev/ui/commits/dev" external>Source history</Link></aside>

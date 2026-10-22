@@ -112,7 +112,8 @@ Playwright reports/traces live in ignored `playwright-report/` and `test-results
 `/opengraph-image` renders an original 1200 × 630 PNG from the generated Pimolu palette.
 
 Run website `typecheck`, `lint`, `test`, `build`, `test:e2e` and `audit:a11y` separately:
-root `pnpm verify` does not include this application. No MDX runtime or extra search dependency is installed.
+root `pnpm verify` does not include this application. Release MDX is compiled at build time;
+there is no browser MDX compiler or extra search dependency.
 
 
 ## Multiple examples and surface appearances
@@ -187,7 +188,49 @@ Run `pnpm previews:capture` while the website is available on localhost:3001. Se
 
 ### Journal, development notes and palette exploration
 
-`content/journal.ts` owns article metadata and sections; `content/releases.ts` owns the published `0.1.0-beta.1` notes and the Unreleased entry. These are authored source files, not generated history or an external CMS. Keep publication claims backed by the npm registry and the corresponding source tag.
+`content/journal.ts` owns articles. Releases are authored in **`content/releases/*.mdx`**,
+one file per version plus `unreleased.mdx`. `content/releases.ts` is only the typed
+adapter for generated metadata. Keep publication claims backed by npm and the source tag.
+
+### Writing a release
+
+Create `content/releases/<version>.mdx`. Export literal string metadata and write
+Markdown inside `ReleaseSection`; its stable `id`, `title` and `label` supply the
+detail-page headings, outline, index highlights and search keywords:
+
+```mdx
+export const metadata = {
+  slug: "unreleased",
+  title: "Unreleased",
+  status: "Development",
+  summary: "A short description for the index and search.",
+  notice: "These changes are not a published package version."
+};
+
+<ReleaseSection id="improvements" title="Improvements" label="Updated">
+
+- Explain the change and its impact, with **Markdown** and links.
+
+</ReleaseSection>
+```
+
+The example describes the existing Unreleased file; use a matching filename/slug for
+each new version. Published previews use `status: "Preview"`, `date: "YYYY-MM-DD"`
+and `tag`. Required fields are slug, title, status, summary and notice. Metadata values
+are literal strings; anchors must be unique. Published entries sort by descending date;
+development notes follow them.
+
+Fenced code renders Pimolu `CodeBlock` with copy support. MDX can also use `Badge`,
+`Alert`, `Button` and `CodeBlock` from the shared component mapping. Interactive examples
+with state should be local client components added to that mapping, then used in MDX.
+No component code is duplicated in content.
+
+`pnpm docs:generate` compiles trusted local files with `@mdx-js/mdx` before generating
+the rest of the documentation. Outputs in `content/generated/releases/` are ignored:
+never edit them. Missing metadata, invalid dates and duplicate anchors fail generation.
+Run the dev/build/test commands normally; no route registration is needed for a new file.
+Restart the dev command after editing release MDX to regenerate its compiled output.
+There is no remote MDX evaluation or CMS dependency.
 
 `lib/text-resources.ts` builds the RSS feed and documentation map from the same content. `scripts/build-docs.mjs` adds article and development-note text to the search index; `lib/site.ts` includes their canonical routes in the sitemap. The blog uses App Router navigation for article cards while preserving Pimolu Link and normal modified-click behavior.
 
