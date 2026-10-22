@@ -66,7 +66,10 @@ pnpm "playground dev"
 
 | Commande | Rôle |
 | --- | --- |
-| `pnpm build:all` | Générer les tokens, thèmes, presets, tokens visuels et CSS des composants |
+| `pnpm build:all` | Générer les tokens, thèmes, presets, tokens visuels, CSS des composants et packages compilés |
+| `pnpm build:packages` | Compiler `@pimolu/core` et bundler `@pimolu/react` avec ses déclarations |
+| `pnpm release:plan` | Analyse SemVer en lecture seule depuis la plage de commits et l'état des audits |
+| `pnpm release:pack-check` | Builder chaque package publiable et valider la sortie de `npm pack --dry-run` |
 | `pnpm verify` | Pipeline complet : build, types, audit des thèmes, tests, lint, build du playground |
 | `pnpm test:react` | Exécuter les tests de composants |
 | `pnpm audit:themes` | Contrôle d'intégrité des thèmes et presets, en lecture seule |
@@ -125,7 +128,7 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif. La chaîne de tokens, deux thèmes de couleur, six presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les packages se consomment aujourd'hui depuis le workspace, une distribution via registre étant prévue. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) pour l'architecture vérifiée et ses limites.
+Pimolu UI est en développement actif et prépare sa première prévisualisation publique, **`0.1.0-beta.1`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les cinq packages de la bibliothèque se buildent et passent `npm pack --dry-run` ; aucun package n'a encore été publié sur npm, et la preview publique du site attend un hébergeur. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) et le [CHANGELOG](CHANGELOG.md) pour l'architecture vérifiée et les limites actuelles.
 
 ## Contribution
 

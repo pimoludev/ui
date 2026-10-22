@@ -1,7 +1,16 @@
 {
   "name": "@pimolu/themes",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0-beta.1",
+  "description": "Pimolu colour themes, style presets and visual token data.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pimoludev/ui.git",
+    "directory": "packages/themes"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": ["**/*.css"],
   "files": [
@@ -14,6 +23,7 @@
     "build:presets": "node scripts/build-presets.mjs",
     "build:visuals": "node scripts/build-visuals.mjs",
     "build:default": "node scripts/build-default.mjs",
+    "prepack": "pnpm build:default && pnpm build:presets && pnpm build:visuals",
     "test": "node --test"
   },
   "exports": {
@@ -31,6 +41,6 @@
 
   },
   "dependencies": {
-    "@pimolu/design-tokens": "workspace:*"
+    "@pimolu/design-tokens": "0.1.0-beta.1"
   }
 }

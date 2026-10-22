@@ -64,7 +64,10 @@ for (const component of catalog) {
   }
 }
 const demoFiles = catalog.map((entry) => path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`));
-const demoProgram = ts.createProgram(demoFiles, { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler, jsx: ts.JsxEmit.ReactJSX, strict: true });
+// The package export now points at dist, so keep the source variant maps in the
+// demo program: simplify-example expands them into readable literal examples.
+const variantFiles = ts.sys.readDirectory(path.join(root, "registry/react"), [".ts"], undefined, ["**/*.variants.ts"]);
+const demoProgram = ts.createProgram([...demoFiles, ...variantFiles], { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler, jsx: ts.JsxEmit.ReactJSX, strict: true });
 const simplifyExample = createExampleSimplifier(demoProgram);
 const demoOutput = path.join(output, "demos");
 await mkdir(demoOutput, { recursive: true });

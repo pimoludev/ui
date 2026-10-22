@@ -3,5 +3,7 @@ packages:
   - "registry/*"
   - "apps/*"
   - "examples/*"
+linkWorkspacePackages: true
 allowBuilds:
   esbuild: true
+  unrs-resolver: true

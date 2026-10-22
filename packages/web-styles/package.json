@@ -1,7 +1,16 @@
 {
   "name": "@pimolu/web-styles",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0-beta.1",
+  "description": "Pimolu UI component stylesheets and CSS bundles.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pimoludev/ui.git",
+    "directory": "packages/web-styles"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
 
   "sideEffects": ["**/*.css"],
@@ -12,6 +21,7 @@
 
   "scripts": {
     "build:css": "node scripts/build.mjs",
+    "prepack": "pnpm build:css",
     "test:css": "node --test"
   },
 
@@ -150,7 +160,7 @@
   },
 
   "dependencies": {
-    "@pimolu/themes": "workspace:*"
+    "@pimolu/themes": "0.1.0-beta.1"
   },
 
   "devDependencies": {

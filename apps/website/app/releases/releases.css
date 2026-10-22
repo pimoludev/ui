@@ -14,6 +14,7 @@
   .release-entry-heading { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
   .release-entry-heading h2 { font-size: 2rem; font-weight: 500; letter-spacing: -.04em; margin-block-start: 8px; }
   .release-entry-heading .pimolu-badge { font-size: .6875rem; }
+  .release-tag { display: inline-block; margin-block-start: 8px; padding: 4px 8px; border: 1px solid var(--pimolu-border); border-radius: 6px; color: var(--pimolu-muted-foreground); font-size: .6875rem; }
   .release-entry-summary { margin-block: 24px 32px; max-width: 65ch; font-size: 1.125rem; line-height: 1.8; }
   .release-highlights { display: grid; gap: 24px; padding: 28px; border: 1px solid var(--pimolu-border); border-radius: 16px; }
   .release-highlights section + section { padding-block-start: 24px; border-block-start: 1px solid var(--pimolu-border); }

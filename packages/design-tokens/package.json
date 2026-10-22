@@ -1,10 +1,24 @@
 {
   "name": "@pimolu/design-tokens",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.1",
+  "description": "Pimolu primitive design tokens, themes and CSS variables.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pimoludev/ui.git",
+    "directory": "packages/design-tokens"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "pnpm build"
+  },
   "exports": {
     "./tokens.json": "./dist/tokens.json",
     "./tokens.css": "./dist/tokens.css"

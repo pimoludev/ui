@@ -23,13 +23,15 @@ test("blog filters, article navigation and global search work", async ({ page })
   await expect(page).toHaveURL(/\/blog\/one-system-many-identities$/);
 });
 
-test("release index opens complete development notes without fabricated versions", async ({ page }) => {
+test("release index opens the tagged preview without claiming a publication", async ({ page }) => {
   await page.goto("/releases");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Releases");
-  await page.getByRole("link", { name: "Read the full development notes" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Unreleased");
-  await expect(page.locator("#before-release")).toContainText("private workspace packages");
-  await expect(page.getByRole("navigation", { name: "Release navigation" }).getByRole("link", { name: "Unreleased" })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("heading", { name: "0.1.0-beta.1" })).toBeVisible();
+  await page.getByRole("link", { name: "Read the release notes" }).first().click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("0.1.0-beta.1");
+  await expect(page.locator("#packages")).toContainText("npm pack --dry-run");
+  await expect(page.getByText("no npm publish or public website deployment has been performed", { exact: false })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Release navigation" }).getByRole("link", { name: "0.1.0-beta.1" })).toHaveAttribute("aria-current", "page");
 });
 
 test("color explorer changes its preview independently and copies semantic variables", async ({ page }) => {

@@ -25,8 +25,8 @@ export default async function ReleasePage({ params }: Props) {
       <ReleasesNavigation currentSlug={entry.slug} />
       <article className="release-main release-detail">
         <Link href="/releases" variant="muted">← All releases</Link>
-        <header><Badge appearance="soft" variant="neutral">Workspace development</Badge><h1>{entry.title}</h1><p>{entry.summary}</p></header>
-        <p className="release-status-note">These changes are available in the source workspace. This is not a published package version or a tagged release.</p>
+        <header><Badge appearance="soft" variant="neutral">{entry.status}</Badge><h1>{entry.title}</h1>{entry.tag ? <code className="release-tag">{entry.tag}</code> : null}<p>{entry.summary}</p></header>
+        <p className="release-status-note">{entry.tag ? "This preview tag records the verified source state. The packages pass npm pack --dry-run; no npm publish or public website deployment has been performed." : "These changes are available in the source workspace. This is not a published package version or a tagged release."}</p>
         {entry.sections.map((section) => <section key={section.id} id={section.id}>
           <span className="editorial-eyebrow">{section.label}</span><h2>{section.title}</h2><ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>
         </section>)}

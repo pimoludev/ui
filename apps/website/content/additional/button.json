@@ -1,0 +1,17 @@
+[
+  {
+    "file": "button-variants.tsx",
+    "title": "Variants",
+    "description": "Semantic meaning carried by each button tone."
+  },
+  {
+    "file": "button-appearances.tsx",
+    "title": "Appearances",
+    "description": "The same semantic tone, from solid to fully transparent."
+  },
+  {
+    "file": "button-sizes.tsx",
+    "title": "Sizes",
+    "description": "A consistent scale from xs to xxl."
+  }
+]

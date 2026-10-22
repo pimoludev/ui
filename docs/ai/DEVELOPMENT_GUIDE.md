@@ -11,7 +11,10 @@ Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, the
 | Command | Effect |
 | --- | --- |
 | `pnpm build` | Generates the primitives and the base themes only. |
-| `pnpm build:all` | Also generates Default, the six palettes, the six visual sets and the web CSS. |
+| `pnpm build:all` | Also generates Default, the six palettes, the six visual sets, the web CSS and the compiled core/React packages. |
+| `pnpm build:packages` | Compiles `@pimolu/core` and bundles `@pimolu/react` with declarations. |
+| `pnpm release:plan` | Read-only release analysis: range, SemVer, versions and tag. |
+| `pnpm release:pack-check` | Builds and validates every `npm pack --dry-run` payload. |
 | `pnpm test` | Node tests for the design tokens; reruns their build. |
 | `pnpm test:themes` | Node tests for themes and presets, contrast included. |
 | `pnpm test:react` | Vitest + Testing Library in `registry/react`. |
@@ -25,7 +28,10 @@ Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, the
 | `pnpm check` | Full verification + `examples/nextjs` build. |
 
 `pnpm --dir registry/react exec vitest run button/button.test.tsx` targets one
-React test. The pre-commit hook runs `verify:quick` and checks the staged files;
+React test. The website has its own checks:
+`pnpm --dir apps/website typecheck`, `lint`, `test`, `build`, `test:e2e` and
+`audit:a11y` (the audit needs a running production server on port 3001).
+The pre-commit hook runs `verify:quick` and checks the staged files;
 pre-push runs `verify`. The GitHub workflow
 `.github/workflows/ci.yml.disabled` must stay disabled until an explicit
 maintainer decision.

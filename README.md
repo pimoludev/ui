@@ -66,7 +66,10 @@ pnpm "playground dev"
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm build:all` | Generate tokens, themes, presets, visual tokens and component CSS |
+| `pnpm build:all` | Generate tokens, themes, presets, visual tokens, component CSS and compiled packages |
+| `pnpm build:packages` | Compile `@pimolu/core` and bundle `@pimolu/react` with declarations |
+| `pnpm release:plan` | Read-only SemVer analysis from the commit range and audit state |
+| `pnpm release:pack-check` | Build every publishable package and validate `npm pack --dry-run` output |
 | `pnpm verify` | Full pipeline: build, typecheck, theme audit, tests, lint, playground build |
 | `pnpm test:react` | Run the component tests |
 | `pnpm audit:themes` | Read-only theme and preset integrity check |
@@ -125,7 +128,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development. The token pipeline, two color themes, six visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. Packages are consumed from the workspace today, with registry distribution planned. See [technical context](docs/ai/PROJECT_CONTEXT.md) for the verified architecture and current limits.
+Pimolu UI is under active development and is preparing its first public preview, **`0.1.0-beta.1`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. The five library packages build and pass `npm pack --dry-run`; no npm publish has been performed yet, and the public website preview still needs a hosting target. See [technical context](docs/ai/PROJECT_CONTEXT.md) and [CHANGELOG.md](CHANGELOG.md) for the verified architecture and current limits.
 
 ## Contributing
 

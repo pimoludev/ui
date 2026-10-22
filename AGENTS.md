@@ -8,7 +8,10 @@ Start with `docs/ai/PROJECT_CONTEXT.md`; follow its links to the verified archit
 
 - Node >= 20; use `pnpm` (pinned via `packageManager`). `pnpm install` first.
 - `pnpm build` — design-tokens build only. Writes `packages/design-tokens/dist/{tokens.json,tokens.css}` and `packages/themes/dist/{themes.json,styles.css}`.
-- `pnpm build:all` — `build` + Default palette, five other preset palettes, six visual token sets and the shared web CSS bundle. Prefer this when unsure.
+- `pnpm build:all` — `build` + Default palette, five other preset palettes, six visual token sets, the shared web CSS bundle and the compiled `@pimolu/core` / `@pimolu/react` packages. Prefer this when unsure.
+- `pnpm build:packages` — compile `@pimolu/core` and bundle `@pimolu/react` into `dist/` (JavaScript + declarations). Required after changing a React component before consuming the package exports.
+- `pnpm release:plan` — read-only release analysis: commit range, SemVer decision, package/site versions and tag.
+- `pnpm release:pack-check` — builds every publishable package and validates its `npm pack --dry-run` contents, version and entry points.
 - `pnpm test` — `node --test` on `packages/design-tokens/tests/*.test.mjs` ONLY (self-contained; re-runs the build).
 - `pnpm test:themes` — `node --test` in `packages/themes` (preset validation + generated output).
 - `pnpm test:react` — vitest (jsdom) in `registry/react`; `pnpm test:watch` to watch.
@@ -61,7 +64,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 ## Generated code — do not hand-edit
 
 - `packages/design-tokens/dist/*` and `packages/themes/dist/*` are generated and gitignored.
-- `@pimolu/design-tokens`, `@pimolu/themes` and `@pimolu/web-styles` export generated assets from `dist/`; `@pimolu/react` and `@pimolu/core` export source TypeScript. A fresh clone must run `pnpm build:all` before the playground or generated theme/style imports can resolve.
+- All public packages export generated assets from `dist/`; `@pimolu/react` is bundled to a single ESM entry with declarations, and `@pimolu/core` compiles its source. A fresh clone must run `pnpm build:all` before the playground, website, examples or package exports can resolve.
 - `pnpm build` alone does NOT regenerate the preset or visual assets; use `build:all` (or `pnpm --dir packages/themes build:presets` / `build:visuals`).
 
 ## Token pipeline
@@ -86,15 +89,15 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 
 - `packages/design-tokens`, `packages/themes`: build-driven CSS/JSON outputs.
 - `packages/core`: `createVariants()` returns a className string (no `cn`/Tailwind helper).
-- `registry/react`: source-only package (private; exports `./index.ts`, no build step). A component lives in `registry/react/<name>/` with `<name>.tsx`, `<name>.types.ts`, `<name>.variants.ts` and `<name>.test.tsx`; its CSS lives in `packages/web-styles/src/<name>.css`. Re-export from `registry/react/index.ts`, include the stylesheet in the web-styles build and add a playground page. `Button` is the reference implementation.
-- `@pimolu/react` and `@pimolu/core` expose raw TS source (no build); `@pimolu/themes` exports generated files and needs `build:all`.
+- `registry/react`: source package compiled by `scripts/build.mjs` into `dist/index.js` (single ESM bundle, `"use client"`) plus declarations. A component lives in `registry/react/<name>/` with `<name>.tsx`, `<name>.types.ts`, `<name>.variants.ts` and `<name>.test.tsx`; its CSS lives in `packages/web-styles/src/<name>.css`. Re-export from `registry/react/index.ts`, include the stylesheet in the web-styles build and add a playground page. `Button` is the reference implementation.
+- `@pimolu/core` compiles to `dist/`; `@pimolu/themes`, `@pimolu/web-styles` and `@pimolu/design-tokens` export generated files and need `build:all`.
 - Styling is plain CSS classes (`pimolu-*`) + CSS variables. No Tailwind / CSS-in-JS. Theming is attribute-driven: `PimoluProvider` sets `data-pimolu-theme` and `data-pimolu-style` on a wrapping `<div>`.
-- Packages are `private: true` except `@pimolu/design-tokens`, so nothing is publishable as-is today.
-- `apps/playground` is the manual verification app: one hash-routed page per component (`src/pages/*`, registered in `src/router.ts`), shared demo data in `src/demo-data.ts`, and styles imported from `@pimolu/web-styles/styles.css` (so `pnpm build:all` must run first). Each component page ends with real-world examples, not just prop permutations. `examples/nextjs` is a working Next.js App Router integration example (`pnpm --dir examples/nextjs build`). `apps/website`, the remaining `examples/*` and non-`react` `registry/*` are empty placeholders.
+- `@pimolu/design-tokens`, `@pimolu/themes`, `@pimolu/core`, `@pimolu/react` and `@pimolu/web-styles` are publishable at the same version; the website stays private. `release-manager` owns version sync, pack checks, changelog and tagging. Never run `npm publish` without a separate explicit request.
+- `apps/playground` is the manual verification app: one hash-routed page per component (`src/pages/*`, registered in `src/router.ts`), shared demo data in `src/demo-data.ts`, and styles imported from `@pimolu/web-styles/styles.css` (so `pnpm build:all` must run first). Each component page ends with real-world examples, not just prop permutations. `examples/nextjs` is a working Next.js App Router integration example (`pnpm --dir examples/nextjs build`). `apps/website` is the public Next.js documentation site (291 generated pages, Playwright suite); the remaining `examples/*` and non-`react` `registry/*` are empty placeholders.
 
 ## Tests
 
 - Vitest + Testing Library, jsdom; setup file is `registry/react/test/setup.ts` (auto-cleanup).
 - Component CSS is loaded through `@pimolu/web-styles`; `registry/react/css.d.ts` remains a CSS module declaration but React sources do not currently import component CSS.
 - Follow the existing style in tests (mixed EN/FR `it(...)` descriptions are normal).
-- No E2E or visual runner is installed. `playground-visual-tests` handles visual review via manual inspection and may *propose* Playwright — do not install it without approval.
+- Playwright is installed only for `apps/website`; its e2e suite runs against a production build. The playground still relies on manual visual review. `playground-visual-tests` handles that review and may *propose* a playground runner — do not install one without approval.

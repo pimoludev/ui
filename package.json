@@ -1,16 +1,20 @@
 {
   "name": "ui",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.1",
   "description": "Pimolu UI monorepo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pimoludev/ui.git"
+  },
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev:playground": "pnpm --dir apps/playground dev",
+    "dev:playground": "pnpm build:packages && pnpm --dir apps/playground dev",
     "build:playground": "pnpm --dir apps/playground build",
 
-    "dev:examples:nextjs": "pnpm --dir examples/nextjs dev",
+    "dev:examples:nextjs": "pnpm build:packages && pnpm --dir examples/nextjs dev",
     
-    "dev:website": "pnpm --dir apps/website dev",
+    "dev:website": "pnpm build:packages && pnpm --dir apps/website dev",
     "build:website": "pnpm --dir apps/website build",
 
     "build": "node packages/design-tokens/scripts/build.mjs",
@@ -18,7 +22,10 @@
     "playground dev": "pnpm --dir apps/playground dev",
     "test:react": "pnpm --dir registry/react test",
     "test:watch": "pnpm --dir registry/react test:watch",
-    "build:all": "pnpm build && pnpm --dir packages/themes build:default && pnpm --dir packages/themes build:presets && pnpm --dir packages/themes build:visuals && pnpm build:web-styles",
+    "build:all": "pnpm build && pnpm --dir packages/themes build:default && pnpm --dir packages/themes build:presets && pnpm --dir packages/themes build:visuals && pnpm build:web-styles && pnpm build:packages",
+    "build:packages": "pnpm --dir packages/core build && pnpm --dir registry/react build",
+    "release:plan": "node .agents/skills/release-manager/scripts/release-plan.mjs",
+    "release:pack-check": "node .agents/skills/release-manager/scripts/pack-check.mjs",
     "test:themes": "pnpm --dir packages/themes test",
     "build:web-styles": "pnpm --dir packages/web-styles build:css",
     "test:web-styles": "pnpm --dir packages/web-styles test:css",
