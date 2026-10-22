@@ -128,3 +128,14 @@ remain functional. Keep this mechanism out of the generated copyable snippets an
 The site header is sticky; section/sidebar/outline offsets account for its height. The appearance
 popup now shows seven labelled color circles instead of cards. RSS remains `/blog/feed.xml`.
 See the latest website progress entry for executed checks and screenshot scope.
+
+
+### Branded media and cached Image hydration (2026-10-22)
+
+The website uses original assets under `apps/website/public/images/`, and audio from `public/sounds/`.
+`apps/website/scripts/website-demo-assets.mjs` is shared by both docs generators; do not patch generated
+sources or replace intentional missing-image fixtures. Playground assets remain independent. Catalog
+captures stay real component renders. The Image registry component now checks the actual image element
+for successful decoding after hydration/source changes, preserving forwarded refs and native callbacks.
+The homepage no longer needs a client-only image wrapper; the Playground Image page demonstrates cache
+remounts. See the newest website IMPLEMENTATION_PROGRESS entry for executed checks and exact coverage.

@@ -1,8 +1,10 @@
 import { Badge, Link } from "@/components/ui";
 import { HomeReveal } from "@/components/home-reveal";
 import { IdentityDemo, WorkspaceDemo } from "@/components/home-demos";
+import { HomeComponentGallery, HomeDiscoveryStrip, HomeProductWorlds } from "@/components/home-discovery";
 import { presetNames } from "@/lib/preferences";
 import "./home.css";
+import "./home-discovery.css";
 export const metadata = { alternates: { canonical: "/" } };
 
 const principles = [
@@ -32,6 +34,8 @@ export default function Home() {
         </div>
       </section>
 
+      <HomeDiscoveryStrip />
+
       <div className="home-foundations border-y border-border"><div className="home-container flex flex-wrap items-center justify-between gap-5 py-5"><span className="home-eyebrow">A system with room to grow</span><div className="flex flex-wrap gap-x-8 gap-y-2 text-sm"><span>React + Next.js</span><span>Shared design tokens</span><span>{presetNames.length} visual presets</span><span>Light & dark</span></div></div></div>
 
       <section id="live-demo" className="home-section home-container" aria-labelledby="demo-title">
@@ -42,6 +46,8 @@ export default function Home() {
         </HomeReveal>
       </section>
 
+      <HomeComponentGallery />
+
       <section className="home-principles border-y border-border" aria-label="The Pimolu approach"><div className="home-container grid gap-10 py-14 md:grid-cols-3">{principles.map((item) => <article className="home-principle" key={item.number}><span className="home-eyebrow text-primary">{item.number} /</span><h2 className="text-xl font-semibold tracking-tight mt-5">{item.title}</h2><p className="text-muted mt-4 leading-relaxed">{item.text}</p><p className="home-principle-detail">{item.detail}</p></article>)}</div></section>
 
       <section id="make-it-yours" className="home-section home-container" aria-labelledby="identity-title">
@@ -50,6 +56,8 @@ export default function Home() {
           <IdentityDemo />
         </HomeReveal>
       </section>
+
+      <HomeProductWorlds />
 
       <section className="home-closing" aria-labelledby="closing-title"><div className="home-container py-16 md:py-24"><p className="home-eyebrow">Made for what you have in mind.</p><div className="flex flex-wrap items-end justify-between gap-8 mt-6"><h2 id="closing-title" className="home-section-title">Your next idea.<br /><span className="text-primary">Already taking shape.</span></h2><div className="flex flex-wrap items-center gap-6"><Link href="/docs" className="home-cta">Find your starting point <span aria-hidden="true">↗</span></Link><Link href="https://github.com/pimoludev/ui" external variant="muted">View on GitHub</Link></div></div><p className="text-muted mt-8 max-w-2xl">Pimolu is growing in the open. Explore the source, try the components, and help shape what comes next.</p></div></section>
     </main>

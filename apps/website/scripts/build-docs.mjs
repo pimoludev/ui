@@ -1,3 +1,4 @@
+import { normalizeDemoAssets } from "./website-demo-assets.mjs";
 import { readFile, writeFile, mkdir, readdir, cp } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -72,7 +73,7 @@ const extendedSources = new Map();
 for (const entry of extendedComponents) {
   const filename = path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`);
   const source = (await readFile(path.join(website, `components/docs/examples/${entry.family}.tsx`), "utf8").catch((error) => { if (error.code !== "ENOENT") throw error; return null; })) ?? extractExample(demoProgram, filename, entry.selection, "DemoExample").replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"');
-  const readableSource = simplifyExample(source);
+  const readableSource = simplifyExample(normalizeDemoAssets(source));
   extendedSources.set(entry.family, readableSource);
   await writeFile(path.join(demoOutput, `${entry.family}.tsx`), readableSource);
 }

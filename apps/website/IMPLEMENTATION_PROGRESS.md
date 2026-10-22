@@ -1,5 +1,148 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 22 octobre 2026 — Correction du zoom Gantt
+
+- Les flèches de navigation et les icônes moins/plus utilisent le slot `startIcon` de
+  `Button` : elles ne sont plus masquées dans le libellé des boutons `iconOnly`.
+- Le zoom s'applique après le calcul de la largeur de base. La largeur du canevas est
+  explicite : les échelles jour, semaine et mois changent réellement de dimensions,
+  y compris sous la largeur du conteneur et entre 50 % et 100 %.
+- API inchangée, mode contrôlé et autonome conservés, limites 50–200 %, pas de 25 %,
+  boutons désactivés aux limites et annonce du pourcentage conservés.
+- Exemple Playground précisé, vignettes Gantt clair/sombre du catalogue actualisées.
+- Fichiers : `registry/react/gantt/gantt.tsx`, `gantt.test.tsx`,
+  `packages/web-styles/src/gantt.css`, `apps/playground/src/pages/gantt-page.tsx`,
+  `e2e/gantt-zoom.spec.ts` et les vignettes/manifeste du catalogue.
+- Vérifications : 12 tests Gantt, suite React complète **1 406/1 406**, CSS **30/30**,
+  TypeScript racine, builds Website/Playground et lint Website/Playground réussis.
+  **6/6 tests navigateur** sur Chromium, Firefox et WebKit : dimensions réelles des
+  barres/canevas, clavier, trois échelles, limites, desktop 1440 px et mobile 390 px.
+  Revue visuelle des sept presets en clair/sombre et clic manuel via Argent effectués.
+- Premier passage : un timeout de chargement du test Overview sous exécutions concurrentes
+  et un arrêt du serveur de développement pendant WebKit. Suite React relancée seule et
+  tests navigateur relancés sur le build de production : tous passent sans modifier ces
+  tests existants. Avertissement Vite existant : chunk principal d'environ 722 kB.
+- Aucun commit ni push. Pas de nouvelle dépendance.
+
+## 22 octobre 2026 ? Corrections de cadrage, visuels Pimolu et musiques locales
+
+### R?alisations
+
+- Champs de connexion : surface uniforme sous `:autofill` / `:-webkit-autofill`, texte lisible,
+  goutti?res sym?triques et ?il centr? dans son bouton et verticalement dans le champ. CSS limit?
+  ? la composition de connexion ; le contour de focus reste visible.
+- Calendrier centr? horizontalement dans la composition. Les deux ?tudes cr?atives utilisent le
+  vrai embl?me p, centr? et enti?rement contenu dans un cercle stable.
+- Photo produit en plein cadre, ratio 3:2 et `fit="cover"`, sans bandes lat?rales ; le produit
+  illustr? est d?sormais le casque Pimolu Studio, avec son embl?me.
+- Deux nouveaux visuels originaux cr??s avec imagegen et optimis?s en WebP : casque (**74 Ko**) et
+  ?tude de marque architecturale (**environ 100 Ko**). Avatar SVG d?riv? de l?embl?me officiel.
+  Embl?me ajout? aux couvertures ?ditoriales existantes. Sources dans `public/images/`.
+- Les sources g?n?r?es de d?monstration utilisent ces assets : Image, ImageCropper, Lightbox,
+  Carousel, AspectRatio, Avatar, Flex/Grid, Prose, poster VideoPlayer et image Watermark. Les sources
+  du Playground conservent leurs fixtures ind?pendantes ; les exemples de fichiers absents destin?s
+  ? d?montrer les erreurs restent volontairement absents.
+- Audio de l?accueil et des quatre exemples AudioPlayer : `/sounds/action-game.mp3` et
+  `/sounds/pixel-art-game.mp3`, sans modification des fichiers fournis par le mainteneur.
+- `scripts/website-demo-assets.mjs` centralise le remplacement dans les deux g?n?rateurs ; les fichiers
+  g?n?r?s ne sont pas ?dit?s ? la main. Vingt-cinq modules g?n?r?s utilisent les nouveaux visuels,
+  quatre utilisent les musiques. Aucune r?f?rence g?n?r?e restante vers l?ancien produit ou les WAV.
+
+### Correctif Image n?cessaire ? l?int?gration
+
+`registry/react/image/image.tsx` v?rifie ?galement `complete` et `naturalWidth` sur l??l?ment r?el apr?s
+montage/changement de source. Une image termin?e avant hydratation quitte ainsi l??tat de chargement,
+sans fabriquer de callback `onLoad`. Ref transf?r?e conserv?e, API et CSS publics inchang?s.
+Deux tests de r?gression ajout?s ; une section ? Cached images ? permet de d?montrer le comportement
+sur la page Image du Playground. Le contournement local de montage diff?r? de l?accueil a ?t? retir?.
+
+### V?rifications r?ellement ex?cut?es
+
+- Tests React complets : **1 403/1 403**, **136 fichiers** ; Image seul : **10/10**.
+- Typecheck racine **r?ussi**. Builds Next.js et Playground **r?ussis**, TypeScript inclus.
+  Avertissement Vite de chunk pr?existant maintenu : **722,03 Ko**.
+- ESLint site et Playground **r?ussis**, z?ro erreur/warning ESLint.
+- Tests Node du site finaux : **21/21**, compilation des **519 extraits** incluse.
+- Tests navigateur finaux : **51/51** sur Chromium, Firefox et WebKit : accueil, g?om?trie des champs,
+  calendrier, cercle et photo aux trois tailles, m?dia propri?taire, vraie lecture MP3, hydratation
+  retard?e jusqu?apr?s le t?l?chargement des images, blog et palettes. Autofill simul? via le pseudo-?tat
+  Chromium ; pas de manipulation du gestionnaire de mots de passe ni de vraies identifiants.
+- **36 captures du site** Default clair/sombre, tailles r?elles **1440 ? 900**, **768 ? 1024**,
+  **390 ? 844** ; six planches examin?es, aucun d?bordement. **14 captures** de l?image en cache dans
+  le Playground : sept presets ? clair/sombre, planche examin?e.
+- **24 vignettes catalogue** r?g?n?r?es pour douze familles, planche examin?e. Le s?lecteur de capture
+  est d?sormais attach? au n?ud choisi avant de masquer les voisins : cela corrige le timeout observ?
+  du s?lecteur vivant `:visible/nth` sur Grid. Deuxi?me passe compl?te r?ussie.
+- Revue manuelle Argent ? 1440 ? 900, dont le cadre produit E-commerce.
+- Captures / mesures dans `.artifacts/brand-polish-review/` ; journaux
+  `.artifacts/brand-polish-{build,react,root-types,playground-build,playground-lint,lint,unit-final,browser-final,catalog-captures}.log`.
+
+### Fichiers principaux
+
+`components/home-discovery.tsx`, `app/home-discovery.css`, `components/editorial/artwork.tsx`,
+`app/editorial.css`, `components/docs/examples/audio-player.tsx`, override Lightbox, deux g?n?rateurs
+et leur nouveau normaliseur, script de capture, `public/images/`, 24 vignettes et leur manifeste,
+Image React + tests, page Image Playground, `e2e/brand-polish.spec.ts`, test audio de l?accueil.
+Les fichiers audio fournis restent dans `public/sounds/`. Aucun commit, push, ajout de d?pendance ou
+changement de CI. Serveur de d?veloppement utilisateur 3001 conserv? ; serveurs temporaires arr?t?s.
+
+
+## 22 octobre 2026 ? Illustrations interactives ajout?es ? l?accueil
+
+### R?alisations
+
+- **Ajouts uniquement dans la page** : une bande sous le Hero, une galerie apr?s le workspace,
+  quatre univers avant le CTA final. Le Hero et son ? p ?, WorkspaceDemo, IdentityDemo, les principes,
+  leurs textes et leurs styles restent pr?sents. `app/page.tsx` comporte seulement huit lignes ajout?es.
+- **Bande interactive** : AvatarGroup, Badge, Button, DatePicker et Alert ; participation locale,
+  choix de date, notification masquable/r?affichable.
+- **Six compositions** : connexion locale (Input, PasswordInput, Checkbox), produit (Image, Rating,
+  SegmentedControl et panier), calendrier, recherche Command dans Dialog, NotificationCenter avec
+  compteur et pr?f?rences, AudioPlayer avec trois vrais fichiers WAV du d?p?t. Liens vers les r?f?rences.
+- **Quatre univers** : Enterprise/SaaS avec approbation et progression, e-commerce avec option cadeau
+  et panier, gaming sombre avec r?compense, studio cr?atif avec deux projets s?lectionnables.
+- Styles limit?s aux nouveaux s?lecteurs `discovery-*`, en consommant les tokens Pimolu.
+  Composants publics, tokens, presets, anciennes d?monstrations et CSS d?accueil existant non modifi?s.
+  Motion r?utilise `HomeReveal` et son traitement de `prefers-reduced-motion`.
+
+### Fichiers
+
+- Cr??s : `components/home-discovery.tsx`, `app/home-discovery.css`, `e2e/home-discovery.spec.ts`.
+- Int?gration additive : `app/page.tsx` ; suivi mis ? jour ici et dans le README.
+- Assets r?utilis?s : `/demos/product.svg` et les trois WAV de `/demos/media/`.
+
+### V?rifications r?ellement ex?cut?es
+
+- Build Next.js final **r?ussi**, TypeScript inclus ; ESLint **r?ussi**, z?ro erreur / warning.
+- Tests Node du site : **21/21**, incluant la compilation ind?pendante des 519 extraits de documentation.
+- Tests navigateur finaux : **24/24**, huit sc?narios ? Chromium, Firefox, WebKit : formulaire,
+  panier/?valuation, dates, commandes au clavier, notifications, lecture/pause audio r?elle et changement
+  de piste, univers et onglets au clavier, conservation du workspace et personnalisation existants,
+  absence de d?filement au chargement, responsive clair/sombre.
+- **58 captures** Default clair/sombre ? **1440 ? 900**, **768 ? 1024**, **390 ? 844** : Hero, bande,
+  galerie et quatre univers. Les six planches ont ?t? examin?es.
+- **14 captures suppl?mentaires** de la fiche produit : sept presets ? clair/sombre ? 390 ? 844,
+  deux planches examin?es. Mesure des contr?les des six compositions : aucun d?passement horizontal.
+- Une capture Chromium suppl?mentaire en `forced-colors` ? 390 ? 844 examin?e. Ce contr?le cibl? ne
+  constitue pas un audit complet avec technologies d?assistance.
+- Revue manuelle Argent desktop : navigation et passage de SaaS ? Gaming.
+- Captures et mesures : `.artifacts/home-discovery-review/` ; journaux `home-discovery-{build,unit,browser-final}.log`.
+
+### Probl?mes rencontr?s et trait?s
+
+- `Command` appelle `scrollIntoView` sur son option initiale, m?me avec `autoFocus=false` : l?affichage
+  direct faisait quitter le Hero d?s l?arriv?e. La nouvelle composition ouvre maintenant Command dans
+  Dialog, sur action de l?utilisateur. Aucun changement du composant public.
+- Un SVG d?j? charg? avant hydratation pouvait rester dans l??tat `loading` du composant Image.
+  `ProductIllustration` r?serve sa bo?te c?t? serveur et monte le vrai Image apr?s hydratation ; les
+  tests v?rifient d?sormais `data-loaded=true`, pas seulement le chargement r?seau de l?image.
+- La premi?re passe navigateur avait des attentes de tests trop larges et des clics avant hydratation
+  sur WebKit. S?lecteurs et attente de montage corrig?s ; aucune assertion fonctionnelle supprim?e.
+- Le premier lint a signal? une apostrophe JSX non ?chapp?e, corrig?e avant la validation finale.
+
+Aucune d?pendance ajout?e ; pas de commit, push ou activation de CI. Serveur utilisateur 3001 conserv?.
+
+
 ## 22 octobre 2026 — Releases, palettes, blog et enrichissement des guides
 
 ### Réalisations

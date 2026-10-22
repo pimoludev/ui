@@ -1,5 +1,6 @@
 export function EditorialArtwork({ kind }: { kind: "system" | "palette" | "interaction" }) {
   return <div className={`editorial-art editorial-art--${kind}`} aria-hidden="true">
+    <span className="editorial-art-emblem" />
     <svg viewBox="0 0 560 320" fill="none">
       <path d="M0 80H560M0 160H560M0 240H560M80 0V320M160 0V320M240 0V320M320 0V320M400 0V320M480 0V320" className="editorial-art-grid" />
       {kind === "palette" ? <>

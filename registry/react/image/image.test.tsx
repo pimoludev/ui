@@ -15,6 +15,37 @@ import {
 import { Image } from "./image";
 
 describe("Pimolu Image", () => {
+  it("reveals a cached image even when its load event preceded hydration", () => {
+    const complete = vi.spyOn(HTMLImageElement.prototype, "complete", "get").mockReturnValue(true);
+    const naturalWidth = vi.spyOn(HTMLImageElement.prototype, "naturalWidth", "get").mockReturnValue(400);
+    const onLoad = vi.fn();
+    try {
+      const { container, rerender } = render(<Image src="/cached.png" alt="Cached product" onLoad={onLoad} />);
+      expect(screen.getByAltText("Cached product")).toHaveAttribute("data-loaded", "true");
+      expect(container.querySelector(".pimolu-image__skeleton")).toBeNull();
+      expect(onLoad).not.toHaveBeenCalled();
+      complete.mockReturnValue(false);
+      naturalWidth.mockReturnValue(0);
+      rerender(<Image src="/another.png" alt="Cached product" onLoad={onLoad} />);
+      expect(screen.getByAltText("Cached product")).toHaveAttribute("data-loaded", "false");
+      fireEvent.load(screen.getByAltText("Cached product"));
+      expect(screen.getByAltText("Cached product")).toHaveAttribute("data-loaded", "true");
+      expect(onLoad).toHaveBeenCalledTimes(1);
+    } finally { complete.mockRestore(); naturalWidth.mockRestore(); }
+  });
+
+  it("does not mistake a completed broken image for a decoded image", () => {
+    const complete = vi.spyOn(HTMLImageElement.prototype, "complete", "get").mockReturnValue(true);
+    const naturalWidth = vi.spyOn(HTMLImageElement.prototype, "naturalWidth", "get").mockReturnValue(0);
+    try {
+      render(<Image src="/missing.png" alt="Missing image" />);
+      const image = screen.getByAltText("Missing image");
+      expect(image).toHaveAttribute("data-loaded", "false");
+      fireEvent.error(image);
+      expect(image).toHaveAttribute("data-state", "error");
+    } finally { complete.mockRestore(); naturalWidth.mockRestore(); }
+  });
+
   it("renders the image with a required alternative and native props", () => {
     render(
       <Image

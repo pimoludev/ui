@@ -230,7 +230,7 @@
     "selector": ".pimolu-audio-player",
     "bounds": {
       "x": 37,
-      "y": 97.390625,
+      "y": 100.390625,
       "width": 286,
       "height": 90
     },
@@ -246,7 +246,7 @@
     "selector": ".pimolu-audio-player",
     "bounds": {
       "x": 37,
-      "y": 97.390625,
+      "y": 100.390625,
       "width": 286,
       "height": 90
     },
@@ -1958,12 +1958,12 @@
     "selector": ".pimolu-lightbox__panel",
     "bounds": {
       "x": 8,
-      "y": 288.203125,
+      "y": 301.875,
       "width": 344,
-      "height": 423.59375
+      "height": 396.25
     },
     "rendered": {
-      "width": 247,
+      "width": 263,
       "height": 304
     }
   },
@@ -1974,12 +1974,12 @@
     "selector": ".pimolu-lightbox__panel",
     "bounds": {
       "x": 8,
-      "y": 288.203125,
+      "y": 301.875,
       "width": 344,
-      "height": 423.59375
+      "height": 396.25
     },
     "rendered": {
-      "width": 247,
+      "width": 263,
       "height": 304
     }
   },

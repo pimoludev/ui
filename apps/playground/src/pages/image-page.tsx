@@ -1,5 +1,7 @@
+import { useState } from "react";
 import {
   Badge,
+  Button,
   Card,
   CardContent,
   CardDescription,
@@ -27,12 +29,20 @@ const fits = [
 const radii = ["none", "sm", "md", "lg", "full"] as const;
 
 export function ImagePage() {
+  const [cachedVisible, setCachedVisible] = useState(false);
   return (
     <>
       <PageHeader
         title="Image"
         hint="A wrapper around <img> that reserves its box before the pixels arrive, shows a skeleton during loading and falls back gracefully on error. Legacy width/height attributes or an aspect ratio prevent layout shift; alt is required by the type."
       />
+
+      <Section title="Cached images" hint="Reuse the image shown below: hide and show another instance to check that cached files reveal their content, not a lasting skeleton.">
+        <div className="pg-stack">
+          <Button appearance="outline" onClick={() => setCachedVisible((visible) => !visible)}>{cachedVisible ? "Hide cached image" : "Show cached image"}</Button>
+          {cachedVisible && <Image src="/product.svg" alt="Cached Pimolu product" width={400} height={300} aspectRatio={4 / 3} />}
+        </div>
+      </Section>
 
       <Section
         title="Aspect ratios"

@@ -1,9 +1,10 @@
+import { normalizeDemoAssets } from "./website-demo-assets.mjs";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import ts from "typescript";
 import { extractExample } from "./extract-example.mjs";
 
-const normalize = (source) => source.replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"').replaceAll('"/components/themes"', '"/docs/theming"');
+const normalize = (source) => normalizeDemoAssets(source).replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"').replaceAll('"/components/themes"', '"/docs/theming"');
 
 /** Reuse real, independently mounted Playground compositions; never invent APIs. */
 export async function buildAdditionalExamples({ catalog, extendedComponents, program, root, website, output, simplifyExample }) {

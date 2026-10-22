@@ -632,13 +632,11 @@ export function Gantt({
         )
       : null;
 
-  const timelineWidth = Math.max(
-    MIN_TIMELINE_WIDTH,
-    Math.round(
-      totalDays *
-        PIXELS_PER_DAY[resolvedScale] *
-        resolvedZoom
-    )
+  const timelineWidth = Math.round(
+    Math.max(
+      MIN_TIMELINE_WIDTH,
+      totalDays * PIXELS_PER_DAY[resolvedScale]
+    ) * resolvedZoom
   );
 
   function commitStart(next: Date) {
@@ -717,20 +715,21 @@ export function Gantt({
             iconOnly
             aria-label="Previous period"
             onClick={() => navigate(-1)}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-          </Button>
+            startIcon={
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            }
+          />
 
           <Button
             type="button"
@@ -750,20 +749,21 @@ export function Gantt({
             iconOnly
             aria-label="Next period"
             onClick={() => navigate(1)}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
-          </Button>
+            startIcon={
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            }
+          />
 
           <span
             className="pimolu-gantt__range"
@@ -798,9 +798,22 @@ export function Gantt({
               aria-label="Zoom out"
               disabled={resolvedZoom <= 0.5}
               onClick={() => changeZoom(-0.25)}
-            >
-              <span aria-hidden="true">−</span>
-            </Button>
+              startIcon={
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M5 12h14" />
+                </svg>
+              }
+            />
 
             <span
               className="pimolu-gantt__zoom-value"
@@ -818,9 +831,22 @@ export function Gantt({
               aria-label="Zoom in"
               disabled={resolvedZoom >= 2}
               onClick={() => changeZoom(0.25)}
-            >
-              <span aria-hidden="true">+</span>
-            </Button>
+              startIcon={
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M5 12h14M12 5v14" />
+                </svg>
+              }
+            />
           </div>
         </div>
       </div>

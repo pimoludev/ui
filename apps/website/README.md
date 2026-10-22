@@ -199,3 +199,28 @@ The header stays visible while scrolling. Page sections, documentation sidebars 
 an offset below it. The appearance popup uses seven named circles, accessible pressed state,
 persistent selection, the existing dark/light toggle, and a device-mode reset.
 `/blog/feed.xml` is the machine-readable RSS feed for subscribing to articles in a feed reader.
+
+
+### Additional homepage compositions
+
+`components/home-discovery.tsx` adds a hero-adjacent strip, six live component compositions and
+four product contexts to the homepage. Existing homepage sections and `home-demos.tsx` are kept.
+`app/home-discovery.css` only styles the added `discovery-*` surfaces. Examples use real Pimolu
+components and existing local SVG/audio assets; forms and shopping actions are explicitly local previews.
+Command opens on demand in Dialog so its option scrolling cannot move the homepage on initial load.
+The public Image component now detects already decoded images after hydration, so cached artwork does not remain behind its skeleton. Browser coverage lives in
+`e2e/home-discovery.spec.ts`; actual verification scope is recorded in IMPLEMENTATION_PROGRESS.md.
+
+
+### Branded demonstration assets
+
+`public/images/` contains original Pimolu artwork: `pimolu-studio.webp` (product),
+`pimolu-atmosphere.webp` (editorial illustration) and `pimolu-avatar.svg` (official p emblem).
+The two WebP images were created for this site with imagegen on 2026-10-22; the SVG derives from
+`app/icon.svg`. Existing unused fixtures are preserved. `scripts/website-demo-assets.mjs` normalizes
+website demo sources without changing Playground fixtures. Catalog thumbnails remain actual component
+captures and are regenerated when their content changes.
+
+Audio examples use the maintainer-provided `/sounds/action-game.mp3` and `/sounds/pixel-art-game.mp3`.
+They remain unchanged. Input autofill styling, calendar alignment, emblem centering and product cover
+sizing are scoped to the homepage compositions. See `e2e/brand-polish.spec.ts` for browser coverage.

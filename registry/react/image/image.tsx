@@ -2,6 +2,9 @@
 
 import {
   forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
   useState,
   type SyntheticEvent,
 } from "react";
@@ -75,6 +78,12 @@ export const Image = forwardRef<
   },
   ref
 ) {
+  const imageRef = useRef<HTMLImageElement>(null);
+  const attachRef = useCallback((node: HTMLImageElement | null) => {
+    imageRef.current = node;
+    if (typeof ref === "function") return ref(node);
+    if (ref) ref.current = node;
+  }, [ref]);
   const [loadedImage, setLoadedImage] =
     useState<LoadedImage | null>(null);
 
@@ -92,6 +101,16 @@ export const Image = forwardRef<
   const activeSrc = usingFallback
     ? fallbackSrc!
     : src;
+
+  // An SSR image can finish before hydration attaches its load listener.
+  // Read the actual element too; do not synthesize a consumer onLoad event.
+  useEffect(() => {
+    const image = imageRef.current;
+    if (image?.complete && image.naturalWidth > 0) {
+      setLoadedImage((current) => current?.src === activeSrc && current.status === "loaded"
+        ? current : { src: activeSrc, status: "loaded" });
+    }
+  }, [activeSrc]);
 
   const status: PimoluImageStatus =
     loadedImage?.src === activeSrc
@@ -160,7 +179,7 @@ export const Image = forwardRef<
     >
       <img
         {...props}
-        ref={ref}
+        ref={attachRef}
         className={imageClasses}
         src={activeSrc}
         alt={alt}

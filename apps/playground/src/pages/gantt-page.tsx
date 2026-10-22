@@ -250,7 +250,7 @@ export function GanttPage() {
 
       <Section
         title="Product roadmap"
-        hint="Controlled navigation, scale and zoom. Bars expose their dates and completion to assistive technology."
+        hint="Use the arrow buttons to navigate and minus / plus to zoom from 50% to 200% in every scale. Bars expose their dates and completion to assistive technology."
       >
         <RoadmapExample />
       </Section>

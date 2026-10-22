@@ -135,7 +135,8 @@
   position: relative;
 
   box-sizing: border-box;
-  min-width: calc(
+  /* Keep zoom proportional even when the timeline is narrower than its viewport. */
+  width: calc(
     var(--pimolu-gantt-task-width) +
       var(--pimolu-gantt-timeline-width)
   );

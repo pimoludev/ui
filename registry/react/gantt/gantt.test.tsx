@@ -272,6 +272,39 @@ describe("Pimolu Gantt", () => {
     ).toBe("1265px");
   });
 
+  it.each(["day", "week", "month"] as const)(
+    "keeps zoom proportional in the %s scale and respects its limits",
+    async (scale) => {
+      const user = userEvent.setup();
+      const { container } = render(<Gantt tasks={tasks} defaultScale={scale} />);
+      const canvas = container.querySelector(".pimolu-gantt__canvas") as HTMLElement;
+      const width = () => parseFloat(canvas.style.getPropertyValue("--pimolu-gantt-timeline-width"));
+      const initialWidth = width();
+      const decrease = screen.getByRole("button", { name: "Zoom out" });
+      const increase = screen.getByRole("button", { name: "Zoom in" });
+
+      for (const name of ["Previous period", "Next period", "Zoom out", "Zoom in"]) {
+        const button = screen.getByRole("button", { name });
+        expect(button.querySelector("svg")).not.toBeNull();
+        expect(button.querySelector(".pimolu-button__label svg")).toBeNull();
+      }
+
+      await user.click(decrease);
+      expect(width()).toBe(Math.round(initialWidth * 0.75));
+      await user.click(decrease);
+      expect(width()).toBe(Math.round(initialWidth * 0.5));
+      expect(decrease).toBeDisabled();
+
+      increase.focus();
+      await user.keyboard("{Enter}");
+      expect(width()).toBe(Math.round(initialWidth * 0.75));
+      for (let step = 0; step < 5; step++) await user.click(increase);
+      expect(width()).toBe(initialWidth * 2);
+      expect(increase).toBeDisabled();
+      expect(container.querySelector(".pimolu-gantt__zoom-value")).toHaveTextContent("200%");
+    }
+  );
+
   it("draws dependency links and a today marker, both optional", () => {
     const { container, rerender } = render(
       <Gantt tasks={tasks} />

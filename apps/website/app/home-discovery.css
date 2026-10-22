@@ -1,0 +1,75 @@
+﻿@layer components {
+  /* Additive homepage compositions. No rules target the existing demos. */
+  .discovery-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-block: 8px 40px; }
+  .discovery-strip-item { display: grid; align-content: center; gap: 16px; min-width: 0; padding: 24px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-background); }
+  .discovery-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .discovery-stack { display: grid; gap: 20px; min-width: 0; }
+  .discovery-calendar { display: flex; justify-content: center; width: 100%; }
+  .discovery-signin .pimolu-input__wrapper { padding-inline: var(--pimolu-input-padding); }
+  .discovery-signin .pimolu-password-input__toggle { display: grid; place-items: center; align-self: center; width: 32px; height: 32px; padding: 0; line-height: 0; }
+  /* Native autofill must share the surrounding field surface, not paint an inner rectangle. */
+  .discovery-signin .pimolu-input__control:is(:autofill, :-webkit-autofill) { box-shadow: 0 0 0 1000px var(--pimolu-surface) inset; -webkit-text-fill-color: var(--pimolu-foreground); caret-color: var(--pimolu-foreground); }
+  .discovery-small { font-size: .75rem; line-height: 1.65; color: var(--pimolu-muted-foreground); overflow-wrap: anywhere; }
+  .discovery-title { font-size: 1.125rem; line-height: 1.4; font-weight: 500; letter-spacing: -.025em; margin: 0; }
+  .discovery-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: stretch; }
+  .discovery-specimen { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-background); }
+  .discovery-specimen-heading { padding: 24px 24px 0; }
+  .discovery-specimen-heading h3 { margin: 0; font-size: 1rem; font-weight: 500; letter-spacing: -.02em; }
+  .discovery-specimen-heading p { margin-block-start: 6px; color: var(--pimolu-muted-foreground); font-size: .8125rem; line-height: 1.6; }
+  .discovery-specimen-preview { padding: 32px 24px; flex: 1; display: grid; align-content: center; min-width: 0; }
+  .discovery-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .6875rem; line-height: 1.7; }
+  .discovery-specimen > .discovery-links { padding: 16px 24px; border-block-start: 1px solid var(--pimolu-border); }
+  .discovery-links a { text-transform: capitalize; }
+  .discovery-monogram { display: inline-block; color: var(--pimolu-primary); font-family: Georgia, serif; font-style: italic; font-size: 3.5rem; line-height: 1; margin-block-end: 16px; }
+  .discovery-product-art { position: relative; border-radius: var(--pimolu-radius-md); background: var(--pimolu-surface); }
+  .discovery-product-art > .pimolu-badge { position: absolute; inset-block-start: 12px; inset-inline-start: 12px; }
+  .discovery-price { font-size: 1.25rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .discovery-command-list { display: grid; gap: 20px; list-style: none; padding: 20px; margin: 0; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-md); background: var(--pimolu-surface); font-size: .875rem; }
+  .discovery-command-list li { display: flex; align-items: center; gap: 16px; }
+  .discovery-command-list li > span { color: var(--pimolu-primary); }
+  .discovery-catalog-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-block-start: 32px; }
+  .discovery-audio-art { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; aspect-ratio: 4 / 3; padding: 24px; border-radius: var(--pimolu-radius-md); background: color-mix(in srgb, var(--pimolu-primary) 10%, var(--pimolu-surface)); color: var(--pimolu-primary); }
+  .discovery-audio-art > span:first-child { font-family: Georgia, serif; font-style: italic; font-size: 4rem; line-height: .8; }
+  .discovery-audio-art > span:last-child { font: .625rem ui-monospace, monospace; letter-spacing: .2em; }
+  .discovery-audio-art > div { display: flex; justify-content: center; align-items: center; gap: 6px; height: 64px; width: 100%; }
+  .discovery-audio-art i { width: 6px; border-radius: 4px; background: currentColor; opacity: .65; }
+  .discovery-worlds .pimolu-tabs__list { flex-wrap: wrap; height: auto; gap: 8px; }
+  .discovery-world-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; padding: clamp(24px, 4vw, 48px); border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: color-mix(in srgb, var(--pimolu-surface) 65%, var(--pimolu-background)); margin-block-start: 24px; }
+  .discovery-world-copy { display: grid; gap: 24px; min-width: 0; }
+  .discovery-world-copy h3 { margin: 0; font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.15; letter-spacing: -.045em; font-weight: 500; }
+  .discovery-world-copy > p:not(.home-eyebrow) { color: var(--pimolu-muted-foreground); line-height: 1.8; max-width: 380px; }
+  .discovery-commerce { display: grid; gap: 24px; min-width: 0; }
+  .discovery-commerce > .pimolu-image { width: 100%; aspect-ratio: 3 / 2; }
+  .discovery-game { padding: 28px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-background); color: var(--pimolu-foreground); }
+  .discovery-game-art { position: relative; display: grid; place-items: center; height: 180px; overflow: hidden; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-md); background: radial-gradient(ellipse at 80% 10%, color-mix(in srgb, var(--pimolu-primary) 28%, transparent), transparent 65%), var(--pimolu-surface); }
+  .discovery-game-art span { font: italic 7rem Georgia, serif; color: var(--pimolu-primary); }
+  .discovery-game-art i { position: absolute; width: 150px; height: 150px; border: 1px solid var(--pimolu-primary); border-radius: 50%; transform: rotate(-30deg) scaleX(1.6); opacity: .45; }
+  .discovery-serif { font-family: Georgia, serif; font-size: 1.5rem; font-weight: 400; margin: 0; }
+  .discovery-creative-art { display: grid; place-items: center; position: relative; height: 220px; overflow: hidden; background: color-mix(in srgb, var(--pimolu-primary) 12%, var(--pimolu-surface)); border-radius: var(--pimolu-radius-md); }
+  .discovery-creative-art .discovery-emblem { position: absolute; inset: 50% auto auto 50%; width: 112px; height: 128px; transform: translate(-50%, -50%); background: var(--pimolu-primary); mask: url("/icon.svg") center / contain no-repeat; z-index: 1; }
+  .discovery-creative-art i { position: absolute; inset: 50% auto auto 50%; width: 176px; height: 176px; border-radius: 50%; border: 1px solid var(--pimolu-primary); transform: translate(-50%, -50%); }
+  .discovery-creative-art--color { background: color-mix(in srgb, var(--pimolu-primary) 24%, var(--pimolu-background)); }
+  .discovery-creative-art--color i { background: color-mix(in srgb, var(--pimolu-primary) 25%, transparent); transform: translate(-50%, -50%); }
+  @media (max-width: 1100px) {
+    .discovery-strip { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .discovery-strip-item { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; }
+    .discovery-strip-item:last-child { grid-template-columns: minmax(0, 1fr); }
+    .discovery-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    .discovery-strip-item { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+    .discovery-gallery { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .discovery-specimen-preview { padding: 28px 20px; }
+    .discovery-specimen-heading { padding-inline: 20px; }
+    .discovery-specimen > .discovery-links { padding-inline: 20px; }
+    .discovery-world-layout { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+    .discovery-game { padding: 20px; }
+    .discovery-world-copy h3 { font-size: 2rem; }
+  }
+  @media (forced-colors: active) {
+    .discovery-audio-art, .discovery-game-art, .discovery-creative-art { border: 1px solid CanvasText; }
+    .discovery-audio-art i { background: CanvasText; }
+    .discovery-audio-art, .discovery-game-art span { color: CanvasText; }
+    .discovery-creative-art .discovery-emblem { background: CanvasText; }
+  }
+}

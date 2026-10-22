@@ -75,8 +75,12 @@ try {
       if (entry.family === "notification-center") await page.locator('.example-ready button[aria-expanded]').first().click();
       const selector = targets[entry.family] || `.pimolu-${entry.family}`;
       const selected = page.locator(`${selector}:visible`).nth(entry.family === "grid" ? 1 : 0);
-      const specimen = entry.family === "visually-hidden" ? selected.locator("..") : selected;
-      await specimen.waitFor({ state: "visible" });
+      const chosen = entry.family === "visually-hidden" ? selected.locator("..") : selected;
+      await chosen.waitFor({ state: "visible" });
+      // Keep this exact node after hiding siblings: a live :visible/nth locator
+      // would select a different grid once the surrounding specimens are hidden.
+      await chosen.evaluate((node) => node.setAttribute("data-catalog-specimen", "true"));
+      const specimen = page.locator('[data-catalog-specimen="true"]');
       if (["link", "label", "typography", "code", "badge"].includes(entry.family)) await specimen.evaluate((node) => { node.style.width = "max-content"; node.style.maxWidth = "100%"; });
       await specimen.scrollIntoViewIfNeeded();
       await specimen.locator("img").evaluateAll(async (images) => {

@@ -5,6 +5,7 @@
   .editorial-outline .pimolu-table-of-contents { padding: 0; }
   .editorial-art { position: relative; overflow: hidden; min-width: 0; background: var(--pimolu-surface); color: var(--pimolu-primary); border-radius: 16px; }
   .editorial-art svg { display: block; width: 100%; height: auto; }
+  .editorial-art-emblem { position: absolute; inset-block-start: 20px; inset-inline-end: 24px; width: 36px; height: 36px; background: var(--pimolu-primary); mask: url("/icon.svg") center / contain no-repeat; }
   .editorial-art-grid { stroke: var(--pimolu-border); opacity: .45; }
   .editorial-art-label { position: absolute; inset-inline-start: 24px; inset-block-end: 18px; color: var(--pimolu-muted-foreground); font-family: monospace; font-size: .625rem; letter-spacing: .04em; }
   .journal-page { width: min(calc(100% - 48px), 1180px); margin-inline: auto; padding-block: 64px 96px; }
