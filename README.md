@@ -128,7 +128,13 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development and is preparing its first public preview, **`0.1.0-beta.1`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. The five library packages build and pass `npm pack --dry-run`; no npm publish has been performed yet, and the public website preview still needs a hosting target. See [technical context](docs/ai/PROJECT_CONTEXT.md) and [CHANGELOG.md](CHANGELOG.md) for the verified architecture and current limits.
+Pimolu UI is under active development and has published its first public preview, **`0.1.0-beta.1`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. The five library packages are available on npm at `0.1.0-beta.1`, with both `latest` and `beta` tags:
+
+```bash
+pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+The public website preview still needs a hosting target. See [technical context](docs/ai/PROJECT_CONTEXT.md) and [CHANGELOG.md](CHANGELOG.md) for the verified architecture and current limits.
 
 ## Contributing
 

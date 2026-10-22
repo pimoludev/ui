@@ -22,7 +22,7 @@ test("journal articles and releases have unique routes, section anchors and hone
   assert.deepEqual(releaseNotes.map((entry) => entry.slug), ["0.1.0-beta.1", "unreleased"]);
   assert.equal(releaseNotes[0].tag, "v0.1.0-beta.1");
   assert.equal(releaseNotes[0].status, "Preview");
-  assert.ok(releaseNotes[0].sections.some((section) => section.items.some((item) => item.includes("npm pack --dry-run"))));
+  assert.ok(releaseNotes[0].sections.some((section) => section.items.some((item) => item.includes("published on npm"))));
   assert.ok(releaseNotes[1].sections.some((section) => section.items.some((item) => item.includes("0.1.0-beta.1"))));
   assert.ok(guides.find((guide) => guide.slug === "agents").sections.some((section) => section.paragraphs.some((text) => text.includes("no distributed Pimolu MCP server"))));
 });
@@ -41,7 +41,7 @@ test("RSS and llms.txt cover real content and escape XML metacharacters", async 
   for (const guide of guides) assert.ok(map.includes(`/docs${guide.slug ? `/${guide.slug}` : ""}`));
   assert.match(map, /0\.1\.0-beta\.1/);
   assert.ok(map.includes("/releases/0.1.0-beta.1"));
-  assert.match(map, /npm pack --dry-run/);
+  assert.match(map, /published on npm/);
   assert.ok(!map.includes("npx @pimolu"));
 });
 

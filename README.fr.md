@@ -128,7 +128,13 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif et prépare sa première prévisualisation publique, **`0.1.0-beta.1`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les cinq packages de la bibliothèque se buildent et passent `npm pack --dry-run` ; aucun package n'a encore été publié sur npm, et la preview publique du site attend un hébergeur. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) et le [CHANGELOG](CHANGELOG.md) pour l'architecture vérifiée et les limites actuelles.
+Pimolu UI est en développement actif et a publié sa première prévisualisation publique, **`0.1.0-beta.1`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.1`, avec les tags `latest` et `beta` :
+
+```bash
+pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+La preview publique du site attend encore un hébergeur. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) et le [CHANGELOG](CHANGELOG.md) pour l'architecture vérifiée et les limites actuelles.
 
 ## Contribution
 

@@ -32,10 +32,12 @@ change: these notes do not replace it.
   Run the website's own typecheck/lint/test/build/browser checks separately from
   root verify. The remaining examples and non-React registries are placeholders.
 - The five library packages (`@pimolu/design-tokens`, `@pimolu/themes`,
-  `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are prepared at
-  `0.1.0-beta.1`. `@pimolu/react` is a single ESM bundle with `"use client"` and
-  declarations; `@pimolu/core` compiles to ESM. All pass `npm pack --dry-run`;
-  no npm publish has been performed. The website stays private.
+  `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are published on npm
+  at `0.1.0-beta.1`; both `latest` and `beta` dist-tags point to it.
+  `@pimolu/react` is a single ESM bundle with `"use client"` and declarations;
+  `@pimolu/core` compiles to ESM. Install the beta with
+  `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`. The website stays
+  private and has no public preview deployment.
 - The release version is chosen by `.agents/skills/release-manager` from the
   commit range and the audit state. `CHANGELOG.md` records the preview and its
   known limits.

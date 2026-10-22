@@ -64,7 +64,8 @@ their appearance.
 
 ## Limits of the current architecture
 
-The React and Core packages expose TypeScript sources and have no publication
-build. Web components and visual data are separate, which prepares token reuse
-on other platforms, but no native or Angular implementation exists yet. Visual
-validation and end-to-end journeys have no automated runner.
+The React and Core packages compile to `dist/` and are published on npm at
+`0.1.0-beta.1` alongside the token, theme and web-style packages. Web components
+and visual data are separate, which prepares token reuse on other platforms, but
+no native or Angular implementation exists yet. Playwright covers the website;
+the full Playground visual matrix remains a manual review.

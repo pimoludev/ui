@@ -29,8 +29,8 @@ test("release index opens the tagged preview without claiming a publication", as
   await expect(page.getByRole("heading", { name: "0.1.0-beta.1" })).toBeVisible();
   await page.getByRole("link", { name: "Read the release notes" }).first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("0.1.0-beta.1");
-  await expect(page.locator("#packages")).toContainText("npm pack --dry-run");
-  await expect(page.getByText("no npm publish or public website deployment has been performed", { exact: false })).toBeVisible();
+  await expect(page.locator("#packages")).toContainText("published on npm");
+  await expect(page.getByText("no public website deployment has been performed", { exact: false })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Release navigation" }).getByRole("link", { name: "0.1.0-beta.1" })).toHaveAttribute("aria-current", "page");
 });
 

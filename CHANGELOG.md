@@ -20,9 +20,10 @@ the component API, visual review and distribution packaging may still change.
 - Design-token and theme packages generated from one source: primitive tokens,
   light/dark semantic themes and seven visual presets (`default`, `adaptive`,
   `cartoon`, `glass`, `luxury`, `monochrome`, `neo-brutalism`).
-- Publishable `@pimolu/design-tokens`, `@pimolu/themes`, `@pimolu/core`,
+- Published `@pimolu/design-tokens`, `@pimolu/themes`, `@pimolu/core`,
   `@pimolu/react` and `@pimolu/web-styles` packages with synchronized
-  `0.1.0-beta.1` versions, package READMEs and `npm pack` validation.
+  `0.1.0-beta.1` versions, package READMEs and `npm pack` validation. The
+  `latest` and `beta` dist-tags both point to `0.1.0-beta.1`.
 - A compiled `@pimolu/react` distribution: one ESM bundle with TypeScript
   declarations and the `"use client"` directive; `@pimolu/core` compiles to
   ESM and declarations as well.
@@ -64,8 +65,9 @@ the component API, visual review and distribution packaging may still change.
   full cross-browser gate remains open and was not rerun on this build.
 - The structural accessibility audit inspected 516 examples with zero findings.
   It is browser evidence, not an axe run or a WCAG conformance claim.
-- No npm package has been published. `npm pack --dry-run` passed for all five
-  packages.
+- All five packages are published on npm at `0.1.0-beta.1`; both `latest` and
+  `beta` dist-tags point to it. Install with
+  `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`.
 - The website preview requires a hosting provider; the production build succeeds
   locally but no public preview URL is attached to this entry.
 
@@ -84,9 +86,10 @@ the component API, visual review and distribution packaging may still change.
 - Des packages de tokens et de thèmes générés depuis une source unique : tokens
   primitifs, thèmes sémantiques clair/sombre et sept presets visuels (`default`,
   `adaptive`, `cartoon`, `glass`, `luxury`, `monochrome`, `neo-brutalism`).
-- Des packages publiables `@pimolu/design-tokens`, `@pimolu/themes`,
+- Des packages publiés `@pimolu/design-tokens`, `@pimolu/themes`,
   `@pimolu/core`, `@pimolu/react` et `@pimolu/web-styles`, avec la version
-  synchronisée `0.1.0-beta.1`, des README et une validation `npm pack`.
+  synchronisée `0.1.0-beta.1`, des README et une validation `npm pack`. Les
+  dist-tags `latest` et `beta` pointent tous deux vers `0.1.0-beta.1`.
 - Une distribution compilée de `@pimolu/react` : un bundle ESM unique avec les
   déclarations TypeScript et la directive `"use client"` ; `@pimolu/core` est
   aussi compilé en ESM avec ses déclarations.
@@ -131,8 +134,9 @@ the component API, visual review and distribution packaging may still change.
   pas été relancé sur ce build.
 - L'audit structurel d'accessibilité a inspecté 516 exemples sans finding. C'est
   une preuve navigateur, pas une exécution axe ni une certification WCAG.
-- Aucun package npm n'a été publié. `npm pack --dry-run` passe pour les cinq
-  packages.
+- Les cinq packages sont publiés sur npm en `0.1.0-beta.1` ; les dist-tags
+  `latest` et `beta` pointent tous deux vers cette version. Installation :
+  `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 

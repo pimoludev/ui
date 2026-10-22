@@ -14,13 +14,13 @@ export const releaseNotes: ReleaseNote[] = [{
   status: "Preview" as const,
   date: "2026-10-22",
   tag: "v0.1.0-beta.1",
-  summary: "The first public preview: five prepared packages, 129 component families and a complete documentation site.",
+  summary: "The first public preview: five published packages, 129 component families and a complete documentation site.",
   sections: [
-    { id: "packages", title: "Prepared packages", label: "Preview", items: [
+    { id: "packages", title: "Published packages", label: "npm beta", items: [
       "Five library packages share the 0.1.0-beta.1 version: design-tokens, themes, core, react and web-styles.",
-      "Every package passes npm pack --dry-run with its expected entry points and contents. No package has been published to npm.",
+      "All five are published on npm. The latest and beta dist-tags both point to 0.1.0-beta.1.",
       "React ships as one ESM bundle with TypeScript declarations and the use client directive; core compiles to ESM.",
-      "The tag v0.1.0-beta.1 marks the source state. A public npm release and a deployed preview remain separate decisions.",
+      "Install with pnpm add @pimolu/react@beta @pimolu/web-styles@beta. The tag v0.1.0-beta.1 marks the source state; no public website preview is deployed.",
     ] },
     { id: "library", title: "The library", label: "Available in the source", items: [
       "129 React component families, from everyday controls to data surfaces, application layouts and media.",
@@ -36,7 +36,7 @@ export const releaseNotes: ReleaseNote[] = [{
       "The component API and visual tokens may still change before 0.1.0 stable.",
       "The full 131-page visual matrix across seven presets and both modes is not finished.",
       "The seven complex-component assistive-technology reviews and the complete Firefox/WebKit gate remain open.",
-      "No npm package or public website preview is live yet; this entry records the prepared source release.",
+      "The npm packages are live at 0.1.0-beta.1; the public website preview is not deployed.",
     ] },
   ],
 }, {
@@ -61,7 +61,7 @@ export const releaseNotes: ReleaseNote[] = [{
       "Kanban capacity limits no longer mark operable cards in full columns as disabled.",
     ] },
     { id: "before-release", title: "Before a public release", label: "Still in progress", items: [
-      "The library packages are prepared at 0.1.0-beta.1, but no npm publication or supported installation CLI is announced.",
+      "The library packages are published on npm at 0.1.0-beta.1. Install the beta with pnpm add @pimolu/react@beta @pimolu/web-styles@beta; a component-copy CLI is not announced.",
       "Deeper assistive-technology and visual review remains necessary for complex families and complete application workflows.",
       "React Native, Angular, direct CDN adapters and a Pimolu MCP server remain future directions.",
     ] },
