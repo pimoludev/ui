@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <div className="site-footer">
             <Footer appearance="transparent" bordered={false} brand={<Link href="/" variant="muted">Pimolu UI</Link>}
               description="One system. Your identity."
-              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Theming guide", href: "/docs/theming" }, { label: "Releases", href: "/releases" }, { label: "Blog", href: "/blog" }] }, { title: "Community", links: [{ label: <SocialLinkLabel name="GitHub" />, href: "https://github.com/pimoludev/ui", external: true }, { label: <SocialLinkLabel name="Discord" />, href: "https://discord.gg/b2UDyvKAcH", external: true }] }]}
+              columns={[{ title: "Explore", links: [{ label: "Documentation", href: "/docs" }, { label: "Components", href: "/components" }, { label: "Theming guide", href: "/docs/theming" }, { label: "Releases", href: "/releases" }, { label: "Blog", href: "/blog" }] }, { title: "Community", links: [{ label: <SocialLinkLabel name="GitHub" />, href: "https://github.com/pimoludev/ui", external: true }, { label: <SocialLinkLabel name="Discord" />, href: "https://discord.gg/b2UDyvKAcH", external: true }, { label: <SocialLinkLabel name="npm" />, href: "https://www.npmjs.com/org/pimolu", external: true }] }]}
               copyright="Pimolu UI · MIT License" />
           </div>
         </SiteProvider>

@@ -146,7 +146,9 @@ Pimolu UI est en développement actif et a publié sa première prévisualisatio
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 ```
 
-La preview publique du site attend encore un hébergeur. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) et le [CHANGELOG](CHANGELOG.md) pour l'architecture vérifiée et les limites actuelles.
+Retrouvez les cinq packages dans l'[organisation Pimolu sur npm](https://www.npmjs.com/org/pimolu).
+
+Le code source du site de documentation se trouve dans `apps/website`. Consultez le [contexte technique](docs/ai/PROJECT_CONTEXT.md) et le [CHANGELOG](CHANGELOG.md) pour l'architecture vérifiée et les limites actuelles.
 
 ## Contribution
 

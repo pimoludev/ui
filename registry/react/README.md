@@ -1,39 +1,49 @@
 # @pimolu/react
 
-Accessible React components for Pimolu UI, built on plain CSS and semantic design tokens.
+Accessible React components, hooks and application layouts built on Pimolu's shared design system. The beta includes 129 component families, from Button and Form to DataGrid and DashboardLayout.
 
-> **0.1.0-beta.1** — preview release. The public component API may still change.
+> **0.1.0-beta.1** is a preview release. Component APIs may change before 1.0.
 
 ## Install
 
 ```bash
-pnpm add @pimolu/react @pimolu/web-styles
+pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 ```
 
-`react` and `react-dom` 18 or 19 are peer dependencies.
+React and React DOM 18 or 19 are peer dependencies. The CSS ships separately so applications can load it once.
 
 ## Use
 
+In your global stylesheet (for example, `app/globals.css` in Next.js):
+
+```css
+@import "@pimolu/web-styles/styles.css";
+```
+
+In a client component:
+
 ```tsx
+"use client";
+
 import { Button, PimoluProvider } from "@pimolu/react";
-import "@pimolu/web-styles/styles.css";
 
 export function App() {
   return (
-    <PimoluProvider theme="light" stylePreset="default">
-      <Button>Try Pimolu</Button>
+    <PimoluProvider defaultTheme="system" defaultStylePreset="default">
+      <Button onClick={() => alert("Welcome to Pimolu")}>
+        Try Pimolu
+      </Button>
     </PimoluProvider>
   );
 }
 ```
 
-The package is ESM-only, ships a single tree-shakeable bundle with declarations,
-and includes the `"use client"` directive for React Server Components. The
-companion stylesheet is imported separately from `@pimolu/web-styles`.
+`PimoluProvider` supplies the colour mode and style preset. Components use Pimolu CSS variables; change the provider preferences or override semantic tokens to match your product. The package is ESM-only and its entry includes `"use client"` for React Server Component environments.
 
-The 0.1 beta includes 129 component families. See the documentation site for
-props, live examples and accessibility notes.
+Browse the [component catalogue](https://pimolu.com/components) for live examples, API tables and accessibility notes, or follow the [quick start](https://pimolu.com/docs/quick-start) for app setup.
 
-Documentation: <https://github.com/pimoludev/ui>
+## Links
+
+[All npm packages](https://www.npmjs.com/org/pimolu) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react) · [Report an issue](https://github.com/pimoludev/ui/issues)
 
 MIT © Pimolu

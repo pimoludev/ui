@@ -36,6 +36,7 @@ export function SiteHeader() {
           <SiteAppearance />
           <NavbarItem className="site-social-link" href="https://discord.gg/b2UDyvKAcH" aria-label="Discord" title="Discord" target="_blank" rel="noopener noreferrer"><SocialIcon name="Discord" /></NavbarItem>
           <NavbarItem className="site-social-link" href="https://github.com/pimoludev/ui" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><SocialIcon name="GitHub" /></NavbarItem>
+          <NavbarItem className="site-social-link" href="https://www.npmjs.com/org/pimolu" aria-label="Pimolu packages on npm" title="Pimolu packages on npm" target="_blank" rel="noopener noreferrer"><SocialIcon name="npm" /></NavbarItem>
         </NavbarActions>
       </Navbar>
     </div>

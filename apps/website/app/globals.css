@@ -37,6 +37,7 @@
   .site-social-link.pimolu-navbar__item { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 8px; box-sizing: border-box; flex: none; }
   .site-social-label { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; vertical-align: middle; }
   .site-social-link svg, .site-social-label svg { flex: none; }
+  .site-npm-icon { display: inline-block; font: 800 12px/1 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: -.09em; }
   .site-footer .pimolu-footer__links:has(.site-social-label) { display: flex; gap: 8px; }
   .site-footer .pimolu-footer__link:has(.site-social-label) .pimolu-link__external { display: none; }
   /* This header-only panel has a stable trailing edge even on its first portal
