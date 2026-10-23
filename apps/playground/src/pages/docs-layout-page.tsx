@@ -1,3 +1,4 @@
+import { MotionCompatibilityExample } from "../motion-compatibility-example";
 import type {
   MouseEvent,
   ReactNode,
@@ -411,6 +412,7 @@ export function DocsLayoutPage() {
           </p>
         </div>
       </Section>
+      <MotionCompatibilityExample target="DocsLayout" />
     </>
   );
 }

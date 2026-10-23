@@ -25,7 +25,9 @@ function sectionUrl(id: string) {
   return `${withoutHash}#${id}`;
 }
 
-export function Anchor({
+import { forwardRef } from "react";
+export const Anchor = forwardRef<HTMLDivElement, PimoluAnchorProps>(function Anchor({
+  style: motionStyle,
   id,
   level = 2,
   children,
@@ -34,7 +36,7 @@ export function Anchor({
   onCopy,
   className,
   ...props
-}: PimoluAnchorProps) {
+}, ref) {
   const [copied, setCopied] = useState(false);
   const feedbackTimer = useRef<
     ReturnType<typeof setTimeout> | undefined
@@ -93,7 +95,7 @@ export function Anchor({
     (props["aria-label"] != null ? undefined : labelId);
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       data-level={level}
       className={classes("pimolu-anchor", className)}
     >
@@ -133,6 +135,6 @@ export function Anchor({
       </span>
     </div>
   );
-}
+});
 
 Anchor.displayName = "PimoluAnchor";

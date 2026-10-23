@@ -653,7 +653,10 @@ function KanbanCardView({
    BOARD
 ========================================= */
 
-export function Kanban({
+import { forwardRef } from "react";
+import { useMergedRefs } from "../internal/use-merged-refs";
+export const Kanban = forwardRef<HTMLDivElement, PimoluKanbanProps>(function Kanban({
+  style: motionStyle,
   columns: controlledColumns,
   defaultColumns,
   onColumnsChange,
@@ -665,7 +668,7 @@ export function Kanban({
   "aria-label": ariaLabel,
   "aria-describedby": ariaDescribedBy,
   ...props
-}: PimoluKanbanProps) {
+}, ref) {
   const labels: PimoluKanbanLabels = {
     ...defaultLabels,
     ...labelOverrides,
@@ -960,10 +963,12 @@ export function Kanban({
     .filter(Boolean)
     .join(" ");
 
+  const mergedMotionRef = useMergedRefs(ref, rootRef);
+
   return (
-    <div
+    <div style={motionStyle}
       {...props}
-      ref={rootRef}
+      ref={mergedMotionRef}
       role={props.role ?? "region"}
       aria-label={ariaLabel ?? labels.board}
       aria-describedby={
@@ -1148,4 +1153,6 @@ export function Kanban({
       </div>
     </div>
   );
-}
+});
+
+Kanban.displayName = "PimoluKanban";

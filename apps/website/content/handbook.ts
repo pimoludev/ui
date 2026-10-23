@@ -61,12 +61,76 @@ export const handbookGuides: GuideDoc[] = [
   },
   {
     slug: "animation", title: "Animation", group: "Design system",
-    description: "Motion should explain a change and respect the person using it.",
+    description: "Use CSS by default, or opt into Pimolu Motion components and portal transitions.",
     sections: [
-      { id: "purpose", title: "Animate a meaningful transition", paragraphs: ["Use a short transition to clarify hover, opening or a state change. Avoid perpetual movement around forms and reading content. Preserve the final state when motion is reduced; an animation should never be required to understand the interface.", "Pimolu's shared CSS includes reduced-motion treatments. Review custom application animation separately, including components with continuous progress or media."] },
-      { id: "css", title: "Provide a quiet CSS alternative", paragraphs: ["Keep motion scoped to the element that changes. Avoid transition: all and layout shifts during keyboard navigation."], language: "css", code: ".resource-link {\n  transition: border-color 160ms ease;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .resource-link {\n    transition: none;\n  }\n}" },
-      { id: "motion", title: "Using Motion in an application", paragraphs: ["This website already uses motion/react. Motion is an application dependency, not a required Pimolu peer dependency. If your application uses it, configure reducedMotion on MotionConfig and choose an appropriate static state.", "Do not add a second animation framework just to animate Pimolu. Verify focus, Escape and dismissal during animated overlays, not only after their transition finishes."], language: "tsx", code: '"use client";\n\nimport type { ReactNode } from "react";\nimport { MotionConfig, motion } from "motion/react";\n\nexport function Reveal({ children }: { children: ReactNode }) {\n  return (\n    <MotionConfig reducedMotion="user">\n      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>\n        {children}\n      </motion.div>\n    </MotionConfig>\n  );\n}' },
+  {
+    "id": "purpose",
+    "title": "Motion remains optional",
+    "paragraphs": [
+      "Pimolu works with its existing CSS transitions by default. @pimolu/react never imports Motion. Applications that need gesture, layout or portal animations can opt into the separate @pimolu/motion adapter.",
+      "The new module is implemented in this repository but has not been published on npm. Its provider and DOM-ref changes also require this workspace build; they are not part of the published 0.1.0-beta.1 React package. The five existing npm packages remain unchanged until the next coordinated release."
+    ]
+  },
+  {
+    "id": "setup",
+    "title": "Try the workspace module",
+    "paragraphs": [
+      "Inside this pnpm workspace, declare @pimolu/motion as workspace:* and install motion in the consuming application. Run pnpm install and pnpm build:all from the repository root. Continue loading @pimolu/web-styles/styles.css from globals.css.",
+      "After the module and its compatible React version are published, installation will become pnpm add @pimolu/motion motion. Do not run that command against npm before publication."
+    ]
+  },
+  {
+    "id": "motion-components",
+    "title": "Animate a Pimolu component",
+    "paragraphs": [
+      "MotionButton retains the Button API, DOM ref, classes and tokens. It consumes Motion props such as whileHover, whileTap, animate, layout and transition. Disabled or loading buttons suppress interactive hover, tap, focus and drag gestures.",
+      "Adapters default to the user's reduced-motion preference. Spatial and layout animations are reduced; Motion can still animate opacity. Animate properties that do not compete with the component's own positioning or drag behavior."
     ],
+    "language": "tsx",
+    "code": "\"use client\";\n\nimport { MotionButton } from \"@pimolu/motion\";\n\nexport function AnimatedAction() {\n  return (\n    <MotionButton\n      whileHover={{ scale: 1.05 }}\n      whileTap={{ scale: 0.95 }}\n      transition={{ type: \"spring\" }}\n    >\n      Save changes\n    </MotionButton>\n  );\n}"
+  },
+  {
+    "id": "global-engine",
+    "title": "Opt into the global engine",
+    "paragraphs": [
+      "Supply motionEngine explicitly to PimoluProvider. Passing a driver object keeps Motion outside the core dependency graph; a magic string would require a hidden Motion import or registration. Classic Pimolu buttons gain subtle feedback, and supported panels use the driver's entrance and exit durations.",
+      "The driver covers Dialog, AlertDialog, Drawer, Popover, dropdown/context/navigation menus, Menubar, HoverCard, Tooltip, Toast, Tabs and Accordion. Components built on these primitives inherit the integration. Custom imperative charts, canvases, media playback and virtualized rows keep their own behavior; the engine does not animate every DOM node.",
+      "Pimolu keeps mounting, keyboard navigation, positioning, focus restoration and scroll lock. Closing surfaces become inert until removal, and reopening cancels the obsolete exit. Reduced motion closes retained surfaces immediately."
+    ],
+    "language": "tsx",
+    "code": "\"use client\";\n\nimport type { ReactNode } from \"react\";\nimport { PimoluProvider } from \"@pimolu/react\";\nimport { motionEngine } from \"@pimolu/motion\";\n\nexport function Providers({ children }: { children: ReactNode }) {\n  return (\n    <PimoluProvider animationEngine={motionEngine}>\n      {children}\n    </PimoluProvider>\n  );\n}"
+  },
+  {
+    "id": "portal",
+    "title": "Animate a portal without changing its API",
+    "paragraphs": [
+      "MotionDialog, MotionDrawer and other logical roots enable the engine for their descendants and portals. They retain the original Pimolu props; logical roots do not accept DOM animation props such as whileHover. Keep using the existing content and title components.",
+      "Do not assume AnimatePresence controls a panel that Pimolu mounts internally. For arbitrary custom motion inside a panel, compose MotionBox. Keep durations bounded so focus restoration and body scroll lock finish promptly."
+    ],
+    "language": "tsx",
+    "code": "\"use client\";\n\nimport {\n  Button,\n  DialogContent,\n  DialogTitle,\n  DialogTrigger,\n} from \"@pimolu/react\";\nimport { MotionDialog } from \"@pimolu/motion\";\n\nexport function AnimatedDialog() {\n  return (\n    <MotionDialog>\n      <DialogTrigger>\n        <Button>Open dialog</Button>\n      </DialogTrigger>\n      <DialogContent>\n        <DialogTitle>Your workspace</DialogTitle>\n        <p>Focus and Escape are managed by Pimolu.</p>\n      </DialogContent>\n    </MotionDialog>\n  );\n}"
+  },
+  {
+    "id": "contracts",
+    "title": "Know the animation target",
+    "paragraphs": [
+        "Ordinary CSS feedback now shares generated timing tokens: 120ms feedback, 150ms controls, 180ms entrances and 200ms layout. CSS exit durations retain their existing presence contract. Use pimoluMotionPresets.press, reveal or layout from the optional module for springs, coordinated exits or keyed reordering. Override Motion props after spreading a recipe. Compare both engines on the Playground's Motion integration page before choosing one for your application.",
+      "motionComponentModes identifies every exported adapter: dom targets animate the same native element as their public ref; container targets animate a local outer surface while keeping the public ref on the original control; engine targets retain the original compound or generic API and enable inherited panel behavior.",
+      "For example, MotionCombobox animates an outer surface while its ref still points to the input. MotionDataGrid keeps its generic row inference and is an engine target: wrap it in MotionBox if you want to animate the complete grid. Public imperative refs are never silently replaced by DOM refs.",
+      "A CSS-only subtree can override an inherited driver with animationEngine=css. MotionProvider is an alternative when the theme Provider already exists. Create custom drivers with createMotionEngine({ enterDuration, exitDuration, interactions }); durations are milliseconds between 0 and 10000.",
+      "A transform establishes a containing block for fixed descendants. Prefer opacity for application layouts containing viewport-fixed UI. Test keyboard focus, Escape, rapid reopening, RTL and every preset in the actual application."
+    ]
+  },
+  {
+    "id": "local-css",
+    "title": "Keep a subtree on CSS",
+    "paragraphs": [
+      "Explicit Motion components remain opt-in. A nested PimoluProvider with animationEngine=css blocks the inherited global driver for its subtree and portals."
+    ],
+    "language": "tsx",
+    "code": "\"use client\";\n\nimport { Button, PimoluProvider } from \"@pimolu/react\";\nimport { motionEngine } from \"@pimolu/motion\";\n\nexport function MixedAnimation() {\n  return (\n    <PimoluProvider animationEngine={motionEngine}>\n      <Button>Motion feedback</Button>\n      <PimoluProvider animationEngine=\"css\">\n        <Button>CSS feedback</Button>\n      </PimoluProvider>\n    </PimoluProvider>\n  );\n}"
+  }
+],
   },
   {
     slug: "composition", title: "Composition", group: "Design system",

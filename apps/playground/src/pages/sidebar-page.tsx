@@ -1,3 +1,4 @@
+import { MotionCompatibilityExample } from "../motion-compatibility-example";
 import {
   Card,
   CardContent,
@@ -123,6 +124,7 @@ export function SidebarPage() {
           </div>
         </div>
       </Section>
+      <MotionCompatibilityExample target="Sidebar" />
     </>
   );
 }

@@ -247,7 +247,7 @@
 
   cursor: pointer;
 
-  transition: color 150ms ease;
+  transition: color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-data-grid__sort-button:hover {
@@ -294,7 +294,7 @@
   cursor: col-resize;
   touch-action: none;
 
-  transition: background-color 120ms ease;
+  transition: background-color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-data-grid__resizer::after {
@@ -309,8 +309,7 @@
   background: var(--pimolu-border);
 
   transition:
-    background-color 120ms ease,
-    width 120ms ease;
+    background-color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-data-grid__resizer:hover::after,
@@ -433,7 +432,7 @@
   font-size: 0.75rem;
   line-height: 1;
 
-  transition: transform 120ms ease;
+  transition: transform var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-data-grid__group-chevron[data-expanded="true"] {

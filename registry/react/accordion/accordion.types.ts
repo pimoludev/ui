@@ -50,14 +50,23 @@ export interface PimoluAccordionItemProps {
   children: ReactNode;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluAccordionTriggerProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluAccordionContentProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

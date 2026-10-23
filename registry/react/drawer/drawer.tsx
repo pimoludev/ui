@@ -1,4 +1,5 @@
 "use client";
+import { usePimoluAnimationEngine } from "../animation/animation-engine";
 
 import {
   cloneElement,
@@ -145,6 +146,7 @@ function useDrawer(component: string) {
    ROOT
 ========================================= */
 
+import { forwardRef } from "react";
 export function Drawer({
   children,
   open: controlledOpen,
@@ -332,6 +334,7 @@ function DrawerSurface({
   onClose,
   children,
 }: DrawerSurfaceProps) {
+  const animationEngine = usePimoluAnimationEngine();
   useFocusTrap({
     active: open,
     containerRef: contentRef,
@@ -345,6 +348,7 @@ function DrawerSurface({
     const content = contentRef.current;
 
     if (!content) return;
+    if (animationEngine) content.inert = false;
 
     /*
      * Footer actions are often destructive and sit at the bottom of a long
@@ -361,7 +365,7 @@ function DrawerSurface({
     );
 
     (preferred ?? content).focus();
-  }, [open, contentRef]);
+  }, [open, contentRef, animationEngine]);
 
   return (
     <div
@@ -494,12 +498,13 @@ export function DrawerContent({
    HEADER & FOOTER
 ========================================= */
 
-export function DrawerHeader({
+export const DrawerHeader = forwardRef<HTMLDivElement, PimoluDrawerHeaderProps>(function DrawerHeader({
+  style: motionStyle,
   children,
   className,
-}: PimoluDrawerHeaderProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-drawer__header",
         className
@@ -508,14 +513,17 @@ export function DrawerHeader({
       {children}
     </div>
   );
-}
+});
 
-export function DrawerFooter({
+DrawerHeader.displayName = "PimoluDrawerHeader";
+
+export const DrawerFooter = forwardRef<HTMLDivElement, PimoluDrawerFooterProps>(function DrawerFooter({
+  style: motionStyle,
   children,
   className,
-}: PimoluDrawerFooterProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-drawer__footer",
         className
@@ -524,17 +532,20 @@ export function DrawerFooter({
       {children}
     </div>
   );
-}
+});
+
+DrawerFooter.displayName = "PimoluDrawerFooter";
 
 /* =========================================
    TITLE & DESCRIPTION
 ========================================= */
 
-export function DrawerTitle({
+export const DrawerTitle = forwardRef<HTMLHeadingElement, PimoluDrawerTitleProps>(function DrawerTitle({
+  style: motionStyle,
   children,
   id,
   className,
-}: PimoluDrawerTitleProps) {
+}, ref) {
   const { setTitleId } = useDrawer("DrawerTitle");
 
   const generatedId = useId();
@@ -552,7 +563,7 @@ export function DrawerTitle({
   }, [setTitleId, titleId]);
 
   return (
-    <h2
+    <h2 ref={ref} style={motionStyle}
       id={titleId}
       className={classes(
         "pimolu-drawer__title",
@@ -562,13 +573,16 @@ export function DrawerTitle({
       {children}
     </h2>
   );
-}
+});
 
-export function DrawerDescription({
+DrawerTitle.displayName = "PimoluDrawerTitle";
+
+export const DrawerDescription = forwardRef<HTMLParagraphElement, PimoluDrawerDescriptionProps>(function DrawerDescription({
+  style: motionStyle,
   children,
   id,
   className,
-}: PimoluDrawerDescriptionProps) {
+}, ref) {
   const { setDescriptionId } =
     useDrawer("DrawerDescription");
 
@@ -587,7 +601,7 @@ export function DrawerDescription({
   }, [setDescriptionId, descriptionId]);
 
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       id={descriptionId}
       className={classes(
         "pimolu-drawer__description",
@@ -597,7 +611,9 @@ export function DrawerDescription({
       {children}
     </p>
   );
-}
+});
+
+DrawerDescription.displayName = "PimoluDrawerDescription";
 
 /* =========================================
    CLOSE

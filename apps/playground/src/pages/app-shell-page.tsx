@@ -1,3 +1,4 @@
+import { MotionCompatibilityExample } from "../motion-compatibility-example";
 import {
   AppShell,
   Badge,
@@ -294,6 +295,7 @@ export function AppShellPage() {
           <WorkspaceContent />
         </AppShell>
       </Section>
+      <MotionCompatibilityExample target="AppShell" />
     </>
   );
 }

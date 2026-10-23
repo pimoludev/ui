@@ -1,3 +1,4 @@
+import { MotionCompatibilityExample } from "../motion-compatibility-example";
 import {
   Badge,
   Button,
@@ -354,6 +355,7 @@ export function DashboardLayoutPage() {
           <DashboardContent />
         </DashboardLayout>
       </Section>
+      <MotionCompatibilityExample target="DashboardLayout" />
     </>
   );
 }

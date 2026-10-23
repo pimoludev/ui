@@ -1,5 +1,7 @@
 "use client";
 
+import { usePresence } from "../internal/use-presence";
+
 import {
   createContext,
   useContext,
@@ -105,13 +107,16 @@ function useNavigationMenuItem(component: string) {
    ROOT
 ========================================= */
 
-export function NavigationMenu({
+import { forwardRef } from "react";
+import { useMergedRefs } from "../internal/use-merged-refs";
+export const NavigationMenu = forwardRef<HTMLElement, PimoluNavigationMenuProps>(function NavigationMenu({
+  style: motionStyle,
   children,
   label,
   "aria-label": ariaLabel,
   className,
   ...props
-}: PimoluNavigationMenuProps) {
+}, ref) {
   const [openValue, setOpenValue] = useState<string | null>(
     null
   );
@@ -144,6 +149,8 @@ export function NavigationMenu({
       document.removeEventListener("keydown", handleKeyDown);
   }, [baseId, openValue]);
 
+  const mergedMotionRef = useMergedRefs(ref, rootRef);
+
   return (
     <NavigationMenuContext.Provider
       value={{
@@ -153,9 +160,9 @@ export function NavigationMenu({
         rootRef,
       }}
     >
-      <nav
+      <nav style={motionStyle}
         {...props}
-        ref={rootRef}
+        ref={mergedMotionRef}
         aria-label={ariaLabel ?? label ?? "Main"}
         className={classes(
           "pimolu-navigation-menu",
@@ -166,19 +173,22 @@ export function NavigationMenu({
       </nav>
     </NavigationMenuContext.Provider>
   );
-}
+});
+
+NavigationMenu.displayName = "PimoluNavigationMenu";
 
 /* =========================================
    LIST
 ========================================= */
 
-export function NavigationMenuList({
+export const NavigationMenuList = forwardRef<HTMLUListElement, PimoluNavigationMenuListProps>(function NavigationMenuList({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluNavigationMenuListProps) {
+}, ref) {
   return (
-    <ul
+    <ul ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-navigation-menu__list",
@@ -188,14 +198,17 @@ export function NavigationMenuList({
       {children}
     </ul>
   );
-}
+});
 
-export function NavigationMenuItem({
+NavigationMenuList.displayName = "PimoluNavigationMenuList";
+
+export const NavigationMenuItem = forwardRef<HTMLLIElement, PimoluNavigationMenuItemProps>(function NavigationMenuItem({
+  style: motionStyle,
   value,
   children,
   className,
   ...props
-}: PimoluNavigationMenuItemProps) {
+}, ref) {
   const root = useNavigationMenu("NavigationMenuItem");
 
   const triggerId = `${root.baseId}-trigger-${slug(value)}`;
@@ -205,7 +218,7 @@ export function NavigationMenuItem({
     <NavigationMenuItemContext.Provider
       value={{ value, triggerId, contentId }}
     >
-      <li
+      <li ref={ref} style={motionStyle}
         {...props}
         className={classes(
           "pimolu-navigation-menu__item",
@@ -219,16 +232,19 @@ export function NavigationMenuItem({
       </li>
     </NavigationMenuItemContext.Provider>
   );
-}
+});
+
+NavigationMenuItem.displayName = "PimoluNavigationMenuItem";
 
 /* =========================================
    TRIGGER
 ========================================= */
 
-export function NavigationMenuTrigger({
+export const NavigationMenuTrigger = forwardRef<HTMLButtonElement, PimoluNavigationMenuTriggerProps>(function NavigationMenuTrigger({
+  style: motionStyle,
   children,
   className,
-}: PimoluNavigationMenuTriggerProps) {
+}, ref) {
   const root = useNavigationMenu("NavigationMenuTrigger");
   const item = useNavigationMenuItem("NavigationMenuTrigger");
 
@@ -263,7 +279,7 @@ export function NavigationMenuTrigger({
   }
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       type="button"
       id={item.triggerId}
       aria-expanded={open}
@@ -283,27 +299,32 @@ export function NavigationMenuTrigger({
       <Chevron />
     </button>
   );
-}
+});
+
+NavigationMenuTrigger.displayName = "PimoluNavigationMenuTrigger";
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function NavigationMenuContent({
+export const NavigationMenuContent = forwardRef<HTMLDivElement, PimoluNavigationMenuContentProps>(function NavigationMenuContent({
+  style: motionStyle,
   children,
   className,
-}: PimoluNavigationMenuContentProps) {
+}, ref) {
   const root = useNavigationMenu("NavigationMenuContent");
   const item = useNavigationMenuItem("NavigationMenuContent");
 
   const open = root.openValue === item.value;
+  const { rendered, state } = usePresence(open, 0);
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       id={item.contentId}
       aria-labelledby={item.triggerId}
-      hidden={!open}
-      data-state={open ? "open" : "closed"}
+      hidden={!rendered}
+      aria-hidden={!open || undefined}
+      data-state={rendered ? state : "closed"}
       className={classes(
         "pimolu-navigation-menu__content",
         className
@@ -312,7 +333,9 @@ export function NavigationMenuContent({
       {children}
     </div>
   );
-}
+});
+
+NavigationMenuContent.displayName = "PimoluNavigationMenuContent";
 
 /* =========================================
    LINK

@@ -265,15 +265,17 @@ export function DropdownMenuContent({
   );
 }
 
-export function DropdownMenuItem({
+import { forwardRef } from "react";
+export const DropdownMenuItem = forwardRef<HTMLButtonElement, PimoluDropdownMenuItemProps>(function DropdownMenuItem({
+  style: motionStyle,
   children,
   onSelect,
   disabled = false,
-}: PimoluDropdownMenuItemProps) {
+}, ref) {
   const menu = useMenu("DropdownMenuItem");
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       type="button"
       role="menuitem"
       tabIndex={-1}
@@ -289,13 +291,16 @@ export function DropdownMenuItem({
       {children}
     </button>
   );
-}
+});
 
-export function DropdownMenuSeparator({
+DropdownMenuItem.displayName = "PimoluDropdownMenuItem";
+
+export const DropdownMenuSeparator = forwardRef<HTMLDivElement, PimoluDropdownMenuSeparatorProps>(function DropdownMenuSeparator({
+  style: motionStyle,
   className,
-}: PimoluDropdownMenuSeparatorProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       role="separator"
       className={[
         "pimolu-dropdown-menu__separator",
@@ -305,14 +310,17 @@ export function DropdownMenuSeparator({
         .join(" ")}
     />
   );
-}
+});
 
-export function DropdownMenuLabel({
+DropdownMenuSeparator.displayName = "PimoluDropdownMenuSeparator";
+
+export const DropdownMenuLabel = forwardRef<HTMLDivElement, PimoluDropdownMenuLabelProps>(function DropdownMenuLabel({
+  style: motionStyle,
   children,
   className,
-}: PimoluDropdownMenuLabelProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={[
         "pimolu-dropdown-menu__label",
         className,
@@ -323,4 +331,6 @@ export function DropdownMenuLabel({
       {children}
     </div>
   );
-}
+});
+
+DropdownMenuLabel.displayName = "PimoluDropdownMenuLabel";

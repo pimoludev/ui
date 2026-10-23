@@ -40,7 +40,9 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function Stepper({
+import { forwardRef } from "react";
+export const Stepper = forwardRef<HTMLOListElement, PimoluStepperProps>(function Stepper({
+  style: motionStyle,
   children,
   activeStep: controlledActiveStep,
   defaultActiveStep = 1,
@@ -49,7 +51,7 @@ export function Stepper({
   clickable = false,
   "aria-label": ariaLabel,
   className,
-}: PimoluStepperProps) {
+}, ref) {
   const [uncontrolledStep, setUncontrolledStep] =
     useState(defaultActiveStep);
 
@@ -75,7 +77,7 @@ export function Stepper({
         onStepChange: change,
       }}
     >
-      <ol
+      <ol ref={ref} style={motionStyle}
         aria-label={ariaLabel}
         className={classes(
           "pimolu-stepper",
@@ -87,16 +89,19 @@ export function Stepper({
       </ol>
     </StepperContext.Provider>
   );
-}
+});
 
-export function StepperItem({
+Stepper.displayName = "PimoluStepper";
+
+export const StepperItem = forwardRef<HTMLLIElement, PimoluStepperItemProps>(function StepperItem({
+  style: motionStyle,
   step,
   title,
   description,
   disabled = false,
   children,
   className,
-}: PimoluStepperItemProps) {
+}, ref) {
   const stepper = useStepper("StepperItem");
 
   const state =
@@ -134,7 +139,7 @@ export function StepperItem({
   );
 
   return (
-    <li
+    <li ref={ref} style={motionStyle}
       className={classes(
         "pimolu-stepper__item",
         className
@@ -159,4 +164,6 @@ export function StepperItem({
       )}
     </li>
   );
-}
+});
+
+StepperItem.displayName = "PimoluStepperItem";

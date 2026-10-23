@@ -73,9 +73,9 @@
   cursor: pointer;
 
   transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    box-shadow 120ms ease;
+    background-color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    box-shadow var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-color-picker__trigger:hover:not(:disabled) {
@@ -376,8 +376,8 @@
   cursor: pointer;
 
   transition:
-    transform 120ms ease,
-    box-shadow 120ms ease;
+    transform var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    box-shadow var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-color-picker__preset:hover:not(:disabled) {

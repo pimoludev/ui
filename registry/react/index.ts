@@ -1,5 +1,7 @@
 
 export { Button } from "./button/button";
+export { PimoluAnimationProvider, usePimoluAnimationEngine } from "./animation/animation-engine";
+export type { PimoluAnimationEngine } from "./animation/animation-engine";
 export type { ButtonProps } from "./button/button";
 
 export { buttonVariantMap } from "./button/button.variants";

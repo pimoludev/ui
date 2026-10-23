@@ -13,6 +13,10 @@ test('builds shared tokens and light/dark themes', async () => {
   const css = await readFile(resolve(root, 'packages/themes/dist/styles.css'), 'utf8');
   assert.equal(tokens.spacing['4'], 16);
   assert.equal(tokens.radius.md, 10);
+  const { pimoluMotionTokens } = await import('../dist/motion.js');
+  assert.deepEqual(pimoluMotionTokens, tokens.motion);
+  assert.match(css, /--pimolu-motion-duration-control: 150ms/);
+  assert.match(css, /--pimolu-motion-easing-standard: cubic-bezier\(0.2, 0, 0, 1\)/);
   assert.equal(themes.light.primary, '#4F46E5');
   assert.equal(themes.dark.primary, '#818CF8');
   assert.match(css, /\[data-pimolu-theme="dark"\]/);

@@ -1,5 +1,7 @@
 "use client";
 
+import { usePimoluExitDuration } from "../animation/animation-engine";
+
 import {
   cloneElement,
   isValidElement,
@@ -63,6 +65,8 @@ export function Tooltip({
 
   const triggerRef = useRef<HTMLElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+
+  const exitDuration = usePimoluExitDuration(EXIT_DURATION);
 
   const openTimer = useRef<ReturnType<
     typeof setTimeout
@@ -137,7 +141,7 @@ export function Tooltip({
 
     closeTimer.current = setTimeout(
       () => setPhase("closed"),
-      EXIT_DURATION
+      exitDuration
     );
   }
 

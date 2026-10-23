@@ -37,6 +37,7 @@ describe("Pimolu Progress", () => {
         "--pimolu-progress-value"
       )
     ).toBe("40%");
+    expect(fill(bar).style.getPropertyValue("--pimolu-progress-scale")).toBe("0.4");
   });
 
   it("falls back to aria-label without a visible label", () => {

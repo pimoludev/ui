@@ -1,5 +1,8 @@
 "use client";
 
+import { usePresence } from "../internal/use-presence";
+import { usePimoluAnimationEngine } from "../animation/animation-engine";
+
 import {
   cloneElement,
   createContext,
@@ -7,6 +10,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useId,
   useMemo,
   useRef,
@@ -45,14 +49,7 @@ import { useBodyScrollLock } from "../internal/use-body-scroll-lock";
 /** Must match the exit animation duration of dialog.css. */
 const EXIT_DURATION = 150;
 
-function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-  );
-}
+
 
 function classes(
   base: string,
@@ -125,6 +122,7 @@ function useDialog(component: string) {
    ROOT
 ========================================= */
 
+import { forwardRef } from "react";
 export function Dialog({
   children,
   open: controlledOpen,
@@ -290,6 +288,14 @@ interface DialogSurfaceProps {
   children?: ReactNode;
 }
 
+function focusDialogSurface(content: HTMLDivElement) {
+  const preferred = getFocusable(content).find((element) =>
+    !element.closest(".pimolu-dialog__footer") &&
+    !element.classList.contains("pimolu-dialog__close")
+  );
+  (preferred ?? content).focus();
+}
+
 function DialogSurface({
   contentRef,
   id,
@@ -307,10 +313,13 @@ function DialogSurface({
   onClose,
   children,
 }: DialogSurfaceProps) {
-  useEffect(() => {
+  const engine = usePimoluAnimationEngine();
+  useLayoutEffect(() => {
     const content = contentRef.current;
 
     if (!content) return;
+    // A retained Motion panel may still be inert from its cancelled exit.
+    if (engine) content.inert = false;
 
     const previous =
       document.activeElement instanceof HTMLElement
@@ -323,15 +332,7 @@ function DialogSurface({
      * a control in the body, then the panel itself; the close button and the
      * footer stay a Tab away.
      */
-    const preferred = getFocusable(content).find(
-      (element) =>
-        !element.closest(".pimolu-dialog__footer") &&
-        !element.classList.contains(
-          "pimolu-dialog__close"
-        )
-    );
-
-    (preferred ?? content).focus();
+    focusDialogSurface(content);
 
     return () => {
       const target = triggerRef.current ?? previous;
@@ -340,7 +341,14 @@ function DialogSurface({
         target.focus();
       }
     };
-  }, [contentRef, triggerRef]);
+  }, [contentRef, triggerRef, engine]);
+
+  useLayoutEffect(() => {
+    const content = contentRef.current;
+    if (!engine || state !== "open" || !content) return;
+    content.inert = false;
+    if (!content.contains(document.activeElement)) focusDialogSurface(content);
+  }, [engine, state, contentRef]);
 
   function handleKeyDown(
     event: KeyboardEvent<HTMLDivElement>
@@ -460,48 +468,7 @@ export function DialogContent({
     null
   );
 
-  /* The panel stays mounted while it animates out. */
-  const [rendered, setRendered] = useState(open);
-
-  const [state, setState] = useState<
-    "open" | "closing"
-  >("open");
-
-  const closeTimer = useRef<ReturnType<
-    typeof setTimeout
-  > | null>(null);
-
-  function cancelCloseTimer() {
-    if (closeTimer.current !== null) {
-      clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  }
-
-  useEffect(() => {
-    if (open) {
-      cancelCloseTimer();
-      setRendered(true);
-      setState("open");
-      return;
-    }
-
-    if (!rendered) return;
-
-    if (prefersReducedMotion()) {
-      setRendered(false);
-      return;
-    }
-
-    setState("closing");
-
-    closeTimer.current = setTimeout(() => {
-      setRendered(false);
-      closeTimer.current = null;
-    }, EXIT_DURATION);
-
-    return cancelCloseTimer;
-  }, [open, rendered]);
+  const { rendered, state } = usePresence(open, EXIT_DURATION);
 
   useBodyScrollLock(rendered);
 
@@ -562,12 +529,13 @@ export function DialogContent({
    HEADER & FOOTER
 ========================================= */
 
-export function DialogHeader({
+export const DialogHeader = forwardRef<HTMLDivElement, PimoluDialogHeaderProps>(function DialogHeader({
+  style: motionStyle,
   children,
   className,
-}: PimoluDialogHeaderProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-dialog__header",
         className
@@ -576,14 +544,17 @@ export function DialogHeader({
       {children}
     </div>
   );
-}
+});
 
-export function DialogFooter({
+DialogHeader.displayName = "PimoluDialogHeader";
+
+export const DialogFooter = forwardRef<HTMLDivElement, PimoluDialogFooterProps>(function DialogFooter({
+  style: motionStyle,
   children,
   className,
-}: PimoluDialogFooterProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-dialog__footer",
         className
@@ -592,17 +563,20 @@ export function DialogFooter({
       {children}
     </div>
   );
-}
+});
+
+DialogFooter.displayName = "PimoluDialogFooter";
 
 /* =========================================
    TITLE & DESCRIPTION
 ========================================= */
 
-export function DialogTitle({
+export const DialogTitle = forwardRef<HTMLHeadingElement, PimoluDialogTitleProps>(function DialogTitle({
+  style: motionStyle,
   children,
   id,
   className,
-}: PimoluDialogTitleProps) {
+}, ref) {
   const { setTitleId } = useDialog("DialogTitle");
 
   const generatedId = useId();
@@ -620,7 +594,7 @@ export function DialogTitle({
   }, [setTitleId, titleId]);
 
   return (
-    <h2
+    <h2 ref={ref} style={motionStyle}
       id={titleId}
       className={classes(
         "pimolu-dialog__title",
@@ -630,13 +604,16 @@ export function DialogTitle({
       {children}
     </h2>
   );
-}
+});
 
-export function DialogDescription({
+DialogTitle.displayName = "PimoluDialogTitle";
+
+export const DialogDescription = forwardRef<HTMLParagraphElement, PimoluDialogDescriptionProps>(function DialogDescription({
+  style: motionStyle,
   children,
   id,
   className,
-}: PimoluDialogDescriptionProps) {
+}, ref) {
   const { setDescriptionId } =
     useDialog("DialogDescription");
 
@@ -655,7 +632,7 @@ export function DialogDescription({
   }, [setDescriptionId, descriptionId]);
 
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       id={descriptionId}
       className={classes(
         "pimolu-dialog__description",
@@ -665,7 +642,9 @@ export function DialogDescription({
       {children}
     </p>
   );
-}
+});
+
+DialogDescription.displayName = "PimoluDialogDescription";
 
 /* =========================================
    CLOSE

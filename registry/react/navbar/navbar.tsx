@@ -66,7 +66,10 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export function Navbar({
+import { forwardRef } from "react";
+import { useMergedRefs } from "../internal/use-merged-refs";
+export const Navbar = forwardRef<HTMLElement, PimoluNavbarProps>(function Navbar({
+  style: motionStyle,
   appearance = "surface",
   sticky = false,
   bordered = true,
@@ -78,7 +81,7 @@ export function Navbar({
   children,
   className,
   ...props
-}: PimoluNavbarProps) {
+}, ref) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const open = controlledOpen ?? internalOpen;
   const defaultContentId = `pimolu-navbar-${useId()}-content`;
@@ -115,6 +118,8 @@ export function Navbar({
     return () => document.removeEventListener("keydown", handleEscape);
   }, [collapsible, open, setOpen]);
 
+  const mergedMotionRef = useMergedRefs(ref, rootRef);
+
   return (
     <NavbarContext.Provider
       value={{
@@ -127,9 +132,9 @@ export function Navbar({
         toggleRef,
       }}
     >
-      <header
+      <header style={motionStyle}
         {...props}
-        ref={rootRef}
+        ref={mergedMotionRef}
         data-sticky={sticky || undefined}
         data-bordered={bordered || undefined}
         data-items-position={itemsPosition}
@@ -141,15 +146,18 @@ export function Navbar({
       </header>
     </NavbarContext.Provider>
   );
-}
+});
 
-export function NavbarBrand({
+Navbar.displayName = "PimoluNavbar";
+
+export const NavbarBrand = forwardRef<HTMLAnchorElement, PimoluNavbarBrandProps>(function NavbarBrand({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluNavbarBrandProps) {
+}, ref) {
   return (
-    <a
+    <a ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-navbar__brand",
@@ -159,14 +167,17 @@ export function NavbarBrand({
       {children}
     </a>
   );
-}
+});
 
-export function NavbarContent({
+NavbarBrand.displayName = "PimoluNavbarBrand";
+
+export const NavbarContent = forwardRef<HTMLElement, PimoluNavbarContentProps>(function NavbarContent({
+  style: motionStyle,
   children,
   className,
   id,
   ...props
-}: PimoluNavbarContentProps) {
+}, ref) {
   const context = useContext(NavbarContext);
   const resolvedId = id ?? context?.defaultContentId;
 
@@ -175,7 +186,7 @@ export function NavbarContent({
   }, [context?.setContentId, resolvedId]);
 
   return (
-    <nav
+    <nav ref={ref} style={motionStyle}
       {...props}
       id={resolvedId}
       aria-label={props["aria-label"] ?? "Main"}
@@ -188,7 +199,9 @@ export function NavbarContent({
       {children}
     </nav>
   );
-}
+});
+
+NavbarContent.displayName = "PimoluNavbarContent";
 
 export function NavbarToggle({
   icon,
@@ -270,13 +283,14 @@ export function NavbarItem({
   );
 }
 
-export function NavbarActions({
+export const NavbarActions = forwardRef<HTMLDivElement, PimoluNavbarActionsProps>(function NavbarActions({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluNavbarActionsProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-navbar__actions",
@@ -286,4 +300,6 @@ export function NavbarActions({
       {children}
     </div>
   );
-}
+});
+
+NavbarActions.displayName = "PimoluNavbarActions";

@@ -58,8 +58,8 @@
   user-select: none;
 
   transition:
-    background-color 120ms ease,
-    color 120ms ease;
+    background-color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-tree__item:hover {
@@ -108,7 +108,7 @@
 }
 
 .pimolu-tree__chevron {
-  transition: transform 120ms ease;
+  transition: transform var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-tree__item[aria-expanded="true"]

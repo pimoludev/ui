@@ -15,6 +15,9 @@ export interface PimoluBreadcrumbsProps
 export interface PimoluBreadcrumbItemProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluBreadcrumbLinkProps
@@ -26,9 +29,15 @@ export interface PimoluBreadcrumbSeparatorProps {
   /** Separator content. Defaults to "/". */
   children?: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluBreadcrumbPageProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

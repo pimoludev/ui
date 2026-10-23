@@ -97,9 +97,9 @@
   cursor: pointer;
 
   transition:
-    background-color 140ms ease,
-    border-color 140ms ease,
-    color 140ms ease;
+    background-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-dropzone__zone:hover:not(:disabled) {
@@ -291,8 +291,8 @@
   cursor: pointer;
 
   transition:
-    background-color 120ms ease,
-    color 120ms ease;
+    background-color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-dropzone__remove svg {

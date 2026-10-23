@@ -86,9 +86,9 @@
   box-shadow: var(--pimolu-time-picker-elevation);
 
   transition:
-    background-color 150ms,
-    border-color 150ms,
-    box-shadow 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms),
+    box-shadow var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-time-picker__control {
@@ -123,7 +123,7 @@
   background-color: var(--pimolu-muted, transparent);
   opacity: 0.82;
   filter: var(--pimolu-time-picker-indicator-filter, none);
-  transition: background-color 120ms, opacity 120ms;
+  transition: background-color var(--pimolu-motion-duration-feedback, 120ms), opacity var(--pimolu-motion-duration-feedback, 120ms);
 }
 
 .pimolu-time-picker__control::-webkit-calendar-picker-indicator:hover {
@@ -165,8 +165,8 @@
   cursor: pointer;
 
   transition:
-    background-color 120ms,
-    color 120ms;
+    background-color var(--pimolu-motion-duration-feedback, 120ms),
+    color var(--pimolu-motion-duration-feedback, 120ms);
 }
 
 .pimolu-time-picker__clear:hover {

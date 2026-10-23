@@ -84,4 +84,7 @@ export interface PimoluGanttProps {
 
   /** Accessible name of the timeline table. Defaults to "Project timeline". */
   "aria-label"?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

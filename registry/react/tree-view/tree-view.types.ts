@@ -33,4 +33,7 @@ export interface PimoluTreeViewProps {
   "aria-label": string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

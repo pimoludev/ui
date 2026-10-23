@@ -35,15 +35,17 @@ function isElementOfType(
    TIMELINE
 ========================================= */
 
-export function Timeline({
+import { forwardRef } from "react";
+export const Timeline = forwardRef<HTMLOListElement, PimoluTimelineProps>(function Timeline({
+  style: motionStyle,
   variant = "default",
   align = "start",
   children,
   className,
   ...props
-}: PimoluTimelineProps) {
+}, ref) {
   return (
-    <ol
+    <ol ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-timeline",
@@ -57,19 +59,22 @@ export function Timeline({
       {children}
     </ol>
   );
-}
+});
+
+Timeline.displayName = "PimoluTimeline";
 
 /* =========================================
    ITEM
 ========================================= */
 
-export function TimelineItem({
+export const TimelineItem = forwardRef<HTMLLIElement, PimoluTimelineItemProps>(function TimelineItem({
+  style: motionStyle,
   status = "default",
   icon,
   children,
   className,
   ...props
-}: PimoluTimelineItemProps) {
+}, ref) {
   const nodes = Children.toArray(children);
 
   const explicitIndicator = nodes.find((node) =>
@@ -85,7 +90,7 @@ export function TimelineItem({
     isElementOfType(content[0], TimelineContent);
 
   return (
-    <li
+    <li ref={ref} style={motionStyle}
       {...props}
       data-status={status}
       aria-current={
@@ -117,19 +122,22 @@ export function TimelineItem({
         ))}
     </li>
   );
-}
+});
+
+TimelineItem.displayName = "PimoluTimelineItem";
 
 /* =========================================
    INDICATOR
 ========================================= */
 
-export function TimelineIndicator({
+export const TimelineIndicator = forwardRef<HTMLSpanElement, PimoluTimelineIndicatorProps>(function TimelineIndicator({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluTimelineIndicatorProps) {
+}, ref) {
   return (
-    <span
+    <span ref={ref} style={motionStyle}
       {...props}
       aria-hidden="true"
       className={classes(
@@ -140,19 +148,22 @@ export function TimelineIndicator({
       {children}
     </span>
   );
-}
+});
+
+TimelineIndicator.displayName = "PimoluTimelineIndicator";
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function TimelineContent({
+export const TimelineContent = forwardRef<HTMLDivElement, PimoluTimelineContentProps>(function TimelineContent({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluTimelineContentProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-timeline__content",
@@ -162,7 +173,9 @@ export function TimelineContent({
       {children}
     </div>
   );
-}
+});
+
+TimelineContent.displayName = "PimoluTimelineContent";
 
 /* =========================================
    TITLE
@@ -193,13 +206,14 @@ export function TimelineTitle({
    DESCRIPTION
 ========================================= */
 
-export function TimelineDescription({
+export const TimelineDescription = forwardRef<HTMLParagraphElement, PimoluTimelineDescriptionProps>(function TimelineDescription({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluTimelineDescriptionProps) {
+}, ref) {
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-timeline__description",
@@ -209,20 +223,23 @@ export function TimelineDescription({
       {children}
     </p>
   );
-}
+});
+
+TimelineDescription.displayName = "PimoluTimelineDescription";
 
 /* =========================================
    TIME
 ========================================= */
 
-export function TimelineTime({
+export const TimelineTime = forwardRef<HTMLTimeElement, PimoluTimelineTimeProps>(function TimelineTime({
+  style: motionStyle,
   dateTime,
   children,
   className,
   ...props
-}: PimoluTimelineTimeProps) {
+}, ref) {
   return (
-    <time
+    <time ref={ref} style={motionStyle}
       {...props}
       dateTime={dateTime}
       className={classes(
@@ -233,4 +250,6 @@ export function TimelineTime({
       {children}
     </time>
   );
-}
+});
+
+TimelineTime.displayName = "PimoluTimelineTime";

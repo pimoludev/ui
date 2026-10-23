@@ -9,14 +9,16 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-export function ScrollArea({
+import { forwardRef } from "react";
+export const ScrollArea = forwardRef<HTMLDivElement, PimoluScrollAreaProps>(function ScrollArea({
+  style: motionStyle,
   orientation = "vertical",
   maxHeight,
   viewportClassName,
   children,
   className,
   ...props
-}: PimoluScrollAreaProps) {
+}, ref) {
   const {
     "aria-label": ariaLabel,
     "aria-labelledby": ariaLabelledBy,
@@ -24,7 +26,7 @@ export function ScrollArea({
   } = props;
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...rest}
       data-orientation={orientation}
       className={classes(
@@ -46,4 +48,6 @@ export function ScrollArea({
       </div>
     </div>
   );
-}
+});
+
+ScrollArea.displayName = "PimoluScrollArea";

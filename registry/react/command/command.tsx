@@ -99,7 +99,9 @@ function SearchIcon() {
    COMMAND
 ========================================= */
 
-export function Command({
+import { forwardRef } from "react";
+export const Command = forwardRef<HTMLDivElement, PimoluCommandProps>(function Command({
+  style: motionStyle,
   items,
   placeholder = "Search commands...",
   emptyMessage = "No commands found.",
@@ -107,7 +109,7 @@ export function Command({
   onSelect,
   className,
   autoFocus = true,
-}: PimoluCommandProps) {
+}, ref) {
   const generatedId = useId();
 
   const listboxId = `pimolu-command-${generatedId}`;
@@ -343,7 +345,7 @@ export function Command({
   }
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes("pimolu-command", className)}
     >
       <div className="pimolu-command__field">
@@ -421,7 +423,7 @@ export function Command({
       </div>
     </div>
   );
-}
+});
 
 Command.displayName = "PimoluCommand";
 

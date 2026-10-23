@@ -139,6 +139,9 @@ export interface PimoluFormErrorProps {
   name: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluFormSubmitProps

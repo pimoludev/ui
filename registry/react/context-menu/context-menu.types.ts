@@ -41,13 +41,22 @@ export interface PimoluContextMenuItemProps {
   onSelect?: () => void;
 
   disabled?: boolean;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluContextMenuSeparatorProps {
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluContextMenuLabelProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

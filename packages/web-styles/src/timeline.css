@@ -118,9 +118,9 @@
   line-height: 1;
 
   transition:
-    background-color 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease;
+    background-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    box-shadow var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 /* Empty indicators draw the default dot with the current colour. */

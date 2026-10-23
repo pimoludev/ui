@@ -15,7 +15,10 @@
 
   cursor: pointer;
 
-  transition: background-color 150ms, opacity 150ms;
+  transition:
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    opacity var(--pimolu-motion-duration-feedback, 120ms),
+    transform var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, ease);
   
   letter-spacing: var(--pimolu-button-letter-spacing, normal);
 
@@ -296,6 +299,15 @@
     --pimolu-button-active-shadow,
     none
   );
+}
+
+/* An optional driver owns press transforms; inline Motion values still win. */
+.pimolu-button[data-pimolu-animation="motion"] {
+  transition: none;
+}
+
+.pimolu-button[data-pimolu-animation="motion"]:active:not(:disabled) {
+  transform: none;
 }
 
 

@@ -388,7 +388,9 @@ function kindLabel(kind: FileKind) {
    FILE MANAGER
 ========================================= */
 
-export function FileManager({
+import { forwardRef } from "react";
+export const FileManager = forwardRef<HTMLElement, PimoluFileManagerProps>(function FileManager({
+  style: motionStyle,
   entries,
   view,
   defaultView = "list",
@@ -414,7 +416,7 @@ export function FileManager({
   foldersFirst = true,
   className,
   "aria-label": ariaLabel = "File manager",
-}: PimoluFileManagerProps) {
+}, ref) {
   const model = useMemo(
     () => buildModel(entries),
     [entries]
@@ -843,7 +845,7 @@ export function FileManager({
   }
 
   return (
-    <section
+    <section ref={ref} style={motionStyle}
       className={[
         "pimolu-file-manager",
         `pimolu-file-manager--${resolvedView}`,
@@ -1163,4 +1165,6 @@ export function FileManager({
       )}
     </section>
   );
-}
+});
+
+FileManager.displayName = "PimoluFileManager";

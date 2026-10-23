@@ -125,6 +125,7 @@ function getEnabledItems(panel: HTMLElement | null) {
    ROOT
 ========================================= */
 
+import { forwardRef } from "react";
 export function ContextMenu({
   children,
   open: controlledOpen,
@@ -461,11 +462,12 @@ export function ContextMenuContent({
    ITEM
 ========================================= */
 
-export function ContextMenuItem({
+export const ContextMenuItem = forwardRef<HTMLButtonElement, PimoluContextMenuItemProps>(function ContextMenuItem({
+  style: motionStyle,
   children,
   onSelect,
   disabled = false,
-}: PimoluContextMenuItemProps) {
+}, ref) {
   const menu = useContextMenu("ContextMenuItem");
 
   function select() {
@@ -477,7 +479,7 @@ export function ContextMenuItem({
   }
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       type="button"
       role="menuitem"
       tabIndex={-1}
@@ -495,17 +497,20 @@ export function ContextMenuItem({
       {children}
     </button>
   );
-}
+});
+
+ContextMenuItem.displayName = "PimoluContextMenuItem";
 
 /* =========================================
    SEPARATOR AND LABEL
 ========================================= */
 
-export function ContextMenuSeparator({
+export const ContextMenuSeparator = forwardRef<HTMLDivElement, PimoluContextMenuSeparatorProps>(function ContextMenuSeparator({
+  style: motionStyle,
   className,
-}: PimoluContextMenuSeparatorProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       role="separator"
       aria-orientation="horizontal"
       className={classes(
@@ -514,14 +519,17 @@ export function ContextMenuSeparator({
       )}
     />
   );
-}
+});
 
-export function ContextMenuLabel({
+ContextMenuSeparator.displayName = "PimoluContextMenuSeparator";
+
+export const ContextMenuLabel = forwardRef<HTMLDivElement, PimoluContextMenuLabelProps>(function ContextMenuLabel({
+  style: motionStyle,
   children,
   className,
-}: PimoluContextMenuLabelProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-context-menu__label",
         className
@@ -530,4 +538,6 @@ export function ContextMenuLabel({
       {children}
     </div>
   );
-}
+});
+
+ContextMenuLabel.displayName = "PimoluContextMenuLabel";

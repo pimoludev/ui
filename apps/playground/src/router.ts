@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
  * `group` decides where the page appears in the sidebar.
  */
 export const pages = [
+  { id: "motion-integration", label: "Motion integration", group: "Getting started" },
   { id: "overview", label: "Overview", group: "Getting started" },
   { id: "design-lab", label: "Design Lab", group: "Getting started" },
   { id: "theme-builder", label: "ThemeBuilder", group: "Getting started" },

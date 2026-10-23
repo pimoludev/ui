@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pimolu/motion": "workspace:*",
     "@pimolu/react": "workspace:*",
     "@pimolu/themes": "workspace:*",
     "@pimolu/web-styles": "workspace:*",
+    "motion": "^12.43.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

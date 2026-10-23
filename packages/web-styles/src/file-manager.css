@@ -266,7 +266,7 @@
 
   user-select: none;
 
-  transition: background-color 130ms ease;
+  transition: background-color 130ms var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-file-manager__item:last-child {
@@ -357,8 +357,8 @@
   user-select: none;
 
   transition:
-    background-color 130ms ease,
-    border-color 130ms ease;
+    background-color 130ms var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color 130ms var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-file-manager__tile .pimolu-file-manager__icon {

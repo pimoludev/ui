@@ -161,8 +161,8 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms,
-    border-color 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-lightbox__close:hover {
@@ -216,8 +216,8 @@
   transform: translateY(-50%);
 
   transition:
-    background-color 150ms,
-    opacity 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    opacity var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-lightbox__nav--previous {
@@ -314,8 +314,8 @@
   scroll-snap-align: start;
 
   transition:
-    opacity 150ms,
-    border-color 150ms;
+    opacity var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-lightbox__thumbnail[data-active="true"] {

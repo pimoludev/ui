@@ -54,7 +54,9 @@ function classes(
    FORM FIELD
 ========================================= */
 
-export function FormField({
+import { forwardRef } from "react";
+export const FormField = forwardRef<HTMLDivElement, PimoluFormFieldProps>(function FormField({
+  style: motionStyle,
   children,
   label,
   id,
@@ -66,7 +68,7 @@ export function FormField({
   invalid = false,
   disabled = false,
   className,
-}: PimoluFormFieldProps) {
+}, ref) {
   const generatedId = useId();
 
   const controlId = id ?? `pimolu-field-${generatedId}`;
@@ -87,7 +89,7 @@ export function FormField({
         disabled,
       }}
     >
-      <div
+      <div ref={ref} style={motionStyle}
         className={classes(
           "pimolu-form-field",
           disabled && "pimolu-form-field--disabled",
@@ -119,7 +121,9 @@ export function FormField({
       </div>
     </FormFieldContext.Provider>
   );
-}
+});
+
+FormField.displayName = "PimoluFormField";
 
 /* =========================================
    FORM CONTROL
@@ -176,16 +180,17 @@ export function FormControl({
    FORM MESSAGE
 ========================================= */
 
-export function FormMessage({
+export const FormMessage = forwardRef<HTMLParagraphElement, PimoluFormMessageProps>(function FormMessage({
+  style: motionStyle,
   children,
   variant = "helper",
   id,
   className,
-}: PimoluFormMessageProps) {
+}, ref) {
   if (!children) return null;
 
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       id={id}
       role={variant === "error" ? "alert" : undefined}
       className={classes(
@@ -197,24 +202,27 @@ export function FormMessage({
       {children}
     </p>
   );
-}
+});
+
+FormMessage.displayName = "PimoluFormMessage";
 
 /* =========================================
    FORM GROUP
 ========================================= */
 
-export function FormGroup({
+export const FormGroup = forwardRef<HTMLDivElement, PimoluFormGroupProps>(function FormGroup({
+  style: motionStyle,
   children,
   label,
   description,
   orientation = "vertical",
   className,
-}: PimoluFormGroupProps) {
+}, ref) {
   const generatedId = useId();
   const labelId = `pimolu-form-group-${generatedId}`;
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       role="group"
       aria-labelledby={label ? labelId : undefined}
       data-orientation={orientation}
@@ -244,19 +252,22 @@ export function FormGroup({
       </div>
     </div>
   );
-}
+});
+
+FormGroup.displayName = "PimoluFormGroup";
 
 /* =========================================
    FIELDSET
 ========================================= */
 
-export function Fieldset({
+export const Fieldset = forwardRef<HTMLFieldSetElement, PimoluFieldsetProps>(function Fieldset({
+  style: motionStyle,
   children,
   legend,
   description,
   disabled = false,
   className,
-}: PimoluFieldsetProps) {
+}, ref) {
   const generatedId = useId();
 
   const descriptionId = description
@@ -264,7 +275,7 @@ export function Fieldset({
     : undefined;
 
   return (
-    <fieldset
+    <fieldset ref={ref} style={motionStyle}
       disabled={disabled}
       aria-describedby={descriptionId}
       className={classes("pimolu-fieldset", className)}
@@ -287,4 +298,6 @@ export function Fieldset({
       </div>
     </fieldset>
   );
-}
+});
+
+Fieldset.displayName = "PimoluFieldset";

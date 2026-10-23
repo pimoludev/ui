@@ -58,7 +58,9 @@ function clamp(page: number, pageCount: number) {
   );
 }
 
-export function Pagination({
+import { forwardRef } from "react";
+export const Pagination = forwardRef<HTMLElement, PimoluPaginationProps>(function Pagination({
+  style: motionStyle,
   page: controlledPage,
   defaultPage = 1,
   pageCount,
@@ -70,7 +72,7 @@ export function Pagination({
   size = "md",
   className,
   ...props
-}: PimoluPaginationProps) {
+}, ref) {
   const [uncontrolledPage, setUncontrolledPage] =
     useState(defaultPage);
 
@@ -100,7 +102,7 @@ export function Pagination({
   }
 
   return (
-    <nav
+    <nav ref={ref} style={motionStyle}
       {...props}
       aria-label={props["aria-label"] ?? "Pagination"}
       className={paginationVariants(
@@ -169,4 +171,6 @@ export function Pagination({
       </ul>
     </nav>
   );
-}
+});
+
+Pagination.displayName = "PimoluPagination";

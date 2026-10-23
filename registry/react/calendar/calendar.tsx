@@ -187,7 +187,10 @@ function Chevron({ direction }: { direction: "left" | "right" }) {
    CALENDAR
 ========================================= */
 
-export function Calendar({
+import { forwardRef } from "react";
+import { useMergedRefs } from "../internal/use-merged-refs";
+export const Calendar = forwardRef<HTMLDivElement, PimoluCalendarProps>(function Calendar({
+  style: motionStyle,
   mode = "single",
 
   selected,
@@ -210,7 +213,7 @@ export function Calendar({
 
   className,
   "aria-label": ariaLabel,
-}: PimoluCalendarProps) {
+}, ref) {
   const generatedId = useId();
   const instructionsId = `pimolu-calendar-${generatedId}-instructions`;
 
@@ -601,9 +604,11 @@ export function Calendar({
     .filter(Boolean)
     .join(" ");
 
+  const mergedMotionRef = useMergedRefs(ref, rootRef);
+
   return (
-    <div
-      ref={rootRef}
+    <div style={motionStyle}
+      ref={mergedMotionRef}
       className={rootClassName}
       data-mode={mode}
       data-months={numberOfMonths}
@@ -824,4 +829,6 @@ export function Calendar({
       </div>
     </div>
   );
-}
+});
+
+Calendar.displayName = "PimoluCalendar";

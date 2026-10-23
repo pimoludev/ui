@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { forwardRef, useState, useSyncExternalStore } from "react";
 import type {
   PimoluSidebarContentProps,
   PimoluSidebarFooterProps,
@@ -33,7 +33,7 @@ function mobileSnapshot() {
   return typeof window !== "undefined" && Boolean(window.matchMedia?.(mobileQuery).matches);
 }
 
-export function Sidebar({
+export const Sidebar = forwardRef<HTMLElement, PimoluSidebarProps>(function Sidebar({
   sticky = false,
   collapsible = false,
   collapsed,
@@ -45,7 +45,7 @@ export function Sidebar({
   children,
   className,
   ...props
-}: PimoluSidebarProps) {
+}, ref) {
   const mobile = useSyncExternalStore(subscribeMobile, mobileSnapshot, () => false);
   const [internalCollapsed, setInternalCollapsed] = useState<boolean | undefined>(defaultCollapsed);
   const isCollapsed = collapsible && (collapsed ?? internalCollapsed ?? (collapseOnMobile && mobile));
@@ -58,6 +58,7 @@ export function Sidebar({
 
   return (
     <aside
+      ref={ref}
       {...props}
       data-sticky={sticky || undefined}
       data-collapsed={isCollapsed || undefined}
@@ -80,15 +81,18 @@ export function Sidebar({
       )}
     </aside>
   );
-}
+});
 
-export function SidebarHeader({
+Sidebar.displayName = "PimoluSidebar";
+
+export const SidebarHeader = forwardRef<HTMLDivElement, PimoluSidebarHeaderProps>(function SidebarHeader({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluSidebarHeaderProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-sidebar__header",
@@ -98,15 +102,18 @@ export function SidebarHeader({
       {children}
     </div>
   );
-}
+});
 
-export function SidebarContent({
+SidebarHeader.displayName = "PimoluSidebarHeader";
+
+export const SidebarContent = forwardRef<HTMLElement, PimoluSidebarContentProps>(function SidebarContent({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluSidebarContentProps) {
+}, ref) {
   return (
-    <nav
+    <nav ref={ref} style={motionStyle}
       {...props}
       aria-label={props["aria-label"] ?? "Sidebar"}
       className={classes(
@@ -117,15 +124,18 @@ export function SidebarContent({
       {children}
     </nav>
   );
-}
+});
 
-export function SidebarGroup({
+SidebarContent.displayName = "PimoluSidebarContent";
+
+export const SidebarGroup = forwardRef<HTMLDivElement, PimoluSidebarGroupProps>(function SidebarGroup({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluSidebarGroupProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-sidebar__group",
@@ -135,15 +145,18 @@ export function SidebarGroup({
       {children}
     </div>
   );
-}
+});
 
-export function SidebarGroupLabel({
+SidebarGroup.displayName = "PimoluSidebarGroup";
+
+export const SidebarGroupLabel = forwardRef<HTMLSpanElement, PimoluSidebarGroupLabelProps>(function SidebarGroupLabel({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluSidebarGroupLabelProps) {
+}, ref) {
   return (
-    <span
+    <span ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-sidebar__group-label",
@@ -153,7 +166,9 @@ export function SidebarGroupLabel({
       {children}
     </span>
   );
-}
+});
+
+SidebarGroupLabel.displayName = "PimoluSidebarGroupLabel";
 
 export function SidebarItem({
   active = false,
@@ -195,13 +210,14 @@ export function SidebarItem({
   );
 }
 
-export function SidebarFooter({
+export const SidebarFooter = forwardRef<HTMLDivElement, PimoluSidebarFooterProps>(function SidebarFooter({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluSidebarFooterProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-sidebar__footer",
@@ -211,4 +227,6 @@ export function SidebarFooter({
       {children}
     </div>
   );
-}
+});
+
+SidebarFooter.displayName = "PimoluSidebarFooter";

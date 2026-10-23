@@ -14,24 +14,29 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function List({
+import { forwardRef } from "react";
+export const List = forwardRef<HTMLUListElement, PimoluListProps>(function List({
+  style: motionStyle,
   variant = "divided",
   size = "md",
   children,
   className,
   ...props
-}: PimoluListProps) {
+}, ref) {
   return (
-    <ul
+    <ul ref={ref} style={motionStyle}
       {...props}
       className={listVariants({ variant, size }, className)}
     >
       {children}
     </ul>
   );
-}
+});
 
-export function ListItem({
+List.displayName = "PimoluList";
+
+export const ListItem = forwardRef<HTMLLIElement, PimoluListItemProps>(function ListItem({
+  style: motionStyle,
   title,
   description,
   start,
@@ -42,7 +47,7 @@ export function ListItem({
   children,
   className,
   ...props
-}: PimoluListItemProps) {
+}, ref) {
   const content = (
     <>
       {start && (
@@ -77,7 +82,7 @@ export function ListItem({
   );
 
   return (
-    <li
+    <li ref={ref} style={motionStyle}
       {...props}
       aria-current={active ? "true" : undefined}
       data-state={
@@ -108,4 +113,6 @@ export function ListItem({
       )}
     </li>
   );
-}
+});
+
+ListItem.displayName = "PimoluListItem";

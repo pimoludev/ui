@@ -11,6 +11,8 @@ import type {
 } from "./toast.types";
 
 import { toastVariants } from "./toast.variants";
+import { useRetainedItems } from "../internal/use-retained-items";
+import { AnimationScope } from "../animation/animation-engine";
 
 /* =========================================
    STORE
@@ -108,25 +110,26 @@ export function Toaster({
   position = "top-right",
   label = "Notifications",
 }: PimoluToasterProps) {
-  const items = useToasts();
+  const items = useRetainedItems(useToasts());
 
   if (items.length === 0) return null;
 
   return (
-    <div
+    <AnimationScope><div
       className="pimolu-toaster"
       data-position={position}
       role="region"
       aria-label={label}
       aria-live="polite"
     >
-      {items.map((item) => (
+      {items.map(({ item, closing }) => (
         <div
           key={item.id}
           className={toastVariants({
             variant: item.variant,
           })}
-          data-state="open"
+          data-state={closing ? "closing" : "open"}
+          aria-hidden={closing || undefined}
         >
           <div className="pimolu-toast__body">
             <p className="pimolu-toast__title">
@@ -145,6 +148,7 @@ export function Toaster({
               <button
                 type="button"
                 className="pimolu-toast__action"
+                disabled={closing}
                 onClick={() => {
                   item.action?.onClick();
                   dismissToast(item.id);
@@ -158,6 +162,7 @@ export function Toaster({
               type="button"
               className="pimolu-toast__close"
               aria-label="Dismiss notification"
+              disabled={closing}
               onClick={() => dismissToast(item.id)}
             >
               <CloseIcon />
@@ -165,6 +170,6 @@ export function Toaster({
           </div>
         </div>
       ))}
-    </div>
+    </div></AnimationScope>
   );
 }

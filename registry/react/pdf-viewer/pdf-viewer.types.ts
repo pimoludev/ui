@@ -66,4 +66,7 @@ export interface PimoluPDFViewerProps {
 
   /** Called when the embedded document loads. */
   onLoad?: ReactEventHandler<HTMLObjectElement>;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

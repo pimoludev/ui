@@ -75,8 +75,8 @@
   cursor: pointer;
 
   transition:
-    color 120ms ease,
-    transform 120ms ease;
+    color var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--pimolu-motion-duration-feedback, 120ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-rating__item[data-filled="true"] {

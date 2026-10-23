@@ -830,3 +830,8 @@
   white-space: nowrap;
 }
 
+.pg-motion-page .pg-section > .pg-row,
+.pg-motion-page .pg-section > .pimolu-button,
+.pg-motion-page .pg-section > .pimolu-motion-surface {
+  margin-block-end: 16px;
+}

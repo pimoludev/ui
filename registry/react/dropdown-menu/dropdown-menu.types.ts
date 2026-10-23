@@ -23,13 +23,22 @@ export interface PimoluDropdownMenuItemProps {
   children: ReactNode;
   onSelect?: () => void;
   disabled?: boolean;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDropdownMenuSeparatorProps {
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDropdownMenuLabelProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

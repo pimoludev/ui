@@ -471,8 +471,8 @@
   overflow: hidden;
 
   transition:
-    background-color 140ms ease,
-    box-shadow 140ms ease;
+    background-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    box-shadow var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-scheduler__event:hover {

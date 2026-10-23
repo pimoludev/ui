@@ -52,6 +52,9 @@ export interface PimoluCommandProps {
 
   /** Focus the search field on mount. Defaults to true. */
   autoFocus?: boolean;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluCommandPaletteProps {

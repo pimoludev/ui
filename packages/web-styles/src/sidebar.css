@@ -200,8 +200,8 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms ease,
-    color 150ms ease;
+    background-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-sidebar__item:hover {

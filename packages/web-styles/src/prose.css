@@ -178,7 +178,7 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 
-  transition: color 150ms ease;
+  transition: color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-prose :where(a):hover {

@@ -364,7 +364,9 @@ function ChatMessageView({
    CHAT
 ========================================= */
 
-export function Chat({
+import { forwardRef } from "react";
+export const Chat = forwardRef<HTMLDivElement, PimoluChatProps>(function Chat({
+  style: motionStyle,
   messages,
   currentUserId,
   onSend,
@@ -381,7 +383,7 @@ export function Chat({
   className,
   "aria-label": ariaLabel,
   ...props
-}: PimoluChatProps) {
+}, ref) {
   const labels: PimoluChatLabels = {
     ...defaultLabels,
     ...labelOverrides,
@@ -487,7 +489,7 @@ export function Chat({
       : "";
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes}
       role={props.role ?? "region"}
@@ -627,4 +629,6 @@ export function Chat({
       </form>
     </div>
   );
-}
+});
+
+Chat.displayName = "PimoluChat";

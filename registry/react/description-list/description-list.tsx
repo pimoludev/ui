@@ -14,16 +14,18 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-export function DescriptionList({
+import { forwardRef } from "react";
+export const DescriptionList = forwardRef<HTMLDListElement, PimoluDescriptionListProps>(function DescriptionList({
+  style: motionStyle,
   layout = "stacked",
   variant = "divided",
   size = "md",
   children,
   className,
   ...props
-}: PimoluDescriptionListProps) {
+}, ref) {
   return (
-    <dl
+    <dl ref={ref} style={motionStyle}
       {...props}
       className={descriptionListVariants(
         { layout, variant, size },
@@ -33,15 +35,18 @@ export function DescriptionList({
       {children}
     </dl>
   );
-}
+});
 
-export function DescriptionItem({
+DescriptionList.displayName = "PimoluDescriptionList";
+
+export const DescriptionItem = forwardRef<HTMLDivElement, PimoluDescriptionItemProps>(function DescriptionItem({
+  style: motionStyle,
   term,
   details,
   className,
-}: PimoluDescriptionItemProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-description-list__item",
         className
@@ -56,4 +61,6 @@ export function DescriptionItem({
       </dd>
     </div>
   );
-}
+});
+
+DescriptionItem.displayName = "PimoluDescriptionItem";

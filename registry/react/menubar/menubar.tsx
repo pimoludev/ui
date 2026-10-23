@@ -23,6 +23,7 @@ import type {
 } from "./menubar.types";
 
 import { Portal } from "../internal/portal";
+import { usePresence, type OverlayPresenceState } from "../internal/use-presence";
 import { useAnchoredPosition } from "../internal/use-anchored-position";
 import { useOutsidePointer } from "../internal/use-outside-pointer";
 
@@ -84,13 +85,16 @@ function classes(
    ROOT
 ======================================== */
 
-export function Menubar({
+import { forwardRef } from "react";
+import { useMergedRefs } from "../internal/use-merged-refs";
+export const Menubar = forwardRef<HTMLDivElement, PimoluMenubarProps>(function Menubar({
+  style: motionStyle,
   children,
   label,
   "aria-label": ariaLabel,
   className,
   ...props
-}: PimoluMenubarProps) {
+}, ref) {
   const [openValue, setOpenValue] = useState<string | null>(
     null
   );
@@ -242,13 +246,15 @@ export function Menubar({
       );
   }, [openValue]);
 
+  const mergedMotionRef = useMergedRefs(ref, menubarRef);
+
   return (
     <MenubarContext.Provider
       value={{ openValue, setOpenValue, menubarRef }}
     >
-      <div
+      <div style={motionStyle}
         {...props}
-        ref={menubarRef}
+        ref={mergedMotionRef}
         role="menubar"
         aria-label={ariaLabel ?? label ?? "Menu bar"}
         aria-orientation="horizontal"
@@ -264,7 +270,7 @@ export function Menubar({
       </div>
     </MenubarContext.Provider>
   );
-}
+});
 
 Menubar.displayName = "PimoluMenubar";
 
@@ -272,11 +278,12 @@ Menubar.displayName = "PimoluMenubar";
    MENU
 ======================================== */
 
-export function MenubarMenu({
+export const MenubarMenu = forwardRef<HTMLDivElement, PimoluMenubarMenuProps>(function MenubarMenu({
+  style: motionStyle,
   children,
   className,
   value: valueProp,
-}: PimoluMenubarMenuProps) {
+}, ref) {
   const generated = useId();
 
   const value = valueProp ?? `menu-${generated}`;
@@ -292,7 +299,7 @@ export function MenubarMenu({
     <MenubarMenuContext.Provider
       value={{ value, triggerId, contentId, triggerRef }}
     >
-      <div
+      <div ref={ref} style={motionStyle}
         role="none"
         className={classes(
           "pimolu-menubar__menu",
@@ -303,7 +310,7 @@ export function MenubarMenu({
       </div>
     </MenubarMenuContext.Provider>
   );
-}
+});
 
 MenubarMenu.displayName = "PimoluMenubarMenu";
 
@@ -364,12 +371,14 @@ MenubarTrigger.displayName = "PimoluMenubarTrigger";
 
 interface MenubarSurfaceProps
   extends PimoluMenubarContentProps {
+  state: OverlayPresenceState;
   menubar: MenubarContextValue;
   menu: MenubarMenuContextValue;
   contentRef: RefObject<HTMLDivElement | null>;
 }
 
 function MenubarSurface({
+  state,
   menubar,
   menu,
   contentRef,
@@ -395,14 +404,14 @@ function MenubarSurface({
   useEffect(() => {
     const panel = contentRef.current;
 
-    if (!panel) return;
+    if (!panel || state !== "open") return;
 
     const first = panel.querySelector<HTMLElement>(
       '[role="menuitem"]:not([aria-disabled="true"]):not(:disabled)'
     );
 
     (first ?? panel).focus({ preventScroll: true });
-  }, [contentRef]);
+  }, [contentRef, state]);
 
   function handleKeyDown(
     event: KeyboardEvent<HTMLDivElement>
@@ -454,13 +463,14 @@ function MenubarSurface({
       role="menu"
       aria-labelledby={menu.triggerId}
       tabIndex={-1}
-      data-state="open"
+      data-state={state}
+      aria-hidden={state === "closing" || undefined}
       data-side={side}
       className={classes(
         "pimolu-menubar__content",
         className
       )}
-      style={style}
+      style={{ ...style, pointerEvents: state === "closing" ? "none" : undefined }}
       onKeyDown={handleKeyDown}
     >
       {children}
@@ -479,6 +489,8 @@ export function MenubarContent({
 
   const open = menubar.openValue === menu.value;
 
+  const { rendered, state } = usePresence(open, 0);
+
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useOutsidePointer(
@@ -487,11 +499,12 @@ export function MenubarContent({
     () => menubar.setOpenValue(null)
   );
 
-  if (!open) return null;
+  if (!rendered) return null;
 
   return (
     <Portal anchorRef={menu.triggerRef}>
       <MenubarSurface
+        state={state}
         {...props}
         menubar={menubar}
         menu={menu}
@@ -511,19 +524,20 @@ MenubarContent.displayName = "PimoluMenubarContent";
    ITEM, SEPARATOR, LABEL
 ======================================== */
 
-export function MenubarItem({
+export const MenubarItem = forwardRef<HTMLButtonElement, PimoluMenubarItemProps>(function MenubarItem({
+  style: motionStyle,
   children,
   className,
   onSelect,
   onClick,
   disabled,
   ...props
-}: PimoluMenubarItemProps) {
+}, ref) {
   const menubar = useMenubar("MenubarItem");
   const menu = useMenubarMenu("MenubarItem");
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       {...props}
       type="button"
       role="menuitem"
@@ -548,15 +562,16 @@ export function MenubarItem({
       {children}
     </button>
   );
-}
+});
 
 MenubarItem.displayName = "PimoluMenubarItem";
 
-export function MenubarSeparator({
+export const MenubarSeparator = forwardRef<HTMLDivElement, PimoluMenubarSeparatorProps>(function MenubarSeparator({
+  style: motionStyle,
   className,
-}: PimoluMenubarSeparatorProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       role="separator"
       className={classes(
         "pimolu-menubar__separator",
@@ -564,16 +579,17 @@ export function MenubarSeparator({
       )}
     />
   );
-}
+});
 
 MenubarSeparator.displayName = "PimoluMenubarSeparator";
 
-export function MenubarLabel({
+export const MenubarLabel = forwardRef<HTMLDivElement, PimoluMenubarLabelProps>(function MenubarLabel({
+  style: motionStyle,
   children,
   className,
-}: PimoluMenubarLabelProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       role="presentation"
       className={classes(
         "pimolu-menubar__label",
@@ -583,6 +599,6 @@ export function MenubarLabel({
       {children}
     </div>
   );
-}
+});
 
 MenubarLabel.displayName = "PimoluMenubarLabel";

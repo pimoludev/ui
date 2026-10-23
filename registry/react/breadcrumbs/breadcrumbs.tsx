@@ -17,14 +17,16 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-export function Breadcrumbs({
+import { forwardRef } from "react";
+export const Breadcrumbs = forwardRef<HTMLElement, PimoluBreadcrumbsProps>(function Breadcrumbs({
+  style: motionStyle,
   children,
   label = "Breadcrumb",
   className,
   ...props
-}: PimoluBreadcrumbsProps) {
+}, ref) {
   return (
-    <nav
+    <nav ref={ref} style={motionStyle}
       {...props}
       aria-label={props["aria-label"] ?? label}
       className={classes(
@@ -37,14 +39,17 @@ export function Breadcrumbs({
       </ol>
     </nav>
   );
-}
+});
 
-export function BreadcrumbItem({
+Breadcrumbs.displayName = "PimoluBreadcrumbs";
+
+export const BreadcrumbItem = forwardRef<HTMLLIElement, PimoluBreadcrumbItemProps>(function BreadcrumbItem({
+  style: motionStyle,
   children,
   className,
-}: PimoluBreadcrumbItemProps) {
+}, ref) {
   return (
-    <li
+    <li ref={ref} style={motionStyle}
       className={classes(
         "pimolu-breadcrumbs__item",
         className
@@ -53,7 +58,9 @@ export function BreadcrumbItem({
       {children}
     </li>
   );
-}
+});
+
+BreadcrumbItem.displayName = "PimoluBreadcrumbItem";
 
 export function BreadcrumbLink({
   children,
@@ -75,12 +82,13 @@ export function BreadcrumbLink({
   );
 }
 
-export function BreadcrumbSeparator({
+export const BreadcrumbSeparator = forwardRef<HTMLLIElement, PimoluBreadcrumbSeparatorProps>(function BreadcrumbSeparator({
+  style: motionStyle,
   children = "/",
   className,
-}: PimoluBreadcrumbSeparatorProps) {
+}, ref) {
   return (
-    <li
+    <li ref={ref} style={motionStyle}
       role="presentation"
       aria-hidden="true"
       className={classes(
@@ -91,14 +99,17 @@ export function BreadcrumbSeparator({
       {children}
     </li>
   );
-}
+});
 
-export function BreadcrumbPage({
+BreadcrumbSeparator.displayName = "PimoluBreadcrumbSeparator";
+
+export const BreadcrumbPage = forwardRef<HTMLSpanElement, PimoluBreadcrumbPageProps>(function BreadcrumbPage({
+  style: motionStyle,
   children,
   className,
-}: PimoluBreadcrumbPageProps) {
+}, ref) {
   return (
-    <span
+    <span ref={ref} style={motionStyle}
       aria-current="page"
       className={classes(
         "pimolu-breadcrumbs__page",
@@ -108,4 +119,6 @@ export function BreadcrumbPage({
       {children}
     </span>
   );
-}
+});
+
+BreadcrumbPage.displayName = "PimoluBreadcrumbPage";

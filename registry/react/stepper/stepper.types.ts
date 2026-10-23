@@ -21,6 +21,9 @@ export interface PimoluStepperProps {
   "aria-label"?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluStepperItemProps {
@@ -36,4 +39,7 @@ export interface PimoluStepperItemProps {
   children?: ReactNode;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

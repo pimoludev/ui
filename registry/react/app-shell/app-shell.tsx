@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 
 import type { PimoluAppShellProps } from "./app-shell.types";
 
@@ -16,7 +16,7 @@ function classes(
  * sidebar, the main region and an optional right rail. It is intentionally
  * different from DashboardLayout, whose navbar only spans the content column.
  */
-export function AppShell({
+export const AppShell = forwardRef<HTMLDivElement, PimoluAppShellProps>(function AppShell({
   header,
   sidebar,
   children,
@@ -30,7 +30,7 @@ export function AppShell({
   className,
   style,
   ...props
-}: PimoluAppShellProps) {
+}, ref) {
   const hasSidebar = sidebar != null;
   const hasAside = aside != null;
 
@@ -56,6 +56,7 @@ export function AppShell({
 
   return (
     <div
+      ref={ref}
       {...props}
       data-sidebar={hasSidebar ? "true" : "false"}
       data-aside={hasAside ? "true" : "false"}
@@ -96,6 +97,6 @@ export function AppShell({
       )}
     </div>
   );
-}
+});
 
 AppShell.displayName = "PimoluAppShell";

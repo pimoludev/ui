@@ -1029,7 +1029,8 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-export function QRCode({
+import { forwardRef } from "react";
+export const QRCode = forwardRef<SVGSVGElement, PimoluQRCodeProps>(function QRCode({
   value,
   size = 160,
   level = "M",
@@ -1041,7 +1042,7 @@ export function QRCode({
   className,
   style,
   "aria-label": ariaLabel,
-}: PimoluQRCodeProps) {
+}, ref) {
   const quietZone = Number.isFinite(margin)
     ? clamp(Math.trunc(margin), 0, 16)
     : 4;
@@ -1077,7 +1078,7 @@ export function QRCode({
   const label = ariaLabel ?? title ?? "QR code";
 
   return (
-    <svg
+    <svg ref={ref}
       xmlns="http://www.w3.org/2000/svg"
       className={[
         "pimolu-qr-code",
@@ -1095,12 +1096,12 @@ export function QRCode({
       data-version={matrix.version}
       data-mask={matrix.mask}
       data-level={matrix.level}
-      style={{
+      style={{ ...({
         width: size,
         height: "auto",
         maxWidth: "100%",
         ...style,
-      }}
+      }), ...style }}
     >
       {title ? <title>{title}</title> : null}
 
@@ -1119,6 +1120,6 @@ export function QRCode({
       />
     </svg>
   );
-}
+});
 
 QRCode.displayName = "PimoluQRCode";

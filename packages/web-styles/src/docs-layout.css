@@ -26,6 +26,8 @@
 ========================================= */
 
 .pimolu-docs-layout__skip-link {
+  opacity: 0;
+  pointer-events: none;
   position: fixed;
   inset-block-start: var(--pimolu-spacing-3, 12px);
   inset-inline-start: var(--pimolu-spacing-3, 12px);
@@ -50,10 +52,12 @@
 
   transform: translateY(calc(-100% - 1.5rem));
 
-  transition: transform 150ms ease;
+  transition: transform var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-docs-layout__skip-link:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
   transform: translateY(0);
 
   outline:

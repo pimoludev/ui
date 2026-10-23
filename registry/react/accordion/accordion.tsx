@@ -1,4 +1,6 @@
 "use client";
+import { AnimationScope } from "../animation/animation-engine";
+import { usePresence } from "../internal/use-presence";
 
 import {
   createContext,
@@ -207,12 +209,14 @@ export function Accordion(props: PimoluAccordionProps) {
    ITEM
 ========================================= */
 
-export function AccordionItem({
+import { forwardRef } from "react";
+export const AccordionItem = forwardRef<HTMLDivElement, PimoluAccordionItemProps>(function AccordionItem({
+  style: motionStyle,
   value,
   disabled = false,
   children,
   className,
-}: PimoluAccordionItemProps) {
+}, ref) {
   const root = useAccordion("AccordionItem");
 
   const open = root.isOpen(value);
@@ -230,7 +234,7 @@ export function AccordionItem({
         contentId,
       }}
     >
-      <div
+      <div ref={ref} style={motionStyle}
         className={[
           "pimolu-accordion__item",
           className,
@@ -244,16 +248,19 @@ export function AccordionItem({
       </div>
     </AccordionItemContext.Provider>
   );
-}
+});
+
+AccordionItem.displayName = "PimoluAccordionItem";
 
 /* =========================================
    TRIGGER
 ========================================= */
 
-export function AccordionTrigger({
+export const AccordionTrigger = forwardRef<HTMLButtonElement, PimoluAccordionTriggerProps>(function AccordionTrigger({
+  style: motionStyle,
   children,
   className,
-}: PimoluAccordionTriggerProps) {
+}, ref) {
   const root = useAccordion("AccordionTrigger");
   const item = useAccordionItem("AccordionTrigger");
 
@@ -299,7 +306,7 @@ export function AccordionTrigger({
   }
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       type="button"
       id={item.triggerId}
       data-accordion-trigger
@@ -323,24 +330,30 @@ export function AccordionTrigger({
       <Chevron />
     </button>
   );
-}
+});
+
+AccordionTrigger.displayName = "PimoluAccordionTrigger";
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function AccordionContent({
+export const AccordionContent = forwardRef<HTMLDivElement, PimoluAccordionContentProps>(function AccordionContent({
+  style: motionStyle,
   children,
   className,
-}: PimoluAccordionContentProps) {
+}, ref) {
   const item = useAccordionItem("AccordionContent");
+  const { rendered, state } = usePresence(item.open, 0);
 
   return (
-    <div
+    <AnimationScope><div ref={ref} style={motionStyle}
       id={item.contentId}
       role="region"
       aria-labelledby={item.triggerId}
-      hidden={!item.open}
+      hidden={!rendered}
+      aria-hidden={!item.open || undefined}
+      data-pimolu-presence={rendered ? state : "closed"}
       data-state={item.open ? "open" : "closed"}
       className={[
         "pimolu-accordion__content",
@@ -352,6 +365,8 @@ export function AccordionContent({
       <div className="pimolu-accordion__content-inner">
         {children}
       </div>
-    </div>
+    </div></AnimationScope>
   );
-}
+});
+
+AccordionContent.displayName = "PimoluAccordionContent";

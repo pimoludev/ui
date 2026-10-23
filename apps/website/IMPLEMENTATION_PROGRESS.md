@@ -1,5 +1,125 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 23 octobre 2026 — Harmonisation CSS et comparaison Motion
+
+- Audit reproductible de 131 feuilles CSS : `pnpm audit:animations`. Trois
+  transitions de dimensions repérées, puis supprimées : Progress et les points
+  du Carousel utilisent scaleX ; l'épaisseur du resizer DataGrid change directement.
+  Le fallback de largeur Progress reste utilisable par les consommateurs CSS seuls.
+- 66 feuilles de composants utilisent les durées/courbes communes, issues de
+  `design-tokens/src/tokens.json` : feedback 120ms, contrôle 150ms, entrée 180ms,
+  layout 200ms. Export généré `@pimolu/design-tokens/motion` pour les valeurs JS.
+  Les durées CSS de sortie restent alignées avec les timers de présence existants.
+- Button : transitions de pression explicites ; désactivation des transitions CSS
+  sur les boutons pilotés par Motion afin d'éviter une double interpolation.
+- Recettes optionnelles `pimoluMotionPresets.press`, `reveal`, `layout`, surchargeables
+  avec les props Motion. Exemple réel de réordonnancement par boutons dans le
+  Playground ; le site utilise la recette reveal dans la démonstration du guide.
+- Comparaison des mêmes Button, Dialog, Drawer, Tabs, Accordion sur
+  `#/motion-integration`. `pnpm --dir apps/website measure:animations` lance le
+  diagnostic contre le Playground de production (port 4173 par défaut).
+- Mesures : 60 échantillons, 180 cycles, trois navigateurs, mobile et réduction des
+  animations. Intervalles RAF proches ; aucune supériorité systématique de Motion
+  démontrée. Fixture minifiée hors React : surcoût Motion de 42 283 octets gzip.
+  Le rapport explique les limites du headless et le périmètre des bundles.
+- Validation : `pnpm verify` réussi (1 423 tests React, 30 tests CSS), 26 tests
+  website, lint et build website réussis ; 36 tests Playwright ciblés réussis dans
+  Chromium/Firefox/WebKit. Matrice des cinq cibles : 7 presets × clair/sombre ×
+  CSS/Motion, 84 captures examinées. Les feuilles animées ont toutes un traitement
+  reduced-motion ; aucun will-change permanent ni transition de dimensions restant.
+- Après le contrôle RTL : remplacement de :dir() (abaissé incorrectement en :lang()
+  par le compilateur CSS) par des variables héritées de la portée dir la plus proche.
+  Géométrie Progress/RTL et points du Carousel vérifiés dans les trois moteurs ;
+  rebuild CSS/Playground, 30 tests CSS et audit des thèmes strict sans avertissement.
+- Rapport : `docs/ai/ANIMATION_AUDIT.md`. Nouveaux exports et recettes non publiés ;
+  aucun commit, push ou publication.
+
+## 23 octobre 2026 — Module Motion optionnel et moteur global
+
+- Implémentation de `packages/motion`, ESM et déclarations TypeScript, intégrée
+  dans `build:packages` après core/React. Génération de 250 adaptateurs nommés :
+  163 cibles DOM, 38 surfaces composées conservant la ref du contrôle, 49 racines
+  de contexte/API génériques. Les dernières gardent l'API Pimolu et ne prétendent
+  pas accepter des propriétés Motion sur un DOM inexistant.
+- `MotionButton`, `MotionCard`, `MotionBox`, autres adaptateurs,
+  `MotionProvider`, `motionEngine`, `createMotionEngine` et
+  `animationEngine={motionEngine}` sur PimoluProvider. Héritage du moteur,
+  surcharge `animationEngine="css"`, scopes de portail et nettoyage des ressources.
+  Le package React n'importe pas Motion et n'en dépend pas au runtime.
+- Durées de présence pilotées par le moteur pour les overlays, onglets et
+  accordéons ; annulation des sorties à la réouverture, surfaces inertes pendant
+  la fermeture, restauration du focus à la suppression effective. Toast conserve
+  temporairement les éléments supprimés sans dupliquer son store. Préférence de
+  réduction des animations prise en charge, y compris pendant une fermeture.
+- Refs/styles natifs complétés sur les surfaces existantes ; refs internes
+  combinées et nettoyage des callback refs conservé. Gestes interactifs supprimés
+  pour disabled/loading et reduced-motion. Les cibles explicites évitent les
+  conflits avec le driver global et le transform CSS de pression des boutons.
+- Playground : sélecteur Animation global avec chargement différé du module,
+  page `#/motion-integration`, exemples des cinq layouts branchés sur le module.
+  Le titre de la page est affiché avant le chargement des exemples Motion.
+  132 pages, 129 familles ; le chunk principal reste à environ 734 kB et conserve
+  l'avertissement Vite existant (le code Motion est dans un chunk distinct).
+- Website : guide `/docs/animation` réécrit, exemples simples copiables,
+  démo interactive avec gestes, champ composé, AnimatePresence, moteur CSS/Motion
+  et réouverture pendant une sortie. 522 extraits TypeScript vérifiés.
+- Documentation : READMEs bilingues, README du module, contexte/architecture et
+  contrat Motion synchronisés. `pnpm test:motion` fournit un contrôle ciblé.
+
+### Vérifications exécutées
+
+| Contrôle | Résultat |
+| --- | --- |
+| `pnpm verify` | Réussi : 1 423 tests React, 30 tests CSS, tokens/thèmes, typecheck, audit des thèmes, lint, skills et build Playground |
+| Contrôles après le dernier ajustement de focus | 75 tests React ciblés réussis ; typecheck et build packages réussis |
+| Website | 26 tests réussis, 522 extraits vérifiés, lint, typecheck et build de production réussis |
+| Intégration Next.js | `pnpm --dir examples/nextjs build` réussi |
+| Suite Playwright complète | Première passe : 940/942 ; deux échecs ont révélé le délai de rendu CSS des Tabs, corrigé |
+| Recontrôles Playwright finaux | 36/36 réussis sur Chromium, Firefox et WebKit : homepage, Motion, portails, réouverture, focus, mode réduit et mobile |
+| Matrice visuelle | 47 pages × 7 presets × clair/sombre = 658 captures sans erreur JS ; planches contact examinées, dialogue testé dans les 14 combinaisons |
+| Accessibilité ciblée | RTL + mobile + forced-colors + reduced-motion : ouverture, focus contenu, boucle Tab, fermeture et retour au déclencheur réussis dans les trois moteurs |
+| React 18.3.1 | Fixture isolée avec les tarballs locaux : SSR, refs natives/composées, moteur, portail et nettoyage réussis |
+
+Les premiers essais ont aussi détecté l'échelle hover en mode réduit et une course
+de focus sous WebKit : corrigées et recontrôlées. Un chargement initial trop lourd
+de la page Motion a été corrigé en différant les exemples ; le test de navigation
+existant reste inchangé. Artefacts ignorés : `.artifacts/motion-module-visuals/`,
+`motion-final-verify.log`, `motion-final-browser-recheck.log` et `react18-check.log`.
+
+### Limites et publication
+
+Le module reste **privé et non publié sur npm** : il nécessite les nouvelles API
+React de ce workspace, absentes du npm `0.1.0-beta.1` actuel. La publication et le
+versionnement coordonné des packages restent une décision séparée. Aucun commit,
+push ou publish effectué. La revue ne certifie pas toutes les combinaisons de
+props Motion ni une conformité WCAG ; chart data, virtualisation, canvas et lecture
+des médias gardent leur comportement propre. Les racines logiques/génériques
+utilisent leur API et le moteur hérité ; MotionBox permet d'animer leur ensemble.
+
+## 23 octobre 2026 — Historique : socle Motion optionnel, premier lot
+
+- Aucun package @pimolu/motion ni preset d'animation créé. Motion reste une
+  dépendance des applications qui l'utilisent et une devDependency de la registry
+  pour les tests ; aucune dependency/peerDependency publique ajoutée.
+- Footer, Sidebar, AppShell, DashboardLayout et DocsLayout transmettent désormais
+  une ref native à leur racine. Deux tests d'intégration réels avec motion.create
+  couvrent ces layouts et Button/Card/Box, sans perte des classes, styles,
+  variables de spacing et états disabled/loading.
+- Exemples activables dans chacune des cinq pages Playground ; min-height réduit
+  pour présenter les layouts. Guide Animation enrichi avec un exemple autonome,
+  soit 520 extraits TypeScript vérifiés. READMEs bilingues synchronisés.
+- Revue visuelle : 70 captures (5 layouts × 7 presets × clair/sombre), plus
+  5 contrôles mobiles reduced-motion ; artefacts sous `.artifacts/motion-layouts`.
+  La transformation du parent révélait le skip link de DocsLayout hors focus :
+  masquage opacity/pointer-events corrigé, accès clavier conservé. Nouvelle revue
+  DocsLayout sur 14 combinaisons + mode réduit et test Playwright sur trois moteurs.
+- Vérifications : `pnpm verify` réussi (1 408 tests React), 26 tests Website,
+  lint, builds packages/Playground/Website et intégration examples/nextjs réussis.
+  Après correction CSS : 30 tests CSS, rebuilds et 3 tests navigateur réussis.
+- Portée : huit cibles DOM validées, pas les 129 familles. Portails, ref handles,
+  autres surfaces et React 18 réel restent des étapes de validation distinctes.
+  Contrat et limites dans `docs/ai/MOTION_COMPATIBILITY.md`. Changements non publiés.
+
 ## 23 octobre 2026 — Blog et navigation releases sur mobile
 
 - Filtres du journal en grille de deux colonnes égales à 640 px et moins,

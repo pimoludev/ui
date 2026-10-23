@@ -134,6 +134,19 @@ Navbar and Footer accept `appearance="surface"` (the existing default), `"transp
 
 ## Quality, automated
 
+Motion is optional. The React package keeps its existing CSS behavior and has
+no Motion runtime or peer dependency. The new workspace module offers
+`MotionButton`, native/composite adapters, portal transitions and an injectable
+`animationEngine={motionEngine}` on PimoluProvider, with nested CSS overrides.
+Try the Playground's Animation selector or `#/motion-integration` and the site's
+`/docs/animation` guide. **@pimolu/motion is private and not yet on npm**; the new
+core APIs require this workspace build, not the published 0.1.0-beta.1 package.
+See [the compatibility contract](docs/ai/MOTION_COMPATIBILITY.md).
+
+CSS feedback uses shared timing tokens; optional Motion recipes cover springs,
+coordinated presence and keyed reordering. See the [animation audit](docs/ai/ANIMATION_AUDIT.md)
+for the reproducible comparison, bundle cost and measurement limits.
+
 Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI runs this verification plus a separate website production build, lint, documentation tests and Chromium/Firefox/WebKit suite. Build the website from the monorepo root with `pnpm build:website`, then run `pnpm start:website`.
 
 A dedicated read-only auditor guards the theme system specifically. It confirms light and dark parity, validates every preset, checks that palettes and their styles stay consistent, verifies the generated types, and reports any place where a theme or preset must still be registered. Git hooks run a quick verification before each commit and the full pipeline before each push, so the repository stays healthy without anyone having to think about it.

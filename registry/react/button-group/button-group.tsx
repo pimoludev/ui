@@ -60,11 +60,12 @@ export const ButtonGroup = forwardRef<
 
 ButtonGroup.displayName = "PimoluButtonGroup";
 
-export function ButtonGroupSeparator({
+export const ButtonGroupSeparator = forwardRef<HTMLSpanElement, PimoluButtonGroupSeparatorProps>(function ButtonGroupSeparator({
+  style: motionStyle,
   orientation,
   className,
   ...props
-}: PimoluButtonGroupSeparatorProps) {
+}, ref) {
   const group = useContext(ButtonGroupContext);
 
   const resolvedOrientation: PimoluButtonGroupOrientation =
@@ -74,7 +75,7 @@ export function ButtonGroupSeparator({
       : "vertical");
 
   return (
-    <span
+    <span ref={ref} style={motionStyle}
       {...props}
       role="separator"
       aria-orientation={resolvedOrientation}
@@ -88,7 +89,7 @@ export function ButtonGroupSeparator({
         .join(" ")}
     />
   );
-}
+});
 
 ButtonGroupSeparator.displayName =
   "PimoluButtonGroupSeparator";

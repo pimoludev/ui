@@ -61,7 +61,7 @@
 
   opacity: 0;
 
-  transition: opacity 180ms ease-out;
+  transition: opacity var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-image__img[data-loaded="true"] {

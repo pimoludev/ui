@@ -106,7 +106,8 @@ function createTextTile({
    WATERMARK
 ========================================= */
 
-export function Watermark({
+import { forwardRef } from "react";
+export const Watermark = forwardRef<HTMLDivElement, PimoluWatermarkProps>(function Watermark({
   text,
   image,
   children,
@@ -123,7 +124,7 @@ export function Watermark({
 
   className,
   style,
-}: PimoluWatermarkProps) {
+}, ref) {
   const safeOpacity = Number.isFinite(opacity)
     ? clamp(opacity, 0, 1)
     : 0.08;
@@ -208,10 +209,9 @@ export function Watermark({
     .join(" ");
 
   return (
-    <div
+    <div ref={ref}
       className={rootClassName}
-      style={
-        {
+      style={{ ...({
           "--pimolu-watermark-opacity":
             String(safeOpacity),
           "--pimolu-watermark-rotate": `${safeRotate}deg`,
@@ -223,8 +223,7 @@ export function Watermark({
           "--pimolu-watermark-z-index":
             String(safeZIndex),
           ...style,
-        } as CSSProperties
-      }
+        } as CSSProperties), ...style }}
     >
       {(hasImage || hasText) && (
         <div
@@ -246,6 +245,6 @@ export function Watermark({
       </div>
     </div>
   );
-}
+});
 
 Watermark.displayName = "PimoluWatermark";

@@ -134,7 +134,7 @@
     )
   );
 
-  transition: background-color 150ms;
+  transition: background-color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-resizable[data-orientation="horizontal"]

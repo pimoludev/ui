@@ -43,7 +43,9 @@ function groupItems(
   return groups;
 }
 
-export function TableOfContents({
+import { forwardRef } from "react";
+export const TableOfContents = forwardRef<HTMLElement, PimoluTableOfContentsProps>(function TableOfContents({
+  style: motionStyle,
   items,
   activeId,
   title = "On this page",
@@ -52,7 +54,7 @@ export function TableOfContents({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   ...props
-}: PimoluTableOfContentsProps) {
+}, ref) {
   const titleId = `pimolu-toc-${useId().replace(
     /[^a-zA-Z0-9_-]/g,
     ""
@@ -77,7 +79,7 @@ export function TableOfContents({
   }
 
   return (
-    <nav
+    <nav ref={ref} style={motionStyle}
       {...props}
       aria-label={
         ariaLabel ??
@@ -126,6 +128,6 @@ export function TableOfContents({
       </ol>
     </nav>
   );
-}
+});
 
 TableOfContents.displayName = "PimoluTableOfContents";

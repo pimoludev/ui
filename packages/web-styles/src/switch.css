@@ -182,8 +182,8 @@
   pointer-events: none;
 
   transition:
-    background-color 180ms ease,
-    border-color 180ms ease;
+    background-color var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 /* =========================================
@@ -212,8 +212,8 @@
   transform: translateY(-50%);
 
   transition:
-    inset-inline-start 180ms ease,
-    background-color 180ms ease;
+    inset-inline-start var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    background-color var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 
   pointer-events: none;
 }

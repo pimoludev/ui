@@ -69,3 +69,12 @@ The React and Core packages compile to `dist/` and are published on npm at
 and visual data are separate, which prepares token reuse on other platforms, but
 no native or Angular implementation exists yet. Playwright covers the website;
 the full Playground visual matrix remains a manual review.
+
+## Optional Motion module (unpublished)
+
+packages/motion is private pending a coordinated release. build:packages builds
+core, React and Motion in that order. Its generated adapters consume the public
+React declarations and keep React/Pimolu/Motion external. Core exposes an injected
+PimoluAnimationEngine contract; it has no Motion runtime/peer dependency. See
+[the Motion contract](MOTION_COMPATIBILITY.md) for target and portal ownership.
+The Playground loads the global driver lazily when Animation is switched to Motion.

@@ -168,7 +168,9 @@ function clampZoom(value: number) {
    GANTT
 ========================================= */
 
-export function Gantt({
+import { forwardRef } from "react";
+export const Gantt = forwardRef<HTMLElement, PimoluGanttProps>(function Gantt({
+  style: motionStyle,
   tasks,
 
   start,
@@ -193,7 +195,7 @@ export function Gantt({
   maxHeight,
   className,
   "aria-label": ariaLabel = "Project timeline",
-}: PimoluGanttProps) {
+}, ref) {
   const scaleControlled = scale !== undefined;
 
   const [internalScale, setInternalScale] =
@@ -695,7 +697,7 @@ export function Gantt({
   }
 
   return (
-    <section
+    <section ref={ref} style={motionStyle}
       className={[
         "pimolu-gantt",
         `pimolu-gantt--${resolvedScale}`,
@@ -1092,4 +1094,6 @@ export function Gantt({
       )}
     </section>
   );
-}
+});
+
+Gantt.displayName = "PimoluGantt";

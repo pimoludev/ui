@@ -93,9 +93,9 @@
   box-shadow: var(--pimolu-number-input-elevation);
 
   transition:
-    background-color 150ms,
-    border-color 150ms,
-    box-shadow 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms),
+    box-shadow var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-number-input__control {
@@ -196,8 +196,8 @@
   cursor: pointer;
 
   transition:
-    background-color 120ms,
-    color 120ms;
+    background-color var(--pimolu-motion-duration-feedback, 120ms),
+    color var(--pimolu-motion-duration-feedback, 120ms);
 }
 
 .pimolu-number-input__stepper:hover:not(:disabled) {

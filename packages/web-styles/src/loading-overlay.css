@@ -52,7 +52,7 @@
 .pimolu-loading-overlay__content {
   min-width: 0;
 
-  transition: filter 150ms ease;
+  transition: filter var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-loading-overlay[data-loading="true"]

@@ -73,13 +73,14 @@ export const InputGroup = forwardRef<
 
 InputGroup.displayName = "PimoluInputGroup";
 
-export function InputGroupAddon({
+export const InputGroupAddon = forwardRef<HTMLSpanElement, PimoluInputGroupAddonProps>(function InputGroupAddon({
+  style: motionStyle,
   align = "inline-start",
   className,
   ...props
-}: PimoluInputGroupAddonProps) {
+}, ref) {
   return (
-    <span
+    <span ref={ref} style={motionStyle}
       {...props}
       className={[
         "pimolu-input-group__addon",
@@ -90,16 +91,17 @@ export function InputGroupAddon({
         .join(" ")}
     />
   );
-}
+});
 
 InputGroupAddon.displayName = "PimoluInputGroupAddon";
 
-export function InputGroupText({
+export const InputGroupText = forwardRef<HTMLSpanElement, PimoluInputGroupTextProps>(function InputGroupText({
+  style: motionStyle,
   className,
   ...props
-}: PimoluInputGroupTextProps) {
+}, ref) {
   return (
-    <span
+    <span ref={ref} style={motionStyle}
       {...props}
       className={[
         "pimolu-input-group__text",
@@ -109,7 +111,7 @@ export function InputGroupText({
         .join(" ")}
     />
   );
-}
+});
 
 InputGroupText.displayName = "PimoluInputGroupText";
 

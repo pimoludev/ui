@@ -106,9 +106,9 @@
   overflow-wrap: anywhere;
 
   transition:
-    color 150ms ease,
-    background-color 150ms ease,
-    border-color 150ms ease;
+    color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    background-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-table-of-contents__link:hover {

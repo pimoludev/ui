@@ -83,6 +83,9 @@ export interface PimoluDrawerContentProps {
 export interface PimoluDrawerHeaderProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDrawerTitleProps {
@@ -92,6 +95,9 @@ export interface PimoluDrawerTitleProps {
   id?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDrawerDescriptionProps {
@@ -101,11 +107,17 @@ export interface PimoluDrawerDescriptionProps {
   id?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDrawerFooterProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDrawerCloseProps {

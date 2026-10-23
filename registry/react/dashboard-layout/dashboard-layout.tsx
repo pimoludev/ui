@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 
 import type { PimoluDashboardLayoutProps } from "./dashboard-layout.types";
 
@@ -11,7 +11,7 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function DashboardLayout({
+export const DashboardLayout = forwardRef<HTMLDivElement, PimoluDashboardLayoutProps>(function DashboardLayout({
   sidebar,
   navbar,
   children,
@@ -24,7 +24,7 @@ export function DashboardLayout({
   className,
   style,
   ...props
-}: PimoluDashboardLayoutProps) {
+}, ref) {
   const layoutStyle = {
     ...style,
     ...(sidebarWidth !== undefined
@@ -47,6 +47,7 @@ export function DashboardLayout({
 
   return (
     <div
+      ref={ref}
       {...props}
       data-sidebar={sidebar ? "true" : "false"}
       data-aside={aside ? "true" : "false"}
@@ -86,6 +87,6 @@ export function DashboardLayout({
       )}
     </div>
   );
-}
+});
 
 DashboardLayout.displayName = "PimoluDashboardLayout";

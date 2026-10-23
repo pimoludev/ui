@@ -76,6 +76,8 @@ export const Progress = forwardRef<
 
   const fillStyle = {
     "--pimolu-progress-value": `${percent}%`,
+    "--pimolu-progress-scale": percent / 100,
+    "--pimolu-progress-fill-width": "100%",
   } as CSSProperties;
 
   return (

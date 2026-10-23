@@ -311,8 +311,8 @@
   .pimolu-drawer__overlay {
   animation:
     pimolu-drawer-overlay-in
-    180ms
-    ease-out;
+    var(--pimolu-motion-duration-enter, 180ms)
+    var(--pimolu-motion-easing-enter, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .pimolu-drawer[data-state="closing"]
@@ -328,8 +328,8 @@
   .pimolu-drawer__content {
   animation:
     pimolu-drawer-content-in
-    220ms
-    cubic-bezier(0.16, 1, 0.3, 1);
+    var(--pimolu-motion-duration-enter, 180ms)
+    var(--pimolu-motion-easing-enter, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .pimolu-drawer[data-state="closing"]

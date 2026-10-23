@@ -72,4 +72,7 @@ export interface PimoluCalendarProps {
 
   /** Accessible name for the calendar group. */
   "aria-label"?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

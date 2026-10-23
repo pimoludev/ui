@@ -130,8 +130,8 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms,
-    border-color 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-pdf-viewer__action:hover {

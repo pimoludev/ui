@@ -117,9 +117,9 @@
   transform: translateY(-50%);
 
   transition:
-    background-color 150ms,
-    opacity 150ms,
-    box-shadow 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    opacity var(--pimolu-motion-duration-control, 150ms),
+    box-shadow var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-carousel__control--previous {
@@ -212,7 +212,8 @@
 
   box-sizing: border-box;
 
-  width: 0.5rem;
+  width: 1.25rem;
+  transform: scaleX(0.4);
   height: 0.5rem;
 
   border-radius: var(--pimolu-radius-full, 999px);
@@ -224,12 +225,12 @@
   );
 
   transition:
-    width 150ms,
-    background-color 150ms;
+    transform var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, ease),
+    background-color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-carousel__dot[data-active="true"]::before {
-  width: 1.25rem;
+  transform: scaleX(1);
 
   background: var(
     --pimolu-primary,
@@ -290,8 +291,8 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms,
-    color 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-carousel__autoplay:hover {

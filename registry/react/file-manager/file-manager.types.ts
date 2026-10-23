@@ -127,4 +127,7 @@ export interface PimoluFileManagerProps {
 
   /** Accessible name of the file manager. Defaults to "File manager". */
   "aria-label"?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

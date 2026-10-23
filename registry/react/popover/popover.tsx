@@ -1,5 +1,7 @@
 "use client";
 
+import { usePresence } from "../internal/use-presence";
+
 import {
   cloneElement,
   isValidElement,
@@ -33,14 +35,7 @@ import { useOutsidePointer } from "../internal/use-outside-pointer";
 /** Must match the exit animation duration of popover.css. */
 const EXIT_DURATION = 120;
 
-function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-  );
-}
+
 
 interface TriggerProps {
   ref?: unknown;
@@ -151,21 +146,14 @@ export function Popover({
     : uncontrolledOpen;
 
   /* The panel stays mounted while it animates out. */
-  const [rendered, setRendered] = useState(isOpen);
-  const [state, setState] = useState<
-    "open" | "closing"
-  >("open");
+  const { rendered, state } = usePresence(isOpen, EXIT_DURATION);
 
   /**
    * Deduplicates an outside pointerdown and the focus change it causes; both
    * would otherwise ask for the same close.
    */
   const requestedOpen = useRef(isOpen);
-  const closeTimer = useRef<ReturnType<
-    typeof setTimeout
-  > | null>(null);
-
-  const { style: panelStyle, side } = useAnchoredPosition(
+const { style: panelStyle, side } = useAnchoredPosition(
     triggerRef,
     panelRef,
     rendered,
@@ -178,12 +166,7 @@ export function Popover({
     }
   );
 
-  function cancelCloseTimer() {
-    if (closeTimer.current !== null) {
-      clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  }
+
 
   function requestOpen(next: boolean) {
     if (next === requestedOpen.current) return;
@@ -213,33 +196,6 @@ export function Popover({
   useEffect(() => {
     requestedOpen.current = isOpen;
   }, [isOpen]);
-
-  /* Enter or exit, with the panel mounted for the whole exit. */
-
-  useEffect(() => {
-    if (isOpen) {
-      cancelCloseTimer();
-      setRendered(true);
-      setState("open");
-      return;
-    }
-
-    if (!rendered) return;
-
-    if (prefersReducedMotion()) {
-      setRendered(false);
-      return;
-    }
-
-    setState("closing");
-
-    closeTimer.current = setTimeout(() => {
-      setRendered(false);
-      closeTimer.current = null;
-    }, EXIT_DURATION);
-
-    return cancelCloseTimer;
-  }, [isOpen, rendered]);
 
   useOutsidePointer(
     [triggerRef, panelRef],

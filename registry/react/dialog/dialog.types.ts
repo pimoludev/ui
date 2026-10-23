@@ -73,6 +73,9 @@ export interface PimoluDialogContentProps {
 export interface PimoluDialogHeaderProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDialogTitleProps {
@@ -82,6 +85,9 @@ export interface PimoluDialogTitleProps {
   id?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDialogDescriptionProps {
@@ -91,11 +97,17 @@ export interface PimoluDialogDescriptionProps {
   id?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDialogFooterProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluDialogCloseProps {

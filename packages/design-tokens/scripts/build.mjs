@@ -55,6 +55,8 @@ for (const [key, value] of Object.entries(flatTokens)) {
 }
 
 const cssValue = (key, value) => {
+  if (key.startsWith('motion.duration.')) return `${value}ms`;
+  if (key.startsWith('motion.easing.')) return `cubic-bezier(${value.join(', ')})`;
   if (key.startsWith('spacing.') || key.startsWith('radius.') || key.startsWith('fontSize.')) return `${value}px`;
   if (key.startsWith('fontFamily.')) return Array.isArray(value) ? value.join(', ') : value;
   return value;
@@ -89,11 +91,18 @@ if (Object.keys(resolvedThemes.light).sort().join('|') !== Object.keys(resolvedT
 }
 
 const tokensDist = resolve(root, 'packages/design-tokens/dist');
+function motionType(value) {
+  if (Array.isArray(value)) return `readonly [${value.map(motionType).join(', ')}]`;
+  if (value && typeof value === 'object') return `{ ${Object.entries(value).map(([key, child]) => `readonly ${JSON.stringify(key)}: ${motionType(child)}`).join('; ')} }`;
+  return typeof value;
+}
 const themesDist = resolve(root, 'packages/themes/dist');
 
 await mkdir(tokensDist, { recursive: true });
 await mkdir(themesDist, { recursive: true });
 await Promise.all([
+  writeFile(resolve(tokensDist, 'motion.js'), `export const pimoluMotionTokens = ${JSON.stringify(primitives.motion)};\n`),
+  writeFile(resolve(tokensDist, 'motion.d.ts'), `export declare const pimoluMotionTokens: ${motionType(primitives.motion)};\n`),
   writeFile(resolve(tokensDist, 'tokens.json'), JSON.stringify(primitives, null, 2) + '\n'),
   writeFile(resolve(tokensDist, 'tokens.css'), primitivesCss),
   writeFile(resolve(themesDist, 'themes.json'), JSON.stringify(resolvedThemes, null, 2) + '\n'),

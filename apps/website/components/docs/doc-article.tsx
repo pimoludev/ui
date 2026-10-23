@@ -1,4 +1,5 @@
 import { ColorReference } from "../color-reference";
+import { MotionDemo } from "../motion-demo";
 import { Badge, CodeBlock, Link, PageHeader } from "@/components/ui";
 import { PreviewWorkbench } from "./preview-workbench";
 import { ApiReference } from "./api-reference";
@@ -38,6 +39,7 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
         <h2>{section.title}</h2>
         {section.paragraphs.map((text) => <p key={text}>{text}</p>)}
         {slug === "colors" && section.id === "palette" && <ColorReference />}
+        {slug === "animation" && section.id === "motion-components" && <MotionDemo />}
         {slug === "agents" && section.id === "llms" && <Link href="/llms.txt">Open the documentation map →</Link>}
         {slug === "agents" && section.id === "context" && <Link href="https://github.com/pimoludev/ui/blob/dev/AGENTS.md" external>Repository agent instructions</Link>}
         {section.code && <CodeBlock code={section.code} language={section.language} filename={section.filename} wrap />}

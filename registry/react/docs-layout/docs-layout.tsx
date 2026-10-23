@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  forwardRef,
   useId,
   type CSSProperties,
 } from "react";
@@ -14,7 +15,7 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function DocsLayout({
+export const DocsLayout = forwardRef<HTMLDivElement, PimoluDocsLayoutProps>(function DocsLayout({
   header,
   sidebar,
   children,
@@ -26,7 +27,7 @@ export function DocsLayout({
   className,
   style,
   ...props
-}: PimoluDocsLayoutProps) {
+}, ref) {
   const mainId = `pimolu-docs-main-${useId().replace(
     /[^a-zA-Z0-9_-]/g,
     ""
@@ -59,6 +60,7 @@ export function DocsLayout({
 
   return (
     <div
+      ref={ref}
       {...props}
       data-sidebar={hasSidebar ? "true" : "false"}
       data-toc={hasToc ? "true" : "false"}
@@ -117,6 +119,6 @@ export function DocsLayout({
       )}
     </div>
   );
-}
+});
 
 DocsLayout.displayName = "PimoluDocsLayout";

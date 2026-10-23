@@ -134,6 +134,14 @@ The published ESM entry points need no Pimolu-specific Next.js transpilePackages
 
 ## Related documents
 
+- [Animation audit and comparison](ANIMATION_AUDIT.md): shared timing tokens,
+  transform-based progress/dots, optional advanced recipes and measured CSS/Motion
+  comparison. Headless measurements are diagnostic, not production FPS guarantees.
+
+- [Optional Motion integration](MOTION_COMPATIBILITY.md): private workspace module
+  with native/composite adapters, an injected provider engine, portal presence,
+  reduced motion and browser tests. The React runtime has no Motion dependency.
+
 - [Architecture](ARCHITECTURE.md): package flow and generated outputs.
 - [Design system](DESIGN_SYSTEM.md): theme sources, presets, dimensions and the
   Default direction.

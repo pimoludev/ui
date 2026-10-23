@@ -130,8 +130,8 @@
   color: var(--pimolu-muted-foreground);
 
   transition:
-    transform 150ms ease,
-    color 150ms ease;
+    transform var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-accordion__trigger[data-state="open"]
@@ -157,8 +157,8 @@
 .pimolu-accordion__content[data-state="open"] {
   animation:
     pimolu-accordion-in
-    160ms
-    ease-out;
+    var(--pimolu-motion-duration-enter, 180ms)
+    var(--pimolu-motion-easing-enter, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .pimolu-accordion__content-inner {

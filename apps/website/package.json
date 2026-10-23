@@ -7,6 +7,7 @@
     "node": ">=22.6"
   },
   "scripts": {
+    "measure:animations": "node scripts/measure-animations.mjs",
     "docs:generate": "node scripts/build-releases.mjs && node --experimental-strip-types scripts/build-docs.mjs",
     "dev": "pnpm docs:generate && next dev -p 3001",
     "build": "pnpm docs:generate && next build",
@@ -20,6 +21,7 @@
     "audit:a11y": "node scripts/audit-accessibility.mjs"
   },
   "dependencies": {
+    "@pimolu/motion": "workspace:*",
     "@pimolu/design-tokens": "workspace:*",
     "@pimolu/react": "workspace:*",
     "@pimolu/themes": "workspace:*",

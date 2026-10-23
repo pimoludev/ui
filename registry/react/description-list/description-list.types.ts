@@ -35,4 +35,7 @@ export interface PimoluDescriptionItemProps {
   details: ReactNode;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

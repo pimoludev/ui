@@ -49,9 +49,9 @@
   font-family: var(--pimolu-font-body, inherit);
 
   transition:
-    background-color 150ms,
-    border-color 150ms,
-    box-shadow 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms),
+    box-shadow var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-input-group--full-width {
@@ -306,8 +306,8 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms,
-    color 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-input-group__button:hover:not(:disabled) {

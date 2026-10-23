@@ -20,6 +20,7 @@
     "prepack": "pnpm build"
   },
   "exports": {
+    "./motion": { "types": "./dist/motion.d.ts", "import": "./dist/motion.js" },
     "./tokens.json": "./dist/tokens.json",
     "./tokens.css": "./dist/tokens.css"
   }

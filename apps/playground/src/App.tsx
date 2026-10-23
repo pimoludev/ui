@@ -1,5 +1,5 @@
-import { Suspense, lazy } from "react";
-import { PimoluProvider, Toaster } from "@pimolu/react";
+import { Suspense, lazy, useRef, useState } from "react";
+import { PimoluProvider, Toaster, type PimoluAnimationEngine } from "@pimolu/react";
 
 import { pages, usePage } from "./router";
 import { Sidebar } from "./sidebar";
@@ -8,6 +8,7 @@ import { Toolbar } from "./toolbar";
 import "./playground.css";
 
 const pageComponents = {
+  "motion-integration": lazy(() => import("./pages/motion-integration-page").then(({ MotionIntegrationPage }) => ({ default: MotionIntegrationPage }))),
   overview: lazy(() => import("./pages/overview-page").then(({ OverviewPage }) => ({ default: OverviewPage }))),
   "design-lab": lazy(() => import("./pages/design-lab-page").then(({ DesignLabPage }) => ({ default: DesignLabPage }))),
   button: lazy(() => import("./pages/button-page").then(({ ButtonPage }) => ({ default: ButtonPage }))),
@@ -142,16 +143,25 @@ const pageComponents = {
 } as const;
 
 function App() {
+  const [animationEngine, setAnimationEngine] = useState<"css" | PimoluAnimationEngine>("css");
+  const requestedEngine = useRef(0);
+  async function setAnimationMode(mode: "css" | "motion") {
+    const request = ++requestedEngine.current;
+    if (mode === "css") { setAnimationEngine("css"); return; }
+    const { motionEngine } = await import("@pimolu/motion");
+    if (request === requestedEngine.current) setAnimationEngine(motionEngine);
+  }
   const route = usePage();
   const Page = pageComponents[route.id];
   const isDesignLab = route.id === "design-lab";
 
   return (
     <PimoluProvider
+      animationEngine={animationEngine}
       persist
       className={`pg-root ${isDesignLab ? "pg-root--design-lab" : ""}`}
     >
-      <Toolbar />
+      <Toolbar animationEngine={animationEngine === "css" ? "css" : "motion"} onAnimationEngineChange={setAnimationMode} />
 
       {route.unknown && (
         <p className="pg-notice" role="status">

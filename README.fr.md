@@ -138,6 +138,22 @@ La justesse ne doit pas reposer sur la mémoire. Une seule commande, `pnpm verif
 
 Un auditeur dédié, en lecture seule, protège spécifiquement le système de thèmes. Il confirme la parité clair/sombre, valide chaque preset, vérifie que les palettes et leurs styles restent cohérents, contrôle les types générés, et signale tout emplacement où un thème ou un preset doit encore être déclaré. Des hooks Git lancent une vérification rapide avant chaque commit et le pipeline complet avant chaque push, pour que le dépôt reste sain sans que personne n'ait à y penser.
 
+## Motion optionnel
+
+Le package React garde ses animations CSS et n'importe pas Motion. Le nouveau
+module du workspace propose `MotionButton`, des adaptateurs natifs/composés,
+les transitions des portails et `animationEngine={motionEngine}` sur
+PimoluProvider, avec une surcharge CSS locale. Voir le sélecteur Animation du
+Playground, `#/motion-integration` et le guide `/docs/animation`.
+**@pimolu/motion reste privé et n'est pas publié sur npm** ; ces nouvelles API
+nécessitent le build du workspace et ne figurent pas dans la version npm actuelle.
+Voir [le contrat de compatibilité](docs/ai/MOTION_COMPATIBILITY.md).
+
+Les transitions CSS utilisent des timings communs. Les recettes Motion optionnelles
+couvrent les ressorts, les entrées/sorties coordonnées et le réordonnancement.
+Voir [l’audit des animations](docs/ai/ANIMATION_AUDIT.md) pour les mesures, le coût
+JavaScript et les limites de la comparaison.
+
 ## État du projet
 
 Pimolu UI est en développement actif et a publié sa première prévisualisation publique, **`0.1.0-beta.1`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme restent des emplacements vides. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.1`, avec les tags `latest` et `beta` :

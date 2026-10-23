@@ -22,7 +22,9 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function ApiTable({
+import { forwardRef } from "react";
+export const ApiTable = forwardRef<HTMLDivElement, PimoluApiTableProps>(function ApiTable({
+  style: motionStyle,
   rows,
   title,
   caption,
@@ -30,7 +32,7 @@ export function ApiTable({
   emptyMessage = "No API entries.",
   className,
   ...props
-}: PimoluApiTableProps) {
+}, ref) {
   const titleId = `pimolu-api-table-${useId().replace(
     /[^a-zA-Z0-9_-]/g,
     ""
@@ -39,7 +41,7 @@ export function ApiTable({
   const hasTitle = title != null;
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes("pimolu-api-table", className)}
     >
@@ -149,6 +151,6 @@ export function ApiTable({
       </Table>
     </div>
   );
-}
+});
 
 ApiTable.displayName = "PimoluApiTable";

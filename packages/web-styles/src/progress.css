@@ -94,7 +94,11 @@
 }
 
 .pimolu-progress__fill {
-  width: var(--pimolu-progress-value);
+  --pimolu-progress-scale: 1;
+  --pimolu-progress-fill-width: var(--pimolu-progress-value, 0%);
+  width: var(--pimolu-progress-fill-width, var(--pimolu-progress-value));
+  transform: scaleX(var(--pimolu-progress-scale, 1));
+  transform-origin: var(--pimolu-progress-origin, left) center;
 
   height: 100%;
 
@@ -102,12 +106,18 @@
 
   background: var(--pimolu-progress-tone);
 
-  transition: width 200ms ease;
+  transition: transform var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, ease);
 }
+
+/* Inherit from the nearest dir scope, including nested LTR islands. Avoid
+   :dir(), which older CSS compilation targets can lower to language guesses. */
+:where([dir="rtl"]) { --pimolu-progress-origin: right; }
+:where([dir="ltr"]) { --pimolu-progress-origin: left; }
 
 /* Unknown completion: a short bar sweeps across the track. */
 
 .pimolu-progress--indeterminate .pimolu-progress__fill {
+  transform: none;
   width: 40%;
 
   animation:

@@ -1,3 +1,4 @@
+import { MotionCompatibilityExample } from "../motion-compatibility-example";
 import {
   footerVariantMap,
   Button,
@@ -175,6 +176,7 @@ export function FooterPage() {
           }
         />
       </Section>
+      <MotionCompatibilityExample target="Footer" />
     </>
   );
 }

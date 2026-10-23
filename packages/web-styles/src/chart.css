@@ -111,7 +111,7 @@
   stroke: none;
   rx: 4px;
 
-  transition: opacity 160ms ease;
+  transition: opacity var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-chart__bar--vertical {
@@ -231,7 +231,7 @@
     var(--pimolu-primary, #4f46e5)
   );
 
-  transition: opacity 160ms ease;
+  transition: opacity var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 
   animation:
     pimolu-chart-fade

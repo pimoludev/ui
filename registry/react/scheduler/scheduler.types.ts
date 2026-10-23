@@ -90,4 +90,7 @@ export interface PimoluSchedulerProps {
 
   /** Accessible name of the time grid. Defaults to "Schedule". */
   "aria-label"?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

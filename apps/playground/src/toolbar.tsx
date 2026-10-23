@@ -15,7 +15,7 @@ import {
 } from "./demo-data";
 import { pageHref } from "./router";
 
-export function Toolbar() {
+export function Toolbar({ animationEngine, onAnimationEngineChange }: { animationEngine: "css" | "motion"; onAnimationEngineChange: (engine: "css" | "motion") => void }) {
   const {
     theme,
     stylePreset,
@@ -43,6 +43,12 @@ export function Toolbar() {
         </a>
 
         <div className="pg-toolbar">
+          <Select size="sm" label="Animation" value={animationEngine}
+            onValueChange={(value) => onAnimationEngineChange(value as "css" | "motion")}
+            containerClassName="pg-toolbar__select">
+            <option value="css">CSS</option>
+            <option value="motion">Motion</option>
+          </Select>
           <div
             className="pg-row"
             role="group"

@@ -50,6 +50,9 @@ export interface PimoluTabsProps {
 
   /** Class applied to the root. */
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluTabsListProps {
@@ -80,6 +83,9 @@ export interface PimoluTabsListProps {
   scrollNextLabel?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluTabsTriggerProps {
@@ -92,6 +98,9 @@ export interface PimoluTabsTriggerProps {
   children: ReactNode;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluTabsContentProps {
@@ -101,4 +110,7 @@ export interface PimoluTabsContentProps {
   children: ReactNode;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

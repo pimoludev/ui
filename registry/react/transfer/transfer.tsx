@@ -35,7 +35,8 @@ function filterItems(
    TRANSFER
 ========================================= */
 
-export function Transfer({
+import { forwardRef } from "react";
+export const Transfer = forwardRef<HTMLDivElement, PimoluTransferProps>(function Transfer({
   data,
   targetKeys,
   defaultTargetKeys = [],
@@ -55,7 +56,7 @@ export function Transfer({
   style,
 
   "aria-label": ariaLabel,
-}: PimoluTransferProps) {
+}, ref) {
   const generatedId = useId();
 
   const sourceTitle = titles?.[0] ?? "Source";
@@ -394,7 +395,7 @@ export function Transfer({
     .join(" ");
 
   return (
-    <div
+    <div ref={ref}
       className={rootClassName}
       style={style}
       role={ariaLabel ? "group" : undefined}
@@ -497,6 +498,6 @@ export function Transfer({
       })}
     </div>
   );
-}
+});
 
 Transfer.displayName = "PimoluTransfer";

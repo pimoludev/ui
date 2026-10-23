@@ -22,6 +22,9 @@ export interface PimoluMenubarMenuProps {
    * Useful only when the same menu must be addressed programmatically.
    */
   value?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluMenubarTriggerProps
@@ -53,9 +56,15 @@ export interface PimoluMenubarItemProps
 
 export interface PimoluMenubarSeparatorProps {
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluMenubarLabelProps {
   children: ReactNode;
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

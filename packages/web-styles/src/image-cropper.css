@@ -89,7 +89,7 @@
   pointer-events: none;
   user-select: none;
 
-  transition: transform 160ms ease-out;
+  transition: transform var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-image-cropper[data-dragging="true"]
@@ -380,9 +380,9 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms,
-    border-color 150ms,
-    color 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    border-color var(--pimolu-motion-duration-control, 150ms),
+    color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-image-cropper__action:focus-visible {

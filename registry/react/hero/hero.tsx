@@ -64,35 +64,41 @@ export const Hero = forwardRef<HTMLElement, PimoluHeroProps>(
 
 Hero.displayName = "PimoluHero";
 
-export function HeroContent({
+export const HeroContent = forwardRef<HTMLDivElement, PimoluHeroContentProps>(function HeroContent({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluHeroContentProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes("pimolu-hero__content", className)}
     >
       {children}
     </div>
   );
-}
+});
 
-export function HeroEyebrow({
+HeroContent.displayName = "PimoluHeroContent";
+
+export const HeroEyebrow = forwardRef<HTMLParagraphElement, PimoluHeroEyebrowProps>(function HeroEyebrow({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluHeroEyebrowProps) {
+}, ref) {
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       {...props}
       className={classes("pimolu-hero__eyebrow", className)}
     >
       {children}
     </p>
   );
-}
+});
+
+HeroEyebrow.displayName = "PimoluHeroEyebrow";
 
 export function HeroTitle({
   children,
@@ -110,13 +116,14 @@ export function HeroTitle({
   );
 }
 
-export function HeroDescription({
+export const HeroDescription = forwardRef<HTMLParagraphElement, PimoluHeroDescriptionProps>(function HeroDescription({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluHeroDescriptionProps) {
+}, ref) {
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       {...props}
       className={classes(
         "pimolu-hero__description",
@@ -126,34 +133,42 @@ export function HeroDescription({
       {children}
     </p>
   );
-}
+});
 
-export function HeroActions({
+HeroDescription.displayName = "PimoluHeroDescription";
+
+export const HeroActions = forwardRef<HTMLDivElement, PimoluHeroActionsProps>(function HeroActions({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluHeroActionsProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes("pimolu-hero__actions", className)}
     >
       {children}
     </div>
   );
-}
+});
 
-export function HeroMedia({
+HeroActions.displayName = "PimoluHeroActions";
+
+export const HeroMedia = forwardRef<HTMLDivElement, PimoluHeroMediaProps>(function HeroMedia({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluHeroMediaProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       className={classes("pimolu-hero__media", className)}
     >
       {children}
     </div>
   );
-}
+});
+
+HeroMedia.displayName = "PimoluHeroMedia";

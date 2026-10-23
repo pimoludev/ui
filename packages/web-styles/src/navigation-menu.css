@@ -77,7 +77,7 @@
 .pimolu-navigation-menu__chevron {
   flex: none;
 
-  transition: transform 150ms ease;
+  transition: transform var(--pimolu-motion-duration-control, 150ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .pimolu-navigation-menu__trigger[data-state="open"]

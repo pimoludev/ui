@@ -128,8 +128,8 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms,
-    color 150ms;
+    background-color var(--pimolu-motion-duration-control, 150ms),
+    color var(--pimolu-motion-duration-control, 150ms);
 }
 
 .pimolu-video-player__button:hover {

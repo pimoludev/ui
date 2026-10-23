@@ -68,7 +68,9 @@ function Chevron() {
   );
 }
 
-export function TreeView({
+import { forwardRef } from "react";
+export const TreeView = forwardRef<HTMLUListElement, PimoluTreeViewProps>(function TreeView({
+  style: motionStyle,
   items,
   expandedIds: controlledExpanded,
   defaultExpandedIds = [],
@@ -78,7 +80,7 @@ export function TreeView({
   onSelectedChange,
   "aria-label": ariaLabel,
   className,
-}: PimoluTreeViewProps) {
+}, ref) {
   const isExpandedControlled =
     controlledExpanded !== undefined;
 
@@ -267,7 +269,7 @@ export function TreeView({
   }
 
   return (
-    <ul
+    <ul ref={ref} style={motionStyle}
       role="tree"
       aria-label={ariaLabel}
       className={[
@@ -344,4 +346,6 @@ export function TreeView({
       })}
     </ul>
   );
-}
+});
+
+TreeView.displayName = "PimoluTreeView";

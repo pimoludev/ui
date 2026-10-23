@@ -344,10 +344,12 @@ export function Form<T extends FormValues = FormValues>({
    FORM ERROR
 ========================================= */
 
-export function FormError({
+import { forwardRef } from "react";
+export const FormError = forwardRef<HTMLParagraphElement, PimoluFormErrorProps>(function FormError({
+  style: motionStyle,
   name,
   className,
-}: PimoluFormErrorProps) {
+}, ref) {
   const { errors, formId } = useFormContext("FormError");
 
   const message = errors[name];
@@ -355,7 +357,7 @@ export function FormError({
   if (!message) return null;
 
   return (
-    <p
+    <p ref={ref} style={motionStyle}
       id={`${formId}-${name}-error`}
       role="alert"
       className={classNames(
@@ -366,7 +368,9 @@ export function FormError({
       {message}
     </p>
   );
-}
+});
+
+FormError.displayName = "PimoluFormError";
 
 /* =========================================
    FORM SUBMIT

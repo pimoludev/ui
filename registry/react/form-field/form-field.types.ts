@@ -35,6 +35,9 @@ export interface PimoluFormFieldProps {
   disabled?: boolean;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluFormControlProps {
@@ -55,6 +58,9 @@ export interface PimoluFormMessageProps {
   id?: string;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluFormGroupProps {
@@ -70,6 +76,9 @@ export interface PimoluFormGroupProps {
   orientation?: "vertical" | "horizontal";
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }
 
 export interface PimoluFieldsetProps {
@@ -85,4 +94,7 @@ export interface PimoluFieldsetProps {
   disabled?: boolean;
 
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

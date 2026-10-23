@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePimoluExitDuration } from "../animation/animation-engine";
 
 export type OverlayPresenceState =
   | "open"
@@ -24,6 +25,7 @@ export function usePresence(
   open: boolean,
   exitDuration = 150
 ) {
+  exitDuration = usePimoluExitDuration(exitDuration);
   const [rendered, setRendered] = useState(open);
   const [state, setState] = useState<OverlayPresenceState>(
     "open"
@@ -50,7 +52,7 @@ export function usePresence(
 
     if (!rendered) return;
 
-    if (prefersReducedMotion()) {
+    if (prefersReducedMotion() || exitDuration <= 0) {
       setRendered(false);
       return;
     }
@@ -62,10 +64,20 @@ export function usePresence(
       timer.current = null;
     }, exitDuration);
 
-    return cancel;
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const reduce = () => {
+      if (media?.matches) { cancel(); setRendered(false); }
+    };
+    media?.addEventListener("change", reduce);
+    return () => { cancel(); media?.removeEventListener("change", reduce); };
   }, [open, rendered, exitDuration]);
 
   useEffect(() => cancel, []);
 
-  return { rendered, state };
+  // Opening must be synchronous; CSS-only disclosure panels also hide in the
+  // same commit, preserving their original layout and keyboard contract.
+  return {
+    rendered: exitDuration <= 0 ? open : open || rendered,
+    state: open ? "open" as const : state,
+  };
 }

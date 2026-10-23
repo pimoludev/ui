@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import { createPortal } from "react-dom";
+import { AnimationScope } from "../animation/animation-engine";
 
 /**
  * Renders its children into a host outside the component tree, so a floating
@@ -44,5 +45,5 @@ export function Portal({
 
   if (!host) return null;
 
-  return createPortal(children, host);
+  return createPortal(<AnimationScope>{children}</AnimationScope>, host);
 }

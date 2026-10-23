@@ -47,7 +47,9 @@ function withPage(src: string, page: number | undefined) {
    PDF VIEWER
 ========================================= */
 
-export function PDFViewer({
+import { forwardRef } from "react";
+export const PDFViewer = forwardRef<HTMLDivElement, PimoluPDFViewerProps>(function PDFViewer({
+  style: motionStyle,
   src,
   title,
   height = 480,
@@ -61,7 +63,7 @@ export function PDFViewer({
   className,
   onLoad,
   "aria-label": ariaLabel,
-}: PimoluPDFViewerProps) {
+}, ref) {
   const toolbarRef = useRef<HTMLDivElement | null>(
     null
   );
@@ -157,12 +159,12 @@ export function PDFViewer({
   }
 
   return (
-    <div
+    <div ref={ref}
       className={classes(
         "pimolu-pdf-viewer",
         className
       )}
-      style={{ height: resolvedHeight }}
+      style={{ ...({ height: resolvedHeight }), ...motionStyle }}
       data-toolbar={showToolbar ? "true" : "false"}
     >
       {showToolbar && (
@@ -229,6 +231,6 @@ export function PDFViewer({
       </object>
     </div>
   );
-}
+});
 
 PDFViewer.displayName = "PimoluPDFViewer";

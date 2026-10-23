@@ -190,7 +190,9 @@ function Chevron({
    SCHEDULER
 ========================================= */
 
-export function Scheduler({
+import { forwardRef } from "react";
+export const Scheduler = forwardRef<HTMLElement, PimoluSchedulerProps>(function Scheduler({
+  style: motionStyle,
   events,
 
   date,
@@ -214,7 +216,7 @@ export function Scheduler({
 
   className,
   "aria-label": ariaLabel = "Schedule",
-}: PimoluSchedulerProps) {
+}, ref) {
   const dateControlled = date !== undefined;
 
   const [internalDate, setInternalDate] = useState(
@@ -547,7 +549,7 @@ export function Scheduler({
   }
 
   return (
-    <section
+    <section ref={ref}
       className={[
         "pimolu-scheduler",
         `pimolu-scheduler--${resolvedView}`,
@@ -556,11 +558,9 @@ export function Scheduler({
         .filter(Boolean)
         .join(" ")}
       aria-label={ariaLabel}
-      style={
-        {
+      style={{ ...({
           "--pimolu-scheduler-hour-height": `${hourHeight}px`,
-        } as CSSProperties
-      }
+        } as CSSProperties), ...motionStyle }}
     >
       <div className="pimolu-scheduler__toolbar">
         <div className="pimolu-scheduler__navigation">
@@ -915,4 +915,6 @@ export function Scheduler({
       </div>
     </section>
   );
-}
+});
+
+Scheduler.displayName = "PimoluScheduler";

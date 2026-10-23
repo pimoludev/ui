@@ -92,7 +92,7 @@
   stroke-dashoffset:
     var(--pimolu-circular-progress-offset);
 
-  transition: stroke-dashoffset 200ms ease;
+  transition: stroke-dashoffset var(--pimolu-motion-duration-layout, 200ms) var(--pimolu-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 /* =========================================

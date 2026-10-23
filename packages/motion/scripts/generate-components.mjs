@@ -1,0 +1,79 @@
+import ts from "typescript";
+import fs from "node:fs";
+import path from "node:path";
+
+const entry = path.resolve("../../registry/react/dist/index.d.ts");
+const program = ts.createProgram([entry], { module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler, skipLibCheck: true, strict: true, jsx: ts.JsxEmit.ReactJSX });
+const checker = program.getTypeChecker();
+const source = program.getSourceFile(entry);
+if (!source) throw new Error("Build @pimolu/react declarations before generating Motion components.");
+const entries = [];
+const proven = new Set(["Button", "Card", "CardHeader", "CardTitle", "CardContent", "CardDescription", "CardFooter", "Box", "Input", "Stack", "HStack", "VStack", "Flex", "Grid", "Container", "Center", "Spacer", "AspectRatio", "Footer", "Sidebar", "AppShell", "DashboardLayout", "DocsLayout"]);
+function hasSameStyleTarget(symbol, name) {
+  if (proven.has(name)) return true;
+  const declarationFile = symbol.declarations?.[0]?.getSourceFile().fileName;
+  if (!declarationFile) return false;
+  const file = declarationFile.replace(/[/\\]dist[/\\]/, "/").replace(/\.d\.ts$/, ".tsx");
+  if (!fs.existsSync(file)) return false;
+  const ast = ts.createSourceFile(file, fs.readFileSync(file, "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const variable = ast.statements.filter(ts.isVariableStatement).flatMap((s) => [...s.declarationList.declarations]).find((d) => d.name.getText(ast) === name);
+  const fn = variable?.initializer && ts.isCallExpression(variable.initializer) ? variable.initializer.arguments[0] : undefined;
+  if (!fn || !(ts.isFunctionExpression(fn) || ts.isArrowFunction(fn)) || !fn.body || !ts.isBlock(fn.body)) return false;
+  const refName = fn.parameters[1]?.name.getText(ast);
+  const binding = fn.parameters[0]?.name;
+  if (!refName || !binding || !ts.isObjectBindingPattern(binding)) return false;
+  const style = binding.elements.find((e) => (e.propertyName ?? e.name).getText(ast) === "style")?.name.getText(ast);
+  const rest = binding.elements.find((e) => e.dotDotDotToken)?.name.getText(ast);
+  const aliases = new Set([refName]);
+  const variables = fn.body.statements.filter(ts.isVariableStatement).flatMap((s) => [...s.declarationList.declarations]);
+  for (const v of variables) if (v.initializer?.getText(ast).includes(`useMergedRefs(${refName},`)) aliases.add(v.name.getText(ast));
+  let targets = 0, correct = true;
+  const visit = (node) => {
+    if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
+      const attributes = node.attributes.properties;
+      const ref = attributes.find((a) => ts.isJsxAttribute(a) && a.name.getText(ast) === "ref");
+      const value = ref?.initializer && ts.isJsxExpression(ref.initializer) ? ref.initializer.expression?.getText(ast) : undefined;
+      if (value && (aliases.has(value) || new RegExp(`\\b${refName}\\b`).test(value))) {
+        targets++;
+        const attr = attributes.find((a) => ts.isJsxAttribute(a) && a.name.getText(ast) === "style");
+        const text = attr?.initializer?.getText(ast) ?? "";
+        const expression = attr?.initializer && ts.isJsxExpression(attr.initializer) ? attr.initializer.expression?.getText(ast) : undefined;
+        const derived = variables.find((v) => v.name.getText(ast) === expression)?.initializer?.getText(ast) ?? "";
+        const matches = style ? new RegExp(`\\b${style}\\b`).test(text + derived)
+          : !attr && Boolean(rest && attributes.some((a) => ts.isJsxSpreadAttribute(a) && a.expression.getText(ast) === rest));
+        correct &&= matches;
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(fn.body);
+  return targets > 0 && correct;
+}
+const excluded = new Set(["PimoluProvider", "PimoluAnimationProvider", "Portal", "VisuallyHidden", "FocusScope"]);
+for (const symbol of checker.getExportsOfModule(checker.getSymbolAtLocation(source))) {
+  const name = symbol.name;
+  if (!/^[A-Z]/.test(name) || excluded.has(name)) continue;
+  const original = symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol;
+  if (!(original.flags & ts.SymbolFlags.Value)) continue;
+  const type = checker.getTypeOfSymbolAtLocation(original, source);
+  const signature = type.getCallSignatures()[0];
+  if (!signature) continue;
+  const parameter = signature.parameters[0];
+  if (!parameter) continue;
+  const props = checker.getTypeOfSymbolAtLocation(parameter, source);
+  const ref = props.getProperty("ref");
+  const refType = ref && checker.typeToString(checker.getTypeOfSymbolAtLocation(ref, source), source, ts.TypeFormatFlags.NoTruncation);
+  const native = Boolean(refType && /\b(?:HTML\w*Element|SVG\w*Element)\b/.test(refType));
+  entries.push({ name, mode: native ? (hasSameStyleTarget(original, name) ? "dom" : "container") : "engine", svg: Boolean(native && /\bSVG\w*Element\b/.test(refType)) });
+}
+entries.sort((a, b) => a.name.localeCompare(b.name));
+const lines = ['// Generated by scripts/generate-components.mjs from the public React declarations.', 'import * as Pimolu from "@pimolu/react";', 'import { createMotionComponent, withMotionEngine, type PimoluMotionComponent } from "./adapters";', ''];
+for (const { name, mode, svg } of entries) {
+  const options = mode === "container" ? ", { container: true }" : svg ? ", { svg: true }" : "";
+  lines.push(mode !== "engine"
+    ? `export const Motion${name}: PimoluMotionComponent<typeof Pimolu.${name}> = /* @__PURE__ */ createMotionComponent(Pimolu.${name}${options});`
+    : `export const Motion${name}: typeof Pimolu.${name} = /* @__PURE__ */ withMotionEngine(Pimolu.${name}) as typeof Pimolu.${name};`);
+}
+lines.push('', `export const motionComponentModes = ${JSON.stringify(Object.fromEntries(entries.map(({ name, mode }) => [`Motion${name}`, mode])), null, 2)} as const;`, '');
+fs.writeFileSync("src/components.ts", lines.join("\n"));
+console.log(`Motion adapters: ${entries.filter((e) => e.mode === "dom").length} DOM targets, ${entries.filter((e) => e.mode === "container").length} composite containers, ${entries.filter((e) => e.mode === "engine").length} engine/context roots.`);

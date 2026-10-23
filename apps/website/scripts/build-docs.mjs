@@ -43,7 +43,7 @@ const catalog = [];
 function readPages(node) {
   if (ts.isObjectLiteralExpression(node)) {
     const data = Object.fromEntries(node.properties.filter((prop) => ts.isPropertyAssignment(prop) && ts.isStringLiteral(prop.initializer)).map((prop) => [prop.name.getText(router), prop.initializer.text]));
-    if (data.id && data.label && data.group && !["overview", "design-lab"].includes(data.id)) {
+    if (data.id && data.label && data.group && !["overview", "design-lab", "motion-integration"].includes(data.id)) {
       const exports = [...new Set(exportedFamilies.get(data.id) ?? [])];
       if (!exports.length) throw new Error(`Playground family has no public export: ${data.id}`);
       const documented = components.find((component) => component.family === data.id);

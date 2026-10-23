@@ -377,7 +377,9 @@ function resizeCrop(
    IMAGE CROPPER
 ========================================= */
 
-export function ImageCropper({
+import { forwardRef } from "react";
+export const ImageCropper = forwardRef<HTMLDivElement, PimoluImageCropperProps>(function ImageCropper({
+  style: motionStyle,
   src,
   alt = "",
   aspectRatio,
@@ -393,7 +395,7 @@ export function ImageCropper({
   disabled = false,
   labels,
   className,
-}: PimoluImageCropperProps) {
+}, ref) {
   const instructionsId = `pimolu-image-cropper-instructions-${useId()}`;
 
   const ratio =
@@ -959,7 +961,7 @@ export function ImageCropper({
   };
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       role="group"
       aria-label={resolvedLabels.cropper}
       className={classes(
@@ -1114,6 +1116,6 @@ export function ImageCropper({
       </p>
     </div>
   );
-}
+});
 
 ImageCropper.displayName = "PimoluImageCropper";

@@ -107,4 +107,7 @@ export interface PimoluImageCropperProps {
 
   /** Class applied to the cropper wrapper. */
   className?: string;
+  /** Inline styles on the native animation target. */
+  style?: import("react").CSSProperties;
+
 }

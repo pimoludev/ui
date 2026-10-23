@@ -84,7 +84,10 @@ function setActiveItem(
    ROOT
 ======================================== */
 
-export function Toolbar({
+import { forwardRef } from "react";
+import { useMergedRefs } from "../internal/use-merged-refs";
+export const Toolbar = forwardRef<HTMLDivElement, PimoluToolbarProps>(function Toolbar({
+  style: motionStyle,
   children,
   orientation = "horizontal",
   label,
@@ -92,7 +95,7 @@ export function Toolbar({
   "aria-label": ariaLabel,
   className,
   ...props
-}: PimoluToolbarProps) {
+}, ref) {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   /*
@@ -164,11 +167,13 @@ export function Toolbar({
     next.focus();
   }
 
+  const mergedMotionRef = useMergedRefs(ref, rootRef);
+
   return (
     <ToolbarContext.Provider value={{ orientation, disabled }}>
-      <div
+      <div style={motionStyle}
         {...props}
-        ref={rootRef}
+        ref={mergedMotionRef}
         role="toolbar"
         aria-label={ariaLabel ?? label ?? "Toolbar"}
         aria-orientation={orientation}
@@ -182,7 +187,7 @@ export function Toolbar({
       </div>
     </ToolbarContext.Provider>
   );
-}
+});
 
 Toolbar.displayName = "PimoluToolbar";
 
@@ -190,13 +195,14 @@ Toolbar.displayName = "PimoluToolbar";
    GROUP
 ======================================== */
 
-export function ToolbarGroup({
+export const ToolbarGroup = forwardRef<HTMLDivElement, PimoluToolbarGroupProps>(function ToolbarGroup({
+  style: motionStyle,
   children,
   className,
   ...props
-}: PimoluToolbarGroupProps) {
+}, ref) {
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       role="group"
       className={classes(
@@ -207,7 +213,7 @@ export function ToolbarGroup({
       {children}
     </div>
   );
-}
+});
 
 ToolbarGroup.displayName = "PimoluToolbarGroup";
 
@@ -215,18 +221,19 @@ ToolbarGroup.displayName = "PimoluToolbarGroup";
    BUTTON
 ======================================== */
 
-export function ToolbarButton({
+export const ToolbarButton = forwardRef<HTMLButtonElement, PimoluToolbarButtonProps>(function ToolbarButton({
+  style: motionStyle,
   children,
   className,
   type,
   disabled,
   tabIndex,
   ...props
-}: PimoluToolbarButtonProps) {
+}, ref) {
   const toolbar = useToolbar("ToolbarButton");
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       {...props}
       type={type ?? "button"}
       disabled={disabled || toolbar.disabled}
@@ -240,7 +247,7 @@ export function ToolbarButton({
       {children}
     </button>
   );
-}
+});
 
 ToolbarButton.displayName = "PimoluToolbarButton";
 
@@ -248,7 +255,8 @@ ToolbarButton.displayName = "PimoluToolbarButton";
    LINK
 ======================================== */
 
-export function ToolbarLink({
+export const ToolbarLink = forwardRef<HTMLAnchorElement, PimoluToolbarLinkProps>(function ToolbarLink({
+  style: motionStyle,
   children,
   className,
   current = false,
@@ -256,14 +264,14 @@ export function ToolbarLink({
   onClick,
   "aria-disabled": ariaDisabled,
   ...props
-}: PimoluToolbarLinkProps) {
+}, ref) {
   const toolbar = useToolbar("ToolbarLink");
 
   const disabled =
     toolbar.disabled || ariaDisabled === "true";
 
   return (
-    <a
+    <a ref={ref} style={motionStyle}
       {...props}
       data-pimolu-toolbar-item=""
       tabIndex={disabled ? -1 : tabIndex ?? -1}
@@ -285,7 +293,7 @@ export function ToolbarLink({
       {children}
     </a>
   );
-}
+});
 
 ToolbarLink.displayName = "PimoluToolbarLink";
 
@@ -293,14 +301,15 @@ ToolbarLink.displayName = "PimoluToolbarLink";
    SEPARATOR
 ========================================= */
 
-export function ToolbarSeparator({
+export const ToolbarSeparator = forwardRef<HTMLDivElement, PimoluToolbarSeparatorProps>(function ToolbarSeparator({
+  style: motionStyle,
   className,
   ...props
-}: PimoluToolbarSeparatorProps) {
+}, ref) {
   const toolbar = useToolbar("ToolbarSeparator");
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       {...props}
       role="separator"
       aria-orientation={
@@ -314,7 +323,7 @@ export function ToolbarSeparator({
       )}
     />
   );
-}
+});
 
 ToolbarSeparator.displayName = "PimoluToolbarSeparator";
 
@@ -449,20 +458,21 @@ export function ToolbarToggleGroup(
 
 ToolbarToggleGroup.displayName = "PimoluToolbarToggleGroup";
 
-export function ToolbarToggleItem({
+export const ToolbarToggleItem = forwardRef<HTMLButtonElement, PimoluToolbarToggleItemProps>(function ToolbarToggleItem({
+  style: motionStyle,
   value,
   children,
   className,
   disabled,
   onClick,
   ...props
-}: PimoluToolbarToggleItemProps) {
+}, ref) {
   const group = useToolbarToggle("ToolbarToggleItem");
 
   const pressed = group.selected(value);
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       {...props}
       type="button"
       aria-pressed={pressed}
@@ -486,6 +496,6 @@ export function ToolbarToggleItem({
       {children}
     </button>
   );
-}
+});
 
 ToolbarToggleItem.displayName = "PimoluToolbarToggleItem";

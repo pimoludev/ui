@@ -1,14 +1,13 @@
 "use client";
 
+import { forwardRef, useId } from "react";
 import { footerVariants } from "./footer.variants";
-
-import { useId } from "react";
 
 import { Link } from "../link/link";
 
 import type { PimoluFooterProps } from "./footer.types";
 
-export function Footer({
+export const Footer = forwardRef<HTMLElement, PimoluFooterProps>(function Footer({
   appearance = "surface",
   bordered = true,
   brand,
@@ -19,7 +18,7 @@ export function Footer({
   bottom,
   className,
   ...props
-}: PimoluFooterProps) {
+}, ref) {
   const id = useId().replace(/[^a-zA-Z0-9_-]/g, "");
 
   const hasBrand =
@@ -29,6 +28,7 @@ export function Footer({
 
   return (
     <footer
+      ref={ref}
       {...props}
       data-bordered={bordered || undefined}
       className={footerVariants({ appearance }, className)}
@@ -125,4 +125,6 @@ export function Footer({
       )}
     </footer>
   );
-}
+});
+
+Footer.displayName = "PimoluFooter";

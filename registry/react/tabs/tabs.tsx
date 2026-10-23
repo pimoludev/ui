@@ -23,6 +23,8 @@ import type {
 } from "./tabs.types";
 
 import { tabsVariants } from "./tabs.variants";
+import { AnimationScope } from "../animation/animation-engine";
+import { usePresence } from "../internal/use-presence";
 
 /* =========================================
    HELPERS
@@ -111,7 +113,9 @@ function useTabs(component: string) {
    ROOT
 ========================================= */
 
-export function Tabs({
+import { forwardRef } from "react";
+export const Tabs = forwardRef<HTMLDivElement, PimoluTabsProps>(function Tabs({
+  style: motionStyle,
   children,
 
   defaultValue,
@@ -125,7 +129,7 @@ export function Tabs({
   size = "md",
 
   className,
-}: PimoluTabsProps) {
+}, ref) {
   const isControlled = controlledValue !== undefined;
 
   const [uncontrolledValue, setUncontrolledValue] =
@@ -169,7 +173,7 @@ export function Tabs({
 
   return (
     <TabsContext.Provider value={context}>
-      <div
+      <div ref={ref} style={motionStyle}
         className={[
           tabsVariants({ variant, size }),
           orientation === "vertical" &&
@@ -184,13 +188,16 @@ export function Tabs({
       </div>
     </TabsContext.Provider>
   );
-}
+});
+
+Tabs.displayName = "PimoluTabs";
 
 /* =========================================
    LIST
 ========================================= */
 
-export function TabsList({
+export const TabsList = forwardRef<HTMLDivElement, PimoluTabsListProps>(function TabsList({
+  style: motionStyle,
   children,
   className,
   "aria-label": ariaLabel,
@@ -199,7 +206,7 @@ export function TabsList({
   scrollable = false,
   scrollPreviousLabel = "Previous tabs",
   scrollNextLabel = "Next tabs",
-}: PimoluTabsListProps) {
+}, ref) {
   const {
     value,
     setValue,
@@ -437,7 +444,7 @@ export function TabsList({
   }
 
   return (
-    <div
+    <div ref={ref} style={motionStyle}
       className={classes(
         "pimolu-tabs__list-wrap",
         isScrollable
@@ -490,18 +497,21 @@ export function TabsList({
       )}
     </div>
   );
-}
+});
+
+TabsList.displayName = "PimoluTabsList";
 
 /* =========================================
    TRIGGER
 ========================================= */
 
-export function TabsTrigger({
+export const TabsTrigger = forwardRef<HTMLButtonElement, PimoluTabsTriggerProps>(function TabsTrigger({
+  style: motionStyle,
   value,
   disabled = false,
   children,
   className,
-}: PimoluTabsTriggerProps) {
+}, ref) {
   const { value: activeValue, setValue, baseId } =
     useTabs("TabsTrigger");
 
@@ -510,7 +520,7 @@ export function TabsTrigger({
   const slug = toId(value);
 
   return (
-    <button
+    <button ref={ref} style={motionStyle}
       type="button"
       role="tab"
       id={`${baseId}-tab-${slug}`}
@@ -529,31 +539,37 @@ export function TabsTrigger({
       {children}
     </button>
   );
-}
+});
+
+TabsTrigger.displayName = "PimoluTabsTrigger";
 
 /* =========================================
    PANEL
 ========================================= */
 
-export function TabsContent({
+export const TabsContent = forwardRef<HTMLDivElement, PimoluTabsContentProps>(function TabsContent({
+  style: motionStyle,
   value,
   children,
   className,
-}: PimoluTabsContentProps) {
+}, ref) {
   const { value: activeValue, baseId } =
     useTabs("TabsContent");
 
   const selected = activeValue === value;
+  const { rendered, state } = usePresence(selected, 0);
 
   const slug = toId(value);
 
   return (
-    <div
+    <AnimationScope><div ref={ref} style={motionStyle}
       role="tabpanel"
       id={`${baseId}-panel-${slug}`}
       aria-labelledby={`${baseId}-tab-${slug}`}
-      hidden={!selected}
-      tabIndex={0}
+      hidden={!rendered}
+      aria-hidden={!selected || undefined}
+      tabIndex={selected ? 0 : -1}
+      data-pimolu-presence={rendered ? state : "closed"}
       data-state={selected ? "active" : "inactive"}
       className={classes(
         "pimolu-tabs__panel",
@@ -561,6 +577,8 @@ export function TabsContent({
       )}
     >
       {children}
-    </div>
+    </div></AnimationScope>
   );
-}
+});
+
+TabsContent.displayName = "PimoluTabsContent";

@@ -12,6 +12,7 @@ import {
 } from "react";
 
 import { pimoluPresets } from "@pimolu/themes/presets";
+import { AnimationScope, PimoluAnimationProvider, type PimoluAnimationEngine } from "../animation/animation-engine";
 
 import type {
   PimoluTheme,
@@ -167,6 +168,8 @@ function isDensity(
 /* Provider */
 
 export interface PimoluProviderProps {
+  /** Omit to inherit; defaults to CSS. Supply an optional driver, e.g. motionEngine. */
+  animationEngine?: "css" | PimoluAnimationEngine;
   children: ReactNode;
 
   theme?: PimoluThemeMode;
@@ -205,6 +208,7 @@ export interface PimoluProviderProps {
 }
 
 export function PimoluProvider({
+  animationEngine,
   children,
 
   theme: controlledTheme,
@@ -477,6 +481,7 @@ export function PimoluProvider({
   }
 
   return (
+    <PimoluAnimationProvider engine={animationEngine} scope={false}>
     <PimoluContext.Provider
       value={{
         theme,
@@ -500,9 +505,10 @@ export function PimoluProvider({
         style={brandStyle}
         className={className}
       >
-        {children}
+        <AnimationScope>{children}</AnimationScope>
       </div>
     </PimoluContext.Provider>
+    </PimoluAnimationProvider>
   );
 }
 
