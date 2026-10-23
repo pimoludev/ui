@@ -14,7 +14,7 @@ export const journalPosts: JournalPost[] = [
   {
     slug: "one-system-many-identities",
     title: "One system, many identities",
-    description: "Why Pimolu separates color, visual character and component behavior — and what that means for your product.",
+    description: "Why Pimolu separates color, visual character and component behavior, and what that means for your product.",
     category: "Design system", date: "2026-10-22", artwork: "palette",
     sections: [
       { id: "starting-point", title: "An identity is more than an accent color", paragraphs: ["Two products can share an indigo button and still feel entirely different. Typography, proportions, surface contrast, corner treatments and the way an action responds all contribute to identity. Treating a theme as a single hex value leaves most of that work scattered through the application.", "Pimolu's answer is a set of independent decisions. Color mode describes the viewing environment. A visual preset describes the character of the interface. Brand, radius and density refine the product. Keeping those axes separate makes a change easier to explain and easier to review."] },

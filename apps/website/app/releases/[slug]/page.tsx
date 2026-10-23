@@ -19,7 +19,7 @@ function findRelease(slug: string) {
 export function generateStaticParams() { return releaseNotes.map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const entry = findRelease((await params).slug);
-  return { title: `${entry.title} — release notes`, description: entry.summary, alternates: { canonical: `/releases/${entry.slug}` } };
+  return { title: `${entry.title}: release notes`, description: entry.summary, alternates: { canonical: `/releases/${entry.slug}` } };
 }
 export default async function ReleasePage({ params }: Props) {
   const entry = findRelease((await params).slug);

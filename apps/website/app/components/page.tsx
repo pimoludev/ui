@@ -5,7 +5,7 @@ import catalog from "@/content/generated/catalog.json";
 import { readCatalogFilter } from "@/lib/catalog";
 import { BreadcrumbData } from "@/components/structured-data";
 import "./catalog.css";
-export const metadata: Metadata = { title: "React UI Components — Examples & API", description: "Explore 129 Pimolu React component families with interactive examples, customization options, TypeScript APIs and accessibility guidance.", alternates: { canonical: "/components" } };
+export const metadata: Metadata = { title: "React UI Components: Examples and API", description: "Explore 129 Pimolu React component families with interactive examples, customization options, TypeScript APIs and accessibility guidance.", alternates: { canonical: "/components" } };
 export default async function Components({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams;
   const params = new URLSearchParams(Object.entries(query).flatMap(([key, value]) => typeof value === "string" ? [[key, value]] : []));

@@ -1,7 +1,7 @@
 import { journalPosts } from "../content/journal.ts";
 import { releaseNotes } from "../content/releases.ts";
 export const siteUrl = "https://pimolu.com";
-export const siteTitle = "Pimolu UI — Customizable React Component Library";
+export const siteTitle = "Pimolu UI: Customizable React Component Library";
 export const siteDescription = "A customizable React UI library built on shared design tokens, expressive presets and thoughtful defaults.";
 
 export function indexablePaths(entries: readonly { href: string }[], guides: readonly { slug: string }[]): string[] {

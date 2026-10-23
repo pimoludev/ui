@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import themes from "@pimolu/themes/themes.json";
 
-export const alt = "Pimolu UI — One system. Your identity. React components, shared tokens and customizable visual presets.";
+export const alt = "Pimolu UI. One system. Your identity. React components, shared tokens and customizable visual presets.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

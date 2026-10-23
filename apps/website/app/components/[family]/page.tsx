@@ -9,7 +9,7 @@ export function generateStaticParams() { return catalog.map(({ family }) => ({ f
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { family } = await params;
   const entry = catalog.find((entry) => entry.family === family);
-  return entry ? { title: `React ${entry.title} — Examples & API`, description: entry.description, alternates: { canonical: entry.href } } : {};
+  return entry ? { title: `React ${entry.title}: examples and API`, description: entry.description, alternates: { canonical: entry.href } } : {};
 }
 export default async function ComponentReference({ params, searchParams }: Props) {
   const { family } = await params;
