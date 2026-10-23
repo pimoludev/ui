@@ -11,7 +11,7 @@ date nor a feature that is already delivered.
    contrast and states, establish visual references for Default and the other
    presets, then reduce the remaining isolated CSS values.
 3. **Stabilise the published distribution.** Five compiled library packages are
-   available on npm at `0.1.0-beta.1`. Keep exports, peer dependencies and the
+   available on npm at `0.1.0-beta.2`. Keep exports, peer dependencies and the
    SemVer policy aligned; expand the React/Next.js compatibility matrix and
    validate installation outside the monorepo before subsequent releases.
 4. **Complete the developer experience.** Bilingual component documentation,

@@ -2,6 +2,106 @@
 
 All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses Semantic Versioning.
 
+## [0.1.0-beta.2] — 2026-10-23
+
+Second public preview of Pimolu UI. Tag: `v0.1.0-beta.2`. All five library
+packages are published on npm at this version with `latest` and `beta`
+dist-tags.
+
+### English
+
+#### Added
+
+- Interactive charts: responsive container measurement, formatted value axes,
+  pointer and keyboard exploration, accessible tooltips, smooth line/area
+  curves, solid area fills, missing-value gaps and localizable instructions.
+- TreeTable cascade selection with mixed parent state; Scheduler bounded
+  timetables with visible headings and compact events; PageHeader `sm`, `md`
+  and `lg` sizes with container-relative typography.
+- MDX-authored release notes with a compile-time metadata and anchor pipeline.
+- SEO titles, canonical URLs and server-rendered JSON-LD for Organization,
+  WebSite, BlogPosting and BreadcrumbList.
+- Mobile release navigation drawer, two-column journal filters and shared
+  GitHub, Discord and npm links.
+- Website production commands, Vercel deployment documentation and GitHub
+  Actions for library verification plus three-engine browser checks.
+
+#### Changed
+
+- The five packages and website versions are aligned on `0.1.0-beta.2`;
+  package READMEs now document npm installation, CSS loading and Provider setup.
+- The public site is deployed at `https://pimolu.com`; the package READMEs
+  and documentation point to the npm organization and live catalogue.
+- AppShell, DashboardLayout, Sidebar, DocsLayout, Navbar, Gantt, Kanban,
+  TagsInput and CircularProgress received layout, overflow, focus and compact
+  state refinements.
+
+#### Fixed
+
+- PageHeader no longer collapses its title inside a flex row because of its
+  inline-size container query.
+- Playground lazy-route smoke coverage now waits for complex pages under
+  aggregate test load.
+
+#### Known limitations
+
+- This is a beta: component APIs and visual tokens may still change.
+- The complete 131-page visual review in seven presets and both modes remains
+  unfinished, and the seven complex-component assistive-technology reviews
+  remain open. See `docs/ai/QUALITY_AUDIT.md`.
+- The local Playground bundle still exceeds 500 kB; the website browser suite
+  is green in Chromium, Firefox and WebKit but does not replace manual visual
+  and screen-reader review.
+
+### Français
+
+#### Ajouts
+
+- Graphiques interactifs : mesure responsive du conteneur, axes formatés,
+  exploration pointeur et clavier, tooltips accessibles, courbes lissées
+  ligne/aire, remplissage d'aire solide, lacunes pour les valeurs manquantes
+  et instructions localisables.
+- Sélection en cascade de TreeTable avec état mixte des parents ; emplois du
+  temps Scheduler bornés avec en-têtes visibles et événements compacts ;
+  tailles PageHeader `sm`, `md` et `lg` avec typographie relative au conteneur.
+- Notes de release rédigées en MDX avec pipeline de métadonnées et d'ancres
+  compilé au build.
+- Titres SEO, URL canoniques et JSON-LD rendu côté serveur pour Organization,
+  WebSite, BlogPosting et BreadcrumbList.
+- Drawer de navigation des releases sur mobile, filtres du journal en deux
+  colonnes et liens GitHub, Discord et npm partagés.
+- Commandes de production du site, documentation de déploiement Vercel et
+  GitHub Actions pour la vérification de la bibliothèque et les contrôles
+  navigateur sur trois moteurs.
+
+#### Changements
+
+- Les cinq packages et le site sont alignés sur `0.1.0-beta.2` ; les README
+  documentent l'installation npm, le chargement du CSS et le Provider.
+- Le site public est déployé sur `https://pimolu.com` ; les README et la
+  documentation pointent vers l'organisation npm et le catalogue live.
+- AppShell, DashboardLayout, Sidebar, DocsLayout, Navbar, Gantt, Kanban,
+  TagsInput et CircularProgress reçoivent des finitions de layout, débordement,
+  focus et états compacts.
+
+#### Corrections
+
+- PageHeader n'effondre plus son titre dans un flex à cause de sa container
+  query inline-size.
+- Le smoke test des routes lazy du Playground attend désormais les pages
+  complexes sous la charge agrégée des tests.
+
+#### Limites connues
+
+- C'est une bêta : les API des composants et les tokens visuels peuvent encore
+  évoluer.
+- La revue visuelle complète des 131 pages dans sept presets et les deux modes
+  reste inachevée, et les sept revues d'assistance technique des composants
+  complexes restent ouvertes. Voir `docs/ai/QUALITY_AUDIT.md`.
+- Le bundle local du Playground dépasse encore 500 kB ; la suite navigateur du
+  site est verte sur Chromium, Firefox et WebKit mais ne remplace pas la revue
+  visuelle et lecteur d'écran manuelle.
+
 ## [0.1.0-beta.1] — 2026-10-22
 
 First public preview of Pimolu UI. Tag: `v0.1.0-beta.1`. This is a preview:
@@ -140,4 +240,5 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.2]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.1

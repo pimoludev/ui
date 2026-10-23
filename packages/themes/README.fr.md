@@ -2,7 +2,7 @@
 
 Les thèmes de couleurs clairs et sombres de Pimolu, ses presets visuels et ses données de style indépendantes de la plateforme. Utilisez ce package pour créer des interfaces sur la même base visuelle que les composants Pimolu.
 
-> **0.1.0-beta.1** est une version de prévisualisation. Les noms des presets et des tokens peuvent évoluer avant la version 1.0.
+> **0.1.0-beta.2** est une version de prévisualisation. Les noms des presets et des tokens peuvent évoluer avant la version 1.0.
 
 ## Installation
 

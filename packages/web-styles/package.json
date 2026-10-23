@@ -1,6 +1,6 @@
 {
   "name": "@pimolu/web-styles",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Pimolu UI component stylesheets and CSS bundles.",
   "license": "MIT",
   "repository": {
@@ -160,7 +160,7 @@
   },
 
   "dependencies": {
-    "@pimolu/themes": "0.1.0-beta.1"
+    "@pimolu/themes": "0.1.0-beta.2"
   },
 
   "devDependencies": {

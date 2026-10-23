@@ -36,7 +36,7 @@ Rules:
 6. Never jump to `1.0.0` while the public API or the visual/accessibility audit
    is still moving.
 7. Package versions, the website version and the Git tag must share the same
-   version: `0.1.0-beta.1` → tag `v0.1.0-beta.1`.
+   version: `0.1.0-beta.2` → tag `v0.1.0-beta.2`.
 
 The plan script exits `2` when the working tree is dirty. A dirty tree can be
 inspected but never tagged.

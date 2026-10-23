@@ -2,7 +2,7 @@
 
 The raw materials of Pimolu UI: colour, spacing, radius and typography tokens in CSS and JSON. Use this package when you need the design data without React or component styles.
 
-> **0.1.0-beta.1** is a preview release. Public token names may change before 1.0.
+> **0.1.0-beta.2** is a preview release. Public token names may change before 1.0.
 
 ## Install
 

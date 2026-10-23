@@ -2,7 +2,7 @@
 
 Pimolu's light and dark colour themes, visual presets and platform-neutral style data. Use this package to build custom interfaces with the same visual language as Pimolu components.
 
-> **0.1.0-beta.1** is a preview release. Preset and token names may change before 1.0.
+> **0.1.0-beta.2** is a preview release. Preset and token names may change before 1.0.
 
 ## Install
 

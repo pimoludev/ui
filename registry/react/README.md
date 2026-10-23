@@ -2,7 +2,7 @@
 
 Accessible React components, hooks and application layouts built on Pimolu's shared design system. The beta includes 129 component families, from Button and Form to DataGrid and DashboardLayout.
 
-> **0.1.0-beta.1** is a preview release. Component APIs may change before 1.0.
+> **0.1.0-beta.2** is a preview release. Component APIs may change before 1.0.
 
 ## Install
 

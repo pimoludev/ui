@@ -1,0 +1,50 @@
+export const metadata = {
+  "slug": "0.1.0-beta.2",
+  "title": "0.1.0-beta.2",
+  "status": "Preview",
+  "date": "2026-10-23",
+  "tag": "v0.1.0-beta.2",
+  "summary": "Interactive charts, cascade tables, container-aware headers, MDX releases and a production-ready documentation site.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.2 with the latest and beta tags. Pimolu UI remains a beta release."
+};
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.2 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags both point to 0.1.0-beta.2.
+- React ships as one ESM bundle with TypeScript declarations and the use client directive; core compiles to ESM.
+- Install with pnpm add @pimolu/react@beta @pimolu/web-styles@beta. The tag v0.1.0-beta.2 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="components" label="React and CSS" title="Component upgrades">
+
+- Charts now measure their container, format value axes, support pointer and keyboard exploration, and expose accessible tooltips. Line and area charts add smooth curves, solid fills and gaps for missing values.
+- TreeTable adds cascade selection with mixed parent state. Scheduler keeps headings visible above bounded timetables and uses compact event content.
+- PageHeader adds sm, md and lg sizes with container-relative typography. AppShell, DashboardLayout, Sidebar, DocsLayout, Navbar, Gantt, Kanban, TagsInput and CircularProgress receive layout, overflow and focus refinements.
+- The Playground adds a chart report, a tree selection and archive flow, and the compact header example.
+
+</ReleaseSection>
+
+<ReleaseSection id="website" label="Documentation" title="Website and tooling">
+
+- Releases are authored in local MDX, compiled at build time and rendered with Pimolu components. The index, search, outline and anchors stay derived from the same sections.
+- Public pages expose descriptive titles, canonical URLs and server-rendered JSON-LD for Organization, WebSite, BlogPosting and BreadcrumbList.
+- The release sidebar becomes a mobile Drawer; journal filters use a two-column grid at narrow widths. GitHub, Discord and npm links are available in the header and footer.
+- The site is deployed at pimolu.com. Root build:website and start:website commands document the production flow.
+- GitHub Actions verifies the library and runs the website build, documentation tests and Chromium, Firefox and WebKit suites.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- The component API and visual tokens may still change before 0.1.0 stable.
+- The full 131-page visual matrix across seven presets and both modes is not finished.
+- The seven complex-component assistive-technology reviews remain open. Browser tests do not replace manual visual and screen-reader review.
+- Review the documented limits before adopting the beta in a production application.
+
+</ReleaseSection>

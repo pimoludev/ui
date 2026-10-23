@@ -324,13 +324,13 @@ importers:
   packages/themes:
     dependencies:
       '@pimolu/design-tokens':
-        specifier: 0.1.0-beta.1
+        specifier: 0.1.0-beta.2
         version: link:../design-tokens
 
   packages/web-styles:
     dependencies:
       '@pimolu/themes':
-        specifier: 0.1.0-beta.1
+        specifier: 0.1.0-beta.2
         version: link:../themes
     devDependencies:
       esbuild:
@@ -340,10 +340,10 @@ importers:
   registry/react:
     dependencies:
       '@pimolu/core':
-        specifier: 0.1.0-beta.1
+        specifier: 0.1.0-beta.2
         version: link:../../packages/core
       '@pimolu/themes':
-        specifier: 0.1.0-beta.1
+        specifier: 0.1.0-beta.2
         version: link:../../packages/themes
     devDependencies:
       '@testing-library/dom':

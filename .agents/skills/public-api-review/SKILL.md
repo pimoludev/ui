@@ -20,7 +20,7 @@ ranges change.
   `./themes.json`, `./presets` and `./visuals`.
 - `packages/themes/dist/presets.d.ts` declares `PimoluStylePreset`, `PimoluTheme`,
   `PimoluPresetColors` (generated).
-- Note: all five library packages are public at `0.1.0-beta.1`; the website stays
+- Note: all five library packages are public at `0.1.0-beta.2`; the website stays
   private. Check the actual `exports`/`types` after every build.
 
 ## Checks

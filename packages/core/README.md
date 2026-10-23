@@ -2,7 +2,7 @@
 
 A small, framework-independent utility for composing CSS classes from named variants. It is useful when your components need predictable class names without a CSS-in-JS runtime.
 
-> **0.1.0-beta.1** is a preview release.
+> **0.1.0-beta.2** is a preview release.
 
 ## Install
 

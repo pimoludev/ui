@@ -1,6 +1,6 @@
 {
   "name": "@pimolu/react",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Pimolu UI React components, hooks and accessible primitives.",
   "license": "MIT",
   "repository": {
@@ -51,7 +51,7 @@
     "vitest": "^5.0.5"
   },
   "dependencies": {
-    "@pimolu/core": "0.1.0-beta.1",
-    "@pimolu/themes": "0.1.0-beta.1"
+    "@pimolu/core": "0.1.0-beta.2",
+    "@pimolu/themes": "0.1.0-beta.2"
   }
 }
