@@ -631,7 +631,8 @@ export const extendedComponents = [
     },
     "description": "A folder hierarchy with columns and controlled selection.",
     "usage": [
-      "Stable row ids preserve expansion and selection across data updates."
+      "Stable row ids preserve expansion and selection across data updates. Set selectionMode=\"cascade\" to select a folder and all enabled descendants, including collapsed rows. Partially selected folders expose a mixed checkbox; selecting all descendants also selects their parent. The default independent mode selects individual rows.",
+      "The example uses cascade selection and archives only local demonstration data. Restore files resets that example. The table caption appears as a structured heading above the rows."
     ],
     "accessibility": [
       "Test expand/collapse and row selection by keyboard; ensure hierarchy and column context are announced."
@@ -762,7 +763,7 @@ export const extendedComponents = [
     },
     "description": "Review and create events in a weekly schedule.",
     "usage": [
-      "Keep event ids stable and decide timezone, overlap and persistence rules in the application."
+      "Keep event ids stable and decide timezone, overlap and persistence rules in the application. Use maxHeight to bound the timetable while keeping day headings visible. Short events use a compact title; the full date and time remain in the accessible name and hover title."
     ],
     "accessibility": [
       "The grid has one Tab entry. Arrows navigate dates and hours (including RTL), Home/End reach row edges, Control+Home/End reach grid edges. Enter activates a slot; F2 enters cell actions and Escape returns to the cell. Timed event buttons remain reachable separately.",
@@ -971,7 +972,7 @@ export const extendedComponents = [
     },
     "description": "A page introduction with context and actions.",
     "usage": [
-      "Keep one main page title and use description/actions to clarify the current task."
+      "Keep one main page title and use description/actions to clarify the current task. Use size=\"sm\" for application panels, the default md for reference pages, and lg for a larger introduction. Typography follows the available container width; pageHeaderVariantMap exposes the supported sizes."
     ],
     "accessibility": [
       "Preserve heading hierarchy and ensure breadcrumb/action labels remain understandable on mobile."
@@ -1206,7 +1207,7 @@ export const extendedComponents = [
     },
     "description": "Show upload progress with a numeric value.",
     "usage": [
-      "Use determinate progress for a known total and indeterminate presentation when the total is unknown."
+      "Use determinate progress for a known total and indeterminate presentation when the total is unknown. With showValue, sm places the readout beside the ring; md and lg keep it centered. max must be positive and finite; invalid ranges render an empty 0/100 gauge."
     ],
     "accessibility": [
       "Provide an accessible label and a meaningful value or busy message."

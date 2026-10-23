@@ -50,6 +50,13 @@ function gridHeader(name: string) {
 }
 
 describe("Pimolu Scheduler", () => {
+  it("bounds the timetable and exposes a compact short event with its complete time in the title", () => {
+    const { container } = render(<Scheduler events={events} defaultDate={TUESDAY} maxHeight={420} />);
+    expect(container.querySelector(".pimolu-scheduler__scroll")).toHaveStyle({ maxHeight: "420px" });
+    const event = screen.getByRole("button", { name: /Team stand-up,.*9:00.*9:30/ });
+    expect(event).toHaveAttribute("data-compact", "true");
+    expect(event.getAttribute("title")).toMatch(/9:00.*9:30/);
+  });
   it("renders a full week with day headers and an hourly grid", () => {
     render(
       <Scheduler

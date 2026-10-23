@@ -208,6 +208,7 @@ export function Scheduler({
   locale = "en-US",
   showCurrentTime = true,
   hourHeight = 64,
+  maxHeight,
 
   onEventClick,
   onSlotClick,
@@ -638,7 +639,7 @@ export function Scheduler({
       )}
 
       <p id={keyboardHintId} className="pimolu-scheduler__sr-only">Use arrow keys to navigate dates and times, Home and End to reach row boundaries, Control Home and Control End for the whole grid. Enter activates a slot. F2 explores actions inside a cell; Escape returns to the cell.</p>
-      <div className="pimolu-scheduler__scroll">
+      <div className="pimolu-scheduler__scroll" style={{ maxHeight }}>
         <div
           className="pimolu-scheduler__board"
           style={
@@ -858,13 +859,14 @@ export function Scheduler({
                       className="pimolu-scheduler__event"
                       data-lane={segment.lane}
                       data-lanes={segment.lanes}
+                      data-compact={(segment.end - segment.start) / 60 * hourHeight < 44 || undefined}
                       onClick={() =>
                         onEventClick?.(
                           segment.event.source
                         )
                       }
                       aria-label={`${segment.event.source.title}, ${fullDateFormatter.format(layout.day)}, ${timeFormatter.format(segment.event.start)} to ${timeFormatter.format(segment.event.end)}`}
-                      title={segment.event.source.title}
+                      title={`${segment.event.source.title} · ${timeFormatter.format(segment.event.start)} – ${timeFormatter.format(segment.event.end)}`}
                       style={
                         {
                           top: `${top}%`,

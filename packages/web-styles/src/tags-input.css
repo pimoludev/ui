@@ -117,6 +117,8 @@
   padding: 0;
 
   list-style: none;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .pimolu-tags-input__tag {
@@ -126,6 +128,9 @@
   gap: 2px;
 
   max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 26px;
 
   padding: 2px 3px 2px 8px;
 
@@ -216,7 +221,7 @@
 ========================================= */
 
 .pimolu-tags-input__input {
-  flex: 1;
+  flex: 1 1 120px;
 
   box-sizing: border-box;
   min-width: 96px;
@@ -296,6 +301,7 @@
 }
 
 .pimolu-tags-input--sm .pimolu-tags-input__tag {
+  min-height: 22px;
   padding-block: 1px;
 
   font-size: 0.75rem;
@@ -318,6 +324,7 @@
 }
 
 .pimolu-tags-input--lg .pimolu-tags-input__tag {
+  min-height: 30px;
   padding-block: 3px;
 
   font-size: 0.875rem;

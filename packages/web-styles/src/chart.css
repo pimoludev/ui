@@ -9,6 +9,7 @@
 ========================================= */
 
 .pimolu-chart {
+  position: relative;
   --pimolu-chart-axis:
     var(--pimolu-muted-foreground, #6b7280);
 
@@ -20,6 +21,9 @@
 
   --pimolu-chart-color:
     var(--pimolu-primary, #4f46e5);
+
+  --pimolu-chart-area-fill: var(--pimolu-chart-color);
+  --pimolu-chart-area-opacity: 0.16;
 
   --pimolu-chart-label-size: 13px;
   --pimolu-chart-axis-title-size: 13px;
@@ -48,7 +52,46 @@
 
   width: 100%;
   min-width: 0;
+  border-radius: var(--pimolu-radius-md, 8px);
+  touch-action: pan-y;
 }
+
+.pimolu-chart__canvas:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, var(--pimolu-primary, #4f46e5));
+  outline-offset: 4px;
+}
+
+.pimolu-chart__cursor {
+  position: absolute;
+  inset-block: 5% 12%;
+  border-inline-start: 1px dashed var(--pimolu-chart-axis);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.pimolu-chart__tooltip {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: calc(100% - 16px);
+  padding: 12px;
+  border: 1px solid var(--pimolu-chart-grid);
+  border-radius: var(--pimolu-radius-md, 8px);
+  background: var(--pimolu-chart-surface);
+  color: var(--pimolu-surface-foreground, var(--pimolu-foreground, #111827));
+  box-shadow: var(--pimolu-shadow-raised, none);
+  font-size: var(--pimolu-chart-legend-size);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.pimolu-chart__tooltip > strong { display: block; margin-block-end: 6px; }
+.pimolu-chart__tooltip-row { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; align-items: center; gap: 8px; }
+.pimolu-chart__tooltip-row b { font-variant-numeric: tabular-nums; text-align: end; }
+.pimolu-chart__tooltip-row .pimolu-chart__legend-swatch { width: 8px; height: 8px; border-radius: 50%; }
 
 .pimolu-chart__svg {
   display: block;
@@ -71,6 +114,8 @@
 
   shape-rendering: crispEdges;
   vector-effect: non-scaling-stroke;
+  stroke-dasharray: 3 5;
+  opacity: 0.7;
 }
 
 .pimolu-chart__axis {
@@ -151,6 +196,7 @@
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 
   /* Paired with pathLength="1" on the path. */
   stroke-dasharray: 1;
@@ -163,12 +209,9 @@
 }
 
 .pimolu-chart__area {
-  fill: var(
-    --pimolu-chart-color,
-    var(--pimolu-primary, #4f46e5)
-  );
+  fill: var(--pimolu-chart-area-fill, var(--pimolu-chart-color, var(--pimolu-primary, #4f46e5)));
 
-  fill-opacity: 0.16;
+  fill-opacity: var(--pimolu-chart-area-opacity, 0.16);
   stroke: none;
 
   animation:
@@ -224,6 +267,14 @@
     rgba(0, 0, 0, 0.08)
   );
 }
+
+.pimolu-chart--donut { flex-flow: row wrap; align-items: center; gap: 20px; }
+.pimolu-chart--donut .pimolu-chart__canvas { flex: 1 1 160px; max-width: 260px; margin-inline: auto; }
+.pimolu-chart--donut .pimolu-chart__legend { flex: 1 1 120px; flex-direction: column; gap: 12px; }
+.pimolu-chart--donut .pimolu-chart__legend-item { display: grid; grid-template-columns: 10px minmax(0, 1fr); }
+.pimolu-chart--donut .pimolu-chart__legend-value { grid-column: 2; font-variant-numeric: tabular-nums; }
+.pimolu-chart--donut .pimolu-chart__tooltip-row { grid-template-columns: 8px minmax(0, 1fr); }
+.pimolu-chart--donut .pimolu-chart__tooltip-row b { grid-column: 2; text-align: start; }
 
 .pimolu-chart__segment {
   stroke: var(
@@ -452,10 +503,14 @@
 ========================================= */
 
 @media (forced-colors: active) {
+  .pimolu-chart__tooltip { background: Canvas; color: CanvasText; border-color: CanvasText; }
+  .pimolu-chart__cursor { border-color: CanvasText; }
   .pimolu-chart__bar,
   .pimolu-chart__area {
     fill: CanvasText;
   }
+
+  .pimolu-chart__area { fill-opacity: 0.1; }
 
   .pimolu-chart__line,
   .pimolu-chart__segment {

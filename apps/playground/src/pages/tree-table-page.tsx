@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Badge,
   Button,
+  Select,
   TreeTable,
   type PimoluTreeTableColumn,
   type PimoluTreeTableNode,
@@ -255,10 +256,20 @@ function SelectableExplorer() {
   const [selectedIds, setSelectedIds] = useState<string[]>(
     []
   );
+  const [selectionMode, setSelectionMode] = useState<"cascade" | "independent">("cascade");
+  const [archived, setArchived] = useState<string[]>([]);
+  function visibleNodes(items: ProjectNode[]): ProjectNode[] {
+    return items.filter((item) => !archived.includes(item.id)).map((item) => ({
+      ...item, children: item.children ? visibleNodes(item.children) : undefined,
+    }));
+  }
 
   return (
     <div className="pg-stack">
       <div className="pg-row pg-row--between">
+        <Select label="Selection" size="sm" value={selectionMode} onValueChange={(value) => setSelectionMode(value as typeof selectionMode)}>
+          <option value="cascade">Folders and descendants</option><option value="independent">Individual rows</option>
+        </Select>
         <span className="pg-meta">
           {selectedIds.length > 0
             ? `${selectedIds.length} node(s) selected`
@@ -270,13 +281,16 @@ function SelectableExplorer() {
           variant="primary"
           appearance="outline"
           disabled={selectedIds.length === 0}
+          onClick={() => { setArchived([...archived, ...selectedIds]); setSelectedIds([]); }}
         >
           Archive selection
         </Button>
       </div>
+      {archived.length > 0 && <div className="pg-row"><span role="status" className="pg-meta">Selection archived in this local example.</span>
+        <Button size="sm" appearance="ghost" onClick={() => setArchived([])}>Restore files</Button></div>}
 
       <TreeTable
-        nodes={projectTree}
+        nodes={visibleNodes(projectTree)}
         columns={columns}
         caption="Project files"
         defaultExpandedIds={[
@@ -285,6 +299,7 @@ function SelectableExplorer() {
           "packages",
         ]}
         selectable
+        selectionMode={selectionMode}
         selectedIds={selectedIds}
         onSelectionChange={setSelectedIds}
       />

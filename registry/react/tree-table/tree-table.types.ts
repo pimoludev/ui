@@ -141,6 +141,9 @@ export interface PimoluTreeTableProps<
   /** Adds the selection column and enables `aria-selected`. */
   selectable?: boolean;
 
+  /** Cascade selects descendants (including collapsed rows) and derives mixed parent states. Defaults to independent. */
+  selectionMode?: "independent" | "cascade";
+
   /** Controlled selected node ids. */
   selectedIds?: readonly string[];
 

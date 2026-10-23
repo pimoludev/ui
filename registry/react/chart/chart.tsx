@@ -2,10 +2,16 @@
 
 import {
   forwardRef,
+  useId,
+  useRef,
+  useState,
+  useEffect,
+  useImperativeHandle,
   type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
   type Ref,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 
 import type {
@@ -88,6 +94,22 @@ function safeSize(
     : fallback;
 }
 
+function useCartesianViewport(width: number, forwardedRef: Ref<HTMLDivElement>, responsive: boolean) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [measuredWidth, setMeasuredWidth] = useState(0);
+  useImperativeHandle(forwardedRef, () => containerRef.current!, []);
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!responsive || !node || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width > 0) setMeasuredWidth(Math.round(entry.contentRect.width));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [responsive]);
+  return { containerRef, width: responsive && measuredWidth > 0 ? measuredWidth : safeSize(width, DEFAULT_WIDTH) };
+}
+
 function round(value: number): number {
   return Number.isFinite(value)
     ? Math.round(value * 1000) / 1000
@@ -133,6 +155,11 @@ function buildTicks(minimum: number, maximum: number): number[] {
   );
 }
 
+function valueAxisWidth(ticks: number[], formatter: (value: number) => string): number {
+  // Reserve room for the formatter's actual units, rather than assuming short integers.
+  return Math.max(48, ...ticks.map((tick) => formatter(tick).length * 8 + 16));
+}
+
 function describeRange(
   values: number[],
   formatter: (value: number) => string
@@ -173,6 +200,12 @@ interface ChartContainerProps
   emptyLabel: string;
   legend?: ReactNode;
   table?: ReactNode;
+  exploration?: {
+    label: string;
+    instructions?: string;
+    axis: "x" | "y" | "segment";
+    items: Array<{ label: string; position: number; rows: ChartLegendItem[] }>;
+  };
   children: ReactNode;
 }
 
@@ -184,9 +217,35 @@ function ChartContainer({
   emptyLabel,
   legend,
   table,
+  exploration,
   children,
   ...props
 }: ChartContainerProps) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [keyboard, setKeyboard] = useState(false);
+  const pointerFocus = useRef(false);
+  const dismissedIndex = useRef<number | null>(null);
+  const instructionsId = useId();
+  const tooltipId = useId();
+  const active = activeIndex == null ? undefined : exploration?.items[activeIndex];
+  function explorePointer(event: ReactPointerEvent<HTMLDivElement>) {
+    if (!exploration?.items.length || (event.target as Element).closest(".pimolu-chart__tooltip")) return;
+    setKeyboard(false);
+    if (exploration.axis === "segment") {
+      const segment = (event.target as Element).closest("[data-chart-index]");
+      const index = segment ? Number(segment.getAttribute("data-chart-index")) : null;
+      if (index == null || index !== dismissedIndex.current) setActiveIndex(index);
+      return;
+    }
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const position = exploration.axis === "y"
+      ? (event.clientY - bounds.top) / bounds.height
+      : (event.clientX - bounds.left) / bounds.width;
+    const nearest = exploration.items.reduce((best, item, index, items) =>
+      Math.abs(item.position - position) < Math.abs(items[best].position - position) ? index : best, 0);
+    if (nearest !== dismissedIndex.current) setActiveIndex(nearest);
+  }
+
   return (
     <div
       {...props}
@@ -205,8 +264,59 @@ function ChartContainer({
         </p>
       ) : (
         <>
-          <div className="pimolu-chart__canvas">
+          <div
+            className="pimolu-chart__canvas"
+            tabIndex={exploration ? 0 : undefined}
+            role={exploration ? "group" : undefined}
+            aria-label={exploration ? `${exploration.label}: explore values` : undefined}
+            aria-describedby={exploration ? instructionsId : undefined}
+            onFocus={() => { if (exploration && !pointerFocus.current) { setKeyboard(true); setActiveIndex(0); } }}
+            onBlur={() => { pointerFocus.current = false; dismissedIndex.current = null; setActiveIndex(null); }}
+            onKeyDown={(event) => {
+              if (!exploration?.items.length) return;
+              const count = exploration.items.length;
+              const previous = activeIndex ?? 0;
+              let next: number;
+              switch (event.key) {
+                case "ArrowRight": case "ArrowDown": next = Math.min(previous + 1, count - 1); break;
+                case "ArrowLeft": case "ArrowUp": next = Math.max(previous - 1, 0); break;
+                case "Home": next = 0; break;
+                case "End": next = count - 1; break;
+                case "Escape": dismissedIndex.current = activeIndex; setActiveIndex(null); event.preventDefault(); return;
+                default: return;
+              }
+              event.preventDefault();
+              dismissedIndex.current = null;
+              setKeyboard(true);
+              setActiveIndex(Math.max(0, Math.min(next, count - 1)));
+            }}
+            onPointerMove={explorePointer}
+            onPointerDown={(event) => { pointerFocus.current = true; dismissedIndex.current = null; explorePointer(event); }}
+            onPointerLeave={() => { dismissedIndex.current = null; if (!keyboard) setActiveIndex(null); }}
+          >
             {children}
+            {exploration && (
+              <span id={instructionsId} className="pimolu-chart__sr-only">
+                {exploration.instructions ?? "Use arrow keys to explore values, Home and End to jump, Escape to dismiss."}
+              </span>
+            )}
+            {active && (
+              <>
+                {exploration?.axis === "x" && (
+                  <span className="pimolu-chart__cursor" aria-hidden="true"
+                    style={{ left: `${active.position * 100}%` }} />
+                )}
+                <div id={tooltipId} role="tooltip" className="pimolu-chart__tooltip" aria-live={keyboard ? "polite" : "off"}>
+                  <strong>{active.label}</strong>
+                  {active.rows.map((row, index) => (
+                    <div className="pimolu-chart__tooltip-row" key={index}>
+                      <span className="pimolu-chart__legend-swatch" aria-hidden="true" style={{ backgroundColor: row.color }} />
+                      <span>{row.label}</span><b>{row.value}</b>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {table}
@@ -236,6 +346,7 @@ function ChartSvg({
     <svg
       className="pimolu-chart__svg"
       viewBox={`0 0 ${width} ${height}`}
+      direction="ltr"
       role="img"
       aria-label={label}
       focusable="false"
@@ -317,7 +428,8 @@ function ChartDataTable({
   }
 
   return (
-    <table className="pimolu-chart__sr-only">
+    <div className="pimolu-chart__sr-only">
+    <table>
       <caption>{label} data</caption>
 
       <thead>
@@ -342,6 +454,7 @@ function ChartDataTable({
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 
@@ -359,12 +472,15 @@ export const BarChart = forwardRef<
     labels,
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,
+    responsive = true,
     max,
     stacked = false,
     horizontal = false,
     showValues = false,
     showGrid = true,
     showLegend = false,
+    showTooltip = true,
+    interactionLabel,
     valueFormatter,
     emptyLabel = EMPTY_LABEL,
     xAxisLabel,
@@ -376,7 +492,8 @@ export const BarChart = forwardRef<
   ref
 ) {
   const formatter = valueFormatter ?? formatDefault;
-  const viewWidth = safeSize(width, DEFAULT_WIDTH);
+  const viewport = useCartesianViewport(width, ref, responsive);
+  const viewWidth = viewport.width;
   const viewHeight = safeSize(height, DEFAULT_HEIGHT);
 
   const hasSeries = series.length > 0;
@@ -443,7 +560,7 @@ export const BarChart = forwardRef<
         top: showValues ? 30 : 16,
         right: 16,
         bottom: 34 + (xAxisLabel ? 18 : 0),
-        left: 48 + (yAxisLabel ? 16 : 0),
+        left: valueAxisWidth(ticks, formatter) + (yAxisLabel ? 16 : 0),
       };
 
   const plotLeft = margin.left;
@@ -509,7 +626,7 @@ export const BarChart = forwardRef<
 
   const visibleCategoryStep = Math.max(
     1,
-    Math.ceil(categoryCount / 12)
+    Math.ceil(categoryCount / Math.max(2, Math.floor((horizontal ? plotHeight : plotWidth) / (horizontal ? 28 : 48))))
   );
 
   categoryLabels.forEach((label, categoryIndex) => {
@@ -945,8 +1062,24 @@ export const BarChart = forwardRef<
   return (
     <ChartContainer
       {...props}
-      containerRef={ref}
+      containerRef={viewport.containerRef}
       kind="bar"
+      exploration={showTooltip ? {
+        label: accessibleLabel,
+        instructions: interactionLabel,
+        axis: horizontal ? "y" : "x",
+        items: categoryLabels.map((label, index) => ({
+          label,
+          position: horizontal
+            ? (plotTop + horizontalBand * (index + 0.5)) / viewHeight
+            : (plotLeft + verticalBand * (index + 0.5)) / viewWidth,
+          rows: hasSeries ? series.map((item, seriesIndex) => ({
+            label: item.name,
+            color: resolveColor(item.color, seriesIndex),
+            value: Number.isFinite(item.values[index]) ? formatter(item.values[index]) : "—",
+          })) : [{ label, color: resolveColor(data[index]?.color, index), value: formatter(data[index]?.value ?? 0) }],
+        })),
+      } : undefined}
       className={classes(
         horizontal
           ? "pimolu-chart--horizontal"
@@ -1113,6 +1246,17 @@ interface LinePlotProps extends PimoluLineChartProps {
   forwardedRef: Ref<HTMLDivElement>;
 }
 
+// Adjacent horizontal control points keep each curve within its measured values.
+function trendPath(points: Array<{ x: number; y: number }>, smooth: boolean): string {
+  return points.map((point, index) => {
+    if (index === 0) return `M${round(point.x)} ${round(point.y)}`;
+    const previous = points[index - 1];
+    if (!smooth) return `L${round(point.x)} ${round(point.y)}`;
+    const middle = round((previous.x + point.x) / 2);
+    return `C${middle} ${round(previous.y)} ${middle} ${round(point.y)} ${round(point.x)} ${round(point.y)}`;
+  }).join(" ");
+}
+
 function LinePlot({
   area,
   forwardedRef,
@@ -1120,10 +1264,15 @@ function LinePlot({
   labels,
   width = DEFAULT_WIDTH,
   height = DEFAULT_HEIGHT,
+  responsive = true,
   max,
   showGrid = true,
   showPoints = false,
   showLegend = true,
+  showTooltip = true,
+  interactionLabel,
+  curve = "linear",
+  areaFill = "gradient",
   valueFormatter,
   emptyLabel = EMPTY_LABEL,
   xAxisLabel,
@@ -1132,8 +1281,10 @@ function LinePlot({
   "aria-label": ariaLabel,
   ...props
 }: LinePlotProps) {
+  const gradientId = `pimolu-chart-${useId().replace(/:/g, "")}`;
   const formatter = valueFormatter ?? formatDefault;
-  const viewWidth = safeSize(width, DEFAULT_WIDTH);
+  const viewport = useCartesianViewport(width, forwardedRef, responsive);
+  const viewWidth = viewport.width;
   const viewHeight = safeSize(height, DEFAULT_HEIGHT);
 
   const maxSeriesLength = series.reduce(
@@ -1151,26 +1302,6 @@ function LinePlot({
     { length: categoryCount },
     (_, index) => categoryLabel(labels, index)
   );
-
-  const margin = {
-    top: 16,
-    right: 16,
-    bottom: 34 + (xAxisLabel ? 18 : 0),
-    left: 48 + (yAxisLabel ? 16 : 0),
-  };
-
-  const plotLeft = margin.left;
-  const plotRight = Math.max(
-    plotLeft,
-    viewWidth - margin.right
-  );
-  const plotTop = margin.top;
-  const plotBottom = Math.max(
-    plotTop,
-    viewHeight - margin.bottom
-  );
-  const plotWidth = plotRight - plotLeft;
-  const plotHeight = plotBottom - plotTop;
 
   const empty =
     series.length === 0 ||
@@ -1208,11 +1339,22 @@ function LinePlot({
     1
   );
 
+  const ticks = buildTicks(domainMin, domainMax);
+  const margin = {
+    top: 16, right: 16,
+    bottom: 34 + (xAxisLabel ? 18 : 0),
+    left: valueAxisWidth(ticks, formatter) + (yAxisLabel ? 16 : 0),
+  };
+  const plotLeft = margin.left;
+  const plotRight = Math.max(plotLeft, viewWidth - margin.right);
+  const plotTop = margin.top;
+  const plotBottom = Math.max(plotTop, viewHeight - margin.bottom);
+  const plotWidth = plotRight - plotLeft;
+  const plotHeight = plotBottom - plotTop;
+
   const zeroY =
     plotBottom -
     ((0 - domainMin) / domainSpan) * plotHeight;
-
-  const ticks = buildTicks(domainMin, domainMax);
 
   const xForIndex = (index: number) =>
     categoryCount === 1
@@ -1247,26 +1389,19 @@ function LinePlot({
       }
     );
 
-    const linePath = points
-      .map(
-        (point, index) =>
-          `${index === 0 ? "M" : "L"}${round(
-            point.x
-          )} ${round(point.y)}`
-      )
-      .join(" ");
-
-    const firstPoint = points[0];
-    const lastPoint = points[points.length - 1];
-
-    const areaPath =
-      firstPoint != null && lastPoint != null
-        ? `${linePath} L${round(lastPoint.x)} ${round(
-            zeroY
-          )} L${round(firstPoint.x)} ${round(
-            zeroY
-          )} Z`
-        : "";
+    // Missing observations split paths instead of inventing zeroes or bridging gaps.
+    const runs: typeof points[] = [];
+    points.forEach((point) => {
+      const run = runs[runs.length - 1];
+      if (!run || run[run.length - 1].index !== point.index - 1) runs.push([point]);
+      else run.push(point);
+    });
+    const linePath = runs.map((run) => trendPath(run, curve === "smooth")).join(" ");
+    const areaPath = runs.map((run) => {
+      const first = run[0];
+      const last = run[run.length - 1];
+      return `${trendPath(run, curve === "smooth")} L${round(last.x)} ${round(zeroY)} L${round(first.x)} ${round(zeroY)} Z`;
+    }).join(" ");
 
     return {
       item,
@@ -1280,7 +1415,7 @@ function LinePlot({
 
   const visibleCategoryStep = Math.max(
     1,
-    Math.ceil(categoryCount / 8)
+    Math.ceil(categoryCount / Math.max(2, Math.floor(plotWidth / 64)))
   );
 
   const legendItems: ChartLegendItem[] = series.map(
@@ -1320,8 +1455,20 @@ function LinePlot({
   return (
     <ChartContainer
       {...props}
-      containerRef={forwardedRef}
+      containerRef={viewport.containerRef}
       kind={area ? "area" : "line"}
+      exploration={showTooltip ? {
+        label: accessibleLabel,
+        instructions: interactionLabel,
+        axis: "x",
+        items: categoryLabels.map((label, index) => ({
+          label, position: xForIndex(index) / viewWidth,
+          rows: series.map((item, seriesIndex) => ({
+            label: item.name, color: resolveColor(item.color, seriesIndex),
+            value: Number.isFinite(item.values[index]) ? formatter(item.values[index]) : "—",
+          })),
+        })),
+      } : undefined}
       className={className}
       empty={empty}
       emptyLabel={emptyLabel}
@@ -1350,6 +1497,16 @@ function LinePlot({
         label={accessibleLabel}
         description={description}
       >
+        {area && areaFill === "gradient" && (
+          <defs>
+            {plotted.map((entry) => (
+              <linearGradient key={entry.seriesIndex} id={`${gradientId}-${entry.seriesIndex}`} x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor={entry.color} stopOpacity={0.28} />
+                <stop offset="100%" stopColor={entry.color} stopOpacity={0.02} />
+              </linearGradient>
+            ))}
+          </defs>
+        )}
         <g aria-hidden="true">
           {showGrid &&
             ticks.map((tick, index) => (
@@ -1405,14 +1562,16 @@ function LinePlot({
             );
           })}
 
-          {plotted.map((entry) =>
+          {area && plotted.map((entry) =>
             entry.areaPath !== "" ? (
               <path
                 key={`area-${entry.seriesIndex}`}
                 className="pimolu-chart__area"
                 d={entry.areaPath}
-                fill={entry.color}
-                style={styleForColor(entry.color)}
+                fill={areaFill === "gradient" ? `url(#${gradientId}-${entry.seriesIndex})` : entry.color}
+                style={{ ...styleForColor(entry.color),
+                  "--pimolu-chart-area-fill": areaFill === "gradient" ? `url(#${gradientId}-${entry.seriesIndex})` : entry.color,
+                  "--pimolu-chart-area-opacity": areaFill === "gradient" ? 1 : 0.16 } as CSSProperties}
                 data-series={entry.item.name}
               />
             ) : null
@@ -1538,6 +1697,8 @@ export const DonutChart = forwardRef<
     centerValue,
     centerLabel,
     showLegend = true,
+    showTooltip = true,
+    interactionLabel,
     valueFormatter,
     emptyLabel = EMPTY_LABEL,
     className,
@@ -1618,6 +1779,7 @@ export const DonutChart = forwardRef<
         )}
         data-label={datum.label}
         data-value={datum.value}
+        data-chart-index={index}
       />
     );
 
@@ -1659,6 +1821,16 @@ export const DonutChart = forwardRef<
       {...props}
       containerRef={ref}
       kind="donut"
+      exploration={showTooltip ? {
+        label: accessibleLabel,
+        instructions: interactionLabel,
+        axis: "segment",
+        items: data.map((datum, index) => ({
+          label: datum.label, position: index / Math.max(data.length, 1),
+          rows: [{ label: datum.label, color: resolveColor(datum.color, index),
+            value: `${formatter(values[index])} · ${total > 0 ? Math.round(values[index] / total * 100) : 0}%` }],
+        })),
+      } : undefined}
       className={className}
       empty={empty}
       emptyLabel={emptyLabel}

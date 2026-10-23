@@ -29,7 +29,7 @@ export function CircularProgressPage() {
 
       <Section
         title="Sizes"
-        hint="The stroke scales with the diameter, because the whole SVG scales."
+        hint="The stroke scales with the diameter. The compact readout sits beside the small ring; larger sizes keep it centered."
       >
         <div className="pg-row">
           {circularProgressSizes.map((size) => (

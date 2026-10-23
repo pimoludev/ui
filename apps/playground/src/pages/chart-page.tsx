@@ -13,6 +13,7 @@ import {
 } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
+import { RevenueReport } from "../chart-report-example";
 
 const months = [
   "Jan",
@@ -91,6 +92,8 @@ export function ChartPage() {
         title="Chart"
         hint="Accessible, responsive SVG charts with no chart dependency. Every chart exposes an image label, a visually hidden data table and the same values in plain text. Colours come from theme tokens unless the data supplies an explicit colour. Styles come from @pimolu/web-styles/chart.css."
       />
+
+      <RevenueReport />
 
       <Section
         title="Dashboard"
@@ -179,8 +182,9 @@ export function ChartPage() {
             <CardContent>
               <AreaChart
                 aria-label="Audience growth"
-                labels={months}
+                labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
                 series={areaSeries}
+                curve="smooth"
                 height={260}
                 showPoints
                 valueFormatter={formatVisitors}
@@ -331,6 +335,7 @@ export function ChartPage() {
                     values: [220, 282, 291, 334, 390, 430],
                   },
                 ]}
+                curve="smooth"
                 height={280}
                 showPoints
                 xAxisLabel="Month"
@@ -488,6 +493,20 @@ export function ChartPage() {
             </CardContent>
           </Card>
         </div>
+      </Section>
+
+      <Section
+        title="Fixed drawing size"
+        hint="Charts normally measure their container to keep axes readable. Use responsive={false} to preserve a fixed viewBox and scale its aspect ratio."
+      >
+        <Card><CardHeader><CardTitle>Embedded report</CardTitle>
+          <CardDescription>A fixed drawing with localized keyboard instructions.</CardDescription></CardHeader>
+          <CardContent><LineChart aria-label="Monthly subscriptions" labels={months}
+            series={[{ name: "Subscriptions", values: [18420, 20180, 19360, 22840, 25120, 24380] }]}
+            width={640} height={240} responsive={false} curve="linear"
+            interactionLabel="Utilisez les flèches pour parcourir les valeurs, Début et Fin pour aller aux extrémités, Échap pour fermer."
+            valueFormatter={(value) => `$${(value / 1000).toFixed(1)}k`} /></CardContent>
+        </Card>
       </Section>
 
       <Section

@@ -102,6 +102,43 @@ function getRowByText(text: string) {
 }
 
 describe("Pimolu TreeTable", () => {
+  it("selects collapsed descendants in cascade mode and derives partial parents", () => {
+    const onSelectionChange = vi.fn();
+    render(<TreeTable nodes={files} columns={columns} selectable selectionMode="cascade" onSelectionChange={onSelectionChange} />);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Select src" }));
+    expect(onSelectionChange).toHaveBeenLastCalledWith(["src", "components", "button", "table", "index"]);
+    fireEvent.click(screen.getByRole("button", { name: "Expand src" }));
+    fireEvent.click(screen.getByRole("button", { name: "Expand components" }));
+    expect(screen.getByRole("checkbox", { name: "Select button.tsx" })).toBeChecked();
+    fireEvent.click(screen.getByRole("checkbox", { name: "Select button.tsx" }));
+    expect(screen.getByRole("checkbox", { name: "Select src" })).toBePartiallyChecked();
+    expect(screen.getByRole("checkbox", { name: "Select components" })).toBePartiallyChecked();
+    expect(onSelectionChange).toHaveBeenLastCalledWith(["table", "index"]);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Select button.tsx" }));
+    expect(screen.getByRole("checkbox", { name: "Select src" })).toBeChecked();
+  });
+
+  it("cascade select-all includes collapsed rows, skips disabled nodes and can clear all", () => {
+    const onSelectionChange = vi.fn();
+    const nodes: FileNode[] = [{ ...files[0], children: [{ ...files[0].children![0], disabled: true }, files[0].children![1]] }];
+    render(<TreeTable nodes={nodes} columns={columns} selectable selectionMode="cascade" onSelectionChange={onSelectionChange} />);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Select all rows" }));
+    expect(onSelectionChange).toHaveBeenLastCalledWith(["src", "button", "table", "index"]);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Select all rows" }));
+    expect(onSelectionChange).toHaveBeenLastCalledWith([]);
+  });
+
+  it("supports controlled branch selection without mutating the supplied ids", () => {
+    const selectedIds = ["src"];
+    const onSelectionChange = vi.fn();
+    render(<TreeTable nodes={files} columns={columns} selectable selectionMode="cascade" selectedIds={selectedIds}
+      defaultExpandAll onSelectionChange={onSelectionChange} />);
+    expect(screen.getByRole("checkbox", { name: "Select index.ts" })).toBeChecked();
+    fireEvent.click(screen.getByRole("checkbox", { name: "Select table.tsx" }));
+    expect(onSelectionChange).toHaveBeenLastCalledWith(["button", "index"]);
+    expect(selectedIds).toEqual(["src"]);
+    expect(screen.getByRole("checkbox", { name: "Select table.tsx" })).toBeChecked();
+  });
   it("renders a treegrid with headers, levels and collapsed roots", () => {
     render(
       <TreeTable

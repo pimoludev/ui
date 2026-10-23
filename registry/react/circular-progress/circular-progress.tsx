@@ -46,16 +46,16 @@ export const CircularProgress = forwardRef<
     value === undefined ||
     !Number.isFinite(value);
 
-  const clamped = indeterminate
+  const validMax = Number.isFinite(max) && max > 0;
+  const effectiveMax = validMax ? max : 100;
+  const clamped = indeterminate || !validMax
     ? 0
-    : Math.min(Math.max(value, 0), max);
+    : Math.min(Math.max(value, 0), effectiveMax);
 
-  const percent = max > 0
-    ? (clamped / max) * 100
-    : 0;
+  const percent = (clamped / effectiveMax) * 100;
 
   const displayed = formatValue
-    ? formatValue(clamped, max)
+    ? formatValue(clamped, effectiveMax)
     : `${Math.round(percent)}%`;
 
   /* Classes */
@@ -82,6 +82,8 @@ export const CircularProgress = forwardRef<
       {...props}
       ref={forwardedRef}
       className={classes}
+      data-empty={!indeterminate && percent === 0 ? "true" : undefined}
+      data-complete={!indeterminate && percent === 100 ? "true" : undefined}
 
       role="progressbar"
 
@@ -89,7 +91,7 @@ export const CircularProgress = forwardRef<
       aria-describedby={ariaDescribedBy}
 
       aria-valuemin={0}
-      aria-valuemax={max}
+      aria-valuemax={effectiveMax}
       aria-valuenow={indeterminate ? undefined : clamped}
       aria-valuetext={valueLabel}
     >
@@ -123,6 +125,7 @@ export const CircularProgress = forwardRef<
         <span
           className="pimolu-circular-progress__value"
           aria-hidden="true"
+          title={displayed}
         >
           {displayed}
         </span>

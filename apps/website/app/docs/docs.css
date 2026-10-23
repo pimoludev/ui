@@ -36,7 +36,7 @@
   .docs-live-dot { display: inline-block; width: 6px; height: 6px; margin-inline-end: 6px; border-radius: 50%; background: var(--pimolu-primary); }
   .docs-section > * + * { margin-block-start: 20px; }
   .docs-section > ul { padding-inline-start: 24px; color: var(--pimolu-muted-foreground); }
-  .docs-section li + li { margin-block-start: 12px; }
+  .docs-section > ul > li + li, .docs-section > ol > li + li { margin-block-start: 12px; }
   .docs-preview { padding: 32px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); background: var(--pimolu-background); min-width: 0; }
   .docs-preview p { font-size: 0.875rem; }
   .docs-preview--chart > div { max-width: 360px; margin-inline: auto; }

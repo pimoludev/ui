@@ -8,8 +8,16 @@ import {
 import { describe, expect, it } from "vitest";
 
 import { PageHeader } from "./page-header";
+import { pageHeaderVariantMap } from "./page-header.variants";
 
 describe("Pimolu PageHeader", () => {
+  it.each(Object.keys(pageHeaderVariantMap.size) as Array<keyof typeof pageHeaderVariantMap.size>)("supports the %s header size without changing heading semantics", (size) => {
+    render(<PageHeader title="Workspace" titleAs="h2" size={size} />);
+    const header = screen.getByRole("banner");
+    expect(header).toHaveClass(pageHeaderVariantMap.size[size]);
+    expect(header).toHaveAttribute("data-size", size);
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Workspace");
+  });
   it("rend un header sémantique avec un seul h1", () => {
     render(
       <PageHeader

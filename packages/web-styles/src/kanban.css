@@ -85,13 +85,14 @@
 }
 
 .pimolu-kanban__column-header {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 
   gap: var(--pimolu-spacing-2, 8px);
 
-  padding: var(--pimolu-spacing-3, 12px);
+  padding: var(--pimolu-spacing-4, 16px);
 
   border-bottom: 1px solid
     var(--pimolu-border, #e2e8f0);
@@ -116,7 +117,16 @@
   overflow-wrap: anywhere;
 }
 
+.pimolu-kanban__capacity { position: absolute; inset-inline: 16px; inset-block-end: -1px; height: 3px; overflow: hidden; border-radius: 999px; background: var(--pimolu-muted, #f1f5f9); }
+.pimolu-kanban__capacity > span { display: block; height: 100%; background: var(--pimolu-primary, #4f46e5); border-radius: inherit; }
+.pimolu-kanban__column--full .pimolu-kanban__capacity > span { background: var(--pimolu-warning, #d97706); }
+
 .pimolu-kanban__count {
+  align-self: start;
+  margin-block-start: 4px;
+  padding: 2px 7px;
+  border-radius: var(--pimolu-radius-full, 999px);
+  background: var(--pimolu-muted, #f1f5f9);
   color: var(
     --pimolu-muted-foreground,
     var(--pimolu-foreground, currentColor)
@@ -154,6 +164,7 @@
 
 .pimolu-kanban__item {
   min-width: 0;
+  margin: 0;
 
   list-style: none;
 }
@@ -241,7 +252,7 @@
   box-sizing: border-box;
 
   min-width: 0;
-  padding: 10px var(--pimolu-spacing-3, 12px);
+  padding: 14px var(--pimolu-spacing-4, 16px);
 
   border: var(--pimolu-control-border-width, 1px) solid
     var(--pimolu-border, #e2e8f0);

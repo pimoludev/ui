@@ -2,6 +2,9 @@ import type {
   HTMLAttributes,
   ReactNode,
 } from "react";
+import type { pageHeaderVariantMap } from "./page-header.variants";
+
+export type PimoluPageHeaderSize = keyof typeof pageHeaderVariantMap.size;
 
 /** Horizontal alignment of the introductory block. Defaults to "start". */
 export type PimoluPageHeaderAlign = "start" | "center";
@@ -65,6 +68,9 @@ export interface PimoluPageHeaderProps
 
   /** Horizontal alignment of the block. Defaults to "start". */
   align?: PimoluPageHeaderAlign;
+
+  /** Compact application header, regular page header, or larger landing introduction. Defaults to md. */
+  size?: PimoluPageHeaderSize;
 
   className?: string;
 }

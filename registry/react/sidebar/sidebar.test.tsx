@@ -12,6 +12,14 @@ import {
 } from "./sidebar";
 
 describe("Pimolu Sidebar", () => {
+  it("returns focus to the first toggle when a controlled collapse hides navigation", () => {
+    const { rerender } = render(<Sidebar collapsible collapsed={false}><SidebarContent><SidebarItem href="/reports">Reports</SidebarItem></SidebarContent></Sidebar>);
+    screen.getByRole("link", { name: "Reports" }).focus();
+    rerender(<Sidebar collapsible collapsed><SidebarContent><SidebarItem href="/reports">Reports</SidebarItem></SidebarContent></Sidebar>);
+    const toggle = screen.getByRole("button", { name: "Expand sidebar" });
+    expect(toggle).toHaveFocus();
+    expect(screen.getByRole("complementary").firstElementChild).toBe(toggle);
+  });
   it("renders a complementary landmark and a named navigation", () => {
     render(
       <Sidebar>

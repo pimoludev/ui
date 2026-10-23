@@ -179,6 +179,26 @@ function collectParentIds<T extends PimoluTreeTableNode>(
   return ids;
 }
 
+function selectableBranch<T extends PimoluTreeTableNode>(node: T, getId: (node: T) => string): string[] {
+  return [
+    ...(node.disabled ? [] : [getId(node)]),
+    ...(node.children ?? []).flatMap((child) => selectableBranch(child as T, getId)),
+  ];
+}
+
+function deriveParentSelection<T extends PimoluTreeTableNode>(nodes: readonly T[], selected: Set<string>, getId: (node: T) => string) {
+  for (const node of nodes) {
+    const children = (node.children ?? []) as readonly T[];
+    deriveParentSelection(children, selected, getId);
+    const descendants = children.flatMap((child) => selectableBranch(child, getId));
+    if (!node.disabled && descendants.length) {
+      if (descendants.every((id) => selected.has(id))) selected.add(getId(node));
+      else selected.delete(getId(node));
+    }
+  }
+  return selected;
+}
+
 function getDefaultNodeId(
   node: PimoluTreeTableNode
 ): string {
@@ -242,6 +262,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
   onExpandedChange,
 
   selectable = false,
+  selectionMode = "independent",
   selectedIds: controlledSelectedIds,
   defaultSelectedIds,
   onSelectionChange,
@@ -252,7 +273,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
   className,
   rowClassName,
 }: PimoluTreeTableProps<T>) {
-  const text = { ...DEFAULT_LABELS, ...labels };
+  const text = { ...DEFAULT_LABELS, ...(selectionMode === "cascade" ? { selectAll: "Select all rows" } : {}), ...labels };
 
   const resolveNodeId =
     getNodeId ?? getDefaultNodeId;
@@ -298,10 +319,20 @@ export function TreeTable<T extends PimoluTreeTableNode>({
     ? [...controlledSelectedIds]
     : internalSelectedIds;
 
-  const selected = useMemo(
-    () => new Set(selectedIds),
-    [selectedIds]
-  );
+  const selected = useMemo(() => {
+    const result = new Set(selectedIds);
+    if (selectionMode === "independent") return result;
+    function expandBranches(items: readonly T[]) {
+      for (const node of items) {
+        if (result.has(resolveNodeId(node)) && !node.disabled) {
+          selectableBranch(node, resolveNodeId).forEach((id) => result.add(id));
+        }
+        expandBranches((node.children ?? []) as readonly T[]);
+      }
+    }
+    expandBranches(nodes);
+    return deriveParentSelection(nodes, result, resolveNodeId);
+  }, [selectedIds, nodes, resolveNodeId, selectionMode]);
 
   const allNodeIds = useMemo(
     () => collectNodeIds(nodes, resolveNodeId),
@@ -401,6 +432,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
   }
 
   function commitSelection(next: Set<string>) {
+    if (selectionMode === "cascade") deriveParentSelection(nodes, next, resolveNodeId);
     const known = new Set(allNodeIds);
 
     const ordered = [
@@ -423,24 +455,24 @@ export function TreeTable<T extends PimoluTreeTableNode>({
     if (node?.disabled) return;
 
     const next = new Set(selected);
-
-    if (next.has(id)) {
-      next.delete(id);
-    } else {
-      next.add(id);
-    }
+    const ids = selectionMode === "cascade" && node ? selectableBranch(node, resolveNodeId) : [id];
+    const remove = ids.every((entry) => next.has(entry));
+    ids.forEach((entry) => { if (remove) next.delete(entry); else next.add(entry); });
 
     commitSelection(next);
   }
 
   function selectedVisibleCount() {
-    return visibleRows.filter(
+    return selectableVisibleRows().filter(
       (row) =>
         !row.node.disabled && selected.has(row.id)
     ).length;
   }
 
   function selectableVisibleRows() {
+    if (selectionMode === "cascade") {
+      return flattenVisible(nodes, new Set(allNodeIds), resolveNodeId).filter((row) => !row.node.disabled);
+    }
     return visibleRows.filter(
       (row) => !row.node.disabled
     );
@@ -718,6 +750,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
               const label = getNodeLabelText(node);
               const isExpanded = expanded.has(id);
               const isSelected = selected.has(id);
+              const mixed = selectionMode === "cascade" && !isSelected && selectableBranch(node, resolveNodeId).some((entry) => selected.has(entry));
               const isDisabled = Boolean(node.disabled);
 
               return (
@@ -788,6 +821,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                           text.selectRow(label)
                         }
                         checked={isSelected}
+                        indeterminate={mixed}
                         disabled={isDisabled}
                         onCheckedChange={() =>
                           toggleSelection(id)

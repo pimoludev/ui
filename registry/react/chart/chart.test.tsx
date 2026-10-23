@@ -1,8 +1,11 @@
 import {
   render,
   screen,
+  fireEvent,
+  within,
 } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import userEvent from "@testing-library/user-event";
 
 import {
   AreaChart,
@@ -11,6 +14,7 @@ import {
   LineChart,
   Sparkline,
 } from "./chart";
+import { createRef } from "react";
 
 const revenue = [
   { label: "Jan", value: 10 },
@@ -20,6 +24,79 @@ const revenue = [
 ];
 
 describe("Pimolu Chart", () => {
+  it("explores formatted categories using one Tab stop, arrows, Home, End and Escape", async () => {
+    const user = userEvent.setup();
+    render(<BarChart aria-label="Revenue" data={revenue} valueFormatter={(value) => `$${value}`} />);
+    const explorer = screen.getByRole("group", { name: "Revenue: explore values" });
+    await user.tab();
+    expect(explorer).toHaveFocus();
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Jan");
+    await user.keyboard("{ArrowRight}");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("$18");
+    await user.keyboard("{End}{ArrowRight}");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Apr");
+    await user.keyboard("{Home}{ArrowLeft}");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Jan");
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    expect(explorer).toHaveFocus();
+  });
+
+  it("supports touch on a donut segment and allows opting out without leaking props to DOM", () => {
+    const { container, rerender } = render(<DonutChart aria-label="Sources" data={revenue} />);
+    const segment = container.querySelectorAll(".pimolu-chart__segment")[1];
+    fireEvent.pointerDown(segment, { pointerType: "touch" });
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Feb");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("27%");
+    const explorer = screen.getByRole("group");
+    fireEvent.focus(explorer);
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Feb");
+    fireEvent.keyDown(explorer, { key: "Escape" });
+    fireEvent.pointerMove(segment);
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    fireEvent.pointerDown(segment, { pointerType: "touch" });
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Feb");
+    rerender(<DonutChart aria-label="Sources" data={revenue} showTooltip={false} />);
+    expect(screen.queryByRole("group")).not.toBeInTheDocument();
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    expect(container.firstChild).not.toHaveAttribute("showTooltip");
+  });
+
+  it("keeps missing observations as gaps and only fills AreaChart", () => {
+    const { container, rerender } = render(<LineChart series={[{ name: "Orders", values: [4, 9, NaN, 6, 12] }]} curve="smooth" />);
+    const path = container.querySelector(".pimolu-chart__line")?.getAttribute("d") ?? "";
+    expect(path.match(/M/g)).toHaveLength(2);
+    expect(path).toContain("C");
+    expect(path).not.toMatch(/NaN|Infinity/);
+    expect(container.querySelector(".pimolu-chart__area")).toBeNull();
+    rerender(<AreaChart series={[{ name: "Orders", values: [4, 9, NaN, 6, 12] }]} curve="smooth" areaFill="solid" />);
+    expect(container.querySelector(".pimolu-chart__area")?.getAttribute("d")?.match(/Z/g)).toHaveLength(2);
+  });
+
+  it("preserves the chart DOM ref and the fixed viewBox option", () => {
+    const ref = createRef<HTMLDivElement>();
+    const { container } = render(<LineChart ref={ref} width={480} height={240} responsive={false}
+      series={[{ name: "Revenue", values: [10, 18] }]} />);
+    expect(ref.current).toBe(container.firstElementChild);
+    expect(screen.getByRole("img")).toHaveAttribute("viewBox", "0 0 480 240");
+    expect(ref.current).not.toHaveAttribute("responsive");
+  });
+
+  it("uses unique gradient ids and reports unavailable series without inventing values", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<>
+      <AreaChart aria-label="Orders" labels={["Mon", "Tue"]} series={[{ name: "Paid", values: [8, 12] }, { name: "Trial", values: [3] }]} />
+      <AreaChart series={[{ name: "Other", values: [2, 4] }]} />
+    </>);
+    const gradients = [...container.querySelectorAll("linearGradient")].map((element) => element.id);
+    expect(new Set(gradients).size).toBe(3);
+    await user.tab();
+    await user.keyboard("{End}");
+    const tooltip = screen.getByRole("tooltip");
+    expect(tooltip).toHaveTextContent("Tue");
+    expect(within(tooltip).getByText("—")).toBeInTheDocument();
+    expect(tooltip).toHaveAttribute("aria-live", "polite");
+  });
   it("renders bars, value labels, a labelled image and a hidden data table", () => {
     const { container } = render(
       <BarChart

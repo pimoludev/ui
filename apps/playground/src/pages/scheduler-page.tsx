@@ -98,6 +98,7 @@ function WeekSchedulerExample() {
   return (
     <div className="pg-stack">
       <Scheduler
+        maxHeight={480}
         aria-label="Product team week"
         events={teamEvents}
         date={date}

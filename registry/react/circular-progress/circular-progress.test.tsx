@@ -21,6 +21,17 @@ function indicator(element: HTMLElement) {
 }
 
 describe("Pimolu CircularProgress", () => {
+  it("keeps invalid ranges finite and marks empty and completed rings", () => {
+    const { rerender } = render(<CircularProgress label="Import" value={50} max={Infinity} showValue />);
+    const gauge = screen.getByRole("progressbar");
+    expect(gauge).toHaveAttribute("aria-valuemax", "100");
+    expect(gauge).toHaveAttribute("aria-valuenow", "0");
+    expect(gauge).toHaveAttribute("data-empty", "true");
+    expect(screen.getByText("0%")).toHaveAttribute("title", "0%");
+    rerender(<CircularProgress label="Import" value={200} />);
+    expect(gauge).toHaveAttribute("data-complete", "true");
+    expect(gauge).not.toHaveAttribute("data-empty");
+  });
   it("exposes a determinate gauge", () => {
     render(<CircularProgress value={40} label="Upload" />);
 

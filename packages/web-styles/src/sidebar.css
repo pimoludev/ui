@@ -82,8 +82,8 @@
   inset-inline-end: 12px;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   z-index: 1;
   padding: 0;
   border: 1px solid var(--pimolu-border);
@@ -121,7 +121,8 @@
 
   gap: 10px;
 
-  padding: 8px 46px 16px 8px;
+  padding-block: 8px 16px;
+  padding-inline: 8px 52px;
 
   min-width: 0;
 }
@@ -177,6 +178,7 @@
 ========================================= */
 
 .pimolu-sidebar__item {
+  position: relative;
   display: flex;
   align-items: center;
 
@@ -184,7 +186,7 @@
 
   box-sizing: border-box;
 
-  min-height: 34px;
+  min-height: 40px;
 
   padding: 7px 8px;
 
@@ -212,7 +214,10 @@
 .pimolu-sidebar__item[aria-current="page"] {
   background: var(--pimolu-muted);
   color: var(--pimolu-foreground);
+  font-weight: 600;
 }
+
+.pimolu-sidebar__item[aria-current="page"]::before { content: ""; position: absolute; inset-inline-start: 0; inset-block: 25%; width: 3px; border-radius: 999px; background: var(--pimolu-primary, currentColor); }
 
 .pimolu-sidebar__item[aria-disabled="true"] {
   opacity: 0.5;
@@ -258,6 +263,8 @@
 }
 
 @media (max-width: 720px) {
+  .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header { display: flex; min-height: 40px; padding-block: 0; }
+  .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__toggle { position: absolute; }
   .pimolu-sidebar[data-collapsed="true"] {
     width: 100%;
     min-height: 60px;

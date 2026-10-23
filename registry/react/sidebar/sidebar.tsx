@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type {
   PimoluSidebarContentProps,
   PimoluSidebarFooterProps,
@@ -49,6 +49,15 @@ export function Sidebar({
   const mobile = useSyncExternalStore(subscribeMobile, mobileSnapshot, () => false);
   const [internalCollapsed, setInternalCollapsed] = useState<boolean | undefined>(defaultCollapsed);
   const isCollapsed = collapsible && (collapsed ?? internalCollapsed ?? (collapseOnMobile && mobile));
+  const sidebarRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const active = sidebarRef.current?.ownerDocument.activeElement;
+    if (isCollapsed && active && active !== toggleRef.current && sidebarRef.current?.contains(active)) {
+      toggleRef.current?.focus();
+    }
+  }, [isCollapsed]);
 
   function toggleCollapsed() {
     const next = !isCollapsed;
@@ -59,14 +68,15 @@ export function Sidebar({
   return (
     <aside
       {...props}
+      ref={sidebarRef}
       data-sticky={sticky || undefined}
       data-collapsed={isCollapsed || undefined}
       className={classes("pimolu-sidebar", className)}
     >
-      {children}
       {collapsible && (
         <button
           type="button"
+          ref={toggleRef}
           className="pimolu-sidebar__toggle"
           aria-label={isCollapsed ? expandLabel : collapseLabel}
           aria-expanded={!isCollapsed}
@@ -78,6 +88,7 @@ export function Sidebar({
           </svg>
         </button>
       )}
+      {children}
     </aside>
   );
 }

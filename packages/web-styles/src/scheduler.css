@@ -106,10 +106,12 @@
 ========================================= */
 
 .pimolu-scheduler__scroll {
+  position: relative;
   width: 100%;
   min-width: 0;
 
-  overflow-x: auto;
+  overflow: auto;
+  border-radius: var(--pimolu-scheduler-radius);
   overscroll-behavior-x: contain;
 }
 
@@ -127,7 +129,7 @@
   border: 1px solid var(--pimolu-scheduler-border);
   border-radius: var(--pimolu-scheduler-radius);
 
-  overflow: hidden;
+  overflow: clip;
 }
 
 .pimolu-scheduler__grid {
@@ -149,6 +151,10 @@
 }
 
 .pimolu-scheduler__header-row {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--pimolu-scheduler-surface);
   height: var(--pimolu-scheduler-header-height);
 
   border-bottom: 1px solid
@@ -363,6 +369,7 @@
 }
 
 .pimolu-scheduler__slot {
+  scroll-margin-block-start: calc(var(--pimolu-scheduler-header-height) + 8px);
   display: block;
 
   box-sizing: border-box;
@@ -513,6 +520,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.pimolu-scheduler__event[data-compact="true"] { padding: 1px 6px; justify-content: center; }
+.pimolu-scheduler__event[data-compact="true"] .pimolu-scheduler__event-time { display: none; }
+.pimolu-scheduler__event[data-compact="true"] .pimolu-scheduler__event-title { font-size: 0.6875rem; }
 
 /* =========================================
    CURRENT TIME

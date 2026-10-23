@@ -106,7 +106,7 @@
     max(
       0.625rem,
       calc(
-        var(--pimolu-circular-progress-diameter) * 0.26
+        var(--pimolu-circular-progress-diameter) * 0.20
       )
     );
 
@@ -114,7 +114,17 @@
   line-height: 1;
 
   color: var(--pimolu-muted-foreground, currentColor);
+  max-width: 68%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
 }
+
+.pimolu-circular-progress[data-empty="true"] .pimolu-circular-progress__indicator { opacity: 0; }
+.pimolu-circular-progress--sm:has(.pimolu-circular-progress__value) { width: auto; gap: 8px; }
+.pimolu-circular-progress--sm .pimolu-circular-progress__svg { width: var(--pimolu-circular-progress-diameter); height: var(--pimolu-circular-progress-diameter); flex: none; }
+.pimolu-circular-progress--sm .pimolu-circular-progress__value { position: static; max-width: none; font-size: 0.75rem; }
 
 /* =========================================
    INDETERMINATE

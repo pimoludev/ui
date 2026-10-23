@@ -973,7 +973,8 @@ export function Gantt({
                             onTaskClick?.(task.source)
                           }
                         >
-                          {task.source.name}
+                          <span className="pimolu-gantt__task-name">{task.source.name}</span>
+                          <span className="pimolu-gantt__task-completion" aria-hidden="true">{Math.round(task.progress)}%</span>
                         </button>
                       </div>
 

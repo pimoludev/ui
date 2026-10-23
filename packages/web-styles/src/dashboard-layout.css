@@ -5,15 +5,17 @@
 
 .pimolu-dashboard-layout {
   --pimolu-dashboard-sidebar-width: 16rem;
+  --pimolu-dashboard-sidebar-track: var(--pimolu-dashboard-sidebar-width);
   --pimolu-dashboard-aside-width: 20rem;
 
   display: grid;
   grid-template-columns:
-    var(--pimolu-dashboard-sidebar-width)
+    var(--pimolu-dashboard-sidebar-track)
     minmax(0, 1fr);
   grid-template-areas: "sidebar main";
 
   box-sizing: border-box;
+  min-width: 0;
 
   min-height: 100dvh;
 
@@ -30,7 +32,7 @@
 
 .pimolu-dashboard-layout[data-aside="true"] {
   grid-template-columns:
-    var(--pimolu-dashboard-sidebar-width)
+    var(--pimolu-dashboard-sidebar-track)
     minmax(0, 1fr)
     var(--pimolu-dashboard-aside-width);
   grid-template-areas: "sidebar main aside";
@@ -41,23 +43,14 @@
   grid-template-areas: "main aside";
 }
 
-.pimolu-dashboard-layout:has(.pimolu-sidebar[data-collapsed="true"]) {
-  --pimolu-dashboard-sidebar-width: 3.75rem;
-  grid-template-columns: 3.75rem minmax(0, 1fr);
-}
-
-.pimolu-dashboard-layout[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
-  grid-template-columns: 3.75rem minmax(0, 1fr) var(--pimolu-dashboard-aside-width);
+.pimolu-dashboard-layout:has(> .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"]) {
+  --pimolu-dashboard-sidebar-track: 3.75rem;
 }
 
 @container (max-width: 1100px) {
   .pimolu-dashboard-layout[data-aside="true"] {
-    grid-template-columns: var(--pimolu-dashboard-sidebar-width) minmax(0, 1fr);
+    grid-template-columns: var(--pimolu-dashboard-sidebar-track) minmax(0, 1fr);
     grid-template-areas: "sidebar main" "aside aside";
-  }
-
-  .pimolu-dashboard-layout[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
-    grid-template-columns: 3.75rem minmax(0, 1fr);
   }
 
   .pimolu-dashboard-layout[data-sidebar="false"][data-aside="true"] {
@@ -72,7 +65,18 @@
 }
 
 @container (max-width: 720px) {
-  .pimolu-dashboard-layout {
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header { display: flex; min-height: 40px; padding-block: 0; }
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__toggle { position: absolute; }
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar,
+  .pimolu-dashboard-layout[data-sticky-sidebar="true"] > .pimolu-dashboard-layout__sidebar {
+    position: static; max-height: none; overflow: visible;
+    border-inline-end: 0; border-block-end: 1px solid var(--pimolu-border);
+  }
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar > .pimolu-sidebar { width: 100%; min-height: auto; border-inline-end: 0; }
+  .pimolu-dashboard-layout__content, .pimolu-dashboard-layout__aside { padding: var(--pimolu-spacing-4, 16px); }
+  .pimolu-dashboard-layout,
+  .pimolu-dashboard-layout[data-aside],
+  .pimolu-dashboard-layout[data-sidebar][data-aside] {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "sidebar" "main";
   }
@@ -173,7 +177,7 @@
 @media (max-width: 1100px) {
   .pimolu-dashboard-layout[data-aside="true"] {
     grid-template-columns:
-      var(--pimolu-dashboard-sidebar-width)
+      var(--pimolu-dashboard-sidebar-track)
       minmax(0, 1fr);
     grid-template-areas: "sidebar main" "aside aside";
   }
@@ -190,7 +194,13 @@
 }
 
 @media (max-width: 860px) {
-  .pimolu-dashboard-layout {
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header { display: flex; min-height: 40px; padding-block: 0; }
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__toggle { position: absolute; }
+  .pimolu-dashboard-layout[data-sticky-sidebar="true"] > .pimolu-dashboard-layout__sidebar { position: static; max-height: none; overflow: visible; }
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar > .pimolu-sidebar { width: 100%; min-height: auto; border-inline-end: 0; }
+  .pimolu-dashboard-layout,
+  .pimolu-dashboard-layout[data-aside],
+  .pimolu-dashboard-layout[data-sidebar][data-aside] {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "sidebar" "main";
   }
@@ -199,17 +209,17 @@
     grid-template-areas: "sidebar" "main" "aside";
   }
 
-  .pimolu-dashboard-layout:has(.pimolu-sidebar[data-collapsed="true"]),
-  .pimolu-dashboard-layout[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
+  .pimolu-dashboard-layout:has(> .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"]),
+  .pimolu-dashboard-layout[data-aside="true"]:has(> .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"]) {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .pimolu-dashboard-layout .pimolu-sidebar[data-collapsed="true"] {
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] {
     width: 100%;
     min-height: 60px;
   }
 
-  .pimolu-dashboard-layout .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
     display: none;
   }
 
@@ -255,17 +265,17 @@
 }
 
 @container (max-width: 720px) {
-  .pimolu-dashboard-layout:has(.pimolu-sidebar[data-collapsed="true"]),
-  .pimolu-dashboard-layout[data-aside="true"]:has(.pimolu-sidebar[data-collapsed="true"]) {
+  .pimolu-dashboard-layout:has(> .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"]),
+  .pimolu-dashboard-layout[data-aside="true"]:has(> .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"]) {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .pimolu-dashboard-layout .pimolu-sidebar[data-collapsed="true"] {
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] {
     width: 100%;
     min-height: 60px;
   }
 
-  .pimolu-dashboard-layout .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
+  .pimolu-dashboard-layout > .pimolu-dashboard-layout__sidebar .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
     display: none;
   }
 }

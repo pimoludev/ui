@@ -15,6 +15,15 @@ export function PageHeaderPage() {
       />
 
       <Section
+        title="Compact application header"
+        hint="Use size='sm' inside dashboards and narrow panels. Heading size follows the container rather than the browser width."
+      >
+        <div className="pg-panel"><DocsPageHeader titleAs="h2" size="sm" eyebrow="Workspace" title="Project overview"
+          description="Review delivery, ownership and the next milestones."
+          meta={<Badge variant="success">On track</Badge>} /></div>
+      </Section>
+
+      <Section
         title="Documentation header"
         hint="Breadcrumbs use the shared Breadcrumbs primitives; the last entry is the current page and carries aria-current. Actions wrap under the title on narrow screens."
       >
@@ -65,6 +74,7 @@ export function PageHeaderPage() {
           <DocsPageHeader
             titleAs="h2"
             align="center"
+            size="lg"
             eyebrow="Pimolu UI 1.0"
             title="One design system for every surface"
             description="Design tokens, accessible React components and native-ready data. Build the web and the app from the same contract instead of translating a design twice."

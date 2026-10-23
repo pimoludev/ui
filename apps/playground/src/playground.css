@@ -622,6 +622,10 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr));
 }
 
+.pg-chart-metrics {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
 /* Cards and gallery panels */
 
 .pg-card {

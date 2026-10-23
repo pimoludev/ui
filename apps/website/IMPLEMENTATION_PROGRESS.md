@@ -1018,3 +1018,53 @@ sept pastilles. README et `docs/ai/PROJECT_CONTEXT.md` mis ? jour.
 - Pas de nouvelle d?pendance, commit, push ou activation de CI.
 
 Serveur de d?veloppement existant sur **http://localhost:3001** conserv?. Serveur de production temporaire et navigateur de revue arr?t?s apr?s les v?rifications.
+
+## 2026-10-23 — Charts : rendu et exploration des données
+
+- `registry/react/chart/` : infobulles pour BarChart, LineChart, AreaChart et DonutChart, avec pointeur, toucher et une seule entrée Tab. Flèches, Home/End et Échap ; une infobulle fermée ne revient pas sur un simple mouvement au même endroit. `showTooltip` permet de désactiver cette exploration ; `interactionLabel` localise les instructions.
+- Les graphiques cartésiens mesurent leur conteneur avec ResizeObserver pour conserver des textes lisibles. `responsive={false}` préserve le viewBox fixe. Espacement des catégories et marge de l’axe adaptés ; références DOM conservées.
+- `curve="smooth"` ajoute des courbes bornées entre les observations. `areaFill="gradient" | "solid"` choisit le remplissage. Les valeurs manquantes interrompent les chemins ; LineChart ne dessine plus de remplissage d’aire. Identifiants de dégradés uniques.
+- `packages/web-styles/src/chart.css` : grille discrète, infobulles, curseur, anneaux et légendes ; focus visible, pan vertical tactile, réduction des animations et couleurs forcées conservés. La table sémantique reste accessible dans un conteneur masqué qui ne provoque plus de débordement mobile.
+- Playground : tableau de bord fictif 2025, période trimestre/année, revenus par catégorie et comparaison 2024 ; totaux et pourcentages calculés depuis les séries affichées. Contrôles réels de courbe, remplissage et exploration ; exemple de viewBox fixe.
+- Site : exemple principal autonome et copiable, documentation/API mises à jour, deux vignettes du catalogue régénérées et examinées. Aucun ajout de dépendance.
+
+Vérifications exécutées :
+
+- `pnpm verify` réussi pendant l’implémentation (1 411 tests React, 30 tests CSS), puis contrôles ciblés après les corrections finales.
+- Version finale : 16 tests Chart ; TypeScript du dépôt ; audit thèmes strict avec 0 erreur / 0 warning ; 30 tests CSS ; builds des packages, du playground et du site réussis.
+- Site : 26 tests documentaires, lint et typecheck réussis ; les 519 exemples copiables se compilent indépendamment.
+- 12 parcours Playwright sur Chromium/Firefox/WebKit : page complète, trois exemples supplémentaires, filtres, clavier, responsive, RTL et couleurs forcées lorsque le moteur les expose.
+- Revue du reporting sous sept presets × clair/sombre, mobile 390 × 844, RTL et contraste forcé. Captures et rapport ignorés dans `.artifacts/charts-review/`. Contrôle complémentaire pointeur tactile/clavier/filtre et absence de débordement dans les trois moteurs.
+
+Limites : données de démonstration fictives ; pas de zoom/pan temporel, de test de gros volumes ni de revue avec lecteur d’écran. Aucune publication npm, aucun commit ou push pour cette modification.
+## 2026-10-23 — Finition des composants et corrections des captures
+
+Corrections :
+
+- TagsInput : la règle du site qui espaçait tous les `li + li` est limitée aux listes rédactionnelles. Les tags ont une marge nulle, une hauteur cohérente par taille et restent contenus sur mobile.
+- TreeTable : `selectionMode="cascade"` sélectionne les descendants, même repliés, et calcule les parents partiellement sélectionnés. Le mode indépendant reste le défaut compatible. Les lignes désactivées sont exclues des nouveaux choix. Le caption devient un bandeau au-dessus des colonnes ; l’exemple propose sélection en cascade/indépendante et archivage/restauration de données locales.
+- DocsLayout : quand le sommaire passe sous l’article, la sidebar cesse d’être sticky et ne le recouvre plus. Le lien d’évitement reste masqué jusqu’au focus.
+
+Améliorations des neuf familles demandées :
+
+- Kanban : en-têtes plus aérés, compteurs et jauges de capacité calculées depuis `limit`, cartes plus confortables.
+- Scheduler : `maxHeight`, en-têtes persistants pendant le défilement et rendu compact des événements courts ; dates/heures complètes conservées dans les noms accessibles et titres.
+- Gantt : pourcentage visible dans la colonne des tâches, nom tronqué séparément du pourcentage.
+- Navbar : cibles tactiles et liens plus confortables, marque contenue sur mobile et maintien du contrat clavier/Échap.
+- Sidebar : contrôle placé en premier dans l’ordre DOM, retour du focus lors d’un repli contrôlé, espacements logiques RTL, état actif lisible et en-tête conservé en mode replié mobile/tablette. Exemple de navigation avec icônes et contenu piloté par la sélection.
+- DashboardLayout / AppShell : piste de sidebar dérivée séparément des largeurs utilisateur, détection limitée au slot de navigation, une colonne sur petits écrans/conteneurs et correction des priorités CSS. DashboardLayout présente projets, responsables, états et progression ; le tableau défile dans sa carte sur mobile.
+- PageHeader : tailles sm/md/lg, `pageHeaderVariantMap` et typographie ajustée au conteneur ; exemples compact et marketing.
+- CircularProgress : petite valeur à côté du cercle, valeurs centrées mieux contenues en md/lg, états vide/complet et bornes ARIA finies en cas de max invalide.
+
+Principaux fichiers : `registry/react/{tree-table,scheduler,gantt,kanban,sidebar,page-header,circular-progress}/`, leurs feuilles dans `packages/web-styles/src/`, les exemples et pages playground associés, `components/docs/examples/{sidebar,dashboard-layout}.tsx`, `content/extended-components.ts`, `app/docs/docs.css` et `e2e/component-polish.spec.ts`.
+
+Vérifications exécutées :
+
+- `pnpm verify` réussi : 136 fichiers React / 1 420 tests, 30 tests CSS, compilation des packages/playground, TypeScript, lint et validation des skills. Contrôles ciblés relancés après les derniers ajustements CSS.
+- Audit des thèmes strict : 0 erreur / 0 warning. Builds website/playground réussis ; lint et typecheck du site réussis.
+- 26 tests du site, dont compilation indépendante des 519 exemples copiables.
+- 99 parcours Playwright dans Chromium, Firefox et WebKit : références, exemples complémentaires, régressions ciblées et zoom Gantt. Après les derniers ajustements : 21 parcours de régression supplémentaires réussis, dont tablette 800px et mobile 390px.
+- Revue visuelle : 12 familles × sept presets × clair/sombre, plus mobile LTR/RTL ; 168 captures desktop et 24 mobiles, sans débordement du document mesuré. Planches et captures dans `.artifacts/component-polish/` (ignorées). Les trois familles de navigation/layout ont été recapturées après les derniers changements.
+- 24 illustrations du catalogue régénérées depuis les vrais composants. Les images Charts de l’itération précédente sont conservées.
+
+Limites : navigation mobile émulée, sans appareil physique ni lecteur d’écran exécuté ; cette revue ne constitue pas une certification WCAG exhaustive. Aucun ajout de dépendance, commit, push, merge ou publication npm. Modifications conservées sur `dev`.

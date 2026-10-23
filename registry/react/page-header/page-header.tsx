@@ -19,6 +19,7 @@ import type {
   PimoluPageHeaderBreadcrumbs,
   PimoluPageHeaderProps,
 } from "./page-header.types";
+import { pageHeaderVariants } from "./page-header.variants";
 
 function classes(
   base: string,
@@ -55,6 +56,7 @@ export const PageHeader = forwardRef<
     breadcrumbs,
     meta,
     align = "start",
+    size = "md",
     className,
     ...props
   },
@@ -85,8 +87,9 @@ export const PageHeader = forwardRef<
       {...props}
       ref={ref}
       data-align={align}
+      data-size={size}
       className={classes(
-        "pimolu-page-header",
+        pageHeaderVariants({ size }),
         align === "center" && "pimolu-page-header--center",
         className
       )}

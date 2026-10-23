@@ -79,6 +79,9 @@ export interface PimoluSchedulerProps {
   /** Height of one hour row, in pixels. Defaults to 64. */
   hourHeight?: number;
 
+  /** Bounds the scrollable timetable; day headings stay visible. Numbers are pixels. */
+  maxHeight?: number | string;
+
   /** Called when an event button is activated. */
   onEventClick?: (event: PimoluSchedulerEvent) => void;
 

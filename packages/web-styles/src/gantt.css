@@ -296,10 +296,14 @@
 }
 
 .pimolu-gantt__task-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 
   box-sizing: border-box;
   max-width: 100%;
+  width: 100%;
 
   padding: 3px 5px;
   margin-left: -5px;
@@ -320,6 +324,9 @@
   cursor: pointer;
   overflow: hidden;
 }
+
+.pimolu-gantt__task-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pimolu-gantt__task-completion { flex: none; font-size: 0.6875rem; font-variant-numeric: tabular-nums; color: var(--pimolu-gantt-muted-foreground); background: var(--pimolu-gantt-muted); border-radius: var(--pimolu-radius-sm, 4px); padding: 2px 5px; }
 
 .pimolu-gantt__task-button:hover {
   background: var(--pimolu-gantt-muted);

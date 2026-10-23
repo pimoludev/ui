@@ -53,6 +53,17 @@
   width: 100%;
 }
 
+.pimolu-tree-table__table > caption {
+  caption-side: top;
+  padding: 12px 16px;
+  border-block-end: 1px solid var(--pimolu-border);
+  background: var(--pimolu-surface, var(--pimolu-background));
+  color: var(--pimolu-foreground);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: start;
+}
+
 /* =========================================
    HEADERS AND CELLS
 ========================================= */

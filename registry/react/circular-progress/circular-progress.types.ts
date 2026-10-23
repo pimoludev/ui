@@ -19,7 +19,7 @@ export interface PimoluCircularProgressProps
    */
   value?: number;
 
-  /** Upper bound. */
+  /** Positive finite upper bound, default 100. Invalid ranges render an empty 0/100 gauge. */
   max?: number;
 
   /** Visual size of the gauge. */
@@ -35,7 +35,7 @@ export interface PimoluCircularProgressProps
    */
   label?: string;
 
-  /** Display the current value in the middle. */
+  /** Displays the value inside md/lg rings and beside the compact sm ring. */
   showValue?: boolean;
 
   /** Formats the readout, for example (value, max) => `${value}/${max}`. */

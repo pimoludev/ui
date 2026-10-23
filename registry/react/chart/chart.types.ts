@@ -34,20 +34,26 @@ export interface PimoluChartBaseProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
   /**
-   * viewBox width. The rendered SVG is always fluid: its width is
-   * 100% of the container and its height follows the viewBox ratio.
-   * Defaults to 640 (or 240 for the donut).
+   * Initial viewBox width, default 640 (240 for DonutChart).
+   * Bar/Line/Area measure their container by default; set responsive=false
+   * to retain this viewBox width and the original fluid aspect ratio.
    */
   width?: number;
 
   /**
-   * viewBox height. Also controls the aspect ratio of the chart.
+   * viewBox height. Responsive Cartesian charts retain this drawing height.
    * Defaults to 320 (or 240 for the donut).
    */
   height?: number;
 
   /** Shows the legend below the chart. */
   showLegend?: boolean;
+
+  /** Enables pointer, touch and arrow-key exploration. Defaults to true. */
+  showTooltip?: boolean;
+
+  /** Localized instructions for keyboard exploration. */
+  interactionLabel?: string;
 
   /** Formats values in the axis, value labels, legend and data table. */
   valueFormatter?: (value: number) => string;
@@ -62,6 +68,9 @@ export interface PimoluChartBaseProps
 
 export interface PimoluBarChartProps
   extends PimoluChartBaseProps {
+
+  /** Fits the drawing coordinates to the container to keep text legible. Defaults to true. */
+  responsive?: boolean;
 
   /**
    * Simple category/value data. Use with `label`, `value` and an
@@ -107,6 +116,9 @@ export interface PimoluBarChartProps
 export interface PimoluLineChartProps
   extends PimoluChartBaseProps {
 
+  /** Fits the drawing coordinates to the container to keep text legible. Defaults to true. */
+  responsive?: boolean;
+
   /** One or more series to draw. */
   series: PimoluChartSeries[];
 
@@ -121,6 +133,12 @@ export interface PimoluLineChartProps
 
   /** Shows a point for each value. Defaults to false. */
   showPoints?: boolean;
+
+  /** Linear segments or a smooth curve that stays within adjacent values. Defaults to linear. */
+  curve?: "linear" | "smooth";
+
+  /** AreaChart fill treatment. Defaults to gradient; ignored by LineChart. */
+  areaFill?: "solid" | "gradient";
 
   /** Optional title under the category axis. */
   xAxisLabel?: string;

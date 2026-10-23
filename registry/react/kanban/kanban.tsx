@@ -1034,6 +1034,11 @@ export function Kanban({
                   {labels.full}
                 </Badge>
               )}
+              {column.limit != null && column.limit > 0 && (
+                <span className="pimolu-kanban__capacity" aria-hidden="true">
+                  <span style={{ width: `${Math.min(100, column.cards.length / column.limit * 100)}%` }} />
+                </span>
+              )}
             </header>
 
             <ol

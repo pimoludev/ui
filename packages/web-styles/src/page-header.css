@@ -4,6 +4,9 @@
 ========================================= */
 
 .pimolu-page-header {
+  container-type: inline-size;
+  --pimolu-page-header-title-size: clamp(1.75rem, 5cqi, 2.75rem);
+  width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -20,6 +23,12 @@
 /* =========================================
    BREADCRUMBS
 ========================================= */
+
+.pimolu-page-header[data-size="sm"] { --pimolu-page-header-title-size: clamp(1.25rem, 4cqi, 1.75rem); gap: 12px; }
+.pimolu-page-header[data-size="sm"] .pimolu-page-header__content { gap: 8px; }
+.pimolu-page-header[data-size="sm"] .pimolu-page-header__description { font-size: 0.875rem; }
+.pimolu-page-header[data-size="lg"] { --pimolu-page-header-title-size: clamp(2rem, 7cqi, 4rem); }
+.pimolu-page-header__actions { max-width: 100%; }
 
 .pimolu-page-header__breadcrumbs {
   display: flex;
@@ -94,7 +103,7 @@
   color: var(--pimolu-foreground);
 
   font-family: var(--pimolu-font-heading, inherit);
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-size: var(--pimolu-page-header-title-size, clamp(1.75rem, 3.5vw, 2.75rem));
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;

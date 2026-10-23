@@ -53,6 +53,10 @@
   gap: 8px;
 
   flex: none;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: inherit;
 
@@ -89,6 +93,8 @@
 }
 
 .pimolu-navbar__item {
+  box-sizing: border-box;
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
 
@@ -290,6 +296,7 @@
     box-sizing: border-box;
     width: 100%;
     white-space: normal;
+    min-height: 44px;
   }
 
   .pimolu-navbar[data-collapsible="true"][data-open="true"]
@@ -307,6 +314,11 @@
   .pimolu-navbar {
     padding: 10px 16px;
   }
+}
+
+@container pimolu-navbar (max-width: 700px) {
+  .pimolu-navbar[data-collapsible="true"] .pimolu-navbar__brand { max-width: calc(100% - 64px); }
+  .pimolu-navbar__toggle { min-width: 44px; min-height: 44px; }
 }
 
 /* =========================================

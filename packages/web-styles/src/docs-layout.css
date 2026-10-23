@@ -26,6 +26,8 @@
 ========================================= */
 
 .pimolu-docs-layout__skip-link {
+  opacity: 0;
+  pointer-events: none;
   position: fixed;
   inset-block-start: var(--pimolu-spacing-3, 12px);
   inset-inline-start: var(--pimolu-spacing-3, 12px);
@@ -54,6 +56,8 @@
 }
 
 .pimolu-docs-layout__skip-link:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
   transform: translateY(0);
 
   outline:
@@ -216,6 +220,12 @@
    readable measure next to the sidebar. */
 
 @media (max-width: 1180px) {
+  /* Once TOC occupies a separate row, a floating sidebar must not cover it. */
+  .pimolu-docs-layout[data-sticky="true"][data-toc="true"] > .pimolu-docs-layout__body > .pimolu-docs-layout__sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
   .pimolu-docs-layout__body {
     grid-template-columns:
       var(--pimolu-docs-sidebar-width)

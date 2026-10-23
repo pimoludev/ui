@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-22. This folder describes the local repository and is the
+Updated: 2026-10-23. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it.
 
@@ -55,6 +55,15 @@ documentation, developer tooling, AI integrations and MCP. Those targets are not
 features present in the repository.
 
 ## Latest library and website iteration
+
+- Workspace changes pending a package release: TreeTable supports opt-in `selectionMode="cascade"`
+  (hidden descendants, mixed parents, controlled selection); independent selection remains the default.
+  The website explorer enables cascade mode and its archive/restore actions modify only local demo data.
+- Scheduler adds `maxHeight` with sticky day headings and compact short events. PageHeader adds
+  `sm` / `md` / `lg` sizes and `pageHeaderVariantMap`. CircularProgress normalizes invalid ranges
+  and renders the small readout beside its ring. TagsInput list alignment and tablet DocsLayout
+  sticky overlap are fixed; DashboardLayout/AppShell scope collapsed tracks to their own rail.
+  See `apps/website/IMPLEMENTATION_PROGRESS.md` for the component polish and actual checks.
 
 - Navbar/Footer add compatible `surface`, `transparent`, `floating` appearances. Defaults stay surface;
   Footer adds `bordered` (top divider, default true). The website uses transparent site chrome.

@@ -1408,9 +1408,11 @@ export type {
 
 /* PageHeader */
 export { PageHeader } from "./page-header/page-header";
+export { pageHeaderVariantMap } from "./page-header/page-header.variants";
 
 export type {
   PimoluPageHeaderProps,
+  PimoluPageHeaderSize,
   PimoluPageHeaderAlign,
   PimoluPageHeaderTitleElement,
   PimoluPageHeaderBreadcrumb,
