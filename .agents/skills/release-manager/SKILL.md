@@ -102,6 +102,9 @@ Update the root `CHANGELOG.md` with a bilingual section:
 - English first, the same facts in French.
 - State the version, date, tag, package versions and website preview status.
 - Never claim a check that was not run.
+- Update the website release MDX entry in the same release. Lead it with an
+  **At a glance** section that highlights the few changes users must notice;
+  the release index and detail outline derive from those sections.
 
 ### 6. Tag and preview
 Only after steps 1–5:
