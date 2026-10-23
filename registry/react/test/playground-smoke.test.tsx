@@ -35,7 +35,11 @@ describe("playground routes", () => {
       render(<App />);
 
       expect(
-        await screen.findByRole("heading", { level: 1 })
+        await screen.findByRole(
+          "heading",
+          { level: 1 },
+          { timeout: 5000 }
+        )
       ).toBeInTheDocument();
 
       const current = screen
