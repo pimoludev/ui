@@ -36,9 +36,10 @@ or the hosting platform's `PORT` environment variable).
   with `pnpm start:website`. Keep the workspace packages and their generated
   `dist` files with the runtime, together with `apps/website/.next` and `public`.
 - On a managed Next.js host whose project root is `apps/website`, enable access
-  to files outside that directory and use `cd ../.. && pnpm build:website`
-  as the build override. Let its Next.js adapter serve the output; do not
-  configure a static export directory.
+  to files outside that directory. `vercel.json` sets the Vercel build command
+  to `cd ../.. && pnpm build:website`, so workspace packages are compiled before
+  documentation generation and the Next.js build. Let its Next.js adapter serve
+  the output; do not configure a static export directory.
 - Attach `pimolu.com` to the hosting project, apply that host's required DNS
   records at the registrar, and enable HTTPS. Redirect any configured `www`
   alias to the canonical apex domain at the host.
