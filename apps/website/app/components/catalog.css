@@ -43,6 +43,8 @@
   .catalog-illustration { display: grid; place-items: center; overflow: hidden; border: 1px solid var(--pimolu-border); border-radius: 14px; background: var(--pimolu-background); transition: border-color 160ms ease; }
   .catalog-illustration img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: contain; }
   .catalog-illustration .catalog-image-dark { display: none; }
+  .chart-overview-image, .chart-overview-image img { display: block; }
+  .chart-overview-image .catalog-image-dark { display: none; }
   .site-root[data-pimolu-theme="dark"] .catalog-image-light { display: none; }
   .site-root[data-pimolu-theme="dark"] .catalog-image-dark { display: block; }
   @media (prefers-color-scheme: dark) {

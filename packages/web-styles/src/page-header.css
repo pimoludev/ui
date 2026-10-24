@@ -172,10 +172,15 @@
 }
 
 .pimolu-page-header--center .pimolu-page-header__body {
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
 .pimolu-page-header--center .pimolu-page-header__content {
+  flex: none;
+  width: 100%;
   align-items: center;
 
   margin-inline: auto;
@@ -187,6 +192,8 @@
 .pimolu-page-header--center .pimolu-page-header__actions {
   justify-content: center;
 }
+
+.pimolu-page-header--center .pimolu-page-header__actions { flex: none; width: 100%; }
 
 /* =========================================
    RESPONSIVE

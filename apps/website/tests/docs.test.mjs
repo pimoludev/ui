@@ -18,7 +18,7 @@ const catalog = JSON.parse(await readFile(new URL("../content/generated/catalog.
 const additional = JSON.parse(await readFile(new URL("../content/generated/additional-examples.json", import.meta.url), "utf8"));
 const additionalSources = JSON.parse(await readFile(new URL("../content/generated/additional-sources.json", import.meta.url), "utf8"));
 
-test("all 516 examples have stable formatting and multiline JSX props", () => {
+test("all 532 examples have stable formatting and multiline JSX props", () => {
   for (const [key, source] of Object.entries({ ...examples, ...additionalSources })) {
     assert.equal(formatExample(source), source, `${key}: copied source is not fully formatted`);
     for (const [index, line] of source.split("\n").entries()) assert.ok(line.length <= 140, `${key}:${index + 1}: unreadably long line (${line.length})`);
@@ -41,7 +41,7 @@ test("formatting long strings preserves their exact value", () => {
   assert.equal(formatExample(formatExample(source)), formatExample(source));
 });
 
-test("all 516 component and 3 standalone guide examples typecheck independently", () => {
+test("all 532 component and 3 standalone guide examples typecheck independently", () => {
   const website = fileURLToPath(new URL("..", import.meta.url));
   const guideExamples = Object.fromEntries(guides.filter((guide) => ["quick-start", "dark-mode", "animation"].includes(guide.slug)).flatMap((guide) => guide.sections.filter((section) => section.language === "tsx").map((section) => [`guide-${guide.slug}-${section.id}`, section.code])));
   assert.equal(Object.keys(guideExamples).length, 3);
@@ -49,7 +49,7 @@ test("all 516 component and 3 standalone guide examples typecheck independently"
     assert.doesNotMatch(source, /\b\w*VariantMap\b|\boptionsOf\b|\bpg-[\w-]+/, `${key}: private demo machinery in copied code`);
     return [path.join(website, "__snippets__", `${key}.tsx`).replaceAll("\\", "/"), source];
   }));
-  assert.equal(sources.size, 519);
+  assert.equal(sources.size, 535);
   const config = ts.readConfigFile(path.join(website, "tsconfig.json"), ts.sys.readFile);
   const { options } = ts.parseJsonConfigFileContent(config.config, ts.sys, website);
   options.incremental = false;
@@ -79,7 +79,7 @@ test("every family has at least four distinct, parsable live examples with copya
 });
 
 test("every component has an API, a parsable live example and valid related routes", () => {
-  assert.equal(components.length, 129);
+  assert.equal(components.length, 133);
   assert.equal(new Set(docNavigation.map((entry) => docHref(entry.slug))).size, docNavigation.length);
   for (const component of components) {
     assert.ok(api[component.family]?.length, `${component.family}: missing API`);

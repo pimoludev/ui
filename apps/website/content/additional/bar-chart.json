@@ -1,0 +1,17 @@
+[
+  {
+    "file": "bar-chart-2.tsx",
+    "title": "Grouped comparisons",
+    "description": "Compare delivered work by team and month."
+  },
+  {
+    "file": "bar-chart-3.tsx",
+    "title": "Stacked totals",
+    "description": "Combine series into a total for each month."
+  },
+  {
+    "file": "bar-chart-4.tsx",
+    "title": "Horizontal categories",
+    "description": "Give longer category labels more room."
+  }
+]

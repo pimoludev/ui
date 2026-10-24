@@ -13,6 +13,7 @@ const output = path.join(website, "public/component-previews");
 const baseURL = process.env.PREVIEWS_BASE_URL || "http://localhost:3001";
 // Select the actual component, never the surrounding documentation card or controls.
 const targets = {
+  "bar-chart": ".pimolu-chart--bar", "line-chart": ".pimolu-chart--line", "area-chart": ".pimolu-chart--area", "donut-chart": ".pimolu-chart--donut", sparkline: ".pimolu-chart--sparkline",
   spacer: ".pimolu-flex",
   "theme-builder": ".pimolu-theme-builder__presets",
   "context-menu": ".pimolu-context-menu",
@@ -44,7 +45,7 @@ const queue = catalog.filter((entry) => !families.length || families.includes(en
   .flatMap((entry) => ["light", "dark"].map((theme) => ({ ...entry, theme })));
 const samples = { "tree-table": "example-2", "app-shell": "example-2", prose: "example-2", grid: "example-2", scheduler: "example-2", "docs-layout": "example-2", "api-table": "example-2", footer: "example-3" };
 const previous = await readFile(path.join(output, "capture-manifest.json"), "utf8").then(JSON.parse).catch(() => []);
-const report = families.length ? previous.filter((entry) => !families.includes(entry.family)) : [];
+const report = families.length ? previous.filter((entry) => !families.includes(entry.family) && catalog.some((component) => component.family === entry.family)) : [];
 const browser = await chromium.launch();
 try {
   await Promise.all(Array.from({ length: 3 }, async () => {

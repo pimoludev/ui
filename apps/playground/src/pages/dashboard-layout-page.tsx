@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Badge,
   Button,
   Card,
@@ -36,7 +37,7 @@ import { DemoNavIcon } from "../demo-nav-icon";
 function DashboardSidebar() {
   return (
     <Sidebar collapsible>
-      <SidebarHeader>
+      <SidebarHeader collapsedContent={<Avatar name="Pimolu" size="sm" />}>
         <span className="pg-brand__mark">P</span>
 
         <div>
@@ -62,7 +63,7 @@ function DashboardSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter collapsedContent={<Avatar name="Ada Lovelace" size="sm" />}>
         <span className="pg-meta">Acme Inc. · Free plan</span>
       </SidebarFooter>
     </Sidebar>
@@ -181,7 +182,7 @@ function DashboardContent() {
         </CardHeader>
 
         <CardContent>
-          <Table density="sm">
+          <Table density="sm" style={{ minWidth: 560 }}>
             <TableHeader>
               <TableRow>
                 <TableHead>Project</TableHead>
@@ -228,26 +229,21 @@ function DashboardContent() {
 
 function DashboardAside() {
   return (
-    <div className="pg-stack">
-      <div>
-        <h2 className="pg-section__title">Activity</h2>
-        <p className="pg-meta">What changed recently.</p>
-      </div>
-
-      <div className="pg-stack">
-        {activity.map((item) => (
-          <div key={item.name} className="pg-stack">
-            <strong>{item.name}</strong>
-            <span className="pg-meta">
-              {item.action} · {item.time} ago
-            </span>
+    <div className="pg-stack" style={{ gap: 16 }}>
+      <Card>
+        <CardHeader><CardTitle as="h2">Team activity</CardTitle><CardDescription>The latest in your workspace.</CardDescription></CardHeader>
+        <CardContent>
+          <div className="pg-stack" style={{ gap: 20 }}>
+            {activity.slice(0, 3).map((item) => (
+              <div key={item.name} className="pg-row" style={{ alignItems: "flex-start", flexWrap: "nowrap", gap: 10 }}>
+                <Avatar name={item.name} size="sm" />
+                <div style={{ minWidth: 0 }}><strong style={{ display: "block", fontSize: 13 }}>{item.name}</strong><p className="pg-meta" style={{ margin: "4px 0", lineHeight: 1.5 }}>{item.action}</p><span className="pg-meta">{item.time} ago</span></div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      <Button size="sm" appearance="outline">
-        View all activity
-      </Button>
+        </CardContent>
+      </Card>
+      <Card><CardHeader><CardTitle as="h2">Next milestone</CardTitle><CardDescription>Design review, Friday at 10:00</CardDescription></CardHeader><CardContent><Badge variant="primary">3 projects ready</Badge></CardContent></Card>
     </div>
   );
 }
@@ -285,29 +281,10 @@ export function DashboardLayoutPage() {
           aside={<DashboardAside />}
           asideLabel="Recent activity"
           sidebarWidth="12rem"
-          asideWidth={180}
-          style={{ minHeight: 480 }}
+          asideWidth={240}
+          style={{ minHeight: 620 }}
         >
-          <div className="pg-stack">
-            <h2 className="pg-section__title">Workspace</h2>
-            <p className="pg-copy">
-              A right rail is useful for activity, filters or
-              contextual help. It becomes a separate
-              complementary landmark.
-            </p>
-
-            <Card>
-              <CardContent>
-                <Stat
-                  label="Open tasks"
-                  value="24"
-                  delta="+3"
-                  trend="up"
-                  description="Across 6 projects"
-                />
-              </CardContent>
-            </Card>
-          </div>
+          <DashboardContent />
         </DashboardLayout>
       </Section>
 

@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { StandaloneExample } from "@/components/docs/component-examples";
 import catalog from "@/content/generated/catalog.json";
 import additionalExamples from "@/content/generated/additional-examples.json";
@@ -14,6 +14,12 @@ export default async function PreviewPage({ params, searchParams }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const family = (await params).slug;
+  if (family === "chart") {
+    const legacy = await searchParams;
+    const target = legacy.example === "example-3" ? "bar-chart" : legacy.example === "example-4" ? "line-chart" : "area-chart";
+    const query = new URLSearchParams(Object.entries(legacy).flatMap(([key, value]) => key !== "example" && typeof value === "string" ? [[key, value]] : []));
+    permanentRedirect(`/preview/${target}${query.size ? `?${query}` : ""}`);
+  }
   if (!catalog.some((entry) => entry.family === family)) notFound();
   const query = await searchParams;
   const exampleId = typeof query.example === "string" ? query.example : undefined;

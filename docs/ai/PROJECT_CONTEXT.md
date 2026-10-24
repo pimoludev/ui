@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-23. This folder describes the local repository and is the
+Updated: 2026-10-24. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it.
 
@@ -18,7 +18,7 @@ change: these notes do not replace it.
   (`data-pimolu-radius`), density (`data-pimolu-density`) and a brand colour
   carried by `PimoluProvider`.
 - `apps/website` is the Next.js App Router site: workspace integration,
-  homepage, guides under `/docs`, an illustrated catalog and **129 live component
+  homepage, guides under `/docs`, an illustrated catalog and **133 live component
   references** under `/components` and a development-status `/releases` page.
   All families have curated examples, generated APIs, usage and accessibility notes.
   The original twenty are authored standalone; the additional 109 use curated
@@ -70,7 +70,7 @@ features present in the repository.
 - Kanban full columns no longer mark operable cards aria-disabled. Capacity checks remain on additions/moves.
 - Scheduler exposes one grid Tab entry, arrows including RTL, Home/End, Control+Home/End and F2/Escape.
   Returning from a cell action with Shift+Tab restores grid navigation. Timed events are separate controls.
-- Website references now provide **four examples per family, 516 total**. Additional compositions are extracted
+- Website references now provide **four examples per reference, 532 total**. Additional compositions are extracted
   from Playground sections or authored in `apps/website/components/docs/additional/`, selected by
   `apps/website/content/additional/*.json`. Generator: `scripts/build-additional-examples.mjs` in that app.
   Generated files remain ignored. Source API accepts generated ids only; unknown previews return 404.
@@ -94,7 +94,7 @@ runs in an isolated preview document to prevent the outer tab styles from changi
 outlines are keyed by route. Application-layout CSS details are not shown to readers.
 `SiteAppearance` owns header preset selection and the light/dark icon toggle; device mode remains
 available in its popup. `/themes` redirects to `/docs/theming`. Search and sitemap have 152 destinations.
-The docs generator runs `scripts/simplify-example.mjs` on all 516 copied examples: variant maps are
+The docs generator runs `scripts/simplify-example.mjs` on all 532 copied examples: variant maps are
 expanded at build time, Playground layout classes become Tailwind utilities and sibling sections
 receive a gap. Supplemental previews render the same generated modules. Tests compile every copied
 snippet as an independent TypeScript module. TabsDemo owns presentation controls; TabsExample is
@@ -109,7 +109,7 @@ DropdownMenu focuses the first enabled command from its actual portal mount call
 preventScroll, rather than an effect that can run before the portal exists.
 
 Website examples also run through `apps/website/scripts/format-example.mjs` (syntax-aware wrapping
-and TypeScript indentation). All 516 outputs must be stable, independently compilable and have no
+and TypeScript indentation). All 532 outputs must be stable, independently compilable and have no
 line over 140 characters. Preserve the exact values of strings and embedded assets when wrapping.
 A viewport-edge SplitButton demonstration is in its Playground page; the website browser regression
 checks menu visibility, disabled commands, initial focus, Escape and RTL.
@@ -160,7 +160,7 @@ live in `AGENTS.md` and `.agents/skills/`.
 ### Website demo navigation and compact appearance (2026-10-22)
 
 `readyExample` in `apps/website/components/docs/example-ready.tsx` provides the common website-only
-link boundary for all 516 examples. It cancels site/external navigation, including React portals,
+link boundary for all 532 examples. It cancels site/external navigation, including React portals,
 without stopping component event handlers; valid example-local fragments and genuine downloads
 remain functional. Keep this mechanism out of the generated copyable snippets and public library.
 The site header is sticky; section/sidebar/outline offsets account for its height. The appearance
@@ -177,3 +177,25 @@ captures stay real component renders. The Image registry component now checks th
 for successful decoding after hydration/source changes, preserving forwarded refs and native callbacks.
 The homepage no longer needs a client-only image wrapper; the Playground Image page demonstrates cache
 remounts. See the newest website IMPLEMENTATION_PROGRESS entry for executed checks and exact coverage.
+
+
+## Navigation and chart references (2026-10-24)
+
+The library still exports 129 source families. The website splits the existing
+Chart family into BarChart, LineChart, AreaChart, DonutChart and Sparkline (133
+references / 532 component examples). `/components/chart` is a chart selection
+guide, and old chart preview addresses redirect while preserving appearance.
+The generator uses `source` / `playgroundFamily` rather than inventing folders.
+
+Component-navigation badges are derived from source/CSS fingerprints against
+`apps/website/content/component-baseline.json` (beta.2 snapshot). New documented
+exports/families get New; modifications and new pages for existing exports get
+Updated. Deprecated is explicit in `component-status-overrides.json`. Normal
+builds do not reset the snapshot. Shared/transitive changes need an override.
+
+SidebarHeader/Footer accept optional `collapsedContent` for a compact identity;
+collapsed item icons get real focus/hover tooltips. The PageHeader center variant
+places its actions beneath its content. DashboardLayout/AppShell retain a side
+rail at documentation desktop widths and stack all regions on mobile. Stack's
+alignment demonstration now separates and labels its three stages. Chart
+candidates that are not implemented are listed in `docs/COMPONENT_ROADMAP.md`.

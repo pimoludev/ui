@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   Avatar, Badge, Card, CardContent, CircularProgress, DashboardLayout, Navbar,
-  NavbarActions, NavbarBrand, PageHeader, Sidebar, SidebarContent, SidebarHeader,
+  NavbarActions, NavbarBrand, PageHeader, Sidebar, SidebarContent, SidebarFooter, SidebarHeader,
   SidebarItem, Stat, Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@pimolu/react";
 
@@ -14,9 +14,9 @@ export function DashboardLayoutExample() {
     { name: "Documentation", owner: "Noah Dubois", progress: 45, review: true },
     { name: "Website", owner: "Ada Martin", progress: 90, review: false },
   ];
-  return <DashboardLayout sidebarWidth="13rem" sidebar={
-    <Sidebar collapsible collapseOnMobile={false}>
-      <SidebarHeader>Orbit</SidebarHeader><SidebarContent aria-label="Dashboard sections">{["Overview", "Projects"].map((label) => <SidebarItem key={label} href="#dashboard-content" active={active === label} icon={<span aria-hidden="true">◇</span>} onClick={(event) => { event.preventDefault(); setActive(label); }}>{label}</SidebarItem>)}</SidebarContent>
+  return <DashboardLayout style={{ minHeight: 620 }} sidebarWidth="13rem" sidebar={
+    <Sidebar collapsible>
+      <SidebarHeader collapsedContent={<Avatar name="Orbit" size="sm" />}><Avatar name="Orbit" size="sm" /><strong>Orbit</strong></SidebarHeader><SidebarContent aria-label="Dashboard sections">{["Overview", "Projects"].map((label) => <SidebarItem key={label} href="#dashboard-content" active={active === label} icon={<span aria-hidden="true">◇</span>} onClick={(event) => { event.preventDefault(); setActive(label); }}>{label}</SidebarItem>)}</SidebarContent><SidebarFooter collapsedContent={<Avatar name="Maya Chen" size="sm" />}><div className="flex items-center gap-2"><Avatar name="Maya Chen" size="sm" /><span>Maya Chen</span></div></SidebarFooter>
     </Sidebar>
   } navbar={<Navbar><NavbarBrand href="#dashboard-content">Your workspace</NavbarBrand><NavbarActions><Avatar name="Maya Chen" size="sm" /></NavbarActions></Navbar>}>
     <div id="dashboard-content" className="space-y-6">

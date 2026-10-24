@@ -7,7 +7,6 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Center,
   HStack,
   Heading,
   Paragraph,
@@ -97,7 +96,7 @@ export function StackPage() {
 
       <Section
         title="Alignment and justification"
-        hint="align works on the cross axis, justify on the main axis. The demo uses a centered 160px-tall stage."
+        hint="align works on the cross axis, justify on the main axis. Each bordered stage is 120px tall. The labels explain vertical alignment and horizontal distribution."
       >
         <Stack gap={3}>
           {(
@@ -107,23 +106,23 @@ export function StackPage() {
               ["end", "end"],
             ] as const
           ).map(([align, justify]) => (
-            <Center
+            <div
               key={`${align}-${justify}`}
-              minHeight={120}
-              fullWidth
+              style={{ border: "1px solid var(--pimolu-border)", borderRadius: "var(--pimolu-radius-md)", padding: 16 }}
             >
+              <p className="pg-meta" style={{ margin: "0 0 12px" }}>Vertical: {align} · Horizontal: {justify}</p>
               <Stack
                 direction="row"
                 gap={2}
                 align={align}
                 justify={justify}
                 fullWidth
-                style={{ minHeight: 88 }}
+                style={{ minHeight: 120 }}
               >
                 <Block>{`align ${align}`}</Block>
                 <Block>{`justify ${justify}`}</Block>
               </Stack>
-            </Center>
+            </div>
           ))}
         </Stack>
       </Section>

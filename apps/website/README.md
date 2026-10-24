@@ -67,13 +67,13 @@ See IMPLEMENTATION_PROGRESS.md for scope and next steps.
 
 - `/docs`: 15 guides, from quick start and framework integration to colors, styling, composition and agent resources.
 - `/components`: a searchable visual catalog grouped by purpose, with a complete family sidebar.
-- `/components/<family>`: **129 component references, each with at least four interactive examples**, generated public APIs, copyable source, usage and accessibility advice.
+- `/components/<family>`: **133 component references, each with at least four interactive examples**, generated public APIs, copyable source, usage and accessibility advice.
 - `/releases` and `/releases/unreleased`: release navigation and full development notes. No unpublished version is presented as a release.
 - `/blog` and `/blog/<slug>`: three original articles, topic/search filters, reading times, article outlines and related reading.
 - `/blog/feed.xml`: RSS feed. `/llms.txt`: a canonical documentation map with the current distribution status.
 - Old `/docs/components/<family>` URLs permanently redirect to the canonical component page, preserving query settings.
 
-`content/docs.ts` contains guide composition and the original twenty component-reference definitions; `content/handbook.ts` adds nine guides. Standalone guide snippets are compiled alongside the 516 component examples.
+`content/docs.ts` contains guide composition and the original twenty component-reference definitions; `content/handbook.ts` adds nine guides. Standalone guide snippets are compiled alongside the 532 component examples.
 `content/extended-components.ts` curates the other **109** compositions and their editorial notes.
 `components/docs/examples/` holds authored standalone overrides and the twenty original examples.
 Otherwise `scripts/extract-example.mjs` extracts the selected Playground helper or section **with its lexical dependencies**.
@@ -128,7 +128,7 @@ pnpm --filter @pimolu/website test:e2e
 pnpm --filter @pimolu/website audit:a11y
 ```
 
-`test:e2e` starts the production server if needed. Its local configuration covers all 129 references, 1440 × 900 and 390 × 844 containment,
+`test:e2e` starts the production server if needed. Its local configuration covers all 133 references, 1440 × 900 and 390 × 844 containment,
 legacy redirects, search, responsive navigation, theme illustrations and targeted keyboard workflows in three engines.
 No GitHub workflow was enabled. WebKit on Windows is not a substitute for native Safari/iOS testing.
 
@@ -165,7 +165,7 @@ there is no browser MDX compiler or extra search dependency.
 
 ## Multiple examples and surface appearances
 
-Every family has its primary workbench and three additional, independent compositions (**516 examples**).
+Every family has its primary workbench and three additional, independent compositions (**532 examples**).
 `scripts/build-additional-examples.mjs` extracts real Playground sections and lexical dependencies, following
 `content/extended-components.ts` for the primary selection. Named cards can be extracted individually.
 For sparse families, `content/additional/<family>.json` names authored compositions under
@@ -216,18 +216,18 @@ run on a separate port so the existing development server stays available.
 
 `scripts/simplify-example.mjs` compiles the actual curated examples into readable TSX: variant galleries become explicit component props, unused enumeration helpers/imports disappear, and `pg-*` classes become Tailwind utilities. The generated modules are used by both the rendered supplements and their copyable code. Real data arrays, hooks and event handlers remain. It also restores a grid gap between extracted sibling blocks. `@source` in `app/globals.css` includes these ignored generated modules in Tailwind's scan. Never hand-edit generated outputs.
 
-All **516** snippets are compiled together as independent virtual modules in `tests/docs.test.mjs`, in addition to syntax, metadata, source dependency and distinctness checks. Main examples keep ordinary application behavior; Tabs' site-only style selector is outside its copyable component function.
+All **532** snippets are compiled together as independent virtual modules in `tests/docs.test.mjs`, in addition to syntax, metadata, source dependency and distinctness checks. Main examples keep ordinary application behavior; Tabs' site-only style selector is outside its copyable component function.
 
 
 ### Formatting every copied component example
 
 `scripts/format-example.mjs` wraps TSX by syntax (88-column target), then applies TypeScript indentation. It handles imports, JSX props/children, object and array literals, destructured parameters, calls, conditional expressions and return blocks. Long prose and embedded asset strings are split without changing their runtime value. Module/type names and CSS class tokens are not split blindly. Provider wrappers produced by customization also place settings on separate lines.
 
-Every one of the **516** primary/supplemental examples is checked for stable formatting, a **140-character maximum line**, valid standalone TypeScript and complete public imports. This runs through `pnpm test`; no formatting dependency is installed. Generated files remain ignored and must not be hand-edited.
+Every one of the **532** primary/supplemental examples is checked for stable formatting, a **140-character maximum line**, valid standalone TypeScript and complete public imports. This runs through `pnpm test`; no formatting dependency is installed. Generated files remain ignored and must not be hand-edited.
 
 ### Component gallery illustrations
 
-The catalogue uses 258 product illustrations: one light and one dark PNG for each of the 129 families. These are captures of real Pimolu components, isolated from documentation controls and fitted completely inside a 640 × 400 canvas with a consistent margin. They are static illustrations; the linked reference provides interactive examples. They show the Default preset.
+The catalogue uses 266 product illustrations: one light and one dark PNG for each of the 133 references. These are captures of real Pimolu components, isolated from documentation controls and fitted completely inside a 640 × 400 canvas with a consistent margin. They are static illustrations; the linked reference provides interactive examples. They show the Default preset.
 
 `scripts/capture-previews.mjs` selects the component root, opens real overlays when necessary, and uses shorter existing examples for large compositions. Images load after hydration so their loaded state is captured. Surrounding demo content is hidden while inherited tokens, original component styling and intentionally hidden descendants are preserved. Sharp is already provided by Next.js; no dependency was added.
 
@@ -323,3 +323,55 @@ captures and are regenerated when their content changes.
 Audio examples use the maintainer-provided `/sounds/action-game.mp3` and `/sounds/pixel-art-game.mp3`.
 They remain unchanged. Input autofill styling, calendar alignment, emblem centering and product cover
 sizing are scoped to the homepage compositions. See `e2e/brand-polish.spec.ts` for browser coverage.
+
+
+## Component reference navigation
+
+The library still has 129 source families. The website has 133 component
+references: the Chart family is documented as BarChart, LineChart, AreaChart,
+DonutChart and Sparkline, each with four independent examples. `/components/chart`
+remains a selection guide; legacy `/preview/chart` links redirect to a dedicated
+preview and preserve appearance parameters. No chart import changed.
+
+`content/chart-references.ts` describes these references. Their `source` and
+`playgroundFamily` point at the real chart source and playground page, so API
+extraction, tests and examples never invent component directories.
+
+### Sidebar status badges
+
+`docs:generate` compares component source and CSS with the tracked
+`content/component-baseline.json` snapshot (initially beta.2). New source families
+or newly documented exports receive **New**; changed implementations/CSS and new
+references for already available exports receive **Updated**. The generator
+normalizes Windows/Linux line endings and does not use Git or network access.
+Tests and generated output are excluded from the source fingerprint. Changes in
+shared/transitive dependencies need an explicit editorial override.
+
+To mark a deprecation or supply a specific explanation, add an entry to
+`content/component-status-overrides.json`:
+
+```json
+{
+  "component-family": {
+    "kind": "deprecated",
+    "description": "Explain the supported replacement and migration here."
+  }
+}
+```
+
+Allowed kinds: `new`, `updated`, `deprecated`; an explanation is required. There
+are no fictitious deprecated components. Status text is visible in the component
+navigation, and its explanation is an accessible link description without changing
+the link name.
+
+During a deliberate release-baseline update, regenerate docs first, then run
+`pnpm --dir apps/website docs:baseline` and review the snapshot diff. Normal builds
+never reset this snapshot. Clear overrides intentionally; they do not expire
+automatically. The new snapshot command only writes a local reference; it does not
+publish a package or tag a release.
+
+`SidebarHeader` and `SidebarFooter` accept `collapsedContent` for a compact logo or
+profile. Desktop rails preserve these slots and describe item icons with tooltips;
+mobile folded navigation preserves the full brand and compact profile. The website
+examples and playground demonstrate both slots. See `docs/COMPONENT_ROADMAP.md`
+at the repository root for chart candidates that are not implemented.

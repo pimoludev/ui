@@ -24,6 +24,11 @@ export const componentExamples = {
   "navbar": dynamic(() => import("./examples/navbar").then((module) => readyExample(module.NavbarExample)), { loading: LoadingExample }),
   "sidebar": dynamic(() => import("./examples/sidebar").then((module) => readyExample(module.SidebarExample)), { loading: LoadingExample }),
   "dashboard-layout": dynamic(() => import("./examples/dashboard-layout").then((module) => readyExample(module.DashboardLayoutExample)), { loading: LoadingExample }),
+  "bar-chart": dynamic(() => import("./examples/bar-chart").then((module) => readyExample(module.BarChartExample)), { loading: LoadingExample }),
+  "line-chart": dynamic(() => import("./examples/line-chart").then((module) => readyExample(module.LineChartExample)), { loading: LoadingExample }),
+  "area-chart": dynamic(() => import("./examples/area-chart").then((module) => readyExample(module.AreaChartExample)), { loading: LoadingExample }),
+  "donut-chart": dynamic(() => import("./examples/donut-chart").then((module) => readyExample(module.DonutChartExample)), { loading: LoadingExample }),
+  "sparkline": dynamic(() => import("./examples/sparkline").then((module) => readyExample(module.SparklineExample)), { loading: LoadingExample }),
   "chart": dynamic(() => import("./examples/chart").then((module) => readyExample(module.ChartExample)), { loading: LoadingExample }),
   "date-picker": dynamic(() => import("./examples/date-picker").then((module) => readyExample(module.DatePickerExample)), { loading: LoadingExample }),
   "toast": dynamic(() => import("./examples/toast").then((module) => readyExample(module.ToastExample)), { loading: LoadingExample }),
@@ -43,7 +48,7 @@ export function ComponentExample({ family, direction = "ltr" }: { family: string
     if (radius) query.set("radius", radius);
     if (density) query.set("density", density);
     if (brandColor) query.set("brand", brandColor);
-    return <iframe className="docs-example-frame" title={`Interactive ${family} example`} src={"/preview/" + family + "?" + query.toString()} loading="lazy" />;
+    return <iframe className={`docs-example-frame ${["dashboard-layout", "app-shell"].includes(family) ? "docs-example-frame--workspace" : ""}`} title={`Interactive ${family} example`} src={"/preview/" + family + "?" + query.toString()} loading="lazy" />;
   }
   const Example = componentExamples[family as keyof typeof componentExamples];
   return Example ? <Example /> : null;

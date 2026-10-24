@@ -1068,3 +1068,67 @@ Vérifications exécutées :
 - 24 illustrations du catalogue régénérées depuis les vrais composants. Les images Charts de l’itération précédente sont conservées.
 
 Limites : navigation mobile émulée, sans appareil physique ni lecteur d’écran exécuté ; cette revue ne constitue pas une certification WCAG exhaustive. Aucun ajout de dépendance, commit, push, merge ou publication npm. Modifications conservées sur `dev`.
+
+## 2026-10-24 - Navigation, chart references and layout corrections
+
+Implemented:
+
+- Stronger category headings, dividers and more spacing in both documentation
+  sidebars; the desktop navigation is 14rem wide. Component status badges preserve
+  the accessible link name and supply an explanation through aria-describedby.
+- Source/CSS fingerprints against a tracked beta.2 baseline automatically classify
+  new families/exports and updated components/references. Deprecation is explicit
+  in component-status-overrides.json. Normal builds never reset the baseline.
+  Optional absent stylesheets and Windows line endings do not cause false updates.
+- Five dedicated chart references: BarChart, LineChart, AreaChart, DonutChart and
+  Sparkline, each with four distinct, independently compilable examples and a
+  targeted API. The shared source remains registry/react/chart. The library still
+  has 129 families; the site has 133 references and 532 component examples.
+- /components/chart remains a selection guide with light/dark illustrations.
+  Old chart preview links redirect to a dedicated preview and retain appearance
+  parameters. Missing chart types are recorded in docs/COMPONENT_ROADMAP.md.
+- SidebarHeader/Footer accept optional collapsedContent for a compact logo/profile.
+  Collapsed item icons show focus/hover tooltips. Existing focus-return behavior
+  is retained, and the mobile folded header keeps its brand and profile visible.
+- DashboardLayout/AppShell keep the contextual rail beside content at 1012px and
+  stack all regions on mobile. A specificity defect causing implicit columns
+  when DashboardLayout had a right rail was corrected. Activity previews now use
+  compact cards and real workspace content. The dashboard table scrolls inside
+  its card on mobile instead of splitting names and badges into narrow fragments.
+- Centered PageHeader actions sit below the content and are centered on desktop
+  and mobile. Stack alignment examples now use three separated, labelled stages;
+  the original align/justify behavior was correct and its API is unchanged.
+
+Main files: registry/react/sidebar/, packages/web-styles/src/{sidebar,page-header,
+app-shell,dashboard-layout}.css, the matching playground pages and Stack page,
+components/docs/{docs-shell,component-examples,examples}/, chart-references.ts,
+the chart supplemental examples, scripts/{build-docs,component-status,
+snapshot-component-status}.mjs, catalog styles/captures, tests and README.
+
+Validation performed:
+
+- pnpm verify passed: 136 React files / 1,420 tests, 30 CSS tests, package and
+  playground builds, TypeScript, lint, skills validation and theme integrity
+  (0 errors / 0 warnings). Playground lint/build were checked again after the
+  final demo adjustment. The package build includes the new Sidebar prop types.
+- Website production build, TypeScript and lint passed; 29 website tests passed,
+  including independent compilation of all 532 component and 3 guide examples.
+  Generation/build/test commands are serialized: parallel generation can race
+  while copying assets on Windows.
+- Chromium, Firefox and WebKit: 48 regression/navigation/chart runs, 60 affected
+  reference and supplementary-example runs, and 3 catalogue-gallery runs passed.
+  Final navigation checks passed in 21 runs; the mobile-table correction was
+  rechecked in 9 DashboardLayout runs. These totals include repeated scenarios.
+- Visual review: 70 desktop captures (5 compositions x 7 presets x light/dark),
+  10 mobile LTR/RTL captures and four full-site captures. No document overflow or
+  page errors were measured in that review. Contact sheets/screenshots are in
+  ignored .artifacts/navigation-review/. The final dashboard table measures 560px
+  inside a 390px document with no page-level horizontal overflow.
+- Twenty catalogue captures processed, including the ten new chart illustrations.
+  git diff --check passed.
+
+Remaining limits: no physical-device or screen-reader certification. Chart zoom,
+pan, time aggregation and the roadmap chart types are not implemented. Shared or
+transitive implementation changes need an editorial status override. A release
+maintainer deliberately refreshes the status baseline; it is not time-expiring.
+No dependency added, commit, push, merge, package release or deployment performed.

@@ -1,0 +1,17 @@
+[
+  {
+    "file": "sparkline-2.tsx",
+    "title": "Filled trend",
+    "description": "Add subtle area emphasis to a compact metric."
+  },
+  {
+    "file": "sparkline-3.tsx",
+    "title": "A falling metric",
+    "description": "A downward trend can be desirable, for example for latency."
+  },
+  {
+    "file": "sparkline-4.tsx",
+    "title": "Stable values",
+    "description": "Represent a constant series without inventing variation."
+  }
+]

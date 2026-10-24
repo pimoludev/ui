@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  createContext, useContext, useEffect, useRef, useState, useSyncExternalStore,
+} from "react";
 import type {
   PimoluSidebarContentProps,
   PimoluSidebarFooterProps,
@@ -12,6 +14,9 @@ import type {
 } from "./sidebar.types";
 
 import { Link } from "../link/link";
+import { Tooltip } from "../tooltip/tooltip";
+
+const SidebarCollapsedContext = createContext(false);
 
 function classes(
   base: string,
@@ -66,6 +71,7 @@ export function Sidebar({
   }
 
   return (
+    <SidebarCollapsedContext.Provider value={isCollapsed}>
     <aside
       {...props}
       ref={sidebarRef}
@@ -90,23 +96,31 @@ export function Sidebar({
       )}
       {children}
     </aside>
+    </SidebarCollapsedContext.Provider>
   );
 }
 
 export function SidebarHeader({
   children,
+  collapsedContent,
   className,
   ...props
 }: PimoluSidebarHeaderProps) {
   return (
     <div
       {...props}
+      data-has-collapsed-content={collapsedContent != null || undefined}
       className={classes(
         "pimolu-sidebar__header",
         className
       )}
     >
-      {children}
+      {collapsedContent != null ? (
+        <>
+          <div className="pimolu-sidebar__expanded">{children}</div>
+          <div className="pimolu-sidebar__compact">{collapsedContent}</div>
+        </>
+      ) : children}
     </div>
   );
 }
@@ -174,15 +188,18 @@ export function SidebarItem({
   className,
   ...props
 }: PimoluSidebarItemProps) {
+  const collapsed = useContext(SidebarCollapsedContext);
+  const label = props["aria-label"] ?? props.title ?? (typeof children === "string" ? children : undefined);
   const fallbackIcon =
     typeof children === "string" && children.trim()
       ? Array.from(children.trim())[0].toLocaleUpperCase()
       : "•";
 
   return (
+    <Tooltip content={label ?? ""} placement="right" delay={150} disabled={!collapsed || !label}>
     <Link
       {...props}
-      title={props.title ?? (typeof children === "string" ? children : undefined)}
+      title={props.title ?? (!collapsed ? label : undefined)}
       variant="muted"
       underline="none"
       disabled={disabled}
@@ -203,23 +220,31 @@ export function SidebarItem({
         {children}
       </span>
     </Link>
+    </Tooltip>
   );
 }
 
 export function SidebarFooter({
   children,
+  collapsedContent,
   className,
   ...props
 }: PimoluSidebarFooterProps) {
   return (
     <div
       {...props}
+      data-has-collapsed-content={collapsedContent != null || undefined}
       className={classes(
         "pimolu-sidebar__footer",
         className
       )}
     >
-      {children}
+      {collapsedContent != null ? (
+        <>
+          <div className="pimolu-sidebar__expanded">{children}</div>
+          <div className="pimolu-sidebar__compact">{collapsedContent}</div>
+        </>
+      ) : children}
     </div>
   );
 }

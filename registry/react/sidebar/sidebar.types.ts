@@ -27,6 +27,9 @@ export interface PimoluSidebarProps
 export interface PimoluSidebarHeaderProps
   extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
+
+  /** Logo or compact identity kept visible in the collapsed desktop rail. */
+  collapsedContent?: ReactNode;
 }
 
 export interface PimoluSidebarContentProps
@@ -61,4 +64,7 @@ export interface PimoluSidebarItemProps
 export interface PimoluSidebarFooterProps
   extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
+
+  /** Profile/avatar kept visible when the navigation is collapsed. */
+  collapsedContent?: ReactNode;
 }

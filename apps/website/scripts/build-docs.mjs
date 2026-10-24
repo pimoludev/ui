@@ -1,3 +1,5 @@
+import { componentFingerprint, componentStatus } from "./component-status.mjs";
+import { chartReferences } from "../content/chart-references.ts";
 import { normalizeDemoAssets } from "./website-demo-assets.mjs";
 import { readFile, writeFile, mkdir, readdir, cp } from "node:fs/promises";
 import path from "node:path";
@@ -46,6 +48,19 @@ function readPages(node) {
     if (data.id && data.label && data.group && !["overview", "design-lab"].includes(data.id)) {
       const exports = [...new Set(exportedFamilies.get(data.id) ?? [])];
       if (!exports.length) throw new Error(`Playground family has no public export: ${data.id}`);
+      if (data.id === "chart") {
+        for (const chart of chartReferences) {
+          const apiTypes = [
+            ...(["BarChart", "DonutChart"].includes(chart.title) ? ["PimoluChartDatum"] : []),
+            ...(["BarChart", "LineChart", "AreaChart"].includes(chart.title) ? ["PimoluChartSeries"] : []),
+            `Pimolu${chart.title}Props`,
+          ];
+          catalog.push({ family: chart.family, title: chart.title, group: "Charts", description: chart.description,
+            exports: [chart.title], source: "registry/react/chart", playgroundFamily: "chart", apiTypes,
+            stylesheet: "packages/web-styles/src/chart.css", documented: true, href: `/components/${chart.family}` });
+        }
+        return;
+      }
       const documented = components.find((component) => component.family === data.id);
       if (!documented) throw new Error(`Add an authored website guide/example for the new family ${data.id}`);
       const role = inventory.split("\n").find((line) => line.includes(`\`registry/react/${data.id}/\``))?.split("|")[3]?.trim();
@@ -55,15 +70,19 @@ function readPages(node) {
   ts.forEachChild(node, readPages);
 }
 readPages(router);
+const baseline = JSON.parse(await readFile(path.join(website, "content/component-baseline.json"), "utf8"));
+const statusOverrides = JSON.parse(await readFile(path.join(website, "content/component-status-overrides.json"), "utf8"));
+for (const entry of catalog) entry.status = componentStatus(entry, await componentFingerprint(root, entry.source, entry.stylesheet), baseline, statusOverrides);
+
 if (new Set(catalog.map((entry) => entry.family)).size !== catalog.length) throw new Error("Duplicate catalog family");
 const sourceFiles = [];
 for (const component of catalog) {
-  const directory = path.join(root, "registry/react", component.family);
+  const directory = path.join(root, component.source);
   for (const name of await readdir(directory)) {
     if (/\.(tsx?|mts)$/.test(name) && !name.includes(".test.")) sourceFiles.push(path.join(directory, name));
   }
 }
-const demoFiles = catalog.map((entry) => path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`));
+const demoFiles = catalog.map((entry) => path.join(root, `apps/playground/src/pages/${entry.playgroundFamily ?? entry.family}-page.tsx`));
 // The package export now points at dist, so keep the source variant maps in the
 // demo program: simplify-example expands them into readable literal examples.
 const variantFiles = ts.sys.readDirectory(path.join(root, "registry/react"), [".ts"], undefined, ["**/*.variants.ts"]);
@@ -74,7 +93,7 @@ await mkdir(demoOutput, { recursive: true });
 await buildAdditionalExamples({ catalog, extendedComponents, program: demoProgram, root, website, output, simplifyExample });
 const extendedSources = new Map();
 for (const entry of extendedComponents) {
-  const filename = path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`);
+  const filename = path.join(root, `apps/playground/src/pages/${entry.playgroundFamily ?? entry.family}-page.tsx`);
   const source = (await readFile(path.join(website, `components/docs/examples/${entry.family}.tsx`), "utf8").catch((error) => { if (error.code !== "ENOENT") throw error; return null; })) ?? extractExample(demoProgram, filename, entry.selection, "DemoExample").replaceAll('"/product.svg"', '"/demos/product.svg"').replaceAll('"/media/', '"/demos/media/').replaceAll('"/documents/', '"/demos/documents/').replaceAll('"/avatars/', '"/demos/avatars/').replace(/"#\/([a-z-]+)"/g, '"/components/$1"').replaceAll('"/components/overview"', '"/docs"');
   const readableSource = simplifyExample(normalizeDemoAssets(source));
   extendedSources.set(entry.family, readableSource);
@@ -110,7 +129,7 @@ function literal(node) {
 }
 
 for (const component of catalog) {
-  const prefix = path.join(root, "registry/react", component.family).replaceAll("\\", "/") + "/";
+  const prefix = path.join(root, component.source).replaceAll("\\", "/") + "/";
   const files = program.getSourceFiles().filter((file) => file.fileName.replaceAll("\\", "/").startsWith(prefix));
   const defaults = new Map();
   const ambiguous = new Set();
@@ -132,7 +151,7 @@ for (const component of catalog) {
   const groups = [];
   for (const file of files) {
     for (const declaration of file.statements) {
-      if ((!ts.isInterfaceDeclaration(declaration) && !ts.isTypeAliasDeclaration(declaration)) || !publicTypes.has(declaration.name.text) || !declaration.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)) continue;
+      if ((!ts.isInterfaceDeclaration(declaration) && !ts.isTypeAliasDeclaration(declaration)) || !publicTypes.has(declaration.name.text) || (component.apiTypes && !component.apiTypes.includes(declaration.name.text)) || !declaration.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)) continue;
       const type = checker.getTypeAtLocation(declaration);
       const rows = [];
       for (const property of type.getProperties()) {
@@ -209,4 +228,4 @@ for (const [filename, content] of Object.entries({ "api.json": api, "catalog-api
   try { previous = await readFile(target, "utf8"); } catch { /* First generation. */ }
   if (previous !== data) await writeFile(target, data);
 }
-console.log(`Docs generated: ${catalog.length} catalog families, ${Object.keys(examples).length} live examples, ${index.length} searchable references.`);
+console.log(`Docs generated: ${catalog.length} catalog references, ${Object.keys(examples).length} live examples, ${index.length} searchable references.`);

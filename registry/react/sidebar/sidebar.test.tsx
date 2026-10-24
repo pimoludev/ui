@@ -144,7 +144,7 @@ describe("Pimolu Sidebar", () => {
     expect(screen.getByRole("button", { name: "Show navigation" })).toHaveAttribute("aria-expanded", "false");
   });
 
-  it("keeps collapsed links named and provides a fallback shortcut glyph", () => {
+  it("keeps collapsed links named and describes their shortcut on keyboard focus", async () => {
     render(
       <Sidebar collapsible defaultCollapsed>
         <SidebarContent>
@@ -154,7 +154,9 @@ describe("Pimolu Sidebar", () => {
     );
 
     const link = screen.getByRole("link", { name: "Reports" });
-    expect(link).toHaveAttribute("title", "Reports");
+    fireEvent.focus(link);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent("Reports");
+    expect(link).toHaveAccessibleDescription("Reports");
     expect(link.querySelector(".pimolu-sidebar__icon--fallback")).toHaveTextContent("R");
     expect(screen.getByRole("button", { name: "Expand sidebar" })).toHaveAttribute("aria-expanded", "false");
   });

@@ -193,6 +193,38 @@
   },
   {
     "example": "primary",
+    "family": "area-chart",
+    "theme": "dark",
+    "selector": ".pimolu-chart--area",
+    "bounds": {
+      "x": 20,
+      "y": 86,
+      "width": 320,
+      "height": 350.1875
+    },
+    "rendered": {
+      "width": 277,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
+    "family": "area-chart",
+    "theme": "light",
+    "selector": ".pimolu-chart--area",
+    "bounds": {
+      "x": 20,
+      "y": 86,
+      "width": 320,
+      "height": 350.1875
+    },
+    "rendered": {
+      "width": 277,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
     "family": "aspect-ratio",
     "theme": "dark",
     "selector": ".pimolu-aspect-ratio",
@@ -349,6 +381,38 @@
     "rendered": {
       "width": 544,
       "height": 190
+    }
+  },
+  {
+    "example": "primary",
+    "family": "bar-chart",
+    "theme": "dark",
+    "selector": ".pimolu-chart--bar",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 320
+    },
+    "rendered": {
+      "width": 304,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
+    "family": "bar-chart",
+    "theme": "light",
+    "selector": ".pimolu-chart--bar",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 320
+    },
+    "rendered": {
+      "width": 304,
+      "height": 304
     }
   },
   {
@@ -636,38 +700,6 @@
     },
     "rendered": {
       "width": 395,
-      "height": 304
-    }
-  },
-  {
-    "example": "primary",
-    "family": "chart",
-    "theme": "dark",
-    "selector": ".pimolu-chart",
-    "bounds": {
-      "x": 20,
-      "y": 86,
-      "width": 320,
-      "height": 350.1875
-    },
-    "rendered": {
-      "width": 277,
-      "height": 304
-    }
-  },
-  {
-    "example": "primary",
-    "family": "chart",
-    "theme": "light",
-    "selector": ".pimolu-chart",
-    "bounds": {
-      "x": 20,
-      "y": 86,
-      "width": 320,
-      "height": 350.1875
-    },
-    "rendered": {
-      "width": 277,
       "height": 304
     }
   },
@@ -1032,10 +1064,10 @@
       "x": 32,
       "y": 32,
       "width": 896,
-      "height": 604.390625
+      "height": 620
     },
     "rendered": {
-      "width": 450,
+      "width": 439,
       "height": 304
     }
   },
@@ -1048,10 +1080,10 @@
       "x": 32,
       "y": 32,
       "width": 896,
-      "height": 604.390625
+      "height": 620
     },
     "rendered": {
-      "width": 450,
+      "width": 439,
       "height": 304
     }
   },
@@ -1277,6 +1309,38 @@
     "rendered": {
       "width": 544,
       "height": 220
+    }
+  },
+  {
+    "example": "primary",
+    "family": "donut-chart",
+    "theme": "dark",
+    "selector": ".pimolu-chart--donut",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 170
+    },
+    "rendered": {
+      "width": 544,
+      "height": 289
+    }
+  },
+  {
+    "example": "primary",
+    "family": "donut-chart",
+    "theme": "light",
+    "selector": ".pimolu-chart--donut",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 170
+    },
+    "rendered": {
+      "width": 544,
+      "height": 289
     }
   },
   {
@@ -1980,6 +2044,38 @@
     },
     "rendered": {
       "width": 263,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
+    "family": "line-chart",
+    "theme": "dark",
+    "selector": ".pimolu-chart--line",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 350.1875
+    },
+    "rendered": {
+      "width": 277,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
+    "family": "line-chart",
+    "theme": "light",
+    "selector": ".pimolu-chart--line",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 350.1875
+    },
+    "rendered": {
+      "width": 277,
       "height": 304
     }
   },
@@ -3197,6 +3293,38 @@
     "rendered": {
       "width": 544,
       "height": 124
+    }
+  },
+  {
+    "example": "primary",
+    "family": "sparkline",
+    "theme": "dark",
+    "selector": ".pimolu-chart--sparkline",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 85.328125
+    },
+    "rendered": {
+      "width": 544,
+      "height": 146
+    }
+  },
+  {
+    "example": "primary",
+    "family": "sparkline",
+    "theme": "light",
+    "selector": ".pimolu-chart--sparkline",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 85.328125
+    },
+    "rendered": {
+      "width": 544,
+      "height": 146
     }
   },
   {

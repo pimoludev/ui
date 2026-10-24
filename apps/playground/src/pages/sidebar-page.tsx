@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Card,
   CardContent,
   CardDescription,
@@ -29,7 +30,7 @@ export function SidebarPage() {
       >
         <div className="pg-sidebar-demo">
           <Sidebar sticky collapsible>
-            <SidebarHeader>
+            <SidebarHeader collapsedContent={<Avatar name="Pimolu" size="sm" />}>
               <span className="pg-brand__mark">P</span>
 
               <div>
@@ -78,7 +79,7 @@ export function SidebarPage() {
               </SidebarGroup>
             </SidebarContent>
 
-            <SidebarFooter>
+            <SidebarFooter collapsedContent={<Avatar name="Ada Lovelace" size="sm" />}>
               <SidebarItem href="#/overview">
                 Ada Lovelace
               </SidebarItem>

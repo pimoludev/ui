@@ -27,9 +27,9 @@ export function CatalogBrowser({ entries, initialFilter }: { entries: CatalogEnt
         <Input label="Find a component" placeholder="Search by name, purpose or export…" value={filter.query} onValueChange={(query) => setFilter({ ...filter, query })} fullWidth clearable clearLabel="Clear component search" maxLength={160} />
         <Select label="Category" value={filter.group} onValueChange={(group) => setFilter({ ...filter, group, coverage: "all" })} fullWidth><option value="all">All components</option>{groups.map((group) => <option key={group}>{group}</option>)}</Select>
       </div>
-      <div className="catalog-results-heading"><p role="status" aria-live="polite" className="text-sm text-muted">{results.length} of {entries.length} families{filter.group !== "all" ? ` · ${filter.group}` : ""}</p><Button appearance="ghost" size="sm" variant="neutral" onClick={() => setFilter(defaultCatalogFilter)} disabled={!filter.query && filter.group === "all" && filter.coverage === "all"}>Reset filters</Button></div>
+      <div className="catalog-results-heading"><p role="status" aria-live="polite" className="text-sm text-muted">{results.length} of {entries.length} components{filter.group !== "all" ? ` · ${filter.group}` : ""}</p><Button appearance="ghost" size="sm" variant="neutral" onClick={() => setFilter(defaultCatalogFilter)} disabled={!filter.query && filter.group === "all" && filter.coverage === "all"}>Reset filters</Button></div>
       {results.length ? groups.filter((group) => results.some((entry) => entry.group === group)).map((group) => <section className="catalog-section" id={`category-${group.toLowerCase().replaceAll(" ", "-")}`} key={group}>
-        <div className="catalog-section-heading"><h2>{group}</h2><span>{results.filter((entry) => entry.group === group).length} {results.filter((entry) => entry.group === group).length === 1 ? "family" : "families"}</span></div>
+        <div className="catalog-section-heading"><h2>{group}</h2><span>{results.filter((entry) => entry.group === group).length} {results.filter((entry) => entry.group === group).length === 1 ? "component" : "components"}</span></div>
         <ul className="catalog-grid">{results.filter((entry) => entry.group === group).map((entry) => <li key={entry.family}>
           <Link href={entry.href} className="catalog-card" aria-label={`Explore ${entry.title}`}>
             <span className="catalog-illustration" aria-hidden="true">
@@ -44,7 +44,7 @@ export function CatalogBrowser({ entries, initialFilter }: { entries: CatalogEnt
           </Link>
         </li>)}</ul>
       </section>) : <div className="catalog-empty"><h2>No matching components.</h2><p className="text-muted mt-3">Try a shorter name or reset the category.</p><Button className="mt-6" onClick={() => setFilter(defaultCatalogFilter)}>Show all components</Button></div>}
-      <p className="text-sm text-muted mt-10">Every family includes a real example, source-derived API and integration notes. This coverage does not imply an exhaustive accessibility audit.</p>
+      <p className="text-sm text-muted mt-10">Every reference includes a real example, source-derived API and integration notes. This coverage does not imply an exhaustive accessibility audit.</p>
     </div>
     <aside className="catalog-toc"><ScrollOutline title="Browse categories" items={groups.filter((group) => results.some((entry) => entry.group === group)).map((group) => ({ id: `category-${group.toLowerCase().replaceAll(" ", "-")}`, label: group }))} /></aside>
   </div>;

@@ -12,7 +12,7 @@ export default async function Components({ searchParams }: { searchParams: Promi
   const initialFilter = readCatalogFilter(params, [...new Set(catalog.map((entry) => entry.group))]);
   return <div className="catalog-page">
     <BreadcrumbData items={[{ name: "Components", path: "/components" }]} />
-    <header className="catalog-intro"><PageHeader title="Components" description="Explore the building blocks of your next interface. Pick a component to discover its live examples, variants and API." /><p className="catalog-count">{catalog.length} component families</p></header>
+    <header className="catalog-intro"><PageHeader title="Components" description="Explore the building blocks of your next interface. Pick a component to discover its live examples, variants and API." /><p className="catalog-count">{catalog.length} component references</p></header>
     <CatalogBrowser entries={catalog} initialFilter={initialFilter} />
   </div>;
 }

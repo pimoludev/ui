@@ -12,7 +12,7 @@ export function SidebarExample() {
   };
   return <div className="grid min-h-80 overflow-hidden rounded-xl border border-[var(--pimolu-border)] md:grid-cols-[auto_minmax(0,1fr)]">
     <Sidebar collapsible aria-label="Example sidebar">
-      <SidebarHeader><Avatar name="Orbit" size="sm" /><strong>Orbit workspace</strong></SidebarHeader>
+      <SidebarHeader collapsedContent={<Avatar name="Orbit" size="sm" />}><Avatar name="Orbit" size="sm" /><strong>Orbit workspace</strong></SidebarHeader>
       <SidebarContent aria-label="Workspace sections"><SidebarGroup><SidebarGroupLabel>Workspace</SidebarGroupLabel>{["Overview", "Projects", "Members"].map((label, index) => <SidebarItem key={label} icon={
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d={[
@@ -22,7 +22,7 @@ export function SidebarExample() {
           ][index]} />
         </svg>
       } href="#sidebar-example" active={active === label} onClick={(event) => { event.preventDefault(); setActive(label); }}>{label}</SidebarItem>)}</SidebarGroup></SidebarContent>
-      <SidebarFooter>Personal workspace</SidebarFooter>
+      <SidebarFooter collapsedContent={<Avatar name="Maya Chen" size="sm" />}><div className="flex items-center gap-3"><Avatar name="Maya Chen" size="sm" /><div><strong className="block text-sm">Maya Chen</strong><span className="text-xs text-[var(--pimolu-muted-foreground)]">Personal workspace</span></div></div></SidebarFooter>
     </Sidebar>
     <section id="sidebar-example" className="space-y-4 p-6" aria-live="polite">
       <Badge variant="neutral">Workspace</Badge>

@@ -1,0 +1,17 @@
+[
+  {
+    "file": "donut-chart-2.tsx",
+    "title": "Distribution with a total",
+    "description": "Pair category names with a clear summary."
+  },
+  {
+    "file": "donut-chart-3.tsx",
+    "title": "Custom palette",
+    "description": "Supply explicit colors while keeping named categories."
+  },
+  {
+    "file": "donut-chart-4.tsx",
+    "title": "Compact summary",
+    "description": "Use a thinner ring and retain the accessible data alternative."
+  }
+]

@@ -15,7 +15,7 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
   const destination = path.join(output, "additional");
   await mkdir(destination, { recursive: true });
   for (const entry of catalog) {
-    const filename = path.join(root, `apps/playground/src/pages/${entry.family}-page.tsx`);
+    const filename = path.join(root, `apps/playground/src/pages/${entry.playgroundFamily ?? entry.family}-page.tsx`);
     const file = program.getSourceFile(filename);
     const manualPrimary = await readFile(path.join(website, `components/docs/examples/${entry.family}.tsx`), "utf8").then(() => true).catch((error) => { if (error.code !== "ENOENT") throw error; return false; });
     const primary = extendedComponents.find((item) => item.family === entry.family)?.selection;
@@ -73,7 +73,7 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
       const key = `${entry.family}/${id}`;
       sources[key] = simplifyExample(item.source);
       loaders.push(`  "${key}": dynamic(() => import("./additional/${entry.family}-${id}").then((module) => readyExample(module.DemoExample))),`);
-      return { id, title: item.title, description: item.description, origin: item.file ? `apps/website/components/docs/additional/${item.file}` : `apps/playground/src/pages/${entry.family}-page.tsx`, selection: item.selection };
+      return { id, title: item.title, description: item.description, origin: item.file ? `apps/website/components/docs/additional/${item.file}` : `apps/playground/src/pages/${entry.playgroundFamily ?? entry.family}-page.tsx`, selection: item.selection };
     });
     for (let i = 0; i < chosen.length; i++) await writeFile(path.join(destination, `${entry.family}-example-${i + 2}.tsx`), sources[`${entry.family}/example-${i + 2}`]);
   }
@@ -81,5 +81,5 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
   await writeFile(path.join(output, "additional-sources.json"), JSON.stringify(sources, null, 2));
   await writeFile(path.join(output, "additional-loaders.tsx"), `"use client";\nimport dynamic from "next/dynamic";\nimport { readyExample } from "../../components/docs/example-ready";\nexport const additionalExamples = {\n${loaders.join("\n")}\n};\n`);
   if (missing.length) throw new Error(`Additional compositions needed:\n${JSON.stringify(missing, null, 2)}`);
-  console.log(`Additional examples: ${Object.keys(sources).length} compositions across ${catalog.length} families.`);
+  console.log(`Additional examples: ${Object.keys(sources).length} compositions across ${catalog.length} references.`);
 }

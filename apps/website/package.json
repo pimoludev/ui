@@ -17,7 +17,8 @@
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium firefox webkit",
     "previews:capture": "node scripts/capture-previews.mjs",
-    "audit:a11y": "node scripts/audit-accessibility.mjs"
+    "audit:a11y": "node scripts/audit-accessibility.mjs",
+    "docs:baseline": "node scripts/snapshot-component-status.mjs"
   },
   "dependencies": {
     "@pimolu/design-tokens": "workspace:*",

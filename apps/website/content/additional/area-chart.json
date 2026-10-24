@@ -1,0 +1,17 @@
+[
+  {
+    "file": "area-chart-2.tsx",
+    "title": "Solid fill",
+    "description": "Use a flat fill instead of the default gradient."
+  },
+  {
+    "file": "area-chart-3.tsx",
+    "title": "Smooth trend",
+    "description": "Follow a bounded curve through measured observations."
+  },
+  {
+    "file": "area-chart-4.tsx",
+    "title": "Static presentation",
+    "description": "Disable exploration when a static data illustration is sufficient."
+  }
+]

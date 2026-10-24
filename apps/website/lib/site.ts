@@ -5,5 +5,5 @@ export const siteTitle = "Pimolu UI: Customizable React Component Library";
 export const siteDescription = "A customizable React UI library built on shared design tokens, expressive presets and thoughtful defaults.";
 
 export function indexablePaths(entries: readonly { href: string }[], guides: readonly { slug: string }[]): string[] {
-  return [...new Set(["/", "/components", "/releases", "/blog", ...journalPosts.map(({ slug }) => `/blog/${slug}`), ...releaseNotes.map(({ slug }) => `/releases/${slug}`), ...guides.map(({ slug }) => slug ? `/docs/${slug}` : "/docs"), ...entries.map(({ href }) => href)])];
+  return [...new Set(["/", "/components", "/components/chart", "/releases", "/blog", ...journalPosts.map(({ slug }) => `/blog/${slug}`), ...releaseNotes.map(({ slug }) => `/releases/${slug}`), ...guides.map(({ slug }) => slug ? `/docs/${slug}` : "/docs"), ...entries.map(({ href }) => href)])];
 }

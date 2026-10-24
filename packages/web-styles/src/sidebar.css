@@ -38,10 +38,17 @@
   gap: 16px;
 }
 
-.pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header,
-.pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__footer {
+.pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header:not([data-has-collapsed-content]),
+.pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__footer:not([data-has-collapsed-content]) {
   display: none;
 }
+
+.pimolu-sidebar__expanded { display: contents; }
+.pimolu-sidebar__compact { display: none; }
+.pimolu-sidebar[data-collapsed="true"] .pimolu-sidebar__expanded { display: none; }
+.pimolu-sidebar[data-collapsed="true"] .pimolu-sidebar__compact { display: flex; align-items: center; justify-content: center; }
+.pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header[data-has-collapsed-content] { display: flex; justify-content: center; order: -2; padding: 0; }
+.pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__footer[data-has-collapsed-content] { display: flex; justify-content: center; padding: 12px 0 0; }
 
 .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__content {
   flex: 1 1 auto;
@@ -263,6 +270,10 @@
 }
 
 @media (max-width: 720px) {
+  .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header .pimolu-sidebar__expanded { display: contents; }
+  .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header .pimolu-sidebar__compact { display: none; }
+  .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header[data-has-collapsed-content] { justify-content: flex-start; padding-inline: 8px 100px; }
+  .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__footer[data-has-collapsed-content] { position: absolute; inset-inline-end: 64px; inset-block-start: 12px; margin: 0; padding: 0; border: 0; height: 40px; align-items: center; }
   .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__header { display: flex; min-height: 40px; padding-block: 0; }
   .pimolu-sidebar[data-collapsed="true"] > .pimolu-sidebar__toggle { position: absolute; }
   .pimolu-sidebar[data-collapsed="true"] {

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { Fragment, useId, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import {
   Button, DocsLayout, Drawer, DrawerContent, DrawerHeader,
-  DrawerTitle, DrawerTrigger, Link,
+  DrawerTitle, DrawerTrigger, Link, Badge,
 } from "@pimolu/react";
 import catalog from "@/content/generated/catalog.json";
 import { docHref } from "@/content/docs";
@@ -12,15 +12,22 @@ import navigation from "@/content/generated/navigation.json";
 
 function DocsNavigation({ onNavigate, section }: { onNavigate?: () => void; section: "docs" | "components" }) {
   const pathname = usePathname();
-  const entries = section === "docs" ? navigation.filter((entry) => !entry.slug.startsWith("components/")) : [
-    { slug: "components", title: "All components", group: "Overview" },
-    ...catalog.map((entry) => ({ slug: `components/${entry.family}`, title: entry.title, group: entry.group })),
+  const id = useId();
+  const entries = section === "docs" ? navigation.filter((entry) => !entry.slug.startsWith("components/")).map((entry) => ({ ...entry, status: null })) : [
+    { slug: "components", title: "All components", group: "Overview", status: null },
+    ...catalog.map((entry) => ({ slug: `components/${entry.family}`, title: entry.title, group: entry.group, status: entry.status })),
   ];
   const href = (slug: string) => slug === "components" ? "/components" : docHref(slug);
   return <nav className="docs-navigation" aria-label={section === "docs" ? "Documentation" : "Components"}>
     {[...new Set(entries.map((entry) => entry.group))].map((group) => <div key={group} className="docs-nav-group">
       <p className="docs-nav-label">{group}</p>
-      {entries.filter((entry) => entry.group === group).map((entry) => <Link key={entry.slug} href={href(entry.slug)} variant="muted" aria-current={pathname === href(entry.slug) ? "page" : undefined} onClick={onNavigate}>{entry.title}</Link>)}
+      {entries.filter((entry) => entry.group === group).map((entry) => <Fragment key={entry.slug}>
+        <Link href={href(entry.slug)} variant="muted" aria-current={pathname === href(entry.slug) ? "page" : undefined} aria-describedby={entry.status ? `${id}-${entry.slug}` : undefined} onClick={onNavigate}>
+          <span className="docs-nav-title">{entry.title}</span>
+          {entry.status && <Badge className="docs-nav-status" aria-hidden="true" variant={entry.status.kind === "new" ? "success" : entry.status.kind === "deprecated" ? "warning" : "primary"}>{entry.status.kind === "new" ? "New" : entry.status.kind === "deprecated" ? "Deprecated" : "Updated"}</Badge>}
+        </Link>
+        {entry.status && <span id={`${id}-${entry.slug}`} className="sr-only">{entry.status.description}</span>}
+      </Fragment>)}
     </div>)}
 <Link href={section === "docs" ? "/components" : "/docs"} onClick={onNavigate}>{section === "docs" ? "Explore components" : "Read the guides"}</Link>
   </nav>;
@@ -38,7 +45,7 @@ export function DocsShell({ children, section = "docs" }: { children: ReactNode;
         </Drawer></div>
       </div>
     </div>
-    <DocsLayout className="site-docs docs-layout" sidebarWidth="12rem" sticky sidebar={<DocsNavigation section={section} />}>
+    <DocsLayout className="site-docs docs-layout" sidebarWidth="14rem" sticky sidebar={<DocsNavigation section={section} />}>
       <div id="main-content" tabIndex={-1} className="docs-document">{children}</div>
     </DocsLayout>
   </div>;
