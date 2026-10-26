@@ -92,6 +92,18 @@ const regions: PimoluCascaderOption[] = [
   },
 ];
 
+function LongLocationsExample() {
+  const [path, setPath] = useState<readonly string[]>([]);
+  const options = Array.from({ length: 36 }, (_, index) => ({
+    value: `region-${index + 1}`, label: `Region ${index + 1}`,
+    children: [{ value: `city-${index + 1}`, label: `City ${index + 1}` }],
+  }));
+  return <div className="pg-stack">
+    <Cascader label="Delivery region" options={options} value={path} onChange={setPath} fullWidth />
+    <p role="status">Selected path: {path.join(" / ") || "none"}.</p>
+  </div>;
+}
+
 function ControlledDestination() {
   const [path, setPath] = useState<string[]>([
     "europe",
@@ -257,6 +269,10 @@ export function CascaderPage() {
             fullWidth
           />
         </div>
+      </Section>
+
+      <Section title="Long lists and touch scrolling" hint="Scroll the region column with a finger. A completed tap expands a branch; only mouse hover opens columns before a click.">
+        <LongLocationsExample />
       </Section>
 
       <Section

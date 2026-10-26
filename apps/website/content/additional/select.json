@@ -1,0 +1,7 @@
+[
+  {
+    "file": "select-touch-scrolling.tsx",
+    "title": "Long lists and touch scrolling",
+    "description": "Swipe to browse the options without selecting them. Complete a tap to make a choice."
+  }
+]

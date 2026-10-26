@@ -101,6 +101,27 @@ function folder(name: string) {
 }
 
 describe("Pimolu FileManager", () => {
+  it.each(["list", "grid"] as const)("opens a selected folder through a visible action in %s view", async (view) => {
+    const user = userEvent.setup();
+    render(<FileManager entries={entries} defaultView={view} />);
+    await user.click(folder("Brand"));
+    await user.click(screen.getByRole("button", { name: "Open Brand" }));
+    expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toHaveTextContent("Brand");
+    expect(screen.getByRole("option", { name: /logo.svg/ })).toBeInTheDocument();
+  });
+
+  it("opens a selected file exactly once and disables the action without an opener", async () => {
+    const user = userEvent.setup();
+    const onOpen = vi.fn();
+    const { rerender } = render(<FileManager entries={entries} onOpen={onOpen} />);
+    expect(screen.getByRole("button", { name: "Open selected" })).toBeDisabled();
+    await user.click(screen.getByRole("option", { name: /README.md/ }));
+    await user.click(screen.getByRole("button", { name: "Open README.md" }));
+    expect(onOpen).toHaveBeenCalledExactlyOnceWith(entries.find((entry) => entry.id === "readme"));
+    rerender(<FileManager entries={entries} />);
+    expect(screen.getByRole("button", { name: "Open README.md" })).toBeDisabled();
+  });
+
   it("renders the toolbar, breadcrumb and a sorted list of entries", () => {
     render(<FileManager entries={entries} />);
 

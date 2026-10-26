@@ -212,6 +212,14 @@ export const Signature = forwardRef<
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const drawingRef = useRef<Stroke | null>(null);
+  const actionPressRef = useRef<{
+    target: HTMLButtonElement;
+    id: number;
+    x: number;
+    y: number;
+    cancelled: boolean;
+  } | null>(null);
+  const suppressActionClickRef = useRef(false);
   const strokesRef = useRef<Stroke[]>([]);
   const baseImageRef = useRef<string | null>(
     defaultValue ?? null
@@ -456,6 +464,54 @@ export const Signature = forwardRef<
     );
 
     publish(previous);
+  }
+
+  /* Finish toolbar taps directly: a browser can suppress a compatibility
+     click after a captured canvas stroke. Ignore pans and the duplicate click. */
+  function actionHandlers(action: () => void) {
+    return {
+      onPointerDown(event: ReactPointerEvent<HTMLButtonElement>) {
+        suppressActionClickRef.current = false;
+        actionPressRef.current =
+          event.pointerType === "touch" && event.isPrimary !== false
+          ? {
+              target: event.currentTarget,
+              id: event.pointerId,
+              x: event.clientX,
+              y: event.clientY,
+              cancelled: false,
+            }
+          : null;
+      },
+      onPointerMove(event: ReactPointerEvent<HTMLButtonElement>) {
+        const press = actionPressRef.current;
+        if (
+          press && press.id === event.pointerId &&
+          Math.hypot(event.clientX - press.x, event.clientY - press.y) > 10
+        ) press.cancelled = true;
+      },
+      onPointerCancel() {
+        actionPressRef.current = null;
+        suppressActionClickRef.current = true;
+      },
+      onPointerUp(event: ReactPointerEvent<HTMLButtonElement>) {
+        const press = actionPressRef.current;
+        actionPressRef.current = null;
+        if (!press) return;
+        suppressActionClickRef.current = true;
+        if (
+          press.cancelled || press.id !== event.pointerId ||
+          press.target !== event.currentTarget ||
+          Math.hypot(event.clientX - press.x, event.clientY - press.y) > 10
+        ) return;
+        action();
+      },
+      onClick(event: { detail: number }) {
+        const suppress = suppressActionClickRef.current;
+        suppressActionClickRef.current = false;
+        if (!suppress || event.detail === 0) action();
+      },
+    };
   }
 
   /* ======================================
@@ -740,7 +796,7 @@ export const Signature = forwardRef<
             type="button"
             className="pimolu-signature__action"
             disabled={!canUndo}
-            onClick={undoLast}
+            {...actionHandlers(undoLast)}
           >
             Undo last stroke
           </button>
@@ -750,7 +806,7 @@ export const Signature = forwardRef<
           type="button"
           className="pimolu-signature__action pimolu-signature__action--clear"
           disabled={!canClear}
-          onClick={clear}
+          {...actionHandlers(clear)}
         >
           {clearLabel}
         </button>

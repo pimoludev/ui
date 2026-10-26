@@ -51,7 +51,7 @@ function PriceBracket() {
         <span className="pg-meta">Active filter</span>
 
         <Badge appearance="soft">
-          {range[0]} € \u2013 {range[1]} €
+          {range[0]} € – {range[1]} €
         </Badge>
       </div>
     </div>
@@ -206,6 +206,10 @@ export function RangeSliderPage() {
             />
           </div>
         </form>
+      </Section>
+
+      <Section title="Touch and right-to-left layouts" hint="Scroll the page from the track without changing a bound. Tap the track to move the closest handle; drag the native thumbs to adjust it. The fill follows the text direction.">
+        <div dir="rtl"><RangeSlider label="Budget" min={0} max={400} defaultValue={[40, 180]} showValue /></div>
       </Section>
 
       <Section

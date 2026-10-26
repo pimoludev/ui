@@ -920,6 +920,20 @@ export function FileManager({
             </span>
           </Button>
 
+          <Button
+            type="button"
+            size="sm"
+            variant="neutral"
+            appearance="outline"
+            aria-label={selectedEntries.length === 1 ? `Open ${selectedEntries[0].name}` : "Open selected"}
+            disabled={selectedEntries.length !== 1 || (selectedEntries[0]?.type === "file" && !onOpen)}
+            onClick={() => {
+              if (selectedEntries.length === 1) openEntry(selectedEntries[0]);
+            }}
+          >
+            Open
+          </Button>
+
           {onDelete && (
             <Button
               type="button"

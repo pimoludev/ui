@@ -230,8 +230,8 @@ function ProjectAssetsExample() {
           <CardHeader>
             <CardTitle>Last opened</CardTitle>
             <CardDescription>
-              Double click a folder to navigate, or a
-              file to hand it to the host application.
+              Select an entry and use Open, or double click it.
+              Folders navigate; files are handed to the host application.
             </CardDescription>
           </CardHeader>
 

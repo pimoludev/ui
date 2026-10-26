@@ -110,6 +110,7 @@ export function useAnchoredPosition(
 
       const viewportWidth =
         window.innerWidth || padding * 2;
+      const availableWidth = Math.max(0, viewportWidth - padding * 2);
 
       const vertical =
         placement === "top" || placement === "bottom";
@@ -173,8 +174,8 @@ export function useAnchoredPosition(
 
         next.maxWidth = Math.round(
           matchWidth
-            ? Math.max(0, viewportWidth - padding * 2)
-            : maxWidth
+            ? availableWidth
+            : Math.min(maxWidth, availableWidth)
         );
 
         if (resolved === "top") {
@@ -204,7 +205,9 @@ export function useAnchoredPosition(
             )
           );
         } else {
-          const panelWidth = panel?.offsetWidth || rect.width;
+          /* Before the portal mounts, reserve its capped width so the first
+             frame cannot spill outside a narrow viewport. */
+          const panelWidth = panel?.offsetWidth || Math.min(maxWidth, availableWidth);
           const rtl = getComputedStyle(anchor).direction === "rtl";
           const edge = align === "center" ? "center"
             : (align === "start") !== rtl ? "left" : "right";

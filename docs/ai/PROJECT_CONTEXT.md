@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-24. This folder describes the local repository and is the
+Updated: 2026-10-25. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it.
 
@@ -199,3 +199,30 @@ places its actions beneath its content. DashboardLayout/AppShell retain a side
 rail at documentation desktop widths and stack all regions on mobile. Stack's
 alignment demonstration now separates and labels its three stages. Chart
 candidates that are not implemented are listed in `docs/COMPONENT_ROADMAP.md`.
+
+
+## Touch scrolling (2026-10-25)
+
+Select now selects on a completed click/tap and only tracks mouse hover; native
+pans do not select or scroll the active option into view. Opening it explicitly
+focuses the trigger (Safari/WebKit keyboard dismissal). PhoneInput and ThemeBuilder
+inherit this fix. Cascader and TreeSelect also distinguish mouse hover from touch
+contact, including TreeSelect branch-arrow panning. Three long-list compositions
+are demonstrated in both playground and website supplements.
+
+Shared floating placement caps initial width to the viewport, including before a
+portal is measured. Select scroll padding keeps its final row visible in a short
+landscape viewport. Shared consumers' status badges use explicit overrides for
+this internal dependency change. See apps/website/e2e/touch-options.spec.ts for the actual
+browser matrix and apps/website/IMPLEMENTATION_PROGRESS.md for validation limits: native touch
+pans use Chromium CDP, not physical-device or Firefox/WebKit touch emulation.
+
+The extended mobile review also fixed RangeSlider track activation (completed
+tap instead of initial contact), Carousel RTL scroll/index/keyboard alignment,
+and Slider/RangeSlider RTL fill direction. Private inherited direction variables
+use explicit dir attributes because the website CSS optimizer rewrites :dir()
+to language-only selectors. FileManager offers an explicit single-selection Open
+action, avoiding reliance on double-tap. Signature Clear/Undo finish valid touch
+taps even after a canvas stroke suppresses the browser's compatibility click;
+cancelled/moved contacts and duplicate clicks are ignored. Playground examples,
+website usage notes and e2e/mobile-surfaces.spec.ts cover these behaviors.

@@ -240,7 +240,8 @@ export const Carousel = forwardRef<
 
     if (!slide) return;
 
-    track.scrollLeft = slide.offsetLeft;
+    const first = track.children[0] as HTMLElement | undefined;
+    track.scrollLeft = slide.offsetLeft - (first?.offsetLeft ?? 0);
   }, [currentIndex, count]);
 
   /* Autoplay, paused on hover/focus and under reduced motion. */
@@ -303,7 +304,8 @@ export const Carousel = forwardRef<
 
     if (width <= 0) return;
 
-    const position = track.scrollLeft;
+    const rtl = getComputedStyle(track).direction === "rtl";
+    const position = Math.max(0, rtl ? -track.scrollLeft : track.scrollLeft);
 
     if (scrollTimerRef.current !== null) {
       window.clearTimeout(scrollTimerRef.current);
@@ -332,15 +334,16 @@ export const Carousel = forwardRef<
       return;
     }
 
+    const forwardStep = getComputedStyle(trackRef.current ?? event.currentTarget).direction === "rtl" ? -1 : 1;
     switch (event.key) {
       case "ArrowLeft":
         event.preventDefault();
-        commit(currentIndexRef.current - 1);
+        commit(currentIndexRef.current - forwardStep);
         break;
 
       case "ArrowRight":
         event.preventDefault();
-        commit(currentIndexRef.current + 1);
+        commit(currentIndexRef.current + forwardStep);
         break;
 
       case "Home":

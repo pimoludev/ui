@@ -280,7 +280,7 @@ export const extendedComponents = [
     },
     "description": "Set a lower and upper price boundary.",
     "usage": [
-      "Keep formatting and numeric state separate, and validate the allowed range in your application."
+      "Keep formatting and numeric state separate, and validate the allowed range in your application. A vertical page pan starting on the track does not change the bounds; a completed tap moves the nearest handle. Native thumbs remain draggable and the fill mirrors in RTL."
     ],
     "accessibility": [
       "Name both endpoints and provide an understandable numeric value, including units."
@@ -293,7 +293,7 @@ export const extendedComponents = [
     },
     "description": "Adjust a price filter with visible numeric feedback.",
     "usage": [
-      "Keep bounds and step meaningful for the task; do not force fine precision through pointer dragging alone."
+      "Keep bounds and step meaningful for the task; do not force fine precision through pointer dragging alone. The native input and its filled track follow the surrounding text direction."
     ],
     "accessibility": [
       "Verify arrow keys and Home/End, and offer a typed alternative for exact amounts when needed."
@@ -488,7 +488,7 @@ export const extendedComponents = [
     },
     "description": "Route a ticket through a hierarchical selection.",
     "usage": [
-      "Keep node identities stable and distinguish selectable leaves from structural groups."
+      "Keep node identities stable and distinguish selectable leaves from structural groups. Touch scrolling does not move the active node; tap a label to select it or its arrow to expand a branch."
     ],
     "accessibility": [
       "Check expansion, selection, search and disabled nodes with the keyboard."
@@ -501,7 +501,8 @@ export const extendedComponents = [
     },
     "description": "Capture a signature for a contract workflow.",
     "usage": [
-      "A canvas result is image data; legal consent, identity verification and storage belong to the application."
+      "A canvas result is image data; legal consent, identity verification and storage belong to the application.",
+      "Clear and Undo accept a completed touch tap after drawing, even when the browser suppresses a compatibility click. Moving a finger across an action does not activate it."
     ],
     "accessibility": [
       "Provide clear/reset controls and an alternative signing workflow for users who cannot draw."
@@ -566,7 +567,7 @@ export const extendedComponents = [
     },
     "description": "Choose a shipping destination through nested levels.",
     "usage": [
-      "Use Cascader for a path and TreeSelect when users need a broader tree view."
+      "Use Cascader for a path and TreeSelect when users need a broader tree view. Mouse hover can open columns; on touch screens, scroll first and complete a tap to expand a branch."
     ],
     "accessibility": [
       "Keep the hierarchy understandable and verify back navigation and disabled choices."
@@ -710,7 +711,7 @@ export const extendedComponents = [
     },
     "description": "A browsable product gallery with image descriptions.",
     "usage": [
-      "Keep navigation explicit; autoplay must be optional and pauseable when enabled."
+      "Keep navigation explicit; autoplay must be optional and pauseable when enabled. Touch swipes, dots and controls stay synchronized in RTL; horizontal arrow keys mirror the reading direction."
     ],
     "accessibility": [
       "Test previous/next and slide announcements, and respect reduced-motion preferences."
@@ -803,7 +804,7 @@ export const extendedComponents = [
     },
     "description": "Browse and manage a project's assets.",
     "usage": [
-      "File actions report application intent; connect them to real permissions and storage before shipping."
+      "Select one entry and use the Open toolbar action on touch screens. Double click and Enter remain available. Folders navigate internally; files require onOpen to enable opening. File actions report application intent; connect them to real permissions and storage before shipping."
     ],
     "accessibility": [
       "Test selection, contextual actions, rename/delete confirmation and focus after a file disappears."

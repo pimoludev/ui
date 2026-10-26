@@ -161,6 +161,10 @@
   height: 1.25rem;
 }
 
+[dir="rtl"] { --pimolu-carousel-arrow-direction: -1; }
+[dir="ltr"] { --pimolu-carousel-arrow-direction: 1; }
+.pimolu-carousel__control svg { transform: scaleX(var(--pimolu-carousel-arrow-direction, 1)); }
+
 /* =========================================
    DOTS
 ========================================= */

@@ -53,6 +53,57 @@ afterEach(() => {
 });
 
 describe("Pimolu Signature", () => {
+  it("clears once on a completed touch release and ignores the compatibility click", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Signature defaultValue={DATA_URL} onChange={onChange} />);
+    const clear = screen.getByRole("button", { name: "Clear signature" });
+    await user.pointer({ keys: "[TouchA>]", target: clear });
+    expect(onChange).not.toHaveBeenCalled();
+    await user.pointer({ keys: "[/TouchA]", target: clear });
+    expect(onChange).toHaveBeenCalledExactlyOnceWith(null);
+  });
+
+  it("does not clear when an action gesture is cancelled", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Signature defaultValue={DATA_URL} onChange={onChange} />);
+    const clear = screen.getByRole("button", { name: "Clear signature" });
+    await user.pointer({ keys: "[TouchA>]", target: clear });
+    fireEvent.pointerCancel(clear);
+    await user.pointer({ keys: "[/TouchA]", target: clear });
+    expect(onChange).not.toHaveBeenCalled();
+    expect(clear).not.toBeDisabled();
+  });
+
+  it("does not clear when a finger moves across an action button", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Signature defaultValue={DATA_URL} onChange={onChange} />);
+    const clear = screen.getByRole("button", { name: "Clear signature" });
+    await user.pointer({ keys: "[TouchA>]", target: clear, coords: { clientX: 10, clientY: 10 } });
+    await user.pointer({ pointerName: "TouchA", target: clear, coords: { clientX: 70, clientY: 60 } });
+    await user.pointer({ keys: "[/TouchA]", target: clear });
+    expect(onChange).not.toHaveBeenCalled();
+    expect(clear).not.toBeDisabled();
+  });
+
+  it("undoes only one stroke when a touch release also generates a click", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Signature label="Signature" defaultValue={DATA_URL} onChange={onChange} undo />);
+    const canvas = screen.getByRole("img", { name: "Signature" });
+    for (let i = 0; i < 2; i++) {
+      fireEvent.pointerDown(canvas, { clientX: 20, clientY: 20, pointerId: 1 });
+      fireEvent.pointerUp(canvas, { clientX: 40, clientY: 30, pointerId: 1 });
+    }
+    onChange.mockClear();
+    const undo = screen.getByRole("button", { name: "Undo last stroke" });
+    await user.pointer({ keys: "[TouchA]", target: undo });
+    expect(onChange).toHaveBeenCalledExactlyOnceWith(DATA_URL);
+    expect(undo).not.toBeDisabled();
+  });
+
   it("renders an accessible pad with a clear action", () => {
     render(
       <Signature

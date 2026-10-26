@@ -54,6 +54,36 @@ const locations = [
 ];
 
 describe("Pimolu Cascader", () => {
+  it("clamps the initial popup position to a narrow viewport before its width is measured", async () => {
+    const previousWidth = window.innerWidth;
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: 320 });
+    try {
+      const { container } = render(<Cascader label="Destination" options={locations} />);
+      const field = container.querySelector<HTMLElement>(".pimolu-cascader__field")!;
+      field.getBoundingClientRect = () => new DOMRect(20, 40, 280, 40);
+      await userEvent.setup().click(screen.getByRole("combobox"));
+      const panel = document.querySelector<HTMLElement>(".pimolu-cascader__panel")!;
+      expect(panel.style.maxWidth).toBe("304px");
+      expect(panel.style.left).toBe("8px");
+    } finally {
+      Object.defineProperty(window, "innerWidth", { configurable: true, value: previousWidth });
+    }
+  });
+
+  it("does not expand a branch at touch contact before a tap is completed", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Cascader label="Destination" options={locations} onChange={onChange} />);
+    await user.click(screen.getByRole("combobox"));
+    const europe = screen.getByRole("option", { name: "Europe" });
+    await user.pointer({ keys: "[TouchA>]", target: europe });
+    expect(screen.queryByRole("option", { name: "France" })).toBeNull();
+    expect(onChange).not.toHaveBeenCalled();
+    await user.pointer({ keys: "[/TouchA]", target: europe });
+    expect(screen.getByRole("option", { name: "France" })).toBeInTheDocument();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
   it("renders an accessible trigger", () => {
     render(
       <Cascader

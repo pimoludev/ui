@@ -51,6 +51,19 @@ function mockTrackWidth(
 }
 
 describe("Pimolu RangeSlider", () => {
+  it("does not change a bound when a touch starts a cancelled page-scroll gesture on the track", () => {
+    const onValueChange = vi.fn();
+    render(<RangeSlider label="Price" defaultValue={[20, 80]} onValueChange={onValueChange} />);
+    const control = handles().lower.closest(".pimolu-range-slider__control") as HTMLElement;
+    mockTrackWidth(control);
+    fireEvent.pointerDown(control, { clientX: 120, pointerType: "touch" });
+    fireEvent.pointerMove(control, { clientX: 120, clientY: -80, pointerType: "touch" });
+    fireEvent.pointerCancel(control, { pointerType: "touch" });
+    expect(onValueChange).not.toHaveBeenCalled();
+    expect(handles().lower).toHaveValue("20");
+    expect(handles().upper).toHaveValue("80");
+  });
+
   it("renders two native sliders inside a named group", () => {
     render(<RangeSlider label="Price" />);
 
@@ -349,7 +362,7 @@ describe("Pimolu RangeSlider", () => {
 
     mockTrackWidth(control);
 
-    fireEvent.pointerDown(control, { clientX: 20 });
+    fireEvent.click(control, { clientX: 20 });
 
     expect(onValueChange).toHaveBeenLastCalledWith([10, 80]);
 
@@ -374,7 +387,7 @@ describe("Pimolu RangeSlider", () => {
 
     mockTrackWidth(control);
 
-    fireEvent.pointerDown(control, { clientX: 180 });
+    fireEvent.click(control, { clientX: 180 });
 
     expect(onValueChange).toHaveBeenLastCalledWith([20, 90]);
 
@@ -402,12 +415,12 @@ describe("Pimolu RangeSlider", () => {
 
     /* 26% of the track is 26, which snaps to 30. */
 
-    fireEvent.pointerDown(control, { clientX: 52 });
+    fireEvent.click(control, { clientX: 52 });
 
     expect(onValueChange).toHaveBeenLastCalledWith([30, 80]);
   });
 
-  it("leaves a pointer event on a handle to the native input", () => {
+  it("leaves a click on a handle to the native input", () => {
     const onValueChange = vi.fn();
 
     render(
@@ -418,7 +431,7 @@ describe("Pimolu RangeSlider", () => {
       />
     );
 
-    fireEvent.pointerDown(handles().lower, {
+    fireEvent.click(handles().lower, {
       clientX: 120,
     });
 
@@ -440,7 +453,7 @@ describe("Pimolu RangeSlider", () => {
       ".pimolu-range-slider__control"
     ) as HTMLElement;
 
-    fireEvent.pointerDown(control, { clientX: 20 });
+    fireEvent.click(control, { clientX: 20 });
 
     expect(onValueChange).not.toHaveBeenCalled();
   });

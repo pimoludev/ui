@@ -82,6 +82,17 @@ const queues: PimoluTreeSelectOption[] = [
   },
 ];
 
+function LongTreeExample() {
+  const [queue, setQueue] = useState<string | undefined>("queue-1");
+  const options = [{ value: "support", label: "Support", children: Array.from({ length: 36 }, (_, index) => ({
+    value: `queue-${index + 1}`, label: `Support queue ${index + 1}`,
+  })) }];
+  return <div className="pg-stack">
+    <TreeSelect label="Support queue" options={options} value={queue} onValueChange={setQueue} fullWidth />
+    <p role="status">Selected queue: {queue ?? "none"}.</p>
+  </div>;
+}
+
 const descriptors: PimoluTreeSelectOption[] = [
   {
     value: "billing",
@@ -283,6 +294,10 @@ export function TreeSelectPage() {
             fullWidth
           />
         </div>
+      </Section>
+
+      <Section title="Long lists and touch scrolling" hint="Swipe through the expanded branch without changing the active node. Tap a label to select it, or its arrow to expand a branch.">
+        <LongTreeExample />
       </Section>
 
       <Section

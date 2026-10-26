@@ -249,7 +249,7 @@ describe("ThemeBuilder", () => {
       screen.getByRole("combobox", { name: "Radius" })
     );
 
-    fireEvent.pointerDown(
+    await user.click(
       await screen.findByRole("option", {
         name: "Round",
       })
@@ -267,7 +267,7 @@ describe("ThemeBuilder", () => {
       screen.getByRole("combobox", { name: "Density" })
     );
 
-    fireEvent.pointerDown(
+    await user.click(
       await screen.findByRole("option", {
         name: "Compact",
       })

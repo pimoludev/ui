@@ -311,6 +311,9 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
     }
 
     function openOnSelection() {
+      /* Safari does not focus buttons on pointer activation by default.
+         This combobox keeps keyboard focus on its trigger while open. */
+      triggerRef.current?.focus({ preventScroll: true });
       const selected = options.findIndex(
         (option) => option.value === current && !option.disabled
       );
@@ -615,11 +618,17 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
                     data-active={
                       index === activeIndex ? "true" : undefined
                     }
-                    onPointerDown={(event) => {
+                    onMouseDown={(event) => {
+                      /* Preserve combobox focus without cancelling touch panning. */
                       event.preventDefault();
-                      selectOption(option);
                     }}
-                    onPointerMove={() => setActiveIndex(index)}
+                    onClick={() => selectOption(option)}
+                    onPointerMove={(event) => {
+                      /* Touch contact is not hover: it may start a scroll. */
+                      if (event.pointerType === "mouse" && !option.disabled) {
+                        setActiveIndex(index);
+                      }
+                    }}
                   >
                     {option.label}
                     {option.value === current && (

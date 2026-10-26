@@ -27,7 +27,7 @@ function ContractSignature() {
     <div className="pg-stack">
       <Signature
         label="Authorised signature"
-        description="Draw your signature with a mouse, pen or touch. The Clear button starts over and Delete clears from the keyboard."
+        description="Draw with a mouse, pen or touch. Complete a tap on Clear to start over, or use Delete from the keyboard. Moving a finger across an action does not activate it."
         value={signature}
         onChange={setSignature}
         undo

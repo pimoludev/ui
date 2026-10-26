@@ -439,7 +439,9 @@
 ========================================= */
 
 .pimolu-select__listbox {
+  box-sizing: border-box;
   overflow-y: auto;
+  scroll-padding-block: 4px;
 
   margin: 0;
   padding: 4px;

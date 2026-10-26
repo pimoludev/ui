@@ -105,8 +105,8 @@ export interface PimoluFileManagerProps {
   onSortChange?: (sort: PimoluFileManagerSort) => void;
 
   /**
-   * Called when a folder is opened or when a file is double-clicked (or
-   * activated with Enter).
+   * Called when an entry is opened from the toolbar, double-clicked or
+   * activated with Enter. Folders also update the current path.
    */
   onOpen?: (entry: PimoluFileEntry) => void;
 

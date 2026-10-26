@@ -1132,3 +1132,107 @@ pan, time aggregation and the roadmap chart types are not implemented. Shared or
 transitive implementation changes need an editorial status override. A release
 maintainer deliberately refreshes the status baseline; it is not time-expiring.
 No dependency added, commit, push, merge, package release or deployment performed.
+
+
+## 2026-10-25 - Touch scrolling and floating-control audit
+
+Implemented:
+
+- Select commits on a completed click/tap, not pointerdown. Mouse-down only
+  retains combobox focus, and touch movement does not update the active option
+  or invoke scrollIntoView. Cancelled pans leave the filter/value unchanged.
+  The fix also applies to country selection in PhoneInput and to ThemeBuilder.
+- Opening the styled Select explicitly focuses its trigger without scrolling;
+  Safari/WebKit can therefore receive arrow keys and Escape after pointer use.
+  Mouse hover, right-click, disabled choices, form submission and reset remain
+  covered. Existing tests that intentionally selected on pointerdown now perform
+  a completed click, retaining all their value/callback/focus assertions.
+- Cascader expands on mouse hover or completed touch tap, not initial touch
+  contact. TreeSelect likewise ignores touch hover and allows native panning
+  when a gesture starts on a branch arrow.
+- Floating placement caps width to the available viewport and reserves that cap
+  before the portalled element has been measured. This prevents an initial
+  Cascader overflow on a 320px screen and benefits the shared floating controls.
+- Select's listbox uses border-box sizing and scroll padding, keeping the final
+  keyboard-highlighted row fully inside the scrollport in short landscape views.
+- Three long-list examples demonstrate the fixes in both the playground and the
+  website supplements. Select/Cascader/TreeSelect usage notes describe touch
+  behavior. Shared consumers receive explicit Updated metadata because their
+  direct-source fingerprints do not include internal shared dependencies.
+
+Evidence and verification:
+
+- Three new interaction tests reproduced the Select/Cascader/TreeSelect failures
+  before correction. A further narrow-viewport Cascader test failed before the
+  shared-position fix. Final focused suite: 45 passed; ThemeBuilder integration
+  tests also passed after adapting activation to completed clicks.
+- Final React suite: 136 files / 1,426 tests passed. Root TypeScript, 30 CSS tests,
+  playground lint/build and workspace assets/package builds passed. The earlier
+  pnpm verify run passed; checks affected by the subsequent positioning/CSS
+  refinement were rerun on the final implementation.
+- Website production build, TypeScript, lint and 29 documentation tests passed,
+  including independent compilation of 532 component + 3 guide examples.
+- Expanded responsive review: 441 browser runs passed, including all 133 live
+  references at desktop/mobile widths and the existing site/component regressions.
+  After the positioning refinement, 170 targeted interaction/accessibility runs
+  passed across Chromium, Firefox and WebKit. The matrix includes 320px portrait,
+  844x390 landscape and 1920px desktop, plus last-option reachability.
+- Five native browser touch-pan flows passed with Chromium CDP: catalogue category
+  filtering, long Select, long TreeSelect, long Cascader and PhoneInput. The same
+  ten project entries are deliberately skipped in Firefox/WebKit because CDP
+  native touch input is Chromium-only. Those engines have separate keyboard,
+  click, bounds and dismissal checks; no native iOS/Android device was tested.
+- Visual review: 42 mobile open-panel captures (3 components x 7 presets x
+  light/dark), without document overflow. Screenshots wait for rendering to settle
+  before inspection. Contact sheets/report: ignored .artifacts/mobile-options-review/.
+- git diff --check passed. No golden visual snapshots were changed.
+
+Scope limits: responsive containment is not an exhaustive interaction audit of
+all 129 families. No screen-reader or physical-device certification is claimed.
+No dependencies added, commit, push, package publication or deployment performed.
+
+## 2026-10-25 - Extended mobile interaction review
+
+Additional defects reproduced and corrected:
+
+- RangeSlider changed its closest bound on initial touch contact while the user
+  was beginning to scroll the page. Track activation now waits for a completed
+  click/tap; native input thumb dragging is retained.
+- Carousel interpreted negative RTL scrollLeft as a negative slide index and
+  could desynchronize its indicators. Relative slide offsets, normalized scroll
+  positions, mirrored controls and RTL arrow-key navigation keep the state aligned.
+- Slider and RangeSlider fills now follow the native input's direction. Explicit
+  inherited dir values survive the website CSS optimizer, whose :dir() rewrite
+  otherwise ignored an English-language subtree with dir="rtl".
+- FileManager depended on double-tap to open a folder, which did not work in the
+  Firefox/WebKit touch checks. A visible Open action works for one selected entry;
+  folders navigate internally and files require the application's onOpen handler.
+- Signature could ignore Clear after a captured touch stroke suppressed the
+  browser's compatibility click. Clear/Undo now accept a completed touch release,
+  ignore cancelled/moved gestures and avoid duplicate actions if click also fires.
+- Playground demonstrations and website usage notes describe the behavior. A
+  literal escape in the RangeSlider demo badge was also corrected. FileManager's
+  two catalogue illustrations were refreshed to show its actual toolbar.
+
+Verification:
+
+- pnpm verify passed: 136 React files / 1,439 tests, 30 CSS tests, root TypeScript,
+  theme/token tests and audit, playground lint/build and skill catalogue checks.
+  The existing playground main-chunk size warning remains (about 731 kB).
+- Website production build, TypeScript, lint and 29 documentation tests passed.
+- New mobile-surfaces suite: 28 passed / 8 intentionally skipped across Chromium,
+  Firefox and WebKit. It covers narrow portrait and landscape layouts, touch Open
+  and Kanban move actions, RTL carousel controls/keyboard, RTL fills, native pans,
+  thumb dragging, crop dragging, signature drawing and a single Clear tap.
+- Final combined mobile-surfaces, touch-options and accessibility suites:
+  198 passed / 18 intentionally skipped in the three browser engines. This also
+  rechecks the previous selector fixes and floating bounds through 1920px.
+- Native gestures use Chromium CDP only; Firefox/WebKit cover their supported
+  touch taps, keyboard and layout checks. This is browser emulation, not a run on
+  physical iOS/Android hardware or a screen-reader certification.
+- Visual inspection: 70 mobile captures (5 families x 7 presets x light/dark),
+  with RTL for sliders/carousel and no document overflow. Reviewed contact sheets
+  and report are ignored under .artifacts/mobile-surfaces-review/.
+
+No dependencies, public props or exports added. No commit, push, publication or
+deployment performed. Existing unrelated docs/marketing files were left untouched.

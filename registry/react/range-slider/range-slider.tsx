@@ -7,7 +7,7 @@ import {
   useState,
   type ChangeEvent,
   type CSSProperties,
-  type PointerEvent as ReactPointerEvent,
+  type MouseEvent as ReactMouseEvent,
 } from "react";
 
 import type {
@@ -188,11 +188,11 @@ export const RangeSlider = forwardRef<
 
   /**
    * Click anywhere on the track to move the closest handle, as the
-   * established sliders do. Pointer events coming from a thumb are left to
+   * established sliders do. Clicks coming from a thumb are left to
    * the native input, which is already dragging it.
    */
-  function handleTrackPointerDown(
-    event: ReactPointerEvent<HTMLDivElement>
+  function handleTrackClick(
+    event: ReactMouseEvent<HTMLDivElement>
   ) {
     if (disabled) return;
 
@@ -330,7 +330,7 @@ export const RangeSlider = forwardRef<
       <div
         className="pimolu-range-slider__control"
         style={controlStyle}
-        onPointerDown={handleTrackPointerDown}
+        onClick={handleTrackClick}
       >
         <div
           className="pimolu-range-slider__track"

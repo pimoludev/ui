@@ -780,8 +780,8 @@ export const Cascader = forwardRef<
                             onMouseDown={(event) => {
                               event.preventDefault();
                             }}
-                            onPointerEnter={() => {
-                              if (option.disabled) return;
+                            onPointerEnter={(event) => {
+                              if (event.pointerType !== "mouse" || option.disabled) return;
 
                               setActivePath(path);
 

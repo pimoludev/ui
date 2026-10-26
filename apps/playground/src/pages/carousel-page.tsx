@@ -150,6 +150,10 @@ export function CarouselPage() {
         </div>
       </Section>
 
+      <Section title="Right-to-left and touch" hint="Swipe, dots and controls keep the same active slide in RTL. ArrowLeft moves forward visually; ArrowRight returns to the previous slide.">
+        <div dir="rtl"><Carousel aria-label="RTL highlights" loop>{highlights.map((highlight) => <div key={highlight.title} className="pg-panel" style={{ minHeight: 200 }}><h3>{highlight.title}</h3><p>{highlight.text}</p></div>)}</Carousel></div>
+      </Section>
+
       <Section
         title="Product gallery"
         hint="Slides are ordinary layout containers: images, headings and actions keep their own spacing."

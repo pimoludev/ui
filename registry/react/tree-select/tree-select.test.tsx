@@ -58,6 +58,21 @@ const locations = [
 ];
 
 describe("Pimolu TreeSelect", () => {
+  it("does not move the active node at touch contact before a tap is completed", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<TreeSelect label="Destination" options={locations} onValueChange={onValueChange} />);
+    const trigger = screen.getByRole("combobox");
+    await user.click(trigger);
+    const active = trigger.getAttribute("aria-activedescendant");
+    const asia = screen.getByRole("treeitem", { name: "Asia" });
+    await user.pointer({ keys: "[TouchA>]", target: asia });
+    expect(trigger).toHaveAttribute("aria-activedescendant", active);
+    expect(onValueChange).not.toHaveBeenCalled();
+    await user.pointer({ keys: "[/TouchA]", target: asia });
+    expect(onValueChange).toHaveBeenCalledExactlyOnceWith("asia", { value: "asia", label: "Asia" });
+  });
+
   it("renders an accessible trigger", () => {
     render(
       <TreeSelect

@@ -26,6 +26,38 @@ afterEach(() => {
 });
 
 describe("Pimolu Carousel", () => {
+  it("mirrors horizontal keyboard navigation in RTL", () => {
+    const { container } = render(<Carousel aria-label="Gallery" dir="rtl">{slides()}</Carousel>);
+    const track = container.querySelector<HTMLElement>(".pimolu-carousel__viewport")!;
+    track.style.direction = "rtl";
+    fireEvent.keyDown(screen.getByRole("region", { name: "Gallery" }), { key: "ArrowLeft" });
+    expect(screen.getByRole("group", { name: "2 of 3" })).toHaveAttribute("data-active", "true");
+    fireEvent.keyDown(screen.getByRole("region", { name: "Gallery" }), { key: "ArrowRight" });
+    expect(screen.getByRole("group", { name: "1 of 3" })).toHaveAttribute("data-active", "true");
+  });
+
+  it.each([false, true])("keeps RTL swipe selection in sync with loop=%s", (loop) => {
+    vi.useFakeTimers();
+    const onIndexChange = vi.fn();
+    const { container } = render(<Carousel dir="rtl" loop={loop} onIndexChange={onIndexChange}>{slides()}</Carousel>);
+    const track = container.querySelector<HTMLElement>(".pimolu-carousel__viewport")!;
+    track.style.direction = "rtl";
+    Object.defineProperty(track, "clientWidth", { configurable: true, value: 200 });
+    track.scrollLeft = -200;
+    fireEvent.scroll(track);
+    act(() => { vi.advanceTimersByTime(150); });
+    expect(onIndexChange).toHaveBeenCalledExactlyOnceWith(1);
+    expect(screen.getByRole("group", { name: "2 of 3" })).toHaveAttribute("data-active", "true");
+  });
+
+  it.each([1, -1])("aligns a slide relative to the first slide when the offset direction is %s", (direction) => {
+    const { container } = render(<Carousel>{slides()}</Carousel>);
+    const track = container.querySelector<HTMLElement>(".pimolu-carousel__viewport")!;
+    [...track.children].forEach((slide, index) => Object.defineProperty(slide, "offsetLeft", { configurable: true, value: 24 + direction * index * 200 }));
+    fireEvent.click(screen.getByRole("button", { name: "Next slide" }));
+    expect(track.scrollLeft).toBe(direction * 200);
+  });
+
   it("renders a labelled carousel region and labelled slides", () => {
     render(
       <Carousel aria-label="Featured products">

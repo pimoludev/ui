@@ -196,6 +196,10 @@ export function SliderPage() {
         </form>
       </Section>
 
+      <Section title="Right-to-left layouts" hint="The native thumb and the filled track share the same direction.">
+        <div dir="rtl"><Slider label="Volume" defaultValue={30} showValue /></div>
+      </Section>
+
       <Section
         title="Examples"
         hint="Real compositions built from the same parts."

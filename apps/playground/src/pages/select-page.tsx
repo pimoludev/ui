@@ -79,12 +79,25 @@ function LanguageExample() {
   );
 }
 
+function LongListExample() {
+  const [queue, setQueue] = useState("queue-1");
+  return <div className="pg-stack">
+    <Select label="Support queue" value={queue} onValueChange={setQueue} fullWidth
+      helperText="Swipe through the list, then tap a queue to select it.">
+      {Array.from({ length: 36 }, (_, index) => <option key={index} value={`queue-${index + 1}`}>
+        {`Support queue ${index + 1}`}
+      </option>)}
+    </Select>
+    <p role="status">Selected queue: {queue}.</p>
+  </div>;
+}
+
 export function SelectPage() {
   return (
     <>
       <PageHeader
         title="Select"
-        hint="A native select for choosing one option, with the same conventions as Input and Textarea. Sizes, variants and appearances are enumerated from selectVariantMap; the styles come from @pimolu/web-styles/select.css."
+        hint="A styled select with an optional native fallback, using the same conventions as Input and Textarea. Sizes, variants and appearances are enumerated from selectVariantMap; the styles come from @pimolu/web-styles/select.css."
       />
 
       <Section title="Sizes" hint="From xs to xxl.">
@@ -247,6 +260,10 @@ export function SelectPage() {
             </span>
           </div>
         </div>
+      </Section>
+
+      <Section title="Long lists and touch scrolling" hint="Touching an option starts a gesture; only a completed tap selects it. Mouse hover, arrow keys and Escape remain available.">
+        <LongListExample />
       </Section>
 
       <Section

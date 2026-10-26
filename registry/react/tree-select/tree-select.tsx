@@ -925,8 +925,8 @@ export const TreeSelect = forwardRef<
                         onMouseDown={(event) => {
                           event.preventDefault();
                         }}
-                        onPointerEnter={() => {
-                          if (option.disabled) return;
+                        onPointerEnter={(event) => {
+                          if (event.pointerType !== "mouse" || option.disabled) return;
 
                           setActiveValue(option.value);
                         }}
@@ -938,7 +938,7 @@ export const TreeSelect = forwardRef<
                           className="pimolu-tree-select__toggle"
                           aria-hidden="true"
                           onPointerDown={(event) => {
-                            if (!hasChildren) return;
+                            if (!hasChildren || event.pointerType !== "mouse") return;
 
                             event.preventDefault();
                             event.stopPropagation();

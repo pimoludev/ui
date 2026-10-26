@@ -9,6 +9,7 @@
 ========================================= */
 
 .pimolu-slider {
+  --pimolu-slider-direction: var(--pimolu-slider-inherited-direction, to right);
   --pimolu-slider-track-height: 6px;
   --pimolu-slider-thumb-size: 18px;
   --pimolu-slider-gap: 8px;
@@ -32,6 +33,10 @@
   font-family: var(--pimolu-font-body, inherit);
   color: var(--pimolu-foreground, currentColor);
 }
+
+/* Inherited private values also work through CSS pipelines that rewrite :dir(). */
+[dir="rtl"] { --pimolu-slider-inherited-direction: to left; }
+[dir="ltr"] { --pimolu-slider-inherited-direction: to right; }
 
 /* =========================================
    SIZES
@@ -131,7 +136,7 @@
 
   background:
     linear-gradient(
-      to right,
+      var(--pimolu-slider-direction, to right),
       var(--pimolu-slider-tone) 0,
       var(--pimolu-slider-tone) var(--pimolu-slider-progress, 0%),
       var(--pimolu-slider-track) var(--pimolu-slider-progress, 0%),

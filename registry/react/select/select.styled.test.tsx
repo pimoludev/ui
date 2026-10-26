@@ -23,6 +23,56 @@ const options = [
 ];
 
 describe("Pimolu Select (styled)", () => {
+  it("does not highlight or select options during a cancelled touch gesture", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Select label="Framework" onValueChange={onValueChange}>{options}</Select>);
+    const trigger = screen.getByRole("combobox");
+    await user.click(trigger);
+    const active = trigger.getAttribute("aria-activedescendant");
+    const vue = screen.getByRole("option", { name: "Vue" });
+    const svelte = screen.getByRole("option", { name: "Svelte" });
+    await user.pointer({ keys: "[TouchA>]", target: vue });
+    await user.pointer({ pointerName: "TouchA", target: svelte });
+    fireEvent.pointerCancel(svelte);
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(trigger).toHaveAttribute("aria-activedescendant", active);
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("retains mouse hover and click selection without committing on right click", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Select label="Framework" onValueChange={onValueChange}>{options}</Select>);
+    const trigger = screen.getByRole("combobox");
+    await user.click(trigger);
+    const vue = screen.getByRole("option", { name: "Vue" });
+    await user.hover(vue);
+    expect(trigger).toHaveAttribute("aria-activedescendant", vue.id);
+    await user.pointer({ keys: "[MouseRight]", target: vue });
+    expect(onValueChange).not.toHaveBeenCalled();
+    await user.click(vue);
+    expect(onValueChange).toHaveBeenCalledExactlyOnceWith("vue");
+    expect(trigger).toHaveFocus();
+  });
+
+  it("keeps a touch contact open until a completed tap selects exactly once", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Select label="Framework" onValueChange={onValueChange}>{options}</Select>);
+    const trigger = screen.getByRole("combobox");
+    await user.click(trigger);
+    const option = screen.getByRole("option", { name: "Vue" });
+
+    await user.pointer({ keys: "[TouchA>]", target: option });
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(onValueChange).not.toHaveBeenCalled();
+    await user.pointer({ keys: "[/TouchA]", target: option });
+    expect(onValueChange).toHaveBeenCalledExactlyOnceWith("vue");
+    expect(trigger).toHaveTextContent("Vue");
+    expect(trigger).toHaveFocus();
+  });
+
   it("mounts the listbox in the trigger's nearest theme scope", async () => {
     render(
       <>
@@ -95,7 +145,7 @@ describe("Pimolu Select (styled)", () => {
     expect(screen.getAllByRole("option")).toHaveLength(4);
   });
 
-  it("selects an option on pointer down", async () => {
+  it("selects an option on a completed click", async () => {
     const onValueChange = vi.fn();
 
     render(
@@ -108,7 +158,7 @@ describe("Pimolu Select (styled)", () => {
       .setup()
       .click(screen.getByRole("combobox"));
 
-    fireEvent.pointerDown(
+    fireEvent.click(
       screen.getByRole("option", { name: "Vue" })
     );
 
@@ -141,7 +191,7 @@ describe("Pimolu Select (styled)", () => {
 
     await userEvent.setup().click(screen.getByRole("combobox"));
 
-    fireEvent.pointerDown(
+    fireEvent.click(
       screen.getByRole("option", { name: "React" })
     );
 
@@ -235,7 +285,7 @@ describe("Pimolu Select (styled)", () => {
 
     await user.click(trigger);
 
-    fireEvent.pointerDown(
+    fireEvent.click(
       screen.getByRole("option", { name: "React" })
     );
 
@@ -255,7 +305,7 @@ describe("Pimolu Select (styled)", () => {
 
     await user.click(screen.getByRole("combobox"));
 
-    fireEvent.pointerDown(
+    fireEvent.click(
       screen.getByRole("option", { name: "Vue" })
     );
 
@@ -285,7 +335,7 @@ describe("Pimolu Select (styled)", () => {
 
     await user.click(trigger);
 
-    fireEvent.pointerDown(
+    fireEvent.click(
       screen.getByRole("option", { name: "Svelte" })
     );
 
@@ -325,7 +375,7 @@ describe("Pimolu Select (styled)", () => {
     expect(screen.getAllByRole("option")).toHaveLength(3);
     expect(screen.getByText("UI libraries")).toBeInTheDocument();
 
-    fireEvent.pointerDown(
+    fireEvent.click(
       screen.getByRole("option", { name: "Next.js" })
     );
 

@@ -9,6 +9,7 @@
 ========================================= */
 
 .pimolu-range-slider {
+  --pimolu-range-slider-direction: var(--pimolu-range-slider-inherited-direction, to right);
   --pimolu-range-slider-track-height: 6px;
   --pimolu-range-slider-thumb-size: 18px;
   --pimolu-range-slider-gap: 8px;
@@ -29,6 +30,9 @@
   font-family: var(--pimolu-font-body, inherit);
   color: var(--pimolu-foreground, currentColor);
 }
+
+[dir="rtl"] { --pimolu-range-slider-inherited-direction: to left; }
+[dir="ltr"] { --pimolu-range-slider-inherited-direction: to right; }
 
 /* =========================================
    SIZES
@@ -124,7 +128,7 @@
 
   background:
     linear-gradient(
-      to right,
+      var(--pimolu-range-slider-direction, to right),
       var(--pimolu-range-slider-track) 0,
       var(--pimolu-range-slider-track)
         var(--pimolu-range-slider-start),
