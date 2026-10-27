@@ -53,6 +53,9 @@ export interface PimoluTabsProps {
   /** Trigger height and font size. Defaults to "md". */
   size?: PimoluTabsSize;
 
+  /** Animate the active indicator and panels. Defaults to true; reduced motion always wins. */
+  animated?: boolean;
+
   /** Class applied to the root. */
   className?: string;
 }
@@ -80,6 +83,9 @@ export interface PimoluTabsListProps {
    * buttons when it overflows. Defaults to false.
    */
   scrollable?: boolean;
+
+  /** Show the native scrollbar when scrollable. Hidden by default; scrolling stays available. */
+  showScrollbar?: boolean;
 
   /** Accessible name of the previous-tabs button. */
   scrollPreviousLabel?: string;

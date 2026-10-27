@@ -99,7 +99,7 @@ Every component accepts its family's typed map. Only rendered parts exist in the
 | scheduler | `alldayCell`, `alldayEvent`, `alldayRow`, `board`, `corner`, `dayHeader`, `dayNumber`, `empty`, `event`, `eventTime`, `eventTitle`, `events`, `eventsDay`, `grid`, `headerRow`, `hourRow`, `navigation`, `now`, `root`, `scroll`, `slot`, `slotCell`, `srOnly`, `time`, `title`, `toolbar`, `weekday` |
 | scroll-area | `root`, `viewport` |
 | search-input | `root`, `shortcut` |
-| segmented-control | `item`, `root` |
+| segmented-control | `indicator`, `item`, `root` |
 | select | `check`, `chevron`, `control`, `field`, `group`, `label`, `listbox`, `message`, `native`, `option`, `required`, `root`, `trigger`, `value` |
 | separator | `root` |
 | sidebar | `compact`, `content`, `expanded`, `footer`, `group`, `groupLabel`, `header`, `icon`, `item`, `label`, `root`, `toggle` |
@@ -115,7 +115,7 @@ Every component accepts its family's typed map. Only rendered parts exist in the
 | switch | `content`, `control`, `description`, `input`, `label`, `required`, `root`, `thumb`, `track` |
 | table | `body`, `caption`, `cell`, `footer`, `head`, `header`, `root`, `row`, `wrapper` |
 | table-of-contents | `item`, `link`, `list`, `root`, `title` |
-| tabs | `list`, `listWrap`, `panel`, `root`, `scroll`, `trigger` |
+| tabs | `indicator`, `list`, `listWrap`, `panel`, `root`, `scroll`, `trigger` |
 | tags-input | `error`, `input`, `label`, `remove`, `required`, `root`, `srOnly`, `tag`, `tagLabel`, `tags`, `wrapper` |
 | textarea | `control`, `counter`, `error`, `footer`, `label`, `required`, `root` |
 | theme-builder | `colorInput`, `colorRow`, `colorValue`, `controls`, `eyebrow`, `field`, `header`, `label`, `layout`, `preset`, `presetDescription`, `presetLabel`, `presets`, `preview`, `root`, `sample`, `sampleActions`, `sampleCopy`, `sampleHead`, `sampleTitle`, `selects`, `summary`, `swatch`, `swatches`, `title` |

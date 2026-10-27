@@ -94,6 +94,8 @@
 }
 
 /* The page and nested scroll areas share the site's semantic colors. */
+/* Base defaults must not override a component's opt-in scrollbar policy. */
+@layer base {
 html, .site-root, .site-root * { scrollbar-width: thin; scrollbar-color: var(--pimolu-muted-foreground) transparent; }
 html::-webkit-scrollbar, .site-root::-webkit-scrollbar, .site-root *::-webkit-scrollbar { width: 10px; height: 10px; }
 html::-webkit-scrollbar-track, .site-root::-webkit-scrollbar-track, .site-root *::-webkit-scrollbar-track { background: transparent; }
@@ -102,3 +104,4 @@ html::-webkit-scrollbar-thumb:hover, .site-root *::-webkit-scrollbar-thumb:hover
 html:has(.site-root[data-pimolu-theme="dark"]) { color-scheme: dark; }
 @media (prefers-color-scheme: dark) { html:has(.site-root[data-pimolu-theme="system"]) { color-scheme: dark; } }
 @media (forced-colors: active) { html, .site-root, .site-root * { scrollbar-color: auto; scrollbar-width: auto; } html::-webkit-scrollbar-thumb, .site-root *::-webkit-scrollbar-thumb { background: ButtonText; } }
+}

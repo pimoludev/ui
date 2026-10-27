@@ -3,6 +3,13 @@
    Shared Web Styles
 ========================================= */
 
+/* Public animation controls inherit through wrappers and can be overridden on
+   any Tabs root. Kept in the component stylesheet, independent of presets. */
+:root {
+  --pimolu-tabs-indicator-duration: 240ms;
+  --pimolu-tabs-indicator-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .pimolu-tabs {
   --pimolu-tabs-height: 40px;
   --pimolu-tabs-padding-x: 14px;
@@ -110,6 +117,7 @@
   flex-wrap: nowrap;
 
   overflow-x: auto;
+  overflow-y: hidden;
   overscroll-behavior-inline: contain;
 }
 
@@ -118,14 +126,17 @@
   flex: 0 0 auto;
 }
 
-.pimolu-tabs__list[data-scrollable="true"] {
+.pimolu-tabs__list[data-scrollable="true"]:not([data-show-scrollbar="true"]) {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.pimolu-tabs__list[data-scrollable="true"]::-webkit-scrollbar {
+.pimolu-tabs__list[data-scrollable="true"]:not([data-show-scrollbar="true"])::-webkit-scrollbar {
   display: none;
 }
+
+.pimolu-tabs__list[data-scrollable="true"][data-show-scrollbar="true"] { scrollbar-width: thin; }
+.pimolu-tabs__list[data-scrollable="true"][data-show-scrollbar="true"]::-webkit-scrollbar { display: block; height: 8px; }
 
 /* =========================================
    SCROLL BUTTONS
@@ -422,7 +433,8 @@
 
   flex: 1 1 0;
 
-  min-width: 0;
+  /* Keep long labels inside their segment; flex-wrap handles narrow bars. */
+  min-width: max-content;
 
   padding-inline: var(--pimolu-spacing-3, 12px);
 
@@ -599,12 +611,100 @@
   }
 }
 
+/* One measured surface follows the selection. Only this absolutely positioned
+   element changes dimensions; moving it never reflows the tab labels/panels.
+   Before measurement, the existing active-trigger styles remain the fallback. */
+.pimolu-tabs__list {
+  position: relative;
+  isolation: isolate;
+}
+
+.pimolu-tabs__list > .pimolu-tabs__trigger {
+  position: relative;
+  z-index: 1;
+}
+
+.pimolu-tabs__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: var(--pimolu-radius-sm, 4px);
+}
+
+.pimolu-tabs__indicator[hidden] { display: none; }
+
+.pimolu-tabs__indicator[data-ready="true"] {
+  transition-property: transform, width, height;
+  transition-duration: var(--pimolu-tabs-indicator-duration, 240ms);
+  transition-timing-function: var(--pimolu-tabs-indicator-easing, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.pimolu-tabs__indicator::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.pimolu-tabs--line > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator::before {
+  inset-block-start: auto;
+  height: 2px;
+  background: var(--pimolu-primary);
+}
+
+.pimolu-tabs--vertical.pimolu-tabs--line > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator::before {
+  inset-block: 0;
+  inset-inline-start: auto;
+  width: 2px;
+  height: auto;
+}
+
+.pimolu-tabs--solid > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator::before {
+  background: var(--pimolu-primary);
+}
+
+.pimolu-tabs--soft > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator::before {
+  background: color-mix(in srgb, var(--pimolu-primary) 12%, transparent);
+}
+
+.pimolu-tabs--segmented > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator {
+  border-radius: 999px;
+}
+
+.pimolu-tabs--segmented > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator::before {
+  background: color-mix(in srgb, var(--pimolu-foreground) 10%, var(--pimolu-muted));
+  box-shadow: var(--pimolu-shadow-sm, 0 1px 2px rgba(15, 23, 42, 0.12));
+}
+
+.pimolu-tabs__list[data-indicator="true"] > .pimolu-tabs__trigger[data-state="active"] {
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .pimolu-tabs--vertical.pimolu-tabs--line > .pimolu-tabs__list-wrap > .pimolu-tabs__list > .pimolu-tabs__indicator::before {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+  }
+}
+
+.pimolu-tabs[data-animated="false"] > .pimolu-tabs__list-wrap > .pimolu-tabs__list > :is(.pimolu-tabs__indicator, .pimolu-tabs__trigger) {
+  transition: none;
+}
+
+.pimolu-tabs[data-animated="false"] > .pimolu-tabs__panel {
+  animation: none;
+}
+
 /* =========================================
    REDUCED MOTION
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .pimolu-tabs__trigger {
+  .pimolu-tabs__trigger,
+  .pimolu-tabs__indicator[data-ready="true"] {
     transition: none;
   }
 
@@ -618,6 +718,7 @@
 ========================================= */
 
 @media (forced-colors: active) {
+  .pimolu-tabs__indicator { display: none; }
   .pimolu-tabs__trigger[data-state="active"] {
     border: 1px solid Highlight;
 

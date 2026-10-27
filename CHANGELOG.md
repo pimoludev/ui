@@ -2,6 +2,25 @@
 
 All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses Semantic Versioning.
 
+## [Unreleased]
+
+- EN: SegmentedControl shares the CSS sliding indicator, adds optional scrolling
+  and visible-scrollbar controls. TabsList adds `showScrollbar`; native bars
+  stay hidden by default. Tabs galleries have wider responsive cards, and site
+  scrollbar defaults respect component CSS layers.
+- FR : SegmentedControl partage l’indicateur CSS glissant et ajoute un défilement
+  optionnel avec contrôle des barres natives. TabsList ajoute `showScrollbar`,
+  masqué par défaut. Les galeries Tabs sont aérées et les styles globaux du site
+  respectent les choix de scrollbar des composants.
+
+- EN: Tabs gains a native CSS sliding indicator across all variants, unequal
+  widths, vertical and scrollable lists. Added `animated` (default `true`),
+  `classNames.indicator` and CSS duration/easing controls; reduced motion disables transitions.
+- FR : Tabs ajoute un indicateur glissant en CSS natif pour tous les variants,
+  les largeurs différentes et les listes verticales ou défilantes. Ajout de
+  `animated` (actif par défaut), `classNames.indicator` et des réglages CSS de
+  durée/courbe ; la réduction des animations supprime les transitions.
+
 ## [0.1.0-beta.3.1] — 2026-10-27
 
 Documentation-only preview of Pimolu UI. Tag: `v0.1.0-beta.3.1`. All five

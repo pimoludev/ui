@@ -18,6 +18,10 @@ export const metadata = {
 
 - Input focus halo restored independently of preset shadows. Styled Select honors its control style; Dialog and Drawer panels accept local inline styles.
 
+- Tabs adds a native CSS sliding indicator for every variant, including vertical and scrollable lists. Use `animated={false}` to disable animations, CSS variables to customize duration/easing, and `classNames.indicator` to style the surface. Reduced motion is respected.
+
+- SegmentedControl shares the sliding indicator and adds optional horizontal/vertical scrolling. `showScrollbar` explicitly enables native bars on SegmentedControl and TabsList; bars stay hidden by default. Tabs galleries use wider responsive cards.
+
 </ReleaseSection>
 
 <ReleaseSection id="documentation" label="Website" title="A reference you can build from">

@@ -1,6 +1,7 @@
 "use client";
 import { usePartClasses } from "../internal/use-part-classes";
 import { mergeClasses } from "../internal/merge-classes";
+import { useSlidingIndicator } from "../internal/use-sliding-indicator";
 
 
 import {
@@ -52,6 +53,15 @@ function prefersReducedMotion() {
   );
 }
 
+function revealSelectedTab(list: HTMLElement) {
+  const selected = list.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+  if (!selected) return;
+  const track = list.getBoundingClientRect(), tab = selected.getBoundingClientRect();
+  // Keep the selection clear of overlaid arrows without scrolling the page.
+  if (tab.left < track.left + 32) list.scrollLeft -= track.left + 32 - tab.left;
+  else if (tab.right > track.right - 32) list.scrollLeft += tab.right - track.right + 32;
+}
+
 function Chevron({
   direction,
 }: {
@@ -93,6 +103,8 @@ interface TabsContextValue {
 
   orientation: PimoluTabsOrientation;
   activationMode: PimoluTabsActivationMode;
+  variant: PimoluTabsProps["variant"];
+  size: PimoluTabsProps["size"];
 }
 
 const TabsContext =
@@ -126,6 +138,7 @@ export function Tabs({ classNames,
 
   variant = "line",
   size = "md",
+  animated = true,
 
   className,
 }: PimoluTabsProps) {
@@ -162,6 +175,8 @@ export function Tabs({ classNames,
       baseId,
       orientation,
       activationMode,
+      variant,
+      size,
     }),
     [
       value,
@@ -169,6 +184,8 @@ export function Tabs({ classNames,
       baseId,
       orientation,
       activationMode,
+      variant,
+      size,
     ]
   );
 
@@ -184,6 +201,7 @@ export function Tabs({ classNames,
           .filter(Boolean)
           .join(" "), partClasses.root)}
         data-orientation={orientation}
+        data-animated={animated ? undefined : "false"}
       >
         {children}
       </div>
@@ -202,6 +220,7 @@ export function TabsList({ classNames,
   "aria-labelledby": ariaLabelledBy,
   dividers = false,
   scrollable = false,
+  showScrollbar = false,
   scrollPreviousLabel = "Previous tabs",
   scrollNextLabel = "Next tabs",
 }: PimoluTabsListProps) {
@@ -212,9 +231,18 @@ export function TabsList({ classNames,
     setValue,
     orientation,
     activationMode,
+    variant,
+    size,
   } = useTabs("TabsList");
 
   const listRef = useRef<HTMLDivElement | null>(null);
+
+  const indicatorLayout = useMemo(() => ({ value, orientation, variant, size, children }), [value, orientation, variant, size, children]);
+  const { indicator, ready: indicatorReady, visible: indicatorVisible } = useSlidingIndicator(
+    listRef,
+    ':scope > [role="tab"][aria-selected="true"]:not([disabled])',
+    indicatorLayout,
+  );
 
   /* A vertical list scrolls as a column; the arrows are for horizontal bars. */
   const isScrollable =
@@ -268,14 +296,18 @@ export function TabsList({ classNames,
 
     if (!list) return;
 
+    const handleResize = () => {
+      revealSelectedTab(list);
+      updateOverflow();
+    };
     const observer =
       typeof ResizeObserver === "function"
-        ? new ResizeObserver(updateOverflow)
+        ? new ResizeObserver(handleResize)
         : null;
 
     observer?.observe(list);
 
-    window.addEventListener("resize", updateOverflow);
+    window.addEventListener("resize", handleResize);
 
     const frame =
       typeof requestAnimationFrame === "function"
@@ -287,7 +319,7 @@ export function TabsList({ classNames,
 
       window.removeEventListener(
         "resize",
-        updateOverflow
+        handleResize
       );
 
       if (frame) cancelAnimationFrame(frame);
@@ -320,30 +352,7 @@ export function TabsList({ classNames,
 
     if (!list) return;
 
-    const selected =
-      list.querySelector<HTMLElement>(
-        '[role="tab"][aria-selected="true"]'
-      );
-
-    if (!selected) return;
-
-    const listRect = list.getBoundingClientRect();
-    const tabRect = selected.getBoundingClientRect();
-
-    /* Keep the selected tab clear of the overlaid arrow buttons. */
-    const arrowInset = 32;
-
-    if (tabRect.left < listRect.left + arrowInset) {
-      list.scrollLeft -=
-        listRect.left + arrowInset - tabRect.left;
-    } else if (
-      tabRect.right >
-      listRect.right - arrowInset
-    ) {
-      list.scrollLeft +=
-        tabRect.right -
-        (listRect.right - arrowInset);
-    }
+    revealSelectedTab(list);
 
     updateOverflow();
   }, [value, isScrollable, updateOverflow]);
@@ -470,6 +479,8 @@ export function TabsList({ classNames,
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         data-dividers={dividers ? "true" : undefined}
+        data-show-scrollbar={showScrollbar ? "true" : undefined}
+        data-indicator={indicatorVisible ? "true" : undefined}
         data-scrollable={
           isScrollable ? "true" : undefined
         }
@@ -483,6 +494,17 @@ export function TabsList({ classNames,
         }
       >
         {children}
+        <span
+          aria-hidden="true"
+          className={mergeClasses("pimolu-tabs__indicator", partClasses.indicator)}
+          data-ready={indicatorReady ? "true" : undefined}
+          hidden={!indicatorVisible}
+          style={indicator ? {
+            transform: `translate3d(${indicator.x}px, ${indicator.y}px, 0)`,
+            width: indicator.width,
+            height: indicator.height,
+          } : undefined}
+        />
       </div>
 
       {isScrollable && overflow.end && (

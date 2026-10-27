@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
     "append": true
+  },
+  {
+    "file": "segmented-control-sliding.tsx",
+    "title": "Sliding indicator and scrolling",
+    "description": "Customize the native CSS indicator, disable animation, or enable scrolling on either axis. Scrollbars are hidden by default and can be shown explicitly.",
+    "append": true
   }
 ]

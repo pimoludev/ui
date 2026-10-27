@@ -56,6 +56,16 @@ features present in the repository.
 
 ## Latest library and website iteration
 
+- Tabs adds a native CSS sliding indicator (workspace only): `animated` defaults
+  to true, `classNames.indicator` exposes the decorative surface, and component
+  CSS variables configure duration/easing. All four variants, unequal widths,
+  vertical/scrolling lists, reduced motion and forced colors are handled.
+  See `docs/TABS_ANIMATION.md` and the Website implementation progress for checks.
+- SegmentedControl shares the private indicator geometry hook, adds `animated`,
+  `scrollable`, `showScrollbar` and `classNames.indicator`. Native scrollbars are
+  hidden by default on its scrollable mode and on TabsList, which also exposes
+  `showScrollbar`. Website base-layer scrollbar rules respect those choices.
+
 - Workspace changes pending a package release: TreeTable supports opt-in `selectionMode="cascade"`
   (hidden descendants, mixed parents, controlled selection); independent selection remains the default.
   The website explorer enables cascade mode and its archive/restore actions modify only local demo data.
@@ -70,7 +80,7 @@ features present in the repository.
 - Kanban full columns no longer mark operable cards aria-disabled. Capacity checks remain on additions/moves.
 - Scheduler exposes one grid Tab entry, arrows including RTL, Home/End, Control+Home/End and F2/Escape.
   Returning from a cell action with Shift+Tab restores grid navigation. Timed events are separate controls.
-- Website references now provide **at least four examples per reference, 665 total**. Additional compositions are extracted
+- Website references now provide **at least four examples per reference, 667 total**. Additional compositions are extracted
   from Playground sections or authored in `apps/website/components/docs/additional/`, selected by
   `apps/website/content/additional/*.json`. Generator: `scripts/build-additional-examples.mjs` in that app.
   Generated files remain ignored. Source API accepts generated ids only; unknown previews return 404.

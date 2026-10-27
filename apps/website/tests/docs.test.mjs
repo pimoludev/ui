@@ -71,7 +71,7 @@ test("expanded variant callbacks preserve object shorthand and property keys", (
   assert.equal(ts.createSourceFile("example.tsx", result, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX).parseDiagnostics.length, 0);
 });
 
-test("all 665 component and 4 standalone guide examples typecheck independently", () => {
+test("all 667 component and 4 standalone guide examples typecheck independently", () => {
   const website = fileURLToPath(new URL("..", import.meta.url));
   const guideExamples = Object.fromEntries(guides.filter((guide) => ["quick-start", "dark-mode", "animation", "styling"].includes(guide.slug)).flatMap((guide) => guide.sections.filter((section) => section.language === "tsx").map((section) => [`guide-${guide.slug}-${section.id}`, section.code])));
   assert.equal(Object.keys(guideExamples).length, 4);
@@ -79,7 +79,7 @@ test("all 665 component and 4 standalone guide examples typecheck independently"
     assert.doesNotMatch(source, /\b\w*VariantMap\b|\boptionsOf\b|\bpg-[\w-]+/, `${key}: private demo machinery in copied code`);
     return [path.join(website, "__snippets__", `${key}.tsx`).replaceAll("\\", "/"), source];
   }));
-  assert.equal(sources.size, 669);
+  assert.equal(sources.size, 671);
   const config = ts.readConfigFile(path.join(website, "tsconfig.json"), ts.sys.readFile);
   const { options } = ts.parseJsonConfigFileContent(config.config, ts.sys, website);
   options.incremental = false;

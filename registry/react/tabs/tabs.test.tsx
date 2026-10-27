@@ -1,9 +1,10 @@
 import {
+  act,
   fireEvent,
   render,
   screen,
 } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   Tabs,
@@ -13,6 +14,113 @@ import {
 } from "./tabs";
 
 import type { PimoluTabsProps } from "./tabs.types";
+
+describe("Tabs sliding indicator", () => {
+  it("keeps native scrollbars hidden by default and allows showing them", () => {
+    const { rerender } = render(<Tabs><TabsList scrollable><TabsTrigger value="one">One</TabsTrigger></TabsList></Tabs>);
+    expect(screen.getByRole("tablist")).not.toHaveAttribute("data-show-scrollbar");
+    rerender(<Tabs><TabsList scrollable showScrollbar><TabsTrigger value="one">One</TabsTrigger></TabsList></Tabs>);
+    expect(screen.getByRole("tablist")).toHaveAttribute("data-show-scrollbar", "true");
+  });
+  afterEach(() => vi.restoreAllMocks());
+
+  function mockLayout() {
+    const boxes: Record<string, { x: number; y: number; width: number; height: number }> = {
+      account: { x: 4, y: 4, width: 80, height: 40 },
+      billing: { x: 92, y: 4, width: 160, height: 40 },
+    };
+    for (const [property, key] of [
+      ["offsetLeft", "x"], ["offsetTop", "y"],
+      ["offsetWidth", "width"], ["offsetHeight", "height"],
+    ] as const) {
+      vi.spyOn(HTMLElement.prototype, property, "get").mockImplementation(function (this: HTMLElement) {
+        return boxes[this.dataset.value ?? ""]?.[key] ?? 0;
+      });
+    }
+    return boxes;
+  }
+
+  it("follows differently sized selected tabs without taking focus or adding a tab stop", () => {
+    mockLayout();
+    const { container } = render(<Example classNames={{ indicator: "custom-indicator" }} />);
+    const indicator = container.querySelector<HTMLElement>(".pimolu-tabs__indicator")!;
+    expect(indicator).toHaveClass("custom-indicator");
+    expect(indicator).toHaveAttribute("aria-hidden", "true");
+    expect(indicator).not.toHaveAttribute("tabindex");
+    expect(indicator.style.transform).toBe("translate3d(4px, 4px, 0)");
+    expect(indicator.style.width).toBe("80px");
+    const account = screen.getByRole("tab", { name: "Account" });
+    account.focus();
+    fireEvent.keyDown(account, { key: "ArrowRight" });
+    expect(screen.getByRole("tab", { name: "Billing" })).toHaveFocus();
+    expect(indicator.style.transform).toBe("translate3d(92px, 4px, 0)");
+    expect(indicator.style.width).toBe("160px");
+    expect(screen.getAllByRole("tab")).toHaveLength(3);
+    expect(screen.getByRole("tabpanel")).toHaveTextContent("Billing panel");
+  });
+
+  it("measures vertical offsets again on resize and hides when selection has no visible trigger", () => {
+    const boxes = mockLayout();
+    const { container, rerender } = render(<Example value="billing" orientation="vertical" />);
+    const indicator = container.querySelector<HTMLElement>(".pimolu-tabs__indicator")!;
+    boxes.billing = { x: 4, y: 52, width: 200, height: 48 };
+    fireEvent(window, new Event("resize"));
+    expect(indicator.style.transform).toBe("translate3d(4px, 52px, 0)");
+    expect(indicator.style.height).toBe("48px");
+    rerender(<Example value="missing" orientation="vertical" />);
+    expect(indicator).toHaveAttribute("hidden");
+    expect(screen.getByRole("tablist")).not.toHaveAttribute("data-indicator");
+  });
+
+  it("tracks controlled changes and supports disabling then re-enabling animation", () => {
+    mockLayout();
+    const { container, rerender } = render(<Example value="account" animated={false} />);
+    const root = container.querySelector(".pimolu-tabs")!;
+    expect(root).toHaveAttribute("data-animated", "false");
+    rerender(<Example value="billing" animated={false} />);
+    expect(container.querySelector<HTMLElement>(".pimolu-tabs__indicator")!.style.width).toBe("160px");
+    rerender(<Example value="billing" animated />);
+    expect(root).not.toHaveAttribute("data-animated");
+  });
+
+  it("does not move for focus-only navigation or a rejected controlled selection", () => {
+    mockLayout();
+    const onValueChange = vi.fn();
+    const { container } = render(<Example value="account" activationMode="manual" onValueChange={onValueChange} />);
+    const indicator = container.querySelector<HTMLElement>(".pimolu-tabs__indicator")!;
+    const account = screen.getByRole("tab", { name: "Account" });
+    account.focus();
+    fireEvent.keyDown(account, { key: "ArrowRight" });
+    expect(indicator.style.width).toBe("80px");
+    fireEvent.click(screen.getByRole("tab", { name: "Billing" }));
+    expect(onValueChange).toHaveBeenCalledWith("billing");
+    expect(indicator.style.width).toBe("80px");
+    fireEvent.click(screen.getByRole("tab", { name: "Team" }));
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("observes resized labels and disconnects observers on unmount", () => {
+    const boxes = mockLayout();
+    const disconnect = vi.fn();
+    const observe = vi.fn();
+    let resize!: ResizeObserverCallback;
+    vi.stubGlobal("ResizeObserver", class {
+      constructor(callback: ResizeObserverCallback) { resize = callback; }
+      observe = observe;
+      disconnect = disconnect;
+      unobserve = vi.fn();
+    });
+    try {
+      const { container, unmount } = render(<Example />);
+      expect(observe).toHaveBeenCalledWith(screen.getByRole("tab", { name: "Account" }));
+      boxes.account.width = 120;
+      act(() => resize([], {} as ResizeObserver));
+      expect(container.querySelector<HTMLElement>(".pimolu-tabs__indicator")!.style.width).toBe("120px");
+      unmount();
+      expect(disconnect).toHaveBeenCalled();
+    } finally { vi.unstubAllGlobals(); }
+  });
+});
 
 function Example(props: Partial<PimoluTabsProps> = {}) {
   return (

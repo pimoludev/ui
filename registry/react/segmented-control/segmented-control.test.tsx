@@ -4,7 +4,7 @@ import {
   screen,
 } from "@testing-library/react";
 import { createRef } from "react";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { SegmentedControl } from "./segmented-control";
 
@@ -13,6 +13,60 @@ const options = [
   { value: "board", label: "Board" },
   { value: "timeline", label: "Timeline" },
 ];
+
+describe("SegmentedControl sliding surface", () => {
+  afterEach(() => vi.restoreAllMocks());
+  function layout() {
+    const boxes: Record<string, number[]> = { list: [4, 4, 64, 32], board: [68, 4, 96, 32], timeline: [164, 4, 128, 32] };
+    for (const [i, key] of (["offsetLeft", "offsetTop", "offsetWidth", "offsetHeight"] as const).entries()) {
+      vi.spyOn(HTMLElement.prototype, key, "get").mockImplementation(function(this: HTMLElement) { return boxes[this.dataset.value ?? ""]?.[i] ?? 0; });
+    }
+    return boxes;
+  }
+  it("tracks unequal radio sizes while preserving form value and keyboard focus", () => {
+    layout();
+    const { container } = render(<SegmentedControl options={options} name="view" classNames={{ indicator: "custom-marker" }} />);
+    const marker = container.querySelector<HTMLElement>(".pimolu-segmented-control__indicator")!;
+    expect(marker).toHaveClass("custom-marker");
+    expect(marker).toHaveAttribute("aria-hidden", "true");
+    expect(marker.style.width).toBe("64px");
+    screen.getByRole("radio", { name: "List" }).focus();
+    fireEvent.keyDown(screen.getByRole("radiogroup"), { key: "End" });
+    expect(screen.getByRole("radio", { name: "Timeline" })).toHaveFocus();
+    expect(marker.style.transform).toBe("translate3d(164px, 4px, 0)");
+    expect(marker.style.width).toBe("128px");
+    expect(container.querySelector('input[name="view"]')).toHaveValue("timeline");
+  });
+  it("keeps animation and scrollbar controls explicit without forwarding unknown DOM props", () => {
+    layout();
+    const { rerender } = render(<SegmentedControl options={options} animated={false} scrollable />);
+    const group = screen.getByRole("radiogroup");
+    expect(group).toHaveAttribute("data-animated", "false");
+    expect(group).toHaveAttribute("data-scrollable", "true");
+    expect(group).not.toHaveAttribute("data-show-scrollbar");
+    expect(group).not.toHaveAttribute("animated");
+    expect(group).not.toHaveAttribute("scrollable");
+    rerender(<SegmentedControl options={options} showScrollbar animated scrollable />);
+    expect(group).toHaveAttribute("data-show-scrollbar", "true");
+    expect(group).not.toHaveAttribute("data-animated");
+  });
+  it("remeasures vertical placement and does not move for a rejected controlled choice", () => {
+    const boxes = layout(), onValueChange = vi.fn();
+    const { container, rerender } = render(<SegmentedControl options={options} value="list" orientation="vertical" onValueChange={onValueChange} />);
+    const marker = container.querySelector<HTMLElement>(".pimolu-segmented-control__indicator")!;
+    fireEvent.click(screen.getByRole("radio", { name: "Board" }));
+    expect(onValueChange).toHaveBeenCalledWith("board");
+    expect(marker.style.width).toBe("64px");
+    boxes.board = [4, 40, 160, 36];
+    rerender(<SegmentedControl options={options} value="board" orientation="vertical" />);
+    expect(marker.style.transform).toBe("translate3d(4px, 40px, 0)");
+    boxes.board[2] = 180;
+    fireEvent(window, new Event("resize"));
+    expect(marker.style.width).toBe("180px");
+    rerender(<SegmentedControl options={options} value="missing" />);
+    expect(marker).toHaveAttribute("hidden");
+  });
+});
 
 describe("Pimolu SegmentedControl", () => {
   it("renders a radiogroup and selects the first enabled option", () => {

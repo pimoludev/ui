@@ -98,7 +98,9 @@ export const extendedComponents = [
     },
     "description": "Switch between a few mutually exclusive views.",
     "usage": [
-      "Keep options short and use a Select when the list becomes long."
+      "Keep options short and use a Select when the list becomes long.",
+      "The workspace adds a CSS sliding indicator. Use animated=false to disable it, classNames.indicator to customize its surface, and --pimolu-segmented-indicator-duration / --pimolu-segmented-indicator-easing for timing. Reduced motion always wins.",
+      "Options wrap by default. Enable scrollable to scroll horizontally, or vertically with orientation=vertical and a bounded style.maxHeight. Native scrollbars stay hidden unless showScrollbar is true. These additions await the next npm release."
     ],
     "accessibility": [
       "Name the control and ensure selected state remains clear without color."

@@ -35,6 +35,7 @@ function ProjectTabs({
       activationMode={activationMode}
       classNames={{
         root: "custom-tabs-root",
+        indicator: "custom-tabs-indicator",
         trigger: "custom-tabs-trigger"
       }}
     >
@@ -95,6 +96,9 @@ export function DemoExample() {
 }
 .custom-tabs-trigger {
   font-weight: 600;
+}
+.custom-tabs-indicator {
+  border-radius: 999px;
 }
 `
         }

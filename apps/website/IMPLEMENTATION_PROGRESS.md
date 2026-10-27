@@ -1,5 +1,59 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 27 octobre 2026 — SegmentedControl et présentation des onglets
+
+- Géométrie de l’indicateur partagée dans le hook privé
+  `registry/react/internal/use-sliding-indicator.ts` : Tabs et SegmentedControl
+  gardent une animation CSS native sans nouvelle dépendance.
+- SegmentedControl : `animated`, `scrollable`, `showScrollbar` et
+  `classNames.indicator` ; durée/courbe via variables CSS. Options repliables
+  par défaut, défilement horizontal ou vertical facultatif. Valeur de formulaire,
+  sélection contrôlée, focus, disabled et réduction des animations conservés.
+- TabsList : `showScrollbar` opt-in, axe vertical masqué en liste horizontale,
+  sélection révélée après redimensionnement. Les règles de scrollbar du website
+  passent dans `@layer base` pour respecter la politique des composants.
+- Galerie Segmented des Tabs : cartes avec largeur minimale responsive de 420 px,
+  deux colonnes à 1012 px et une sur mobile ; menu vertical et panneau lisibles.
+  Contrôle réel de visibilité de la scrollbar ajouté à l’exemple défilant.
+- Playground et website : démonstrations interactives, API générée et guide
+  `docs/TABS_ANIMATION.md`. 667 exemples de composants + quatre guides compilés.
+- Vérifications : `pnpm check` réussi (1 474 tests React, 30 CSS), 36 tests de
+  documentation, build production/types/lint du site et build/lint Playground.
+  63 tests navigateur ciblés passent sur Chromium, Firefox et WebKit.
+  Firefox calcule les barres natives en `none` dans cet environnement même
+  pour une déclaration inline explicite ; les tests utilisent un témoin natif
+  indépendant pour respecter ce réglage, sans forcer un faux rendu.
+- Revue : 448 contrôles de géométrie dans 28 configurations de SegmentedControl
+  (sept presets × deux modes × mobile/desktop), orientations, RTL et défilement.
+  Captures locales de 14 galeries desktop et deux mobiles, sans changer de
+  snapshots de référence. Avertissement Vite de taille de chunk conservé.
+- Aucun commit, push ou publication.
+
+## 27 octobre 2026 — Indicateur Tabs en CSS natif
+
+- `registry/react/tabs/` mesure un indicateur partagé par liste ; translation
+  CSS, dimensions variables, redimensionnement, listes verticales/défilantes et
+  RTL. Aucun moteur d’animation ajouté. Pas d’entrée depuis l’origine au montage.
+- API additive : `animated` (actif par défaut), `classNames.indicator`, variables
+  `--pimolu-tabs-indicator-duration` et `--pimolu-tabs-indicator-easing`.
+  Réduction des animations prioritaire ; bordure statique en contraste forcé.
+- `packages/web-styles/src/tabs.css` conserve les quatre traitements visuels et
+  empêche les libellés segmented de se chevaucher dans une liste étroite.
+- Playground : démonstration réglable et nouveau hook dans la personnalisation.
+  Website : exemple supplémentaire autonome, API générée, explications, notes
+  Unreleased ; 666 exemples de composants et quatre exemples de guides compilés.
+  Guide détaillé : `docs/TABS_ANIMATION.md`.
+- Vérifications : `pnpm check` réussi (1 470 tests React, 30 tests CSS) ;
+  36 tests de documentation ; build production, types et lint du site réussis.
+  Les 48 tests Playwright ciblés passent sur Chromium, Firefox et WebKit
+  (indicateur, reader-experience et site-polish).
+- Revue Playground : 896 contrôles de géométrie dans 28 configurations
+  (sept presets × clair/sombre × 390/1440 px), avec quatre variants, deux
+  orientations et deux directions. 28 captures responsive et 56 captures des
+  variants ; artefacts locaux dans `.artifacts/tabs-indicator/`, sans modifier
+  de snapshots de référence. Avertissement Vite de taille de chunk conservé.
+- Aucun commit, push ou publication. Ces ajouts attendent la prochaine version npm.
+
 ## 23 octobre 2026 — Blog et navigation releases sur mobile
 
 - Filtres du journal en grille de deux colonnes égales à 640 px et moins,

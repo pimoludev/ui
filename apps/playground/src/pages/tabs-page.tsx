@@ -1,4 +1,5 @@
 import { CustomizationExample } from "./tabs-customization-demo";
+import { SlidingIndicatorTabs } from "./tabs-sliding-demo";
 import { useState } from "react";
 
 import {
@@ -364,6 +365,7 @@ function SegmentedMenuTabs() {
 }
 
 function ScrollableSegmentedTabs() {
+  const [showScrollbar, setShowScrollbar] = useState(false);
   const analytics = [
     { value: "performance", label: "Performance" },
     { value: "engagement", label: "Engagement" },
@@ -376,10 +378,13 @@ function ScrollableSegmentedTabs() {
   ];
 
   return (
+    <div className="pg-stack">
+    <Checkbox label="Show native scrollbar" checked={showScrollbar} onCheckedChange={setShowScrollbar} />
     <Tabs defaultValue="retention" variant="segmented">
       <TabsList
         aria-label="Analytics sections"
         scrollable
+        showScrollbar={showScrollbar}
         scrollPreviousLabel="Previous tabs"
         scrollNextLabel="Next tabs"
       >
@@ -405,6 +410,7 @@ function ScrollableSegmentedTabs() {
         </TabsContent>
       ))}
     </Tabs>
+    </div>
   );
 }
 
@@ -463,7 +469,7 @@ export function TabsPage() {
         title="Segmented"
         hint="A neutral pill track with an elevated active segment. Dividers separate inactive segments; the vertical form becomes a menu; the scrollable form adds previous/next buttons when the tabs overflow."
       >
-        <div className="pg-grid pg-grid--two pg-grid--start">
+        <div className="pg-grid pg-grid--start" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))" }}>
           <Card>
             <CardHeader>
               <CardTitle>Pill track</CardTitle>
@@ -625,6 +631,7 @@ export function TabsPage() {
           </Card>
         </div>
       </Section>
+    <Section title="Sliding indicator" hint="A shared CSS indicator follows the selected tab, including unequal widths, vertical lists and interruptions. Customize its duration and easing, or disable animations with animated=false. Reduced motion always takes priority."><SlidingIndicatorTabs /></Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
 </>
   );

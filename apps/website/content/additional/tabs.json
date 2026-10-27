@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
     "append": true
+  },
+  {
+    "file": "tabs-sliding.tsx",
+    "title": "Sliding indicator",
+    "description": "The active indicator follows unequal tab widths using native CSS transitions. Customize duration and easing with CSS variables, or set animated=false. Reduced motion always takes priority.",
+    "append": true
   }
 ]

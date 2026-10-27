@@ -70,6 +70,7 @@
   .docs-article .pimolu-codeblock__code { display: grid; }
   .example-switcher { min-width: 0; }
   .example-switcher > .pimolu-tabs__list-wrap { width: fit-content; margin-block-end: 20px; }
+  .example-switcher > .pimolu-tabs__list-wrap > .pimolu-tabs__list { gap: var(--pimolu-spacing-1, 4px); }
   .example-preview-panel > * + * { margin-block-start: 24px; }
   .example-code-status { min-height: 160px; padding: 24px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-lg); color: var(--pimolu-muted-foreground); }
   .example-code-status > * + * { margin-block-start: 16px; }

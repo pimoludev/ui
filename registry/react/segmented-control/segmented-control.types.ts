@@ -47,6 +47,15 @@ export interface PimoluSegmentedControlProps
   /** Stretch the segments across the container. */
   fullWidth?: boolean;
 
+  /** Animate the active surface. Defaults to true; respects reduced motion. */
+  animated?: boolean;
+
+  /** Scroll instead of wrapping. Defaults to false. Limit style.maxHeight for vertical scrolling. */
+  scrollable?: boolean;
+
+  /** Show the native scrollbar when scrollable. Defaults to false. */
+  showScrollbar?: boolean;
+
   /** Disable the whole control. */
   disabled?: boolean;
 

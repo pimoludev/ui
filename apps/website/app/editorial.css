@@ -58,6 +58,7 @@
     .journal-filters .pimolu-input { width: 100%; }
     .journal-filters .pimolu-segmented-control { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; width: 100%; border-radius: var(--pimolu-radius-lg, 12px); }
     .journal-filters .pimolu-segmented-control__item { min-width: 0; min-height: 40px; border-radius: var(--pimolu-radius-md, 8px); }
+    .journal-filters .pimolu-segmented-control__indicator { border-radius: var(--pimolu-radius-md, 8px); }
     .journal-article-header { margin-block: 32px; }
     .journal-article-header > p { font-size: 1rem; }
   }
