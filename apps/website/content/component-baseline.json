@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.3",
   "references": [
     "theme-builder",
     "button",
@@ -62,7 +62,11 @@
     "data-table",
     "data-grid",
     "tree-table",
-    "chart",
+    "bar-chart",
+    "line-chart",
+    "area-chart",
+    "donut-chart",
+    "sparkline",
     "api-table",
     "stat",
     "timeline",
@@ -133,7 +137,7 @@
   ],
   "components": {
     "theme-builder": {
-      "fingerprint": "681fea371033f61f28d589a4c8ba3d83cd64a07d66dfdf1a030bfd5e33efa4dd",
+      "fingerprint": "79357dca72bcf4864d405c55b7526c665a2acaa96a41a2012c7e38e9e5309a2a",
       "exports": [
         "ThemeBuilder",
         "DEFAULT_THEME_BUILDER_BRAND_COLOR",
@@ -142,41 +146,41 @@
       ]
     },
     "button": {
-      "fingerprint": "3d6a1bb7dc8df1fe36c3d7a7f523e99d2cb289496624508cb5c75351a78550c6",
+      "fingerprint": "38b30189a464129c363a0228f6862ab80ccdd5b8eeb2177a09e97b8f3a9e0e47",
       "exports": [
         "Button",
         "buttonVariantMap"
       ]
     },
     "button-group": {
-      "fingerprint": "56f8ce55fe5899fae7b3fd8c6ef16d6d9412f70663afd95d3350bf5e33685a15",
+      "fingerprint": "cce2177cdd99dd50eaa420c78f2c4bb2dccc528c125eae1b4c47725b8419c3dc",
       "exports": [
         "ButtonGroup",
         "ButtonGroupSeparator"
       ]
     },
     "split-button": {
-      "fingerprint": "aca4d37fa9535786f6b359b4e8d9263d45e0da53776bcc46caa1ae02ddaa6d94",
+      "fingerprint": "549778640c379836caf958d6c285826f1ae582dbb6079b48339f44e63fb5fc30",
       "exports": [
         "SplitButton"
       ]
     },
     "toggle": {
-      "fingerprint": "4e247fb17233cf28fba487426f0bbe369731bb7b8ee3620feed929633e68205a",
+      "fingerprint": "8e2c3962d9f1a548b2907aef71303dc3b663a83d3e8ab882d5fe0e3c68d77a7f",
       "exports": [
         "Toggle",
         "toggleVariantMap"
       ]
     },
     "toggle-group": {
-      "fingerprint": "122bf04e509fa003eee2d85cf28aa25ed0144380679de4b9d0f3612fe0560f56",
+      "fingerprint": "384cd882eb270514262a5c7e5a8828fe6a2c7810b1df3f982526b28eef5ccf16",
       "exports": [
         "ToggleGroup",
         "ToggleGroupItem"
       ]
     },
     "toolbar": {
-      "fingerprint": "44091c7444e2a193f0d246551999898a59f0ba84a2f3f6653d704f03b0eeb40d",
+      "fingerprint": "b1d1fd295003d3bce30530b00f015a3ff55e645384e8188756e268b9d9b2aa4a",
       "exports": [
         "Toolbar",
         "ToolbarGroup",
@@ -188,13 +192,13 @@
       ]
     },
     "popconfirm": {
-      "fingerprint": "2bdea5f0cd647ba026983c50761640fbaedd4ead575939db47dbbd27d5d75f11",
+      "fingerprint": "f22f62c002a302a393b48300eb5e5487fb13a834176639a009d04c0b979f4b2b",
       "exports": [
         "Popconfirm"
       ]
     },
     "tabs": {
-      "fingerprint": "53d9243ae93ddd6704d0ca676a930d0bff7e2fbbe883c8c9000291e5bae7abde",
+      "fingerprint": "8f9e1b8dc40da50cbb28c8917cd00cfe794d27ef707cf4972e042b4b08a7a0bd",
       "exports": [
         "Tabs",
         "TabsList",
@@ -204,21 +208,21 @@
       ]
     },
     "segmented-control": {
-      "fingerprint": "abafc8498876296e45c89c977263488c2eb613af58c2f2f97088361388429113",
+      "fingerprint": "5e7564841115855db6b99daca901cbbecdcdda5c85ea1a983c3548f2a38156fc",
       "exports": [
         "SegmentedControl",
         "segmentedControlVariantMap"
       ]
     },
     "link": {
-      "fingerprint": "7ecde8de95e70bee6e0c6240c420025982344147a195d333e421fdfb13aac411",
+      "fingerprint": "578e8b3c3df940af5e5a0e29a7d43dc0a923c43477b7d857908ed7461824bc43",
       "exports": [
         "Link",
         "linkVariantMap"
       ]
     },
     "accordion": {
-      "fingerprint": "b3e5eb17629d7b0264ece29179be191e1e19e3f424dfb88d96ff36aec5a38bf7",
+      "fingerprint": "3ee3e948e756084ae8f972a00a7005a815edf447d9a709e55e42a923f9a46a9e",
       "exports": [
         "Accordion",
         "AccordionItem",
@@ -228,7 +232,7 @@
       ]
     },
     "breadcrumbs": {
-      "fingerprint": "1dd1706bbb67500e8f8a2faa28948fcf262ccbd475a6135f5168e0b3d49f8fb1",
+      "fingerprint": "f2f1343eb04baab818a7e3ce0fc3b8e2f922f41fc913a1cfad866f89db143b8c",
       "exports": [
         "Breadcrumbs",
         "BreadcrumbItem",
@@ -238,21 +242,21 @@
       ]
     },
     "pagination": {
-      "fingerprint": "ab4e607a711ce477375385c783a5f2a33f80a6417cbee5c21ce4266e6ce1894c",
+      "fingerprint": "4b50f8ca15b9fb6dc408560b4b7ae52e9d8b23758d3ac3880b298a1a0bf91f08",
       "exports": [
         "Pagination",
         "paginationVariantMap"
       ]
     },
     "stepper": {
-      "fingerprint": "ff6ba4a444d5cb0811866b26e264e0e406e5851fcad8fb4f7ec4e6f7f0ecec4c",
+      "fingerprint": "fb2ef58061370f7d633df87a965270d0372287a69c5831a9c93fb25a965cbeb4",
       "exports": [
         "Stepper",
         "StepperItem"
       ]
     },
     "navigation-menu": {
-      "fingerprint": "c1b0b9d3c95044a39e697e26881ca85a1f71d3c7a6cecbad97b6279666db7d83",
+      "fingerprint": "d09b0ca06e4fff59d3f3b0155b7fe9349e2f1749de6f3ac1c2f19b10599aa9ef",
       "exports": [
         "NavigationMenu",
         "NavigationMenuList",
@@ -263,7 +267,7 @@
       ]
     },
     "menubar": {
-      "fingerprint": "eef75c39db51b0051158c94d7601c11dd683a097cc1aa5f285b5f5d1122e0163",
+      "fingerprint": "eb71e0ec5fc46919fd9c8957b969870a861a78aa4ce2829d8805dc09cbaacc3d",
       "exports": [
         "Menubar",
         "MenubarMenu",
@@ -275,27 +279,27 @@
       ]
     },
     "table-of-contents": {
-      "fingerprint": "6a28d69044110ae8958dd5f23733316b739993e2834d6937dc5d735d77d38128",
+      "fingerprint": "690b86e006a6dab111fea7022b25447552dfe1e5abebe9d8cd401f08d3dad4ef",
       "exports": [
         "TableOfContents"
       ]
     },
     "checkbox": {
-      "fingerprint": "c449356f91274700ae34c9c707dbf9cf646ebea83bd8d9b68215a4d2ce1ae062",
+      "fingerprint": "57cd1998f85d988d315cf90fa81eafda85c13ed7263f599beb1ae38afcaf29c0",
       "exports": [
         "Checkbox",
         "checkboxVariantMap"
       ]
     },
     "combobox": {
-      "fingerprint": "071418fc3d0a1f1fa1ed3953b85228dce67627b2903844693a6fb66f03da48b9",
+      "fingerprint": "31c1294b4b697a9e5732bee639af06d7b2cb5f7a68b9aee33e58872b6362c101",
       "exports": [
         "Combobox",
         "comboboxVariantMap"
       ]
     },
     "form-field": {
-      "fingerprint": "35291ec913c906dc89ce661d1471191462960bf66895a26616bce2d2da5df05d",
+      "fingerprint": "cb020082adea9dc5f1f43cfcaa2f7677da70f3c3fc4d4446e5b7000d45a3a113",
       "exports": [
         "FormField",
         "FormControl",
@@ -305,28 +309,28 @@
       ]
     },
     "input": {
-      "fingerprint": "bf0da6e8f34669baf2f07b75f560a394de62d8257becbb0ea8fece16fddd2589",
+      "fingerprint": "e24db954276c5b1e03b76937dee3cee274dfbbf2023e6110c3611805460e878c",
       "exports": [
         "Input",
         "inputVariantMap"
       ]
     },
     "label": {
-      "fingerprint": "5cdc3f2da66a3caca93408476943a182169ca5dde2e2069381bfc699300300fe",
+      "fingerprint": "26cc3a6ad6e4b4bd94057119232a82d758ca9a939658e57f549af34046c2f9b7",
       "exports": [
         "Label",
         "labelVariantMap"
       ]
     },
     "multi-select": {
-      "fingerprint": "2b4c92d5ffa7d9ee49eff5a97fd00a116ae8fc536e2ecc685ff9df2b6da90315",
+      "fingerprint": "a1fa28996ef66860de58e4627c0571848f652613af67d4285b393bb4c480ffb8",
       "exports": [
         "MultiSelect",
         "multiSelectVariantMap"
       ]
     },
     "radio": {
-      "fingerprint": "79114ef9220164411500d1109b1d0921c81894454cc054875b96fae403bd3669",
+      "fingerprint": "6e562e0b0c363773833210c0bdc122de005a9d55cffea990ee16d80c6ad81d8b",
       "exports": [
         "Radio",
         "RadioGroup",
@@ -335,97 +339,97 @@
       ]
     },
     "range-slider": {
-      "fingerprint": "85c3e88a7bb102d274f7f092be9f136ab2203b32eacae66836c2348901db3088",
+      "fingerprint": "4b73ec9ca8b62e8b3ed5f7a36204b25bc11a808d69fc527dc6086cfb898262ba",
       "exports": [
         "RangeSlider",
         "rangeSliderVariantMap"
       ]
     },
     "select": {
-      "fingerprint": "a23cf713f0e85ce89c6d53cfe52593f8a5ff4b54647b3d4be9e623ff651c97ca",
+      "fingerprint": "a1ad3c5fef77d93f74d82912a3db9cfba7c4caafb5accef26bd6045322678bae",
       "exports": [
         "Select",
         "selectVariantMap"
       ]
     },
     "slider": {
-      "fingerprint": "efd9d8a6c3922f1b1330835d62a3efc18f314a953a34c9226ecc2ab1bd0af13c",
+      "fingerprint": "ee2c4a425354f03216ea9cf3431d7f8c47f0abcfc35ad65c88c4212da7eb5468",
       "exports": [
         "Slider",
         "sliderVariantMap"
       ]
     },
     "switch": {
-      "fingerprint": "505c24c5a2a53f29701cbe447afa800fad03ab2fb770f76b2f2bade5c6d9316c",
+      "fingerprint": "4805a60d7e043cb73a1a4cd0f7aa3c3932779c664226e4f20b4be7e3fc727a27",
       "exports": [
         "Switch",
         "switchVariantMap"
       ]
     },
     "textarea": {
-      "fingerprint": "f144bdc891572d2891fbe43f207fc1cadba31a3f9d5d6a844506c709e60f34e9",
+      "fingerprint": "67828f6ead21d9f0cc0c5c970604bb805b650a5b9226adc18891500529b86f4e",
       "exports": [
         "Textarea",
         "textareaVariantMap"
       ]
     },
     "number-input": {
-      "fingerprint": "78258c97faaae822ab391f9055fdd5b4276e8005b451286a7bef55d050bb9428",
+      "fingerprint": "0c53d7c2faec35a0ae4b643c5ad90420245079d41f60921dac2934d3626bd65c",
       "exports": [
         "NumberInput"
       ]
     },
     "pin-input": {
-      "fingerprint": "cfcbe220e9ecd937ba941d539ae351f79a7c8a71d6c1222e4a6e53b73a80ddaf",
+      "fingerprint": "f4ecae725edcbe42f4e435bcf1560e80b0a549f2a9ce4895a7f615f154f4bca6",
       "exports": [
         "PinInput"
       ]
     },
     "tags-input": {
-      "fingerprint": "02b42c69f51cbe1568303c18f03f5548d905c63721a0c115ecd94acc88974e53",
+      "fingerprint": "119a21461fa44cc23d6eb3cdef78bea81bd684cf2f67297f4afca9461f983418",
       "exports": [
         "TagsInput"
       ]
     },
     "time-picker": {
-      "fingerprint": "786602dd585cb6a281c4fd3c4a3e369028dbd6580ae222d7e108f65b2ecc67e0",
+      "fingerprint": "732bf61db8ee5563a0f1f9e9ad052e1f085c3a349a9f270df46c3425866da1ab",
       "exports": [
         "TimePicker"
       ]
     },
     "calendar": {
-      "fingerprint": "b40b36eb6411cd1a1e91ca73fd0c7de126e9334066aa1031a3335306e29ca2f6",
+      "fingerprint": "ae54dceb2519671815a351e3825fdf9bf459623af2cad3f92c859822917b7ac7",
       "exports": [
         "Calendar"
       ]
     },
     "date-picker": {
-      "fingerprint": "256dc082f0580deeeeb87febb9725b99b0e58ee912baa0bcc3b237f30cbde0d0",
+      "fingerprint": "cc8191f89fc7eface6574565768edd1e938069c92d62ff26159a8a73ab1ee1ae",
       "exports": [
         "DatePicker"
       ]
     },
     "date-range-picker": {
-      "fingerprint": "f2e303ac0752039270af13a73973019e046a22fe8800fad131d454dc1454380a",
+      "fingerprint": "21cb4cf8bbeb1a811946a41707d2a0a4a85caffdc226d8d9333e80b725370af2",
       "exports": [
         "DateRangePicker"
       ]
     },
     "file-upload": {
-      "fingerprint": "550e553911643eb6ca7cd5661c007c58ac30d725e11077f52045ebbc5bc7f7c1",
+      "fingerprint": "938565420202b58110aa72834cc6f2d3d2625e00bae53ec5aab3f398b4ea0cb3",
       "exports": [
         "FileUpload",
         "formatFileSize"
       ]
     },
     "dropzone": {
-      "fingerprint": "3dad6d2941e58aac16b61fcbe8a2e73968c18113fabc05fa1a4d323b694838ed",
+      "fingerprint": "06c0fa4be68401de39e2c5356b8e83bee3ee6deaa49bc96ecab606566eca322d",
       "exports": [
         "Dropzone"
       ]
     },
     "color-picker": {
-      "fingerprint": "716b355525572daca1b8792f3e0868f9e553aa3d388badc3bc3bd2ed578c4bc4",
+      "fingerprint": "fbbdc83838832930229c543520c31b72bcc16e73b3c11f7d5239e8ba47538813",
       "exports": [
         "ColorPicker",
         "DEFAULT_COLOR_PICKER_VALUE",
@@ -434,20 +438,20 @@
       ]
     },
     "search-input": {
-      "fingerprint": "e555a208debb26fcb095da1c14075b311b42df6f7f89baf62b86fd91a60d1fca",
+      "fingerprint": "ddb7f2f72cccea567d4cbd49a11c5936903b0a6a0c60611946a1d51f0b760ee0",
       "exports": [
         "SearchInput",
         "searchInputSizes"
       ]
     },
     "password-input": {
-      "fingerprint": "e2eedd339801360643b53f3720c43a966b76b6096f269de0007fba124fcfc67b",
+      "fingerprint": "2337cdcf39dbdfd9f52abb09a34b4405242afc2ab66cc8e301500ed160640121",
       "exports": [
         "PasswordInput"
       ]
     },
     "input-group": {
-      "fingerprint": "d1fd552401797725adb5232c4e145e40c5d64086bb62e607b017fa7cc046fbde",
+      "fingerprint": "4adec182b2f6c6b558fc105a50ec4a0100ba6eb76c03887c5e82473a86724272",
       "exports": [
         "InputGroup",
         "InputGroupAddon",
@@ -457,19 +461,19 @@
       ]
     },
     "tree-select": {
-      "fingerprint": "7f3d6db904e382e62001febcf69f1884e1178c04cdf9012f36b0707c2c89b90f",
+      "fingerprint": "f142dc5676a5e1686d195b9f678f6f09915554755ae93d4c97432f334cb0d676",
       "exports": [
         "TreeSelect"
       ]
     },
     "signature": {
-      "fingerprint": "3ea327f1eb2a48ef372a481b54899e4987ec769416f92f47a417730b63f52823",
+      "fingerprint": "9dbc10b1cdb38ecc3d2c0a453826a832a253f3347eb98fc63166c1a8d7b76bf2",
       "exports": [
         "Signature"
       ]
     },
     "form": {
-      "fingerprint": "e0e00117e9b5d526e49caca066d96c9c020d7729f615766539365f0375ac8e34",
+      "fingerprint": "3e0cb811786e630ee5b9c0d96917467000cf5c5712850c1a2b1adca764fecb4f",
       "exports": [
         "Form",
         "FormError",
@@ -478,44 +482,44 @@
       ]
     },
     "masked-input": {
-      "fingerprint": "f628c3cc6f7c954e0074d999adce69b703624a79e676646f232a6f72a3d12d9f",
+      "fingerprint": "404cb9762d03e3af07c4392e59ae1b0f363075a5c908052f0cfa50c16189fac7",
       "exports": [
         "MaskedInput"
       ]
     },
     "currency-input": {
-      "fingerprint": "e547cdfe0ea8549fbcb199dcacd64a2c04f7f17529b8f9145dc20f5910fe676a",
+      "fingerprint": "710b0e9623e530c21711f7b3619bbe1253304254f7929394a515015d7312fb9a",
       "exports": [
         "CurrencyInput"
       ]
     },
     "phone-input": {
-      "fingerprint": "e0ea38d090a6eb50f2541dc8ff3d7989f6d8298f3b774e2a5d5e71c84f023480",
+      "fingerprint": "10f9400d19ecd7541d9bdd0cc90edd7ef36a06fafc58848d6549b29482bf26f3",
       "exports": [
         "PhoneInput",
         "defaultPhoneCountries"
       ]
     },
     "mentions": {
-      "fingerprint": "f9280fafe81e9929dc7ef50f96e8ea5103b8aba449639f37e1f29b8f13105a73",
+      "fingerprint": "62295f871749d392561e8f903e3d8ad18b98d8a64893dd6bfc115191244bd2b8",
       "exports": [
         "Mentions"
       ]
     },
     "cascader": {
-      "fingerprint": "cc66f36ee8f9d406630bf2e222125da101361f0801a74a17438cf3359ad0d1ef",
+      "fingerprint": "c0577e460f7ff2d22986b1a92994319ae8649641897df8454215c1846a289bab",
       "exports": [
         "Cascader"
       ]
     },
     "transfer": {
-      "fingerprint": "9809654639c7a06641648be1663a6a3ff6c023349d9c62cd941b7233c143e189",
+      "fingerprint": "10550f9ba744b157ccb3272db03af1dc969f7d966b2a076518fd4f47dfa24cda",
       "exports": [
         "Transfer"
       ]
     },
     "avatar": {
-      "fingerprint": "522221a063bc72d6c297fd375288c1a25856cdfd5b8895a428c76c0f85b76b77",
+      "fingerprint": "546a7a6d8d3cb93dae135a298cf737b98935531d24f88622f6a8279bf96df39c",
       "exports": [
         "Avatar",
         "getAvatarInitials",
@@ -525,14 +529,14 @@
       ]
     },
     "badge": {
-      "fingerprint": "e99892732c2b4bc11d1f81d8e7053ba04bb80585d2b851d8a551ff255da1494f",
+      "fingerprint": "7ef764f939960acb242445f4812447e4b59fa9126f1671ce196594524d89289b",
       "exports": [
         "Badge",
         "badgeVariantMap"
       ]
     },
     "card": {
-      "fingerprint": "c9d2f6f560bdd04f508c551eaead389d226c8aa79cb622e75cfd292b90345cda",
+      "fingerprint": "23b3f5709f2cb5757fdf24c454c11d1153d8a758061998d4467177e96aac98f2",
       "exports": [
         "Card",
         "CardHeader",
@@ -544,7 +548,7 @@
       ]
     },
     "list": {
-      "fingerprint": "0bafaadd48affe89c34273c399e3aeb8f1b8c950126fb05c61f58722bd0c771d",
+      "fingerprint": "df50439397ad11ec3fa4f92e49d3bdd55f6c4dea317147c22b9d866bad2c0dc2",
       "exports": [
         "List",
         "ListItem",
@@ -552,7 +556,7 @@
       ]
     },
     "description-list": {
-      "fingerprint": "214c1750edec753c02398fdc8973b9e20bd94be6e8e75a34f777eb0edae99d32",
+      "fingerprint": "6c8b7ee10875298165b4ddbb9cb39f9e531d1f5461eefe3cde96b927850f7ca2",
       "exports": [
         "DescriptionList",
         "DescriptionItem",
@@ -560,7 +564,7 @@
       ]
     },
     "table": {
-      "fingerprint": "c65387a811e678343d8b31f99d46ac606bcecc2109a84e2f783c013fc6295f27",
+      "fingerprint": "625b04d30f8369e3fd16b1954d8a8d01999e79b8db0788911bd6b2a67706515e",
       "exports": [
         "Table",
         "TableHeader",
@@ -573,25 +577,25 @@
       ]
     },
     "data-table": {
-      "fingerprint": "09085435d51ba2986466d2301ed2bab20a8433f4b5fd08b38bd64b637f634e8d",
+      "fingerprint": "fef290affd1b3b1ca701cb1d4714ef20d4248c51bb18d0c6d1e5c3cf4c08634b",
       "exports": [
         "DataTable"
       ]
     },
     "data-grid": {
-      "fingerprint": "6caa2fecfa6f1b9487e0c4a11a26696d1939223433e7361f9d84f546543c45d8",
+      "fingerprint": "b5bf9c8d32295274ea098aee80ca92126e7cbb7c8867d7d592b8712dcd34bb0f",
       "exports": [
         "DataGrid"
       ]
     },
     "tree-table": {
-      "fingerprint": "a4fcdfc7f926bcc8caac2df161f937ef5a1a542319b634f0d062743f277cab2f",
+      "fingerprint": "9855dd7a42703ef06f1b00bc5dd3174814f778398a0ea8aa4ab44a6db0051af8",
       "exports": [
         "TreeTable"
       ]
     },
     "chart": {
-      "fingerprint": "8f8bffddab622f8d692314cd9a316c37557e4d56608cea69824f687109f37cb9",
+      "fingerprint": "33e2154599f22e53b1415b817cc104adcce89cb6055164083c21616eaec2882d",
       "exports": [
         "BarChart",
         "LineChart",
@@ -601,19 +605,19 @@
       ]
     },
     "api-table": {
-      "fingerprint": "14fdb5bb1a7d15ba714a4f027d446099a6cea29541b0273b875150fa6bbb3d18",
+      "fingerprint": "cb2de6b3950dc4de294490dbd83576b43c2ea6f02b322f7f871ef12b626a71e0",
       "exports": [
         "ApiTable"
       ]
     },
     "stat": {
-      "fingerprint": "23548aa6dae96d84cca0caba51a222e562fe101521ed082eefd9799de04769b3",
+      "fingerprint": "76a4ae059febd6d99393ff1c64a07f500219af3e9d12e832d056195c7eb13fa8",
       "exports": [
         "Stat"
       ]
     },
     "timeline": {
-      "fingerprint": "e8ec625a91745c590ef8bc33488510a8dfe97ebbfb1d4ffc91851e186374f3a0",
+      "fingerprint": "92a331891da0bf4e74e5a8838e0401606d99b31ed564f947c5a659bdb07e4d7a",
       "exports": [
         "Timeline",
         "TimelineItem",
@@ -625,104 +629,104 @@
       ]
     },
     "rating": {
-      "fingerprint": "e11ccaedfb2ec552ccd0c31e23eebdbf2cfee9c8f81f80c93000d707238beadd",
+      "fingerprint": "11d8e2b23c576a6d0f3f610c9d5574fd7eb816e3b6049aadaa493dd0541d1266",
       "exports": [
         "Rating"
       ]
     },
     "image": {
-      "fingerprint": "139569629c73b11e2eda2ff54e0615d8f19f5c817046d58919075f31dd4ca093",
+      "fingerprint": "86b3cb44de6644a3e5032ceb76a89678df6c20f5f4d140bb250b87e98e006a86",
       "exports": [
         "Image"
       ]
     },
     "carousel": {
-      "fingerprint": "e9c0c189b92f1c4b36d144a1d66c996f28f8571dc2bbee78fddaee64963f6c62",
+      "fingerprint": "b7678000994f709fd293e4c7ae7a16e3298149e19d43a11debcb969197652bc2",
       "exports": [
         "Carousel"
       ]
     },
     "virtual-list": {
-      "fingerprint": "518eba1aaae713b86430549729ac562d3d90f60ae33ce53b9c235dded8e561f0",
+      "fingerprint": "0edc9aefbefb173d0e98f80cf737627e1a2cae75e876a7cd738eebfb0e410d38",
       "exports": [
         "VirtualList"
       ]
     },
     "tree-view": {
-      "fingerprint": "893310fb38c7fd0f8679e2d3dc78c8a2f98c6d95c0d57d9dc2e523372d5c9dcf",
+      "fingerprint": "4fb454675d56762f686d45ff83bef6ab1c8ea65fed4f5be75de9c87c3b47d209",
       "exports": [
         "TreeView"
       ]
     },
     "kanban": {
-      "fingerprint": "ba910b3b7153a004225688501b4f0d6a03ff1fdf6705a5152c6ef10eb9005080",
+      "fingerprint": "6cbf02700a618f1d7d0ed1cf56fb2b49b9b524572ab44911588431306f0f3c91",
       "exports": [
         "Kanban"
       ]
     },
     "scheduler": {
-      "fingerprint": "fce7e862553b48cc72d6609d6e0391083cdb2293519d05e4a8353571036f4c2a",
+      "fingerprint": "6e3b5751c00d715d9ac7e98c35e9cdeee256c45e38b8481cd6fddd238d684582",
       "exports": [
         "Scheduler"
       ]
     },
     "gantt": {
-      "fingerprint": "53a59a7603df3204fc8b9b9ade8cb0dc1ba8a01b72a0e8d5666f0238a07672ca",
+      "fingerprint": "7432c4db7036a5991dcf274d1fb64e6d9f312153b90d9681c5d418d650660479",
       "exports": [
         "Gantt"
       ]
     },
     "chat": {
-      "fingerprint": "95bb0a789795fefbb1ac0cdd96ee7f8dbd260850ec163e79260525cbf5e3813a",
+      "fingerprint": "a62650b3906ccf4d8a4ebeea8e490e0bcd8384211d7111b24daa9007038d9d57",
       "exports": [
         "Chat"
       ]
     },
     "file-manager": {
-      "fingerprint": "745188f4430c3c1ee18ce897d0bc75a7e71afbabd6b01a5d16927ca959f524b2",
+      "fingerprint": "d56e66788e853338cb57ff10fa4e564065ab7cb49e3eee0dfd40d12c0888dc5c",
       "exports": [
         "FileManager"
       ]
     },
     "video-player": {
-      "fingerprint": "07f2fe8c1dcc18e33b453f08363168ce8fb7a07808855810efc58580f1067990",
+      "fingerprint": "ac60c2fe7a42e0d726713ee9d96198c6b11fdea993c29ba4d1eef5ea53b2f152",
       "exports": [
         "VideoPlayer"
       ]
     },
     "audio-player": {
-      "fingerprint": "016a156929cb94ed6432bf4b4bcaf740d93d16eadbe4e3957b33504373f2413f",
+      "fingerprint": "8e590fd3bf1f255d1a52cd22e49dd611fe4d599687d40b33476f175a6ca00500",
       "exports": [
         "AudioPlayer"
       ]
     },
     "pdf-viewer": {
-      "fingerprint": "4781a881c9c3b92b1355cc852757dc8f1925461b384a0866b3a353fe3c64dcaa",
+      "fingerprint": "3ac2c7e24f14bfc1f87a16a3df2d6e6a86a67e9683d60689306d67c652ef04d4",
       "exports": [
         "PDFViewer"
       ]
     },
     "lightbox": {
-      "fingerprint": "8629c8ce373fda5adef6415b345dfc94aaed58fd2a2b1800c25cfb00bc4087a8",
+      "fingerprint": "038a209f138342baaf80698d1aa58cfbd110a3e75ba86a1186eff055ba428219",
       "exports": [
         "Lightbox"
       ]
     },
     "image-cropper": {
-      "fingerprint": "4be1986159cf0e1b71ecd7bf79578f554fb93eaf1c184750dfde8904fdd2ce8e",
+      "fingerprint": "c5988972341340b2ad2e74c9d164055f6f0529f0477239c2ce93572eb1171a5b",
       "exports": [
         "ImageCropper"
       ]
     },
     "qr-code": {
-      "fingerprint": "fc2ce843fccb781ae772a77d5a44cc98d2b60cbbb38cc347b62cec00577714ab",
+      "fingerprint": "8eb1659b5e993321996be7bcda288609febac3aa65a68c0c5da19dc1d2077f81",
       "exports": [
         "QRCode",
         "encodeQrMatrix"
       ]
     },
     "typography": {
-      "fingerprint": "ac793371c310f0f6ef61e6881da453fb5b60f9d5e6e945b081b8fd44e6694974",
+      "fingerprint": "5c250d224ea09c5e4dc7b10e2f3a2d4d806fe4f37ab7673bc3f22e3911ee35e4",
       "exports": [
         "Text",
         "Paragraph",
@@ -731,26 +735,26 @@
       ]
     },
     "prose": {
-      "fingerprint": "e07df73db1d454ae8a6e509921581d7202204a14ed7540bba30e0f04320d00d7",
+      "fingerprint": "b0c482e105b7849028e85041f59bc4eb9a28ec35dfd170c24313ae2395e8ee4d",
       "exports": [
         "Prose"
       ]
     },
     "anchor": {
-      "fingerprint": "74c40adb7812284782179ad2b28c1c7cbf95a2993353cf757be5cfb48073afba",
+      "fingerprint": "c13ab28d87ed211031d792214b31b2e47ba51ff09b53a60778ad58d9c75a85e6",
       "exports": [
         "Anchor"
       ]
     },
     "code-block": {
-      "fingerprint": "6d05901009996c9cc31eaf699db005a896477eb595ac494c06345ce2a13a9f61",
+      "fingerprint": "6f9c79b73b854a3c5cc75e343256cf6e3d2d4c4ee81ccc118614335b49993141",
       "exports": [
         "CodeBlock",
         "codeBlockLanguages"
       ]
     },
     "code": {
-      "fingerprint": "cc231ad8177304774bf3e7d3fbd13e4707beff90fa4afc4f362c1d9bf10e2998",
+      "fingerprint": "a061cbadbff19896a6e86515b632772589d9a1eed2e7f8466cf0dd9a8c6db85b",
       "exports": [
         "Code",
         "Kbd",
@@ -758,7 +762,7 @@
       ]
     },
     "navbar": {
-      "fingerprint": "326c20daa89c0054c7841c31147218f79cba0d5f7ccfb1bb3b19b4526d4e9ca8",
+      "fingerprint": "63c0d3d3ad3c5a05a4615f0fe6ade6c0859e5301338d0710019d8d8d2053fc79",
       "exports": [
         "Navbar",
         "NavbarBrand",
@@ -770,7 +774,7 @@
       ]
     },
     "sidebar": {
-      "fingerprint": "13071a8bf8aeec84928f243299be9094ed4b1145a7e0d0791e7513d69bdb0951",
+      "fingerprint": "80c5551effba30023f1d83309c853e91c535239f2c688409a806a9e31ffc0614",
       "exports": [
         "Sidebar",
         "SidebarHeader",
@@ -782,26 +786,26 @@
       ]
     },
     "dashboard-layout": {
-      "fingerprint": "5b582e2e5276b56a6cb2e3834ec4c715178a648f0dd441b65921dd89c431f649",
+      "fingerprint": "704eb5bc782c6c47a1d093096ac0b9fcf01956fd1736c0b24b9eb4ebda5eb7ed",
       "exports": [
         "DashboardLayout"
       ]
     },
     "app-shell": {
-      "fingerprint": "d8513c0a23df287af2f6b9e40e83ef870f7bad3af451ee61138cd8449ee86159",
+      "fingerprint": "45a0191f7b2b4e3a8a5714411163f024961ae36834f278b9e9badb70ff23b7c0",
       "exports": [
         "AppShell"
       ]
     },
     "page-header": {
-      "fingerprint": "12426cc54e73b7f0c2a53b0bb14952d04a7d46006279fedecccef89fbc1f9f81",
+      "fingerprint": "30ff0bca770bd0631eb3a2e18d91e05839a8004fb0a07953c97a397b1f3f22c3",
       "exports": [
         "PageHeader",
         "pageHeaderVariantMap"
       ]
     },
     "hero": {
-      "fingerprint": "60dd437dacd27db4a478d87d11922d5327b6918f939c658d9d68205c83282842",
+      "fingerprint": "c9a9daf79ca1f5f0ee026eac2aa9c0b4bafaf62f767e9e55a2c497b9bfe9958c",
       "exports": [
         "Hero",
         "HeroContent",
@@ -813,32 +817,32 @@
       ]
     },
     "footer": {
-      "fingerprint": "9c00a4e1e0aa88ec86b494f7dbac9b491cad104c4ad39b7bb8b59fa2cc6b1e63",
+      "fingerprint": "f504430a226692d797cbbb08089b287c5355a26024487366dcf4dbc41f1cad5e",
       "exports": [
         "Footer",
         "footerVariantMap"
       ]
     },
     "docs-layout": {
-      "fingerprint": "47fa55c5ea06c09cbbe2112c40dab2aaa675803ec05cb5bcb2f5128ca947c968",
+      "fingerprint": "ac87048f85b7bed79dc83dff2c305528bbd7e7a1e25598efc8cc7ba247f1b9ca",
       "exports": [
         "DocsLayout"
       ]
     },
     "watermark": {
-      "fingerprint": "a929eee7be5928755277ebb205bf6d0758cf86d2902f930a94a8b0fcf24c6ad4",
+      "fingerprint": "f2bd813b38d2d9eaedc284c288eeb8e241ddbff81a586291a4e8b6f6624abfa2",
       "exports": [
         "Watermark"
       ]
     },
     "box": {
-      "fingerprint": "f4afca88592b6269b5be619b8a59a6b532f704c7ce18a0271ab4e4d08a47e268",
+      "fingerprint": "8f671c40182c387bff099c81957839d5402ea997324a21a6d00fed0add2e7c03",
       "exports": [
         "Box"
       ]
     },
     "stack": {
-      "fingerprint": "3a333d632abc43de64704c34b45a331cc9b5c176e99e6157375349b1c3d4b663",
+      "fingerprint": "8c653ef2979c780334e91409c242e25da3c8a110832a90d488d6c604a5e95982",
       "exports": [
         "Stack",
         "HStack",
@@ -846,81 +850,81 @@
       ]
     },
     "flex": {
-      "fingerprint": "73315fc8bc6634becd6872366c2f812a48247363d767ca5b6a413075d0354083",
+      "fingerprint": "7abab2ee0d9354fcbbb84faa511667dea15f7b3bacc15e65b1000586b79a6686",
       "exports": [
         "Flex"
       ]
     },
     "grid": {
-      "fingerprint": "557d6bae5069f500fc2c7fc38357169638ef5c32e28276e217ffc22de365d94f",
+      "fingerprint": "0a89a584e8882e383faa44d955f18f843a7c253335f658286d40f81b27b6dc4a",
       "exports": [
         "Grid"
       ]
     },
     "container": {
-      "fingerprint": "1a5c41c490612314dae9af1493260fb7a97b2dfc7233f812396f382cf289af96",
+      "fingerprint": "9e35e58a7230ddf1d4b21d41ead9556c535bf9c0309dbd078692153dfac6cedc",
       "exports": [
         "Container"
       ]
     },
     "center": {
-      "fingerprint": "5aea909eae8611116665e47d49382d49c63f61cde018d42b169f771081b4e365",
+      "fingerprint": "3d5da95f7c1cc099a0fd106b534478a571885f21160e6284684ddbd696dcc5d9",
       "exports": [
         "Center"
       ]
     },
     "spacer": {
-      "fingerprint": "c7ee97adb37a233f406fa4d5a0693802dabbb0e77ed13b37cae0867416346cf6",
+      "fingerprint": "27d9fcaf0b5b737b498e3f97e81bea55ea31b3b9950c3064fff2b70d92b0d101",
       "exports": [
         "Spacer"
       ]
     },
     "aspect-ratio": {
-      "fingerprint": "031729ec3050c2d6425dca5abb67fc9006a34449f8b10f3fe79d0db38fb6d0dd",
+      "fingerprint": "9ad996007878518763fc3933aa69c8a29f01bf08cd8970d770fcb08a976641ca",
       "exports": [
         "AspectRatio"
       ]
     },
     "visually-hidden": {
-      "fingerprint": "db51ca70f496e7b1ec1b8ae9b3c8543c46bf23dee31606d6baa9c1daaa889eb9",
+      "fingerprint": "37ce4dc3c7e813487746aec7864746920a5382d204987e161a700fac11b4770f",
       "exports": [
         "VisuallyHidden"
       ]
     },
     "focus-scope": {
-      "fingerprint": "2d0d04fc2f80f2ab8f09920288427fa0cc9de5e6c588a2755f42aa1af67ce80e",
+      "fingerprint": "40cf17910ddae9d5ae55050e5cb8295c010bd13cc47b3b5325ef7880031488c6",
       "exports": [
         "FocusScope"
       ]
     },
     "resizable": {
-      "fingerprint": "bf51e3c859aa361a3f1e908369f7cd969e6042d7c82ad3b292a388ed6d86c2d7",
+      "fingerprint": "89e6ca844ae0cc58baaf560c4b55cbaee23f859c93412779f60d61ddf5612e78",
       "exports": [
         "Resizable"
       ]
     },
     "scroll-area": {
-      "fingerprint": "67531aa719271ab7a5dc9d4f9ef8f50c0f3765f54e78a0b58460db2cb68468b8",
+      "fingerprint": "6e875aaba4683521f29038c357dfe5dce8173b5985f9a235851ec7415e17f4c5",
       "exports": [
         "ScrollArea"
       ]
     },
     "separator": {
-      "fingerprint": "ac8d770d167dc0b0ee2774e980e1dd8b7a7c6de5022eecca1bf82da13e95b95c",
+      "fingerprint": "1f0e11ea27c368118ac2da21c87c1d0129fbc8ec87237a890794d68dd38b78f3",
       "exports": [
         "Separator",
         "separatorVariantMap"
       ]
     },
     "circular-progress": {
-      "fingerprint": "9d306e83b17f080e2e100c3ce209a168e36b58978a8ba094e03261e5ed697ec7",
+      "fingerprint": "65a6e47f648fd87de5bf871a9abab4927ae9063245cc0d5c87f8e3314ab7574b",
       "exports": [
         "CircularProgress",
         "circularProgressVariantMap"
       ]
     },
     "dialog": {
-      "fingerprint": "311959622843ace27a58c96ba6a7d6b5f7f5873ba78110c87b6a3c656ec991dd",
+      "fingerprint": "b7e907bf4fefce7083a6d6f4bf1ba199eafce56e5d69e78a670655ab80195535",
       "exports": [
         "Dialog",
         "DialogTrigger",
@@ -934,41 +938,41 @@
       ]
     },
     "alert": {
-      "fingerprint": "1d6d50737a30d43f010c723a67375b0ffbab6f4d30bff9ff732eff5717ecf5c3",
+      "fingerprint": "17201bbda6722b443c1d4f7ca5e2267b871b325f42a7f8c405010330770d2c30",
       "exports": [
         "Alert",
         "alertVariantMap"
       ]
     },
     "banner": {
-      "fingerprint": "51be7630bfe0b46278f7f1b064b59aa3d55c6d6346ca528b1ee5b3179accf579",
+      "fingerprint": "3ce32a1785e264dbfce5654b0efadc0ee9bfabebc96a957a66fdd9c5978af55d",
       "exports": [
         "Banner",
         "bannerVariantMap"
       ]
     },
     "empty-state": {
-      "fingerprint": "1c892756933ed0ff941049bb145af8bef4c26a18355d614be4c58161738dbd45",
+      "fingerprint": "4ad1c44c21a390c7743ce60dd192558854178722282e51bf20afe6fa35d79026",
       "exports": [
         "EmptyState",
         "emptyStateVariantMap"
       ]
     },
     "result": {
-      "fingerprint": "90688912a0c55626a2b8ed0650f013c5e724f0068db1a75254cdbafe8f6ccd08",
+      "fingerprint": "17950186ae2f7e50966c81f126a00b68fba57bcbac2c549383861a3f07f99a05",
       "exports": [
         "Result",
         "resultVariantMap"
       ]
     },
     "loading-overlay": {
-      "fingerprint": "957442d94b3e1f0d6f8c9a63699dd5de87de18f9921863ded7df7d93a257700e",
+      "fingerprint": "425cac7121f19c8a3a23732967f9b9a750ded518c5ef2184abecc5fdbdec4a95",
       "exports": [
         "LoadingOverlay"
       ]
     },
     "alert-dialog": {
-      "fingerprint": "72fe2836872bedaa719c1311c58708825eefabfc2360c503419bbf329d65433b",
+      "fingerprint": "3b68c869435e6dbdd5bbdefd80375b7ed16dc96db16b995ad52f7b4677d06cd8",
       "exports": [
         "AlertDialog",
         "AlertDialogTrigger",
@@ -982,7 +986,7 @@
       ]
     },
     "context-menu": {
-      "fingerprint": "b9dedb006e9a057e880790e3c99433dbb93506f70eb081fc556b49be31d28c9a",
+      "fingerprint": "f3e10c6230135d2b75e6fb86611ecb53a5f964d071c94e43ea27afc09208ce5c",
       "exports": [
         "ContextMenu",
         "ContextMenuTrigger",
@@ -993,14 +997,14 @@
       ]
     },
     "command": {
-      "fingerprint": "f7d9b65c6c8bba82a3f9b3ea4a2b4357cfc851b9f58f6e2f77b560c1c149a9b1",
+      "fingerprint": "39b627a6a93a567202608aa76237be480689a7ad5e11ac3da0c2111a260ffdf0",
       "exports": [
         "Command",
         "CommandPalette"
       ]
     },
     "dropdown-menu": {
-      "fingerprint": "f651c1a42c69462b0b0fa86d9ea9c1ea6ad4143bbb8aecc9aac3a9efbd0299dc",
+      "fingerprint": "6944a5e54046e32220e6d26b568627863362cabcb73f516e3103f0c04da52574",
       "exports": [
         "DropdownMenu",
         "DropdownMenuTrigger",
@@ -1011,7 +1015,7 @@
       ]
     },
     "drawer": {
-      "fingerprint": "27c9469059675797098b2262e77166c9297648fa28cd1d0e37250f8586cb3af3",
+      "fingerprint": "4db6a31106757f22dd682d744b5b4f15cb2ae5a78e755f6ded61a8c66a957767",
       "exports": [
         "Drawer",
         "DrawerTrigger",
@@ -1024,7 +1028,7 @@
       ]
     },
     "hover-card": {
-      "fingerprint": "85d0afd77c5fcf256b2aeba9a64ca094a5c2fa5986f684809af7dff76ca4b543",
+      "fingerprint": "441146faa7514f32bb2985f43dfc73640c95360ed26aa2c7661df4114549d5f4",
       "exports": [
         "HoverCard",
         "HoverCardTrigger",
@@ -1032,35 +1036,35 @@
       ]
     },
     "popover": {
-      "fingerprint": "1900ab722265430f0882ee62de35ff3d3f9b3513141b18fe1463e0bfb4d87977",
+      "fingerprint": "47a4a1ece8db67a29e8448aaf74c2f3a0a7fcdea2074af20962688b8a10efe46",
       "exports": [
         "Popover",
         "popoverVariantMap"
       ]
     },
     "progress": {
-      "fingerprint": "f0b8ecfeeb7421a9ea9ba11c3dc4a5024eff3aaa3b70571290fd64546e5235f1",
+      "fingerprint": "318fb01c24c08bda496f847d1fd791a68ef3851266d4de514d830504bb8519ab",
       "exports": [
         "Progress",
         "progressVariantMap"
       ]
     },
     "skeleton": {
-      "fingerprint": "a21c438e4e49d7bba356281074b2d87266082d5b574dfdaf4ab9e6d2d411ea88",
+      "fingerprint": "af863804d9bd71ab2d767d07052dfc497e999a448132b54a6aee4b60f8bcd7a5",
       "exports": [
         "Skeleton",
         "skeletonVariantMap"
       ]
     },
     "spinner": {
-      "fingerprint": "747e2cbb6396247bc1625853b041a26d90649fc784300484fb0bae31c5892452",
+      "fingerprint": "6ab11502b57ad9d5b0c08a9d9d34671ff4ced0d5078abdb4ce5f421d3cc2382a",
       "exports": [
         "Spinner",
         "spinnerVariantMap"
       ]
     },
     "toast": {
-      "fingerprint": "056364c973a533f5c1ab80829e5fb8d6fdf9cc7bccf8ac2d1689b1f4789cad12",
+      "fingerprint": "d5c40e5ffe8db69c2a9f2e38ef5a79edeb28e60675b6d867693db4e6afc095d2",
       "exports": [
         "Toaster",
         "toast",
@@ -1072,19 +1076,19 @@
       ]
     },
     "tour": {
-      "fingerprint": "3236f138cedaf5534c7d00d26d2012dd157ad1739b9d46d07b9acf33951f4c66",
+      "fingerprint": "fe56b7ce10503311ccbc6c7c86af8ad26f691f615c5a45e693bd97c80e4dcbf2",
       "exports": [
         "Tour"
       ]
     },
     "notification-center": {
-      "fingerprint": "cc91f60010d66d73ced366f06c4a73fc453870a77a77432982658a247b6d63c5",
+      "fingerprint": "420b04491497539c2685480dc9ce2caaced91a13d1dedaf544fd2921bd5001d8",
       "exports": [
         "NotificationCenter"
       ]
     },
     "tooltip": {
-      "fingerprint": "339d3bc1b82e41567dadc206128309032c32a2507a60add285e20361232a2c3e",
+      "fingerprint": "ee8f924ccb075afd2c24ad9a7b951eee53e444e6516beb0937e927cd15838253",
       "exports": [
         "Tooltip"
       ]

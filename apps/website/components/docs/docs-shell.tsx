@@ -10,12 +10,14 @@ import catalog from "@/content/generated/catalog.json";
 import { docHref } from "@/content/docs";
 import navigation from "@/content/generated/navigation.json";
 
+type NavigationStatus = { kind: "new" | "updated" | "deprecated"; description: string };
+
 function DocsNavigation({ onNavigate, section }: { onNavigate?: () => void; section: "docs" | "components" }) {
   const pathname = usePathname();
   const id = useId();
   const entries = section === "docs" ? navigation.filter((entry) => !entry.slug.startsWith("components/")).map((entry) => ({ ...entry, status: null })) : [
-    { slug: "components", title: "All components", group: "Overview", status: null },
-    ...catalog.map((entry) => ({ slug: `components/${entry.family}`, title: entry.title, group: entry.group, status: entry.status })),
+    { slug: "components", title: "All components", group: "Overview", status: null as NavigationStatus | null },
+    ...catalog.map((entry) => ({ slug: `components/${entry.family}`, title: entry.title, group: entry.group, status: entry.status as NavigationStatus | null })),
   ];
   const href = (slug: string) => slug === "components" ? "/components" : docHref(slug);
   return <nav className="docs-navigation" aria-label={section === "docs" ? "Documentation" : "Components"}>

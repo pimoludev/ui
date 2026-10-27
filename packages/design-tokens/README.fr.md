@@ -2,7 +2,7 @@
 
 Les éléments de base de Pimolu UI : couleurs, espacements, rayons et typographie sous forme de CSS et de JSON. Utilisez ce package pour accéder aux données du design sans React ni styles de composants.
 
-> **0.1.0-beta.2** est une version de prévisualisation. Les noms publics des tokens peuvent évoluer avant la version 1.0.
+> **0.1.0-beta.3** est une version de prévisualisation. Les noms publics des tokens peuvent évoluer avant la version 1.0.
 
 ## Installation
 

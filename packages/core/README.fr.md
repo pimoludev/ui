@@ -2,7 +2,7 @@
 
 Un petit utilitaire indépendant du framework pour composer des classes CSS à partir de variantes nommées. Il permet d'obtenir des noms de classes prévisibles sans runtime CSS-in-JS.
 
-> **0.1.0-beta.2** est une version de prévisualisation.
+> **0.1.0-beta.3** est une version de prévisualisation.
 
 ## Installation
 

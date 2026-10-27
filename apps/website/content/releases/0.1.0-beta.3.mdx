@@ -1,0 +1,72 @@
+export const metadata = {
+  "slug": "0.1.0-beta.3",
+  "title": "0.1.0-beta.3",
+  "status": "Preview",
+  "date": "2026-10-27",
+  "tag": "v0.1.0-beta.3",
+  "summary": "Typed customization across every React family, five focused chart references, safer touch interactions and a clearer component status system.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.3 with the latest and beta tags. Pimolu UI remains a beta release."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.3">
+
+- **Customize every family** with an optional typed `classNames` map. All 129 React families are covered, including compound descendants and portalled surfaces, while existing class props keep their targets.
+- **Choose the right chart** from five focused references. BarChart, LineChart, AreaChart, DonutChart and Sparkline each have their own examples, API and previews; `/components/chart` helps select the right one.
+- **Interact safely on touch screens.** Select, Cascader, TreeSelect, RangeSlider, Carousel, FileManager, Signature and shared floating panels now handle pans, taps, RTL and narrow viewports correctly.
+- **See what changed** with source-backed component statuses, a 301-page documentation site and a standalone customization example for every component reference.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.3 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.3.
+- React ships as one ESM bundle with TypeScript declarations and the use client directive; core compiles to ESM.
+- Install with pnpm add @pimolu/react@beta @pimolu/web-styles@beta. The tag v0.1.0-beta.3 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="customization" label="Styling" title="Named parts without specificity fights">
+
+- The opt-in `@pimolu/web-styles/layered.css` entry places the shared CSS in a `pimolu` cascade layer. Application rules and Tailwind utilities can then override normal declarations without `!important`.
+- The existing unlayered `styles.css` entry remains compatible. Import one entry only and declare the complete layer order when using Tailwind v4.
+- Typed `classNames` maps add classes without replacing structural, variant or state classes. Compound parts inherit through wrappers and portals, nested roots reset their family scope, and changing a map preserves focus and uncontrolled state.
+- Input restores its focus halo without discarding preset elevation. Dialog and Drawer content accept panel styles, and styled Select honors its control style.
+- Every Playground page and every website reference now includes a standalone customization composition. The contract documents supported recipes and limits in `docs/CUSTOMIZATION.md`.
+
+</ReleaseSection>
+
+<ReleaseSection id="components" label="React and CSS" title="Components and interactions">
+
+- Charts are split into focused BarChart, LineChart, AreaChart, DonutChart and Sparkline references. The chart overview groups them by purpose instead of presenting one oversized family page.
+- Sidebar accepts `collapsedContent` for its header and footer, keeps brand and profile controls reachable in the rail and adds keyboard tooltips to icon-only items. AppShell and DashboardLayout retain a contextual rail beside content at 1012 px and collapse at 720 px.
+- PageHeader centers its actions below the content, while Calendar and TreeTable no longer widen the Playground document at phone widths.
+- Select commits on a completed click or tap, ignores touch pans and focuses its trigger without scrolling. Cascader and TreeSelect distinguish mouse hover from touch contact, including branch-arrow panning.
+- RangeSlider moves a bound only after a completed tap. Slider and RangeSlider fills follow the inherited direction, and Carousel keeps RTL scroll positions, indicators, controls and arrow keys synchronized.
+- FileManager exposes an explicit Open action for one selected entry instead of relying on double-tap. Signature Clear and Undo finish valid touch taps after a stroke without firing twice.
+- Shared floating placement clamps its initial width and position to the viewport before measurement, preventing overflow on narrow screens across floating consumers.
+
+</ReleaseSection>
+
+<ReleaseSection id="documentation" label="Documentation" title="Website and tooling">
+
+- The reference now covers 133 components with at least four live examples, copyable source, generated APIs and a standalone customization example. The site builds 302 pages.
+- Component statuses compare source and CSS against a tracked beta.3 baseline. New, updated and deprecated references stay explicit instead of becoming time-expiring guesses.
+- The customization audit records the layered CSS contract, portal boundaries, focus, disabled states and the tested viewport matrix. It does not certify arbitrary application CSS.
+- GitHub Actions verifies the library and runs the website build, documentation tests and Chromium, Firefox and WebKit suites.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The seven complex-component assistive-technology reviews remain open, and the current visual review status is recorded in `docs/ai/QUALITY_AUDIT.md`.
+- Arbitrary CSS can still break layout, focus or contrast. Use the documented layer order and preserve accessibility states.
+- Native, Angular and web registries remain unimplemented. The Playground bundle still exceeds the Vite 500 kB warning threshold.
+- Browser tests and structural audits do not replace physical-device or screen-reader certification.
+
+</ReleaseSection>

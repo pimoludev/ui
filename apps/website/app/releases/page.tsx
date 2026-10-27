@@ -16,7 +16,7 @@ export default function Releases() {
       <ReleasesNavigation />
       <div className="release-main">
         <PageHeader eyebrow="The project, in progress" title="Releases" description="What's taking shape in Pimolu. Follow the improvements, understand the changes and see what is ready to try." />
-        <div className="release-status-note"><span className="release-nav-dot" aria-hidden="true" /><p><strong>0.1.0-beta.2</strong> is tagged in the source repository and published on npm. All five packages carry the <code>latest</code> and <code>beta</code> tags. Pimolu UI remains a beta release.</p></div>
+        <div className="release-status-note"><span className="release-nav-dot" aria-hidden="true" /><p><strong>0.1.0-beta.3</strong> is tagged in the source repository and published on npm. All five packages carry the <code>latest</code> and <code>beta</code> tags. Pimolu UI remains a beta release.</p></div>
         {releaseNotes.map((entry) => <article key={entry.slug} id={entry.slug} className="release-entry">
           <div className="release-entry-heading"><div><span className="editorial-eyebrow">{entry.date ?? "Current development"}</span><h2>{entry.title}</h2>{entry.tag ? <code className="release-tag">{entry.tag}</code> : null}</div><Badge appearance="soft" variant="neutral">{entry.status}</Badge></div>
           <p className="release-entry-summary">{entry.summary}</p>

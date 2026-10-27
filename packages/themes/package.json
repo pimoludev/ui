@@ -1,6 +1,6 @@
 {
   "name": "@pimolu/themes",
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.3",
   "description": "Pimolu colour themes, style presets and visual token data.",
   "license": "MIT",
   "repository": {
@@ -41,6 +41,6 @@
 
   },
   "dependencies": {
-    "@pimolu/design-tokens": "0.1.0-beta.2"
+    "@pimolu/design-tokens": "0.1.0-beta.3"
   }
 }

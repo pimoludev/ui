@@ -2,7 +2,7 @@
 
 La couche CSS de Pimolu UI. Elle réunit les tokens, les thèmes de couleurs, les presets visuels et les styles des familles de composants React. Aucun runtime Tailwind ou CSS-in-JS n'est nécessaire.
 
-> **0.1.0-beta.2** est une version de prévisualisation.
+> **0.1.0-beta.3** est une version de prévisualisation.
 
 ## Installation
 

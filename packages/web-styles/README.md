@@ -2,7 +2,7 @@
 
 The plain CSS layer for Pimolu UI. It combines design tokens, colour themes, visual presets and styles for the React component families. No Tailwind or CSS-in-JS runtime is required.
 
-> **0.1.0-beta.2** is a preview release.
+> **0.1.0-beta.3** is a preview release.
 
 ## Install
 

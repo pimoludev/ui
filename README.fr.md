@@ -61,7 +61,7 @@ npm install @pimolu/react@beta @pimolu/web-styles@beta
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 ```
 
-La version actuelle est **0.1.0-beta.2**. Importez `@pimolu/web-styles/styles.css` une fois au point d'entrée et placez votre interface dans `PimoluProvider` (voir « L'utiliser » ci-dessous). Core, thèmes et tokens sont installés comme dépendances ; ajoutez-les directement seulement si vous importez leurs API. Les packages publiés contiennent les fichiers ESM compilés, les types et le CSS : aucun clonage, build Pimolu ou réglage Next.js `transpilePackages` n'est nécessaire. Tailwind CSS reste facultatif.
+La version actuelle est **0.1.0-beta.3**. Importez `@pimolu/web-styles/styles.css` une fois au point d'entrée et placez votre interface dans `PimoluProvider` (voir « L'utiliser » ci-dessous). Core, thèmes et tokens sont installés comme dépendances ; ajoutez-les directement seulement si vous importez leurs API. Les packages publiés contiennent les fichiers ESM compilés, les types et le CSS : aucun clonage, build Pimolu ou réglage Next.js `transpilePackages` n'est nécessaire. Tailwind CSS reste facultatif.
 
 ### Contribuer et lancer le Playground
 
@@ -115,7 +115,7 @@ Un exemple complet d'application Next.js App Router, avec lecture des préféren
 
 ## Personnalisation (prochaine release)
 
-Le workspace ajoute une entrée optionnelle `@pimolu/web-styles/layered.css` et des hooks de parties typés `classNames` sur les 129 familles, leurs sous-composants composés et leurs surfaces en portail. Les anciennes entrées CSS et cibles de classes restent compatibles. Ces ajouts ne sont pas encore dans la version npm 0.1.0-beta.2. Voir [le contrat de personnalisation](docs/CUSTOMIZATION.md) pour les recettes CSS/Tailwind, les portails et les cibles stables.
+Le workspace ajoute une entrée optionnelle `@pimolu/web-styles/layered.css` et des hooks de parties typés `classNames` sur les 129 familles, leurs sous-composants composés et leurs surfaces en portail. Les anciennes entrées CSS et cibles de classes restent compatibles. Ces ajouts sont inclus dans la version npm 0.1.0-beta.3. Voir [le contrat de personnalisation](docs/CUSTOMIZATION.md) pour les recettes CSS/Tailwind, les portails et les cibles stables.
 
 
 
@@ -145,7 +145,7 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif et a publié sa dernière prévisualisation publique, **`0.1.0-beta.2`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme ne sont pas encore implémentés. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.2`, avec les tags `latest` et `beta` :
+Pimolu UI est en développement actif et a publié sa dernière prévisualisation publique, **`0.1.0-beta.3`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme ne sont pas encore implémentés. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.3`, avec les tags `latest` et `beta` :
 
 ```bash
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta

@@ -2,7 +2,7 @@
 
 Composants React accessibles, hooks et layouts d'application fondés sur le design system commun de Pimolu. La bêta contient 129 familles, de Button et Form à DataGrid et DashboardLayout.
 
-> **0.1.0-beta.2** est une version de prévisualisation. Les API des composants peuvent évoluer avant la version 1.0.
+> **0.1.0-beta.3** est une version de prévisualisation. Les API des composants peuvent évoluer avant la version 1.0.
 
 ## Installation
 

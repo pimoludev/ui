@@ -5,12 +5,11 @@ async function ready(page: Page, url: string) {
   await expect(page.locator('.example-ready[data-example-hydrated="true"]').first()).toBeVisible();
 }
 
-test("documentation categories are separated and component statuses keep link names intact", async ({ page }) => {
+test("documentation categories are separated and component links keep their names intact", async ({ page }) => {
   await page.goto("/components");
   const navigation = page.getByRole("navigation", { name: "Components", exact: true });
   const sidebar = navigation.getByRole("link", { name: "Sidebar", exact: true });
-  await expect(sidebar.locator(".docs-nav-status")).toHaveText("Updated");
-  await expect(sidebar).toHaveAccessibleDescription(/updated since/i);
+  await expect(sidebar).toHaveAccessibleName("Sidebar");
   const geometry = await navigation.evaluate((node) => {
     const groups = [...node.querySelectorAll(".docs-nav-group")];
     const heading = getComputedStyle(groups[1].querySelector(".docs-nav-label")!);

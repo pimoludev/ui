@@ -1,7 +1,6 @@
 # Customization contract
 
-The layered entry and named-part hooks below are workspace additions for the
-next package release. They are not part of the currently published 0.1.0-beta.2.
+The layered entry and named-part hooks below are available in 0.1.0-beta.3.
 The existing unlayered `styles.css` entry remains compatible.
 
 ## Cascade order

@@ -2,26 +2,131 @@
 
 All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses Semantic Versioning.
 
-## [Unreleased]
+## [0.1.0-beta.3] — 2026-10-27
+
+Third public preview of Pimolu UI. Tag: `v0.1.0-beta.3`. All five library
+packages are published on npm at this version with `latest` and `beta`
+dist-tags.
 
 ### English
 
-- Add an optional layered CSS entry and typed, additive `classNames` hooks across all 129 families, including compound descendants and portalled surfaces.
-- Add panel `style` to DialogContent/DrawerContent and honor Select `style` on
-  its styled trigger. Existing class targets and the default CSS entry remain.
-- Restore Input's focus halo without discarding preset elevation.
-- Document the customization contract and add standalone examples and browser
-  regressions for cascade order, portals, disabled states and focus.
+#### Added
+
+- Optional typed `classNames` maps on all 129 React families, including
+  compound descendants and portalled surfaces. Structural, variant and state
+  classes remain additive, and public `PimoluClassNames` and
+  `PimoluComponentParts` types reject unknown families or parts.
+- An opt-in `@pimolu/web-styles/layered.css` entry for predictable application
+  and Tailwind overrides without `!important`. The existing unlayered
+  `styles.css` entry and legacy class targets remain compatible.
+- Panel `style` for DialogContent and DrawerContent, Select control style
+  support, and an Input focus halo that preserves preset elevation.
+- Dedicated BarChart, LineChart, AreaChart, DonutChart and Sparkline references
+  with their own examples, APIs and previews. `/components/chart` now groups
+  the five chart types by purpose.
+- Source-backed component status badges and a beta.3 baseline. Every Playground
+  page and all 133 website references include a standalone customization
+  example.
+
+#### Changed
+
+- Five library packages, the website and the source tag are aligned on
+  `0.1.0-beta.3`.
+- Sidebar accepts `collapsedContent` for its header and footer, keeps brand and
+  profile controls reachable in the collapsed rail and adds keyboard tooltips
+  to icon-only items.
+- AppShell and DashboardLayout keep a contextual rail beside content at 1012 px
+  and collapse at 720 px. PageHeader centers its actions below the content.
+- The documentation reference now includes 133 component pages, 665 component
+  snippets and four standalone guide snippets.
+
+#### Fixed
+
+- Select commits on a completed click or tap, ignores touch pans and focuses
+  its trigger without scrolling. Cascader and TreeSelect distinguish mouse
+  hover from touch contact, including TreeSelect branch-arrow panning.
+- RangeSlider moves a bound only after a completed tap. Slider and RangeSlider
+  fills follow the inherited direction, and Carousel keeps RTL scroll
+  positions, indicators, controls and arrow keys synchronized.
+- FileManager exposes an explicit Open action instead of relying on double-tap.
+  Signature Clear and Undo finish valid touch taps after a stroke without
+  firing twice.
+- Shared floating placement clamps its initial width and position to the
+  viewport, preventing narrow-screen overflow across floating consumers.
+- Calendar and TreeTable no longer widen the Playground document at phone
+  widths.
+
+#### Known limitations
+
+- This is a beta: component APIs and visual tokens may still change before
+  0.1.0 stable.
+- The seven complex-component assistive-technology reviews and the complete
+  visual matrix remain open in `docs/ai/QUALITY_AUDIT.md`. Browser tests do not
+  replace manual visual and screen-reader review.
+- Native, Angular and web registries are not implemented. The Playground bundle
+  still exceeds the Vite 500 kB warning threshold.
 
 ### Français
 
-- Ajout d'une entrée CSS en couche optionnelle et de hooks typés `classNames`
-  sur les 129 familles, leurs sous-composants composés et leurs surfaces en portail.
-- Ajout de `style` sur les panneaux Dialog/Drawer et prise en compte de `style`
-  sur le contrôle Select personnalisé, sans changer les anciennes cibles.
-- Rétablissement du halo de focus Input en conservant l'ombre du preset.
-- Documentation du contrat, exemples autonomes et régressions navigateur pour
-  les couches CSS, portails, états désactivés et le focus.
+#### Ajouts
+
+- Maps `classNames` typées optionnelles sur les 129 familles React, y compris
+  les descendants composés et les surfaces en portail. Les classes
+  structurelles, de variante et d'état restent additives, et les types publics
+  `PimoluClassNames` et `PimoluComponentParts` rejettent les familles ou parties
+  inconnues.
+- Entrée optionnelle `@pimolu/web-styles/layered.css` pour des surcharges
+  prévisibles de l'application et de Tailwind sans `!important`. L'entrée
+  classique `styles.css` et les cibles de classes historiques restent
+  compatibles.
+- `style` de panneau pour DialogContent et DrawerContent, prise en charge du
+  style du contrôle Select et halo de focus Input conservant l'ombre du preset.
+- Références dédiées BarChart, LineChart, AreaChart, DonutChart et Sparkline
+  avec exemples, API et captures propres. `/components/chart` regroupe désormais
+  les cinq types de graphiques par usage.
+- Statuts de composants issus des sources et baseline beta.3. Chaque page du
+  Playground et les 133 références du site incluent un exemple de
+  personnalisation autonome.
+
+#### Changements
+
+- Les cinq packages, le site et le tag source sont alignés sur
+  `0.1.0-beta.3`.
+- Sidebar accepte `collapsedContent` pour son header et son footer, garde la
+  marque et le profil accessibles dans le rail replié et ajoute des tooltips
+  clavier aux items icônes.
+- AppShell et DashboardLayout conservent un rail contextuel à côté du contenu à
+  1012 px et se replient à 720 px. PageHeader centre ses actions sous le
+  contenu.
+- La référence documentaire comprend désormais 133 pages de composants, 665
+  snippets de composants et quatre snippets de guides autonomes.
+
+#### Corrections
+
+- Select valide sur un clic ou tap terminé, ignore les pans tactiles et
+  focalise son déclencheur sans défilement. Cascader et TreeSelect distinguent
+  le survol souris du contact tactile, y compris le pan sur la flèche d'une
+  branche TreeSelect.
+- RangeSlider ne déplace une borne qu'après un tap terminé. Les remplissages
+  Slider et RangeSlider suivent la direction héritée, et Carousel garde les
+  positions RTL, indicateurs, contrôles et flèches clavier synchronisés.
+- FileManager expose une action Open explicite au lieu de dépendre du
+  double-tap. Signature termine Clear et Undo sur un tap valide après un tracé
+  sans double déclenchement.
+- Le placement flottant partagé borne sa largeur et sa position initiales au
+  viewport, évitant le débordement sur écran étroit chez tous les consommateurs.
+- Calendar et TreeTable n'élargissent plus le document du Playground aux
+  largeurs téléphone.
+
+#### Limites connues
+
+- Ceci est une bêta : les API des composants et les tokens visuels peuvent
+  encore évoluer avant la stable 0.1.0.
+- Les sept revues d'assistance technique des composants complexes et la matrice
+  visuelle complète restent ouvertes dans `docs/ai/QUALITY_AUDIT.md`. Les tests
+  navigateur ne remplacent pas la revue visuelle et lecteur d'écran manuelle.
+- Les registres Native, Angular et web ne sont pas implémentés. Le bundle du
+  Playground dépasse encore le seuil d'avertissement Vite de 500 kB.
 
 ## [0.1.0-beta.2] — 2026-10-23
 
@@ -261,5 +366,6 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.3]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.1
