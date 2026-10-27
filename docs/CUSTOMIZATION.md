@@ -1,6 +1,6 @@
 # Customization contract
 
-The layered entry and named-part hooks below are available in 0.1.0-beta.3.
+The layered entry and named-part hooks below are available in 0.1.0-beta.3.1.
 The existing unlayered `styles.css` entry remains compatible.
 
 ## Cascade order

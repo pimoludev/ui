@@ -77,7 +77,7 @@ export async function buildReleases() {
     entries.push(entry);
     imports.push(`import Release${index} from "./${slug}.mjs";`);
   }
-  entries.sort((a, b) => Number(a.status === "Development") - Number(b.status === "Development") || (b.date ?? "").localeCompare(a.date ?? "") || a.slug.localeCompare(b.slug));
+  entries.sort((a, b) => Number(a.status === "Development") - Number(b.status === "Development") || (b.date ?? "").localeCompare(a.date ?? "") || b.slug.localeCompare(a.slug, undefined, { numeric: true }));
   await writeFile(path.join(output, "index.json"), JSON.stringify(entries, null, 2) + "\n");
   await writeFile(path.join(output, "contents.ts"), `${imports.join("\n")}\n\nexport const releaseContents: Record<string, typeof Release0> = {\n${files.map((file, index) => `  "${path.basename(file, ".mdx")}": Release${index},`).join("\n")}\n};\n`);
   console.log(`Releases generated from ${files.length} MDX files.`);

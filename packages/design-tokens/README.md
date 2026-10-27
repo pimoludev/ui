@@ -1,8 +1,31 @@
 # @pimolu/design-tokens
 
-The raw materials of Pimolu UI: colour, spacing, radius and typography tokens in CSS and JSON. Use this package when you need the design data without React or component styles.
+**The raw material of the system.**
 
-> **0.1.0-beta.3** is a preview release. Public token names may change before 1.0.
+Pimolu's primitive design tokens as CSS variables and plain JSON. Use this package when you need the design data without React, themes or component styles.
+
+[Theming guide](https://pimolu.com/docs/theming) · [Source](https://github.com/pimoludev/ui/tree/main/packages/design-tokens)
+
+> **Beta:** `0.1.0-beta.3.1` is a preview. Public token names may change before `1.0.0`.
+
+## Why Pimolu tokens?
+
+- **A single source of truth.** Colour, spacing, radius and typography primitives feed the themes, presets and every component.
+- **CSS and data.** Use the generated CSS variables in a stylesheet, or consume the same values as JSON in a build tool or design pipeline.
+- **Semantic themes are separate.** This package defines the primitives. `@pimolu/themes` maps them to semantic light and dark roles.
+- **Framework-independent.** No React, no component CSS, no runtime dependencies.
+- **Stable naming.** CSS variables follow `--pimolu-<category>-<name>`; JSON mirrors the same tree.
+
+## At a glance
+
+| | |
+| --- | --- |
+| Categories | colour, spacing, radius, font size, font family |
+| CSS entry | `tokens.css` |
+| Data entry | `tokens.json` |
+| CSS variables | `:root` primitives |
+| Semantic themes | Provided by `@pimolu/themes` |
+| Dependencies | None |
 
 ## Install
 
@@ -12,25 +35,48 @@ pnpm add @pimolu/design-tokens@beta
 
 ## Use in CSS
 
-Import the stylesheet once in your global CSS entry:
-
 ```css
 @import "@pimolu/design-tokens/tokens.css";
 
 .example {
   color: var(--pimolu-color-indigo-500);
   padding: var(--pimolu-spacing-4);
+  border-radius: var(--pimolu-radius-md);
 }
 ```
 
-`tokens.css` defines primitives on `:root`. The semantic light and dark colours live in `@pimolu/themes`; the complete React setup can instead import `@pimolu/web-styles/styles.css` once.
+`tokens.css` defines primitives on `:root`. If you need semantic roles such as `background`, `primary` or `surface-foreground`, use `@pimolu/themes/styles.css` or the complete `@pimolu/web-styles/styles.css`.
 
 ## Use as data
 
-`@pimolu/design-tokens/tokens.json` exports the source token tree for build tools. For example, `tokens.color.indigo["500"].$value.hex` is `#6366F1`. The JSON follows the Design Tokens Community Group format; configure your toolchain's JSON import support before importing it from JavaScript.
+`tokens.json` is a plain nested object with resolved values:
 
-## Links
+```ts
+// With JSON imports enabled in your toolchain
+import tokens from "@pimolu/design-tokens/tokens.json";
 
-[Documentation](https://pimolu.com/docs/theming) · [All npm packages](https://www.npmjs.com/org/pimolu) · [Source](https://github.com/pimoludev/ui/tree/main/packages/design-tokens)
+tokens.color.indigo["500"]; // "#6366F1"
+tokens.spacing["4"];        // 16
+tokens.radius.md;           // 10
+```
+
+The export is intentionally small and tool-friendly. It is not a component stylesheet and does not include semantic theme aliases.
+
+## The package family
+
+| Package | Role |
+| --- | --- |
+| [`@pimolu/react`](https://www.npmjs.com/package/@pimolu/react) | React components, hooks and layouts |
+| [`@pimolu/web-styles`](https://www.npmjs.com/package/@pimolu/web-styles) | Plain CSS bundle, layered entry and per-component CSS |
+| [`@pimolu/themes`](https://www.npmjs.com/package/@pimolu/themes) | Light/dark themes, seven presets and visual data |
+| [`@pimolu/design-tokens`](https://www.npmjs.com/package/@pimolu/design-tokens) | Primitive tokens in CSS and JSON |
+| [`@pimolu/core`](https://www.npmjs.com/package/@pimolu/core) | Framework-independent variant class utility |
+
+## Documentation and status
+
+- [Theming guide](https://pimolu.com/docs/theming)
+- [Source and issues](https://github.com/pimoludev/ui)
+
+Pimolu UI is a beta. Primitive token names may change before `1.0.0`. For product UI, pair these tokens with the semantic themes and Pimolu CSS rather than rebuilding the component layer.
 
 MIT © Pimolu

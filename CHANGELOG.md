@@ -2,6 +2,69 @@
 
 All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses Semantic Versioning.
 
+## [0.1.0-beta.3.1] — 2026-10-27
+
+Documentation-only preview of Pimolu UI. Tag: `v0.1.0-beta.3.1`. All five
+library packages are published on npm at this version with `latest` and `beta`
+dist-tags. The runtime and public APIs are unchanged from `0.1.0-beta.3`.
+
+### English
+
+#### Changed
+
+- Rewrote the READMEs for all five packages around one consistent structure:
+  why the package exists, an at-a-glance summary, install, a short quick start,
+  the package family, documentation and status.
+- Added a faster first-success path for React, CSS, themes, tokens and the core
+  variant utility, with copyable examples and links to the live reference.
+- Clarified the difference between the complete `styles.css`, the layered
+  `layered.css` entry and per-component CSS.
+- Corrected the design-tokens JSON example to describe the plain nested object
+  that the package actually exports.
+- Kept the beta's open visual and assistive-technology limitations visible in
+  every package README instead of presenting the preview as a stable release.
+
+#### Fixed
+
+- Removed stale encoding artifacts from package README links and footers.
+- Kept English and French package pages aligned.
+
+#### Known limitations
+
+- No runtime API changed in this release.
+- The seven complex-component assistive-technology reviews and the complete
+  visual matrix remain open. Browser tests do not replace manual visual and
+  screen-reader review.
+
+### Français
+
+#### Changements
+
+- Réécriture des README des cinq packages autour d'une structure commune :
+  raison d'être, résumé, installation, démarrage rapide, famille de packages,
+  documentation et état.
+- Ajout d'un premier succès plus rapide pour React, le CSS, les thèmes, les
+  tokens et l'utilitaire de variantes, avec exemples copiables et liens vers la
+  référence live.
+- Clarification de la différence entre le CSS complet `styles.css`, l'entrée en
+  couches `layered.css` et le CSS par composant.
+- Correction de l'exemple JSON des design-tokens pour décrire l'objet imbriqué
+  réellement exporté.
+- Maintien des limites visuelles et d'assistance technique ouvertes dans chaque
+  README, sans présenter la prévisualisation comme une stable.
+
+#### Corrections
+
+- Suppression d'artefacts d'encodage dans les liens et pieds de page.
+- Alignement des pages anglaises et françaises.
+
+#### Limites connues
+
+- Aucune API runtime n'a changé dans cette version.
+- Les sept revues d'assistance technique des composants complexes et la matrice
+  visuelle complète restent ouvertes. Les tests navigateur ne remplacent pas la
+  revue visuelle et lecteur d'écran manuelle.
+
 ## [0.1.0-beta.3] — 2026-10-27
 
 Third public preview of Pimolu UI. Tag: `v0.1.0-beta.3`. All five library
@@ -366,6 +429,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.3.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3.1
 [0.1.0-beta.3]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.1

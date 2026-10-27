@@ -6,7 +6,7 @@ test("MDX releases render, copy code and preserve navigation on mobile and deskt
   await page.addInitScript(() => Object.defineProperty(navigator, "clipboard", {
     configurable: true, value: { writeText: async (value: string) => sessionStorage.setItem("release-code", value) },
   }));
-  await page.goto("/releases/0.1.0-beta.3");
+  await page.goto("/releases/0.1.0-beta.3.1");
   const packages = page.locator("#packages");
   await expect(packages.getByRole("heading", { name: "Published packages" })).toBeVisible();
   await expect(packages.locator(".pimolu-codeblock")).toContainText("npm install @pimolu/react@beta @pimolu/web-styles@beta");

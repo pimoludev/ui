@@ -1,0 +1,59 @@
+export const metadata = {
+  "slug": "0.1.0-beta.3.1",
+  "title": "0.1.0-beta.3.1",
+  "status": "Preview",
+  "date": "2026-10-27",
+  "tag": "v0.1.0-beta.3.1",
+  "summary": "A documentation refresh that gives every package a clearer story, a faster start and one consistent Pimolu voice.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.3.1 with the latest and beta tags. No runtime API changed from beta.3. Pimolu UI remains a beta release."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.3.1">
+
+- **Five READMEs, one voice.** Every package now explains what it is for, what is inside, how to install it and how it relates to the rest of the family.
+- **A faster first success.** Each page starts with a real install command and a short, copyable example instead of a wall of API detail.
+- **One package map.** The React, CSS, theme, token and core packages link to each other so you can choose the right layer without guessing.
+- **Documentation-only release.** The runtime and public APIs are unchanged from beta.3. This version exists so the improved READMEs can ship to npm.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.3.1 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.3.1.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.3.1 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="readmes" label="Documentation" title="A package story that starts with the why">
+
+- **@pimolu/react** presents the 129 families, the Provider, the quick start and typed named-part customization without hiding the CSS step.
+- **@pimolu/web-styles** explains the complete stylesheet, the layered entry and the per-component CSS path with a clear choice between them.
+- **@pimolu/themes** distinguishes colour themes, the seven presets and the data exports used by tooling and other platforms.
+- **@pimolu/design-tokens** shows both the CSS variables and the plain nested JSON, without describing a format the package does not ship.
+- **@pimolu/core** keeps the focus on createVariants, typed VariantProps and the fact that it never generates CSS.
+
+</ReleaseSection>
+
+<ReleaseSection id="website" label="Reference" title="Documentation and tooling">
+
+- The package READMEs now share a consistent structure: why, at a glance, install, quick start, package family, documentation and status.
+- The website builds 303 pages, including this release and the refreshed component reference.
+- English and French READMEs stay aligned. The source package and changelog remain the reference for verified limits.
+- The current visual and assistive-technology review remains open in docs/ai/QUALITY_AUDIT.md.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The seven complex-component assistive-technology reviews remain open; browser tests do not replace manual visual and screen-reader review.
+- Native, Angular and web registries remain unimplemented.
+- The Playground bundle still exceeds the Vite 500 kB warning threshold.
+
+</ReleaseSection>

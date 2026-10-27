@@ -1,8 +1,31 @@
 # @pimolu/core
 
-A small, framework-independent utility for composing CSS classes from named variants. It is useful when your components need predictable class names without a CSS-in-JS runtime.
+**Predictable class names, without a runtime.**
 
-> **0.1.0-beta.3** is a preview release.
+A tiny, framework-independent utility for composing class names from named variants. `createVariants` returns a string. It does not generate CSS, inject styles or require React.
+
+[Source](https://github.com/pimoludev/ui/tree/main/packages/core) · [Component docs](https://pimolu.com/components)
+
+> **Beta:** `0.1.0-beta.3.1` is a preview.
+
+## Why @pimolu/core?
+
+- **Zero dependencies.** A small utility with no runtime, no CSS-in-JS and no build-time coupling.
+- **Typed variants.** Infer a `VariantProps` type directly from the variant definition.
+- **Deterministic output.** Class order is predictable, and an optional extra class is appended last.
+- **Works beyond Pimolu.** Use it for any CSS architecture that wants named variants without a styling runtime.
+- **The base of Pimolu components.** The same utility powers Pimolu's React variants.
+
+## At a glance
+
+| | |
+| --- | --- |
+| Export | `createVariants` |
+| Types | `VariantProps` |
+| Runtime dependencies | None |
+| CSS generation | None |
+| React required | No |
+| Distribution | ESM + TypeScript declarations |
 
 ## Install
 
@@ -15,28 +38,61 @@ pnpm add @pimolu/core@beta
 ```ts
 import { createVariants, type VariantProps } from "@pimolu/core";
 
-const buttonClass = createVariants({
-  base: "pimolu-button",
+const button = createVariants({
+  base: "button",
   variants: {
     size: {
-      sm: "pimolu-button--sm",
-      md: "pimolu-button--md",
+      sm: "button--sm",
+      md: "button--md",
+    },
+    tone: {
+      neutral: "button--neutral",
+      primary: "button--primary",
     },
   },
-  defaultVariants: { size: "md" },
+  defaultVariants: {
+    size: "md",
+    tone: "neutral",
+  },
 });
 
-type ButtonVariants = VariantProps<typeof buttonClass>;
+type ButtonVariants = VariantProps<typeof button>;
 
-const options: ButtonVariants = { size: "sm" };
-buttonClass(options); // "pimolu-button pimolu-button--sm"
-buttonClass({}, "my-class"); // "pimolu-button pimolu-button--md my-class"
+const options: ButtonVariants = { size: "sm", tone: "primary" };
+
+button(options);
+// "button button--sm button--primary"
+
+button({}, "checkout-button");
+// "button button--md button--neutral checkout-button"
 ```
 
-`createVariants` returns a class-name string. It has no runtime dependencies and does not generate CSS: provide the matching styles yourself, or use Pimolu's published styles with Pimolu components.
+`createVariants` accepts:
 
-## Links
+| Option | Purpose |
+| --- | --- |
+| `base` | Always-applied class names |
+| `variants` | Named groups of conditional classes |
+| `defaultVariants` | Fallbacks when a variant is omitted |
+| second argument | Extra class names appended to the result |
 
-[Component documentation](https://pimolu.com/components) · [All npm packages](https://www.npmjs.com/org/pimolu) · [Source](https://github.com/pimoludev/ui/tree/main/packages/core)
+The utility does not know about CSS. Provide matching selectors in your own stylesheet, or use it alongside Pimolu's published styles.
+
+## The package family
+
+| Package | Role |
+| --- | --- |
+| [`@pimolu/react`](https://www.npmjs.com/package/@pimolu/react) | React components, hooks and layouts |
+| [`@pimolu/web-styles`](https://www.npmjs.com/package/@pimolu/web-styles) | Plain CSS bundle, layered entry and per-component CSS |
+| [`@pimolu/themes`](https://www.npmjs.com/package/@pimolu/themes) | Light/dark themes, seven presets and visual data |
+| [`@pimolu/design-tokens`](https://www.npmjs.com/package/@pimolu/design-tokens) | Primitive tokens in CSS and JSON |
+| [`@pimolu/core`](https://www.npmjs.com/package/@pimolu/core) | Framework-independent variant class utility |
+
+## Documentation and status
+
+- [Component catalogue](https://pimolu.com/components)
+- [Source and issues](https://github.com/pimoludev/ui)
+
+Pimolu UI is a beta. The React registry is implemented; native, Angular and web-component registries are future directions. The core utility is intentionally small and has no Pimolu-specific runtime behavior.
 
 MIT © Pimolu
