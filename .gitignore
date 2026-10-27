@@ -9,3 +9,6 @@ next-env.d.ts
 .env*
 !.env.example
 packages/web-styles/dist/
+
+# Local marketing and launch-video project (large media and render outputs).
+/docs/marketing/
