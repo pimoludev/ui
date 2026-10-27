@@ -144,7 +144,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.2`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries remain placeholders. The five library packages are available on npm at `0.1.0-beta.2`, with both `latest` and `beta` tags:
+Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.2`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.2`, with both `latest` and `beta` tags:
 
 ```bash
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta

@@ -142,8 +142,8 @@ The provider lives in `registry/react/provider/`; the positioning and portal
 utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
 low-level utility. The playground pages cover the 129 families (AvatarGroup and
 RadioGroup are shown with their family).
-`registry/native/`, `registry/angular/` and `registry/web/` are empty
-placeholders: no component from those platforms may be announced as existing.
+No native, Angular or web registry exists yet: no component from those
+platforms may be announced as existing.
 
 To know the exact props, variants, sizes and states of a component, read its
 `.types.ts`, `.variants.ts` and `.tsx` files, its tests and its CSS; the axes
