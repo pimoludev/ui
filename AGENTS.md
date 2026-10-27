@@ -4,6 +4,30 @@ Pimolu UI — a pnpm-workspace monorepo for a cross-platform design system. The 
 
 Start with `docs/ai/PROJECT_CONTEXT.md`; follow its links to the verified architecture, design system, component inventory, development guide and roadmap. Recheck the source files relevant to each task because this reference is a snapshot.
 
+## Permanent marketing video conventions
+
+For every Pimolu component video, read and apply
+[`docs/ai/MARKETING_VIDEO_RULES.md`](docs/ai/MARKETING_VIDEO_RULES.md).
+These are standing project instructions, including for short requests:
+
+- `[Component] — vidéo design`: a visual component advertisement, with no code
+  on screen. Progress from the real component through variants, customization
+  and interactions to realistic application contexts, then Pimolu branding.
+- `[Component] — vidéo code + design`: a component advertisement with valid,
+  animated React/TypeScript code synchronized with the real preview. Progress
+  through prop edits, interactions and advanced customization to realistic
+  application contexts, then Pimolu branding.
+
+Both formats require premium motion design, responsive interactions, genuine
+Pimolu components, and animated application examples with contextual interactions.
+Reuse the existing Remotion project under `docs/marketing/`, prioritize vertical
+9:16, and normally target 30–60 seconds with short English copy. Implement,
+render, inspect and correct the actual video; a storyboard alone is incomplete.
+Read the relevant installed Remotion skills. Keep video work isolated from public
+components and applications; do not change them just to facilitate filming.
+The linked rules preserve the complete narrative, technical, audio and quality
+requirements and apply automatically to future component video requests.
+
 ## Setup & commands (run from repo root)
 
 - Node >= 20; use `pnpm` (pinned via `packageManager`). `pnpm install` first.
