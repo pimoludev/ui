@@ -4,12 +4,12 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-- EN: SegmentedControl shares the CSS sliding indicator, adds optional scrolling
-  and visible-scrollbar controls. TabsList adds `showScrollbar`; native bars
+- EN: SegmentedControl shares the CSS sliding indicator and always keeps a
+  scrollable track, with optional visible scrollbars. TabsList adds `showScrollbar`; native bars
   stay hidden by default. Tabs galleries have wider responsive cards, and site
   scrollbar defaults respect component CSS layers.
-- FR : SegmentedControl partage l’indicateur CSS glissant et ajoute un défilement
-  optionnel avec contrôle des barres natives. TabsList ajoute `showScrollbar`,
+- FR : SegmentedControl partage l’indicateur CSS glissant et conserve une piste
+  défilante avec contrôle des barres natives. TabsList ajoute `showScrollbar`,
   masqué par défaut. Les galeries Tabs sont aérées et les styles globaux du site
   respectent les choix de scrollbar des composants.
 

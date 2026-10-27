@@ -33,7 +33,6 @@ export const SegmentedControl = forwardRef<
     fullWidth = false,
     disabled = false,
     animated = true,
-    scrollable = false,
     showScrollbar = false,
 
     name,
@@ -68,7 +67,7 @@ export const SegmentedControl = forwardRef<
 
   useEffect(() => {
     const group = groupRef.current;
-    if (!group || !scrollable) return;
+    if (!group) return;
     const selected = group.querySelector<HTMLElement>(':scope > [role="radio"][aria-checked="true"]');
     if (!selected) return;
     const groupBox = group.getBoundingClientRect(), box = selected.getBoundingClientRect();
@@ -79,7 +78,7 @@ export const SegmentedControl = forwardRef<
       if (box.left < groupBox.left + 4) group.scrollLeft -= groupBox.left + 4 - box.left;
       else if (box.right > groupBox.right - 4) group.scrollLeft += box.right - groupBox.right + 4;
     }
-  }, [value, scrollable, orientation, options]);
+  }, [value, orientation, options]);
 
   /* A late option list still selects its first enabled entry. */
 
@@ -201,7 +200,6 @@ export const SegmentedControl = forwardRef<
       data-disabled={disabled || undefined}
       data-animated={animated ? undefined : "false"}
       data-indicator={visible ? "true" : undefined}
-      data-scrollable={scrollable ? "true" : undefined}
       data-show-scrollbar={showScrollbar ? "true" : undefined}
       className={mergeClasses([
         segmentedControlVariants({ size }),

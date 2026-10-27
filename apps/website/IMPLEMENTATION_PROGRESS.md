@@ -1,5 +1,21 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 27 octobre 2026 — Correction de la visibilité des barres SegmentedControl
+
+- Correction de l’itération ci-dessous : les options restent sur la même piste
+  défilante, barre native visible ou masquée. Plus de bascule implicite vers
+  plusieurs lignes quand la barre est masquée.
+- `showScrollbar` est l’unique réglage de visibilité. Suppression de la prop
+  `scrollable` non publiée et du contrôle « Enable scrolling » des deux démos.
+  L’orientation verticale utilise toujours une hauteur bornée dans l’exemple.
+- Le test navigateur compare les positions et largeurs des options avant/après
+  activation de la barre et vérifie que le défilement masqué reste utilisable.
+  Documentation, API et notes Unreleased alignées sur ce comportement.
+- Vérifications : 41 tests React ciblés, 30 tests CSS, 36 tests documentation et
+  33 scénarios navigateur (Chromium/Firefox/WebKit) réussis ; TypeScript, lint,
+  builds des assets, du website et du Playground réussis. Contrôle visuel des
+  sept presets × clair/sombre, deux orientations, barre visible/masquée.
+
 ## 27 octobre 2026 — SegmentedControl et présentation des onglets
 
 - Géométrie de l’indicateur partagée dans le hook privé

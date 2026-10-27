@@ -39,14 +39,13 @@ describe("SegmentedControl sliding surface", () => {
   });
   it("keeps animation and scrollbar controls explicit without forwarding unknown DOM props", () => {
     layout();
-    const { rerender } = render(<SegmentedControl options={options} animated={false} scrollable />);
+    const { rerender } = render(<SegmentedControl options={options} animated={false} />);
     const group = screen.getByRole("radiogroup");
     expect(group).toHaveAttribute("data-animated", "false");
-    expect(group).toHaveAttribute("data-scrollable", "true");
     expect(group).not.toHaveAttribute("data-show-scrollbar");
     expect(group).not.toHaveAttribute("animated");
     expect(group).not.toHaveAttribute("scrollable");
-    rerender(<SegmentedControl options={options} showScrollbar animated scrollable />);
+    rerender(<SegmentedControl options={options} showScrollbar animated />);
     expect(group).toHaveAttribute("data-show-scrollbar", "true");
     expect(group).not.toHaveAttribute("data-animated");
   });

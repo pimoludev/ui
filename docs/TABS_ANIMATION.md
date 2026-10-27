@@ -54,8 +54,10 @@ keyboard and previous/next buttons remain available. Set `showScrollbar` on
 defaults live in the base CSS layer so they respect component choices.
 
 `SegmentedControl` uses the same private geometry hook and native CSS sliding
-surface. It accepts `animated` (default `true`), `scrollable` (default `false`)
-and `showScrollbar` (default `false`). Without scrolling, options can wrap.
+surface. It accepts `animated` (default `true`) and `showScrollbar` (default
+`false`). Options always keep a single track and overflow stays scrollable,
+whether the native scrollbar is visible or hidden. The unreleased `scrollable`
+prop was removed: scrollbar visibility must not switch between scrolling and wrapping.
 For vertical scrolling, also set `orientation="vertical"` and a bounded
 `style={{ maxHeight: 160 }}`. Selection is revealed inside the control without
 scrolling the whole page. The hidden form input and radio keyboard behavior
@@ -70,7 +72,6 @@ are preserved.
     { value: "team", label: "Team" },
   ]}
   defaultValue="summary"
-  scrollable
   showScrollbar={false}
   className="workspace-view"
 />

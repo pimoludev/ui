@@ -20,7 +20,7 @@ export const metadata = {
 
 - Tabs adds a native CSS sliding indicator for every variant, including vertical and scrollable lists. Use `animated={false}` to disable animations, CSS variables to customize duration/easing, and `classNames.indicator` to style the surface. Reduced motion is respected.
 
-- SegmentedControl shares the sliding indicator and adds optional horizontal/vertical scrolling. `showScrollbar` explicitly enables native bars on SegmentedControl and TabsList; bars stay hidden by default. Tabs galleries use wider responsive cards.
+- SegmentedControl shares the sliding indicator and keeps a single scrollable track horizontally or vertically. `showScrollbar` changes only native bar visibility on SegmentedControl; bars stay hidden by default and overflow remains reachable. TabsList also supports `showScrollbar`. Tabs galleries use wider responsive cards.
 
 </ReleaseSection>
 

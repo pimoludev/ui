@@ -62,8 +62,9 @@ features present in the repository.
   vertical/scrolling lists, reduced motion and forced colors are handled.
   See `docs/TABS_ANIMATION.md` and the Website implementation progress for checks.
 - SegmentedControl shares the private indicator geometry hook, adds `animated`,
-  `scrollable`, `showScrollbar` and `classNames.indicator`. Native scrollbars are
-  hidden by default on its scrollable mode and on TabsList, which also exposes
+  `showScrollbar` and `classNames.indicator`. Its overflow always scrolls without
+  wrapping; the unreleased `scrollable` prop was removed to keep bar visibility
+  independent of layout. Native scrollbars are hidden by default, as on TabsList, which also exposes
   `showScrollbar`. Website base-layer scrollbar rules respect those choices.
 
 - Workspace changes pending a package release: TreeTable supports opt-in `selectionMode="cascade"`
@@ -176,6 +177,9 @@ The published ESM entry points need no Pimolu-specific Next.js transpilePackages
 
 ## Related documents
 
+- [Marketing video rules](MARKETING_VIDEO_RULES.md): permanent Remotion component
+  advertisement formats, « vidéo design » and « vidéo code + design », including
+  mandatory realistic application demos, rendered exports and final inspection.
 - [Architecture](ARCHITECTURE.md): package flow and generated outputs.
 - [Design system](DESIGN_SYSTEM.md): theme sources, presets, dimensions and the
   Default direction.

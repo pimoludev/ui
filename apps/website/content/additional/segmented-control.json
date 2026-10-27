@@ -8,7 +8,7 @@
   {
     "file": "segmented-control-sliding.tsx",
     "title": "Sliding indicator and scrolling",
-    "description": "Customize the native CSS indicator, disable animation, or enable scrolling on either axis. Scrollbars are hidden by default and can be shown explicitly.",
+    "description": "Customize the native CSS indicator or disable animation. Options keep the same arrangement with or without a visible scrollbar; overflow stays scrollable on either axis.",
     "append": true
   }
 ]

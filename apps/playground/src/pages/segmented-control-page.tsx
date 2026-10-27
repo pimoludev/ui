@@ -184,7 +184,7 @@ export function SegmentedControlPage() {
           </Card>
         </div>
       </Section>
-    <Section title="Sliding indicator and scrolling" hint="Native CSS follows the selected option. Disable animation, adjust its duration, or enable horizontal/vertical scrolling. Scrollbars stay hidden unless showScrollbar is enabled."><SlidingSegmentedControl /></Section>
+    <Section title="Sliding indicator and scrolling" hint="Native CSS follows the selected option. The layout stays on one track with scrolling available on either axis. Show scrollbar changes only the native bar visibility, never wrapping or the arrangement of options."><SlidingSegmentedControl /></Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
 </>
   );

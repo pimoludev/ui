@@ -61,19 +61,29 @@ test("segmented scrolling works on both axes with hidden or explicit native bars
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/preview/segmented-control?example=example-6&direction=rtl", { waitUntil: "domcontentloaded" });
   const group = page.getByRole("radiogroup", { name: "Animated workspace view" });
-  await expect(group).not.toHaveAttribute("data-scrollable");
-  await page.getByRole("checkbox", { name: "Enable scrolling" }).check();
+  await expect(group).toHaveCSS("flex-wrap", "nowrap");
   await expect(group).toHaveCSS("scrollbar-width", "none");
   expect(await group.evaluate((node) => node.scrollWidth > node.clientWidth)).toBe(true);
-  await group.getByRole("radio", { name: "Summary", exact: true }).focus();
+  const summary = group.getByRole("radio", { name: "Summary", exact: true });
+  await summary.scrollIntoViewIfNeeded();
+  await summary.focus();
+  await expect(summary).toBeFocused();
   await page.keyboard.press("End");
   const last = group.getByRole("radio", { name: "Recent activity", exact: true });
   await expect(last).toBeFocused();
   await expect(last).toHaveAttribute("aria-checked", "true");
   await aligned(group);
   expect(await group.evaluate((node) => Math.abs(node.scrollLeft))).toBeGreaterThan(0);
+  const positions = await group.getByRole("radio").evaluateAll((nodes) => nodes.map((node) => {
+    const item = node as HTMLElement;
+    return [item.offsetLeft, item.offsetTop, item.offsetWidth];
+  }));
   await page.getByRole("checkbox", { name: "Show scrollbar" }).check();
   await nativeScrollbar(group);
+  expect(await group.getByRole("radio").evaluateAll((nodes) => nodes.map((node) => {
+    const item = node as HTMLElement;
+    return [item.offsetLeft, item.offsetTop, item.offsetWidth];
+  }))).toEqual(positions);
   await page.getByRole("checkbox", { name: "Vertical layout" }).check();
   await expect(group).toHaveCSS("overflow-y", "auto");
   expect(await group.evaluate((node) => node.scrollHeight > node.clientHeight)).toBe(true);

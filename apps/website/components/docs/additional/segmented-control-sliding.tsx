@@ -5,7 +5,6 @@ import { Checkbox, SegmentedControl, Select } from "@pimolu/react";
 
 export function DemoExample() {
   const [animated, setAnimated] = useState(true);
-  const [scrollable, setScrollable] = useState(false);
   const [showScrollbar, setShowScrollbar] = useState(false);
   const [vertical, setVertical] = useState(false);
   const [duration, setDuration] = useState("240");
@@ -14,7 +13,6 @@ export function DemoExample() {
     <div className="pg-stack">
       <div className="pg-row">
         <Checkbox label="Animate selection" checked={animated} onCheckedChange={setAnimated} />
-        <Checkbox label="Enable scrolling" checked={scrollable} onCheckedChange={setScrollable} />
         <Checkbox label="Show scrollbar" checked={showScrollbar} onCheckedChange={setShowScrollbar} />
         <Checkbox label="Vertical layout" checked={vertical} onCheckedChange={setVertical} />
         <Select label="Animation duration" value={duration} onValueChange={setDuration}>
@@ -27,13 +25,12 @@ export function DemoExample() {
         aria-label="Animated workspace view"
         defaultValue="summary"
         animated={animated}
-        scrollable={scrollable}
         showScrollbar={showScrollbar}
         orientation={vertical ? "vertical" : "horizontal"}
         classNames={{ indicator: "workspace-view-indicator" }}
         style={{
           maxWidth: 440,
-          maxHeight: vertical && scrollable ? 144 : undefined,
+          maxHeight: vertical ? 144 : undefined,
           "--pimolu-segmented-indicator-duration": `${duration}ms`,
           "--pimolu-segmented-indicator-easing": "cubic-bezier(0.22, 1, 0.36, 1)",
         } as CSSProperties}
