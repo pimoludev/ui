@@ -1,5 +1,17 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 27 octobre 2026 — Redirection du guide providers et contrôle SEO
+
+- `next.config.ts` : redirection permanente `/docs/providers` → `/docs/theming`.
+  L’ancienne redirection d’installation est conservée.
+- Contrôle sur le serveur de production local : les deux redirections retournent
+  HTTP 308 avec la destination attendue. Build Next.js/TypeScript et lint de la
+  configuration réussis.
+- Contrôle du site public : `/docs`, `/components` et `/docs/theming` répondent
+  directement 200, sans directive robots `noindex` détectée ; exploration
+  Googlebot autorisée, URL canonique propre et présence dans le sitemap.
+- La nouvelle redirection attend le déploiement. Aucun commit ou push effectué.
+
 ## 27 octobre 2026 — Correction de la visibilité des barres SegmentedControl
 
 - Correction de l’itération ci-dessous : les options restent sur la même piste
