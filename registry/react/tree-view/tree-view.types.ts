@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 export interface PimoluTreeItem {
@@ -11,6 +13,9 @@ export interface PimoluTreeItem {
 }
 
 export interface PimoluTreeViewProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tree-view">;
+
   items: readonly PimoluTreeItem[];
 
   /** Controlled expanded ids. */

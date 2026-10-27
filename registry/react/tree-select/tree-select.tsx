@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -156,7 +159,7 @@ export const TreeSelect = forwardRef<
   HTMLButtonElement,
   PimoluTreeSelectProps
 >(function TreeSelect(
-  {
+  { classNames,
     id,
     options,
 
@@ -185,6 +188,8 @@ export const TreeSelect = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("tree-select", classNames, true);
+
   /* ======================================
      IDS AND REFS
   ====================================== */
@@ -712,16 +717,16 @@ export const TreeSelect = forwardRef<
       ? optionId(activeIndex)
       : undefined;
 
-  return (
+  return scopeParts((
     <div
       ref={rootRef}
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       style={style}
     >
       {label && (
         <span
           id={labelId}
-          className="pimolu-tree-select__label"
+          className={mergeClasses("pimolu-tree-select__label", partClasses.label)}
         >
           {label}
         </span>
@@ -729,13 +734,13 @@ export const TreeSelect = forwardRef<
 
       <div
         ref={fieldRef}
-        className="pimolu-tree-select__field"
+        className={mergeClasses("pimolu-tree-select__field", partClasses.field)}
       >
         <button
           ref={assignRef}
           id={triggerId}
           type="button"
-          className="pimolu-tree-select__trigger"
+          className={mergeClasses("pimolu-tree-select__trigger", partClasses.trigger)}
           role="combobox"
           aria-haspopup="tree"
           aria-expanded={isOpen}
@@ -759,11 +764,9 @@ export const TreeSelect = forwardRef<
           onKeyDown={handleTriggerKeyDown}
         >
           <span
-            className={
-              selectedNode
+            className={mergeClasses(selectedNode
                 ? "pimolu-tree-select__value"
-                : "pimolu-tree-select__value pimolu-tree-select__value--placeholder"
-            }
+                : "pimolu-tree-select__value pimolu-tree-select__value--placeholder", partClasses.value)}
             title={
               selectedNode
                 ? selectedNode.option.label
@@ -779,7 +782,7 @@ export const TreeSelect = forwardRef<
           !disabled && (
             <button
               type="button"
-              className="pimolu-tree-select__clear"
+              className={mergeClasses("pimolu-tree-select__clear", partClasses.clear)}
               aria-label="Clear selection"
               onClick={clearSelection}
             >
@@ -788,7 +791,7 @@ export const TreeSelect = forwardRef<
           )}
 
         <span
-          className="pimolu-tree-select__chevron"
+          className={mergeClasses("pimolu-tree-select__chevron", partClasses.chevron)}
           aria-hidden="true"
         >
           <svg
@@ -806,13 +809,13 @@ export const TreeSelect = forwardRef<
           <Portal anchorRef={fieldRef}>
             <div
               ref={panelRef}
-              className="pimolu-tree-select__panel"
+              className={mergeClasses("pimolu-tree-select__panel", partClasses.panel)}
               style={popupStyle}
             >
               {searchable && (
-                <div className="pimolu-tree-select__search">
+                <div className={mergeClasses("pimolu-tree-select__search", partClasses.search)}>
                   <svg
-                    className="pimolu-tree-select__search-icon"
+                    className={mergeClasses("pimolu-tree-select__search-icon", partClasses.searchIcon)}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -827,7 +830,7 @@ export const TreeSelect = forwardRef<
                   <input
                     id={searchId}
                     type="search"
-                    className="pimolu-tree-select__search-input"
+                    className={mergeClasses("pimolu-tree-select__search-input", partClasses.searchInput)}
                     role="searchbox"
                     aria-label="Search options"
                     aria-controls={treeId}
@@ -855,11 +858,11 @@ export const TreeSelect = forwardRef<
                     : ariaLabel ?? "Options"
                 }
                 aria-multiselectable={false}
-                className="pimolu-tree-select__tree"
+                className={mergeClasses("pimolu-tree-select__tree", partClasses.tree)}
               >
                 {visibleNodes.length === 0 ? (
                   <p
-                    className="pimolu-tree-select__empty"
+                    className={mergeClasses("pimolu-tree-select__empty", partClasses.empty)}
                     role="status"
                   >
                     {emptyMessage}
@@ -913,7 +916,7 @@ export const TreeSelect = forwardRef<
                               level,
                           } as CSSProperties
                         }
-                        className={[
+                        className={mergeClasses([
                           "pimolu-tree-select__option",
                           selected &&
                             "pimolu-tree-select__option--selected",
@@ -921,7 +924,7 @@ export const TreeSelect = forwardRef<
                             "pimolu-tree-select__option--disabled",
                         ]
                           .filter(Boolean)
-                          .join(" ")}
+                          .join(" "), partClasses.option)}
                         onMouseDown={(event) => {
                           event.preventDefault();
                         }}
@@ -935,7 +938,7 @@ export const TreeSelect = forwardRef<
                         }
                       >
                         <span
-                          className="pimolu-tree-select__toggle"
+                          className={mergeClasses("pimolu-tree-select__toggle", partClasses.toggle)}
                           aria-hidden="true"
                           onPointerDown={(event) => {
                             if (!hasChildren || event.pointerType !== "mouse") return;
@@ -972,13 +975,13 @@ export const TreeSelect = forwardRef<
                           )}
                         </span>
 
-                        <span className="pimolu-tree-select__option-label">
+                        <span className={mergeClasses("pimolu-tree-select__option-label", partClasses.optionLabel)}>
                           {option.label}
                         </span>
 
                         {selected && (
                           <span
-                            className="pimolu-tree-select__check"
+                            className={mergeClasses("pimolu-tree-select__check", partClasses.check)}
                             aria-hidden="true"
                           >
                             ✓
@@ -997,14 +1000,14 @@ export const TreeSelect = forwardRef<
       {error && (
         <p
           id={errorId}
-          className="pimolu-tree-select__error"
+          className={mergeClasses("pimolu-tree-select__error", partClasses.error)}
           role="alert"
         >
           {error}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 TreeSelect.displayName = "PimoluTreeSelect";

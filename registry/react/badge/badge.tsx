@@ -1,4 +1,7 @@
 
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 import { forwardRef } from "react";
 
 import type {
@@ -11,7 +14,7 @@ export const Badge = forwardRef<
   HTMLSpanElement,
   PimoluBadgeProps
 >(function Badge(
-  {
+  { classNames,
     children,
     className,
 
@@ -28,6 +31,8 @@ export const Badge = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("badge", classNames, true);
+
   const badgeClassName = [
     badgeVariants({ variant, appearance, size, radius }),
 
@@ -38,22 +43,22 @@ export const Badge = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <span
       {...props}
       ref={ref}
-      className={badgeClassName}
+      className={mergeClasses(badgeClassName, partClasses.root)}
     >
       {dot && (
         <span
-          className="pimolu-badge__dot"
+          className={mergeClasses("pimolu-badge__dot", partClasses.dot)}
           aria-hidden="true"
         />
       )}
 
       {startIcon != null && (
         <span
-          className="pimolu-badge__start-icon"
+          className={mergeClasses("pimolu-badge__start-icon", partClasses.startIcon)}
           aria-hidden="true"
         >
           {startIcon}
@@ -61,21 +66,21 @@ export const Badge = forwardRef<
       )}
 
       {children != null && (
-        <span className="pimolu-badge__label">
+        <span className={mergeClasses("pimolu-badge__label", partClasses.label)}>
           {children}
         </span>
       )}
 
       {endIcon != null && (
         <span
-          className="pimolu-badge__end-icon"
+          className={mergeClasses("pimolu-badge__end-icon", partClasses.endIcon)}
           aria-hidden="true"
         >
           {endIcon}
         </span>
       )}
     </span>
-  );
+  ));
 });
 
 Badge.displayName = "PimoluBadge";

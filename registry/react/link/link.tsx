@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -13,7 +16,7 @@ export const Link = forwardRef<
   HTMLAnchorElement,
   PimoluLinkProps
 >(function Link(
-  {
+  { classNames,
     variant = "primary",
     underline = "hover",
     external = false,
@@ -31,6 +34,8 @@ export const Link = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("link", classNames, true);
+
   function handleClick(
     event: MouseEvent<HTMLAnchorElement>
   ) {
@@ -42,7 +47,7 @@ export const Link = forwardRef<
     onClick?.(event);
   }
 
-  return (
+  return scopeParts((
     <a
       {...props}
       ref={ref}
@@ -54,22 +59,22 @@ export const Link = forwardRef<
       }
       tabIndex={disabled ? -1 : tabIndex}
       aria-disabled={disabled || undefined}
-      className={linkVariants(
+      className={mergeClasses(linkVariants(
         { variant, underline },
         className
-      )}
+      ), partClasses.root)}
       onClick={handleClick}
     >
       {children}
 
       {external && showExternalIcon && (
         <span
-          className="pimolu-link__external"
+          className={mergeClasses("pimolu-link__external", partClasses.external)}
           aria-hidden="true"
         >
           ↗
         </span>
       )}
     </a>
-  );
+  ));
 });

@@ -2,6 +2,27 @@
 
 All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses Semantic Versioning.
 
+## [Unreleased]
+
+### English
+
+- Add an optional layered CSS entry and typed, additive `classNames` hooks across all 129 families, including compound descendants and portalled surfaces.
+- Add panel `style` to DialogContent/DrawerContent and honor Select `style` on
+  its styled trigger. Existing class targets and the default CSS entry remain.
+- Restore Input's focus halo without discarding preset elevation.
+- Document the customization contract and add standalone examples and browser
+  regressions for cascade order, portals, disabled states and focus.
+
+### Français
+
+- Ajout d'une entrée CSS en couche optionnelle et de hooks typés `classNames`
+  sur les 129 familles, leurs sous-composants composés et leurs surfaces en portail.
+- Ajout de `style` sur les panneaux Dialog/Drawer et prise en compte de `style`
+  sur le contrôle Select personnalisé, sans changer les anciennes cibles.
+- Rétablissement du halo de focus Input en conservant l'ombre du preset.
+- Documentation du contrat, exemples autonomes et régressions navigateur pour
+  les couches CSS, portails, états désactivés et le focus.
+
 ## [0.1.0-beta.2] — 2026-10-23
 
 Second public preview of Pimolu UI. Tag: `v0.1.0-beta.2`. All five library

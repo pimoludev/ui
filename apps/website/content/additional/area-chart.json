@@ -13,5 +13,11 @@
     "file": "area-chart-4.tsx",
     "title": "Static presentation",
     "description": "Disable exploration when a static data illustration is sufficient."
+  },
+  {
+    "file": "area-chart-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Style this chart directly through typed geometry and surface hooks.",
+    "append": true
   }
 ]

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { CSSProperties, ReactNode } from "react";
 
 /** Horizontal alignment of a column's header and cells. */
@@ -76,6 +78,9 @@ export interface PimoluDataTableLabels {
 }
 
 export interface PimoluDataTableProps<T> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"data-table">;
+
   /** Rows to display. Never mutated. */
   data: readonly T[];
 

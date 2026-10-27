@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -137,11 +141,13 @@ const THEME_OPTIONS = [
   { value: "dark", label: "Dark" },
 ] as const;
 
-function DefaultPreview() {
-  return (
-    <div className="pimolu-theme-builder__sample">
-      <div className="pimolu-theme-builder__sample-head">
-        <span className="pimolu-theme-builder__eyebrow">
+function DefaultPreview({ classNames }: { classNames?: PimoluClassNames<"theme-builder"> } = {}) {
+  const [partClasses, scopeParts] = usePartClasses("theme-builder", classNames, false);
+
+  return scopeParts((
+    <div className={mergeClasses("pimolu-theme-builder__sample", partClasses.sample)}>
+      <div className={mergeClasses("pimolu-theme-builder__sample-head", partClasses.sampleHead)}>
+        <span className={mergeClasses("pimolu-theme-builder__eyebrow", partClasses.eyebrow)}>
           Live preview
         </span>
 
@@ -154,16 +160,16 @@ function DefaultPreview() {
         </Badge>
       </div>
 
-      <p className="pimolu-theme-builder__sample-title">
+      <p className={mergeClasses("pimolu-theme-builder__sample-title", partClasses.sampleTitle)}>
         A small surface, every token.
       </p>
 
-      <p className="pimolu-theme-builder__sample-copy">
+      <p className={mergeClasses("pimolu-theme-builder__sample-copy", partClasses.sampleCopy)}>
         Buttons, fields and badges follow the palette,
         radius and density you pick.
       </p>
 
-      <div className="pimolu-theme-builder__sample-actions">
+      <div className={mergeClasses("pimolu-theme-builder__sample-actions", partClasses.sampleActions)}>
         <Button size="sm">Primary action</Button>
 
         <Button size="sm" appearance="outline">
@@ -178,7 +184,7 @@ function DefaultPreview() {
         fullWidth
       />
     </div>
-  );
+  ));
 }
 
 /* =========================================
@@ -189,7 +195,7 @@ export const ThemeBuilder = forwardRef<
   HTMLDivElement,
   PimoluThemeBuilderProps
 >(function ThemeBuilder(
-  {
+  { classNames,
     presets,
 
     value,
@@ -216,6 +222,8 @@ export const ThemeBuilder = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("theme-builder", classNames, true);
+
   const presetLabelId = useId();
   const themeLabelId = useId();
   const colorId = useId();
@@ -390,25 +398,25 @@ export const ThemeBuilder = forwardRef<
       } as CSSProperties)
     : undefined;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={[
+      className={mergeClasses([
         "pimolu-theme-builder",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {title && (
-        <div className="pimolu-theme-builder__header">
-          <h3 className="pimolu-theme-builder__title">
+        <div className={mergeClasses("pimolu-theme-builder__header", partClasses.header)}>
+          <h3 className={mergeClasses("pimolu-theme-builder__title", partClasses.title)}>
             {title}
           </h3>
 
           <Badge
-            className="pimolu-theme-builder__summary"
+            className={mergeClasses("pimolu-theme-builder__summary", partClasses.summary)}
             variant="neutral"
             appearance="soft"
             size="sm"
@@ -424,12 +432,12 @@ export const ThemeBuilder = forwardRef<
         </div>
       )}
 
-      <div className="pimolu-theme-builder__layout">
-        <div className="pimolu-theme-builder__controls">
-          <div className="pimolu-theme-builder__field">
+      <div className={mergeClasses("pimolu-theme-builder__layout", partClasses.layout)}>
+        <div className={mergeClasses("pimolu-theme-builder__controls", partClasses.controls)}>
+          <div className={mergeClasses("pimolu-theme-builder__field", partClasses.field)}>
             <span
               id={presetLabelId}
-              className="pimolu-theme-builder__label"
+              className={mergeClasses("pimolu-theme-builder__label", partClasses.label)}
             >
               Style preset
             </span>
@@ -437,7 +445,7 @@ export const ThemeBuilder = forwardRef<
             <div
               role="radiogroup"
               aria-labelledby={presetLabelId}
-              className="pimolu-theme-builder__presets"
+              className={mergeClasses("pimolu-theme-builder__presets", partClasses.presets)}
               onKeyDown={handlePresetKeyDown}
             >
               {presets.map((preset, index) => {
@@ -463,20 +471,20 @@ export const ThemeBuilder = forwardRef<
                         ? 0
                         : -1
                     }
-                    className="pimolu-theme-builder__preset"
+                    className={mergeClasses("pimolu-theme-builder__preset", partClasses.preset)}
                     data-state={
                       selected ? "selected" : "idle"
                     }
                     onClick={() => selectPreset(preset.id)}
                   >
                     <span
-                      className="pimolu-theme-builder__swatches"
+                      className={mergeClasses("pimolu-theme-builder__swatches", partClasses.swatches)}
                       aria-hidden="true"
                     >
                       {swatches.map((color, swatchIndex) => (
                         <span
                           key={`${color}-${swatchIndex}`}
-                          className="pimolu-theme-builder__swatch"
+                          className={mergeClasses("pimolu-theme-builder__swatch", partClasses.swatch)}
                           style={{
                             backgroundColor: color,
                           }}
@@ -484,12 +492,12 @@ export const ThemeBuilder = forwardRef<
                       ))}
                     </span>
 
-                    <span className="pimolu-theme-builder__preset-label">
+                    <span className={mergeClasses("pimolu-theme-builder__preset-label", partClasses.presetLabel)}>
                       {preset.label}
                     </span>
 
                     {preset.description && (
-                      <span className="pimolu-theme-builder__preset-description">
+                      <span className={mergeClasses("pimolu-theme-builder__preset-description", partClasses.presetDescription)}>
                         {preset.description}
                       </span>
                     )}
@@ -499,10 +507,10 @@ export const ThemeBuilder = forwardRef<
             </div>
           </div>
 
-          <div className="pimolu-theme-builder__field">
+          <div className={mergeClasses("pimolu-theme-builder__field", partClasses.field)}>
             <span
               id={themeLabelId}
-              className="pimolu-theme-builder__label"
+              className={mergeClasses("pimolu-theme-builder__label", partClasses.label)}
             >
               Color mode
             </span>
@@ -517,19 +525,19 @@ export const ThemeBuilder = forwardRef<
             />
           </div>
 
-          <div className="pimolu-theme-builder__field">
+          <div className={mergeClasses("pimolu-theme-builder__field", partClasses.field)}>
             <label
               htmlFor={colorId}
-              className="pimolu-theme-builder__label"
+              className={mergeClasses("pimolu-theme-builder__label", partClasses.label)}
             >
               Brand color
             </label>
 
-            <div className="pimolu-theme-builder__color-row">
+            <div className={mergeClasses("pimolu-theme-builder__color-row", partClasses.colorRow)}>
               <input
                 id={colorId}
                 type="color"
-                className="pimolu-theme-builder__color-input"
+                className={mergeClasses("pimolu-theme-builder__color-input", partClasses.colorInput)}
                 value={
                   normalizedBrand ??
                   DEFAULT_THEME_BUILDER_BRAND_COLOR
@@ -537,13 +545,13 @@ export const ThemeBuilder = forwardRef<
                 onChange={handleBrandChange}
               />
 
-              <span className="pimolu-theme-builder__color-value">
+              <span className={mergeClasses("pimolu-theme-builder__color-value", partClasses.colorValue)}>
                 {normalizedBrand ?? currentBrand}
               </span>
             </div>
           </div>
 
-          <div className="pimolu-theme-builder__selects">
+          <div className={mergeClasses("pimolu-theme-builder__selects", partClasses.selects)}>
             <Select
               label="Radius"
               value={currentRadius}
@@ -579,7 +587,7 @@ export const ThemeBuilder = forwardRef<
         </div>
 
         <section
-          className="pimolu-theme-builder__preview"
+          className={mergeClasses("pimolu-theme-builder__preview", partClasses.preview)}
           aria-label="Theme preview"
           data-pimolu-theme={currentTheme}
           data-pimolu-style={presetId || undefined}
@@ -591,7 +599,7 @@ export const ThemeBuilder = forwardRef<
         </section>
       </div>
     </div>
-  );
+  ));
 });
 
 ThemeBuilder.displayName = "PimoluThemeBuilder";

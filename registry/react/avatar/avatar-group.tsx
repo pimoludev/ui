@@ -1,4 +1,7 @@
 
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 import {
   Children,
   cloneElement,
@@ -27,7 +30,7 @@ export const AvatarGroup = forwardRef<
   HTMLDivElement,
   PimoluAvatarGroupProps
 >(function AvatarGroup(
-  {
+  { classNames,
     children,
     className,
 
@@ -45,6 +48,8 @@ export const AvatarGroup = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("avatar", classNames, true);
+
   /* Collect direct Avatar children */
 
   const avatars = Children.toArray(children).filter(
@@ -87,7 +92,7 @@ export const AvatarGroup = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
@@ -98,7 +103,7 @@ export const AvatarGroup = forwardRef<
           : ariaLabel ?? "Team members"
       }
       aria-labelledby={ariaLabelledBy}
-      className={groupClassName}
+      className={mergeClasses(groupClassName, partClasses.root)}
     >
       {visibleAvatars.map((avatar) =>
         cloneElement(avatar, {
@@ -109,17 +114,17 @@ export const AvatarGroup = forwardRef<
 
       {hiddenCount > 0 && (
         <span
-          className={[
+          className={mergeClasses([
             "pimolu-avatar",
             `pimolu-avatar--${size}`,
             `pimolu-avatar--${shape}`,
             "pimolu-avatar-group__more",
-          ].join(" ")}
+          ].join(" "), partClasses.more)}
           role="img"
           aria-label={overflowLabel}
         >
           <span
-            className="pimolu-avatar-group__more-label"
+            className={mergeClasses("pimolu-avatar-group__more-label", partClasses.moreLabel)}
             aria-hidden="true"
           >
             +{hiddenCount}
@@ -127,7 +132,7 @@ export const AvatarGroup = forwardRef<
         </span>
       )}
     </div>
-  );
+  ));
 });
 
 AvatarGroup.displayName = "PimoluAvatarGroup";

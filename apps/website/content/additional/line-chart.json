@@ -13,5 +13,11 @@
     "file": "line-chart-4.tsx",
     "title": "Positive and negative values",
     "description": "Keep a signed trend readable around zero."
+  },
+  {
+    "file": "line-chart-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Style this chart directly through typed geometry and surface hooks.",
+    "append": true
   }
 ]

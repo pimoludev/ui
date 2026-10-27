@@ -1,3 +1,7 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef, useId } from "react";
 
 import type {
@@ -18,10 +22,15 @@ const trendLabels: Record<PimoluStatTrend, string> = {
   neutral: "No change",
 };
 
-function TrendIcon({ trend }: { trend: PimoluStatTrend }) {
-  return (
+function TrendIcon({ classNames, trend }: {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"stat">;
+ trend: PimoluStatTrend }) {
+  const [partClasses, scopeParts] = usePartClasses("stat", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-stat__trend-icon"
+      className={mergeClasses("pimolu-stat__trend-icon", partClasses.trendIcon)}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -43,7 +52,7 @@ function TrendIcon({ trend }: { trend: PimoluStatTrend }) {
         <path d="M5 12h14" />
       )}
     </svg>
-  );
+  ));
 }
 
 /* =========================================
@@ -54,7 +63,7 @@ export const Stat = forwardRef<
   HTMLDivElement,
   PimoluStatProps
 >(function Stat(
-  {
+  { classNames,
     label,
     value,
     delta,
@@ -67,60 +76,62 @@ export const Stat = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("stat", classNames, true);
+
   const generatedId = useId();
   const labelId = `pimolu-stat-${generatedId}-label`;
 
   const hasDelta = delta != null;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       role="group"
       aria-labelledby={labelId}
       data-trend={hasDelta ? trend : undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-stat",
         `pimolu-stat--${size}`,
         className
-      )}
+      ), partClasses.root)}
     >
       {icon != null && (
         <span
-          className="pimolu-stat__icon"
+          className={mergeClasses("pimolu-stat__icon", partClasses.icon)}
           aria-hidden="true"
         >
           {icon}
         </span>
       )}
 
-      <div className="pimolu-stat__body">
+      <div className={mergeClasses("pimolu-stat__body", partClasses.body)}>
         <span
           id={labelId}
-          className="pimolu-stat__label"
+          className={mergeClasses("pimolu-stat__label", partClasses.label)}
         >
           {label}
         </span>
 
-        <div className="pimolu-stat__value-row">
-          <span className="pimolu-stat__value">
+        <div className={mergeClasses("pimolu-stat__value-row", partClasses.valueRow)}>
+          <span className={mergeClasses("pimolu-stat__value", partClasses.value)}>
             {value}
           </span>
 
           {hasDelta && (
             <span
-              className="pimolu-stat__delta"
+              className={mergeClasses("pimolu-stat__delta", partClasses.delta)}
               data-trend={trend}
             >
               {/* The icon and the hidden word keep the direction
                   understandable without colour perception. */}
               <TrendIcon trend={trend} />
 
-              <span className="pimolu-stat__sr-only">
+              <span className={mergeClasses("pimolu-stat__sr-only", partClasses.srOnly)}>
                 {trendLabels[trend]}{" "}
               </span>
 
-              <span className="pimolu-stat__delta-value">
+              <span className={mergeClasses("pimolu-stat__delta-value", partClasses.deltaValue)}>
                 {delta}
               </span>
             </span>
@@ -128,13 +139,13 @@ export const Stat = forwardRef<
         </div>
 
         {description != null && (
-          <p className="pimolu-stat__description">
+          <p className={mergeClasses("pimolu-stat__description", partClasses.description)}>
             {description}
           </p>
         )}
       </div>
     </div>
-  );
+  ));
 });
 
 Stat.displayName = "PimoluStat";

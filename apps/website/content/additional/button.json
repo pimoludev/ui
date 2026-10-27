@@ -13,5 +13,11 @@
     "file": "button-sizes.tsx",
     "title": "Sizes",
     "description": "A consistent scale from xs to xxl."
+  },
+  {
+    "file": "button-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content.",
+    "append": true
   }
 ]

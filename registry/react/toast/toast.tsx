@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useSyncExternalStore,
@@ -104,47 +107,33 @@ function CloseIcon() {
   );
 }
 
-export function Toaster({
-  position = "top-right",
-  label = "Notifications",
-}: PimoluToasterProps) {
-  const items = useToasts();
-
-  if (items.length === 0) return null;
-
-  return (
-    <div
-      className="pimolu-toaster"
-      data-position={position}
-      role="region"
-      aria-label={label}
-      aria-live="polite"
-    >
-      {items.map((item) => (
-        <div
+function ToastItem({ item }: { item: PimoluToastItem }) {
+  const [partClasses, scopeParts] = usePartClasses("toast", item.classNames, false);
+  return scopeParts(
+<div
           key={item.id}
-          className={toastVariants({
+          className={mergeClasses(toastVariants({
             variant: item.variant,
-          })}
+          }), partClasses.toast, item.classNames?.root)}
           data-state="open"
         >
-          <div className="pimolu-toast__body">
-            <p className="pimolu-toast__title">
+          <div className={mergeClasses("pimolu-toast__body", partClasses.body)}>
+            <p className={mergeClasses("pimolu-toast__title", partClasses.title)}>
               {item.title}
             </p>
 
             {item.description && (
-              <p className="pimolu-toast__description">
+              <p className={mergeClasses("pimolu-toast__description", partClasses.description)}>
                 {item.description}
               </p>
             )}
           </div>
 
-          <div className="pimolu-toast__actions">
+          <div className={mergeClasses("pimolu-toast__actions", partClasses.actions)}>
             {item.action && (
               <button
                 type="button"
-                className="pimolu-toast__action"
+                className={mergeClasses("pimolu-toast__action", partClasses.action)}
                 onClick={() => {
                   item.action?.onClick();
                   dismissToast(item.id);
@@ -156,7 +145,7 @@ export function Toaster({
 
             <button
               type="button"
-              className="pimolu-toast__close"
+              className={mergeClasses("pimolu-toast__close", partClasses.close)}
               aria-label="Dismiss notification"
               onClick={() => dismissToast(item.id)}
             >
@@ -164,7 +153,28 @@ export function Toaster({
             </button>
           </div>
         </div>
-      ))}
-    </div>
   );
+}
+
+export function Toaster({ classNames,
+  position = "top-right",
+  label = "Notifications",
+}: PimoluToasterProps) {
+  const [partClasses, scopeParts] = usePartClasses("toast", classNames, true);
+
+  const items = useToasts();
+
+  if (items.length === 0) return scopeParts(null);
+
+  return scopeParts((
+    <div
+      className={mergeClasses("pimolu-toaster", partClasses.root)}
+      data-position={position}
+      role="region"
+      aria-label={label}
+      aria-live="polite"
+    >
+      {items.map((item) => <ToastItem key={item.id} item={item} />)}
+    </div>
+  ));
 }

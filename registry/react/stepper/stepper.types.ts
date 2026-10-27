@@ -1,6 +1,11 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 export interface PimoluStepperProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"stepper">;
+
   children: ReactNode;
 
   /** Controlled active step, starting at 1. */
@@ -24,6 +29,9 @@ export interface PimoluStepperProps {
 }
 
 export interface PimoluStepperItemProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"stepper">;
+
   /** Step number, starting at 1. */
   step: number;
 

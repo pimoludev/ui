@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -199,7 +202,7 @@ export const Dropzone = forwardRef<
   HTMLDivElement,
   PimoluDropzoneProps
 >(function Dropzone(
-  {
+  { classNames,
     files,
     defaultFiles,
     onFilesChange,
@@ -223,6 +226,8 @@ export const Dropzone = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("dropzone", classNames, true);
+
   const generatedId = useId();
   const inputId = `pimolu-dropzone-${generatedId}`;
   const labelId = `${inputId}-label`;
@@ -393,13 +398,13 @@ export const Dropzone = forwardRef<
   const removeLabel = (file: File) =>
     removeFileLabel?.(file) ?? `Remove ${file.name}`;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       data-disabled={disabled || undefined}
       data-invalid={hasError || undefined}
-      className={[
+      className={mergeClasses([
         "pimolu-dropzone",
         disabled && "pimolu-dropzone--disabled",
         dragging && "pimolu-dropzone--dragging",
@@ -407,12 +412,12 @@ export const Dropzone = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <span
           id={labelId}
-          className="pimolu-dropzone__label"
+          className={mergeClasses("pimolu-dropzone__label", partClasses.label)}
         >
           {label}
         </span>
@@ -421,7 +426,7 @@ export const Dropzone = forwardRef<
       {description && (
         <p
           id={descriptionId}
-          className="pimolu-dropzone__description"
+          className={mergeClasses("pimolu-dropzone__description", partClasses.description)}
         >
           {description}
         </p>
@@ -430,7 +435,7 @@ export const Dropzone = forwardRef<
       {hasError && (
         <p
           id={errorId}
-          className="pimolu-dropzone__error"
+          className={mergeClasses("pimolu-dropzone__error", partClasses.error)}
           role="alert"
         >
           {error}
@@ -440,7 +445,7 @@ export const Dropzone = forwardRef<
       <input
         ref={inputRef}
         id={inputId}
-        className="pimolu-dropzone__input"
+        className={mergeClasses("pimolu-dropzone__input", partClasses.input)}
         type="file"
         accept={accept}
         multiple={multiple}
@@ -460,7 +465,7 @@ export const Dropzone = forwardRef<
 
       <button
         type="button"
-        className="pimolu-dropzone__zone"
+        className={mergeClasses("pimolu-dropzone__zone", partClasses.zone)}
         disabled={disabled}
         data-dragging={dragging ? "true" : undefined}
         aria-labelledby={[
@@ -484,7 +489,7 @@ export const Dropzone = forwardRef<
         }}
       >
         <span
-          className="pimolu-dropzone__icon"
+          className={mergeClasses("pimolu-dropzone__icon", partClasses.icon)}
           aria-hidden="true"
         >
           <svg
@@ -504,14 +509,14 @@ export const Dropzone = forwardRef<
 
         <span
           id={titleId}
-          className="pimolu-dropzone__title"
+          className={mergeClasses("pimolu-dropzone__title", partClasses.title)}
         >
           {multiple ? "Drag files here" : "Drag a file here"}
         </span>
 
         <span
           id={hintId}
-          className="pimolu-dropzone__hint"
+          className={mergeClasses("pimolu-dropzone__hint", partClasses.hint)}
         >
           or click to browse
         </span>
@@ -519,13 +524,13 @@ export const Dropzone = forwardRef<
 
       {currentFiles.length > 0 && (
         <ul
-          className="pimolu-dropzone__list"
+          className={mergeClasses("pimolu-dropzone__list", partClasses.list)}
           aria-label="Selected files"
         >
           {currentFiles.map((file, index) => (
             <li
               key={`${file.name}-${file.size}-${file.lastModified}-${index}`}
-              className="pimolu-dropzone__item"
+              className={mergeClasses("pimolu-dropzone__item", partClasses.item)}
             >
               {showPreviews ? (
                 <FilePreview
@@ -535,7 +540,7 @@ export const Dropzone = forwardRef<
                 />
               ) : (
                 <span
-                  className="pimolu-dropzone__file-icon"
+                  className={mergeClasses("pimolu-dropzone__file-icon", partClasses.fileIcon)}
                   data-file-preview="fallback"
                   aria-hidden="true"
                 >
@@ -555,19 +560,19 @@ export const Dropzone = forwardRef<
               )}
 
               <span
-                className="pimolu-dropzone__file-name"
+                className={mergeClasses("pimolu-dropzone__file-name", partClasses.fileName)}
                 title={file.name}
               >
                 {file.name}
               </span>
 
-              <span className="pimolu-dropzone__file-size">
+              <span className={mergeClasses("pimolu-dropzone__file-size", partClasses.fileSize)}>
                 {formatFileSize(file.size)}
               </span>
 
               <button
                 type="button"
-                className="pimolu-dropzone__remove"
+                className={mergeClasses("pimolu-dropzone__remove", partClasses.remove)}
                 aria-label={removeLabel(file)}
                 disabled={disabled}
                 onClick={() => removeFile(index)}
@@ -591,13 +596,13 @@ export const Dropzone = forwardRef<
 
       {rejections.length > 0 && (
         <div
-          className="pimolu-dropzone__rejections"
+          className={mergeClasses("pimolu-dropzone__rejections", partClasses.rejections)}
           role="alert"
         >
           {rejections.map((rejection, index) => (
             <p
               key={`${rejection.file.name}-${index}`}
-              className="pimolu-dropzone__rejection"
+              className={mergeClasses("pimolu-dropzone__rejection", partClasses.rejection)}
             >
               {rejection.message}
             </p>
@@ -605,7 +610,7 @@ export const Dropzone = forwardRef<
         </div>
       )}
     </div>
-  );
+  ));
 });
 
 Dropzone.displayName = "PimoluDropzone";

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -106,7 +109,7 @@ export const DateRangePicker = forwardRef<
   HTMLButtonElement,
   PimoluDateRangePickerProps
 >(function DateRangePicker(
-  {
+  { classNames,
     id,
     name,
 
@@ -139,6 +142,8 @@ export const DateRangePicker = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("date-range-picker", classNames, true);
+
   const generatedId = useId();
 
   const triggerId =
@@ -384,18 +389,18 @@ export const DateRangePicker = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div ref={fieldRef} className={rootClassName}>
+  return scopeParts((
+    <div ref={fieldRef} className={mergeClasses(rootClassName, partClasses.root)}>
       {label && (
         <span
           id={labelId}
-          className="pimolu-date-range-picker__label"
+          className={mergeClasses("pimolu-date-range-picker__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-date-range-picker__required"
+              className={mergeClasses("pimolu-date-range-picker__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -404,12 +409,12 @@ export const DateRangePicker = forwardRef<
         </span>
       )}
 
-      <div className="pimolu-date-range-picker__field">
+      <div className={mergeClasses("pimolu-date-range-picker__field", partClasses.field)}>
         <button
           ref={assignTriggerRef}
           type="button"
           id={triggerId}
-          className="pimolu-date-range-picker__trigger"
+          className={mergeClasses("pimolu-date-range-picker__trigger", partClasses.trigger)}
           disabled={disabled}
           aria-haspopup="dialog"
           aria-expanded={open}
@@ -430,7 +435,7 @@ export const DateRangePicker = forwardRef<
           onKeyDown={handleTriggerKeyDown}
         >
           <span
-            className="pimolu-date-range-picker__icon"
+            className={mergeClasses("pimolu-date-range-picker__icon", partClasses.icon)}
             aria-hidden="true"
           >
             <CalendarIcon />
@@ -438,13 +443,13 @@ export const DateRangePicker = forwardRef<
 
           <span
             id={valueId}
-            className={[
+            className={mergeClasses([
               "pimolu-date-range-picker__value",
               !hasValue &&
                 "pimolu-date-range-picker__value--placeholder",
             ]
               .filter(Boolean)
-              .join(" ")}
+              .join(" "), partClasses.value)}
           >
             {formattedValue ?? placeholder}
           </span>
@@ -453,7 +458,7 @@ export const DateRangePicker = forwardRef<
         {showClear && (
           <button
             type="button"
-            className="pimolu-date-range-picker__clear"
+            className={mergeClasses("pimolu-date-range-picker__clear", partClasses.clear)}
             aria-label={clearLabel ?? "Clear date range"}
             onClick={handleClear}
           >
@@ -488,15 +493,15 @@ export const DateRangePicker = forwardRef<
             role="dialog"
             aria-label={panelLabel}
             tabIndex={-1}
-            className="pimolu-date-range-picker__panel"
+            className={mergeClasses("pimolu-date-range-picker__panel", partClasses.panel)}
             style={panelStyle}
             data-state={state}
             data-side={side}
           >
-            <div className="pimolu-date-range-picker__body">
+            <div className={mergeClasses("pimolu-date-range-picker__body", partClasses.body)}>
               {presets && presets.length > 0 && (
                 <div
-                  className="pimolu-date-range-picker__presets"
+                  className={mergeClasses("pimolu-date-range-picker__presets", partClasses.presets)}
                   role="group"
                   aria-label="Date range presets"
                 >
@@ -504,7 +509,7 @@ export const DateRangePicker = forwardRef<
                     <button
                       key={preset.label}
                       type="button"
-                      className="pimolu-date-range-picker__preset"
+                      className={mergeClasses("pimolu-date-range-picker__preset", partClasses.preset)}
                       onClick={() => handlePreset(preset)}
                     >
                       {preset.label}
@@ -527,9 +532,9 @@ export const DateRangePicker = forwardRef<
               />
             </div>
 
-            <div className="pimolu-date-range-picker__footer">
+            <div className={mergeClasses("pimolu-date-range-picker__footer", partClasses.footer)}>
               <span
-                className="pimolu-date-range-picker__summary"
+                className={mergeClasses("pimolu-date-range-picker__summary", partClasses.summary)}
                 aria-live="polite"
               >
                 {summary}
@@ -539,7 +544,7 @@ export const DateRangePicker = forwardRef<
         </Portal>
       )}
     </div>
-  );
+  ));
 });
 
 DateRangePicker.displayName = "PimoluDateRangePicker";

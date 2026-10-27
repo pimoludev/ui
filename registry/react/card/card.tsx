@@ -1,4 +1,7 @@
 
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 import { forwardRef } from "react";
 
 import type {
@@ -28,7 +31,7 @@ export const Card = forwardRef<
   HTMLDivElement,
   PimoluCardProps
 >(function Card(
-  {
+  { classNames,
     children,
     className,
     size = "md",
@@ -39,6 +42,8 @@ export const Card = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("card", classNames, true);
+
   const rootClassName = [
     cardVariants({ size, variant, appearance }),
     fullWidth && "pimolu-card--full-width",
@@ -47,11 +52,11 @@ export const Card = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div {...props} ref={ref} className={rootClassName}>
+  return scopeParts((
+    <div {...props} ref={ref} className={mergeClasses(rootClassName, partClasses.root)}>
       {children}
     </div>
-  );
+  ));
 });
 
 Card.displayName = "PimoluCard";
@@ -64,18 +69,20 @@ export const CardHeader = forwardRef<
   HTMLDivElement,
   PimoluCardHeaderProps
 >(function CardHeader(
-  { children, className, ...props },
+  { classNames, children, className, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("card", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={cx("pimolu-card__header", className)}
+      className={mergeClasses(cx("pimolu-card__header", className), partClasses.header, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 });
 
 CardHeader.displayName = "PimoluCardHeader";
@@ -88,7 +95,7 @@ export const CardTitle = forwardRef<
   HTMLHeadingElement,
   PimoluCardTitleProps
 >(function CardTitle(
-  {
+  { classNames,
     children,
     className,
     as: Heading = "h3",
@@ -96,15 +103,17 @@ export const CardTitle = forwardRef<
   },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("card", classNames, false);
+
+  return scopeParts((
     <Heading
       {...props}
       ref={ref}
-      className={cx("pimolu-card__title", className)}
+      className={mergeClasses(cx("pimolu-card__title", className), partClasses.title, classNames?.root)}
     >
       {children}
     </Heading>
-  );
+  ));
 });
 
 CardTitle.displayName = "PimoluCardTitle";
@@ -117,21 +126,23 @@ export const CardDescription = forwardRef<
   HTMLParagraphElement,
   PimoluCardDescriptionProps
 >(function CardDescription(
-  { children, className, ...props },
+  { classNames, children, className, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("card", classNames, false);
+
+  return scopeParts((
     <p
       {...props}
       ref={ref}
-      className={cx(
+      className={mergeClasses(cx(
         "pimolu-card__description",
         className
-      )}
+      ), partClasses.description, classNames?.root)}
     >
       {children}
     </p>
-  );
+  ));
 });
 
 CardDescription.displayName = "PimoluCardDescription";
@@ -144,18 +155,20 @@ export const CardContent = forwardRef<
   HTMLDivElement,
   PimoluCardContentProps
 >(function CardContent(
-  { children, className, ...props },
+  { classNames, children, className, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("card", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={cx("pimolu-card__content", className)}
+      className={mergeClasses(cx("pimolu-card__content", className), partClasses.content, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 });
 
 CardContent.displayName = "PimoluCardContent";
@@ -168,18 +181,20 @@ export const CardFooter = forwardRef<
   HTMLDivElement,
   PimoluCardFooterProps
 >(function CardFooter(
-  { children, className, ...props },
+  { classNames, children, className, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("card", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={cx("pimolu-card__footer", className)}
+      className={mergeClasses(cx("pimolu-card__footer", className), partClasses.footer, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 });
 
 CardFooter.displayName = "PimoluCardFooter";

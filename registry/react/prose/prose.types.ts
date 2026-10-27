@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -13,6 +15,9 @@ export type PimoluProseSize = "sm" | "md" | "lg";
  */
 export interface PimoluProseProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"prose">;
+
   /** Element rendered by the wrapper. Defaults to "div". */
   as?: ElementType;
 

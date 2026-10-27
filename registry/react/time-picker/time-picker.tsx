@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -47,7 +50,7 @@ export const TimePicker = forwardRef<
   HTMLInputElement,
   PimoluTimePickerProps
 >(function TimePicker(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -82,6 +85,8 @@ export const TimePicker = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("time-picker", classNames, true);
+
   const generatedId = useId();
   const inputId =
     id ?? `pimolu-time-picker-${generatedId}`;
@@ -186,9 +191,9 @@ export const TimePicker = forwardRef<
       ? `Clear ${label}`
       : "Clear time");
 
-  return (
+  return scopeParts((
     <div
-      className={[
+      className={mergeClasses([
         "pimolu-time-picker",
         sizeClass[size],
         fullWidth && "pimolu-time-picker--full-width",
@@ -198,26 +203,26 @@ export const TimePicker = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <Label
           htmlFor={inputId}
           required={required}
           disabled={disabled}
-          className="pimolu-time-picker__label"
+          className={mergeClasses("pimolu-time-picker__label", partClasses.label)}
         >
           {label}
         </Label>
       )}
 
-      <div className="pimolu-time-picker__wrapper">
+      <div className={mergeClasses("pimolu-time-picker__wrapper", partClasses.wrapper)}>
         <input
           {...props}
           ref={setInputRef}
           id={inputId}
           type="time"
-          className="pimolu-time-picker__control"
+          className={mergeClasses("pimolu-time-picker__control", partClasses.control)}
           value={currentValue ?? ""}
           min={min}
           max={max}
@@ -238,7 +243,7 @@ export const TimePicker = forwardRef<
         {showClear && (
           <button
             type="button"
-            className="pimolu-time-picker__clear"
+            className={mergeClasses("pimolu-time-picker__clear", partClasses.clear)}
             aria-label={resolvedClearLabel}
             onClick={handleClear}
           >
@@ -262,7 +267,7 @@ export const TimePicker = forwardRef<
       {showFormatHint && (
         <p
           id={hintId}
-          className="pimolu-time-picker__format-hint"
+          className={mergeClasses("pimolu-time-picker__format-hint", partClasses.formatHint)}
         >
           {hintText}
         </p>
@@ -271,18 +276,16 @@ export const TimePicker = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            hasError
+          className={mergeClasses(hasError
               ? "pimolu-time-picker__error"
-              : "pimolu-time-picker__helper"
-          }
+              : "pimolu-time-picker__helper", partClasses.error)}
           role={hasError ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 TimePicker.displayName = "PimoluTimePicker";

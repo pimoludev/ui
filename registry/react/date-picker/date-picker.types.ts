@@ -1,6 +1,11 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { PimoluDisabledDates } from "../calendar/calendar.types";
 
 export interface PimoluDatePickerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"date-picker">;
+
   /** Id of the trigger button. Generated when omitted. */
   id?: string;
 

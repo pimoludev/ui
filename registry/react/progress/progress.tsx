@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -18,7 +21,7 @@ export const Progress = forwardRef<
   HTMLDivElement,
   PimoluProgressProps
 >(function Progress(
-  {
+  { classNames,
     id,
 
     value,
@@ -41,6 +44,8 @@ export const Progress = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("progress", classNames, true);
+
   const generatedId = useId();
 
   const labelId =
@@ -78,18 +83,18 @@ export const Progress = forwardRef<
     "--pimolu-progress-value": `${percent}%`,
   } as CSSProperties;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={forwardedRef}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
     >
       {(label || showValue) && (
-        <div className="pimolu-progress__header">
+        <div className={mergeClasses("pimolu-progress__header", partClasses.header)}>
           {label && (
             <span
               id={labelId}
-              className="pimolu-progress__label"
+              className={mergeClasses("pimolu-progress__label", partClasses.label)}
             >
               {label}
             </span>
@@ -99,7 +104,7 @@ export const Progress = forwardRef<
             /* The progressbar already exposes its value,
                so the readout is decorative. */
             <span
-              className="pimolu-progress__value"
+              className={mergeClasses("pimolu-progress__value", partClasses.value)}
               aria-hidden="true"
             >
               {displayed}
@@ -109,7 +114,7 @@ export const Progress = forwardRef<
       )}
 
       <div
-        className="pimolu-progress__track"
+        className={mergeClasses("pimolu-progress__track", partClasses.track)}
 
         role="progressbar"
 
@@ -128,12 +133,12 @@ export const Progress = forwardRef<
         aria-valuetext={valueLabel}
       >
         <div
-          className="pimolu-progress__fill"
+          className={mergeClasses("pimolu-progress__fill", partClasses.fill)}
           style={fillStyle}
         />
       </div>
     </div>
-  );
+  ));
 });
 
 Progress.displayName = "PimoluProgress";

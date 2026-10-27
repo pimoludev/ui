@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -127,6 +129,9 @@ export interface PimoluKanbanLabels {
 
 export interface PimoluKanbanProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"kanban">;
+
   /**
    * Controlled columns. When provided, the component renders this snapshot
    * verbatim; update it from `onMove` or `onColumnsChange`.

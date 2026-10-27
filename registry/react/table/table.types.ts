@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -14,6 +16,9 @@ export type PimoluTableDensity = "sm" | "md" | "lg";
 
 export interface PimoluTableProps
   extends TableHTMLAttributes<HTMLTableElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
 
   /** Row density. Defaults to "md". */
   density?: PimoluTableDensity;
@@ -41,36 +46,57 @@ export interface PimoluTableProps
 
 export interface PimoluTableHeaderProps
   extends HTMLAttributes<HTMLTableSectionElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   children?: ReactNode;
 }
 
 export interface PimoluTableBodyProps
   extends HTMLAttributes<HTMLTableSectionElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   children?: ReactNode;
 }
 
 export interface PimoluTableFooterProps
   extends HTMLAttributes<HTMLTableSectionElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   children?: ReactNode;
 }
 
 export interface PimoluTableRowProps
   extends HTMLAttributes<HTMLTableRowElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   children?: ReactNode;
 }
 
 export interface PimoluTableHeadProps
   extends ThHTMLAttributes<HTMLTableCellElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   /** Native scope, defaulting to "col". */
   scope?: "col" | "row" | "colgroup" | "rowgroup";
 }
 
 export interface PimoluTableCellProps
   extends TdHTMLAttributes<HTMLTableCellElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   children?: ReactNode;
 }
 
 export interface PimoluTableCaptionProps
   extends HTMLAttributes<HTMLTableCaptionElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table">;
+
   children?: ReactNode;
 }

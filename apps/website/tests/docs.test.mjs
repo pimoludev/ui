@@ -10,6 +10,7 @@ import { orderSearchDocuments } from "../lib/docs-search.ts";
 import { journalPosts } from "../content/journal.ts";
 import { releaseNotes } from "../content/releases.ts";
 import { formatExample } from "../scripts/format-example.mjs";
+import { createExampleSimplifier } from "../scripts/simplify-example.mjs";
 
 const api = JSON.parse(await readFile(new URL("../content/generated/api.json", import.meta.url), "utf8"));
 const examples = JSON.parse(await readFile(new URL("../content/generated/examples.json", import.meta.url), "utf8"));
@@ -18,7 +19,7 @@ const catalog = JSON.parse(await readFile(new URL("../content/generated/catalog.
 const additional = JSON.parse(await readFile(new URL("../content/generated/additional-examples.json", import.meta.url), "utf8"));
 const additionalSources = JSON.parse(await readFile(new URL("../content/generated/additional-sources.json", import.meta.url), "utf8"));
 
-test("all 532 examples have stable formatting and multiline JSX props", () => {
+test("all component examples have stable formatting and multiline JSX props", () => {
   for (const [key, source] of Object.entries({ ...examples, ...additionalSources })) {
     assert.equal(formatExample(source), source, `${key}: copied source is not fully formatted`);
     for (const [index, line] of source.split("\n").entries()) assert.ok(line.length <= 140, `${key}:${index + 1}: unreadably long line (${line.length})`);
@@ -34,6 +35,15 @@ test("all 532 examples have stable formatting and multiline JSX props", () => {
   }
 });
 
+test("embedded CSS remains readable instead of becoming concatenated strings", () => {
+  const css = ".custom-panel {\n  border-radius: 16px;\n  background: var(--pimolu-surface);\n  color: var(--pimolu-foreground);\n}";
+  const source = `export function Example() { return <style>{\`${css}\`}</style>; }`;
+  const result = formatExample(source);
+  assert.ok(result.includes(css));
+  assert.ok(!result.includes('" +'));
+  assert.equal(formatExample(result), result);
+});
+
 test("formatting long strings preserves their exact value", () => {
   const value = '<svg title="A long sample with quotes & spaces">' + "Hello, Pimolu! ".repeat(18) + "</svg>";
   const source = `const value = ${JSON.stringify(value)}; value;`;
@@ -41,15 +51,35 @@ test("formatting long strings preserves their exact value", () => {
   assert.equal(formatExample(formatExample(source)), formatExample(source));
 });
 
-test("all 532 component and 3 standalone guide examples typecheck independently", () => {
+test("conditional demo classes become portable without changing the condition", () => {
+  const simplify = createExampleSimplifier({ getSourceFiles: () => [] });
+  const result = simplify('export function Example({nested}) { return <p className={nested === "pg-meta" ? "pg-meta" : "pg-copy"}>Label</p>; }');
+  assert.match(result, /nested === "pg-meta"/);
+  assert.match(result, /"text-sm text-muted leading-relaxed"/);
+  assert.match(result, /"max-w-prose leading-relaxed"/);
+  assert.throws(() => simplify('export function Example({nested}) { return <p className={nested ? "pg-unknown" : "pg-copy"} />; }'), /Add a portable layout/);
+});
+
+test("expanded variant callbacks preserve object shorthand and property keys", () => {
+  const variants = ts.createSourceFile("sample.variants.ts", 'export const sampleVariantMap = { variant: { primary: "a", secondary: "b" } };', ts.ScriptTarget.Latest, true);
+  const simplify = createExampleSimplifier({ getSourceFiles: () => [variants] });
+  const source = 'const variants = Object.keys(sampleVariantMap.variant); export function Example() { return <>{variants.map(variant => <Button onClick={() => save({variant, value: variant})}>{variant}</Button>)}</>; }';
+  const result = simplify(source);
+  assert.match(result, /variant: "primary"/);
+  assert.match(result, /variant: "secondary"/);
+  assert.match(result, /value: "primary"/);
+  assert.equal(ts.createSourceFile("example.tsx", result, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX).parseDiagnostics.length, 0);
+});
+
+test("all 665 component and 4 standalone guide examples typecheck independently", () => {
   const website = fileURLToPath(new URL("..", import.meta.url));
-  const guideExamples = Object.fromEntries(guides.filter((guide) => ["quick-start", "dark-mode", "animation"].includes(guide.slug)).flatMap((guide) => guide.sections.filter((section) => section.language === "tsx").map((section) => [`guide-${guide.slug}-${section.id}`, section.code])));
-  assert.equal(Object.keys(guideExamples).length, 3);
+  const guideExamples = Object.fromEntries(guides.filter((guide) => ["quick-start", "dark-mode", "animation", "styling"].includes(guide.slug)).flatMap((guide) => guide.sections.filter((section) => section.language === "tsx").map((section) => [`guide-${guide.slug}-${section.id}`, section.code])));
+  assert.equal(Object.keys(guideExamples).length, 4);
   const sources = new Map(Object.entries({ ...examples, ...additionalSources, ...guideExamples }).map(([key, source]) => {
     assert.doesNotMatch(source, /\b\w*VariantMap\b|\boptionsOf\b|\bpg-[\w-]+/, `${key}: private demo machinery in copied code`);
     return [path.join(website, "__snippets__", `${key}.tsx`).replaceAll("\\", "/"), source];
   }));
-  assert.equal(sources.size, 535);
+  assert.equal(sources.size, 669);
   const config = ts.readConfigFile(path.join(website, "tsconfig.json"), ts.sys.readFile);
   const { options } = ts.parseJsonConfigFileContent(config.config, ts.sys, website);
   options.incremental = false;

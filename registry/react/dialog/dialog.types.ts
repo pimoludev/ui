@@ -1,4 +1,7 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
+  CSSProperties,
   ReactElement,
   ReactNode,
 } from "react";
@@ -68,14 +71,26 @@ export interface PimoluDialogContentProps {
 
   /** Class applied to the panel. */
   className?: string;
+
+  /** Inline styles on the panel, including local CSS variables. */
+  style?: CSSProperties;
+
+  /** Additive classes on portalled parts; className still targets content. */
+  classNames?: PimoluClassNames<"dialog">;
 }
 
 export interface PimoluDialogHeaderProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dialog">;
+
   children: ReactNode;
   className?: string;
 }
 
 export interface PimoluDialogTitleProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dialog">;
+
   children: ReactNode;
 
   /** Explicit id, instead of the generated one. */
@@ -85,6 +100,9 @@ export interface PimoluDialogTitleProps {
 }
 
 export interface PimoluDialogDescriptionProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dialog">;
+
   children: ReactNode;
 
   /** Explicit id, instead of the generated one. */
@@ -94,6 +112,9 @@ export interface PimoluDialogDescriptionProps {
 }
 
 export interface PimoluDialogFooterProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dialog">;
+
   children: ReactNode;
   className?: string;
 }

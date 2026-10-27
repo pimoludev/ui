@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -21,6 +23,9 @@ export type PimoluHeroMediaPosition = "right" | "bottom";
 
 export interface PimoluHeroProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   /** Content slot, usually the compound hero parts. */
   children: ReactNode;
 
@@ -42,11 +47,17 @@ export interface PimoluHeroProps
 
 export interface PimoluHeroContentProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   children: ReactNode;
 }
 
 export interface PimoluHeroEyebrowProps
   extends HTMLAttributes<HTMLParagraphElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   children: ReactNode;
 }
 
@@ -57,6 +68,9 @@ export type PimoluHeroTitleElement =
 
 export interface PimoluHeroTitleProps
   extends HTMLAttributes<HTMLHeadingElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   children: ReactNode;
 
   /** Heading element. Defaults to "h1". */
@@ -65,15 +79,24 @@ export interface PimoluHeroTitleProps
 
 export interface PimoluHeroDescriptionProps
   extends HTMLAttributes<HTMLParagraphElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   children: ReactNode;
 }
 
 export interface PimoluHeroActionsProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   children: ReactNode;
 }
 
 export interface PimoluHeroMediaProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"hero">;
+
   children: ReactNode;
 }

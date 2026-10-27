@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactElement, ReactNode } from "react";
 
 export interface PimoluContextMenuProps {
@@ -22,6 +24,9 @@ export interface PimoluContextMenuTriggerProps {
 }
 
 export interface PimoluContextMenuContentProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"context-menu">;
+
   children: ReactNode;
 
   /**
@@ -35,6 +40,9 @@ export interface PimoluContextMenuContentProps {
 }
 
 export interface PimoluContextMenuItemProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"context-menu">;
+
   children: ReactNode;
 
   /** Called before the menu closes and focus returns to the trigger. */
@@ -44,10 +52,16 @@ export interface PimoluContextMenuItemProps {
 }
 
 export interface PimoluContextMenuSeparatorProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"context-menu">;
+
   className?: string;
 }
 
 export interface PimoluContextMenuLabelProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"context-menu">;
+
   children: ReactNode;
   className?: string;
 }

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   AriaRole,
   HTMLAttributes,
@@ -17,6 +19,9 @@ export interface PimoluAlertProps
     HTMLAttributes<HTMLDivElement>,
     "title" | "role"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"alert">;
+
   /** Semantic tone of the message. */
   variant?: PimoluAlertVariant;
 

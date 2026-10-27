@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -188,7 +191,7 @@ export const CurrencyInput = forwardRef<
   HTMLInputElement,
   PimoluCurrencyInputProps
 >(function CurrencyInput(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -226,6 +229,8 @@ export const CurrencyInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("currency-input", classNames, true);
+
   const generatedId = useId();
   const inputId = id ?? `pimolu-currency-input-${generatedId}`;
 
@@ -430,18 +435,18 @@ export const CurrencyInput = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div className={fieldClassName}>
+  return scopeParts((
+    <div className={mergeClasses(fieldClassName, partClasses.root)}>
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-currency-input__label"
+          className={mergeClasses("pimolu-currency-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-currency-input__required"
+              className={mergeClasses("pimolu-currency-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -450,18 +455,18 @@ export const CurrencyInput = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-currency-input__wrapper">
+      <div className={mergeClasses("pimolu-currency-input__wrapper", partClasses.wrapper)}>
         <input
           {...props}
           ref={setInputRef}
           id={inputId}
           type="text"
-          className={[
+          className={mergeClasses([
             "pimolu-currency-input__control",
             className,
           ]
             .filter(Boolean)
-            .join(" ")}
+            .join(" "), partClasses.control)}
           value={draft}
           onChange={handleChange}
           onFocus={handleFocus}
@@ -480,18 +485,16 @@ export const CurrencyInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            isErrorMessage
+          className={mergeClasses(isErrorMessage
               ? "pimolu-currency-input__error"
-              : "pimolu-currency-input__helper"
-          }
+              : "pimolu-currency-input__helper", partClasses.error)}
           role={isErrorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 CurrencyInput.displayName = "PimoluCurrencyInput";

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   PimoluDateRange,
   PimoluDisabledDates,
@@ -14,6 +16,9 @@ export interface PimoluDateRangePreset {
 }
 
 export interface PimoluDateRangePickerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"date-range-picker">;
+
   /** Id of the trigger button. Generated when omitted. */
   id?: string;
 

@@ -1,3 +1,13 @@
 [
-  { "file": "scheduler-compact.tsx", "title": "A focused workday", "description": "A short agenda with one event and a compact working-hours window." }
+  {
+    "file": "scheduler-compact.tsx",
+    "title": "A focused workday",
+    "description": "A short agenda with one event and a compact working-hours window."
+  },
+  {
+    "file": "scheduler-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
+  }
 ]

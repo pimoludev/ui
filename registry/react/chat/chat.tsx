@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useEffect,
@@ -234,32 +238,37 @@ function EmptyIcon() {
 ========================================= */
 
 interface ChatMessageViewProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chat">;
+
   message: PimoluChatMessage;
   own: boolean;
   labels: PimoluChatLabels;
 }
 
-function ChatMessageView({
+function ChatMessageView({ classNames,
   message,
   own,
   labels,
 }: ChatMessageViewProps) {
+  const [partClasses, scopeParts] = usePartClasses("chat", classNames, false);
+
   const status = message.status;
 
-  return (
+  return scopeParts((
     <li
-      className={[
+      className={mergeClasses([
         "pimolu-chat__message",
         own && "pimolu-chat__message--own",
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.message)}
       data-own={own ? "true" : "false"}
       data-status={status}
     >
       {!own && (
         <Avatar
-          className="pimolu-chat__avatar"
+          className={mergeClasses("pimolu-chat__avatar", partClasses.avatar)}
           name={message.author.name}
           src={message.author.avatar}
           size="sm"
@@ -267,24 +276,24 @@ function ChatMessageView({
         />
       )}
 
-      <div className="pimolu-chat__content">
-        <div className="pimolu-chat__meta">
-          <span className="pimolu-chat__author">
+      <div className={mergeClasses("pimolu-chat__content", partClasses.content)}>
+        <div className={mergeClasses("pimolu-chat__meta", partClasses.meta)}>
+          <span className={mergeClasses("pimolu-chat__author", partClasses.author)}>
             {own ? labels.you : message.author.name}
           </span>
 
-          <time className="pimolu-chat__time">
+          <time className={mergeClasses("pimolu-chat__time", partClasses.time)}>
             {message.time}
           </time>
 
           {status && (
             <span
-              className={`pimolu-chat__status pimolu-chat__status--${status}`}
+              className={mergeClasses(`pimolu-chat__status pimolu-chat__status--${status}`, partClasses.status)}
               data-status={status}
             >
               {status === "sending" && (
                 <span
-                  className="pimolu-chat__status-spinner"
+                  className={mergeClasses("pimolu-chat__status-spinner", partClasses.statusSpinner)}
                   aria-hidden="true"
                 />
               )}
@@ -293,11 +302,9 @@ function ChatMessageView({
               {status === "error" && <AlertIcon />}
 
               <span
-                className={
-                  status === "error"
+                className={mergeClasses(status === "error"
                     ? "pimolu-chat__status-text"
-                    : "pimolu-chat__sr"
-                }
+                    : "pimolu-chat__sr", partClasses.statusText)}
               >
                 {status === "sending"
                   ? labels.sending
@@ -309,21 +316,21 @@ function ChatMessageView({
           )}
         </div>
 
-        <div className="pimolu-chat__bubble">
+        <div className={mergeClasses("pimolu-chat__bubble", partClasses.bubble)}>
           {message.body}
         </div>
 
         {message.attachments &&
           message.attachments.length > 0 && (
-            <ul className="pimolu-chat__attachments">
+            <ul className={mergeClasses("pimolu-chat__attachments", partClasses.attachments)}>
               {message.attachments.map(
                 (attachment: PimoluChatAttachment) => (
                   <li
                     key={attachment.id}
-                    className="pimolu-chat__attachment"
+                    className={mergeClasses("pimolu-chat__attachment", partClasses.attachment)}
                   >
                     <span
-                      className="pimolu-chat__attachment-icon"
+                      className={mergeClasses("pimolu-chat__attachment-icon", partClasses.attachmentIcon)}
                       aria-hidden="true"
                     >
                       <FileIcon />
@@ -331,7 +338,7 @@ function ChatMessageView({
 
                     {attachment.href ? (
                       <a
-                        className="pimolu-chat__attachment-name"
+                        className={mergeClasses("pimolu-chat__attachment-name", partClasses.attachmentName)}
                         href={attachment.href}
                         aria-label={labels.attachment(
                           attachment.name
@@ -340,13 +347,13 @@ function ChatMessageView({
                         {attachment.name}
                       </a>
                     ) : (
-                      <span className="pimolu-chat__attachment-name">
+                      <span className={mergeClasses("pimolu-chat__attachment-name", partClasses.attachmentName)}>
                         {attachment.name}
                       </span>
                     )}
 
                     {attachment.size !== undefined && (
-                      <span className="pimolu-chat__attachment-size">
+                      <span className={mergeClasses("pimolu-chat__attachment-size", partClasses.attachmentSize)}>
                         {formatSize(attachment.size)}
                       </span>
                     )}
@@ -357,14 +364,14 @@ function ChatMessageView({
           )}
       </div>
     </li>
-  );
+  ));
 }
 
 /* =========================================
    CHAT
 ========================================= */
 
-export function Chat({
+export function Chat({ classNames,
   messages,
   currentUserId,
   onSend,
@@ -382,6 +389,8 @@ export function Chat({
   "aria-label": ariaLabel,
   ...props
 }: PimoluChatProps) {
+  const [partClasses, scopeParts] = usePartClasses("chat", classNames, true);
+
   const labels: PimoluChatLabels = {
     ...defaultLabels,
     ...labelOverrides,
@@ -457,7 +466,7 @@ export function Chat({
       rendered.push(
         <li
           key={`date-${message.date}-${message.id}`}
-          className="pimolu-chat__date"
+          className={mergeClasses("pimolu-chat__date", partClasses.date)}
           role="separator"
           aria-label={label}
         >
@@ -486,10 +495,10 @@ export function Chat({
       ? labels.typing(joinNames(typingUsers))
       : "";
 
-  return (
+  return scopeParts((
     <div
       {...props}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       role={props.role ?? "region"}
       aria-label={ariaLabel ?? labels.conversation}
       aria-busy={loading || undefined}
@@ -497,41 +506,41 @@ export function Chat({
       data-disabled={disabled ? "true" : undefined}
     >
       {header != null && (
-        <div className="pimolu-chat__header">
+        <div className={mergeClasses("pimolu-chat__header", partClasses.header)}>
           {header}
         </div>
       )}
 
-      <div className="pimolu-chat__body">
+      <div className={mergeClasses("pimolu-chat__body", partClasses.body)}>
         {loading ? (
           <div
-            className="pimolu-chat__loading"
+            className={mergeClasses("pimolu-chat__loading", partClasses.loading)}
             role="status"
             aria-live="polite"
           >
             <span
-              className="pimolu-chat__spinner"
+              className={mergeClasses("pimolu-chat__spinner", partClasses.spinner)}
               aria-hidden="true"
             />
 
             <span>{labels.loading}</span>
           </div>
         ) : messages.length === 0 ? (
-          <div className="pimolu-chat__empty">
+          <div className={mergeClasses("pimolu-chat__empty", partClasses.empty)}>
             {emptyState ?? (
               <>
                 <span
-                  className="pimolu-chat__empty-icon"
+                  className={mergeClasses("pimolu-chat__empty-icon", partClasses.emptyIcon)}
                   aria-hidden="true"
                 >
                   <EmptyIcon />
                 </span>
 
-                <p className="pimolu-chat__empty-title">
+                <p className={mergeClasses("pimolu-chat__empty-title", partClasses.emptyTitle)}>
                   {labels.empty}
                 </p>
 
-                <p className="pimolu-chat__empty-description">
+                <p className={mergeClasses("pimolu-chat__empty-description", partClasses.emptyDescription)}>
                   {labels.emptyDescription}
                 </p>
               </>
@@ -540,7 +549,7 @@ export function Chat({
         ) : (
           <ol
             ref={listRef}
-            className="pimolu-chat__log"
+            className={mergeClasses("pimolu-chat__log", partClasses.log)}
             role="log"
             aria-label={labels.messages}
             aria-live="polite"
@@ -552,12 +561,12 @@ export function Chat({
 
         {!loading && typingUsers.length > 0 && (
           <div
-            className="pimolu-chat__typing"
+            className={mergeClasses("pimolu-chat__typing", partClasses.typing)}
             role="status"
             aria-live="polite"
           >
             <span
-              className="pimolu-chat__typing-dots"
+              className={mergeClasses("pimolu-chat__typing-dots", partClasses.typingDots)}
               aria-hidden="true"
             >
               <span />
@@ -571,14 +580,14 @@ export function Chat({
       </div>
 
       <form
-        className="pimolu-chat__composer"
+        className={mergeClasses("pimolu-chat__composer", partClasses.composer)}
         onSubmit={(event) => {
           event.preventDefault();
           send();
         }}
       >
         <label
-          className="pimolu-chat__sr"
+          className={mergeClasses("pimolu-chat__sr", partClasses.sr)}
           htmlFor={inputId}
         >
           {labels.message}
@@ -587,7 +596,7 @@ export function Chat({
         {onAttach && (
           <button
             type="button"
-            className="pimolu-chat__attach"
+            className={mergeClasses("pimolu-chat__attach", partClasses.attach)}
             aria-label={labels.attach}
             title={labels.attach}
             disabled={disabled || loading}
@@ -599,7 +608,7 @@ export function Chat({
 
         <textarea
           id={inputId}
-          className="pimolu-chat__input"
+          className={mergeClasses("pimolu-chat__input", partClasses.input)}
           rows={1}
           value={draft}
           placeholder={placeholder ?? labels.placeholder}
@@ -613,7 +622,7 @@ export function Chat({
 
         <button
           type="submit"
-          className="pimolu-chat__send"
+          className={mergeClasses("pimolu-chat__send", partClasses.send)}
           aria-label={labels.send}
           title={labels.send}
           disabled={
@@ -626,5 +635,5 @@ export function Chat({
         </button>
       </form>
     </div>
-  );
+  ));
 }

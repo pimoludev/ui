@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -51,7 +54,9 @@ function classes(
 }
 
 export function ToggleGroup(props: PimoluToggleGroupProps) {
-  const {
+  const [partClasses, scopeParts] = usePartClasses("toggle-group", props.classNames, true);
+
+  const { classNames,
     children,
 
     variant = "default",
@@ -127,7 +132,7 @@ export function ToggleGroup(props: PimoluToggleGroupProps) {
     )?.(item);
   }
 
-  return (
+  return scopeParts((
     <ToggleGroupContext.Provider
       value={{
         variant,
@@ -142,40 +147,42 @@ export function ToggleGroup(props: PimoluToggleGroupProps) {
         aria-label={props["aria-label"]}
         aria-labelledby={props["aria-labelledby"]}
         data-orientation={orientation}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-toggle-group",
           orientation === "vertical" &&
             "pimolu-toggle-group--vertical",
           className
-        )}
+        ), partClasses.root)}
       >
         {children}
       </div>
     </ToggleGroupContext.Provider>
-  );
+  ));
 }
 
-export function ToggleGroupItem({
+export function ToggleGroupItem({ classNames,
   value,
   disabled,
   children,
   className,
 }: PimoluToggleGroupItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("toggle-group", classNames, false);
+
   const group = useToggleGroup("ToggleGroupItem");
 
-  return (
+  return scopeParts((
     <Toggle
       pressed={group.selected(value)}
       onPressedChange={() => group.toggle(value)}
       variant={group.variant}
       size={group.size}
       disabled={group.disabled || disabled}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-toggle-group__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
     >
       {children}
     </Toggle>
-  );
+  ));
 }

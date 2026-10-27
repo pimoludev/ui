@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useEffect,
@@ -247,7 +251,7 @@ function getColumnContent<T extends PimoluTreeTableNode>(
    TREE TABLE
 ========================================= */
 
-export function TreeTable<T extends PimoluTreeTableNode>({
+export function TreeTable<T extends PimoluTreeTableNode>({ classNames,
   nodes,
   columns,
   getNodeId,
@@ -273,6 +277,8 @@ export function TreeTable<T extends PimoluTreeTableNode>({
   className,
   rowClassName,
 }: PimoluTreeTableProps<T>) {
+  const [partClasses, scopeParts] = usePartClasses("tree-table", classNames, true);
+
   const text = { ...DEFAULT_LABELS, ...(selectionMode === "cascade" ? { selectAll: "Select all rows" } : {}), ...labels };
 
   const resolveNodeId =
@@ -666,14 +672,14 @@ export function TreeTable<T extends PimoluTreeTableNode>({
   const someVisibleSelected =
     selectedVisible > 0 && !allVisibleSelected;
 
-  return (
+  return scopeParts((
     <div
-      className={[
+      className={mergeClasses([
         "pimolu-tree-table",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       <Table
         role="treegrid"
@@ -684,7 +690,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
         }
         density={density}
         containerClassName="pimolu-tree-table__table-wrapper"
-        className="pimolu-tree-table__table"
+        className={mergeClasses("pimolu-tree-table__table", partClasses.table)}
         onKeyDown={handleKeyDown}
       >
         <TableHeader>
@@ -692,7 +698,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
             {selectable && (
               <TableHead
                 scope="col"
-                className="pimolu-tree-table__select-cell"
+                className={mergeClasses("pimolu-tree-table__select-cell", partClasses.selectCell)}
               >
                 <Checkbox
                   aria-label={text.selectAll}
@@ -716,10 +722,10 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                     ? { width: column.width }
                     : undefined
                 }
-                className={[
+                className={mergeClasses([
                   "pimolu-tree-table__head",
                   getAlignClass("head", column.align),
-                ].join(" ")}
+                ].join(" "), partClasses.head)}
               >
                 {column.header}
               </TableHead>
@@ -732,7 +738,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
             <TableRow>
               <TableCell
                 colSpan={Math.max(columnCount, 1)}
-                className="pimolu-tree-table__empty"
+                className={mergeClasses("pimolu-tree-table__empty", partClasses.empty)}
               >
                 {emptyState ?? (
                   <EmptyState
@@ -788,8 +794,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                         ? "selected"
                         : "default"
                   }
-                  className={
-                    [
+                  className={mergeClasses([
                       "pimolu-tree-table__row",
                       isSelected &&
                         "pimolu-tree-table__row--selected",
@@ -798,8 +803,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                       rowClassName?.(node, level),
                     ]
                       .filter(Boolean)
-                      .join(" ") || undefined
-                  }
+                      .join(" ") || undefined, partClasses.row)}
                   onClick={() => {
                     if (isDisabled || !selectable) {
                       return;
@@ -811,7 +815,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                 >
                   {selectable && (
                     <TableCell
-                      className="pimolu-tree-table__select-cell"
+                      className={mergeClasses("pimolu-tree-table__select-cell", partClasses.selectCell)}
                       onClick={(event) =>
                         event.stopPropagation()
                       }
@@ -853,7 +857,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                             ? style
                             : undefined
                         }
-                        className={[
+                        className={mergeClasses([
                           "pimolu-tree-table__cell",
                           isTreeColumn &&
                             "pimolu-tree-table__tree-cell",
@@ -863,12 +867,12 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                           ),
                         ]
                           .filter(Boolean)
-                          .join(" ")}
+                          .join(" "), partClasses.cell)}
                       >
                         {isTreeColumn ? (
-                          <span className="pimolu-tree-table__tree-content">
+                          <span className={mergeClasses("pimolu-tree-table__tree-content", partClasses.treeContent)}>
                             <span
-                              className="pimolu-tree-table__guides"
+                              className={mergeClasses("pimolu-tree-table__guides", partClasses.guides)}
                               aria-hidden="true"
                             >
                               {Array.from(
@@ -876,7 +880,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                                 (_, guideIndex) => (
                                   <span
                                     key={guideIndex}
-                                    className="pimolu-tree-table__guide"
+                                    className={mergeClasses("pimolu-tree-table__guide", partClasses.guide)}
                                   />
                                 )
                               )}
@@ -885,7 +889,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                             {hasChildren ? (
                               <button
                                 type="button"
-                                className="pimolu-tree-table__expander"
+                                className={mergeClasses("pimolu-tree-table__expander", partClasses.expander)}
                                 aria-label={
                                   isExpanded
                                     ? text.collapse(label)
@@ -902,12 +906,12 @@ export function TreeTable<T extends PimoluTreeTableNode>({
                               </button>
                             ) : (
                               <span
-                                className="pimolu-tree-table__expander-spacer"
+                                className={mergeClasses("pimolu-tree-table__expander-spacer", partClasses.expanderSpacer)}
                                 aria-hidden="true"
                               />
                             )}
 
-                            <span className="pimolu-tree-table__label">
+                            <span className={mergeClasses("pimolu-tree-table__label", partClasses.label)}>
                               {content}
                             </span>
                           </span>
@@ -924,7 +928,7 @@ export function TreeTable<T extends PimoluTreeTableNode>({
         </TableBody>
       </Table>
     </div>
-  );
+  ));
 }
 
 TreeTable.displayName = "PimoluTreeTable";
@@ -933,10 +937,12 @@ TreeTable.displayName = "PimoluTreeTable";
    ICONS
 ========================================= */
 
-function Chevron() {
-  return (
+function Chevron({ classNames }: { classNames?: PimoluClassNames<"tree-table"> } = {}) {
+  const [partClasses, scopeParts] = usePartClasses("tree-table", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-tree-table__chevron"
+      className={mergeClasses("pimolu-tree-table__chevron", partClasses.chevron)}
       viewBox="0 0 24 24"
       width="14"
       height="14"
@@ -950,5 +956,5 @@ function Chevron() {
     >
       <path d="m9 18 6-6-6-6" />
     </svg>
-  );
+  ));
 }

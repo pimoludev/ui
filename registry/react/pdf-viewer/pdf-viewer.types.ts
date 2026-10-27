@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ReactEventHandler,
   ReactNode,
@@ -24,6 +26,9 @@ export interface PimoluPDFViewerLabels {
 }
 
 export interface PimoluPDFViewerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"pdf-viewer">;
+
   /** URL of the PDF document. */
   src: string;
 

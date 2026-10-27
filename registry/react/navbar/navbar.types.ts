@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { PimoluNavbarAppearance } from "./navbar.variants";
 
 import type {
@@ -9,6 +11,9 @@ import type {
 
 export interface PimoluNavbarProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"navbar">;
+
   /** Surface treatment. Defaults to surface; transparent inherits the page background. */
   appearance?: PimoluNavbarAppearance;
 
@@ -40,11 +45,17 @@ export interface PimoluNavbarProps
 
 export interface PimoluNavbarBrandProps
   extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"navbar">;
+
   children: ReactNode;
 }
 
 export interface PimoluNavbarContentProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"navbar">;
+
   /** Accessible name of the navigation landmark. */
   "aria-label"?: string;
 
@@ -53,6 +64,9 @@ export interface PimoluNavbarContentProps
 
 export interface PimoluNavbarToggleProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"navbar">;
+
   /** Replaces the default hamburger icon. */
   icon?: ReactNode;
 
@@ -68,6 +82,9 @@ export interface PimoluNavbarToggleProps
 
 export interface PimoluNavbarItemProps
   extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"navbar">;
+
   active?: boolean;
 
   disabled?: boolean;
@@ -80,5 +97,8 @@ export interface PimoluNavbarItemProps
 
 export interface PimoluNavbarActionsProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"navbar">;
+
   children: ReactNode;
 }

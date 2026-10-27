@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -154,7 +157,7 @@ export const Signature = forwardRef<
   HTMLCanvasElement,
   PimoluSignatureProps
 >(function Signature(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -185,6 +188,8 @@ export const Signature = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("signature", classNames, true);
+
   const safeWidth =
     Number.isFinite(width) && width > 0
       ? width
@@ -701,10 +706,10 @@ export const Signature = forwardRef<
     !readOnly &&
     history.length > 1;
 
-  return (
+  return scopeParts((
     <div
       id={id}
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       data-has-value={hasInk ? "true" : "false"}
       data-readonly={readOnly ? "true" : undefined}
       style={
@@ -721,7 +726,7 @@ export const Signature = forwardRef<
       {label && (
         <span
           id={labelId}
-          className="pimolu-signature__label"
+          className={mergeClasses("pimolu-signature__label", partClasses.label)}
         >
           {label}
         </span>
@@ -730,14 +735,14 @@ export const Signature = forwardRef<
       {description && (
         <p
           id={descriptionId}
-          className="pimolu-signature__description"
+          className={mergeClasses("pimolu-signature__description", partClasses.description)}
         >
           {description}
         </p>
       )}
 
       <div
-        className="pimolu-signature__stage"
+        className={mergeClasses("pimolu-signature__stage", partClasses.stage)}
         style={{
           aspectRatio: `${safeWidth} / ${safeHeight}`,
         }}
@@ -745,7 +750,7 @@ export const Signature = forwardRef<
         <canvas
           ref={assignRef}
           id={canvasId}
-          className="pimolu-signature__canvas"
+          className={mergeClasses("pimolu-signature__canvas", partClasses.canvas)}
           role="img"
           aria-labelledby={labelId}
           aria-label={
@@ -770,7 +775,7 @@ export const Signature = forwardRef<
 
         {!hasInk && (
           <span
-            className="pimolu-signature__placeholder"
+            className={mergeClasses("pimolu-signature__placeholder", partClasses.placeholder)}
             aria-hidden="true"
           >
             Sign here
@@ -778,23 +783,23 @@ export const Signature = forwardRef<
         )}
 
         <span
-          className="pimolu-signature__baseline"
+          className={mergeClasses("pimolu-signature__baseline", partClasses.baseline)}
           aria-hidden="true"
         />
       </div>
 
       <p
         id={instructionsId}
-        className="pimolu-signature__sr-only"
+        className={mergeClasses("pimolu-signature__sr-only", partClasses.srOnly)}
       >
         {instructions}
       </p>
 
-      <div className="pimolu-signature__toolbar">
+      <div className={mergeClasses("pimolu-signature__toolbar", partClasses.toolbar)}>
         {undo && (
           <button
             type="button"
-            className="pimolu-signature__action"
+            className={mergeClasses("pimolu-signature__action", partClasses.action)}
             disabled={!canUndo}
             {...actionHandlers(undoLast)}
           >
@@ -804,7 +809,7 @@ export const Signature = forwardRef<
 
         <button
           type="button"
-          className="pimolu-signature__action pimolu-signature__action--clear"
+          className={mergeClasses("pimolu-signature__action pimolu-signature__action--clear", partClasses.action)}
           disabled={!canClear}
           {...actionHandlers(clear)}
         >
@@ -812,7 +817,7 @@ export const Signature = forwardRef<
         </button>
       </div>
     </div>
-  );
+  ));
 });
 
 Signature.displayName = "PimoluSignature";

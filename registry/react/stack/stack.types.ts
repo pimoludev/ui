@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -48,6 +50,9 @@ export type PimoluStackDirection = "row" | "column";
 
 export interface PimoluStackProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"stack">;
+
   /** Element rendered by the stack. Defaults to `div`. */
   as?: ElementType;
 
@@ -71,9 +76,9 @@ export interface PimoluStackProps
 }
 
 /** HStack and VStack fix the direction, so it is not part of their API. */
-export type PimoluHStackProps = Omit<
+export type PimoluHStackProps = (Omit<
   PimoluStackProps,
   "direction"
->;
+>) & { classNames?: PimoluClassNames<"stack"> };
 
 export type PimoluVStackProps = PimoluHStackProps;

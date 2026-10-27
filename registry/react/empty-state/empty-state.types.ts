@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -16,6 +18,9 @@ export interface PimoluEmptyStateProps
     HTMLAttributes<HTMLElement>,
     "title" | "children"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"empty-state">;
+
   /** Decorative illustration or icon, hidden from assistive technology. */
   icon?: ReactNode;
 

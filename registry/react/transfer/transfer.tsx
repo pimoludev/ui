@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useId,
@@ -35,7 +38,7 @@ function filterItems(
    TRANSFER
 ========================================= */
 
-export function Transfer({
+export function Transfer({ classNames,
   data,
   targetKeys,
   defaultTargetKeys = [],
@@ -56,6 +59,8 @@ export function Transfer({
 
   "aria-label": ariaLabel,
 }: PimoluTransferProps) {
+  const [partClasses, scopeParts] = usePartClasses("transfer", classNames, true);
+
   const generatedId = useId();
 
   const sourceTitle = titles?.[0] ?? "Source";
@@ -239,12 +244,12 @@ export function Transfer({
 
     return (
       <>
-        <span className="pimolu-transfer__item-label">
+        <span className={mergeClasses("pimolu-transfer__item-label", partClasses.itemLabel)}>
           {item.label}
         </span>
 
         {item.description && (
-          <span className="pimolu-transfer__item-description">
+          <span className={mergeClasses("pimolu-transfer__item-description", partClasses.itemDescription)}>
             {item.description}
           </span>
         )}
@@ -275,19 +280,19 @@ export function Transfer({
       <div
         role="group"
         aria-labelledby={titleId}
-        className="pimolu-transfer__panel"
+        className={mergeClasses("pimolu-transfer__panel", partClasses.panel)}
       >
-        <div className="pimolu-transfer__header">
+        <div className={mergeClasses("pimolu-transfer__header", partClasses.header)}>
           <span
             id={titleId}
-            className="pimolu-transfer__title"
+            className={mergeClasses("pimolu-transfer__title", partClasses.title)}
           >
             {title}
           </span>
 
           {showCount && (
             <span
-              className="pimolu-transfer__count"
+              className={mergeClasses("pimolu-transfer__count", partClasses.count)}
               aria-label={`${items.length} items`}
             >
               {items.length}
@@ -296,9 +301,9 @@ export function Transfer({
         </div>
 
         {searchable && (
-          <div className="pimolu-transfer__search">
+          <div className={mergeClasses("pimolu-transfer__search", partClasses.search)}>
             <svg
-              className="pimolu-transfer__search-icon"
+              className={mergeClasses("pimolu-transfer__search-icon", partClasses.searchIcon)}
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -313,7 +318,7 @@ export function Transfer({
             <input
               id={searchId}
               type="search"
-              className="pimolu-transfer__search-input"
+              className={mergeClasses("pimolu-transfer__search-input", partClasses.searchInput)}
               value={query}
               disabled={disabled}
               placeholder="Search…"
@@ -329,12 +334,12 @@ export function Transfer({
         <ul
           role="list"
           aria-labelledby={titleId}
-          className="pimolu-transfer__list"
+          className={mergeClasses("pimolu-transfer__list", partClasses.list)}
           style={{ height: listHeight }}
         >
           {visibleItems.length === 0 ? (
             <li
-              className="pimolu-transfer__empty"
+              className={mergeClasses("pimolu-transfer__empty", partClasses.empty)}
               role="status"
             >
               {query
@@ -350,20 +355,20 @@ export function Transfer({
               return (
                 <li
                   key={item.key}
-                  className="pimolu-transfer__row"
+                  className={mergeClasses("pimolu-transfer__row", partClasses.row)}
                 >
                   <label
-                    className={[
+                    className={mergeClasses([
                       "pimolu-transfer__item",
                       itemDisabled &&
                         "pimolu-transfer__item--disabled",
                     ]
                       .filter(Boolean)
-                      .join(" ")}
+                      .join(" "), partClasses.item)}
                   >
                     <input
                       type="checkbox"
-                      className="pimolu-native-checkbox pimolu-transfer__checkbox"
+                      className={mergeClasses("pimolu-native-checkbox pimolu-transfer__checkbox", partClasses.checkbox)}
                       checked={checked}
                       disabled={itemDisabled}
                       aria-label={item.label}
@@ -372,7 +377,7 @@ export function Transfer({
                       }
                     />
 
-                    <span className="pimolu-transfer__item-content">
+                    <span className={mergeClasses("pimolu-transfer__item-content", partClasses.itemContent)}>
                       {itemContent(item)}
                     </span>
                   </label>
@@ -393,9 +398,9 @@ export function Transfer({
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       style={style}
       role={ariaLabel ? "group" : undefined}
       aria-label={ariaLabel}
@@ -411,14 +416,14 @@ export function Transfer({
       })}
 
       <div
-        className="pimolu-transfer__controls"
+        className={mergeClasses("pimolu-transfer__controls", partClasses.controls)}
         role="group"
         aria-label="Move controls"
       >
-        <div className="pimolu-transfer__controls-group">
+        <div className={mergeClasses("pimolu-transfer__controls-group", partClasses.controlsGroup)}>
           <button
             type="button"
-            className="pimolu-transfer__move"
+            className={mergeClasses("pimolu-transfer__move", partClasses.move)}
             aria-label="Move selected to the right"
             title="Move selected to the right"
             disabled={
@@ -435,7 +440,7 @@ export function Transfer({
           {showMoveAll && (
             <button
               type="button"
-              className="pimolu-transfer__move pimolu-transfer__move--all"
+              className={mergeClasses("pimolu-transfer__move pimolu-transfer__move--all", partClasses.move)}
               aria-label="Move all to the right"
               title="Move all to the right"
               disabled={
@@ -450,10 +455,10 @@ export function Transfer({
           )}
         </div>
 
-        <div className="pimolu-transfer__controls-group">
+        <div className={mergeClasses("pimolu-transfer__controls-group", partClasses.controlsGroup)}>
           <button
             type="button"
-            className="pimolu-transfer__move"
+            className={mergeClasses("pimolu-transfer__move", partClasses.move)}
             aria-label="Move selected to the left"
             title="Move selected to the left"
             disabled={
@@ -470,7 +475,7 @@ export function Transfer({
           {showMoveAll && (
             <button
               type="button"
-              className="pimolu-transfer__move pimolu-transfer__move--all"
+              className={mergeClasses("pimolu-transfer__move pimolu-transfer__move--all", partClasses.move)}
               aria-label="Move all to the left"
               title="Move all to the left"
               disabled={
@@ -496,7 +501,7 @@ export function Transfer({
         side: "target",
       })}
     </div>
-  );
+  ));
 }
 
 Transfer.displayName = "PimoluTransfer";

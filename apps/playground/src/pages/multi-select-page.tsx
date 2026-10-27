@@ -95,6 +95,49 @@ function PermissionsExample() {
   );
 }
 
+function CustomizedParts() {
+  return (
+    <>
+      <MultiSelect
+        label="Project teams"
+        options={[
+          { value: "design", label: "Design" },
+          {
+            value: "engineering",
+            label: "Engineering"
+          },
+          {
+            value: "research",
+            label: "Research"
+          }
+        ]}
+        defaultValue={["design"]}
+        classNames={{
+          listbox: "parts-multi-panel",
+          option: "parts-multi-option",
+          tag: "parts-multi-tag"
+        }}
+      />
+      <style>
+        {
+          `
+.parts-multi-panel {
+  border-radius: 16px;
+}
+.parts-multi-option {
+  padding-block: 12px;
+}
+.parts-multi-tag {
+  border-radius: 6px;
+}
+`
+        }
+      </style>
+    </>
+  );
+}
+
+
 export function MultiSelectPage() {
   return (
     <>
@@ -272,6 +315,9 @@ export function MultiSelectPage() {
             </CardContent>
           </Card>
         </div>
+      </Section>
+      <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
+        <CustomizedParts />
       </Section>
     </>
   );

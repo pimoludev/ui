@@ -1,0 +1,8 @@
+[
+  {
+    "file": "combobox-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content.",
+    "append": true
+  }
+]

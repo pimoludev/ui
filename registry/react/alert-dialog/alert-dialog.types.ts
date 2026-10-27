@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactElement } from "react";
 
 import type {
@@ -7,10 +9,10 @@ import type {
 
 export type PimoluAlertDialogProps = PimoluDialogProps;
 
-export type PimoluAlertDialogContentProps = Omit<
+export type PimoluAlertDialogContentProps = (Omit<
   PimoluDialogContentProps,
   "role"
->;
+>) & { classNames?: PimoluClassNames<"alert-dialog"> };
 
 export interface PimoluAlertDialogActionProps {
   /** Usually a Button; it closes the dialog when activated. */

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactElement, ReactNode } from "react";
 
 import type { PimoluPopoverPadding } from "./popover.variants";
@@ -71,5 +73,5 @@ export type PimoluPopoverLabelling =
   | { label: string; labelledBy?: undefined }
   | { labelledBy: string; label?: undefined };
 
-export type PimoluPopoverProps = PimoluPopoverCommonProps &
-  PimoluPopoverLabelling;
+export type PimoluPopoverProps = (PimoluPopoverCommonProps &
+  PimoluPopoverLabelling) & { classNames?: PimoluClassNames<"popover"> };

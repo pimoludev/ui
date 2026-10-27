@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { useId } from "react";
 
@@ -43,7 +46,7 @@ function groupItems(
   return groups;
 }
 
-export function TableOfContents({
+export function TableOfContents({ classNames,
   items,
   activeId,
   title = "On this page",
@@ -53,6 +56,8 @@ export function TableOfContents({
   "aria-labelledby": ariaLabelledBy,
   ...props
 }: PimoluTableOfContentsProps) {
+  const [partClasses, scopeParts] = usePartClasses("table-of-contents", classNames, true);
+
   const titleId = `pimolu-toc-${useId().replace(
     /[^a-zA-Z0-9_-]/g,
     ""
@@ -68,7 +73,7 @@ export function TableOfContents({
         aria-current={
           activeId === item.id ? "location" : undefined
         }
-        className="pimolu-table-of-contents__link"
+        className={mergeClasses("pimolu-table-of-contents__link", partClasses.link)}
         onClick={() => onNavigate?.(item)}
       >
         {item.label}
@@ -76,7 +81,7 @@ export function TableOfContents({
     );
   }
 
-  return (
+  return scopeParts((
     <nav
       {...props}
       aria-label={
@@ -87,34 +92,34 @@ export function TableOfContents({
         ariaLabelledBy ??
         (ariaLabel || !hasTitle ? undefined : titleId)
       }
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table-of-contents",
         className
-      )}
+      ), partClasses.root)}
     >
       {hasTitle && (
         <p
           id={titleId}
-          className="pimolu-table-of-contents__title"
+          className={mergeClasses("pimolu-table-of-contents__title", partClasses.title)}
         >
           {title}
         </p>
       )}
 
-      <ol className="pimolu-table-of-contents__list">
+      <ol className={mergeClasses("pimolu-table-of-contents__list", partClasses.list)}>
         {groups.map((group) => (
           <li
             key={group.item.id}
-            className="pimolu-table-of-contents__item"
+            className={mergeClasses("pimolu-table-of-contents__item", partClasses.item)}
           >
             {renderLink(group.item)}
 
             {group.children.length > 0 && (
-              <ol className="pimolu-table-of-contents__list pimolu-table-of-contents__list--nested">
+              <ol className={mergeClasses("pimolu-table-of-contents__list pimolu-table-of-contents__list--nested", partClasses.list)}>
                 {group.children.map((child) => (
                   <li
                     key={child.id}
-                    className="pimolu-table-of-contents__item"
+                    className={mergeClasses("pimolu-table-of-contents__item", partClasses.item)}
                   >
                     {renderLink(child)}
                   </li>
@@ -125,7 +130,7 @@ export function TableOfContents({
         ))}
       </ol>
     </nav>
-  );
+  ));
 }
 
 TableOfContents.displayName = "PimoluTableOfContents";

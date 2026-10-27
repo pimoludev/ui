@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -8,6 +10,9 @@ export type PimoluCenterMinHeight = number | string;
 
 export interface PimoluCenterProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"center">;
+
   /** Element rendered by the center box. Defaults to `div`. */
   as?: ElementType;
 

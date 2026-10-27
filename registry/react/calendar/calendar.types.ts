@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 /**
  * Shared date range value used by Calendar, DatePicker and DateRangePicker.
  * A range is incomplete while `to` is null.
@@ -18,6 +20,9 @@ export type PimoluDisabledDates =
   | ((date: Date) => boolean);
 
 export interface PimoluCalendarProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"calendar">;
+
   /** Selection model. Defaults to "single". */
   mode?: PimoluCalendarMode;
 

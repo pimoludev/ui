@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { CSSProperties, ReactNode } from "react";
 
 import type { PimoluTableDensity } from "../table/table.types";
@@ -171,6 +173,9 @@ export interface PimoluDataGridLabels {
 ========================================= */
 
 export interface PimoluDataGridProps<T> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"data-grid">;
+
   /** Rows to display. Never mutated. */
   data: readonly T[];
 

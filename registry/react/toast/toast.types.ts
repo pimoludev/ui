@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 import type { PimoluToastVariant } from "./toast.variants";
@@ -10,6 +12,8 @@ export interface PimoluToastAction {
 }
 
 export interface PimoluToastOptions {
+  /** Per-notification classes; override the corresponding Toaster parts. */
+  classNames?: PimoluClassNames<"toast">;
   title: ReactNode;
 
   description?: ReactNode;
@@ -35,6 +39,9 @@ export type PimoluToastPosition =
   | "bottom-center";
 
 export interface PimoluToasterProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toast">;
+
   position?: PimoluToastPosition;
 
   /** Accessible name of the live region. */

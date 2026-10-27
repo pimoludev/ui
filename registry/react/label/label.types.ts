@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   LabelHTMLAttributes,
   ReactNode,
@@ -9,6 +11,9 @@ export type { PimoluLabelSize };
 
 export interface PimoluLabelProps
   extends LabelHTMLAttributes<HTMLLabelElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"label">;
+
   /** Show a required asterisk. */
   required?: boolean;
 

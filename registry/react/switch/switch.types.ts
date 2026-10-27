@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   InputHTMLAttributes,
 } from "react";
@@ -27,6 +29,9 @@ export interface PimoluSwitchProps
     | "readOnly"
     | "aria-checked"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"switch">;
+
   /** Visual size. */
   size?: PimoluSwitchSize;
 

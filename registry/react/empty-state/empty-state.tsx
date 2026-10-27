@@ -1,3 +1,6 @@
+
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef, useId } from "react";
 
 import type { PimoluEmptyStateProps } from "./empty-state.types";
@@ -8,7 +11,7 @@ export const EmptyState = forwardRef<
   HTMLElement,
   PimoluEmptyStateProps
 >(function EmptyState(
-  {
+  { classNames,
     icon,
     title,
     description,
@@ -19,6 +22,8 @@ export const EmptyState = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("empty-state", classNames, true);
+
   const generatedId = useId();
   const titleId = `pimolu-empty-state-title-${generatedId}`;
 
@@ -29,11 +34,11 @@ export const EmptyState = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <section
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       aria-labelledby={
         props["aria-labelledby"] ?? titleId
       }
@@ -41,7 +46,7 @@ export const EmptyState = forwardRef<
     >
       {icon != null && (
         <span
-          className="pimolu-empty-state__icon"
+          className={mergeClasses("pimolu-empty-state__icon", partClasses.icon)}
           aria-hidden="true"
         >
           {icon}
@@ -52,24 +57,24 @@ export const EmptyState = forwardRef<
         id={
           props["aria-labelledby"] ? undefined : titleId
         }
-        className="pimolu-empty-state__title"
+        className={mergeClasses("pimolu-empty-state__title", partClasses.title)}
       >
         {title}
       </h3>
 
       {description != null && (
-        <p className="pimolu-empty-state__description">
+        <p className={mergeClasses("pimolu-empty-state__description", partClasses.description)}>
           {description}
         </p>
       )}
 
       {actions != null && (
-        <div className="pimolu-empty-state__actions">
+        <div className={mergeClasses("pimolu-empty-state__actions", partClasses.actions)}>
           {actions}
         </div>
       )}
     </section>
-  );
+  ));
 });
 
 EmptyState.displayName = "PimoluEmptyState";

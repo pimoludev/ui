@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -50,7 +53,7 @@ export const RadioGroup = forwardRef<
   HTMLFieldSetElement,
   PimoluRadioGroupProps
 >(function RadioGroup(
-  {
+  { classNames,
     id,
     name,
 
@@ -77,6 +80,8 @@ export const RadioGroup = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("radio", classNames, true);
+
   const generatedId = useId();
 
   const groupId =
@@ -113,19 +118,19 @@ export const RadioGroup = forwardRef<
     className,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <RadioContext.Provider value={contextValue}>
       <fieldset
         {...props}
         ref={ref}
         id={groupId}
-        className={groupClassName}
+        className={mergeClasses(groupClassName, partClasses.root)}
         disabled={disabled}
         aria-describedby={describedBy}
         data-orientation={orientation}
       >
         {label && (
-          <legend className="pimolu-radio-group__legend">
+          <legend className={mergeClasses("pimolu-radio-group__legend", partClasses.legend)}>
             {label}
           </legend>
         )}
@@ -133,18 +138,18 @@ export const RadioGroup = forwardRef<
         {description && (
           <p
             id={descriptionId}
-            className="pimolu-radio-group__description"
+            className={mergeClasses("pimolu-radio-group__description", partClasses.description)}
           >
             {description}
           </p>
         )}
 
-        <div className="pimolu-radio-group__options">
+        <div className={mergeClasses("pimolu-radio-group__options", partClasses.options)}>
           {children}
         </div>
       </fieldset>
     </RadioContext.Provider>
-  );
+  ));
 });
 
 RadioGroup.displayName = "PimoluRadioGroup";
@@ -157,7 +162,7 @@ export const Radio = forwardRef<
   HTMLInputElement,
   PimoluRadioProps
 >(function Radio(
-  {
+  { classNames,
     id,
     value,
     label,
@@ -184,6 +189,8 @@ export const Radio = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("radio", classNames, true);
+
   const group = useContext(RadioContext);
 
   const generatedId = useId();
@@ -248,18 +255,18 @@ export const Radio = forwardRef<
     className,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <div
-      className={radioClassName}
+      className={mergeClasses(radioClassName, partClasses.root)}
       style={style}
     >
-      <span className="pimolu-radio__control">
+      <span className={mergeClasses("pimolu-radio__control", partClasses.control)}>
         <input
           {...props}
           ref={ref}
           id={radioId}
           type="radio"
-          className="pimolu-radio__input"
+          className={mergeClasses("pimolu-radio__input", partClasses.input)}
           name={resolvedName}
           value={value}
           checked={resolvedChecked}
@@ -271,17 +278,17 @@ export const Radio = forwardRef<
         />
 
         <span
-          className="pimolu-radio__circle"
+          className={mergeClasses("pimolu-radio__circle", partClasses.circle)}
           aria-hidden="true"
         />
       </span>
 
       {(label || description) && (
-        <span className="pimolu-radio__content">
+        <span className={mergeClasses("pimolu-radio__content", partClasses.content)}>
           {label && (
             <label
               htmlFor={radioId}
-              className="pimolu-radio__label"
+              className={mergeClasses("pimolu-radio__label", partClasses.label)}
             >
               {label}
             </label>
@@ -290,7 +297,7 @@ export const Radio = forwardRef<
           {description && (
             <span
               id={descriptionId}
-              className="pimolu-radio__description"
+              className={mergeClasses("pimolu-radio__description", partClasses.description)}
             >
               {description}
             </span>
@@ -298,7 +305,7 @@ export const Radio = forwardRef<
         </span>
       )}
     </div>
-  );
+  ));
 });
 
 Radio.displayName = "PimoluRadio";

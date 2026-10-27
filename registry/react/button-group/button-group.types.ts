@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { HTMLAttributes, ReactNode } from "react";
 
 /** Reading direction of the grouped buttons. */
@@ -7,6 +9,9 @@ export type PimoluButtonGroupOrientation =
 
 export interface PimoluButtonGroupProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"button-group">;
+
   /** The buttons, separators and optional wrappers to group. */
   children?: ReactNode;
 
@@ -22,6 +27,9 @@ export interface PimoluButtonGroupProps
 
 export interface PimoluButtonGroupSeparatorProps
   extends HTMLAttributes<HTMLSpanElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"button-group">;
+
   /**
    * Line direction of the separator itself. When omitted it is
    * derived from the parent group: a horizontal group gets a

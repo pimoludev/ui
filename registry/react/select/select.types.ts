@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   SelectHTMLAttributes,
 } from "react";
@@ -84,4 +86,7 @@ export interface PimoluSelectProps
 
   /** Class applied to the outer container. */
   containerClassName?: string;
+
+  /** Additive classes for named parts; legacy className targets are unchanged. */
+  classNames?: PimoluClassNames<"select">;
 }

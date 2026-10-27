@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./api-table-customization-demo";
 import { ApiTable } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
@@ -170,6 +171,7 @@ export function ApiTablePage() {
           />
         </div>
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

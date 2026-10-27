@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 export interface PimoluLightboxImage {
@@ -38,6 +40,9 @@ export interface PimoluLightboxLabels {
 }
 
 export interface PimoluLightboxProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"lightbox">;
+
   /** Gallery items. An empty array renders nothing. */
   images: PimoluLightboxImage[];
 

@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -25,10 +29,12 @@ function slug(value: string) {
   return value.replace(/[^a-zA-Z0-9_-]/g, "-") || "item";
 }
 
-function Chevron() {
-  return (
+function Chevron({ classNames }: { classNames?: PimoluClassNames<"accordion"> } = {}) {
+  const [partClasses, scopeParts] = usePartClasses("accordion", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-accordion__chevron"
+      className={mergeClasses("pimolu-accordion__chevron", partClasses.chevron)}
       viewBox="0 0 24 24"
       width="16"
       height="16"
@@ -42,7 +48,7 @@ function Chevron() {
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
-  );
+  ));
 }
 
 /* =========================================
@@ -100,7 +106,9 @@ function useAccordionItem(component: string) {
 ========================================= */
 
 export function Accordion(props: PimoluAccordionProps) {
-  const {
+  const [partClasses, scopeParts] = usePartClasses("accordion", props.classNames, true);
+
+  const { classNames,
     children,
     variant = "default",
     collapsible = false,
@@ -180,7 +188,7 @@ export function Accordion(props: PimoluAccordionProps) {
     )?.(next);
   }
 
-  return (
+  return scopeParts((
     <AccordionContext.Provider
       value={{
         baseId,
@@ -192,27 +200,29 @@ export function Accordion(props: PimoluAccordionProps) {
     >
       <div
         ref={rootRef}
-        className={accordionVariants(
+        className={mergeClasses(accordionVariants(
           { variant },
           className
-        )}
+        ), partClasses.root)}
       >
         {children}
       </div>
     </AccordionContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
    ITEM
 ========================================= */
 
-export function AccordionItem({
+export function AccordionItem({ classNames,
   value,
   disabled = false,
   children,
   className,
 }: PimoluAccordionItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("accordion", classNames, false);
+
   const root = useAccordion("AccordionItem");
 
   const open = root.isOpen(value);
@@ -220,7 +230,7 @@ export function AccordionItem({
   const triggerId = `${root.baseId}-trigger-${slug(value)}`;
   const contentId = `${root.baseId}-content-${slug(value)}`;
 
-  return (
+  return scopeParts((
     <AccordionItemContext.Provider
       value={{
         value,
@@ -231,29 +241,31 @@ export function AccordionItem({
       }}
     >
       <div
-        className={[
+        className={mergeClasses([
           "pimolu-accordion__item",
           className,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.item, classNames?.root)}
         data-state={open ? "open" : "closed"}
         data-disabled={disabled || undefined}
       >
         {children}
       </div>
     </AccordionItemContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
    TRIGGER
 ========================================= */
 
-export function AccordionTrigger({
+export function AccordionTrigger({ classNames,
   children,
   className,
 }: PimoluAccordionTriggerProps) {
+  const [partClasses, scopeParts] = usePartClasses("accordion", classNames, false);
+
   const root = useAccordion("AccordionTrigger");
   const item = useAccordionItem("AccordionTrigger");
 
@@ -298,7 +310,7 @@ export function AccordionTrigger({
     triggers[nextIndex]?.focus();
   }
 
-  return (
+  return scopeParts((
     <button
       type="button"
       id={item.triggerId}
@@ -307,51 +319,53 @@ export function AccordionTrigger({
       aria-controls={item.contentId}
       disabled={item.disabled}
       data-state={item.open ? "open" : "closed"}
-      className={[
+      className={mergeClasses([
         "pimolu-accordion__trigger",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.trigger, classNames?.root)}
       onClick={() => root.toggle(item.value)}
       onKeyDown={handleKeyDown}
     >
-      <span className="pimolu-accordion__label">
+      <span className={mergeClasses("pimolu-accordion__label", partClasses.label)}>
         {children}
       </span>
 
       <Chevron />
     </button>
-  );
+  ));
 }
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function AccordionContent({
+export function AccordionContent({ classNames,
   children,
   className,
 }: PimoluAccordionContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("accordion", classNames, false);
+
   const item = useAccordionItem("AccordionContent");
 
-  return (
+  return scopeParts((
     <div
       id={item.contentId}
       role="region"
       aria-labelledby={item.triggerId}
       hidden={!item.open}
       data-state={item.open ? "open" : "closed"}
-      className={[
+      className={mergeClasses([
         "pimolu-accordion__content",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.content, classNames?.root)}
     >
-      <div className="pimolu-accordion__content-inner">
+      <div className={mergeClasses("pimolu-accordion__content-inner", partClasses.contentInner)}>
         {children}
       </div>
     </div>
-  );
+  ));
 }

@@ -13,7 +13,6 @@ La plupart des interfaces dérivent. Une couleur est ajustée ici, un rayon là,
 La deuxième promesse est la liberté. Les thèmes et les styles visuels s'appliquent par attributs de données, pas par du code conditionnel. Passer d'une interface claire à une interface sombre, ou d'une allure sobre à une allure expressive, ne change rien dans les composants. On dessine l'interface une fois, puis on l'habille selon les besoins du produit, aujourd'hui comme demain.
 
 La troisième est la sobriété. Ni runtime CSS-in-JS, ni framework de classes utilitaires, ni magie de build à décrypter. Le style est du CSS simple, construit à partir de classes `pimolu-*` et de variables `--pimolu-*`. On peut le lire, le surcharger, puis s'en aller — exactement ce qu'une fondation doit permettre.
-
 ## Ce que vous obtenez
 
 | Atout | Ce que cela change pour vous |
@@ -113,6 +112,12 @@ export function App() {
 Les tokens sont également disponibles au format JSON : React Native et les autres consommateurs JavaScript alimentent ainsi les mêmes valeurs dans des objets de style natifs. Sur le natif, la priorité est la cohérence visuelle par des tokens partagés plutôt que le partage du code des composants.
 
 Un exemple complet d'application Next.js App Router, avec lecture des préférences côté serveur, se trouve dans `examples/nextjs`.
+
+## Personnalisation (prochaine release)
+
+Le workspace ajoute une entrée optionnelle `@pimolu/web-styles/layered.css` et des hooks de parties typés `classNames` sur les 129 familles, leurs sous-composants composés et leurs surfaces en portail. Les anciennes entrées CSS et cibles de classes restent compatibles. Ces ajouts ne sont pas encore dans la version npm 0.1.0-beta.2. Voir [le contrat de personnalisation](docs/CUSTOMIZATION.md) pour les recettes CSS/Tailwind, les portails et les cibles stables.
+
+
 
 ## Navigation adaptative
 

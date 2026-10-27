@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   CSSProperties,
   HTMLAttributes,
@@ -6,6 +8,9 @@ import type {
 
 export interface PimoluDashboardLayoutProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dashboard-layout">;
+
   /** Persistent navigation, usually a Sidebar. */
   sidebar?: ReactNode;
 

@@ -8,5 +8,11 @@
     "file": "notification-center-empty.tsx",
     "title": "Empty inbox",
     "description": "A calm empty message, with no invented notification count or action."
+  },
+  {
+    "file": "notification-center-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type { CSSProperties } from "react";
 
@@ -106,7 +109,7 @@ function createTextTile({
    WATERMARK
 ========================================= */
 
-export function Watermark({
+export function Watermark({ classNames,
   text,
   image,
   children,
@@ -124,6 +127,8 @@ export function Watermark({
   className,
   style,
 }: PimoluWatermarkProps) {
+  const [partClasses, scopeParts] = usePartClasses("watermark", classNames, true);
+
   const safeOpacity = Number.isFinite(opacity)
     ? clamp(opacity, 0, 1)
     : 0.08;
@@ -207,9 +212,9 @@ export function Watermark({
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       style={
         {
           "--pimolu-watermark-opacity":
@@ -228,24 +233,24 @@ export function Watermark({
     >
       {(hasImage || hasText) && (
         <div
-          className={[
+          className={mergeClasses([
             "pimolu-watermark__layer",
             hasImage &&
               "pimolu-watermark__layer--image",
           ]
             .filter(Boolean)
-            .join(" ")}
+            .join(" "), partClasses.layer)}
           style={layerStyle}
           aria-hidden="true"
           data-mode={hasImage ? "image" : "text"}
         />
       )}
 
-      <div className="pimolu-watermark__content">
+      <div className={mergeClasses("pimolu-watermark__content", partClasses.content)}>
         {children}
       </div>
     </div>
-  );
+  ));
 }
 
 Watermark.displayName = "PimoluWatermark";

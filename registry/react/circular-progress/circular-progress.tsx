@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -21,7 +24,7 @@ export const CircularProgress = forwardRef<
   HTMLDivElement,
   PimoluCircularProgressProps
 >(function CircularProgress(
-  {
+  { classNames,
     value,
     max = 100,
 
@@ -42,6 +45,8 @@ export const CircularProgress = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("circular-progress", classNames, true);
+
   const indeterminate =
     value === undefined ||
     !Number.isFinite(value);
@@ -77,11 +82,11 @@ export const CircularProgress = forwardRef<
       `${100 - percent}`,
   } as CSSProperties;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={forwardedRef}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       data-empty={!indeterminate && percent === 0 ? "true" : undefined}
       data-complete={!indeterminate && percent === 100 ? "true" : undefined}
 
@@ -96,13 +101,13 @@ export const CircularProgress = forwardRef<
       aria-valuetext={valueLabel}
     >
       <svg
-        className="pimolu-circular-progress__svg"
+        className={mergeClasses("pimolu-circular-progress__svg", partClasses.svg)}
         viewBox="0 0 40 40"
         aria-hidden="true"
         focusable="false"
       >
         <circle
-          className="pimolu-circular-progress__track"
+          className={mergeClasses("pimolu-circular-progress__track", partClasses.track)}
           cx="20"
           cy="20"
           r="17"
@@ -110,7 +115,7 @@ export const CircularProgress = forwardRef<
         />
 
         <circle
-          className="pimolu-circular-progress__indicator"
+          className={mergeClasses("pimolu-circular-progress__indicator", partClasses.indicator)}
           cx="20"
           cy="20"
           r="17"
@@ -123,7 +128,7 @@ export const CircularProgress = forwardRef<
         /* The progressbar already exposes its value,
            so the readout is decorative. */
         <span
-          className="pimolu-circular-progress__value"
+          className={mergeClasses("pimolu-circular-progress__value", partClasses.value)}
           aria-hidden="true"
           title={displayed}
         >
@@ -131,7 +136,7 @@ export const CircularProgress = forwardRef<
         </span>
       )}
     </div>
-  );
+  ));
 });
 
 CircularProgress.displayName = "PimoluCircularProgress";

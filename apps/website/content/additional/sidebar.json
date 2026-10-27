@@ -8,5 +8,11 @@
     "file": "sidebar-rail.tsx",
     "title": "Start as an icon rail",
     "description": "Icon navigation keeps accessible item names when collapsed; expand to reveal labels."
+  },
+  {
+    "file": "sidebar-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -67,7 +70,7 @@ export const Resizable = forwardRef<
   HTMLDivElement,
   PimoluResizableProps
 >(function Resizable(
-  {
+  { classNames,
     children,
     orientation = "horizontal",
 
@@ -94,6 +97,8 @@ export const Resizable = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("resizable", classNames, true);
+
   const generatedId = useId();
   const baseId = `pimolu-resizable-${generatedId}`;
 
@@ -391,16 +396,16 @@ export const Resizable = forwardRef<
     "--pimolu-resizable-split": `${currentSizes[0]}%`,
   } as CSSProperties;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={assignRootRef}
-      className={[
+      className={mergeClasses([
         "pimolu-resizable",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       style={rootStyle}
       data-orientation={orientation}
       data-dragging={dragging ? "true" : "false"}
@@ -408,24 +413,24 @@ export const Resizable = forwardRef<
     >
       <div
         id={startPaneId}
-        className={[
+        className={mergeClasses([
           "pimolu-resizable__pane",
           "pimolu-resizable__pane--start",
           paneClassName,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.pane)}
       >
         {startPane}
       </div>
 
       <div
-        className={[
+        className={mergeClasses([
           "pimolu-resizable__separator",
           separatorClassName,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.separator)}
         role="separator"
         tabIndex={disabled ? -1 : 0}
         aria-label={separatorLabel}
@@ -450,25 +455,25 @@ export const Resizable = forwardRef<
         onDoubleClick={handleReset}
       >
         <span
-          className="pimolu-resizable__grip"
+          className={mergeClasses("pimolu-resizable__grip", partClasses.grip)}
           aria-hidden="true"
         />
       </div>
 
       <div
         id={endPaneId}
-        className={[
+        className={mergeClasses([
           "pimolu-resizable__pane",
           "pimolu-resizable__pane--end",
           paneClassName,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.pane)}
       >
         {endPane}
       </div>
     </div>
-  );
+  ));
 });
 
 Resizable.displayName = "PimoluResizable";

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -11,7 +14,7 @@ export const VisuallyHidden = forwardRef<
   HTMLElement,
   PimoluVisuallyHiddenProps
 >(function VisuallyHidden(
-  {
+  { classNames,
     as: Tag = "span",
     focusable = false,
     className,
@@ -21,6 +24,8 @@ export const VisuallyHidden = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("visually-hidden", classNames, true);
+
   const classes = [
     "pimolu-visually-hidden",
     focusable && "pimolu-visually-hidden--focusable",
@@ -31,17 +36,17 @@ export const VisuallyHidden = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       tabIndex={focusable ? (tabIndex ?? 0) : tabIndex}
       data-focusable={focusable ? "true" : "false"}
     >
       {children}
     </Component>
-  );
+  ));
 });
 
 VisuallyHidden.displayName = "PimoluVisuallyHidden";

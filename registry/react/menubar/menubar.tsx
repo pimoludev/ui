@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -84,13 +88,15 @@ function classes(
    ROOT
 ======================================== */
 
-export function Menubar({
+export function Menubar({ classNames,
   children,
   label,
   "aria-label": ariaLabel,
   className,
   ...props
 }: PimoluMenubarProps) {
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, true);
+
   const [openValue, setOpenValue] = useState<string | null>(
     null
   );
@@ -242,7 +248,7 @@ export function Menubar({
       );
   }, [openValue]);
 
-  return (
+  return scopeParts((
     <MenubarContext.Provider
       value={{ openValue, setOpenValue, menubarRef }}
     >
@@ -252,10 +258,10 @@ export function Menubar({
         role="menubar"
         aria-label={ariaLabel ?? label ?? "Menu bar"}
         aria-orientation="horizontal"
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-menubar",
           className
-        )}
+        ), partClasses.root)}
         data-open={openValue !== null || undefined}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
@@ -263,7 +269,7 @@ export function Menubar({
         {children}
       </div>
     </MenubarContext.Provider>
-  );
+  ));
 }
 
 Menubar.displayName = "PimoluMenubar";
@@ -272,11 +278,13 @@ Menubar.displayName = "PimoluMenubar";
    MENU
 ======================================== */
 
-export function MenubarMenu({
+export function MenubarMenu({ classNames,
   children,
   className,
   value: valueProp,
 }: PimoluMenubarMenuProps) {
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, false);
+
   const generated = useId();
 
   const value = valueProp ?? `menu-${generated}`;
@@ -288,21 +296,21 @@ export function MenubarMenu({
     null
   );
 
-  return (
+  return scopeParts((
     <MenubarMenuContext.Provider
       value={{ value, triggerId, contentId, triggerRef }}
     >
       <div
         role="none"
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-menubar__menu",
           className
-        )}
+        ), partClasses.menu, classNames?.root)}
       >
         {children}
       </div>
     </MenubarMenuContext.Provider>
-  );
+  ));
 }
 
 MenubarMenu.displayName = "PimoluMenubarMenu";
@@ -311,7 +319,7 @@ MenubarMenu.displayName = "PimoluMenubarMenu";
    TRIGGER
 ======================================== */
 
-export function MenubarTrigger({
+export function MenubarTrigger({ classNames,
   children,
   className,
   onClick,
@@ -319,12 +327,14 @@ export function MenubarTrigger({
   disabled,
   ...props
 }: PimoluMenubarTriggerProps) {
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, false);
+
   const menubar = useMenubar("MenubarTrigger");
   const menu = useMenubarMenu("MenubarTrigger");
 
   const open = menubar.openValue === menu.value;
 
-  return (
+  return scopeParts((
     <button
       {...props}
       ref={menu.triggerRef}
@@ -339,10 +349,10 @@ export function MenubarTrigger({
       data-state={open ? "open" : "closed"}
       data-pimolu-menubar-trigger=""
       data-pimolu-menubar-value={menu.value}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-menubar__trigger",
         className
-      )}
+      ), partClasses.trigger, classNames?.root)}
       onClick={(event) => {
         onClick?.(event);
 
@@ -353,7 +363,7 @@ export function MenubarTrigger({
     >
       {children}
     </button>
-  );
+  ));
 }
 
 MenubarTrigger.displayName = "PimoluMenubarTrigger";
@@ -364,12 +374,15 @@ MenubarTrigger.displayName = "PimoluMenubarTrigger";
 
 interface MenubarSurfaceProps
   extends PimoluMenubarContentProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   menubar: MenubarContextValue;
   menu: MenubarMenuContextValue;
   contentRef: RefObject<HTMLDivElement | null>;
 }
 
-function MenubarSurface({
+function MenubarSurface({ classNames,
   menubar,
   menu,
   contentRef,
@@ -378,6 +391,8 @@ function MenubarSurface({
   sideOffset = 4,
   ...props
 }: MenubarSurfaceProps) {
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, false);
+
   const { style, side } = useAnchoredPosition(
     menu.triggerRef,
     contentRef,
@@ -446,7 +461,7 @@ function MenubarSurface({
     items[nextIndex]?.focus();
   }
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={contentRef}
@@ -456,24 +471,26 @@ function MenubarSurface({
       tabIndex={-1}
       data-state="open"
       data-side={side}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-menubar__content",
         className
-      )}
+      ), partClasses.content)}
       style={style}
       onKeyDown={handleKeyDown}
     >
       {children}
     </div>
-  );
+  ));
 }
 
-export function MenubarContent({
+export function MenubarContent({ classNames,
   children,
   sideOffset = 4,
   className,
   ...props
 }: PimoluMenubarContentProps) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("menubar", classNames, true);
+
   const menubar = useMenubar("MenubarContent");
   const menu = useMenubarMenu("MenubarContent");
 
@@ -487,9 +504,9 @@ export function MenubarContent({
     () => menubar.setOpenValue(null)
   );
 
-  if (!open) return null;
+  if (!open) return scopeParts(null);
 
-  return (
+  return scopeParts((
     <Portal anchorRef={menu.triggerRef}>
       <MenubarSurface
         {...props}
@@ -497,12 +514,12 @@ export function MenubarContent({
         menu={menu}
         contentRef={contentRef}
         sideOffset={sideOffset}
-        className={className}
+        className={mergeClasses(className, partClasses.root)} classNames={forwardedParts}
       >
         {children}
       </MenubarSurface>
     </Portal>
-  );
+  ));
 }
 
 MenubarContent.displayName = "PimoluMenubarContent";
@@ -511,7 +528,7 @@ MenubarContent.displayName = "PimoluMenubarContent";
    ITEM, SEPARATOR, LABEL
 ======================================== */
 
-export function MenubarItem({
+export function MenubarItem({ classNames,
   children,
   className,
   onSelect,
@@ -519,10 +536,12 @@ export function MenubarItem({
   disabled,
   ...props
 }: PimoluMenubarItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, false);
+
   const menubar = useMenubar("MenubarItem");
   const menu = useMenubarMenu("MenubarItem");
 
-  return (
+  return scopeParts((
     <button
       {...props}
       type="button"
@@ -530,10 +549,10 @@ export function MenubarItem({
       tabIndex={-1}
       disabled={disabled}
       aria-disabled={disabled || undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-menubar__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
       onClick={(event) => {
         onClick?.(event);
 
@@ -547,42 +566,46 @@ export function MenubarItem({
     >
       {children}
     </button>
-  );
+  ));
 }
 
 MenubarItem.displayName = "PimoluMenubarItem";
 
-export function MenubarSeparator({
+export function MenubarSeparator({ classNames,
   className,
 }: PimoluMenubarSeparatorProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, false);
+
+  return scopeParts((
     <div
       role="separator"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-menubar__separator",
         className
-      )}
+      ), partClasses.separator, classNames?.root)}
     />
-  );
+  ));
 }
 
 MenubarSeparator.displayName = "PimoluMenubarSeparator";
 
-export function MenubarLabel({
+export function MenubarLabel({ classNames,
   children,
   className,
 }: PimoluMenubarLabelProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("menubar", classNames, false);
+
+  return scopeParts((
     <div
       role="presentation"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-menubar__label",
         className
-      )}
+      ), partClasses.label, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 MenubarLabel.displayName = "PimoluMenubarLabel";

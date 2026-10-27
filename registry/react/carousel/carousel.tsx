@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Children,
@@ -127,7 +130,7 @@ export const Carousel = forwardRef<
   HTMLDivElement,
   PimoluCarouselProps
 >(function Carousel(
-  {
+  { classNames,
     children,
     index,
     defaultIndex = 0,
@@ -159,6 +162,8 @@ export const Carousel = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("carousel", classNames, true);
+
   const slides = useMemo(
     () => Children.toArray(children),
     [children]
@@ -431,17 +436,17 @@ export const Carousel = forwardRef<
   const canGoPrevious = loop || currentIndex > 0;
   const canGoNext = loop || currentIndex < count - 1;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={forwardedRef}
       role="region"
       aria-roledescription="carousel"
       aria-label={ariaLabel ?? "Carousel"}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-carousel",
         className
-      )}
+      ), partClasses.root)}
       data-autoplay={autoPlay ? "true" : "false"}
       data-paused={
         isPaused ? "true" : "false"
@@ -459,7 +464,7 @@ export const Carousel = forwardRef<
       {showControls && count > 1 && (
         <button
           type="button"
-          className="pimolu-carousel__control pimolu-carousel__control--previous"
+          className={mergeClasses("pimolu-carousel__control pimolu-carousel__control--previous", partClasses.control)}
           aria-label={previousLabel}
           disabled={!canGoPrevious}
           onClick={() =>
@@ -472,10 +477,10 @@ export const Carousel = forwardRef<
 
       <div
         ref={trackRef}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-carousel__viewport",
           viewportClassName
-        )}
+        ), partClasses.viewport)}
         tabIndex={0}
         aria-live={autoPlay ? "off" : "polite"}
         onScroll={handleScroll}
@@ -483,12 +488,12 @@ export const Carousel = forwardRef<
         {slides.map((slide, slideIndex) => (
           <div
             key={slideIndex}
-            className={classes(
+            className={mergeClasses(classes(
               "pimolu-carousel__slide",
               slideIndex === currentIndex &&
                 "pimolu-carousel__slide--active",
               slideClassName
-            )}
+            ), partClasses.slide)}
             role="group"
             aria-roledescription="slide"
             aria-label={slideLabel(
@@ -509,7 +514,7 @@ export const Carousel = forwardRef<
       {showControls && count > 1 && (
         <button
           type="button"
-          className="pimolu-carousel__control pimolu-carousel__control--next"
+          className={mergeClasses("pimolu-carousel__control pimolu-carousel__control--next", partClasses.control)}
           aria-label={nextLabel}
           disabled={!canGoNext}
           onClick={() =>
@@ -522,10 +527,10 @@ export const Carousel = forwardRef<
 
       {((showDots && count > 1) ||
         (autoPlay && showPauseControl)) && (
-        <div className="pimolu-carousel__footer">
+        <div className={mergeClasses("pimolu-carousel__footer", partClasses.footer)}>
           {showDots && count > 1 && (
             <div
-              className="pimolu-carousel__dots"
+              className={mergeClasses("pimolu-carousel__dots", partClasses.dots)}
               role="group"
               aria-label={paginationLabel}
             >
@@ -533,7 +538,7 @@ export const Carousel = forwardRef<
                 <button
                   key={dotIndex}
                   type="button"
-                  className="pimolu-carousel__dot"
+                  className={mergeClasses("pimolu-carousel__dot", partClasses.dot)}
                   data-active={
                     dotIndex === currentIndex
                       ? "true"
@@ -557,7 +562,7 @@ export const Carousel = forwardRef<
           {autoPlay && showPauseControl && (
             <button
               type="button"
-              className="pimolu-carousel__autoplay"
+              className={mergeClasses("pimolu-carousel__autoplay", partClasses.autoplay)}
               aria-label={
                 stopped ? playLabel : pauseLabel
               }
@@ -571,7 +576,7 @@ export const Carousel = forwardRef<
         </div>
       )}
     </div>
-  );
+  ));
 });
 
 Carousel.displayName = "PimoluCarousel";

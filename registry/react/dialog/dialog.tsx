@@ -1,4 +1,9 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+
+
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   cloneElement,
@@ -273,6 +278,8 @@ interface DialogSurfaceProps {
 
   size: NonNullable<PimoluDialogContentProps["size"]>;
   className?: string;
+  style?: PimoluDialogContentProps["style"];
+  classNames?: PimoluClassNames<"dialog">;
 
   closeOnEscape: boolean;
   showCloseButton: boolean;
@@ -296,6 +303,8 @@ function DialogSurface({
   state,
   size,
   className,
+  classNames,
+  style,
   closeOnEscape,
   showCloseButton,
   closeLabel,
@@ -307,6 +316,8 @@ function DialogSurface({
   onClose,
   children,
 }: DialogSurfaceProps) {
+  const [partClasses, scopeParts] = usePartClasses("dialog", classNames, false);
+
   useEffect(() => {
     const content = contentRef.current;
 
@@ -396,7 +407,7 @@ function DialogSurface({
     }
   }
 
-  return (
+  return scopeParts((
     <div
       ref={contentRef}
       id={id}
@@ -406,7 +417,8 @@ function DialogSurface({
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
       tabIndex={-1}
-      className={dialogVariants({ size }, className)}
+      className={mergeClasses(dialogVariants({ size }, className), partClasses.content)}
+      style={style}
       data-state={state}
       data-close-button={
         showCloseButton ? "true" : undefined
@@ -418,7 +430,7 @@ function DialogSurface({
       {showCloseButton && (
         <button
           type="button"
-          className="pimolu-dialog__close"
+          className={mergeClasses("pimolu-dialog__close", partClasses.closeButton)}
           aria-label={closeLabel}
           onClick={onClose}
         >
@@ -426,7 +438,7 @@ function DialogSurface({
         </button>
       )}
     </div>
-  );
+  ));
 }
 
 export function DialogContent({
@@ -441,11 +453,15 @@ export function DialogContent({
   role = "dialog",
 
   className,
+  classNames,
+  style,
 
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
 }: PimoluDialogContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("dialog", classNames, true);
+
   const {
     open,
     setOpen,
@@ -505,7 +521,7 @@ export function DialogContent({
 
   useBodyScrollLock(rendered);
 
-  if (!rendered) return null;
+  if (!rendered) return scopeParts(null);
 
   const labelledBy =
     ariaLabelledBy ?? titleId ?? undefined;
@@ -523,14 +539,14 @@ export function DialogContent({
     setOpen(false);
   }
 
-  return (
+  return scopeParts((
     <Portal anchorRef={scopeRef}>
       <div
-        className="pimolu-dialog"
+        className={mergeClasses("pimolu-dialog", partClasses.root)}
         data-state={state}
       >
         <div
-          className="pimolu-dialog__overlay"
+          className={mergeClasses("pimolu-dialog__overlay", partClasses.overlay)}
           data-state={state}
           onPointerDown={handleOverlayPointerDown}
         />
@@ -540,7 +556,9 @@ export function DialogContent({
           id={contentId}
           state={state}
           size={size}
-          className={className}
+          className={mergeClasses(className, partClasses.content)}
+          classNames={classNames}
+          style={style}
           closeOnEscape={closeOnEscape}
           showCloseButton={showCloseButton}
           closeLabel={closeLabel}
@@ -555,54 +573,60 @@ export function DialogContent({
         </DialogSurface>
       </div>
     </Portal>
-  );
+  ));
 }
 
 /* =========================================
    HEADER & FOOTER
 ========================================= */
 
-export function DialogHeader({
+export function DialogHeader({ classNames,
   children,
   className,
 }: PimoluDialogHeaderProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("dialog", classNames, false);
+
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-dialog__header",
         className
-      )}
+      ), partClasses.header, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
-export function DialogFooter({
+export function DialogFooter({ classNames,
   children,
   className,
 }: PimoluDialogFooterProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("dialog", classNames, false);
+
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-dialog__footer",
         className
-      )}
+      ), partClasses.footer, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    TITLE & DESCRIPTION
 ========================================= */
 
-export function DialogTitle({
+export function DialogTitle({ classNames,
   children,
   id,
   className,
 }: PimoluDialogTitleProps) {
+  const [partClasses, scopeParts] = usePartClasses("dialog", classNames, false);
+
   const { setTitleId } = useDialog("DialogTitle");
 
   const generatedId = useId();
@@ -619,24 +643,26 @@ export function DialogTitle({
       );
   }, [setTitleId, titleId]);
 
-  return (
+  return scopeParts((
     <h2
       id={titleId}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-dialog__title",
         className
-      )}
+      ), partClasses.title, classNames?.root)}
     >
       {children}
     </h2>
-  );
+  ));
 }
 
-export function DialogDescription({
+export function DialogDescription({ classNames,
   children,
   id,
   className,
 }: PimoluDialogDescriptionProps) {
+  const [partClasses, scopeParts] = usePartClasses("dialog", classNames, false);
+
   const { setDescriptionId } =
     useDialog("DialogDescription");
 
@@ -654,17 +680,17 @@ export function DialogDescription({
       );
   }, [setDescriptionId, descriptionId]);
 
-  return (
+  return scopeParts((
     <p
       id={descriptionId}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-dialog__description",
         className
-      )}
+      ), partClasses.description, classNames?.root)}
     >
       {children}
     </p>
-  );
+  ));
 }
 
 /* =========================================

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -127,6 +129,9 @@ export interface PimoluChatProps
     HTMLAttributes<HTMLDivElement>,
     "children"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chat">;
+
   /** Conversation messages, oldest first. Never mutated. */
   messages: readonly PimoluChatMessage[];
 

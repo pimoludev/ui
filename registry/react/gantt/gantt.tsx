@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useMemo,
@@ -168,7 +171,7 @@ function clampZoom(value: number) {
    GANTT
 ========================================= */
 
-export function Gantt({
+export function Gantt({ classNames,
   tasks,
 
   start,
@@ -194,6 +197,8 @@ export function Gantt({
   className,
   "aria-label": ariaLabel = "Project timeline",
 }: PimoluGanttProps) {
+  const [partClasses, scopeParts] = usePartClasses("gantt", classNames, true);
+
   const scaleControlled = scale !== undefined;
 
   const [internalScale, setInternalScale] =
@@ -694,19 +699,19 @@ export function Gantt({
     };
   }
 
-  return (
+  return scopeParts((
     <section
-      className={[
+      className={mergeClasses([
         "pimolu-gantt",
         `pimolu-gantt--${resolvedScale}`,
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       aria-label={ariaLabel}
     >
-      <div className="pimolu-gantt__toolbar">
-        <div className="pimolu-gantt__navigation">
+      <div className={mergeClasses("pimolu-gantt__toolbar", partClasses.toolbar)}>
+        <div className={mergeClasses("pimolu-gantt__navigation", partClasses.navigation)}>
           <Button
             type="button"
             size="sm"
@@ -766,14 +771,14 @@ export function Gantt({
           />
 
           <span
-            className="pimolu-gantt__range"
+            className={mergeClasses("pimolu-gantt__range", partClasses.range)}
             aria-live="polite"
           >
             {rangeLabel}
           </span>
         </div>
 
-        <div className="pimolu-gantt__controls">
+        <div className={mergeClasses("pimolu-gantt__controls", partClasses.controls)}>
           <SegmentedControl
             aria-label="Timeline scale"
             size="sm"
@@ -788,7 +793,7 @@ export function Gantt({
             }
           />
 
-          <div className="pimolu-gantt__zoom">
+          <div className={mergeClasses("pimolu-gantt__zoom", partClasses.zoom)}>
             <Button
               type="button"
               size="xs"
@@ -816,7 +821,7 @@ export function Gantt({
             />
 
             <span
-              className="pimolu-gantt__zoom-value"
+              className={mergeClasses("pimolu-gantt__zoom-value", partClasses.zoomValue)}
               aria-live="polite"
             >
               {Math.round(resolvedZoom * 100)}%
@@ -852,12 +857,12 @@ export function Gantt({
       </div>
 
       {normalised.length === 0 ? (
-        <p className="pimolu-gantt__empty" role="status">
+        <p className={mergeClasses("pimolu-gantt__empty", partClasses.empty)} role="status">
           No tasks to display.
         </p>
       ) : (
         <div
-          className="pimolu-gantt__scroll"
+          className={mergeClasses("pimolu-gantt__scroll", partClasses.scroll)}
           style={{
             maxHeight:
               typeof maxHeight === "number"
@@ -866,7 +871,7 @@ export function Gantt({
           }}
         >
           <div
-            className="pimolu-gantt__canvas"
+            className={mergeClasses("pimolu-gantt__canvas", partClasses.canvas)}
             style={
               {
                 "--pimolu-gantt-task-width": "220px",
@@ -878,41 +883,41 @@ export function Gantt({
             }
           >
             <div
-              className="pimolu-gantt__chart"
+              className={mergeClasses("pimolu-gantt__chart", partClasses.chart)}
               role="table"
               aria-label={ariaLabel}
               aria-rowcount={rows.length + 1}
               aria-colcount={2}
             >
               <div
-                className="pimolu-gantt__header"
+                className={mergeClasses("pimolu-gantt__header", partClasses.header)}
                 role="rowgroup"
               >
                 <div
-                  className="pimolu-gantt__header-row"
+                  className={mergeClasses("pimolu-gantt__header-row", partClasses.headerRow)}
                   role="row"
                   aria-rowindex={1}
                 >
                   <div
-                    className="pimolu-gantt__task-head"
+                    className={mergeClasses("pimolu-gantt__task-head", partClasses.taskHead)}
                     role="columnheader"
                   >
                     Task
                   </div>
 
                   <div
-                    className="pimolu-gantt__timeline-head"
+                    className={mergeClasses("pimolu-gantt__timeline-head", partClasses.timelineHead)}
                     role="columnheader"
                     aria-label={`Timeline, ${rangeLabel}`}
                   >
                     <div
-                      className="pimolu-gantt__ticks"
+                      className={mergeClasses("pimolu-gantt__ticks", partClasses.ticks)}
                       aria-hidden="true"
                     >
                       {segments.map((segment) => (
                         <span
                           key={segment.key}
-                          className="pimolu-gantt__tick"
+                          className={mergeClasses("pimolu-gantt__tick", partClasses.tick)}
                           title={segment.title}
                           style={{
                             width: `${(segment.days / totalDays) * 100}%`,
@@ -927,7 +932,7 @@ export function Gantt({
               </div>
 
               <div
-                className="pimolu-gantt__body"
+                className={mergeClasses("pimolu-gantt__body", partClasses.body)}
                 role="rowgroup"
               >
                 {rows.map((row, index) => {
@@ -935,12 +940,12 @@ export function Gantt({
                     return (
                       <div
                         key={row.key}
-                        className="pimolu-gantt__group-row"
+                        className={mergeClasses("pimolu-gantt__group-row", partClasses.groupRow)}
                         role="row"
                         aria-rowindex={index + 2}
                       >
                         <div
-                          className="pimolu-gantt__group-title"
+                          className={mergeClasses("pimolu-gantt__group-title", partClasses.groupTitle)}
                           role="rowheader"
                           aria-colspan={2}
                         >
@@ -957,37 +962,37 @@ export function Gantt({
                   return (
                     <div
                       key={row.key}
-                      className="pimolu-gantt__row"
+                      className={mergeClasses("pimolu-gantt__row", partClasses.row)}
                       role="row"
                       aria-rowindex={index + 2}
                     >
                       <div
-                        className="pimolu-gantt__task"
+                        className={mergeClasses("pimolu-gantt__task", partClasses.task)}
                         role="rowheader"
                       >
                         <button
                           type="button"
-                          className="pimolu-gantt__task-button"
+                          className={mergeClasses("pimolu-gantt__task-button", partClasses.taskButton)}
                           aria-label={`View ${task.source.name}`}
                           onClick={() =>
                             onTaskClick?.(task.source)
                           }
                         >
-                          <span className="pimolu-gantt__task-name">{task.source.name}</span>
-                          <span className="pimolu-gantt__task-completion" aria-hidden="true">{Math.round(task.progress)}%</span>
+                          <span className={mergeClasses("pimolu-gantt__task-name", partClasses.taskName)}>{task.source.name}</span>
+                          <span className={mergeClasses("pimolu-gantt__task-completion", partClasses.taskCompletion)} aria-hidden="true">{Math.round(task.progress)}%</span>
                         </button>
                       </div>
 
                       <div
-                        className="pimolu-gantt__track"
+                        className={mergeClasses("pimolu-gantt__track", partClasses.track)}
                         role="cell"
                       >
-                        <span className="pimolu-gantt__sr-only">
+                        <span className={mergeClasses("pimolu-gantt__sr-only", partClasses.srOnly)}>
                           {`${task.source.name}: ${dates}. ${Math.round(task.progress)}% complete.`}
                         </span>
 
                         <div
-                          className="pimolu-gantt__grid"
+                          className={mergeClasses("pimolu-gantt__grid", partClasses.grid)}
                           aria-hidden="true"
                         >
                           {segments.map((segment) => (
@@ -1003,7 +1008,7 @@ export function Gantt({
                         {bar && (
                           <button
                             type="button"
-                            className="pimolu-gantt__bar"
+                            className={mergeClasses("pimolu-gantt__bar", partClasses.bar)}
                             onClick={() =>
                               onTaskClick?.(task.source)
                             }
@@ -1022,7 +1027,7 @@ export function Gantt({
                             }
                           >
                             <span
-                              className="pimolu-gantt__bar-progress"
+                              className={mergeClasses("pimolu-gantt__bar-progress", partClasses.barProgress)}
                               aria-hidden="true"
                               style={{
                                 width: `${task.progress}%`,
@@ -1030,7 +1035,7 @@ export function Gantt({
                             />
 
                             <span
-                              className="pimolu-gantt__bar-label"
+                              className={mergeClasses("pimolu-gantt__bar-label", partClasses.barLabel)}
                               aria-hidden="true"
                             >
                               {task.source.name}
@@ -1046,12 +1051,12 @@ export function Gantt({
 
             {(showDependencies || todayPercent !== null) && (
               <div
-                className="pimolu-gantt__overlay"
+                className={mergeClasses("pimolu-gantt__overlay", partClasses.overlay)}
                 aria-hidden="true"
               >
                 {showDependencies && (
                   <svg
-                    className="pimolu-gantt__dependencies"
+                    className={mergeClasses("pimolu-gantt__dependencies", partClasses.dependencies)}
                     viewBox="0 0 100 100"
                     preserveAspectRatio="none"
                     aria-hidden="true"
@@ -1079,7 +1084,7 @@ export function Gantt({
 
                 {todayPercent !== null && (
                   <div
-                    className="pimolu-gantt__today"
+                    className={mergeClasses("pimolu-gantt__today", partClasses.today)}
                     data-today-marker="true"
                     style={{
                       left: `${todayPercent}%`,
@@ -1092,5 +1097,5 @@ export function Gantt({
         </div>
       )}
     </section>
-  );
+  ));
 }

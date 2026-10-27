@@ -42,6 +42,41 @@ function ClearableInputs() {
   );
 }
 
+function CustomizedParts() {
+  return (
+    <>
+      <Input
+        label="Project name"
+        helperText="Shared with your team."
+        placeholder="Pimolu workspace"
+        clearable
+        defaultValue="Design system"
+        classNames={{
+          wrapper: "parts-input-wrapper",
+          control: "parts-input-control",
+          message: "parts-input-message"
+        }}
+      />
+      <style>
+        {
+          `
+.parts-input-wrapper {
+  border-radius: 16px;
+}
+.parts-input-control {
+  font-weight: 600;
+}
+.parts-input-message {
+  font-style: italic;
+}
+`
+        }
+      </style>
+    </>
+  );
+}
+
+
 export function InputPage() {
   return (
     <>
@@ -227,6 +262,9 @@ export function InputPage() {
             <Button type="submit">Sign in</Button>
           </form>
         </div>
+      </Section>
+      <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
+        <CustomizedParts />
       </Section>
     </>
   );

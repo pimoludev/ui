@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -26,6 +28,9 @@ export interface PimoluTableOfContentsItem {
  */
 export interface PimoluTableOfContentsProps
   extends Omit<HTMLAttributes<HTMLElement>, "title"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"table-of-contents">;
+
   items: PimoluTableOfContentsItem[];
 
   /** Id of the entry that matches the heading in view. */

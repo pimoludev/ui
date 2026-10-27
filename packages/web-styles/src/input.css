@@ -288,14 +288,10 @@
 /* Focus */
 .pimolu-input__wrapper:focus-within {
   border-color: var(--pimolu-input-tone);
-
-  box-shadow:
-    0 0 0 3px color-mix(
-      in srgb,
-      var(--pimolu-input-tone) 22%,
-      transparent
-    ),
-    var(--pimolu-input-elevation);
+  /* Keep the preset's elevation intact even when it is `none`. */
+  box-shadow: var(--pimolu-input-elevation);
+  outline: 3px solid color-mix(in srgb, var(--pimolu-input-tone) 22%, transparent);
+  outline-offset: 0;
 }
 
 /* Invalid */

@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-25. This folder describes the local repository and is the
+Updated: 2026-10-27. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it.
 
@@ -70,13 +70,36 @@ features present in the repository.
 - Kanban full columns no longer mark operable cards aria-disabled. Capacity checks remain on additions/moves.
 - Scheduler exposes one grid Tab entry, arrows including RTL, Home/End, Control+Home/End and F2/Escape.
   Returning from a cell action with Shift+Tab restores grid navigation. Timed events are separate controls.
-- Website references now provide **four examples per reference, 532 total**. Additional compositions are extracted
+- Website references now provide **at least four examples per reference, 665 total**. Additional compositions are extracted
   from Playground sections or authored in `apps/website/components/docs/additional/`, selected by
   `apps/website/content/additional/*.json`. Generator: `scripts/build-additional-examples.mjs` in that app.
   Generated files remain ignored. Source API accepts generated ids only; unknown previews return 404.
 - See `apps/website/IMPLEMENTATION_PROGRESS.md` and `ACCESSIBILITY_AUDIT.md` for actual verification scope.
 
 ### Website reader experience
+
+Workspace customization additions (not yet published): opt-in
+`@pimolu/web-styles/layered.css`; typed additive `classNames` maps across all 129
+families and their rendered subcomponents; panel
+`style` on the two modal content components. Select's styled trigger now honors
+its existing `style` prop. Legacy class targets and the plain CSS entry remain.
+Input uses a separate focus outline so `none` elevation cannot invalidate its
+halo, while preset shadows are retained. See `docs/CUSTOMIZATION.md` for the
+stable keys/variables, layer recipe and portal boundary. 133 appended website
+examples preserve previous example ids. Compound family scopes reach their parts
+without leaking to nested independent roots. The standalone browser audit's
+`--contract` mode tests the public layered entry and named hooks; the original
+plain/wrapper audit remains a record of the unsupported recipes.
+
+The final generalization checks passed: `pnpm check` (1,465 React tests), website
+build/typecheck/lint, 36 documentation tests and 1,056 browser tests with 18
+explicit CDP-only skips. The isolated customization runner passed 1,974 observations.
+See the 27 October entries in `IMPLEMENTATION_PROGRESS.md` for scope and limits.
+The Calendar and TreeTable mobile Playground overflows were subsequently fixed
+in the shared demo grid: a shrinkable column keeps Calendar months wrapping and
+TreeTable scrolling inside its own container. All 129 families passed the
+390px/1440px overflow smoke check; the two affected pages passed 336 checks
+across three engines, seven presets, light/dark and four viewport widths.
 
 SEO titles identify React component references and guides while preserving the visible
 brand slogan. `lib/structured-data.ts` and `components/structured-data.tsx` render

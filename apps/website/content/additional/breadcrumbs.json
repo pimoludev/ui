@@ -3,5 +3,11 @@
     "file": "breadcrumbs-workspace.tsx",
     "title": "Workspace location",
     "description": "A two-level trail with a working documentation link and a non-interactive current location."
+  },
+  {
+    "file": "breadcrumbs-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

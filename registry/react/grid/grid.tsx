@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -74,7 +77,7 @@ const JUSTIFY_CLASS: Record<string, string> = {
 
 export const Grid = forwardRef<HTMLElement, PimoluGridProps>(
   function Grid(
-    {
+    { classNames,
       as: Tag = "div",
       columns,
       minItemWidth,
@@ -89,6 +92,8 @@ export const Grid = forwardRef<HTMLElement, PimoluGridProps>(
     },
     ref
   ) {
+  const [partClasses, scopeParts] = usePartClasses("grid", classNames, true);
+
     const layoutVars: Record<string, string> = {
       "--pimolu-grid-gap": gridSpaceValue(gap),
     };
@@ -125,11 +130,11 @@ export const Grid = forwardRef<HTMLElement, PimoluGridProps>(
 
     const Component = Tag as ElementType;
 
-    return (
+    return scopeParts((
       <Component
         {...props}
         ref={ref}
-        className={classes}
+        className={mergeClasses(classes, partClasses.root)}
         style={
           {
             ...layoutVars,
@@ -140,7 +145,7 @@ export const Grid = forwardRef<HTMLElement, PimoluGridProps>(
       >
         {children}
       </Component>
-    );
+    ));
   }
 );
 

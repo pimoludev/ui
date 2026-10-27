@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   CSSProperties,
   InputHTMLAttributes,
@@ -21,6 +23,9 @@ export interface PimoluSliderProps
     InputHTMLAttributes<HTMLInputElement>,
     "type" | "size" | "value" | "defaultValue" | "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"slider">;
+
   /** Visual size of the track and thumb. */
   size?: PimoluSliderSize;
 

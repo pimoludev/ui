@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   isValidElement,
@@ -260,7 +263,7 @@ function orderByIds(
    DATA TABLE
 ========================================= */
 
-export function DataTable<T>({
+export function DataTable<T>({ classNames,
   data,
   columns,
   getRowId,
@@ -298,6 +301,8 @@ export function DataTable<T>({
   className,
   rowClassName,
 }: PimoluDataTableProps<T>) {
+  const [partClasses, scopeParts] = usePartClasses("data-table", classNames, true);
+
   const generatedId = useId();
   const text = { ...DEFAULT_LABELS, ...labels };
 
@@ -541,13 +546,13 @@ export function DataTable<T>({
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div className={rootClassName}>
+  return scopeParts((
+    <div className={mergeClasses(rootClassName, partClasses.root)}>
       {filterable && (
-        <div className="pimolu-data-table__toolbar">
+        <div className={mergeClasses("pimolu-data-table__toolbar", partClasses.toolbar)}>
           <Input
             id={`pimolu-data-table-filter-${generatedId}`}
-            className="pimolu-data-table__filter-input"
+            className={mergeClasses("pimolu-data-table__filter-input", partClasses.filterInput)}
             containerClassName="pimolu-data-table__filter"
             type="search"
             size="sm"
@@ -561,9 +566,9 @@ export function DataTable<T>({
       )}
 
       {selectable && selectedCount > 0 && (
-        <div className="pimolu-data-table__selection-bar">
+        <div className={mergeClasses("pimolu-data-table__selection-bar", partClasses.selectionBar)}>
           <span
-            className="pimolu-data-table__selection-count"
+            className={mergeClasses("pimolu-data-table__selection-count", partClasses.selectionCount)}
             role="status"
             aria-live="polite"
           >
@@ -571,7 +576,7 @@ export function DataTable<T>({
           </span>
 
           <Button
-            className="pimolu-data-table__clear-selection"
+            className={mergeClasses("pimolu-data-table__clear-selection", partClasses.clearSelection)}
             variant="neutral"
             appearance="ghost"
             size="sm"
@@ -582,21 +587,21 @@ export function DataTable<T>({
         </div>
       )}
 
-      <div className="pimolu-data-table__table-container">
+      <div className={mergeClasses("pimolu-data-table__table-container", partClasses.tableContainer)}>
         <Table
           caption={caption}
           aria-label={ariaLabel}
           aria-busy={loading || undefined}
           stickyHeader={stickyHeader}
           containerClassName="pimolu-data-table__table-wrapper"
-          className="pimolu-data-table__table"
+          className={mergeClasses("pimolu-data-table__table", partClasses.table)}
         >
           <TableHeader>
             <TableRow>
               {selectable && (
                 <TableHead
                   scope="col"
-                  className="pimolu-data-table__select-cell"
+                  className={mergeClasses("pimolu-data-table__select-cell", partClasses.selectCell)}
                 >
                   <Checkbox
                     aria-label={text.selectAll}
@@ -638,15 +643,15 @@ export function DataTable<T>({
                     scope="col"
                     style={style}
                     aria-sort={ariaSort}
-                    className={[
+                    className={mergeClasses([
                       "pimolu-data-table__head",
                       alignClass,
-                    ].join(" ")}
+                    ].join(" "), partClasses.head)}
                   >
                     {column.sortable ? (
                       <button
                         type="button"
-                        className="pimolu-data-table__sort-button"
+                        className={mergeClasses("pimolu-data-table__sort-button", partClasses.sortButton)}
                         aria-label={`Sort by ${nodeToText(
                           column.header
                         ).trim() || column.id}`}
@@ -657,7 +662,7 @@ export function DataTable<T>({
                         <span>{column.header}</span>
 
                         <span
-                          className="pimolu-data-table__sort-icon"
+                          className={mergeClasses("pimolu-data-table__sort-icon", partClasses.sortIcon)}
                           data-active={
                             isActiveSort
                               ? "true"
@@ -682,7 +687,7 @@ export function DataTable<T>({
               <TableRow>
                 <TableCell
                   colSpan={Math.max(columnCount, 1)}
-                  className="pimolu-data-table__empty"
+                  className={mergeClasses("pimolu-data-table__empty", partClasses.empty)}
                 >
                   {emptyState ?? (
                     <EmptyState
@@ -713,16 +718,16 @@ export function DataTable<T>({
                     data-state={
                       isSelected ? "selected" : undefined
                     }
-                    className={[
+                    className={mergeClasses([
                       isSelected &&
                         "pimolu-data-table__row--selected",
                       customRowClassName,
                     ]
                       .filter(Boolean)
-                      .join(" ") || undefined}
+                      .join(" ") || undefined, partClasses.row)}
                   >
                     {selectable && (
-                      <TableCell className="pimolu-data-table__select-cell">
+                      <TableCell className={mergeClasses("pimolu-data-table__select-cell", partClasses.selectCell)}>
                         <Checkbox
                           aria-label={
                             getRowLabel?.(row) ??
@@ -751,10 +756,10 @@ export function DataTable<T>({
                         <TableCell
                           key={column.id}
                           style={style}
-                          className={[
+                          className={mergeClasses([
                             "pimolu-data-table__cell",
                             alignClass,
-                          ].join(" ")}
+                          ].join(" "), partClasses.cell)}
                         >
                           {getCellContent(row, column)}
                         </TableCell>
@@ -769,11 +774,11 @@ export function DataTable<T>({
 
         {loading && (
           <div
-            className="pimolu-data-table__overlay"
+            className={mergeClasses("pimolu-data-table__overlay", partClasses.overlay)}
             role="status"
             aria-live="polite"
           >
-            <span className="pimolu-data-table__overlay-label">
+            <span className={mergeClasses("pimolu-data-table__overlay-label", partClasses.overlayLabel)}>
               {text.loading}
             </span>
           </div>
@@ -781,9 +786,9 @@ export function DataTable<T>({
       </div>
 
       {pagination && sortedRows.length > 0 && (
-        <div className="pimolu-data-table__footer">
+        <div className={mergeClasses("pimolu-data-table__footer", partClasses.footer)}>
           <p
-            className="pimolu-data-table__status"
+            className={mergeClasses("pimolu-data-table__status", partClasses.status)}
             role="status"
             aria-live="polite"
           >
@@ -803,7 +808,7 @@ export function DataTable<T>({
         </div>
       )}
     </div>
-  );
+  ));
 }
 
 DataTable.displayName = "PimoluDataTable";

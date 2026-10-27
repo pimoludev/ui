@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -35,7 +38,7 @@ export const Text = forwardRef<
   HTMLSpanElement,
   PimoluTextProps
 >(function Text(
-  {
+  { classNames,
     size,
     weight,
     tone,
@@ -45,25 +48,27 @@ export const Text = forwardRef<
   },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("typography", classNames, true);
+
+  return scopeParts((
     <span
       {...props}
       ref={ref}
-      className={textVariants(
+      className={mergeClasses(textVariants(
         { size, weight, tone },
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </span>
-  );
+  ));
 });
 
 export const Paragraph = forwardRef<
   HTMLParagraphElement,
   PimoluParagraphProps
 >(function Paragraph(
-  {
+  { classNames,
     size,
     weight,
     tone,
@@ -73,25 +78,27 @@ export const Paragraph = forwardRef<
   },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("typography", classNames, true);
+
+  return scopeParts((
     <p
       {...props}
       ref={ref}
-      className={paragraphVariants(
+      className={mergeClasses(paragraphVariants(
         { size, weight, tone },
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </p>
-  );
+  ));
 });
 
 export const Heading = forwardRef<
   HTMLHeadingElement,
   PimoluHeadingProps
 >(function Heading(
-  {
+  { classNames,
     level = 2,
     size,
     weight,
@@ -102,6 +109,8 @@ export const Heading = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("typography", classNames, true);
+
   const Tag = `h${level}` as
     | "h1"
     | "h2"
@@ -110,20 +119,20 @@ export const Heading = forwardRef<
     | "h5"
     | "h6";
 
-  return (
+  return scopeParts((
     <Tag
       {...props}
       ref={ref}
-      className={headingVariants(
+      className={mergeClasses(headingVariants(
         {
           size: size ?? HEADING_SIZE[level],
           weight,
           tone,
         },
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </Tag>
-  );
+  ));
 });

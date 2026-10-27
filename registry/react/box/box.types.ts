@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -37,6 +39,9 @@ export type PimoluBoxBackground =
 
 export interface PimoluBoxProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"box">;
+
   /** Element rendered by the Box. Defaults to `div`. */
   as?: ElementType;
 

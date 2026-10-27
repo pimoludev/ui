@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties } from "react";
 
 import type {
@@ -54,6 +56,9 @@ export interface PimoluComboboxProps {
 
   className?: string;
   inputClassName?: string;
+
+  /** Additive classes for named parts; legacy className targets are unchanged. */
+  classNames?: PimoluClassNames<"combobox">;
   style?: CSSProperties;
 
   "aria-label"?: string;

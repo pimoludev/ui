@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ButtonHTMLAttributes,
   HTMLAttributes,
@@ -19,6 +21,9 @@ export type PimoluInputGroupAddonAlign =
 
 export interface PimoluInputGroupProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"input-group">;
+
   /** Addons, inputs and buttons composing the field. */
   children?: ReactNode;
 
@@ -40,6 +45,9 @@ export interface PimoluInputGroupProps
 
 export interface PimoluInputGroupAddonProps
   extends HTMLAttributes<HTMLSpanElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"input-group">;
+
   /**
    * Edge the addon belongs to. It controls the separator and
    * outer radii. Defaults to "inline-start".
@@ -48,10 +56,10 @@ export interface PimoluInputGroupAddonProps
 }
 
 export type PimoluInputGroupTextProps =
-  HTMLAttributes<HTMLSpanElement>;
+  (HTMLAttributes<HTMLSpanElement>) & { classNames?: PimoluClassNames<"input-group"> };
 
 export type PimoluInputGroupButtonProps =
-  ButtonHTMLAttributes<HTMLButtonElement>;
+  (ButtonHTMLAttributes<HTMLButtonElement>) & { classNames?: PimoluClassNames<"input-group"> };
 
 export type PimoluInputGroupInputProps =
-  InputHTMLAttributes<HTMLInputElement>;
+  (InputHTMLAttributes<HTMLInputElement>) & { classNames?: PimoluClassNames<"input-group"> };

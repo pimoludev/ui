@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -313,7 +316,7 @@ export const PhoneInput = forwardRef<
   HTMLInputElement,
   PimoluPhoneInputProps
 >(function PhoneInput(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -350,6 +353,8 @@ export const PhoneInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("phone-input", classNames, true);
+
   const generatedId = useId();
   const inputId = id ?? `pimolu-phone-input-${generatedId}`;
 
@@ -581,18 +586,18 @@ export const PhoneInput = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div className={fieldClassName}>
+  return scopeParts((
+    <div className={mergeClasses(fieldClassName, partClasses.root)}>
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-phone-input__label"
+          className={mergeClasses("pimolu-phone-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-phone-input__required"
+              className={mergeClasses("pimolu-phone-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -601,7 +606,7 @@ export const PhoneInput = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-phone-input__row">
+      <div className={mergeClasses("pimolu-phone-input__row", partClasses.row)}>
         <Select
           containerClassName="pimolu-phone-input__country"
           value={selectorCountry.code}
@@ -616,9 +621,9 @@ export const PhoneInput = forwardRef<
           ))}
         </Select>
 
-        <div className="pimolu-phone-input__field">
+        <div className={mergeClasses("pimolu-phone-input__field", partClasses.field)}>
           <span
-            className="pimolu-phone-input__dial"
+            className={mergeClasses("pimolu-phone-input__dial", partClasses.dial)}
             aria-hidden="true"
           >
             +{activeCountry.dialCode}
@@ -629,12 +634,12 @@ export const PhoneInput = forwardRef<
             ref={setInputRef}
             id={inputId}
             type="tel"
-            className={[
+            className={mergeClasses([
               "pimolu-phone-input__control",
               className,
             ]
               .filter(Boolean)
-              .join(" ")}
+              .join(" "), partClasses.control)}
             value={displayValue}
             onChange={handleChange}
             onFocus={handleFocus}
@@ -654,18 +659,16 @@ export const PhoneInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            isErrorMessage
+          className={mergeClasses(isErrorMessage
               ? "pimolu-phone-input__error"
-              : "pimolu-phone-input__helper"
-          }
+              : "pimolu-phone-input__helper", partClasses.error)}
           role={isErrorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 PhoneInput.displayName = "PimoluPhoneInput";

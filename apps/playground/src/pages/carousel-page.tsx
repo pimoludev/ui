@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./carousel-customization-demo";
 import { useState } from "react";
 
 import {
@@ -236,6 +237,7 @@ export function CarouselPage() {
           </div>
         </Carousel>
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

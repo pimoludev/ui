@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 /**
  * Crop area in percentages of the visible crop stage. `x`/`y` are the
  * top-left corner; `width`/`height` are clamped to the stage (0–100).
@@ -53,6 +55,9 @@ export interface PimoluImageCropperLabels {
 }
 
 export interface PimoluImageCropperProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"image-cropper">;
+
   /** Image URL, `File` or `Blob`. Object URLs are created and revoked. */
   src: PimoluImageCropperSource;
 

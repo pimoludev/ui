@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useCallback,
@@ -103,7 +106,7 @@ function CloseIcon() {
    LIGHTBOX
 ========================================= */
 
-export function Lightbox({
+export function Lightbox({ classNames,
   images,
   open: controlledOpen,
   defaultOpen = false,
@@ -119,6 +122,8 @@ export function Lightbox({
   className,
   "aria-label": ariaLabel,
 }: PimoluLightboxProps) {
+  const [partClasses, scopeParts] = usePartClasses("lightbox", classNames, true);
+
   const count = images.length;
 
   const controlled =
@@ -377,20 +382,20 @@ export function Lightbox({
   );
 
   if (!active) {
-    return anchor;
+    return scopeParts(anchor);
   }
 
-  return (
+  return scopeParts((
     <>
       {anchor}
 
       <Portal anchorRef={anchorRef}>
         <div
-          className="pimolu-lightbox"
+          className={mergeClasses("pimolu-lightbox", partClasses.root)}
           data-state="open"
         >
           <div
-            className="pimolu-lightbox__overlay"
+            className={mergeClasses("pimolu-lightbox__overlay", partClasses.overlay)}
             onPointerDown={
               handleOverlayPointerDown
             }
@@ -407,16 +412,16 @@ export function Lightbox({
                 : undefined
             }
             tabIndex={-1}
-            className={classes(
+            className={mergeClasses(classes(
               "pimolu-lightbox__panel",
               className
-            )}
+            ), partClasses.panel)}
             onKeyDown={handlePanelKeyDown}
           >
             <button
               type="button"
               ref={setCloseRef}
-              className="pimolu-lightbox__close"
+              className={mergeClasses("pimolu-lightbox__close", partClasses.close)}
               aria-label={resolvedLabels.close}
               onClick={requestClose}
             >
@@ -426,7 +431,7 @@ export function Lightbox({
             {count > 1 && (
               <button
                 type="button"
-                className="pimolu-lightbox__nav pimolu-lightbox__nav--previous"
+                className={mergeClasses("pimolu-lightbox__nav pimolu-lightbox__nav--previous", partClasses.nav)}
                 aria-label={resolvedLabels.previous}
                 disabled={!canGoPrevious}
                 onClick={() =>
@@ -437,9 +442,9 @@ export function Lightbox({
               </button>
             )}
 
-            <figure className="pimolu-lightbox__figure">
+            <figure className={mergeClasses("pimolu-lightbox__figure", partClasses.figure)}>
               <img
-                className="pimolu-lightbox__image"
+                className={mergeClasses("pimolu-lightbox__image", partClasses.image)}
                 src={currentImage.src}
                 alt={currentImage.alt}
                 draggable={false}
@@ -448,7 +453,7 @@ export function Lightbox({
               {currentImage.caption && (
                 <figcaption
                   id={captionId}
-                  className="pimolu-lightbox__caption"
+                  className={mergeClasses("pimolu-lightbox__caption", partClasses.caption)}
                 >
                   {currentImage.caption}
                 </figcaption>
@@ -458,7 +463,7 @@ export function Lightbox({
             {count > 1 && (
               <button
                 type="button"
-                className="pimolu-lightbox__nav pimolu-lightbox__nav--next"
+                className={mergeClasses("pimolu-lightbox__nav pimolu-lightbox__nav--next", partClasses.nav)}
                 aria-label={resolvedLabels.next}
                 disabled={!canGoNext}
                 onClick={() =>
@@ -470,7 +475,7 @@ export function Lightbox({
             )}
 
             <p
-              className="pimolu-lightbox__counter"
+              className={mergeClasses("pimolu-lightbox__counter", partClasses.counter)}
               aria-live="polite"
               aria-atomic="true"
             >
@@ -479,7 +484,7 @@ export function Lightbox({
 
             {showThumbnails && count > 1 && (
               <div
-                className="pimolu-lightbox__thumbnails"
+                className={mergeClasses("pimolu-lightbox__thumbnails", partClasses.thumbnails)}
                 role="group"
                 aria-label={thumbnailLabel}
               >
@@ -487,7 +492,7 @@ export function Lightbox({
                   <button
                     key={`${image.src}-${imageIndex}`}
                     type="button"
-                    className="pimolu-lightbox__thumbnail"
+                    className={mergeClasses("pimolu-lightbox__thumbnail", partClasses.thumbnail)}
                     data-active={
                       imageIndex === currentIndex
                         ? "true"
@@ -519,7 +524,7 @@ export function Lightbox({
         </div>
       </Portal>
     </>
-  );
+  ));
 }
 
 Lightbox.displayName = "PimoluLightbox";

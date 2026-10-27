@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -60,7 +63,7 @@ export const Container = forwardRef<
   HTMLElement,
   PimoluContainerProps
 >(function Container(
-  {
+  { classNames,
     as: Tag = "div",
     maxWidth = "lg",
     padding = 4,
@@ -72,6 +75,8 @@ export const Container = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("container", classNames, true);
+
   const classes = [
     "pimolu-container",
     `pimolu-container--${maxWidth}`,
@@ -83,11 +88,11 @@ export const Container = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       style={
         {
           "--pimolu-container-padding":
@@ -99,7 +104,7 @@ export const Container = forwardRef<
     >
       {children}
     </Component>
-  );
+  ));
 });
 
 Container.displayName = "PimoluContainer";

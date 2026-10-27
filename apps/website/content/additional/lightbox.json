@@ -3,5 +3,11 @@
     "file": "lightbox-single.tsx",
     "title": "Single product image",
     "description": "A focused image viewer with a caption and explicit dismissal."
+  },
+  {
+    "file": "lightbox-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

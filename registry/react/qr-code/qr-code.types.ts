@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { CSSProperties } from "react";
 
 export type PimoluQRCodeLevel = "L" | "M" | "Q" | "H";
@@ -20,6 +22,9 @@ export interface PimoluQRCodeMatrix {
 }
 
 export interface PimoluQRCodeProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"qr-code">;
+
   /** Text encoded in byte mode as UTF-8. Must not be empty. */
   value: string;
 

@@ -8,5 +8,11 @@
     "file": "tour-localized.tsx",
     "title": "Localized tour controls",
     "description": "A controlled tour highlights real targets and reports completion without changing global state."
+  },
+  {
+    "file": "tour-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

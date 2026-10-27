@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   TextareaHTMLAttributes,
 } from "react";
@@ -21,6 +23,9 @@ export type {
 
 export interface PimoluTextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"textarea">;
+
   /** Visual size. */
   size?: PimoluTextareaSize;
 

@@ -3,5 +3,11 @@
     "file": "select-touch-scrolling.tsx",
     "title": "Long lists and touch scrolling",
     "description": "Swipe to browse the options without selecting them. Complete a tap to make a choice."
+  },
+  {
+    "file": "select-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content.",
+    "append": true
   }
 ]

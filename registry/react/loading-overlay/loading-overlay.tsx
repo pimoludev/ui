@@ -1,3 +1,6 @@
+
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef } from "react";
 
 import type { PimoluLoadingOverlayProps } from "./loading-overlay.types";
@@ -8,7 +11,7 @@ export const LoadingOverlay = forwardRef<
   HTMLDivElement,
   PimoluLoadingOverlayProps
 >(function LoadingOverlay(
-  {
+  { classNames,
     loading = true,
     label = "Loading",
     description,
@@ -20,6 +23,8 @@ export const LoadingOverlay = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("loading-overlay", classNames, true);
+
   const classes = [
     "pimolu-loading-overlay",
     blur && "pimolu-loading-overlay--blur",
@@ -29,17 +34,17 @@ export const LoadingOverlay = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       aria-busy={loading}
       data-loading={loading ? "true" : "false"}
     >
       {children != null && (
         <div
-          className="pimolu-loading-overlay__content"
+          className={mergeClasses("pimolu-loading-overlay__content", partClasses.content)}
           inert={loading || undefined}
           aria-hidden={loading ? true : undefined}
         >
@@ -49,7 +54,7 @@ export const LoadingOverlay = forwardRef<
 
       {loading && (
         <div
-          className="pimolu-loading-overlay__overlay"
+          className={mergeClasses("pimolu-loading-overlay__overlay", partClasses.overlay)}
           role="status"
           aria-live="polite"
           aria-atomic="true"
@@ -57,22 +62,22 @@ export const LoadingOverlay = forwardRef<
           <Spinner
             decorative
             size="lg"
-            className="pimolu-loading-overlay__spinner"
+            className={mergeClasses("pimolu-loading-overlay__spinner", partClasses.spinner)}
           />
 
-          <p className="pimolu-loading-overlay__label">
+          <p className={mergeClasses("pimolu-loading-overlay__label", partClasses.label)}>
             {label}
           </p>
 
           {description != null && (
-            <p className="pimolu-loading-overlay__description">
+            <p className={mergeClasses("pimolu-loading-overlay__description", partClasses.description)}>
               {description}
             </p>
           )}
         </div>
       )}
     </div>
-  );
+  ));
 });
 
 LoadingOverlay.displayName = "PimoluLoadingOverlay";

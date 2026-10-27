@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -53,6 +55,9 @@ export type PimoluGridJustify =
 
 export interface PimoluGridProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"grid">;
+
   /** Element rendered by the grid. Defaults to `div`. */
   as?: ElementType;
 

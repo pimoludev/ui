@@ -119,6 +119,45 @@ function AssigneeExample() {
   );
 }
 
+function CustomizedParts() {
+  return (
+    <>
+      <Combobox
+        label="Invite a teammate"
+        placeholder="Search people..."
+        options={[
+          { value: "ada", label: "Ada Lovelace" },
+          {
+            value: "maya",
+            label: "Maya Chen"
+          }
+        ]}
+        classNames={{
+          field: "parts-combo-field",
+          listbox: "parts-combo-panel",
+          option: "parts-combo-option"
+        }}
+      />
+      <style>
+        {
+          `
+.parts-combo-field {
+  border-radius: 14px;
+}
+.parts-combo-panel {
+  border-radius: 16px;
+}
+.parts-combo-option {
+  padding-block: 12px;
+}
+`
+        }
+      </style>
+    </>
+  );
+}
+
+
 export function ComboboxPage() {
   return (
     <>
@@ -288,6 +327,9 @@ export function ComboboxPage() {
             </CardContent>
           </Card>
         </div>
+      </Section>
+      <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
+        <CustomizedParts />
       </Section>
     </>
   );

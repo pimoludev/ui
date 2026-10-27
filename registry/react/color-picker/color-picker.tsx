@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -99,7 +102,7 @@ export const ColorPicker = forwardRef<
   HTMLDivElement,
   PimoluColorPickerProps
 >(function ColorPicker(
-  {
+  { classNames,
     value,
     defaultValue,
     onValueChange,
@@ -117,6 +120,8 @@ export const ColorPicker = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("color-picker", classNames, true);
+
   const generatedId = useId();
   const labelId = `pimolu-color-picker-${generatedId}-label`;
   const valueId = `pimolu-color-picker-${generatedId}-value`;
@@ -264,14 +269,14 @@ export const ColorPicker = forwardRef<
     ? `${labelId} ${valueId}`
     : undefined;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       data-disabled={disabled || undefined}
       data-readonly={readOnly || undefined}
       data-invalid={hasError || undefined}
-      className={[
+      className={mergeClasses([
         "pimolu-color-picker",
         `pimolu-color-picker--${size}`,
         disabled && "pimolu-color-picker--disabled",
@@ -280,12 +285,12 @@ export const ColorPicker = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <span
           id={labelId}
-          className="pimolu-color-picker__label"
+          className={mergeClasses("pimolu-color-picker__label", partClasses.label)}
         >
           {label}
         </span>
@@ -296,17 +301,17 @@ export const ColorPicker = forwardRef<
         onOpenChange={handleOpenChange}
         disabled={disabled}
         padding="none"
-        className="pimolu-color-picker__panel"
+        className={mergeClasses("pimolu-color-picker__panel", partClasses.panel)}
         label={
           label ? `${label} picker` : "Color picker"
         }
         content={
           <>
-            <div className="pimolu-color-picker__field-row">
-              <label className="pimolu-color-picker__custom">
+            <div className={mergeClasses("pimolu-color-picker__field-row", partClasses.fieldRow)}>
+              <label className={mergeClasses("pimolu-color-picker__custom", partClasses.custom)}>
                 <input
                   type="color"
-                  className="pimolu-color-picker__native"
+                  className={mergeClasses("pimolu-color-picker__native", partClasses.native)}
                   aria-label="Pick a color"
                   value={normalizedValue.toLowerCase()}
                   disabled={disabled || readOnly}
@@ -317,7 +322,7 @@ export const ColorPicker = forwardRef<
 
               <input
                 type="text"
-                className="pimolu-color-picker__hex"
+                className={mergeClasses("pimolu-color-picker__hex", partClasses.hex)}
                 aria-label="Hex color"
                 value={draft}
                 readOnly={readOnly}
@@ -336,7 +341,7 @@ export const ColorPicker = forwardRef<
 
             <p
               id={hintId}
-              className="pimolu-color-picker__hint"
+              className={mergeClasses("pimolu-color-picker__hint", partClasses.hint)}
             >
               Pick any color or enter a 3- or 6-digit hex value.
             </p>
@@ -344,17 +349,17 @@ export const ColorPicker = forwardRef<
             {hexError && (
               <p
                 id={hexErrorId}
-                className="pimolu-color-picker__hex-error"
+                className={mergeClasses("pimolu-color-picker__hex-error", partClasses.hexError)}
                 role="alert"
               >
                 {hexError}
               </p>
             )}
 
-            <div className="pimolu-color-picker__presets-group">
+            <div className={mergeClasses("pimolu-color-picker__presets-group", partClasses.presetsGroup)}>
               <span
                 id={presetsTitleId}
-                className="pimolu-color-picker__presets-title"
+                className={mergeClasses("pimolu-color-picker__presets-title", partClasses.presetsTitle)}
               >
                 Presets
               </span>
@@ -362,13 +367,13 @@ export const ColorPicker = forwardRef<
               <div
                 role="group"
                 aria-labelledby={presetsTitleId}
-                className="pimolu-color-picker__presets"
+                className={mergeClasses("pimolu-color-picker__presets", partClasses.presets)}
               >
                 {presetColors.map((preset) => (
                   <button
                     key={preset}
                     type="button"
-                    className="pimolu-color-picker__preset"
+                    className={mergeClasses("pimolu-color-picker__preset", partClasses.preset)}
                     style={{ backgroundColor: preset }}
                     aria-label={`Use color ${preset}`}
                     aria-pressed={
@@ -386,7 +391,7 @@ export const ColorPicker = forwardRef<
         <button
           ref={triggerRef}
           type="button"
-          className="pimolu-color-picker__trigger"
+          className={mergeClasses("pimolu-color-picker__trigger", partClasses.trigger)}
           disabled={disabled}
           aria-label={
             label
@@ -401,7 +406,7 @@ export const ColorPicker = forwardRef<
           aria-readonly={readOnly || undefined}
         >
           <span
-            className="pimolu-color-picker__swatch"
+            className={mergeClasses("pimolu-color-picker__swatch", partClasses.swatch)}
             style={{
               backgroundColor: normalizedValue,
             }}
@@ -410,7 +415,7 @@ export const ColorPicker = forwardRef<
 
           <span
             id={valueId}
-            className="pimolu-color-picker__value"
+            className={mergeClasses("pimolu-color-picker__value", partClasses.value)}
           >
             {normalizedValue}
           </span>
@@ -420,14 +425,14 @@ export const ColorPicker = forwardRef<
       {hasError && (
         <p
           id={errorId}
-          className="pimolu-color-picker__error"
+          className={mergeClasses("pimolu-color-picker__error", partClasses.error)}
           role="alert"
         >
           {error}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 ColorPicker.displayName = "PimoluColorPicker";

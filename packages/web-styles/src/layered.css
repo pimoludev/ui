@@ -1,0 +1,4 @@
+/* Opt-in cascade layer. Declare application layer order before this import
+   when combining Pimolu with a framework such as Tailwind. */
+@layer pimolu;
+@import "./styles.css" layer(pimolu);

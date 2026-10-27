@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -9,6 +11,9 @@ export type PimoluFocusScopeInitialFocus =
 
 export interface PimoluFocusScopeProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"focus-scope">;
+
   /** Element rendered by the scope. Defaults to `div`. */
   as?: ElementType;
 

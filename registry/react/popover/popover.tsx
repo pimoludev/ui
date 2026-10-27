@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   cloneElement,
@@ -52,12 +56,15 @@ interface TriggerProps {
 ========================================= */
 
 interface PopoverSurfaceProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"popover">;
+
   surfaceRef: RefObject<HTMLDivElement | null>;
   id: string;
   state: "open" | "closing";
   side: PimoluPopoverPlacement;
   style: CSSProperties | undefined;
-  className: string;
+  className?: string;
   label?: string;
   labelledBy?: string;
   closeOnSelect: boolean;
@@ -69,7 +76,7 @@ interface PopoverSurfaceProps {
  * Mounted only while the panel exists, so it can take focus once the portal
  * host is known: the first effect of the popover runs before that.
  */
-function PopoverSurface({
+function PopoverSurface({ classNames,
   surfaceRef,
   id,
   state,
@@ -82,6 +89,8 @@ function PopoverSurface({
   onSelect,
   children,
 }: PopoverSurfaceProps) {
+  const [partClasses, scopeParts] = usePartClasses("popover", classNames, false);
+
   useEffect(() => {
     const panel = surfaceRef.current;
 
@@ -92,7 +101,7 @@ function PopoverSurface({
     (first ?? panel).focus();
   }, [surfaceRef]);
 
-  return (
+  return scopeParts((
     <div
       ref={surfaceRef}
       id={id}
@@ -100,7 +109,7 @@ function PopoverSurface({
       aria-label={labelledBy ? undefined : label}
       aria-labelledby={labelledBy}
       tabIndex={-1}
-      className={className}
+      className={mergeClasses(className, partClasses.root)}
       style={style}
       data-state={state}
       data-side={side}
@@ -108,14 +117,14 @@ function PopoverSurface({
     >
       {children}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    POPOVER
 ========================================= */
 
-export function Popover({
+export function Popover({ classNames,
   content,
   children,
 
@@ -135,6 +144,8 @@ export function Popover({
   padding = "md",
   className,
 }: PimoluPopoverProps) {
+  const [partClasses, scopeParts] = usePartClasses("popover", classNames, true);
+
   const generatedId = useId();
   const panelId = `pimolu-popover-${generatedId}`;
 
@@ -283,7 +294,7 @@ export function Popover({
     };
   }, [isOpen, isControlled, onOpenChange]);
 
-  if (!isValidElement(children)) return children;
+  if (!isValidElement(children)) return scopeParts(children);
 
   const trigger = children as ReactElement<
     Record<string, unknown>
@@ -332,7 +343,7 @@ export function Popover({
     },
   };
 
-  return (
+  return scopeParts((
     <>
       {cloneElement(trigger, triggerProps)}
 
@@ -344,14 +355,14 @@ export function Popover({
             state={state}
             side={side}
             style={panelStyle}
-            className={[
+            className={mergeClasses([
               popoverVariants({ padding }),
               matchWidth &&
                 "pimolu-popover--match-width",
               className,
             ]
               .filter(Boolean)
-              .join(" ")}
+              .join(" "), partClasses.root)}
             label={label}
             labelledBy={labelledBy}
             closeOnSelect={closeOnSelect}
@@ -362,5 +373,5 @@ export function Popover({
         </Portal>
       )}
     </>
-  );
+  ));
 }

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -35,6 +37,9 @@ export interface PimoluCarouselProps
     HTMLAttributes<HTMLDivElement>,
     "children" | "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"carousel">;
+
 
   /** Slides. Each direct child becomes one scroll-snapped slide. */
   children: ReactNode;

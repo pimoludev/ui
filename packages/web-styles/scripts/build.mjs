@@ -7,6 +7,7 @@ const srcDir = new URL("../src/", import.meta.url);
 const distDir = new URL("../dist/", import.meta.url);
 
 const outputs = [
+  { input: "layered.css", output: "layered.css", minify: false },
   {
     input: "styles.css",
     output: "pimolu.css",

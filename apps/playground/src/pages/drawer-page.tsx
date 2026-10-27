@@ -127,6 +127,47 @@ function ControlledDrawer() {
   );
 }
 
+function CustomizedParts() {
+  return (
+    <>
+      <Drawer>
+        <DrawerTrigger>
+          <Button appearance="outline">Project preferences</Button>
+        </DrawerTrigger>
+        <DrawerContent
+          classNames={{
+            content: "parts-drawer-panel",
+            overlay: "parts-drawer-overlay",
+            closeButton: "parts-drawer-close"
+          }}
+          style={{ maxWidth: "min(420px, 100vw)" }}
+        >
+          <DrawerTitle>Workspace preferences</DrawerTitle>
+          <DrawerDescription>
+            A local panel style, with the same focus and Escape behavior.
+          </DrawerDescription>
+        </DrawerContent>
+      </Drawer>
+      <style>
+        {
+          `
+.parts-drawer-panel {
+  border-color: var(--pimolu-primary);
+}
+.parts-drawer-overlay {
+  background: color-mix(in srgb, var(--pimolu-background) 75%, transparent);
+}
+.parts-drawer-close {
+  border-radius: 50%;
+}
+`
+        }
+      </style>
+    </>
+  );
+}
+
+
 export function DrawerPage() {
   return (
     <>
@@ -194,6 +235,9 @@ export function DrawerPage() {
             </CardContent>
           </Card>
         </div>
+      </Section>
+      <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
+        <CustomizedParts />
       </Section>
     </>
   );

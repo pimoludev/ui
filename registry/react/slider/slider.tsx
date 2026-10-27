@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -34,7 +37,7 @@ export const Slider = forwardRef<
   HTMLInputElement,
   PimoluSliderProps
 >(function Slider(
-  {
+  { classNames,
     id,
     label,
     helperText,
@@ -70,6 +73,8 @@ export const Slider = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("slider", classNames, true);
+
   const generatedId = useId();
   const sliderId = id ?? `pimolu-slider-${generatedId}`;
 
@@ -178,23 +183,23 @@ export const Slider = forwardRef<
     className,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <div
-      className={containerClasses}
+      className={mergeClasses(containerClasses, partClasses.root)}
       style={containerStyle}
     >
       {(label || showValue) && (
-        <div className="pimolu-slider__header">
+        <div className={mergeClasses("pimolu-slider__header", partClasses.header)}>
           {label && (
             <label
               htmlFor={sliderId}
-              className="pimolu-slider__label"
+              className={mergeClasses("pimolu-slider__label", partClasses.label)}
             >
               {label}
 
               {required && (
                 <span
-                  className="pimolu-slider__required"
+                  className={mergeClasses("pimolu-slider__required", partClasses.required)}
                   aria-hidden="true"
                 >
                   *
@@ -207,7 +212,7 @@ export const Slider = forwardRef<
             /* The native range already announces its value,
                so the visible readout is decorative. */
             <span
-              className="pimolu-slider__value"
+              className={mergeClasses("pimolu-slider__value", partClasses.value)}
               aria-hidden="true"
             >
               {displayedValue}
@@ -222,7 +227,7 @@ export const Slider = forwardRef<
         id={sliderId}
         type="range"
 
-        className={controlClasses}
+        className={mergeClasses(controlClasses, partClasses.control)}
         style={controlStyle}
 
         min={min}
@@ -246,18 +251,16 @@ export const Slider = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            errorMessage
+          className={mergeClasses(errorMessage
               ? "pimolu-slider__error"
-              : "pimolu-slider__helper"
-          }
+              : "pimolu-slider__helper", partClasses.error)}
           role={errorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 Slider.displayName = "PimoluSlider";

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import manifest from "../content/generated/additional-examples.json" with { type: "json" };
 
 for (const [family, examples] of Object.entries(manifest)) {
-  test(`${family}: three additional independent examples`, async ({ page }) => {
+  test(`${family}: additional independent examples`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     for (const [index, example] of examples.entries()) {
@@ -18,7 +18,8 @@ for (const [family, examples] of Object.entries(manifest)) {
 
 test("additional examples expose real code and reject unknown addresses", async ({ page, request }) => {
   await page.goto("/components/navbar");
-  await expect(page.locator(".additional-example")).toHaveCount(3);
+  await expect(page.locator(".additional-example")).toHaveCount(manifest.navbar.length);
+  await expect(page.getByRole("heading", { name: "Named-part customization", exact: true })).toBeVisible();
   const example = page.locator(".additional-example").first();
   await example.getByRole("tab", { name: "Code", exact: true }).click();
   const code = example.getByRole("tabpanel", { name: "Code", exact: true });

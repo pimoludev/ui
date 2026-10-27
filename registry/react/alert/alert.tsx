@@ -1,3 +1,6 @@
+
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef } from "react";
 
 import type { PimoluAlertProps } from "./alert.types";
@@ -27,7 +30,7 @@ export const Alert = forwardRef<
   HTMLDivElement,
   PimoluAlertProps
 >(function Alert(
-  {
+  { classNames,
     variant = "info",
     title,
     description,
@@ -42,6 +45,8 @@ export const Alert = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("alert", classNames, true);
+
   const classes = [
     alertVariants({ variant }),
     className,
@@ -52,44 +57,44 @@ export const Alert = forwardRef<
   const resolvedRole =
     role ?? (variant === "danger" ? "alert" : "status");
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       role={resolvedRole}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       data-variant={variant}
     >
       {icon != null && (
         <span
-          className="pimolu-alert__icon"
+          className={mergeClasses("pimolu-alert__icon", partClasses.icon)}
           aria-hidden="true"
         >
           {icon}
         </span>
       )}
 
-      <div className="pimolu-alert__content">
+      <div className={mergeClasses("pimolu-alert__content", partClasses.content)}>
         {title != null && (
-          <p className="pimolu-alert__title">
+          <p className={mergeClasses("pimolu-alert__title", partClasses.title)}>
             {title}
           </p>
         )}
 
         {description != null && (
-          <p className="pimolu-alert__description">
+          <p className={mergeClasses("pimolu-alert__description", partClasses.description)}>
             {description}
           </p>
         )}
 
         {children != null && (
-          <div className="pimolu-alert__body">
+          <div className={mergeClasses("pimolu-alert__body", partClasses.body)}>
             {children}
           </div>
         )}
 
         {actions != null && (
-          <div className="pimolu-alert__actions">
+          <div className={mergeClasses("pimolu-alert__actions", partClasses.actions)}>
             {actions}
           </div>
         )}
@@ -98,7 +103,7 @@ export const Alert = forwardRef<
       {onDismiss && (
         <button
           type="button"
-          className="pimolu-alert__dismiss"
+          className={mergeClasses("pimolu-alert__dismiss", partClasses.dismiss)}
           aria-label={dismissLabel}
           onClick={onDismiss}
         >
@@ -106,7 +111,7 @@ export const Alert = forwardRef<
         </button>
       )}
     </div>
-  );
+  ));
 });
 
 Alert.displayName = "PimoluAlert";

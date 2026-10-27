@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./data-grid-customization-demo";
 import { useMemo, useState } from "react";
 
 import {
@@ -711,6 +712,7 @@ export function DataGridPage() {
           }
         />
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

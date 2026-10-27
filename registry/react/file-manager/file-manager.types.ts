@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 export type PimoluFileEntryType = "file" | "folder";
 
 export type PimoluFileManagerView = "list" | "grid";
@@ -47,6 +49,9 @@ export interface PimoluFileEntry {
 }
 
 export interface PimoluFileManagerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"file-manager">;
+
   /** Full data set. Only the direct children of the current folder are shown. */
   entries: readonly PimoluFileEntry[];
 

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -17,6 +19,9 @@ export type {
 
 export interface PimoluDescriptionListProps
   extends HTMLAttributes<HTMLDListElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"description-list">;
+
   /** Layout of each term/details pair. Defaults to "stacked". */
   layout?: PimoluDescriptionListLayout;
 
@@ -30,6 +35,9 @@ export interface PimoluDescriptionListProps
 }
 
 export interface PimoluDescriptionItemProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"description-list">;
+
   term: ReactNode;
 
   details: ReactNode;

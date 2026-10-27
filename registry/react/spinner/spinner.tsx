@@ -1,4 +1,7 @@
 
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 import { forwardRef } from "react";
 
 import type {
@@ -15,7 +18,7 @@ export const Spinner = forwardRef<
   HTMLSpanElement,
   PimoluSpinnerProps
 >(function Spinner(
-  {
+  { classNames,
     appearance = "circular",
     size = "md",
     variant = "inherit",
@@ -28,6 +31,8 @@ export const Spinner = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("spinner", classNames, true);
+
   const spinnerClassName = [
     spinnerVariants({ appearance, size, variant }),
 
@@ -36,11 +41,11 @@ export const Spinner = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <span
       {...props}
       ref={ref}
-      className={spinnerClassName}
+      className={mergeClasses(spinnerClassName, partClasses.root)}
       role={decorative ? undefined : "status"}
       aria-hidden={decorative ? true : undefined}
       data-appearance={appearance}
@@ -49,31 +54,31 @@ export const Spinner = forwardRef<
       {/* Visual element */}
 
       <span
-        className="pimolu-spinner__visual"
+        className={mergeClasses("pimolu-spinner__visual", partClasses.visual)}
         aria-hidden="true"
       >
         {appearance === "dots" ? (
           <>
-            <span className="pimolu-spinner__dot" />
-            <span className="pimolu-spinner__dot" />
-            <span className="pimolu-spinner__dot" />
+            <span className={mergeClasses("pimolu-spinner__dot", partClasses.dot)} />
+            <span className={mergeClasses("pimolu-spinner__dot", partClasses.dot)} />
+            <span className={mergeClasses("pimolu-spinner__dot", partClasses.dot)} />
           </>
         ) : (
           <svg
-            className="pimolu-spinner__svg"
+            className={mergeClasses("pimolu-spinner__svg", partClasses.svg)}
             viewBox="0 0 24 24"
             fill="none"
             focusable="false"
           >
             <circle
-              className="pimolu-spinner__track"
+              className={mergeClasses("pimolu-spinner__track", partClasses.track)}
               cx="12"
               cy="12"
               r="9"
             />
 
             <circle
-              className="pimolu-spinner__indicator"
+              className={mergeClasses("pimolu-spinner__indicator", partClasses.indicator)}
               cx="12"
               cy="12"
               r="9"
@@ -85,12 +90,12 @@ export const Spinner = forwardRef<
       {/* Screen reader message */}
 
       {!decorative && (
-        <span className="pimolu-spinner__label">
+        <span className={mergeClasses("pimolu-spinner__label", partClasses.label)}>
           {label}
         </span>
       )}
     </span>
-  );
+  ));
 });
 
 Spinner.displayName = "PimoluSpinner";

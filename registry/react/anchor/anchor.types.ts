@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -15,6 +17,9 @@ export interface PimoluAnchorProps
     HTMLAttributes<HTMLHeadingElement>,
     "id" | "className" | "children" | "onCopy"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"anchor">;
+
   /** Id of the heading and of its hash target. */
   id: string;
 

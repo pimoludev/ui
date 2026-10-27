@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -117,7 +120,7 @@ export const NumberInput = forwardRef<
   HTMLInputElement,
   PimoluNumberInputProps
 >(function NumberInput(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -156,6 +159,8 @@ export const NumberInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("number-input", classNames, true);
+
   const generatedId = useId();
   const inputId = id ?? `pimolu-number-input-${generatedId}`;
 
@@ -392,9 +397,9 @@ export const NumberInput = forwardRef<
       ? `Decrease ${label}`
       : "Decrease value");
 
-  return (
+  return scopeParts((
     <div
-      className={[
+      className={mergeClasses([
         "pimolu-number-input",
         sizeClass[size],
         fullWidth && "pimolu-number-input--full-width",
@@ -404,18 +409,18 @@ export const NumberInput = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-number-input__label"
+          className={mergeClasses("pimolu-number-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-number-input__required"
+              className={mergeClasses("pimolu-number-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -424,10 +429,10 @@ export const NumberInput = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-number-input__wrapper">
+      <div className={mergeClasses("pimolu-number-input__wrapper", partClasses.wrapper)}>
         {prefix !== undefined && (
           <span
-            className="pimolu-number-input__affix pimolu-number-input__affix--prefix"
+            className={mergeClasses("pimolu-number-input__affix pimolu-number-input__affix--prefix", partClasses.affix)}
             aria-hidden="true"
           >
             {prefix}
@@ -441,7 +446,7 @@ export const NumberInput = forwardRef<
           type="text"
           inputMode={props.inputMode ?? "decimal"}
           autoComplete={props.autoComplete ?? "off"}
-          className="pimolu-number-input__control"
+          className={mergeClasses("pimolu-number-input__control", partClasses.control)}
           value={draft}
           onChange={handleChange}
           onFocus={handleFocus}
@@ -458,7 +463,7 @@ export const NumberInput = forwardRef<
 
         {suffix !== undefined && (
           <span
-            className="pimolu-number-input__affix pimolu-number-input__affix--suffix"
+            className={mergeClasses("pimolu-number-input__affix pimolu-number-input__affix--suffix", partClasses.affix)}
             aria-hidden="true"
           >
             {suffix}
@@ -466,10 +471,10 @@ export const NumberInput = forwardRef<
         )}
 
         {showSteppers && (
-          <span className="pimolu-number-input__steppers">
+          <span className={mergeClasses("pimolu-number-input__steppers", partClasses.steppers)}>
             <button
               type="button"
-              className="pimolu-number-input__stepper pimolu-number-input__stepper--up"
+              className={mergeClasses("pimolu-number-input__stepper pimolu-number-input__stepper--up", partClasses.stepper)}
               aria-label={increaseLabel}
               aria-controls={inputId}
               disabled={!canChangeValue || atMax}
@@ -496,7 +501,7 @@ export const NumberInput = forwardRef<
 
             <button
               type="button"
-              className="pimolu-number-input__stepper pimolu-number-input__stepper--down"
+              className={mergeClasses("pimolu-number-input__stepper pimolu-number-input__stepper--down", partClasses.stepper)}
               aria-label={decreaseLabel}
               aria-controls={inputId}
               disabled={!canChangeValue || atMin}
@@ -527,18 +532,16 @@ export const NumberInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            hasError
+          className={mergeClasses(hasError
               ? "pimolu-number-input__error"
-              : "pimolu-number-input__helper"
-          }
+              : "pimolu-number-input__helper", partClasses.error)}
           role={hasError ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 NumberInput.displayName = "PimoluNumberInput";

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Fragment,
@@ -47,7 +50,7 @@ export const PageHeader = forwardRef<
   HTMLElement,
   PimoluPageHeaderProps
 >(function PageHeader(
-  {
+  { classNames,
     title,
     titleAs = "h1",
     description,
@@ -62,6 +65,8 @@ export const PageHeader = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("page-header", classNames, true);
+
   const crumbList = isBreadcrumbList(breadcrumbs)
     ? breadcrumbs
     : null;
@@ -82,20 +87,20 @@ export const PageHeader = forwardRef<
 
   const Title = titleAs;
 
-  return (
+  return scopeParts((
     <header
       {...props}
       ref={ref}
       data-align={align}
       data-size={size}
-      className={classes(
+      className={mergeClasses(classes(
         pageHeaderVariants({ size }),
         align === "center" && "pimolu-page-header--center",
         className
-      )}
+      ), partClasses.root)}
     >
       {hasBreadcrumbs && (
-        <div className="pimolu-page-header__breadcrumbs">
+        <div className={mergeClasses("pimolu-page-header__breadcrumbs", partClasses.breadcrumbs)}>
           {crumbList !== null ? (
             <Breadcrumbs>
               {crumbList.map((crumb, index) => {
@@ -118,7 +123,7 @@ export const PageHeader = forwardRef<
                           {crumb.label}
                         </BreadcrumbLink>
                       ) : (
-                        <span className="pimolu-page-header__crumb">
+                        <span className={mergeClasses("pimolu-page-header__crumb", partClasses.crumb)}>
                           {crumb.label}
                         </span>
                       )}
@@ -133,39 +138,39 @@ export const PageHeader = forwardRef<
         </div>
       )}
 
-      <div className="pimolu-page-header__body">
-        <div className="pimolu-page-header__content">
+      <div className={mergeClasses("pimolu-page-header__body", partClasses.body)}>
+        <div className={mergeClasses("pimolu-page-header__content", partClasses.content)}>
           {eyebrow != null && (
-            <p className="pimolu-page-header__eyebrow">
+            <p className={mergeClasses("pimolu-page-header__eyebrow", partClasses.eyebrow)}>
               {eyebrow}
             </p>
           )}
 
-          <Title className="pimolu-page-header__title">
+          <Title className={mergeClasses("pimolu-page-header__title", partClasses.title)}>
             {title}
           </Title>
 
           {description != null && (
-            <p className="pimolu-page-header__description">
+            <p className={mergeClasses("pimolu-page-header__description", partClasses.description)}>
               {description}
             </p>
           )}
 
           {meta != null && (
-            <div className="pimolu-page-header__meta">
+            <div className={mergeClasses("pimolu-page-header__meta", partClasses.meta)}>
               {meta}
             </div>
           )}
         </div>
 
         {actions != null && (
-          <div className="pimolu-page-header__actions">
+          <div className={mergeClasses("pimolu-page-header__actions", partClasses.actions)}>
             {actions}
           </div>
         )}
       </div>
     </header>
-  );
+  ));
 });
 
 PageHeader.displayName = "PimoluPageHeader";

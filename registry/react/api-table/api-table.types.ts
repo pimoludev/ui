@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -33,6 +35,9 @@ export interface PimoluApiTableRow {
  */
 export interface PimoluApiTableProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"api-table">;
+
   rows: PimoluApiTableRow[];
 
   /** Optional title displayed above the table. */

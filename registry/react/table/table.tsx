@@ -1,3 +1,6 @@
+
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef } from "react";
 
 import type {
@@ -26,7 +29,7 @@ export const Table = forwardRef<
   HTMLTableElement,
   PimoluTableProps
 >(function Table(
-  {
+  { classNames,
     density = "md",
 
     striped = false,
@@ -44,6 +47,8 @@ export const Table = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, true);
+
   const tableClassName = classes(
     "pimolu-table",
     `pimolu-table--${density}`,
@@ -59,15 +64,15 @@ export const Table = forwardRef<
     containerProps?.className
   );
 
-  return (
+  return scopeParts((
     <div
       {...containerProps}
-      className={wrapperClassName}
+      className={mergeClasses(wrapperClassName, partClasses.wrapper)}
       tabIndex={containerProps?.tabIndex ?? 0}
     >
-      <table {...props} ref={ref} className={tableClassName}>
+      <table {...props} ref={ref} className={mergeClasses(tableClassName, partClasses.root)}>
         {caption != null && (
-          <caption className="pimolu-table__caption">
+          <caption className={mergeClasses("pimolu-table__caption", partClasses.caption)}>
             {caption}
           </caption>
         )}
@@ -75,7 +80,7 @@ export const Table = forwardRef<
         {children}
       </table>
     </div>
-  );
+  ));
 });
 
 Table.displayName = "PimoluTable";
@@ -88,21 +93,23 @@ export const TableHeader = forwardRef<
   HTMLTableSectionElement,
   PimoluTableHeaderProps
 >(function TableHeader(
-  { className, children, ...props },
+  { classNames, className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <thead
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__header",
         className
-      )}
+      ), partClasses.header, classNames?.root)}
     >
       {children}
     </thead>
-  );
+  ));
 });
 
 TableHeader.displayName = "PimoluTableHeader";
@@ -111,21 +118,23 @@ export const TableBody = forwardRef<
   HTMLTableSectionElement,
   PimoluTableBodyProps
 >(function TableBody(
-  { className, children, ...props },
+  { classNames, className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <tbody
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__body",
         className
-      )}
+      ), partClasses.body, classNames?.root)}
     >
       {children}
     </tbody>
-  );
+  ));
 });
 
 TableBody.displayName = "PimoluTableBody";
@@ -134,21 +143,23 @@ export const TableFooter = forwardRef<
   HTMLTableSectionElement,
   PimoluTableFooterProps
 >(function TableFooter(
-  { className, children, ...props },
+  { classNames, className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <tfoot
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__footer",
         className
-      )}
+      ), partClasses.footer, classNames?.root)}
     >
       {children}
     </tfoot>
-  );
+  ));
 });
 
 TableFooter.displayName = "PimoluTableFooter";
@@ -161,21 +172,23 @@ export const TableRow = forwardRef<
   HTMLTableRowElement,
   PimoluTableRowProps
 >(function TableRow(
-  { className, children, ...props },
+  { classNames, className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <tr
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__row",
         className
-      )}
+      ), partClasses.row, classNames?.root)}
     >
       {children}
     </tr>
-  );
+  ));
 });
 
 TableRow.displayName = "PimoluTableRow";
@@ -188,7 +201,7 @@ export const TableHead = forwardRef<
   HTMLTableCellElement,
   PimoluTableHeadProps
 >(function TableHead(
-  {
+  { classNames,
     scope = "col",
     className,
     children,
@@ -196,19 +209,21 @@ export const TableHead = forwardRef<
   },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <th
       {...props}
       ref={ref}
       scope={scope}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__head",
         className
-      )}
+      ), partClasses.head, classNames?.root)}
     >
       {children}
     </th>
-  );
+  ));
 });
 
 TableHead.displayName = "PimoluTableHead";
@@ -221,21 +236,23 @@ export const TableCell = forwardRef<
   HTMLTableCellElement,
   PimoluTableCellProps
 >(function TableCell(
-  { className, children, ...props },
+  { classNames, className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <td
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__cell",
         className
-      )}
+      ), partClasses.cell, classNames?.root)}
     >
       {children}
     </td>
-  );
+  ));
 });
 
 TableCell.displayName = "PimoluTableCell";
@@ -248,21 +265,23 @@ export const TableCaption = forwardRef<
   HTMLTableCaptionElement,
   PimoluTableCaptionProps
 >(function TableCaption(
-  { className, children, ...props },
+  { classNames, className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("table", classNames, false);
+
+  return scopeParts((
     <caption
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-table__caption",
         className
-      )}
+      ), partClasses.caption, classNames?.root)}
     >
       {children}
     </caption>
-  );
+  ));
 });
 
 TableCaption.displayName = "PimoluTableCaption";

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { forwardRef } from "react";
 
@@ -35,7 +38,7 @@ export const SplitButton = forwardRef<
   HTMLButtonElement,
   PimoluSplitButtonProps
 >(function SplitButton(
-  {
+  { classNames,
     children,
     label,
     onClick,
@@ -52,17 +55,19 @@ export const SplitButton = forwardRef<
   },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("split-button", classNames, true);
+
+  return scopeParts((
     <div
       role="group"
       aria-label={groupLabel}
       data-disabled={disabled || undefined}
-      className={[
+      className={mergeClasses([
         "pimolu-split-button",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       <Button
         ref={ref}
@@ -72,7 +77,7 @@ export const SplitButton = forwardRef<
         size={size}
         disabled={disabled}
         onClick={onClick}
-        className="pimolu-split-button__primary"
+        className={mergeClasses("pimolu-split-button__primary", partClasses.primary)}
       >
         {children ?? label}
       </Button>
@@ -89,13 +94,13 @@ export const SplitButton = forwardRef<
             aria-label={menuLabel}
             title={menuLabel}
             startIcon={menuIcon ?? <ChevronIcon />}
-            className="pimolu-split-button__trigger"
+            className={mergeClasses("pimolu-split-button__trigger", partClasses.trigger)}
           />
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
           align={align}
-          className="pimolu-split-button__menu"
+          className={mergeClasses("pimolu-split-button__menu", partClasses.menu)}
         >
           {items.map((item) => (
             <DropdownMenuItem
@@ -103,22 +108,22 @@ export const SplitButton = forwardRef<
               disabled={item.disabled}
               onSelect={item.onSelect}
             >
-              <span className="pimolu-split-button__item">
+              <span className={mergeClasses("pimolu-split-button__item", partClasses.item)}>
                 {item.icon && (
                   <span
-                    className="pimolu-split-button__item-icon"
+                    className={mergeClasses("pimolu-split-button__item-icon", partClasses.itemIcon)}
                     aria-hidden="true"
                   >
                     {item.icon}
                   </span>
                 )}
 
-                <span className="pimolu-split-button__item-label">
+                <span className={mergeClasses("pimolu-split-button__item-label", partClasses.itemLabel)}>
                   {item.label}
                 </span>
 
                 {item.shortcut && (
-                  <kbd className="pimolu-split-button__item-shortcut">
+                  <kbd className={mergeClasses("pimolu-split-button__item-shortcut", partClasses.itemShortcut)}>
                     {item.shortcut}
                   </kbd>
                 )}
@@ -128,7 +133,7 @@ export const SplitButton = forwardRef<
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  ));
 });
 
 SplitButton.displayName = "PimoluSplitButton";

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   InputHTMLAttributes,
   ReactNode,
@@ -40,6 +42,9 @@ export interface PimoluPhoneInputProps
     | "onChange"
     | "inputMode"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"phone-input">;
+
   /**
    * Controlled phone number, preferably E.164 (`+14155551234`). A national
    * number is also accepted and read with the selected country.

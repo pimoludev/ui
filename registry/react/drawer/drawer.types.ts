@@ -1,4 +1,7 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
+  CSSProperties,
   ReactElement,
   ReactNode,
 } from "react";
@@ -78,14 +81,26 @@ export interface PimoluDrawerContentProps {
 
   /** Class applied to the panel. */
   className?: string;
+
+  /** Inline styles on the panel, including local CSS variables. */
+  style?: CSSProperties;
+
+  /** Additive classes on portalled parts; className still targets content. */
+  classNames?: PimoluClassNames<"drawer">;
 }
 
 export interface PimoluDrawerHeaderProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"drawer">;
+
   children: ReactNode;
   className?: string;
 }
 
 export interface PimoluDrawerTitleProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"drawer">;
+
   children: ReactNode;
 
   /** Explicit id, instead of the generated one. */
@@ -95,6 +110,9 @@ export interface PimoluDrawerTitleProps {
 }
 
 export interface PimoluDrawerDescriptionProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"drawer">;
+
   children: ReactNode;
 
   /** Explicit id, instead of the generated one. */
@@ -104,6 +122,9 @@ export interface PimoluDrawerDescriptionProps {
 }
 
 export interface PimoluDrawerFooterProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"drawer">;
+
   children: ReactNode;
   className?: string;
 }

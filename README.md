@@ -114,6 +114,10 @@ Tokens are also available as JSON, so React Native and other JavaScript consumer
 
 A complete Next.js App Router example, including server-read theme cookies, lives in `examples/nextjs`.
 
+## Customization (next package release)
+
+The workspace adds an opt-in `@pimolu/web-styles/layered.css` entry and typed `classNames` part hooks across all 129 component families, including compound descendants and portalled surfaces. The existing CSS entry and class targets remain supported. These additions are not yet in the published 0.1.0-beta.2. See [the customization contract](docs/CUSTOMIZATION.md) for tested CSS/Tailwind recipes, portal styling and stable targets.
+
 ## Responsive navigation
 
 Add `collapsible` and `NavbarToggle` to put links and actions behind a menu when the navbar is narrow. The button uses a hamburger by default; `icon` and `closeIcon` accept custom icons. Set `itemsPosition` to `"center"` or `"right"` to move the navigation cluster while the brand stays at the start and the actions stay at the end; the default is `"left"`.

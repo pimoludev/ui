@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   InputHTMLAttributes,
 } from "react";
@@ -11,6 +13,9 @@ export interface PimoluPasswordInputProps
     InputHTMLAttributes<HTMLInputElement>,
     "size" | "type"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"password-input">;
+
   /** Controlled value. */
   value?: string;
 

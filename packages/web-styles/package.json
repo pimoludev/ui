@@ -27,6 +27,7 @@
 
   "exports": {
     "./styles.css": "./dist/pimolu.css",
+    "./layered.css": "./dist/layered.css",
     "./pimolu.min.css": "./dist/pimolu.min.css",
     "./button.css": "./dist/button.css",
     "./input.css": "./dist/input.css",

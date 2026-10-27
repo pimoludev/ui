@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties } from "react";
 
 import type {
@@ -56,6 +58,9 @@ export interface PimoluMultiSelectProps {
 
   className?: string;
   inputClassName?: string;
+
+  /** Additive classes for named parts; legacy className targets are unchanged. */
+  classNames?: PimoluClassNames<"multi-select">;
   style?: CSSProperties;
 
   "aria-label"?: string;

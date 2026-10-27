@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -89,7 +92,7 @@ export const Mentions = forwardRef<
   HTMLTextAreaElement,
   PimoluMentionsProps
 >(function Mentions(
-  {
+  { classNames,
     id,
     name,
 
@@ -124,6 +127,8 @@ export const Mentions = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("mentions", classNames, true);
+
   /* ======================================
      IDS AND REFS
   ====================================== */
@@ -501,22 +506,22 @@ export const Mentions = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
       ref={rootRef}
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       style={style}
     >
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-mentions__label"
+          className={mergeClasses("pimolu-mentions__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-mentions__required"
+              className={mergeClasses("pimolu-mentions__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -525,7 +530,7 @@ export const Mentions = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-mentions__field">
+      <div className={mergeClasses("pimolu-mentions__field", partClasses.field)}>
         <textarea
           ref={assignRef}
           id={inputId}
@@ -536,12 +541,12 @@ export const Mentions = forwardRef<
           disabled={disabled}
           placeholder={placeholder}
 
-          className={[
+          className={mergeClasses([
             "pimolu-mentions__textarea",
             textareaClassName,
           ]
             .filter(Boolean)
-            .join(" ")}
+            .join(" "), partClasses.textarea)}
 
           value={text}
 
@@ -600,12 +605,12 @@ export const Mentions = forwardRef<
                   ? `Mentions: ${label}`
                   : "Mentions"
               }
-              className="pimolu-mentions__listbox"
+              className={mergeClasses("pimolu-mentions__listbox", partClasses.listbox)}
               style={popupStyle}
             >
               {suggestions.length === 0 ? (
                 <li
-                  className="pimolu-mentions__empty"
+                  className={mergeClasses("pimolu-mentions__empty", partClasses.empty)}
                   role="presentation"
                 >
                   <span role="status">
@@ -642,13 +647,13 @@ export const Mentions = forwardRef<
                           ? "true"
                           : undefined
                       }
-                      className={[
+                      className={mergeClasses([
                         "pimolu-mentions__option",
                         suggestion.create &&
                           "pimolu-mentions__option--create",
                       ]
                         .filter(Boolean)
-                        .join(" ")}
+                        .join(" "), partClasses.option)}
 
                       onMouseDown={(event) => {
                         event.preventDefault();
@@ -662,15 +667,15 @@ export const Mentions = forwardRef<
                     >
                       {option.avatar && (
                         <span
-                          className="pimolu-mentions__avatar"
+                          className={mergeClasses("pimolu-mentions__avatar", partClasses.avatar)}
                           aria-hidden="true"
                         >
                           {option.avatar}
                         </span>
                       )}
 
-                      <span className="pimolu-mentions__option-main">
-                        <span className="pimolu-mentions__option-label">
+                      <span className={mergeClasses("pimolu-mentions__option-main", partClasses.optionMain)}>
+                        <span className={mergeClasses("pimolu-mentions__option-label", partClasses.optionLabel)}>
                           {suggestion.create
                             ? `Create “${option.label}”`
                             : option.label}
@@ -679,7 +684,7 @@ export const Mentions = forwardRef<
                         {option.description && (
                           <span
                             id={`${listboxId}-option-${index}-description`}
-                            className="pimolu-mentions__option-description"
+                            className={mergeClasses("pimolu-mentions__option-description", partClasses.optionDescription)}
                           >
                             {option.description}
                           </span>
@@ -688,7 +693,7 @@ export const Mentions = forwardRef<
 
                       {suggestion.create && (
                         <span
-                          className="pimolu-mentions__create-mark"
+                          className={mergeClasses("pimolu-mentions__create-mark", partClasses.createMark)}
                           aria-hidden="true"
                         >
                           +
@@ -706,13 +711,13 @@ export const Mentions = forwardRef<
       {helperText && (
         <p
           id={helperId}
-          className="pimolu-mentions__helper"
+          className={mergeClasses("pimolu-mentions__helper", partClasses.helper)}
         >
           {helperText}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 Mentions.displayName = "PimoluMentions";

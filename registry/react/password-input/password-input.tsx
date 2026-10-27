@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -64,7 +67,7 @@ export const PasswordInput = forwardRef<
   HTMLInputElement,
   PimoluPasswordInputProps
 >(function PasswordInput(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -98,6 +101,8 @@ export const PasswordInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("password-input", classNames, true);
+
   const generatedId = useId();
   const inputId =
     id ?? `pimolu-password-input-${generatedId}`;
@@ -216,18 +221,18 @@ export const PasswordInput = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div className={fieldClassName}>
+  return scopeParts((
+    <div className={mergeClasses(fieldClassName, partClasses.root)}>
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-input__label"
+          className={mergeClasses("pimolu-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-input__required"
+              className={mergeClasses("pimolu-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -236,13 +241,13 @@ export const PasswordInput = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-input__wrapper pimolu-password-input__wrapper">
+      <div className={mergeClasses("pimolu-input__wrapper pimolu-password-input__wrapper", partClasses.wrapper)}>
         <input
           {...props}
           ref={setInputRef}
           id={inputId}
           type={visible ? "text" : "password"}
-          className={controlClassName}
+          className={mergeClasses(controlClassName, partClasses.control)}
           value={isControlled ? value : undefined}
           defaultValue={
             isControlled ? undefined : defaultValue
@@ -261,7 +266,7 @@ export const PasswordInput = forwardRef<
 
         <button
           type="button"
-          className="pimolu-input__visibility pimolu-password-input__toggle"
+          className={mergeClasses("pimolu-input__visibility pimolu-password-input__toggle", partClasses.visibility)}
           aria-label={visible ? hideLabel : showLabel}
           aria-pressed={visible}
           aria-controls={inputId}
@@ -276,18 +281,16 @@ export const PasswordInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            isErrorMessage
+          className={mergeClasses(isErrorMessage
               ? "pimolu-input__error"
-              : "pimolu-input__helper"
-          }
+              : "pimolu-input__helper", partClasses.error)}
           role={isErrorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 PasswordInput.displayName = "PimoluPasswordInput";

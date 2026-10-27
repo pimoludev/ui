@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -23,7 +26,7 @@ export const ButtonGroup = forwardRef<
   HTMLDivElement,
   PimoluButtonGroupProps
 >(function ButtonGroup(
-  {
+  { classNames,
     children,
     orientation = "horizontal",
     attached = true,
@@ -33,6 +36,8 @@ export const ButtonGroup = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("button-group", classNames, true);
+
   const classes = [
     "pimolu-button-group",
     `pimolu-button-group--${orientation}`,
@@ -42,7 +47,7 @@ export const ButtonGroup = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <ButtonGroupContext.Provider value={{ orientation }}>
       <div
         {...props}
@@ -50,21 +55,23 @@ export const ButtonGroup = forwardRef<
         role={role}
         data-orientation={orientation}
         data-attached={attached ? "true" : "false"}
-        className={classes}
+        className={mergeClasses(classes, partClasses.root)}
       >
         {children}
       </div>
     </ButtonGroupContext.Provider>
-  );
+  ));
 });
 
 ButtonGroup.displayName = "PimoluButtonGroup";
 
-export function ButtonGroupSeparator({
+export function ButtonGroupSeparator({ classNames,
   orientation,
   className,
   ...props
 }: PimoluButtonGroupSeparatorProps) {
+  const [partClasses, scopeParts] = usePartClasses("button-group", classNames, false);
+
   const group = useContext(ButtonGroupContext);
 
   const resolvedOrientation: PimoluButtonGroupOrientation =
@@ -73,21 +80,21 @@ export function ButtonGroupSeparator({
       ? "horizontal"
       : "vertical");
 
-  return (
+  return scopeParts((
     <span
       {...props}
       role="separator"
       aria-orientation={resolvedOrientation}
       data-orientation={resolvedOrientation}
-      className={[
+      className={mergeClasses([
         "pimolu-button-group__separator",
         `pimolu-button-group__separator--${resolvedOrientation}`,
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.separator, classNames?.root)}
     />
-  );
+  ));
 }
 
 ButtonGroupSeparator.displayName =

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -24,7 +27,7 @@ export const Center = forwardRef<
   HTMLElement,
   PimoluCenterProps
 >(function Center(
-  {
+  { classNames,
     as: Tag = "div",
     inline = false,
     minHeight,
@@ -36,6 +39,8 @@ export const Center = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("center", classNames, true);
+
   const classes = [
     "pimolu-center",
     inline && "pimolu-center--inline",
@@ -54,11 +59,11 @@ export const Center = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       style={
         {
           ...layoutVars,
@@ -69,7 +74,7 @@ export const Center = forwardRef<
     >
       {children}
     </Component>
-  );
+  ));
 });
 
 Center.displayName = "PimoluCenter";

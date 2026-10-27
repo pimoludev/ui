@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { HTMLAttributes } from "react";
 
 import type {
@@ -19,6 +21,9 @@ export type {
 
 export interface PimoluCardProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"card">;
+
   size?: PimoluCardSize;
   variant?: PimoluCardVariant;
   appearance?: PimoluCardAppearance;
@@ -28,18 +33,21 @@ export interface PimoluCardProps
 /* Composed components */
 
 export type PimoluCardHeaderProps =
-  HTMLAttributes<HTMLDivElement>;
+  (HTMLAttributes<HTMLDivElement>) & { classNames?: PimoluClassNames<"card"> };
 
 export type PimoluCardContentProps =
-  HTMLAttributes<HTMLDivElement>;
+  (HTMLAttributes<HTMLDivElement>) & { classNames?: PimoluClassNames<"card"> };
 
 export type PimoluCardFooterProps =
-  HTMLAttributes<HTMLDivElement>;
+  (HTMLAttributes<HTMLDivElement>) & { classNames?: PimoluClassNames<"card"> };
 
 export interface PimoluCardTitleProps
   extends HTMLAttributes<HTMLHeadingElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"card">;
+
   as?: "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 export type PimoluCardDescriptionProps =
-  HTMLAttributes<HTMLParagraphElement>;
+  (HTMLAttributes<HTMLParagraphElement>) & { classNames?: PimoluClassNames<"card"> };

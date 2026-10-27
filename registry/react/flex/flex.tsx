@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -83,7 +86,7 @@ const DIRECTION_CLASS: Record<string, string> = {
 
 export const Flex = forwardRef<HTMLElement, PimoluFlexProps>(
   function Flex(
-    {
+    { classNames,
       as: Tag = "div",
       direction = "row",
       align,
@@ -101,6 +104,8 @@ export const Flex = forwardRef<HTMLElement, PimoluFlexProps>(
     },
     ref
   ) {
+  const [partClasses, scopeParts] = usePartClasses("flex", classNames, true);
+
     const layoutVars: Record<string, string | number> = {
       "--pimolu-flex-gap": flexSpaceValue(gap),
     };
@@ -131,11 +136,11 @@ export const Flex = forwardRef<HTMLElement, PimoluFlexProps>(
 
     const Component = Tag as ElementType;
 
-    return (
+    return scopeParts((
       <Component
         {...props}
         ref={ref}
-        className={classes}
+        className={mergeClasses(classes, partClasses.root)}
         style={
           {
             ...layoutVars,
@@ -146,7 +151,7 @@ export const Flex = forwardRef<HTMLElement, PimoluFlexProps>(
       >
         {children}
       </Component>
-    );
+    ));
   }
 );
 

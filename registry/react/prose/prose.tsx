@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -18,7 +21,7 @@ export const Prose = forwardRef<
   HTMLElement,
   PimoluProseProps
 >(function Prose(
-  {
+  { classNames,
     as: Tag = "div",
     size = "md",
     className,
@@ -27,21 +30,23 @@ export const Prose = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("prose", classNames, true);
+
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-prose",
         `pimolu-prose--${size}`,
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </Component>
-  );
+  ));
 });
 
 Prose.displayName = "PimoluProse";

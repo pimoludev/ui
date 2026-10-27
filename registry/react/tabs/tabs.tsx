@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Children,
@@ -111,7 +114,7 @@ function useTabs(component: string) {
    ROOT
 ========================================= */
 
-export function Tabs({
+export function Tabs({ classNames,
   children,
 
   defaultValue,
@@ -126,6 +129,8 @@ export function Tabs({
 
   className,
 }: PimoluTabsProps) {
+  const [partClasses, scopeParts] = usePartClasses("tabs", classNames, true);
+
   const isControlled = controlledValue !== undefined;
 
   const [uncontrolledValue, setUncontrolledValue] =
@@ -167,30 +172,30 @@ export function Tabs({
     ]
   );
 
-  return (
+  return scopeParts((
     <TabsContext.Provider value={context}>
       <div
-        className={[
+        className={mergeClasses([
           tabsVariants({ variant, size }),
           orientation === "vertical" &&
             "pimolu-tabs--vertical",
           className,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.root)}
         data-orientation={orientation}
       >
         {children}
       </div>
     </TabsContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
    LIST
 ========================================= */
 
-export function TabsList({
+export function TabsList({ classNames,
   children,
   className,
   "aria-label": ariaLabel,
@@ -200,6 +205,8 @@ export function TabsList({
   scrollPreviousLabel = "Previous tabs",
   scrollNextLabel = "Next tabs",
 }: PimoluTabsListProps) {
+  const [partClasses, scopeParts] = usePartClasses("tabs", classNames, false);
+
   const {
     value,
     setValue,
@@ -436,19 +443,19 @@ export function TabsList({
     }
   }
 
-  return (
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-tabs__list-wrap",
         isScrollable
           ? "pimolu-tabs__list-wrap--scrollable"
           : undefined
-      )}
+      ), partClasses.listWrap, classNames?.root)}
     >
       {isScrollable && overflow.start && (
         <button
           type="button"
-          className="pimolu-tabs__scroll pimolu-tabs__scroll--previous"
+          className={mergeClasses("pimolu-tabs__scroll pimolu-tabs__scroll--previous", partClasses.scroll)}
           aria-label={scrollPreviousLabel}
           onClick={() => scrollTabs(-1)}
         >
@@ -466,10 +473,10 @@ export function TabsList({
         data-scrollable={
           isScrollable ? "true" : undefined
         }
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-tabs__list",
           className
-        )}
+        ), partClasses.list)}
         onKeyDown={handleKeyDown}
         onScroll={
           isScrollable ? updateOverflow : undefined
@@ -481,7 +488,7 @@ export function TabsList({
       {isScrollable && overflow.end && (
         <button
           type="button"
-          className="pimolu-tabs__scroll pimolu-tabs__scroll--next"
+          className={mergeClasses("pimolu-tabs__scroll pimolu-tabs__scroll--next", partClasses.scroll)}
           aria-label={scrollNextLabel}
           onClick={() => scrollTabs(1)}
         >
@@ -489,19 +496,21 @@ export function TabsList({
         </button>
       )}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    TRIGGER
 ========================================= */
 
-export function TabsTrigger({
+export function TabsTrigger({ classNames,
   value,
   disabled = false,
   children,
   className,
 }: PimoluTabsTriggerProps) {
+  const [partClasses, scopeParts] = usePartClasses("tabs", classNames, false);
+
   const { value: activeValue, setValue, baseId } =
     useTabs("TabsTrigger");
 
@@ -509,7 +518,7 @@ export function TabsTrigger({
 
   const slug = toId(value);
 
-  return (
+  return scopeParts((
     <button
       type="button"
       role="tab"
@@ -520,26 +529,28 @@ export function TabsTrigger({
       data-state={selected ? "active" : "inactive"}
       data-value={value}
       disabled={disabled}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-tabs__trigger",
         className
-      )}
+      ), partClasses.trigger, classNames?.root)}
       onClick={() => setValue(value)}
     >
       {children}
     </button>
-  );
+  ));
 }
 
 /* =========================================
    PANEL
 ========================================= */
 
-export function TabsContent({
+export function TabsContent({ classNames,
   value,
   children,
   className,
 }: PimoluTabsContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("tabs", classNames, false);
+
   const { value: activeValue, baseId } =
     useTabs("TabsContent");
 
@@ -547,7 +558,7 @@ export function TabsContent({
 
   const slug = toId(value);
 
-  return (
+  return scopeParts((
     <div
       role="tabpanel"
       id={`${baseId}-panel-${slug}`}
@@ -555,12 +566,12 @@ export function TabsContent({
       hidden={!selected}
       tabIndex={0}
       data-state={selected ? "active" : "inactive"}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-tabs__panel",
         className
-      )}
+      ), partClasses.panel, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }

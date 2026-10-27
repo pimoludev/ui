@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ReactNode,
   RefObject,
@@ -32,6 +34,9 @@ export interface PimoluTourStep {
 }
 
 export interface PimoluTourProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tour">;
+
   steps: PimoluTourStep[];
 
   /** Controlled open state. Omit to let the component own it. */

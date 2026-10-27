@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 /**
  * Sizes supported by SearchInput. Exported so documentation and tests can
  * enumerate the axis instead of hard-coding it.
@@ -12,6 +14,9 @@ export type PimoluSearchInputSize =
   (typeof searchInputSizes)[number];
 
 export interface PimoluSearchInputProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"search-input">;
+
   /** Controlled query. */
   value?: string;
 

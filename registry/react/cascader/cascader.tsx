@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -157,7 +160,7 @@ export const Cascader = forwardRef<
   HTMLButtonElement,
   PimoluCascaderProps
 >(function Cascader(
-  {
+  { classNames,
     id,
     options,
 
@@ -184,6 +187,8 @@ export const Cascader = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("cascader", classNames, true);
+
   /* ======================================
      IDS AND REFS
   ====================================== */
@@ -570,16 +575,16 @@ export const Cascader = forwardRef<
       ? `${listboxId}-option-${activeIndex}`
       : undefined;
 
-  return (
+  return scopeParts((
     <div
       ref={rootRef}
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       style={style}
     >
       {label && (
         <span
           id={labelId}
-          className="pimolu-cascader__label"
+          className={mergeClasses("pimolu-cascader__label", partClasses.label)}
         >
           {label}
         </span>
@@ -587,13 +592,13 @@ export const Cascader = forwardRef<
 
       <div
         ref={fieldRef}
-        className="pimolu-cascader__field"
+        className={mergeClasses("pimolu-cascader__field", partClasses.field)}
       >
         <button
           ref={assignRef}
           id={triggerId}
           type="button"
-          className="pimolu-cascader__trigger"
+          className={mergeClasses("pimolu-cascader__trigger", partClasses.trigger)}
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded={isOpen}
@@ -618,11 +623,9 @@ export const Cascader = forwardRef<
           onKeyDown={handleTriggerKeyDown}
         >
           <span
-            className={
-              displayLabel
+            className={mergeClasses(displayLabel
                 ? "pimolu-cascader__value"
-                : "pimolu-cascader__value pimolu-cascader__value--placeholder"
-            }
+                : "pimolu-cascader__value pimolu-cascader__value--placeholder", partClasses.value)}
             title={
               displayLabel.length > 0
                 ? displayLabel
@@ -638,7 +641,7 @@ export const Cascader = forwardRef<
           !disabled && (
             <button
               type="button"
-              className="pimolu-cascader__clear"
+              className={mergeClasses("pimolu-cascader__clear", partClasses.clear)}
               aria-label="Clear selection"
               onClick={clearSelection}
             >
@@ -647,7 +650,7 @@ export const Cascader = forwardRef<
           )}
 
         <span
-          className="pimolu-cascader__chevron"
+          className={mergeClasses("pimolu-cascader__chevron", partClasses.chevron)}
           aria-hidden="true"
         >
           <svg
@@ -671,12 +674,12 @@ export const Cascader = forwardRef<
               aria-label={
                 labelledBy ? undefined : ariaLabel
               }
-              className="pimolu-cascader__panel"
+              className={mergeClasses("pimolu-cascader__panel", partClasses.panel)}
               style={popupStyle}
             >
               {flatOptions.length === 0 ? (
                 <p
-                  className="pimolu-cascader__empty"
+                  className={mergeClasses("pimolu-cascader__empty", partClasses.empty)}
                   role="status"
                 >
                   {emptyMessage}
@@ -696,10 +699,10 @@ export const Cascader = forwardRef<
                       key={pathKey(column.parentPath)}
                       role="group"
                       aria-label={groupLabel}
-                      className="pimolu-cascader__column"
+                      className={mergeClasses("pimolu-cascader__column", partClasses.column)}
                     >
                       <div
-                        className="pimolu-cascader__column-label"
+                        className={mergeClasses("pimolu-cascader__column-label", partClasses.columnLabel)}
                         aria-hidden="true"
                       >
                         {groupLabel}
@@ -767,7 +770,7 @@ export const Cascader = forwardRef<
                                 ? "true"
                                 : undefined
                             }
-                            className={[
+                            className={mergeClasses([
                               "pimolu-cascader__option",
                               selected &&
                                 "pimolu-cascader__option--selected",
@@ -775,7 +778,7 @@ export const Cascader = forwardRef<
                                 "pimolu-cascader__option--disabled",
                             ]
                               .filter(Boolean)
-                              .join(" ")}
+                              .join(" "), partClasses.option)}
 
                             onMouseDown={(event) => {
                               event.preventDefault();
@@ -806,13 +809,13 @@ export const Cascader = forwardRef<
                               commit(path, option);
                             }}
                           >
-                            <span className="pimolu-cascader__option-label">
+                            <span className={mergeClasses("pimolu-cascader__option-label", partClasses.optionLabel)}>
                               {option.label}
                             </span>
 
                             {selected && (
                               <span
-                                className="pimolu-cascader__check"
+                                className={mergeClasses("pimolu-cascader__check", partClasses.check)}
                                 aria-hidden="true"
                               >
                                 ✓
@@ -821,7 +824,7 @@ export const Cascader = forwardRef<
 
                             {hasChildren && (
                               <span
-                                className="pimolu-cascader__option-chevron"
+                                className={mergeClasses("pimolu-cascader__option-chevron", partClasses.optionChevron)}
                                 aria-hidden="true"
                               >
                                 <svg
@@ -850,13 +853,13 @@ export const Cascader = forwardRef<
       {helperText && (
         <p
           id={messageId}
-          className="pimolu-cascader__helper"
+          className={mergeClasses("pimolu-cascader__helper", partClasses.helper)}
         >
           {helperText}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 Cascader.displayName = "PimoluCascader";

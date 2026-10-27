@@ -1,5 +1,6 @@
 
 export { Button } from "./button/button";
+export type { PimoluClassNames, PimoluComponentParts } from "./customization/customization.types";
 export type { ButtonProps } from "./button/button";
 
 export { buttonVariantMap } from "./button/button.variants";

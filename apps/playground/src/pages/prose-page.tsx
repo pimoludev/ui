@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./prose-customization-demo";
 import { Prose } from "@pimolu/react";
 
 import { PageHeader, Section } from "../section";
@@ -251,6 +252,7 @@ import "@pimolu/web-styles/styles.css";`}</code>
           </Prose>
         </div>
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
 } from "react";
@@ -8,6 +10,9 @@ export type { PimoluPaginationSize };
 
 export interface PimoluPaginationProps
   extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"pagination">;
+
   /** Controlled current page, starting at 1. */
   page?: number;
 

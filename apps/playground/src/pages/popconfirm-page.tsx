@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./popconfirm-customization-demo";
 import { useState } from "react";
 
 import {
@@ -200,6 +201,7 @@ export function PopconfirmPage() {
           </CardContent>
         </Card>
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

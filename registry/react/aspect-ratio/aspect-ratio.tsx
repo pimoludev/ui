@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -28,7 +31,7 @@ export const AspectRatio = forwardRef<
   HTMLElement,
   PimoluAspectRatioProps
 >(function AspectRatio(
-  {
+  { classNames,
     as: Tag = "div",
     ratio = DEFAULT_ASPECT_RATIO,
     className,
@@ -38,6 +41,8 @@ export const AspectRatio = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("aspect-ratio", classNames, true);
+
   const classes = [
     "pimolu-aspect-ratio",
     className,
@@ -53,11 +58,11 @@ export const AspectRatio = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       style={
         {
           ...layoutVars,
@@ -68,11 +73,11 @@ export const AspectRatio = forwardRef<
         isValidRatio(ratio) ? ratio : undefined
       }
     >
-      <div className="pimolu-aspect-ratio__content">
+      <div className={mergeClasses("pimolu-aspect-ratio__content", partClasses.content)}>
         {children}
       </div>
     </Component>
-  );
+  ));
 });
 
 AspectRatio.displayName = "PimoluAspectRatio";

@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   CSSProperties,
   InputHTMLAttributes,
@@ -29,6 +31,9 @@ export interface PimoluRangeSliderProps
     | "max"
     | "step"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"range-slider">;
+
   /** Visual size of the track and the two thumbs. */
   size?: PimoluRangeSliderSize;
 

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext, useContext, useEffect, useRef, useState, useSyncExternalStore,
@@ -38,7 +41,7 @@ function mobileSnapshot() {
   return typeof window !== "undefined" && Boolean(window.matchMedia?.(mobileQuery).matches);
 }
 
-export function Sidebar({
+export function Sidebar({ classNames,
   sticky = false,
   collapsible = false,
   collapsed,
@@ -51,6 +54,8 @@ export function Sidebar({
   className,
   ...props
 }: PimoluSidebarProps) {
+  const [partClasses, scopeParts] = usePartClasses("sidebar", classNames, true);
+
   const mobile = useSyncExternalStore(subscribeMobile, mobileSnapshot, () => false);
   const [internalCollapsed, setInternalCollapsed] = useState<boolean | undefined>(defaultCollapsed);
   const isCollapsed = collapsible && (collapsed ?? internalCollapsed ?? (collapseOnMobile && mobile));
@@ -70,20 +75,20 @@ export function Sidebar({
     onCollapsedChange?.(next);
   }
 
-  return (
+  return scopeParts((
     <SidebarCollapsedContext.Provider value={isCollapsed}>
     <aside
       {...props}
       ref={sidebarRef}
       data-sticky={sticky || undefined}
       data-collapsed={isCollapsed || undefined}
-      className={classes("pimolu-sidebar", className)}
+      className={mergeClasses(classes("pimolu-sidebar", className), partClasses.root)}
     >
       {collapsible && (
         <button
           type="button"
           ref={toggleRef}
-          className="pimolu-sidebar__toggle"
+          className={mergeClasses("pimolu-sidebar__toggle", partClasses.toggle)}
           aria-label={isCollapsed ? expandLabel : collapseLabel}
           aria-expanded={!isCollapsed}
           onClick={toggleCollapsed}
@@ -97,90 +102,98 @@ export function Sidebar({
       {children}
     </aside>
     </SidebarCollapsedContext.Provider>
-  );
+  ));
 }
 
-export function SidebarHeader({
+export function SidebarHeader({ classNames,
   children,
   collapsedContent,
   className,
   ...props
 }: PimoluSidebarHeaderProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("sidebar", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
       data-has-collapsed-content={collapsedContent != null || undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-sidebar__header",
         className
-      )}
+      ), partClasses.header, classNames?.root)}
     >
       {collapsedContent != null ? (
         <>
-          <div className="pimolu-sidebar__expanded">{children}</div>
-          <div className="pimolu-sidebar__compact">{collapsedContent}</div>
+          <div className={mergeClasses("pimolu-sidebar__expanded", partClasses.expanded)}>{children}</div>
+          <div className={mergeClasses("pimolu-sidebar__compact", partClasses.compact)}>{collapsedContent}</div>
         </>
       ) : children}
     </div>
-  );
+  ));
 }
 
-export function SidebarContent({
+export function SidebarContent({ classNames,
   children,
   className,
   ...props
 }: PimoluSidebarContentProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("sidebar", classNames, false);
+
+  return scopeParts((
     <nav
       {...props}
       aria-label={props["aria-label"] ?? "Sidebar"}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-sidebar__content",
         className
-      )}
+      ), partClasses.content, classNames?.root)}
     >
       {children}
     </nav>
-  );
+  ));
 }
 
-export function SidebarGroup({
+export function SidebarGroup({ classNames,
   children,
   className,
   ...props
 }: PimoluSidebarGroupProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("sidebar", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-sidebar__group",
         className
-      )}
+      ), partClasses.group, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
-export function SidebarGroupLabel({
+export function SidebarGroupLabel({ classNames,
   children,
   className,
   ...props
 }: PimoluSidebarGroupLabelProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("sidebar", classNames, false);
+
+  return scopeParts((
     <span
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-sidebar__group-label",
         className
-      )}
+      ), partClasses.groupLabel, classNames?.root)}
     >
       {children}
     </span>
-  );
+  ));
 }
 
-export function SidebarItem({
+export function SidebarItem({ classNames,
   active = false,
   disabled = false,
   icon,
@@ -188,6 +201,8 @@ export function SidebarItem({
   className,
   ...props
 }: PimoluSidebarItemProps) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("sidebar", classNames, false);
+
   const collapsed = useContext(SidebarCollapsedContext);
   const label = props["aria-label"] ?? props.title ?? (typeof children === "string" ? children : undefined);
   const fallbackIcon =
@@ -195,7 +210,7 @@ export function SidebarItem({
       ? Array.from(children.trim())[0].toLocaleUpperCase()
       : "•";
 
-  return (
+  return scopeParts((
     <Tooltip content={label ?? ""} placement="right" delay={150} disabled={!collapsed || !label}>
     <Link
       {...props}
@@ -204,47 +219,49 @@ export function SidebarItem({
       underline="none"
       disabled={disabled}
       aria-current={active ? "page" : undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-sidebar__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)} classNames={forwardedParts}
     >
       <span
-        className={classes("pimolu-sidebar__icon", icon ? undefined : "pimolu-sidebar__icon--fallback")}
+        className={mergeClasses(classes("pimolu-sidebar__icon", icon ? undefined : "pimolu-sidebar__icon--fallback"), partClasses.icon)}
         aria-hidden="true"
       >
         {icon ?? fallbackIcon}
       </span>
 
-      <span className="pimolu-sidebar__label">
+      <span className={mergeClasses("pimolu-sidebar__label", partClasses.label)}>
         {children}
       </span>
     </Link>
     </Tooltip>
-  );
+  ));
 }
 
-export function SidebarFooter({
+export function SidebarFooter({ classNames,
   children,
   collapsedContent,
   className,
   ...props
 }: PimoluSidebarFooterProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("sidebar", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
       data-has-collapsed-content={collapsedContent != null || undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-sidebar__footer",
         className
-      )}
+      ), partClasses.footer, classNames?.root)}
     >
       {collapsedContent != null ? (
         <>
-          <div className="pimolu-sidebar__expanded">{children}</div>
-          <div className="pimolu-sidebar__compact">{collapsedContent}</div>
+          <div className={mergeClasses("pimolu-sidebar__expanded", partClasses.expanded)}>{children}</div>
+          <div className={mergeClasses("pimolu-sidebar__compact", partClasses.compact)}>{collapsedContent}</div>
         </>
       ) : children}
     </div>
-  );
+  ));
 }

@@ -1,4 +1,8 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+
+
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   forwardRef,
@@ -68,6 +72,7 @@ export const Combobox = forwardRef<
     clearable = false,
     fullWidth = false,
 
+    classNames,
     className,
     inputClassName,
     style,
@@ -78,6 +83,8 @@ export const Combobox = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("combobox", classNames, true);
+
   /* ======================================
      IDS & REFS
   ====================================== */
@@ -412,24 +419,25 @@ export const Combobox = forwardRef<
       "pimolu-combobox--has-clear",
 
     className,
+    partClasses.root,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <div
       ref={rootRef}
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       style={style}
     >
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-combobox__label"
+          className={mergeClasses("pimolu-combobox__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-combobox__required"
+              className={mergeClasses("pimolu-combobox__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -438,7 +446,7 @@ export const Combobox = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-combobox__field">
+      <div className={mergeClasses("pimolu-combobox__field", partClasses.field)}>
         <input
           ref={assignInputRef}
           id={inputId}
@@ -467,6 +475,7 @@ export const Combobox = forwardRef<
           className={[
             "pimolu-combobox__input",
             inputClassName,
+            partClasses.control,
           ].filter(Boolean).join(" ")}
 
           value={inputText}
@@ -497,7 +506,7 @@ export const Combobox = forwardRef<
           !disabled && (
             <button
               type="button"
-              className="pimolu-combobox__clear"
+              className={mergeClasses("pimolu-combobox__clear", partClasses.clearButton)}
               aria-label="Clear selection"
               onClick={clearSelection}
             >
@@ -515,7 +524,7 @@ export const Combobox = forwardRef<
           )}
 
         <span
-          className="pimolu-combobox__chevron"
+          className={mergeClasses("pimolu-combobox__chevron", partClasses.chevron)}
           aria-hidden="true"
         >
           <svg
@@ -536,7 +545,7 @@ export const Combobox = forwardRef<
           <ul
             ref={listboxRef}
             id={listboxId}
-            className="pimolu-combobox__listbox"
+            className={mergeClasses("pimolu-combobox__listbox", partClasses.listbox)}
             style={popupStyle}
             role="listbox"
             aria-label={
@@ -545,7 +554,7 @@ export const Combobox = forwardRef<
           >
             {filteredOptions.length === 0 ? (
               <li
-                className="pimolu-combobox__empty"
+                className={mergeClasses("pimolu-combobox__empty", partClasses.empty)}
                 role="presentation"
               >
                 <span role="status">
@@ -574,6 +583,7 @@ export const Combobox = forwardRef<
 
                   className={[
                     "pimolu-combobox__option",
+                      partClasses.option,
                     option.disabled &&
                       "pimolu-combobox__option--disabled",
                   ].filter(Boolean).join(" ")}
@@ -586,13 +596,13 @@ export const Combobox = forwardRef<
                     selectOption(option);
                   }}
                 >
-                  <span className="pimolu-combobox__option-label">
+                  <span className={mergeClasses("pimolu-combobox__option-label", partClasses.optionLabel)}>
                     {option.label}
                   </span>
 
                   {option.value === selectedValue && (
                     <svg
-                      className="pimolu-combobox__check"
+                      className={mergeClasses("pimolu-combobox__check", partClasses.check)}
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -614,11 +624,9 @@ export const Combobox = forwardRef<
       {(errorMessage || helperText) && (
         <p
           id={messageId}
-          className={
-            errorMessage
+          className={mergeClasses(errorMessage
               ? "pimolu-combobox__error"
-              : "pimolu-combobox__helper"
-          }
+              : "pimolu-combobox__helper", partClasses.message)}
           role={
             errorMessage ? "alert" : undefined
           }
@@ -627,7 +635,7 @@ export const Combobox = forwardRef<
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 Combobox.displayName = "PimoluCombobox";

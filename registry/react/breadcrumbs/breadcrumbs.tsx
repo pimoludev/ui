@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type {
   PimoluBreadcrumbItemProps,
@@ -17,95 +20,105 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-export function Breadcrumbs({
+export function Breadcrumbs({ classNames,
   children,
   label = "Breadcrumb",
   className,
   ...props
 }: PimoluBreadcrumbsProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("breadcrumbs", classNames, true);
+
+  return scopeParts((
     <nav
       {...props}
       aria-label={props["aria-label"] ?? label}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-breadcrumbs",
         className
-      )}
+      ), partClasses.root)}
     >
-      <ol className="pimolu-breadcrumbs__list">
+      <ol className={mergeClasses("pimolu-breadcrumbs__list", partClasses.list)}>
         {children}
       </ol>
     </nav>
-  );
+  ));
 }
 
-export function BreadcrumbItem({
+export function BreadcrumbItem({ classNames,
   children,
   className,
 }: PimoluBreadcrumbItemProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("breadcrumbs", classNames, false);
+
+  return scopeParts((
     <li
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-breadcrumbs__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
     >
       {children}
     </li>
-  );
+  ));
 }
 
-export function BreadcrumbLink({
+export function BreadcrumbLink({ classNames,
   children,
   className,
   ...props
 }: PimoluBreadcrumbLinkProps) {
-  return (
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("breadcrumbs", classNames, false);
+
+  return scopeParts((
     <Link
       {...props}
       variant="muted"
       underline="hover"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-breadcrumbs__link",
         className
-      )}
+      ), partClasses.link, classNames?.root)} classNames={forwardedParts}
     >
       {children}
     </Link>
-  );
+  ));
 }
 
-export function BreadcrumbSeparator({
+export function BreadcrumbSeparator({ classNames,
   children = "/",
   className,
 }: PimoluBreadcrumbSeparatorProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("breadcrumbs", classNames, false);
+
+  return scopeParts((
     <li
       role="presentation"
       aria-hidden="true"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-breadcrumbs__separator",
         className
-      )}
+      ), partClasses.separator, classNames?.root)}
     >
       {children}
     </li>
-  );
+  ));
 }
 
-export function BreadcrumbPage({
+export function BreadcrumbPage({ classNames,
   children,
   className,
 }: PimoluBreadcrumbPageProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("breadcrumbs", classNames, false);
+
+  return scopeParts((
     <span
       aria-current="page"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-breadcrumbs__page",
         className
-      )}
+      ), partClasses.page, classNames?.root)}
     >
       {children}
     </span>
-  );
+  ));
 }

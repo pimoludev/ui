@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -191,7 +194,7 @@ export const MaskedInput = forwardRef<
   HTMLInputElement,
   PimoluMaskedInputProps
 >(function MaskedInput(
-  {
+  { classNames,
     id,
     mask,
     value,
@@ -224,6 +227,8 @@ export const MaskedInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("masked-input", classNames, true);
+
   const generatedId = useId();
   const inputId = id ?? `pimolu-masked-input-${generatedId}`;
 
@@ -354,18 +359,18 @@ export const MaskedInput = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div className={fieldClassName}>
+  return scopeParts((
+    <div className={mergeClasses(fieldClassName, partClasses.root)}>
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-masked-input__label"
+          className={mergeClasses("pimolu-masked-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-masked-input__required"
+              className={mergeClasses("pimolu-masked-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -374,18 +379,18 @@ export const MaskedInput = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-masked-input__wrapper">
+      <div className={mergeClasses("pimolu-masked-input__wrapper", partClasses.wrapper)}>
         <input
           {...props}
           ref={setInputRef}
           id={inputId}
           type="text"
-          className={[
+          className={mergeClasses([
             "pimolu-masked-input__control",
             className,
           ]
             .filter(Boolean)
-            .join(" ")}
+            .join(" "), partClasses.control)}
           value={displayValue}
           onChange={handleChange}
           onFocus={handleFocus}
@@ -404,18 +409,16 @@ export const MaskedInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            isErrorMessage
+          className={mergeClasses(isErrorMessage
               ? "pimolu-masked-input__error"
-              : "pimolu-masked-input__helper"
-          }
+              : "pimolu-masked-input__helper", partClasses.error)}
           role={isErrorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 MaskedInput.displayName = "PimoluMaskedInput";

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -14,6 +16,9 @@ export interface PimoluRatingProps
     HTMLAttributes<HTMLDivElement>,
     "defaultValue" | "onChange" | "value"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"rating">;
+
 
   /** Controlled rating. Use 0 for "no rating". */
   value?: number;

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -39,6 +41,9 @@ export type PimoluContainerMaxWidth =
 
 export interface PimoluContainerProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"container">;
+
   /** Element rendered by the container. Defaults to `div`. */
   as?: ElementType;
 

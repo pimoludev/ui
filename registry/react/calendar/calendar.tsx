@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useEffect,
@@ -187,7 +190,7 @@ function Chevron({ direction }: { direction: "left" | "right" }) {
    CALENDAR
 ========================================= */
 
-export function Calendar({
+export function Calendar({ classNames,
   mode = "single",
 
   selected,
@@ -211,6 +214,8 @@ export function Calendar({
   className,
   "aria-label": ariaLabel,
 }: PimoluCalendarProps) {
+  const [partClasses, scopeParts] = usePartClasses("calendar", classNames, true);
+
   const generatedId = useId();
   const instructionsId = `pimolu-calendar-${generatedId}-instructions`;
 
@@ -601,20 +606,20 @@ export function Calendar({
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
       ref={rootRef}
-      className={rootClassName}
+      className={mergeClasses(rootClassName, partClasses.root)}
       data-mode={mode}
       data-months={numberOfMonths}
       {...(ariaLabel
         ? { role: "group", "aria-label": ariaLabel }
         : {})}
     >
-      <div className="pimolu-calendar__header">
+      <div className={mergeClasses("pimolu-calendar__header", partClasses.header)}>
         <button
           type="button"
-          className="pimolu-calendar__nav"
+          className={mergeClasses("pimolu-calendar__nav", partClasses.nav)}
           aria-label="Previous month"
           disabled={previousDisabled}
           onClick={() => changeMonth(-1)}
@@ -623,7 +628,7 @@ export function Calendar({
         </button>
 
         <div
-          className="pimolu-calendar__title"
+          className={mergeClasses("pimolu-calendar__title", partClasses.title)}
           aria-live="polite"
         >
           {title}
@@ -631,7 +636,7 @@ export function Calendar({
 
         <button
           type="button"
-          className="pimolu-calendar__nav"
+          className={mergeClasses("pimolu-calendar__nav", partClasses.nav)}
           aria-label="Next month"
           disabled={nextDisabled}
           onClick={() => changeMonth(1)}
@@ -642,14 +647,14 @@ export function Calendar({
 
       <span
         id={instructionsId}
-        className="pimolu-calendar__sr-only"
+        className={mergeClasses("pimolu-calendar__sr-only", partClasses.srOnly)}
       >
         Use the arrow keys to move by day, Page Up and Page
         Down to change the month, and Home or End to move
         within the week. Press Enter or Space to select.
       </span>
 
-      <div className="pimolu-calendar__months">
+      <div className={mergeClasses("pimolu-calendar__months", partClasses.months)}>
         {months.map((entry) => {
           const days = getCalendarDays(
             entry,
@@ -663,7 +668,7 @@ export function Calendar({
           return (
             <div
               key={monthKey}
-              className="pimolu-calendar__month"
+              className={mergeClasses("pimolu-calendar__month", partClasses.month)}
             >
               <div
                 role="grid"
@@ -672,17 +677,17 @@ export function Calendar({
                 aria-multiselectable={
                   mode === "range" ? true : undefined
                 }
-                className="pimolu-calendar__grid"
+                className={mergeClasses("pimolu-calendar__grid", partClasses.grid)}
               >
                 <div
                   role="row"
-                  className="pimolu-calendar__weekdays"
+                  className={mergeClasses("pimolu-calendar__weekdays", partClasses.weekdays)}
                 >
                   {weekdayDates.map((weekday) => (
                     <div
                       key={dateKey(weekday)}
                       role="columnheader"
-                      className="pimolu-calendar__weekday"
+                      className={mergeClasses("pimolu-calendar__weekday", partClasses.weekday)}
                       aria-label={weekdayLongFormatter.format(
                         weekday
                       )}
@@ -700,7 +705,7 @@ export function Calendar({
                   <div
                     key={dateKey(week[0])}
                     role="row"
-                    className="pimolu-calendar__week"
+                    className={mergeClasses("pimolu-calendar__week", partClasses.week)}
                   >
                     {week.map((day) => {
                       const key = dateKey(day);
@@ -763,7 +768,7 @@ export function Calendar({
                           key={key}
                           type="button"
                           role="gridcell"
-                          className={dayClassName}
+                          className={mergeClasses(dayClassName, partClasses.day)}
                           tabIndex={
                             key === tabStopKey ? 0 : -1
                           }
@@ -823,5 +828,5 @@ export function Calendar({
         })}
       </div>
     </div>
-  );
+  ));
 }

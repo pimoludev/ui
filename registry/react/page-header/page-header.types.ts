@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -41,6 +43,9 @@ export type PimoluPageHeaderBreadcrumbs =
  */
 export interface PimoluPageHeaderProps
   extends Omit<HTMLAttributes<HTMLElement>, "title"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"page-header">;
+
   /** The page title. Rendered as h1 by default. */
   title: ReactNode;
 

@@ -3,5 +3,11 @@
     "file": "hover-card-package.tsx",
     "title": "Package information",
     "description": "Focus or hover the trigger to inspect a package; follow the real installation guide."
+  },
+  {
+    "file": "hover-card-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

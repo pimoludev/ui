@@ -1,4 +1,7 @@
 
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 import { forwardRef } from "react";
 
 import type {
@@ -15,7 +18,7 @@ export const Skeleton = forwardRef<
   HTMLSpanElement,
   PimoluSkeletonProps
 >(function Skeleton(
-  {
+  { classNames,
     shape = "text",
     animation = "pulse",
 
@@ -29,6 +32,8 @@ export const Skeleton = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("skeleton", classNames, true);
+
   /* Classes */
 
   const skeletonClassName = [
@@ -53,17 +58,17 @@ export const Skeleton = forwardRef<
       : {}),
   };
 
-  return (
+  return scopeParts((
     <span
       {...props}
       ref={ref}
-      className={skeletonClassName}
+      className={mergeClasses(skeletonClassName, partClasses.root)}
       style={skeletonStyle}
       aria-hidden="true"
       data-shape={shape}
       data-animation={animation}
     />
-  );
+  ));
 });
 
 Skeleton.displayName = "PimoluSkeleton";

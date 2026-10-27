@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   HTMLAttributes,
   ReactNode,
@@ -23,6 +25,9 @@ export interface PimoluAvatarProps
     HTMLAttributes<HTMLSpanElement>,
     "children" | "onError"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"avatar">;
+
   /** Accessible name and source for initials. */
   name: string;
 

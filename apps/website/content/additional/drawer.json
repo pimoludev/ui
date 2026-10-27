@@ -3,5 +3,11 @@
     "file": "drawer-left.tsx",
     "title": "Left navigation drawer",
     "description": "A compact drawer from the left, with real links and an explicit close action."
+  },
+  {
+    "file": "drawer-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content.",
+    "append": true
   }
 ]

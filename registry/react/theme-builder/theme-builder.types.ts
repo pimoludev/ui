@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -37,6 +39,9 @@ export interface PimoluThemeBuilderPreset {
 
 export interface PimoluThemeBuilderProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "title"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"theme-builder">;
+
   /** Preset cards, in display order. */
   presets: readonly PimoluThemeBuilderPreset[];
 

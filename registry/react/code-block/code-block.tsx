@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Fragment,
@@ -799,7 +802,7 @@ export const CodeBlock = forwardRef<
   HTMLDivElement,
   PimoluCodeBlockProps
 >(function CodeBlock(
-  {
+  { classNames,
     code,
     language = "ts",
     filename,
@@ -815,6 +818,8 @@ export const CodeBlock = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("code-block", classNames, true);
+
   const [copyStatus, setCopyStatus] =
     useState<CopyStatus>("idle");
 
@@ -866,29 +871,29 @@ export const CodeBlock = forwardRef<
         ? "Unable to copy"
         : "";
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={[
+      className={mergeClasses([
         "pimolu-codeblock",
         wrap && "pimolu-codeblock--wrap",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       data-language={language}
     >
-      <div className="pimolu-codeblock__header">
-        <div className="pimolu-codeblock__meta">
+      <div className={mergeClasses("pimolu-codeblock__header", partClasses.header)}>
+        <div className={mergeClasses("pimolu-codeblock__meta", partClasses.meta)}>
           {filename && (
-            <span className="pimolu-codeblock__filename">
+            <span className={mergeClasses("pimolu-codeblock__filename", partClasses.filename)}>
               {filename}
             </span>
           )}
 
           <Badge
-            className="pimolu-codeblock__language"
+            className={mergeClasses("pimolu-codeblock__language", partClasses.language)}
             variant="neutral"
             appearance="soft"
             size="sm"
@@ -899,7 +904,7 @@ export const CodeBlock = forwardRef<
 
         {copyable && (
           <Button
-            className="pimolu-codeblock__copy"
+            className={mergeClasses("pimolu-codeblock__copy", partClasses.copy)}
             size="sm"
             appearance="ghost"
             onClick={handleCopy}
@@ -912,7 +917,7 @@ export const CodeBlock = forwardRef<
       </div>
 
       <pre
-        className="pimolu-codeblock__pre"
+        className={mergeClasses("pimolu-codeblock__pre", partClasses.pre)}
         style={preStyle}
         aria-label={
           filename
@@ -920,37 +925,35 @@ export const CodeBlock = forwardRef<
             : `${language} code sample`
         }
       >
-        <code className="pimolu-codeblock__code">
+        <code className={mergeClasses("pimolu-codeblock__code", partClasses.code)}>
           {lines.map((tokens, lineIndex) => (
             <Fragment key={lineIndex}>
               <span
-                className={[
+                className={mergeClasses([
                   "pimolu-codeblock__line",
                   highlighted.has(lineIndex + 1) &&
                     "pimolu-codeblock__line--highlighted",
                 ]
                   .filter(Boolean)
-                  .join(" ")}
+                  .join(" "), partClasses.line)}
                 data-line={lineIndex + 1}
               >
                 {showLineNumbers && (
                   <span
-                    className="pimolu-codeblock__line-number"
+                    className={mergeClasses("pimolu-codeblock__line-number", partClasses.lineNumber)}
                     aria-hidden="true"
                   >
                     {lineIndex + 1}
                   </span>
                 )}
 
-                <span className="pimolu-codeblock__line-content">
+                <span className={mergeClasses("pimolu-codeblock__line-content", partClasses.lineContent)}>
                   {tokens.map((token, tokenIndex) => (
                     <span
                       key={tokenIndex}
-                      className={
-                        token.type === "plain"
+                      className={mergeClasses(token.type === "plain"
                           ? undefined
-                          : `pimolu-codeblock__token pimolu-codeblock__token--${token.type}`
-                      }
+                          : `pimolu-codeblock__token pimolu-codeblock__token--${token.type}`, partClasses.token)}
                     >
                       {token.value}
                     </span>
@@ -965,14 +968,14 @@ export const CodeBlock = forwardRef<
       </pre>
 
       <span
-        className="pimolu-codeblock__status"
+        className={mergeClasses("pimolu-codeblock__status", partClasses.status)}
         role="status"
         aria-live="polite"
       >
         {liveMessage}
       </span>
     </div>
-  );
+  ));
 });
 
 CodeBlock.displayName = "PimoluCodeBlock";

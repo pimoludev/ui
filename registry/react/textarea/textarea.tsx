@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -20,7 +23,7 @@ export const Textarea = forwardRef<
   HTMLTextAreaElement,
   PimoluTextareaProps
 >(function Textarea(
-  {
+  { classNames,
     id,
     label,
     helperText,
@@ -57,6 +60,8 @@ export const Textarea = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("textarea", classNames, true);
+
   const generatedId = useId();
   const textareaId =
     id ?? `pimolu-textarea-${generatedId}`;
@@ -155,18 +160,18 @@ export const Textarea = forwardRef<
     className,
   ].filter(Boolean).join(" ");
 
-  return (
-    <div className={containerClasses}>
+  return scopeParts((
+    <div className={mergeClasses(containerClasses, partClasses.root)}>
       {label && (
         <label
           htmlFor={textareaId}
-          className="pimolu-textarea__label"
+          className={mergeClasses("pimolu-textarea__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-textarea__required"
+              className={mergeClasses("pimolu-textarea__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -179,7 +184,7 @@ export const Textarea = forwardRef<
         {...props}
         ref={setTextareaRef}
         id={textareaId}
-        className={controlClasses}
+        className={mergeClasses(controlClasses, partClasses.control)}
 
         rows={rows}
         maxLength={maxLength}
@@ -203,15 +208,13 @@ export const Textarea = forwardRef<
       />
 
       {(message || showCount) && (
-        <div className="pimolu-textarea__footer">
+        <div className={mergeClasses("pimolu-textarea__footer", partClasses.footer)}>
           {message && (
             <p
               id={messageId}
-              className={
-                isErrorMessage
+              className={mergeClasses(isErrorMessage
                   ? "pimolu-textarea__error"
-                  : "pimolu-textarea__helper"
-              }
+                  : "pimolu-textarea__helper", partClasses.error)}
               role={
                 isErrorMessage
                   ? "alert"
@@ -225,7 +228,7 @@ export const Textarea = forwardRef<
           {showCount && (
             <span
               id={counterId}
-              className="pimolu-textarea__counter"
+              className={mergeClasses("pimolu-textarea__counter", partClasses.counter)}
             >
               {count}
               {maxLength !== undefined
@@ -236,7 +239,7 @@ export const Textarea = forwardRef<
         </div>
       )}
     </div>
-  );
+  ));
 });
 
 Textarea.displayName = "PimoluTextarea";

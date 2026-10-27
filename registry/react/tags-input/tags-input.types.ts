@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   InputHTMLAttributes,
   ReactNode,
@@ -18,6 +20,9 @@ export interface PimoluTagsInputProps
     | "defaultValue"
     | "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tags-input">;
+
   /** Controlled tags. */
   value?: string[];
 

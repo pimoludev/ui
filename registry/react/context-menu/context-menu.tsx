@@ -1,3 +1,7 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import {
   cloneElement,
   createContext,
@@ -255,6 +259,9 @@ export function ContextMenuTrigger({
 ========================================= */
 
 interface SurfaceProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"context-menu">;
+
   state: "open" | "closing";
   collisionPadding: number;
   className?: string;
@@ -265,12 +272,14 @@ interface SurfaceProps {
  * Mounted only once the portal host exists, so it can measure and focus the
  * panel: the content's first effect runs before that.
  */
-function ContextMenuSurface({
+function ContextMenuSurface({ classNames,
   state,
   collisionPadding,
   className,
   children,
 }: SurfaceProps) {
+  const [partClasses, scopeParts] = usePartClasses("context-menu", classNames, false);
+
   const menu = useContextMenu("ContextMenuSurface");
 
   const [position, setPosition] = useState<Point>(() =>
@@ -378,34 +387,36 @@ function ContextMenuSurface({
     maxHeight: `calc(100vh - ${collisionPadding * 2}px)`,
   };
 
-  return (
+  return scopeParts((
     <div
       ref={menu.contentRef}
       id={menu.contentId}
       role="menu"
       tabIndex={-1}
       data-state={state}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-context-menu",
         className
-      )}
+      ), partClasses.root)}
       style={style}
       onKeyDown={handleKeyDown}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function ContextMenuContent({
+export function ContextMenuContent({ classNames,
   children,
   collisionPadding = 8,
   className,
 }: PimoluContextMenuContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("context-menu", classNames, true);
+
   const menu = useContextMenu("ContextMenuContent");
   const { rendered, state } = usePresence(
     menu.open,
@@ -442,30 +453,32 @@ export function ContextMenuContent({
       );
   }, [menu.open, menu.setOpen, menu.triggerRef]);
 
-  if (!rendered) return null;
+  if (!rendered) return scopeParts(null);
 
-  return (
+  return scopeParts((
     <Portal anchorRef={menu.scopeRef}>
       <ContextMenuSurface
         state={state}
         collisionPadding={collisionPadding}
-        className={className}
+        className={mergeClasses(className, partClasses.root)}
       >
         {children}
       </ContextMenuSurface>
     </Portal>
-  );
+  ));
 }
 
 /* =========================================
    ITEM
 ========================================= */
 
-export function ContextMenuItem({
+export function ContextMenuItem({ classNames,
   children,
   onSelect,
   disabled = false,
 }: PimoluContextMenuItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("context-menu", classNames, false);
+
   const menu = useContextMenu("ContextMenuItem");
 
   function select() {
@@ -476,14 +489,14 @@ export function ContextMenuItem({
     menu.triggerRef.current?.focus();
   }
 
-  return (
+  return scopeParts((
     <button
       type="button"
       role="menuitem"
       tabIndex={-1}
       disabled={disabled}
       aria-disabled={disabled || undefined}
-      className="pimolu-context-menu__item"
+      className={mergeClasses("pimolu-context-menu__item", partClasses.item, classNames?.root)}
       onClick={select}
       onKeyDown={(event) => {
         if (event.key !== "Enter") return;
@@ -494,40 +507,44 @@ export function ContextMenuItem({
     >
       {children}
     </button>
-  );
+  ));
 }
 
 /* =========================================
    SEPARATOR AND LABEL
 ========================================= */
 
-export function ContextMenuSeparator({
+export function ContextMenuSeparator({ classNames,
   className,
 }: PimoluContextMenuSeparatorProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("context-menu", classNames, false);
+
+  return scopeParts((
     <div
       role="separator"
       aria-orientation="horizontal"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-context-menu__separator",
         className
-      )}
+      ), partClasses.separator, classNames?.root)}
     />
-  );
+  ));
 }
 
-export function ContextMenuLabel({
+export function ContextMenuLabel({ classNames,
   children,
   className,
 }: PimoluContextMenuLabelProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("context-menu", classNames, false);
+
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-context-menu__label",
         className
-      )}
+      ), partClasses.label, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }

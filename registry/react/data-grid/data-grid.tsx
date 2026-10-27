@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Fragment,
@@ -379,7 +382,7 @@ interface ResizeState {
    DATA GRID
 ========================================= */
 
-export function DataGrid<T>({
+export function DataGrid<T>({ classNames,
   data,
   columns,
   getRowId,
@@ -436,6 +439,8 @@ export function DataGrid<T>({
   className,
   rowClassName,
 }: PimoluDataGridProps<T>) {
+  const [partClasses, scopeParts] = usePartClasses("data-grid", classNames, true);
+
   const generatedId = useId();
   const text = { ...DEFAULT_LABELS, ...labels };
 
@@ -1111,18 +1116,16 @@ export function DataGrid<T>({
         data-state={
           isSelected ? "selected" : undefined
         }
-        className={
-          [
+        className={mergeClasses([
             isSelected &&
               "pimolu-data-grid__row--selected",
             customRowClassName,
           ]
             .filter(Boolean)
-            .join(" ") || undefined
-        }
+            .join(" ") || undefined, partClasses.row)}
       >
         {selectable && (
-          <TableCell className="pimolu-data-grid__select-cell">
+          <TableCell className={mergeClasses("pimolu-data-grid__select-cell", partClasses.selectCell)}>
             <Checkbox
               aria-label={
                 getRowLabel?.(row) ??
@@ -1143,10 +1146,10 @@ export function DataGrid<T>({
             <TableCell
               key={column.id}
               style={getWidthStyle(column, width)}
-              className={[
+              className={mergeClasses([
                 "pimolu-data-grid__cell",
                 getAlignClass("cell", column.align),
-              ].join(" ")}
+              ].join(" "), partClasses.cell)}
             >
               {getCellContent(row, column)}
             </TableCell>
@@ -1156,14 +1159,14 @@ export function DataGrid<T>({
     );
   }
 
-  return (
-    <div className={rootClassName}>
+  return scopeParts((
+    <div className={mergeClasses(rootClassName, partClasses.root)}>
       {showToolbar && (
-        <div className="pimolu-data-grid__toolbar">
+        <div className={mergeClasses("pimolu-data-grid__toolbar", partClasses.toolbar)}>
           {filterable && (
             <Input
               id={filterId}
-              className="pimolu-data-grid__filter-input"
+              className={mergeClasses("pimolu-data-grid__filter-input", partClasses.filterInput)}
               containerClassName="pimolu-data-grid__filter"
               type="search"
               size="sm"
@@ -1176,25 +1179,25 @@ export function DataGrid<T>({
           )}
 
           {hideableColumns.length > 0 && (
-            <div className="pimolu-data-grid__toolbar-actions">
+            <div className={mergeClasses("pimolu-data-grid__toolbar-actions", partClasses.toolbarActions)}>
               <Popover
                 label={text.columnVisibility}
                 placement="bottom"
-                className="pimolu-data-grid__columns-popover"
+                className={mergeClasses("pimolu-data-grid__columns-popover", partClasses.columnsPopover)}
                 content={
                   <div
-                    className="pimolu-data-grid__columns"
+                    className={mergeClasses("pimolu-data-grid__columns", partClasses.columns)}
                     role="group"
                     aria-labelledby={`${visibilityId}-title`}
                   >
                     <p
                       id={`${visibilityId}-title`}
-                      className="pimolu-data-grid__columns-title"
+                      className={mergeClasses("pimolu-data-grid__columns-title", partClasses.columnsTitle)}
                     >
                       {text.columnVisibility}
                     </p>
 
-                    <div className="pimolu-data-grid__columns-list">
+                    <div className={mergeClasses("pimolu-data-grid__columns-list", partClasses.columnsList)}>
                       {hideableColumns.map((column) => {
                         const isVisible =
                           !hiddenSet.has(column.id);
@@ -1229,7 +1232,7 @@ export function DataGrid<T>({
                   variant="neutral"
                   appearance="outline"
                   size="sm"
-                  className="pimolu-data-grid__columns-trigger"
+                  className={mergeClasses("pimolu-data-grid__columns-trigger", partClasses.columnsTrigger)}
                   startIcon={<ColumnsIcon />}
                 >
                   {text.columns}
@@ -1241,9 +1244,9 @@ export function DataGrid<T>({
       )}
 
       {selectable && selectedIds.size > 0 && (
-        <div className="pimolu-data-grid__selection-bar">
+        <div className={mergeClasses("pimolu-data-grid__selection-bar", partClasses.selectionBar)}>
           <span
-            className="pimolu-data-grid__selection-count"
+            className={mergeClasses("pimolu-data-grid__selection-count", partClasses.selectionCount)}
             role="status"
             aria-live="polite"
           >
@@ -1251,7 +1254,7 @@ export function DataGrid<T>({
           </span>
 
           <Button
-            className="pimolu-data-grid__clear-selection"
+            className={mergeClasses("pimolu-data-grid__clear-selection", partClasses.clearSelection)}
             variant="neutral"
             appearance="ghost"
             size="sm"
@@ -1262,7 +1265,7 @@ export function DataGrid<T>({
         </div>
       )}
 
-      <div className="pimolu-data-grid__table-container">
+      <div className={mergeClasses("pimolu-data-grid__table-container", partClasses.tableContainer)}>
         <Table
           caption={caption}
           aria-label={ariaLabel}
@@ -1276,7 +1279,7 @@ export function DataGrid<T>({
           density={density}
           stickyHeader={stickyHeader}
           containerClassName="pimolu-data-grid__table-wrapper"
-          className="pimolu-data-grid__table"
+          className={mergeClasses("pimolu-data-grid__table", partClasses.table)}
           style={
             hasFixedLayout
               ? { tableLayout: "fixed" }
@@ -1288,7 +1291,7 @@ export function DataGrid<T>({
               {selectable && (
                 <TableHead
                   scope="col"
-                  className="pimolu-data-grid__select-cell"
+                  className={mergeClasses("pimolu-data-grid__select-cell", partClasses.selectCell)}
                 >
                   <Checkbox
                     aria-label={text.selectAll}
@@ -1325,7 +1328,7 @@ export function DataGrid<T>({
                           )
                         : undefined
                     }
-                    className={[
+                    className={mergeClasses([
                       "pimolu-data-grid__head",
                       getAlignClass(
                         "head",
@@ -1335,27 +1338,27 @@ export function DataGrid<T>({
                         "pimolu-data-grid__head--sized",
                     ]
                       .filter(Boolean)
-                      .join(" ")}
+                      .join(" "), partClasses.head)}
                   >
                     <div
-                      className="pimolu-data-grid__head-inner"
+                      className={mergeClasses("pimolu-data-grid__head-inner", partClasses.headInner)}
                       data-align={column.align ?? "start"}
                     >
                       {column.sortable ? (
                         <button
                           type="button"
-                          className="pimolu-data-grid__sort-button"
+                          className={mergeClasses("pimolu-data-grid__sort-button", partClasses.sortButton)}
                           aria-label={`Sort by ${label}`}
                           onClick={() =>
                             handleSort(column.id)
                           }
                         >
-                          <span className="pimolu-data-grid__head-label">
+                          <span className={mergeClasses("pimolu-data-grid__head-label", partClasses.headLabel)}>
                             {column.header}
                           </span>
 
                           <span
-                            className="pimolu-data-grid__sort-icon"
+                            className={mergeClasses("pimolu-data-grid__sort-icon", partClasses.sortIcon)}
                             data-active={
                               isActiveSort
                                 ? "true"
@@ -1367,7 +1370,7 @@ export function DataGrid<T>({
                           </span>
                         </button>
                       ) : (
-                        <span className="pimolu-data-grid__head-label">
+                        <span className={mergeClasses("pimolu-data-grid__head-label", partClasses.headLabel)}>
                           {column.header}
                         </span>
                       )}
@@ -1389,7 +1392,7 @@ export function DataGrid<T>({
                             DEFAULT_MAX_WIDTH
                           }
                           tabIndex={0}
-                          className="pimolu-data-grid__resizer"
+                          className={mergeClasses("pimolu-data-grid__resizer", partClasses.resizer)}
                           data-resizing={
                             resizingId === column.id
                               ? "true"
@@ -1443,7 +1446,7 @@ export function DataGrid<T>({
               <TableRow>
                 <TableCell
                   colSpan={Math.max(columnCount, 1)}
-                  className="pimolu-data-grid__empty"
+                  className={mergeClasses("pimolu-data-grid__empty", partClasses.empty)}
                 >
                   {emptyState ?? (
                     <EmptyState
@@ -1470,17 +1473,17 @@ export function DataGrid<T>({
                   <Fragment
                     key={`group-${group.key}`}
                   >
-                    <TableRow className="pimolu-data-grid__group-row">
+                    <TableRow className={mergeClasses("pimolu-data-grid__group-row", partClasses.groupRow)}>
                       <TableCell
                         colSpan={Math.max(
                           columnCount,
                           1
                         )}
-                        className="pimolu-data-grid__group-cell"
+                        className={mergeClasses("pimolu-data-grid__group-cell", partClasses.groupCell)}
                       >
                         <button
                           type="button"
-                          className="pimolu-data-grid__group-toggle"
+                          className={mergeClasses("pimolu-data-grid__group-toggle", partClasses.groupToggle)}
                           aria-expanded={!isCollapsed}
                           aria-label={
                             isCollapsed
@@ -1496,7 +1499,7 @@ export function DataGrid<T>({
                           }
                         >
                           <span
-                            className="pimolu-data-grid__group-chevron"
+                            className={mergeClasses("pimolu-data-grid__group-chevron", partClasses.groupChevron)}
                             data-expanded={
                               isCollapsed
                                 ? "false"
@@ -1507,11 +1510,11 @@ export function DataGrid<T>({
                             ▸
                           </span>
 
-                          <span className="pimolu-data-grid__group-label">
+                          <span className={mergeClasses("pimolu-data-grid__group-label", partClasses.groupLabel)}>
                             {group.key}
                           </span>
 
-                          <span className="pimolu-data-grid__group-count">
+                          <span className={mergeClasses("pimolu-data-grid__group-count", partClasses.groupCount)}>
                             {text.groupCount(
                               groupCounts.get(
                                 group.key
@@ -1540,11 +1543,11 @@ export function DataGrid<T>({
 
         {loading && (
           <div
-            className="pimolu-data-grid__overlay"
+            className={mergeClasses("pimolu-data-grid__overlay", partClasses.overlay)}
             role="status"
             aria-live="polite"
           >
-            <span className="pimolu-data-grid__overlay-label">
+            <span className={mergeClasses("pimolu-data-grid__overlay-label", partClasses.overlayLabel)}>
               {text.loading}
             </span>
           </div>
@@ -1552,9 +1555,9 @@ export function DataGrid<T>({
       </div>
 
       {pagination && total > 0 && (
-        <div className="pimolu-data-grid__footer">
+        <div className={mergeClasses("pimolu-data-grid__footer", partClasses.footer)}>
           <p
-            className="pimolu-data-grid__status"
+            className={mergeClasses("pimolu-data-grid__status", partClasses.status)}
             role="status"
             aria-live="polite"
           >
@@ -1565,14 +1568,14 @@ export function DataGrid<T>({
             )}
           </p>
 
-          <div className="pimolu-data-grid__footer-controls">
-            <label className="pimolu-data-grid__page-size">
-              <span className="pimolu-data-grid__page-size-label">
+          <div className={mergeClasses("pimolu-data-grid__footer-controls", partClasses.footerControls)}>
+            <label className={mergeClasses("pimolu-data-grid__page-size", partClasses.pageSize)}>
+              <span className={mergeClasses("pimolu-data-grid__page-size-label", partClasses.pageSizeLabel)}>
                 {text.pageSize}
               </span>
 
               <select
-                className="pimolu-native-select pimolu-data-grid__page-size-select"
+                className={mergeClasses("pimolu-native-select pimolu-data-grid__page-size-select", partClasses.pageSizeSelect)}
                 value={resolvedPageSize}
                 onChange={(event) =>
                   handlePageSizeChange(
@@ -1601,7 +1604,7 @@ export function DataGrid<T>({
         </div>
       )}
     </div>
-  );
+  ));
 }
 
 DataGrid.displayName = "PimoluDataGrid";

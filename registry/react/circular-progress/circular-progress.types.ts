@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { HTMLAttributes } from "react";
 
 import type {
@@ -13,6 +15,9 @@ export type {
 
 export interface PimoluCircularProgressProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"circular-progress">;
+
   /**
    * Current value between 0 and `max`. Leave it undefined for an
    * indeterminate gauge.

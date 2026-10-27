@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -21,6 +23,9 @@ export interface PimoluSegmentedControlProps
     HTMLAttributes<HTMLDivElement>,
     "defaultValue" | "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"segmented-control">;
+
   /** Segments, in display order. */
   options: readonly PimoluSegmentedControlOption[];
 

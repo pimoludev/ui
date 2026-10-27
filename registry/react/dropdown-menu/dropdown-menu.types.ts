@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactElement, ReactNode } from "react";
 
 export interface PimoluDropdownMenuProps {
@@ -12,6 +14,9 @@ export interface PimoluDropdownMenuTriggerProps {
 }
 
 export interface PimoluDropdownMenuContentProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dropdown-menu">;
+
   children: ReactNode;
   /** Distance from the trigger. Defaults to 6. */
   sideOffset?: number;
@@ -20,16 +25,25 @@ export interface PimoluDropdownMenuContentProps {
 }
 
 export interface PimoluDropdownMenuItemProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dropdown-menu">;
+
   children: ReactNode;
   onSelect?: () => void;
   disabled?: boolean;
 }
 
 export interface PimoluDropdownMenuSeparatorProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dropdown-menu">;
+
   className?: string;
 }
 
 export interface PimoluDropdownMenuLabelProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dropdown-menu">;
+
   children: ReactNode;
   className?: string;
 }

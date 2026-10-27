@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties } from "react";
 
 export interface PimoluTreeSelectOption {
@@ -9,6 +11,9 @@ export interface PimoluTreeSelectOption {
 }
 
 export interface PimoluTreeSelectProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tree-select">;
+
   id?: string;
 
   /** Nested options. Any node, at any depth, can be selected. */

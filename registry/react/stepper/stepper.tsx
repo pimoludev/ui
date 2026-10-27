@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -40,7 +43,7 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function Stepper({
+export function Stepper({ classNames,
   children,
   activeStep: controlledActiveStep,
   defaultActiveStep = 1,
@@ -50,6 +53,8 @@ export function Stepper({
   "aria-label": ariaLabel,
   className,
 }: PimoluStepperProps) {
+  const [partClasses, scopeParts] = usePartClasses("stepper", classNames, true);
+
   const [uncontrolledStep, setUncontrolledStep] =
     useState(defaultActiveStep);
 
@@ -67,7 +72,7 @@ export function Stepper({
     onStepChange?.(step);
   }
 
-  return (
+  return scopeParts((
     <StepperContext.Provider
       value={{
         activeStep,
@@ -77,19 +82,19 @@ export function Stepper({
     >
       <ol
         aria-label={ariaLabel}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-stepper",
           `pimolu-stepper--${orientation}`,
           className
-        )}
+        ), partClasses.root)}
       >
         {children}
       </ol>
     </StepperContext.Provider>
-  );
+  ));
 }
 
-export function StepperItem({
+export function StepperItem({ classNames,
   step,
   title,
   description,
@@ -97,6 +102,8 @@ export function StepperItem({
   children,
   className,
 }: PimoluStepperItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("stepper", classNames, false);
+
   const stepper = useStepper("StepperItem");
 
   const state =
@@ -111,19 +118,19 @@ export function StepperItem({
   const content: ReactNode = (
     <>
       <span
-        className="pimolu-stepper__marker"
+        className={mergeClasses("pimolu-stepper__marker", partClasses.marker, classNames?.root)}
         aria-hidden="true"
       >
         {state === "complete" ? "✓" : step}
       </span>
 
-      <span className="pimolu-stepper__text">
-        <span className="pimolu-stepper__title">
+      <span className={mergeClasses("pimolu-stepper__text", partClasses.text, classNames?.root)}>
+        <span className={mergeClasses("pimolu-stepper__title", partClasses.title)}>
           {title}
         </span>
 
         {description && (
-          <span className="pimolu-stepper__description">
+          <span className={mergeClasses("pimolu-stepper__description", partClasses.description)}>
             {description}
           </span>
         )}
@@ -133,12 +140,12 @@ export function StepperItem({
     </>
   );
 
-  return (
+  return scopeParts((
     <li
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-stepper__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
       data-state={state}
       aria-current={
         state === "active" ? "step" : undefined
@@ -147,16 +154,16 @@ export function StepperItem({
       {stepper.clickable && !disabled ? (
         <button
           type="button"
-          className="pimolu-stepper__button"
+          className={mergeClasses("pimolu-stepper__button", partClasses.button)}
           onClick={() => stepper.onStepChange?.(step)}
         >
           {content}
         </button>
       ) : (
-        <div className="pimolu-stepper__button">
+        <div className={mergeClasses("pimolu-stepper__button", partClasses.button)}>
           {content}
         </div>
       )}
     </li>
-  );
+  ));
 }

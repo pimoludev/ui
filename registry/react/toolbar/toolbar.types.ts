@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
@@ -14,6 +16,9 @@ export interface PimoluToolbarProps
     HTMLAttributes<HTMLDivElement>,
     "aria-orientation"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toolbar">;
+
   children: ReactNode;
 
   /** Layout and arrow-key axis. Defaults to "horizontal". */
@@ -28,22 +33,34 @@ export interface PimoluToolbarProps
 
 export interface PimoluToolbarGroupProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toolbar">;
+
   children: ReactNode;
 }
 
 export interface PimoluToolbarButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toolbar">;
+
   children?: ReactNode;
 }
 
 export interface PimoluToolbarLinkProps
   extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toolbar">;
+
   /** Mark the link as the current page. */
   current?: boolean;
 }
 
 export interface PimoluToolbarSeparatorProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "role"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toolbar">;
+
   /** Kept for a consumer that wants a different accessible label. */
   "aria-label"?: string;
 }
@@ -84,17 +101,20 @@ interface ToolbarToggleGroupMultipleProps {
 }
 
 export type PimoluToolbarToggleGroupProps =
-  ToolbarToggleGroupBaseProps &
+  (ToolbarToggleGroupBaseProps &
     (
       | ToolbarToggleGroupSingleProps
       | ToolbarToggleGroupMultipleProps
-    );
+    )) & { classNames?: PimoluClassNames<"toolbar"> };
 
 export interface PimoluToolbarToggleItemProps
   extends Omit<
     ButtonHTMLAttributes<HTMLButtonElement>,
     "type" | "value"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toolbar">;
+
   /** Value toggled by this item. */
   value: string;
 

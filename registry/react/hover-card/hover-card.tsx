@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   cloneElement,
@@ -442,12 +445,14 @@ export function HoverCardTrigger({
    CONTENT
 ========================================= */
 
-export function HoverCardContent({
+export function HoverCardContent({ classNames,
   children,
   label,
   labelledBy,
   className,
 }: PimoluHoverCardContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("hover-card", classNames, true);
+
   const hoverCard = useHoverCard("HoverCardContent");
 
   const { style, side } = useAnchoredPosition(
@@ -463,7 +468,7 @@ export function HoverCardContent({
     }
   );
 
-  if (!hoverCard.rendered) return null;
+  if (!hoverCard.rendered) return scopeParts(null);
 
   function handleMouseLeave() {
     if (
@@ -493,7 +498,7 @@ export function HoverCardContent({
     hoverCard.requestClose();
   }
 
-  return (
+  return scopeParts((
     <Portal anchorRef={hoverCard.triggerRef}>
       <div
         ref={hoverCard.contentRef}
@@ -501,12 +506,12 @@ export function HoverCardContent({
         role="dialog"
         aria-label={label}
         aria-labelledby={labelledBy}
-        className={[
+        className={mergeClasses([
           "pimolu-hover-card",
           className,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.root)}
         style={style}
         data-state={hoverCard.state}
         data-side={side}
@@ -518,5 +523,5 @@ export function HoverCardContent({
         {children}
       </div>
     </Portal>
-  );
+  ));
 }

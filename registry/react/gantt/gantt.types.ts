@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 export type PimoluGanttScale = "day" | "week" | "month";
 
 /** A task displayed on the Gantt timeline. */
@@ -28,6 +30,9 @@ export interface PimoluGanttTask {
 }
 
 export interface PimoluGanttProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"gantt">;
+
   /** Tasks to display. */
   tasks: readonly PimoluGanttTask[];
 

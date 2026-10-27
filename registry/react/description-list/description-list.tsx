@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type {
   PimoluDescriptionItemProps,
@@ -14,7 +17,7 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-export function DescriptionList({
+export function DescriptionList({ classNames,
   layout = "stacked",
   variant = "divided",
   size = "md",
@@ -22,38 +25,42 @@ export function DescriptionList({
   className,
   ...props
 }: PimoluDescriptionListProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("description-list", classNames, true);
+
+  return scopeParts((
     <dl
       {...props}
-      className={descriptionListVariants(
+      className={mergeClasses(descriptionListVariants(
         { layout, variant, size },
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </dl>
-  );
+  ));
 }
 
-export function DescriptionItem({
+export function DescriptionItem({ classNames,
   term,
   details,
   className,
 }: PimoluDescriptionItemProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("description-list", classNames, false);
+
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-description-list__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
     >
-      <dt className="pimolu-description-list__term">
+      <dt className={mergeClasses("pimolu-description-list__term", partClasses.term)}>
         {term}
       </dt>
 
-      <dd className="pimolu-description-list__details">
+      <dd className={mergeClasses("pimolu-description-list__details", partClasses.details)}>
         {details}
       </dd>
     </div>
-  );
+  ));
 }

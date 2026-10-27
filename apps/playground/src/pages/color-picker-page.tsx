@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./color-picker-customization-demo";
 import { useState } from "react";
 
 import {
@@ -303,6 +304,7 @@ export function ColorPickerPage() {
           <Badge variant="neutral">invalid → inline error</Badge>
         </div>
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

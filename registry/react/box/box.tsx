@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -62,7 +65,7 @@ function boxSpaceValue(
 
 export const Box = forwardRef<HTMLElement, PimoluBoxProps>(
   function Box(
-    {
+    { classNames,
       as: Tag = "div",
       padding,
       p,
@@ -79,6 +82,8 @@ export const Box = forwardRef<HTMLElement, PimoluBoxProps>(
     },
     ref
   ) {
+  const [partClasses, scopeParts] = usePartClasses("box", classNames, true);
+
     const resolvedPadding = padding ?? p;
     const resolvedPaddingX = paddingX ?? px;
     const resolvedPaddingY = paddingY ?? py;
@@ -114,11 +119,11 @@ export const Box = forwardRef<HTMLElement, PimoluBoxProps>(
 
     const Component = Tag as ElementType;
 
-    return (
+    return scopeParts((
       <Component
         {...props}
         ref={ref}
-        className={classes}
+        className={mergeClasses(classes, partClasses.root)}
         style={
           {
             ...layoutVars,
@@ -128,7 +133,7 @@ export const Box = forwardRef<HTMLElement, PimoluBoxProps>(
       >
         {children}
       </Component>
-    );
+    ));
   }
 );
 

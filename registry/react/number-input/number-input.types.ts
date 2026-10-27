@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   InputHTMLAttributes,
   ReactNode,
@@ -22,6 +24,9 @@ export interface PimoluNumberInputProps
     | "max"
     | "step"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"number-input">;
+
   /**
    * Controlled numeric value. `null` represents an empty field.
    */

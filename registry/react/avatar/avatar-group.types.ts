@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   HTMLAttributes,
   ReactNode,
@@ -23,6 +25,9 @@ export type {
 
 export interface PimoluAvatarGroupProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"avatar">;
+
   /**
    * Direct Avatar children. Any other element is ignored:
    * a fragment or a wrapper around the avatars is not supported.

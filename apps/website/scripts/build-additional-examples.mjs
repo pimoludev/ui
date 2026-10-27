@@ -27,7 +27,9 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
     function visit(node) {
       if (ts.isJsxElement(node) && node.openingElement.tagName.getText(file) === "Section") {
         const attrs = Object.fromEntries(node.openingElement.attributes.properties.filter((p) => ts.isJsxAttribute(p) && p.initializer && ts.isStringLiteral(p.initializer)).map((p) => [p.name.text, p.initializer.text]));
-        if (attrs.title && !/fullscreen|missing target/i.test(attrs.title)) {
+        // Customization is an authored append-only supplement; extracting its
+        // Playground section again would duplicate it and renumber old demos.
+        if (attrs.title && !/fullscreen|missing target|^Named-part customization$/i.test(attrs.title)) {
           const selection = { section: attrs.title };
           const duplicate = !manualPrimary && (primary?.section === attrs.title || (primary?.helper && node.getText(file).includes(`<${primary.helper}`)));
           if (!duplicate) {
@@ -54,9 +56,10 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
     let overrides = [];
     try { overrides = JSON.parse(await readFile(path.join(website, `content/additional/${entry.family}.json`), "utf8")); } catch (error) { if (error.code !== "ENOENT") throw error; }
     const chosen = [];
+    const appended = [];
     for (const override of overrides) {
       const source = normalize(await readFile(path.join(website, "components/docs/additional", override.file), "utf8"));
-      chosen.push({ ...override, source });
+      (override.append ? appended : chosen).push({ ...override, source });
     }
     for (const candidate of candidates) if (chosen.length < 3) chosen.push(candidate);
     for (const candidate of parts) if (chosen.length < 3 && !chosen.some((item) => item.selection?.section === candidate.selection.section)) chosen.push(candidate);
@@ -68,6 +71,8 @@ export async function buildAdditionalExamples({ catalog, extendedComponents, pro
     }
     if (chosen.length < 3 && parts.length >= 3) chosen.splice(0, chosen.length, ...parts.slice(0, 3));
     if (chosen.length < 3) missing.push({ family: entry.family, count: chosen.length, sections: candidates.map((item) => item.title), parts: parts.map((item) => item.title) });
+    // New supplements can extend a reference without renumbering existing demos.
+    chosen.push(...appended);
     manifest[entry.family] = chosen.map((item, index) => {
       const id = `example-${index + 2}`;
       const key = `${entry.family}/${id}`;

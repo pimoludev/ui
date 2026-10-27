@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useRef,
@@ -47,7 +50,7 @@ function withPage(src: string, page: number | undefined) {
    PDF VIEWER
 ========================================= */
 
-export function PDFViewer({
+export function PDFViewer({ classNames,
   src,
   title,
   height = 480,
@@ -62,6 +65,8 @@ export function PDFViewer({
   onLoad,
   "aria-label": ariaLabel,
 }: PimoluPDFViewerProps) {
+  const [partClasses, scopeParts] = usePartClasses("pdf-viewer", classNames, true);
+
   const toolbarRef = useRef<HTMLDivElement | null>(
     null
   );
@@ -90,7 +95,7 @@ export function PDFViewer({
 
   const downloadLink = (variant: "toolbar" | "fallback") => (
     <a
-      className={`pimolu-pdf-viewer__action pimolu-pdf-viewer__action--download pimolu-pdf-viewer__action--${variant}`}
+      className={mergeClasses(`pimolu-pdf-viewer__action pimolu-pdf-viewer__action--download pimolu-pdf-viewer__action--${variant}`, partClasses.action)}
       href={src}
       download={downloadName}
     >
@@ -156,34 +161,34 @@ export function PDFViewer({
     links[next].focus();
   }
 
-  return (
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-pdf-viewer",
         className
-      )}
+      ), partClasses.root)}
       style={{ height: resolvedHeight }}
       data-toolbar={showToolbar ? "true" : "false"}
     >
       {showToolbar && (
         <div
           ref={toolbarRef}
-          className="pimolu-pdf-viewer__toolbar"
+          className={mergeClasses("pimolu-pdf-viewer__toolbar", partClasses.toolbar)}
           role="toolbar"
           aria-label={resolvedLabels.toolbar}
           onKeyDown={handleToolbarKeyDown}
         >
           <span
-            className="pimolu-pdf-viewer__title"
+            className={mergeClasses("pimolu-pdf-viewer__title", partClasses.title)}
             title={title}
           >
             {title}
           </span>
 
-          <span className="pimolu-pdf-viewer__actions">
+          <span className={mergeClasses("pimolu-pdf-viewer__actions", partClasses.actions)}>
             {openInNewTab && (
               <a
-                className="pimolu-pdf-viewer__action pimolu-pdf-viewer__action--open"
+                className={mergeClasses("pimolu-pdf-viewer__action pimolu-pdf-viewer__action--open", partClasses.action)}
                 href={viewerSrc}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -198,7 +203,7 @@ export function PDFViewer({
       )}
 
       <object
-        className="pimolu-pdf-viewer__frame"
+        className={mergeClasses("pimolu-pdf-viewer__frame", partClasses.frame)}
         data={viewerSrc}
         type="application/pdf"
         title={title}
@@ -209,13 +214,13 @@ export function PDFViewer({
         {fallback !== undefined ? (
           fallback
         ) : (
-          <div className="pimolu-pdf-viewer__fallback">
-            <p className="pimolu-pdf-viewer__fallback-text">
+          <div className={mergeClasses("pimolu-pdf-viewer__fallback", partClasses.fallback)}>
+            <p className={mergeClasses("pimolu-pdf-viewer__fallback-text", partClasses.fallbackText)}>
               {resolvedLabels.fallback}
             </p>
 
             <a
-              className="pimolu-pdf-viewer__action pimolu-pdf-viewer__action--open"
+              className={mergeClasses("pimolu-pdf-viewer__action pimolu-pdf-viewer__action--open", partClasses.action)}
               href={viewerSrc}
               target="_blank"
               rel="noopener noreferrer"
@@ -228,7 +233,7 @@ export function PDFViewer({
         )}
       </object>
     </div>
-  );
+  ));
 }
 
 PDFViewer.displayName = "PimoluPDFViewer";

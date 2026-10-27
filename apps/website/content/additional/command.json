@@ -3,5 +3,11 @@
     "file": "command-people.tsx",
     "title": "Find a teammate",
     "description": "Search includes descriptive keywords; selecting a result updates the active assignee."
+  },
+  {
+    "file": "command-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

@@ -1236,3 +1236,181 @@ Verification:
 
 No dependencies, public props or exports added. No commit, push, publication or
 deployment performed. Existing unrelated docs/marketing files were left untouched.
+
+## 2026-10-26 - Predictable customization contract
+
+Implemented in the workspace, for the next package release:
+
+- Optional `@pimolu/web-styles/layered.css` bundles all styles in the `pimolu`
+  cascade layer. The existing unlayered entry remains unchanged. The website
+  consumes the new entry with explicit theme/base/pimolu/components/utilities order.
+- Typed additive `classNames` maps on Button, Input, Select, Combobox, MultiSelect,
+  DialogContent and DrawerContent. Existing className, inputClassName and
+  containerClassName targets remain. Named parts include the floating panels,
+  options, modal overlay and close controls without ancestor-selector dependence.
+- Dialog/Drawer content accepts panel `style`; styled Select now honors its
+  existing control style. Default portal placement is unchanged: wrapper variables
+  do not automatically cross the portal, so use the direct panel hook/style or
+  a nested Provider for a theme scope.
+- Input's focus ring uses an outline independent of box-shadow. This fixes the
+  invalid shadow-list combination with `none` and preserves preset elevation.
+- Seven Playground sections and seven standalone website supplements demonstrate
+  the additions. Supplements append without renumbering existing examples:
+  539 component examples plus four standalone guide examples. Their CSS stays
+  readable in copied code instead of being split into concatenated strings.
+- `docs/CUSTOMIZATION.md` defines stable keys, supported variables, legacy targets,
+  layer recipes, portal behavior and accessibility responsibilities. English/French
+  READMEs, Styling/Customization guides, context and unreleased notes are updated.
+  The documentation explicitly distinguishes these changes from npm 0.1.0-beta.2.
+
+Verification:
+
+- `pnpm check` passed: workspace builds, 137 React test files / 1,447 tests,
+  30 CSS tests, root TypeScript, token/theme checks, zero theme-audit warnings,
+  Playground lint/build, skill validation and the Next.js integration example build.
+- Final Playground lint/build rerun after demo refinements. The existing roughly
+  731 kB Playground main-chunk warning remains; no dependency was added.
+- Website production build, TypeScript and lint passed; 30 documentation tests
+  passed, including independent compilation of all 543 component/guide snippets.
+- Public-export browser contract: 1,974 / 1,974 observations, 47 goals across
+  Chromium, Firefox, WebKit, seven presets, light/1440px and dark/390px. It reads
+  the actual layered package export and verifies direct part hooks, local panel
+  variables, state guards, instance isolation, focus and retained preset shadows.
+- Final website customization/accessibility/touch/mobile/reader suites: 237 passed,
+  18 explicitly skipped native-CDP cases in non-Chromium engines. The initial
+  disabled-option test waited on Playwright's enabled-state gate; the final test
+  asserts aria-disabled and deliberately attempts input with force, retaining the
+  assertions that selection is ignored and a valid option remains selectable.
+- Visual review: 98 real Playground component captures, seven families x seven
+  presets x light/dark, desktop/light and mobile/dark, without document overflow.
+  Contact sheets are ignored under `.artifacts/customization-visual/`. Select's
+  custom semantic background/foreground pair was checked again after refinement.
+- No golden snapshots changed. `git diff --check` passed.
+
+Limits: classNames is implemented for these initial seven families, not every
+component. Arbitrary CSS can still override essential layout, contrast or focus;
+the contract documents supported recipes rather than certifying every stylesheet.
+No physical-device or screen-reader certification. No npm publication, commit,
+push or deployment. Unrelated docs/marketing files were left untouched.
+
+## 2026-10-27 - Named parts across all component families
+
+Implemented in the workspace for the next package release. This supersedes the
+seven-family limitation recorded at the previous checkpoint.
+
+- All 129 families expose optional typed `classNames` on their rendered surfaces.
+  The source API audit covers 236 styled public exports and 18 explicit headless
+  controls. Headless controls use their Content or child surface; no fictitious
+  DOM prop is added. PimoluProvider additionally supports its own root.
+- `PimoluClassNames<Family>` and `PimoluComponentParts` are exported public types.
+  Unknown families and unknown part keys fail TypeScript. Built-in structural,
+  variant and state classes remain alongside the supplied classes.
+- A private, DOM-free context distributes compound part maps through wrappers
+  and portals. Independent nested roots reset their family's map; a local part
+  override replaces the inherited value for that key. Scope structure stays
+  stable when maps are added or removed, retaining focus and uncontrolled input
+  state. Primitive-only families do not add unnecessary context providers.
+- VirtualList preserves its generic item type. Toaster supports shared card
+  parts and toast() supports individual notification maps; region classes do not
+  leak onto cards. FormField forwards label/message hooks to its composed parts.
+- All 129 Playground pages demonstrate customization. There are 122 new isolated
+  demo modules in addition to the original seven sections. Their state is local,
+  static IDs are namespaced and hash links stay inside the Playground route.
+- Each of the 133 website references has an appended standalone customization
+  example. Existing example IDs remain stable. The site now provides 665
+  component snippets plus four standalone guide snippets, all independently
+  compiled. Copied examples keep embedded CSS and conditional layout classes
+  readable and portable; variant callback expansion preserves object shorthand.
+- The API generator documents the accepted part keys. Source checks cover styled
+  exports, rendered/delegated part keys, stable compound scopes and every
+  reference's customization example. The existing layered CSS contract remains
+  opt-in; the default CSS entry and legacy class targets remain compatible.
+
+Main files/directories:
+
+- registry/react/customization/customization.types.ts; internal/use-part-classes.tsx;
+  internal/merge-classes.ts; registry/react/index.ts; family source and type files.
+- registry/react/test/all-parts.test.tsx and test/customization.test.tsx.
+- apps/playground/src/pages/*-page.tsx and *-customization-demo.tsx.
+- apps/website/components/docs/additional/*-customization.tsx;
+  content/additional/*.json; scripts/build-docs.mjs, build-additional-examples.mjs
+  and simplify-example.mjs; tests/customization.test.mjs and docs.test.mjs;
+  e2e/customization.spec.ts, additional-examples.spec.ts and navigation-layouts.spec.ts.
+- docs/CUSTOMIZATION.md, docs/COMPONENT_CUSTOMIZATION.md, the customization audit,
+  project context, website guides, READMEs, CHANGELOG and unreleased notes.
+
+Verification:
+
+- Final pnpm check passed: 138 React files / 1,465 tests, 30 CSS tests, workspace
+  TypeScript/builds, token/theme tests and audit, Playground lint/build, skills
+  validation and the Next.js integration example build. The existing Playground
+  main-chunk warning remains: about 760 kB (213 kB gzip).
+- Website production build, TypeScript and lint passed. All 36 documentation
+  tests pass, including independent compilation of the 669 snippets and the
+  family-wide public API/part-target coverage checks.
+- Final public-package customization runner: 1,974 / 1,974 computed-style and
+  interaction observations across Chromium, Firefox and WebKit, seven presets,
+  light/1440px and dark/390px; no harness/runtime errors.
+- Default-markup comparison: 122 / 122 new compositions match the pre-generalization
+  source copies when customization is omitted, after normalizing automatic IDs
+  and duplicate class tokens. CodeBlock's plain tokens retain absent class
+  attributes; an explicit regression guards against introducing class="".
+- Visual smoke review: 1,806 real Playground captures (129 families x seven
+  presets x light/dark), plus refreshed captures after refinements. Contact
+  sheets and detailed Default crops were reviewed. No runtime errors. These
+  are temporary review artifacts, not new or updated golden snapshots.
+- Final customization/additional-examples/navigation-layouts/chart/demo-navigation
+  campaign: 840 / 840 tests passed in Chromium, Firefox and WebKit. This includes
+  all 133 customization references at 390px and 1440px and every supplemental
+  example. The existing seven detailed CSS/focus contracts remain in the suite.
+- Final accessibility/touch-options/mobile-surfaces/reader-experience campaign:
+  216 passed / 18 explicitly skipped CDP-only native gesture cases in non-Chromium
+  engines. Across both final campaigns: 1,056 passed, 18 skipped, zero failures.
+  No physical-device or screen-reader certification is implied.
+- Final `git diff --check` passed. Owned review servers were stopped.
+
+Remaining limits/findings:
+
+- The full mobile Playground pages for Calendar and TreeTable have pre-existing
+  horizontal overflow at 390px in all seven dark profiles. Hiding the new
+  customization section leaves the same overflow (549px / 419px respectively);
+  the new sections do not cause it. The standalone website examples are checked
+  independently at narrow and wide widths. This is a follow-up for the existing
+  Playground compositions, not a claim that every old page/state is certified.
+- A large browser run initially passed 614 cases, skipped 18 Chromium-CDP-only
+  gesture cases and timed out in WebKit waiting for VideoPlayer's load event.
+  The customization test now waits for DOMContentLoaded plus its real hydration
+  signal, preserving every assertion. Media-network completion is not the named
+  parts readiness contract. The final 840-case rerun passed, including VideoPlayer
+  in all three engines.
+- Arbitrary application CSS can still break layout, focus or contrast. Use the
+  documented layer order and preserve accessibility states. Browser emulation
+  and DOM comparisons are not physical-device or screen-reader certification.
+- No package publication, commit, push or deployment. These APIs are not part
+  of the published npm 0.1.0-beta.2. Unrelated docs/marketing files are untouched.
+
+## 2026-10-27 - Calendar and TreeTable mobile Playground overflow resolved
+
+- Root cause: the shared `.pg-stack` used an implicit grid column with an
+  automatic minimum size. It grew to the minimum content width of two Calendar
+  months or TreeTable's explorer instead of constraining its children. At 390px,
+  the original pages reached 549px and 419px respectively, even with the new
+  customization sections hidden.
+- Fix: `apps/playground/src/playground.css` now gives `.pg-stack` an explicit
+  `minmax(0, 1fr)` column and `min-width: 0`. Calendar's existing month wrapping
+  and TreeTable's existing local scroll wrapper can now operate within the
+  available width. No page-wide overflow hiding, library API or token changes.
+- Playground lint and production build pass. The existing approximately 760 kB
+  main-chunk warning remains.
+- Targeted browser matrix: 336 / 336 checks passed in Chromium, Firefox and
+  WebKit, covering Calendar/TreeTable, seven presets, light/dark and 320, 390,
+  768 and 1440px widths. Month stacking on phones and side-by-side months on
+  desktop, Calendar keyboard selection, TreeTable local horizontal scrolling,
+  focus and keyboard selection were verified; no runtime errors.
+- Broader smoke check: all 129 component families at 390px and 1440px in
+  Chromium/default/dark, 258 / 258 pages without document overflow.
+- 56 targeted Chromium captures and all seven contact sheets were reviewed;
+  temporary artifacts are under `.artifacts/mobile-overflow-fix/`. No golden
+  snapshots changed. These are browser checks, not physical-device certification.
+- This resolves the two remaining Playground overflow findings in the previous
+  entry. No commit, push or publication performed.

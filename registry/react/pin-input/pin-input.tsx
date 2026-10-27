@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -58,7 +61,7 @@ export const PinInput = forwardRef<
   HTMLDivElement,
   PimoluPinInputProps
 >(function PinInput(
-  {
+  { classNames,
     value,
     defaultValue,
     onValueChange,
@@ -88,6 +91,8 @@ export const PinInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("pin-input", classNames, true);
+
   const generatedId = useId();
 
   const labelId = `pimolu-pin-input-${generatedId}-label`;
@@ -358,7 +363,7 @@ export const PinInput = forwardRef<
           inputsRef.current[index] = node;
         }}
         type={cellType}
-        className="pimolu-pin-input__cell"
+        className={mergeClasses("pimolu-pin-input__cell", partClasses.cell)}
         value={cell}
         onChange={(event) =>
           handleChange(index, event)
@@ -395,7 +400,7 @@ export const PinInput = forwardRef<
     );
   }
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={forwardedRef}
@@ -405,7 +410,7 @@ export const PinInput = forwardRef<
         label ? undefined : ariaLabel ?? "One-time code"
       }
       aria-disabled={disabled || undefined}
-      className={[
+      className={mergeClasses([
         "pimolu-pin-input",
         disabled && "pimolu-pin-input--disabled",
         readOnly && "pimolu-pin-input--readonly",
@@ -413,22 +418,22 @@ export const PinInput = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <span
           id={labelId}
-          className="pimolu-pin-input__label"
+          className={mergeClasses("pimolu-pin-input__label", partClasses.label)}
         >
           {label}
         </span>
       )}
 
-      <div className="pimolu-pin-input__groups">
+      <div className={mergeClasses("pimolu-pin-input__groups", partClasses.groups)}>
         {renderedGroups.map(({ start, size }) => (
           <div
             key={start}
-            className="pimolu-pin-input__group"
+            className={mergeClasses("pimolu-pin-input__group", partClasses.group)}
           >
             {Array.from(
               { length: size },
@@ -441,18 +446,16 @@ export const PinInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            hasError
+          className={mergeClasses(hasError
               ? "pimolu-pin-input__error"
-              : "pimolu-pin-input__helper"
-          }
+              : "pimolu-pin-input__helper", partClasses.error)}
           role={hasError ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 PinInput.displayName = "PimoluPinInput";

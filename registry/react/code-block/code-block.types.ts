@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { HTMLAttributes } from "react";
 
 /**
@@ -21,6 +23,9 @@ export type PimoluCodeBlockLanguage =
 
 export interface PimoluCodeBlockProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"code-block">;
+
   /** Raw source. It is always rendered as text, never as HTML. */
   code: string;
 

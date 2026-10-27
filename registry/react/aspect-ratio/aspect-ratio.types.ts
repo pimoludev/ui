@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -5,6 +7,9 @@ import type {
 
 export interface PimoluAspectRatioProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"aspect-ratio">;
+
   /** Element rendered by the outer box. Defaults to `div`. */
   as?: ElementType;
 

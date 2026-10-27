@@ -1,9 +1,14 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ReactElement,
   ReactNode,
 } from "react";
 
 export interface PimoluFormFieldProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form-field">;
+
   /** The control, usually wrapped in FormControl. */
   children: ReactNode;
 
@@ -46,6 +51,9 @@ export interface PimoluFormControlProps {
 }
 
 export interface PimoluFormMessageProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form-field">;
+
   children?: ReactNode;
 
   /** Helper text or an error. Defaults to "helper". */
@@ -58,6 +66,9 @@ export interface PimoluFormMessageProps {
 }
 
 export interface PimoluFormGroupProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form-field">;
+
   children: ReactNode;
 
   /** Group heading. */
@@ -73,6 +84,9 @@ export interface PimoluFormGroupProps {
 }
 
 export interface PimoluFieldsetProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form-field">;
+
   children: ReactNode;
 
   /** Native legend of the fieldset. */

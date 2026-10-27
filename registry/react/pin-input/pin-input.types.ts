@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -16,6 +18,9 @@ export interface PimoluPinInputProps
     HTMLAttributes<HTMLDivElement>,
     "defaultValue" | "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"pin-input">;
+
   /**
    * Controlled cells. Each entry is one cell; missing entries are empty.
    * This positional API keeps a hole in the middle of the code from

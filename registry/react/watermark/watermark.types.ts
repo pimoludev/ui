@@ -1,6 +1,11 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { CSSProperties, ReactNode } from "react";
 
 export interface PimoluWatermarkProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"watermark">;
+
   /** Repeated text. Ignored when `image` is set. */
   text?: string;
 

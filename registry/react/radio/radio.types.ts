@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   FieldsetHTMLAttributes,
   InputHTMLAttributes,
@@ -25,6 +27,9 @@ export interface PimoluRadioProps
     InputHTMLAttributes<HTMLInputElement>,
     "type" | "size" | "children" | "value" | "readOnly"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"radio">;
+
   /** Unique value for this option. */
   value: string;
 
@@ -42,6 +47,9 @@ export interface PimoluRadioGroupProps
     FieldsetHTMLAttributes<HTMLFieldSetElement>,
     "name" | "value" | "defaultValue" | "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"radio">;
+
   /** Native form field name (automatically generated if omitted). */
   name?: string;
 

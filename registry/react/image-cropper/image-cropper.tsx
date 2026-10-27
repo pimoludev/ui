@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useCallback,
@@ -377,7 +380,7 @@ function resizeCrop(
    IMAGE CROPPER
 ========================================= */
 
-export function ImageCropper({
+export function ImageCropper({ classNames,
   src,
   alt = "",
   aspectRatio,
@@ -394,6 +397,8 @@ export function ImageCropper({
   labels,
   className,
 }: PimoluImageCropperProps) {
+  const [partClasses, scopeParts] = usePartClasses("image-cropper", classNames, true);
+
   const instructionsId = `pimolu-image-cropper-instructions-${useId()}`;
 
   const ratio =
@@ -958,33 +963,33 @@ export function ImageCropper({
     w: resolvedLabels.resizeLeft,
   };
 
-  return (
+  return scopeParts((
     <div
       role="group"
       aria-label={resolvedLabels.cropper}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-image-cropper",
         className
-      )}
+      ), partClasses.root)}
       data-disabled={disabled ? "true" : "false"}
       data-dragging={dragging ? "true" : "false"}
     >
       <p
         id={instructionsId}
-        className="pimolu-image-cropper__instructions"
+        className={mergeClasses("pimolu-image-cropper__instructions", partClasses.instructions)}
       >
         {resolvedLabels.instructions}
       </p>
 
       <div
         ref={stageRef}
-        className="pimolu-image-cropper__stage"
+        className={mergeClasses("pimolu-image-cropper__stage", partClasses.stage)}
         style={{ aspectRatio: stageAspect }}
       >
         {resolvedSrc ? (
           <img
             ref={imageRef}
-            className="pimolu-image-cropper__image"
+            className={mergeClasses("pimolu-image-cropper__image", partClasses.image)}
             src={resolvedSrc}
             alt={alt}
             draggable={false}
@@ -1010,7 +1015,7 @@ export function ImageCropper({
         ) : null}
 
         <div
-          className="pimolu-image-cropper__crop"
+          className={mergeClasses("pimolu-image-cropper__crop", partClasses.crop)}
           role="group"
           aria-label={resolvedLabels.cropArea}
           aria-describedby={instructionsId}
@@ -1030,7 +1035,7 @@ export function ImageCropper({
             <button
               key={handle}
               type="button"
-              className={`pimolu-image-cropper__handle pimolu-image-cropper__handle--${handle}`}
+              className={mergeClasses(`pimolu-image-cropper__handle pimolu-image-cropper__handle--${handle}`, partClasses.handle)}
               aria-label={handleLabels[handle]}
               disabled={disabled}
               onPointerDown={(event) =>
@@ -1044,15 +1049,15 @@ export function ImageCropper({
         </div>
       </div>
 
-      <div className="pimolu-image-cropper__toolbar">
-        <label className="pimolu-image-cropper__zoom">
-          <span className="pimolu-image-cropper__zoom-label">
+      <div className={mergeClasses("pimolu-image-cropper__toolbar", partClasses.toolbar)}>
+        <label className={mergeClasses("pimolu-image-cropper__zoom", partClasses.zoom)}>
+          <span className={mergeClasses("pimolu-image-cropper__zoom-label", partClasses.zoomLabel)}>
             {resolvedLabels.zoom}
           </span>
 
           <input
             type="range"
-            className="pimolu-native-range pimolu-image-cropper__zoom-input"
+            className={mergeClasses("pimolu-native-range pimolu-image-cropper__zoom-input", partClasses.zoomInput)}
             style={{
               "--pimolu-native-range-progress": `${safeMaxZoom > safeMinZoom ? ((zoom - safeMinZoom) / (safeMaxZoom - safeMinZoom)) * 100 : 0}%`,
             } as CSSProperties}
@@ -1069,7 +1074,7 @@ export function ImageCropper({
           />
 
           <span
-            className="pimolu-image-cropper__zoom-value"
+            className={mergeClasses("pimolu-image-cropper__zoom-value", partClasses.zoomValue)}
             aria-hidden="true"
           >
             {Math.round(zoom * 100)}%
@@ -1077,7 +1082,7 @@ export function ImageCropper({
         </label>
 
         <span
-          className="pimolu-image-cropper__size"
+          className={mergeClasses("pimolu-image-cropper__size", partClasses.size)}
           aria-hidden="true"
         >
           {Math.round(currentCrop.width)}% ×{" "}
@@ -1086,7 +1091,7 @@ export function ImageCropper({
 
         <button
           type="button"
-          className="pimolu-image-cropper__action pimolu-image-cropper__action--secondary"
+          className={mergeClasses("pimolu-image-cropper__action pimolu-image-cropper__action--secondary", partClasses.action)}
           disabled={disabled}
           onClick={reset}
         >
@@ -1096,7 +1101,7 @@ export function ImageCropper({
         {onComplete && (
           <button
             type="button"
-            className="pimolu-image-cropper__action pimolu-image-cropper__action--primary"
+            className={mergeClasses("pimolu-image-cropper__action pimolu-image-cropper__action--primary", partClasses.action)}
             disabled={disabled}
             onClick={complete}
           >
@@ -1106,14 +1111,14 @@ export function ImageCropper({
       </div>
 
       <p
-        className="pimolu-image-cropper__status"
+        className={mergeClasses("pimolu-image-cropper__status", partClasses.status)}
         aria-live="polite"
         aria-atomic="true"
       >
         {resolvedLabels.status(currentCrop)}
       </p>
     </div>
-  );
+  ));
 }
 
 ImageCropper.displayName = "PimoluImageCropper";

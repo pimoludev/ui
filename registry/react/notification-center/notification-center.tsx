@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useId,
@@ -56,7 +59,7 @@ function CloseIcon() {
  * A bell trigger, an unread badge and a portalled panel. The list is fully
  * controlled: the component reports intent and never owns the notifications.
  */
-export function NotificationCenter({
+export function NotificationCenter({ classNames,
   notifications,
   onRead,
   onReadAll,
@@ -76,6 +79,8 @@ export function NotificationCenter({
   emptyState,
   className,
 }: PimoluNotificationCenterProps) {
+  const [partClasses, scopeParts] = usePartClasses("notification-center", classNames, true);
+
   const isControlled = controlledOpen !== undefined;
 
   const [uncontrolledOpen, setUncontrolledOpen] =
@@ -159,14 +164,14 @@ export function NotificationCenter({
   }
 
   const panel = (
-    <div className="pimolu-notification-center">
-      <div className="pimolu-notification-center__header">
-        <div className="pimolu-notification-center__heading">
-          <h2 className="pimolu-notification-center__title">
+    <div className={mergeClasses("pimolu-notification-center", partClasses.root)}>
+      <div className={mergeClasses("pimolu-notification-center__header", partClasses.header)}>
+        <div className={mergeClasses("pimolu-notification-center__heading", partClasses.heading)}>
+          <h2 className={mergeClasses("pimolu-notification-center__title", partClasses.title)}>
             {title}
           </h2>
 
-          <p className="pimolu-notification-center__count">
+          <p className={mergeClasses("pimolu-notification-center__count", partClasses.count)}>
             {countLabel}
           </p>
         </div>
@@ -174,7 +179,7 @@ export function NotificationCenter({
         {onReadAll && (
           <button
             type="button"
-            className="pimolu-notification-center__read-all"
+            className={mergeClasses("pimolu-notification-center__read-all", partClasses.readAll)}
             disabled={unreadCount === 0}
             onClick={onReadAll}
           >
@@ -187,7 +192,7 @@ export function NotificationCenter({
         <div
           role="tablist"
           aria-label={tabsLabel}
-          className="pimolu-notification-center__tabs"
+          className={mergeClasses("pimolu-notification-center__tabs", partClasses.tabs)}
           onKeyDown={handleTabKeyDown}
         >
           <button
@@ -198,12 +203,12 @@ export function NotificationCenter({
             aria-selected={tab === "all"}
             aria-controls={panelId}
             tabIndex={tab === "all" ? 0 : -1}
-            className="pimolu-notification-center__tab"
+            className={mergeClasses("pimolu-notification-center__tab", partClasses.tab)}
             onClick={() => setTab("all")}
           >
             All
             <span
-              className="pimolu-notification-center__tab-count"
+              className={mergeClasses("pimolu-notification-center__tab-count", partClasses.tabCount)}
               aria-hidden="true"
             >
               {notifications.length}
@@ -218,12 +223,12 @@ export function NotificationCenter({
             aria-selected={tab === "unread"}
             aria-controls={panelId}
             tabIndex={tab === "unread" ? 0 : -1}
-            className="pimolu-notification-center__tab"
+            className={mergeClasses("pimolu-notification-center__tab", partClasses.tab)}
             onClick={() => setTab("unread")}
           >
             Unread
             <span
-              className="pimolu-notification-center__tab-count"
+              className={mergeClasses("pimolu-notification-center__tab-count", partClasses.tabCount)}
               aria-hidden="true"
             >
               {unreadCount}
@@ -240,15 +245,15 @@ export function NotificationCenter({
             ? `pimolu-notification-center-${baseId}-tab-${tab}`
             : undefined
         }
-        className="pimolu-notification-center__body"
+        className={mergeClasses("pimolu-notification-center__body", partClasses.body)}
       >
         {visible.length === 0 ? (
-          <div className="pimolu-notification-center__empty">
+          <div className={mergeClasses("pimolu-notification-center__empty", partClasses.empty)}>
             {emptyState ?? (
               <>
                 <BellIcon />
 
-                <p className="pimolu-notification-center__empty-text">
+                <p className={mergeClasses("pimolu-notification-center__empty-text", partClasses.emptyText)}>
                   {emptyLabel ??
                     (notifications.length === 0
                       ? "No notifications yet."
@@ -258,30 +263,30 @@ export function NotificationCenter({
             )}
           </div>
         ) : (
-          <ul className="pimolu-notification-center__list">
+          <ul className={mergeClasses("pimolu-notification-center__list", partClasses.list)}>
             {visible.map((notification) => {
               const read = notification.read ?? false;
 
               return (
                 <li
                   key={notification.id}
-                  className="pimolu-notification-center__item"
+                  className={mergeClasses("pimolu-notification-center__item", partClasses.item)}
                   data-read={read ? "true" : "false"}
                 >
                   {notification.icon != null && (
                     <span
-                      className="pimolu-notification-center__icon"
+                      className={mergeClasses("pimolu-notification-center__icon", partClasses.icon)}
                       aria-hidden="true"
                     >
                       {notification.icon}
                     </span>
                   )}
 
-                  <div className="pimolu-notification-center__content">
+                  <div className={mergeClasses("pimolu-notification-center__content", partClasses.content)}>
                     {onRead ? (
                       <button
                         type="button"
-                        className="pimolu-notification-center__item-title pimolu-notification-center__item-title--button"
+                        className={mergeClasses("pimolu-notification-center__item-title pimolu-notification-center__item-title--button", partClasses.itemTitle)}
                         onClick={() =>
                           onRead(notification.id)
                         }
@@ -289,20 +294,20 @@ export function NotificationCenter({
                         {notification.title}
                       </button>
                     ) : (
-                      <p className="pimolu-notification-center__item-title">
+                      <p className={mergeClasses("pimolu-notification-center__item-title", partClasses.itemTitle)}>
                         {notification.title}
                       </p>
                     )}
 
                     {notification.description != null && (
-                      <p className="pimolu-notification-center__description">
+                      <p className={mergeClasses("pimolu-notification-center__description", partClasses.description)}>
                         {notification.description}
                       </p>
                     )}
 
-                    <div className="pimolu-notification-center__meta">
+                    <div className={mergeClasses("pimolu-notification-center__meta", partClasses.meta)}>
                       {notification.time != null && (
-                        <span className="pimolu-notification-center__time">
+                        <span className={mergeClasses("pimolu-notification-center__time", partClasses.time)}>
                           {notification.time}
                         </span>
                       )}
@@ -310,7 +315,7 @@ export function NotificationCenter({
                       {notification.action && (
                         <button
                           type="button"
-                          className="pimolu-notification-center__action"
+                          className={mergeClasses("pimolu-notification-center__action", partClasses.action)}
                           onClick={
                             notification.action.onClick
                           }
@@ -324,7 +329,7 @@ export function NotificationCenter({
                   {onDismiss && (
                     <button
                       type="button"
-                      className="pimolu-notification-center__dismiss"
+                      className={mergeClasses("pimolu-notification-center__dismiss", partClasses.dismiss)}
                       aria-label={dismissLabel}
                       onClick={() =>
                         onDismiss(notification.id)
@@ -342,7 +347,7 @@ export function NotificationCenter({
     </div>
   );
 
-  return (
+  return scopeParts((
     <Popover
       content={panel}
       label={title}
@@ -350,16 +355,16 @@ export function NotificationCenter({
       onOpenChange={handleOpenChange}
       placement={placement}
       padding="none"
-      className={[
+      className={mergeClasses([
         "pimolu-notification-center__panel",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.panel)}
     >
       <button
         type="button"
-        className="pimolu-notification-center__trigger"
+        className={mergeClasses("pimolu-notification-center__trigger", partClasses.trigger)}
         aria-label={
           unreadCount > 0
             ? `${triggerLabel}, ${countLabel}`
@@ -370,7 +375,7 @@ export function NotificationCenter({
 
         {unreadCount > 0 && (
           <span
-            className="pimolu-notification-center__badge"
+            className={mergeClasses("pimolu-notification-center__badge", partClasses.badge)}
             aria-hidden="true"
           >
             {unreadCount > 99 ? "99+" : unreadCount}
@@ -378,7 +383,7 @@ export function NotificationCenter({
         )}
       </button>
     </Popover>
-  );
+  ));
 }
 
 NotificationCenter.displayName =

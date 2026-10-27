@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type { CSSProperties } from "react";
 
@@ -11,7 +14,7 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function DashboardLayout({
+export function DashboardLayout({ classNames,
   sidebar,
   navbar,
   children,
@@ -25,6 +28,8 @@ export function DashboardLayout({
   style,
   ...props
 }: PimoluDashboardLayoutProps) {
+  const [partClasses, scopeParts] = usePartClasses("dashboard-layout", classNames, true);
+
   const layoutStyle = {
     ...style,
     ...(sidebarWidth !== undefined
@@ -45,47 +50,47 @@ export function DashboardLayout({
       : {}),
   } as CSSProperties;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       data-sidebar={sidebar ? "true" : "false"}
       data-aside={aside ? "true" : "false"}
       data-sticky-sidebar={stickySidebar || undefined}
       data-sticky-navbar={stickyNavbar || undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-dashboard-layout",
         className
-      )}
+      ), partClasses.root)}
       style={layoutStyle}
     >
       {sidebar != null && (
-        <div className="pimolu-dashboard-layout__sidebar">
+        <div className={mergeClasses("pimolu-dashboard-layout__sidebar", partClasses.sidebar)}>
           {sidebar}
         </div>
       )}
 
-      <div className="pimolu-dashboard-layout__main">
+      <div className={mergeClasses("pimolu-dashboard-layout__main", partClasses.main)}>
         {navbar != null && (
-          <div className="pimolu-dashboard-layout__navbar">
+          <div className={mergeClasses("pimolu-dashboard-layout__navbar", partClasses.navbar)}>
             {navbar}
           </div>
         )}
 
-        <main className="pimolu-dashboard-layout__content">
+        <main className={mergeClasses("pimolu-dashboard-layout__content", partClasses.content)}>
           {children}
         </main>
       </div>
 
       {aside != null && (
         <aside
-          className="pimolu-dashboard-layout__aside"
+          className={mergeClasses("pimolu-dashboard-layout__aside", partClasses.aside)}
           aria-label={asideLabel}
         >
           {aside}
         </aside>
       )}
     </div>
-  );
+  ));
 }
 
 DashboardLayout.displayName = "PimoluDashboardLayout";

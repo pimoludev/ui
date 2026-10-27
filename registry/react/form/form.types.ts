@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ChangeEvent,
   FormEvent,
@@ -125,6 +127,9 @@ export interface UseFormReturn<T extends FormValues> {
 
 export interface PimoluFormProps<T extends FormValues = FormValues>
   extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form">;
+
   /** The value returned by `useForm`. */
   form: UseFormReturn<T>;
 
@@ -135,6 +140,9 @@ export interface PimoluFormProps<T extends FormValues = FormValues>
 }
 
 export interface PimoluFormErrorProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form">;
+
   /** Registered field name. */
   name: string;
 
@@ -143,5 +151,8 @@ export interface PimoluFormErrorProps {
 
 export interface PimoluFormSubmitProps
   extends Omit<ButtonProps, "type" | "loading"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"form">;
+
   children?: ReactNode;
 }

@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { HTMLAttributes } from "react";
 
 import type {
@@ -27,6 +29,9 @@ export interface PimoluSpinnerProps
     | "aria-live"
     | "aria-atomic"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"spinner">;
+
   /** Visual style of the loading indicator. */
   appearance?: PimoluSpinnerAppearance;
 

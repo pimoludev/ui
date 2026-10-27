@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   CSSProperties,
   ImgHTMLAttributes,
@@ -34,6 +36,9 @@ export interface PimoluImageProps
     ImgHTMLAttributes<HTMLImageElement>,
     "src" | "alt" | "onLoad" | "onError" | "children"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"image">;
+
 
   /** Image URL. */
   src: string;

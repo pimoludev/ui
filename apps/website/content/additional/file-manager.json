@@ -8,5 +8,11 @@
     "file": "file-manager-folder.tsx",
     "title": "Open a nested folder",
     "description": "Browse local mock files with real folder navigation and selection feedback."
+  },
+  {
+    "file": "file-manager-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

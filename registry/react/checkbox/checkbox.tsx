@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -18,7 +21,7 @@ export const Checkbox = forwardRef<
   HTMLInputElement,
   PimoluCheckboxProps
 >(function Checkbox(
-  {
+  { classNames,
     id,
     label,
     description,
@@ -42,6 +45,8 @@ export const Checkbox = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("checkbox", classNames, true);
+
   const generatedId = useId();
 
   const checkboxId =
@@ -92,18 +97,18 @@ export const Checkbox = forwardRef<
     className,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <div
-      className={checkboxClassName}
+      className={mergeClasses(checkboxClassName, partClasses.root)}
       style={style}
     >
-      <span className="pimolu-checkbox__control">
+      <span className={mergeClasses("pimolu-checkbox__control", partClasses.control)}>
         <input
           {...inputProps}
           ref={setInputRef}
           id={checkboxId}
           type="checkbox"
-          className="pimolu-checkbox__input"
+          className={mergeClasses("pimolu-checkbox__input", partClasses.input)}
           disabled={disabled}
           required={required}
           onChange={handleChange}
@@ -111,11 +116,11 @@ export const Checkbox = forwardRef<
         />
 
         <span
-          className="pimolu-checkbox__box"
+          className={mergeClasses("pimolu-checkbox__box", partClasses.box)}
           aria-hidden="true"
         >
           <svg
-            className="pimolu-checkbox__check"
+            className={mergeClasses("pimolu-checkbox__check", partClasses.check)}
             viewBox="0 0 20 20"
             fill="none"
             aria-hidden="true"
@@ -130,7 +135,7 @@ export const Checkbox = forwardRef<
           </svg>
 
           <svg
-            className="pimolu-checkbox__minus"
+            className={mergeClasses("pimolu-checkbox__minus", partClasses.minus)}
             viewBox="0 0 20 20"
             fill="none"
             aria-hidden="true"
@@ -146,17 +151,17 @@ export const Checkbox = forwardRef<
       </span>
 
       {(label || description) && (
-        <span className="pimolu-checkbox__content">
+        <span className={mergeClasses("pimolu-checkbox__content", partClasses.content)}>
           {label && (
             <label
               htmlFor={checkboxId}
-              className="pimolu-checkbox__label"
+              className={mergeClasses("pimolu-checkbox__label", partClasses.label)}
             >
               {label}
 
               {required && (
                 <span
-                  className="pimolu-checkbox__required"
+                  className={mergeClasses("pimolu-checkbox__required", partClasses.required)}
                   aria-hidden="true"
                 >
                   *
@@ -168,7 +173,7 @@ export const Checkbox = forwardRef<
           {description && (
             <span
               id={descriptionId}
-              className="pimolu-checkbox__description"
+              className={mergeClasses("pimolu-checkbox__description", partClasses.description)}
             >
               {description}
             </span>
@@ -176,7 +181,7 @@ export const Checkbox = forwardRef<
         </span>
       )}
     </div>
-  );
+  ));
 });
 
 Checkbox.displayName = "PimoluCheckbox";

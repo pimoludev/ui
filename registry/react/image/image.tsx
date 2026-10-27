@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -29,10 +33,12 @@ function classes(
   return values.filter(Boolean).join(" ");
 }
 
-function FallbackIcon() {
-  return (
+function FallbackIcon({ classNames }: { classNames?: PimoluClassNames<"image"> } = {}) {
+  const [partClasses, scopeParts] = usePartClasses("image", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-image__fallback-icon"
+      className={mergeClasses("pimolu-image__fallback-icon", partClasses.fallbackIcon)}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -46,7 +52,7 @@ function FallbackIcon() {
       <circle cx="9" cy="10" r="1.6" />
       <path d="m4.5 18 5-5 3.5 3.5 2.5-2.5 4 4" />
     </svg>
-  );
+  ));
 }
 
 /* =========================================
@@ -57,7 +63,7 @@ export const Image = forwardRef<
   HTMLImageElement,
   PimoluImageProps
 >(function Image(
-  {
+  { classNames,
     src,
     alt,
     fallbackSrc,
@@ -78,6 +84,8 @@ export const Image = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("image", classNames, true);
+
   const imageRef = useRef<HTMLImageElement>(null);
   const attachRef = useCallback((node: HTMLImageElement | null) => {
     imageRef.current = node;
@@ -163,9 +171,9 @@ export const Image = forwardRef<
     className
   );
 
-  return (
+  return scopeParts((
     <span
-      className={containerClasses}
+      className={mergeClasses(containerClasses, partClasses.root)}
       style={{
         ...containerStyle,
         ...(aspectRatio !== undefined
@@ -180,7 +188,7 @@ export const Image = forwardRef<
       <img
         {...props}
         ref={attachRef}
-        className={imageClasses}
+        className={mergeClasses(imageClasses, partClasses.img)}
         src={activeSrc}
         alt={alt}
         data-state={status}
@@ -191,14 +199,14 @@ export const Image = forwardRef<
 
       {status === "loading" && showSkeleton && (
         <span
-          className="pimolu-image__skeleton"
+          className={mergeClasses("pimolu-image__skeleton", partClasses.skeleton)}
           aria-hidden="true"
         />
       )}
 
       {hasFailed && (
         <span
-          className="pimolu-image__fallback"
+          className={mergeClasses("pimolu-image__fallback", partClasses.fallback)}
           data-custom={
             fallback !== undefined
               ? "true"
@@ -213,7 +221,7 @@ export const Image = forwardRef<
         </span>
       )}
     </span>
-  );
+  ));
 });
 
 Image.displayName = "PimoluImage";

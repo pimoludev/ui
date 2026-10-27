@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   cloneElement,
@@ -49,7 +52,7 @@ interface TriggerProps {
    TOOLTIP
 ========================================= */
 
-export function Tooltip({
+export function Tooltip({ classNames,
   content,
   children,
   placement = "top",
@@ -58,6 +61,8 @@ export function Tooltip({
   disabled = false,
   className,
 }: PimoluTooltipProps) {
+  const [partClasses, scopeParts] = usePartClasses("tooltip", classNames, true);
+
   const generatedId = useId();
   const tooltipId = `pimolu-tooltip-${generatedId}`;
 
@@ -145,7 +150,7 @@ export function Tooltip({
 
   useEffect(() => () => cancelTimers(), []);
 
-  if (!isValidElement(children)) return children;
+  if (!isValidElement(children)) return scopeParts(children);
 
   const trigger = children as ReactElement<Record<string, unknown>>;
   const props = trigger.props as TriggerProps;
@@ -209,7 +214,7 @@ export function Tooltip({
     },
   };
 
-  return (
+  return scopeParts((
     <>
       {cloneElement(trigger, triggerProps)}
 
@@ -219,11 +224,9 @@ export function Tooltip({
             ref={panelRef}
             id={tooltipId}
             role="tooltip"
-            className={
-              ["pimolu-tooltip", className]
+            className={mergeClasses(["pimolu-tooltip", className]
                 .filter(Boolean)
-                .join(" ")
-            }
+                .join(" "), partClasses.root)}
             style={panelStyle}
             data-state={
               phase === "open" ? "open" : "closing"
@@ -234,7 +237,7 @@ export function Tooltip({
 
             {arrow && (
               <span
-                className="pimolu-tooltip__arrow"
+                className={mergeClasses("pimolu-tooltip__arrow", partClasses.arrow)}
                 aria-hidden="true"
               />
             )}
@@ -242,5 +245,5 @@ export function Tooltip({
         </Portal>
       )}
     </>
-  );
+  ));
 }

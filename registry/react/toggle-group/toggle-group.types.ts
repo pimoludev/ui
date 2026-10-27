@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 import type {
@@ -54,13 +56,16 @@ interface ToggleGroupMultipleProps {
 }
 
 export type PimoluToggleGroupProps =
-  ToggleGroupBaseProps &
+  (ToggleGroupBaseProps &
     (
       | ToggleGroupSingleProps
       | ToggleGroupMultipleProps
-    );
+    )) & { classNames?: PimoluClassNames<"toggle-group"> };
 
 export interface PimoluToggleGroupItemProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toggle-group">;
+
   /** Value toggled by this item. */
   value: string;
 

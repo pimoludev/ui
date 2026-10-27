@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Fragment,
@@ -272,7 +276,12 @@ function getFileKind(entry: PimoluFileEntry): FileKind {
   return mime.startsWith("text/") ? "document" : "file";
 }
 
-function EntryIcon({ kind }: { kind: FileKind }) {
+function EntryIcon({ classNames, kind }: {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"file-manager">;
+ kind: FileKind }) {
+  const [partClasses, scopeParts] = usePartClasses("file-manager", classNames, false);
+
   let content: ReactNode;
 
   if (kind === "folder") {
@@ -342,9 +351,9 @@ function EntryIcon({ kind }: { kind: FileKind }) {
     );
   }
 
-  return (
+  return scopeParts((
     <span
-      className={`pimolu-file-manager__icon pimolu-file-manager__icon--${kind}`}
+      className={mergeClasses(`pimolu-file-manager__icon pimolu-file-manager__icon--${kind}`, partClasses.icon)}
       aria-hidden="true"
     >
       <svg
@@ -360,7 +369,7 @@ function EntryIcon({ kind }: { kind: FileKind }) {
         {content}
       </svg>
     </span>
-  );
+  ));
 }
 
 function kindLabel(kind: FileKind) {
@@ -388,7 +397,7 @@ function kindLabel(kind: FileKind) {
    FILE MANAGER
 ========================================= */
 
-export function FileManager({
+export function FileManager({ classNames,
   entries,
   view,
   defaultView = "list",
@@ -415,6 +424,8 @@ export function FileManager({
   className,
   "aria-label": ariaLabel = "File manager",
 }: PimoluFileManagerProps) {
+  const [partClasses, scopeParts] = usePartClasses("file-manager", classNames, true);
+
   const model = useMemo(
     () => buildModel(entries),
     [entries]
@@ -842,19 +853,19 @@ export function FileManager({
       .join(" ");
   }
 
-  return (
+  return scopeParts((
     <section
-      className={[
+      className={mergeClasses([
         "pimolu-file-manager",
         `pimolu-file-manager--${resolvedView}`,
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       aria-label={ariaLabel}
     >
       <div
-        className="pimolu-file-manager__toolbar"
+        className={mergeClasses("pimolu-file-manager__toolbar", partClasses.toolbar)}
         role="toolbar"
         aria-label="File actions"
       >
@@ -870,7 +881,7 @@ export function FileManager({
           containerClassName="pimolu-file-manager__search"
         />
 
-        <div className="pimolu-file-manager__actions">
+        <div className={mergeClasses("pimolu-file-manager__actions", partClasses.actions)}>
           <SegmentedControl
             aria-label="File view"
             size="sm"
@@ -885,7 +896,7 @@ export function FileManager({
           />
 
           <select
-            className="pimolu-native-select pimolu-file-manager__select"
+            className={mergeClasses("pimolu-native-select pimolu-file-manager__select", partClasses.select)}
             aria-label="Sort by"
             value={resolvedSort.by}
             onChange={(event) =>
@@ -956,7 +967,7 @@ export function FileManager({
         </div>
       </div>
 
-      <div className="pimolu-file-manager__location">
+      <div className={mergeClasses("pimolu-file-manager__location", partClasses.location)}>
         <Breadcrumbs label="Breadcrumb">
           {currentPath.length === 0 ? (
             <BreadcrumbItem>
@@ -1018,7 +1029,7 @@ export function FileManager({
         </Breadcrumbs>
 
         <span
-          className="pimolu-file-manager__count"
+          className={mergeClasses("pimolu-file-manager__count", partClasses.count)}
           aria-live="polite"
         >
           {visibleEntries.length} item
@@ -1044,7 +1055,7 @@ export function FileManager({
       ) : resolvedView === "list" ? (
         <div
           ref={itemsRef}
-          className="pimolu-file-manager__list"
+          className={mergeClasses("pimolu-file-manager__list", partClasses.list)}
           role="listbox"
           aria-label={`${rootLabel} items`}
           aria-multiselectable={
@@ -1067,10 +1078,10 @@ export function FileManager({
                 tabIndex={activeId === entry.id ? 0 : -1}
                 data-file-id={entry.id}
                 data-kind={kind}
-                className={itemClassName(
+                className={mergeClasses(itemClassName(
                   entry,
                   "pimolu-file-manager__item"
-                )}
+                ), partClasses.item)}
                 onClick={(event) =>
                   handleItemClick(event, entry)
                 }
@@ -1088,15 +1099,15 @@ export function FileManager({
               >
                 <EntryIcon kind={kind} />
 
-                <span className="pimolu-file-manager__name">
+                <span className={mergeClasses("pimolu-file-manager__name", partClasses.name)}>
                   {entry.name}
                 </span>
 
-                <span className="pimolu-file-manager__meta pimolu-file-manager__meta--modified">
+                <span className={mergeClasses("pimolu-file-manager__meta pimolu-file-manager__meta--modified", partClasses.meta)}>
                   {modifiedLabel(entry)}
                 </span>
 
-                <span className="pimolu-file-manager__meta pimolu-file-manager__meta--size">
+                <span className={mergeClasses("pimolu-file-manager__meta pimolu-file-manager__meta--size", partClasses.meta)}>
                   {sizeLabel(entry)}
                 </span>
               </div>
@@ -1106,7 +1117,7 @@ export function FileManager({
       ) : (
         <div
           ref={itemsRef}
-          className="pimolu-file-manager__grid"
+          className={mergeClasses("pimolu-file-manager__grid", partClasses.grid)}
           role="listbox"
           aria-label={`${rootLabel} items`}
           aria-multiselectable={
@@ -1116,7 +1127,7 @@ export function FileManager({
           }
         >
           <div
-            className="pimolu-file-manager__grid-row"
+            className={mergeClasses("pimolu-file-manager__grid-row", partClasses.gridRow)}
             role="presentation"
           >
             {visibleEntries.map((entry, index) => {
@@ -1135,10 +1146,10 @@ export function FileManager({
                   }
                   data-file-id={entry.id}
                   data-kind={kind}
-                  className={itemClassName(
+                  className={mergeClasses(itemClassName(
                     entry,
                     "pimolu-file-manager__tile"
-                  )}
+                  ), partClasses.tile)}
                   onClick={(event) =>
                     handleItemClick(event, entry)
                   }
@@ -1158,15 +1169,15 @@ export function FileManager({
                 >
                   <EntryIcon kind={kind} />
 
-                  <span className="pimolu-file-manager__tile-name">
+                  <span className={mergeClasses("pimolu-file-manager__tile-name", partClasses.tileName)}>
                     {entry.name}
                   </span>
 
-                  <span className="pimolu-file-manager__tile-meta">
+                  <span className={mergeClasses("pimolu-file-manager__tile-meta", partClasses.tileMeta)}>
                     {sizeLabel(entry)}
                   </span>
 
-                  <span className="pimolu-file-manager__tile-meta">
+                  <span className={mergeClasses("pimolu-file-manager__tile-meta", partClasses.tileMeta)}>
                     {modifiedLabel(entry)}
                   </span>
                 </div>
@@ -1176,5 +1187,5 @@ export function FileManager({
         </div>
       )}
     </section>
-  );
+  ));
 }

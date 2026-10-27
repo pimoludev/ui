@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   AnchorHTMLAttributes,
   ReactNode,
@@ -15,6 +17,9 @@ export type {
 
 export interface PimoluLinkProps
   extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"link">;
+
   /** Colour treatment. Defaults to "primary". */
   variant?: PimoluLinkVariant;
 

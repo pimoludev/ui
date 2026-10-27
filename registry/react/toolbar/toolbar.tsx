@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -84,7 +87,7 @@ function setActiveItem(
    ROOT
 ======================================== */
 
-export function Toolbar({
+export function Toolbar({ classNames,
   children,
   orientation = "horizontal",
   label,
@@ -93,6 +96,8 @@ export function Toolbar({
   className,
   ...props
 }: PimoluToolbarProps) {
+  const [partClasses, scopeParts] = usePartClasses("toolbar", classNames, true);
+
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   /*
@@ -164,7 +169,7 @@ export function Toolbar({
     next.focus();
   }
 
-  return (
+  return scopeParts((
     <ToolbarContext.Provider value={{ orientation, disabled }}>
       <div
         {...props}
@@ -174,14 +179,14 @@ export function Toolbar({
         aria-orientation={orientation}
         data-orientation={orientation}
         data-disabled={disabled || undefined}
-        className={classes("pimolu-toolbar", className)}
+        className={mergeClasses(classes("pimolu-toolbar", className), partClasses.root)}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
       >
         {children}
       </div>
     </ToolbarContext.Provider>
-  );
+  ));
 }
 
 Toolbar.displayName = "PimoluToolbar";
@@ -190,23 +195,25 @@ Toolbar.displayName = "PimoluToolbar";
    GROUP
 ======================================== */
 
-export function ToolbarGroup({
+export function ToolbarGroup({ classNames,
   children,
   className,
   ...props
 }: PimoluToolbarGroupProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("toolbar", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
       role="group"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-toolbar__group",
         className
-      )}
+      ), partClasses.group, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 ToolbarGroup.displayName = "PimoluToolbarGroup";
@@ -215,7 +222,7 @@ ToolbarGroup.displayName = "PimoluToolbarGroup";
    BUTTON
 ======================================== */
 
-export function ToolbarButton({
+export function ToolbarButton({ classNames,
   children,
   className,
   type,
@@ -223,23 +230,25 @@ export function ToolbarButton({
   tabIndex,
   ...props
 }: PimoluToolbarButtonProps) {
+  const [partClasses, scopeParts] = usePartClasses("toolbar", classNames, false);
+
   const toolbar = useToolbar("ToolbarButton");
 
-  return (
+  return scopeParts((
     <button
       {...props}
       type={type ?? "button"}
       disabled={disabled || toolbar.disabled}
       data-pimolu-toolbar-item=""
       tabIndex={tabIndex ?? -1}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-toolbar__button",
         className
-      )}
+      ), partClasses.button, classNames?.root)}
     >
       {children}
     </button>
-  );
+  ));
 }
 
 ToolbarButton.displayName = "PimoluToolbarButton";
@@ -248,7 +257,7 @@ ToolbarButton.displayName = "PimoluToolbarButton";
    LINK
 ======================================== */
 
-export function ToolbarLink({
+export function ToolbarLink({ classNames,
   children,
   className,
   current = false,
@@ -257,22 +266,24 @@ export function ToolbarLink({
   "aria-disabled": ariaDisabled,
   ...props
 }: PimoluToolbarLinkProps) {
+  const [partClasses, scopeParts] = usePartClasses("toolbar", classNames, false);
+
   const toolbar = useToolbar("ToolbarLink");
 
   const disabled =
     toolbar.disabled || ariaDisabled === "true";
 
-  return (
+  return scopeParts((
     <a
       {...props}
       data-pimolu-toolbar-item=""
       tabIndex={disabled ? -1 : tabIndex ?? -1}
       aria-disabled={disabled || undefined}
       aria-current={current ? "page" : undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-toolbar__link",
         className
-      )}
+      ), partClasses.link, classNames?.root)}
       onClick={(event) => {
         if (disabled) {
           event.preventDefault();
@@ -284,7 +295,7 @@ export function ToolbarLink({
     >
       {children}
     </a>
-  );
+  ));
 }
 
 ToolbarLink.displayName = "PimoluToolbarLink";
@@ -293,13 +304,15 @@ ToolbarLink.displayName = "PimoluToolbarLink";
    SEPARATOR
 ========================================= */
 
-export function ToolbarSeparator({
+export function ToolbarSeparator({ classNames,
   className,
   ...props
 }: PimoluToolbarSeparatorProps) {
+  const [partClasses, scopeParts] = usePartClasses("toolbar", classNames, false);
+
   const toolbar = useToolbar("ToolbarSeparator");
 
-  return (
+  return scopeParts((
     <div
       {...props}
       role="separator"
@@ -308,12 +321,12 @@ export function ToolbarSeparator({
           ? "vertical"
           : "horizontal"
       }
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-toolbar__separator",
         className
-      )}
+      ), partClasses.separator, classNames?.root)}
     />
-  );
+  ));
 }
 
 ToolbarSeparator.displayName = "PimoluToolbarSeparator";
@@ -346,9 +359,11 @@ function useToolbarToggle(component: string) {
 export function ToolbarToggleGroup(
   props: PimoluToolbarToggleGroupProps
 ) {
+  const [partClasses, scopeParts] = usePartClasses("toolbar", props.classNames, false);
+
   const toolbar = useToolbar("ToolbarToggleGroup");
 
-  const {
+  const { classNames,
     children,
     disabled = false,
     className,
@@ -423,7 +438,7 @@ export function ToolbarToggleGroup(
     )?.(item);
   }
 
-  return (
+  return scopeParts((
     <ToolbarToggleContext.Provider
       value={{
         disabled: groupDisabled,
@@ -436,20 +451,20 @@ export function ToolbarToggleGroup(
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         data-orientation={toolbar.orientation}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-toolbar__toggle-group",
           className
-        )}
+        ), partClasses.toggleGroup, props.classNames?.root)}
       >
         {children}
       </div>
     </ToolbarToggleContext.Provider>
-  );
+  ));
 }
 
 ToolbarToggleGroup.displayName = "PimoluToolbarToggleGroup";
 
-export function ToolbarToggleItem({
+export function ToolbarToggleItem({ classNames,
   value,
   children,
   className,
@@ -457,11 +472,13 @@ export function ToolbarToggleItem({
   onClick,
   ...props
 }: PimoluToolbarToggleItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("toolbar", classNames, false);
+
   const group = useToolbarToggle("ToolbarToggleItem");
 
   const pressed = group.selected(value);
 
-  return (
+  return scopeParts((
     <button
       {...props}
       type="button"
@@ -470,11 +487,11 @@ export function ToolbarToggleItem({
       data-pimolu-toolbar-item=""
       tabIndex={-1}
       data-state={pressed ? "on" : "off"}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-toolbar__button",
         "pimolu-toolbar__toggle",
         className
-      )}
+      ), partClasses.button, classNames?.root)}
       onClick={(event) => {
         onClick?.(event);
 
@@ -485,7 +502,7 @@ export function ToolbarToggleItem({
     >
       {children}
     </button>
-  );
+  ));
 }
 
 ToolbarToggleItem.displayName = "PimoluToolbarToggleItem";

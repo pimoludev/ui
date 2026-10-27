@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   CSSProperties,
   HTMLAttributes,
@@ -29,6 +31,9 @@ export interface PimoluSkeletonProps
     | "width"
     | "height"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"skeleton">;
+
   /** Shape of the placeholder. */
   shape?: PimoluSkeletonShape;
 

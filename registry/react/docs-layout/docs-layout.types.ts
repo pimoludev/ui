@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -13,6 +15,9 @@ import type {
  */
 export interface PimoluDocsLayoutProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"docs-layout">;
+
   /** Optional top bar, typically a Navbar. */
   header?: ReactNode;
 

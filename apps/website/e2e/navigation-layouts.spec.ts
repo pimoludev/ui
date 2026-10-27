@@ -78,7 +78,8 @@ test("chart references contain only their own chart examples and focused APIs", 
   for (const [family, title] of [["area-chart", "AreaChart"], ["bar-chart", "BarChart"], ["line-chart", "LineChart"], ["donut-chart", "DonutChart"], ["sparkline", "Sparkline"]]) {
     await page.goto(`/components/${family}`);
     await expect(page.getByRole("heading", { name: title, exact: true, level: 1 })).toBeVisible();
-    await expect(page.locator(".additional-example")).toHaveCount(3);
+    await expect(page.locator(".additional-example")).toHaveCount(4);
+    await expect(page.getByRole("heading", { name: "Named-part customization", exact: true })).toBeAttached();
     await expect(page.getByRole("heading", { name: `Pimolu${title}Props`, exact: true })).toBeAttached();
     const code = await request.get(`/api/examples/${family}/example-2`);
     expect((await code.json()).source).toContain(`import { ${title} }`);

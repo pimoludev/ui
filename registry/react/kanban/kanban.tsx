@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Fragment,
@@ -274,6 +278,9 @@ function PlusIcon() {
 ========================================= */
 
 interface KanbanCardViewProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"kanban">;
+
   card: PimoluKanbanCard;
   column: PimoluKanbanColumn;
   index: number;
@@ -305,7 +312,7 @@ interface KanbanCardViewProps {
   ) => void;
 }
 
-function KanbanCardView({
+function KanbanCardView({ classNames,
   card,
   column,
   index,
@@ -320,6 +327,8 @@ function KanbanCardView({
   onDragOverCard,
   onCardKeyDown,
 }: KanbanCardViewProps) {
+  const [partClasses, scopeParts] = usePartClasses("kanban", classNames, false);
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const moveRootRef = useRef<HTMLDivElement>(null);
@@ -410,15 +419,15 @@ function KanbanCardView({
   const canMoveUp = index > 0;
   const canMoveDown = index < column.cards.length - 1;
 
-  return (
-    <li className="pimolu-kanban__item">
+  return scopeParts((
+    <li className={mergeClasses("pimolu-kanban__item", partClasses.item)}>
       <div
-        className={[
+        className={mergeClasses([
           "pimolu-kanban__card",
           dragging && "pimolu-kanban__card--dragging",
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.card)}
         role="group"
         tabIndex={0}
         aria-label={labels.card(card.title, column.title)}
@@ -456,9 +465,9 @@ function KanbanCardView({
           onCardClick?.(card, column.id);
         }}
       >
-        <div className="pimolu-kanban__card-top">
+        <div className={mergeClasses("pimolu-kanban__card-top", partClasses.cardTop)}>
           <span
-            className="pimolu-kanban__grip"
+            className={mergeClasses("pimolu-kanban__grip", partClasses.grip)}
             aria-hidden="true"
           >
             <GripIcon />
@@ -466,7 +475,7 @@ function KanbanCardView({
 
           {card.priority && (
             <Badge
-              className="pimolu-kanban__priority"
+              className={mergeClasses("pimolu-kanban__priority", partClasses.priority)}
               size="sm"
               variant={priorityVariant(card.priority)}
               appearance="soft"
@@ -477,7 +486,7 @@ function KanbanCardView({
         </div>
 
         {card.labels && card.labels.length > 0 && (
-          <div className="pimolu-kanban__labels">
+          <div className={mergeClasses("pimolu-kanban__labels", partClasses.labels)}>
             {card.labels.map((label, labelIndex) => {
               const text =
                 typeof label === "string"
@@ -506,7 +515,7 @@ function KanbanCardView({
         {onCardClick ? (
           <button
             type="button"
-            className="pimolu-kanban__card-title pimolu-kanban__card-title--button"
+            className={mergeClasses("pimolu-kanban__card-title pimolu-kanban__card-title--button", partClasses.cardTitle)}
             onClick={(event) => {
               event.stopPropagation();
               onCardClick(card, column.id);
@@ -515,19 +524,19 @@ function KanbanCardView({
             {card.title}
           </button>
         ) : (
-          <span className="pimolu-kanban__card-title">
+          <span className={mergeClasses("pimolu-kanban__card-title", partClasses.cardTitle)}>
             {card.title}
           </span>
         )}
 
         {card.description != null && (
-          <div className="pimolu-kanban__card-description">
+          <div className={mergeClasses("pimolu-kanban__card-description", partClasses.cardDescription)}>
             {card.description}
           </div>
         )}
 
-        <div className="pimolu-kanban__card-footer">
-          <div className="pimolu-kanban__card-meta">
+        <div className={mergeClasses("pimolu-kanban__card-footer", partClasses.cardFooter)}>
+          <div className={mergeClasses("pimolu-kanban__card-meta", partClasses.cardMeta)}>
             {card.assignee && (
               <Avatar
                 name={card.assignee.name}
@@ -539,14 +548,14 @@ function KanbanCardView({
           </div>
 
           <div
-            className="pimolu-kanban__move"
+            className={mergeClasses("pimolu-kanban__move", partClasses.move)}
             ref={moveRootRef}
             onClick={(event) => event.stopPropagation()}
           >
             <button
               ref={moveTriggerRef}
               type="button"
-              className="pimolu-kanban__move-trigger"
+              className={mergeClasses("pimolu-kanban__move-trigger", partClasses.moveTrigger)}
               aria-label={labels.move(card.title)}
               aria-haspopup="menu"
               aria-expanded={menuOpen}
@@ -569,7 +578,7 @@ function KanbanCardView({
             {menuOpen && (
               <ul
                 ref={menuRef}
-                className="pimolu-kanban__move-menu"
+                className={mergeClasses("pimolu-kanban__move-menu", partClasses.moveMenu)}
                 role="menu"
                 aria-label={labels.move(card.title)}
                 onKeyDown={handleMenuKeyDown}
@@ -578,7 +587,7 @@ function KanbanCardView({
                   <button
                     type="button"
                     role="menuitem"
-                    className="pimolu-kanban__move-item"
+                    className={mergeClasses("pimolu-kanban__move-item", partClasses.moveItem)}
                     disabled={!canMoveUp}
                     onClick={() => {
                       closeMenu();
@@ -594,7 +603,7 @@ function KanbanCardView({
                   <button
                     type="button"
                     role="menuitem"
-                    className="pimolu-kanban__move-item"
+                    className={mergeClasses("pimolu-kanban__move-item", partClasses.moveItem)}
                     disabled={!canMoveDown}
                     onClick={() => {
                       closeMenu();
@@ -608,7 +617,7 @@ function KanbanCardView({
 
                 <li role="none">
                   <span
-                    className="pimolu-kanban__move-separator"
+                    className={mergeClasses("pimolu-kanban__move-separator", partClasses.moveSeparator)}
                     role="separator"
                   />
                 </li>
@@ -623,7 +632,7 @@ function KanbanCardView({
                       <button
                         type="button"
                         role="menuitem"
-                        className="pimolu-kanban__move-item"
+                        className={mergeClasses("pimolu-kanban__move-item", partClasses.moveItem)}
                         disabled={disabled}
                         onClick={() => {
                           closeMenu();
@@ -632,7 +641,7 @@ function KanbanCardView({
                       >
                         <span>{labels.moveTo(target.title)}</span>
                         {isColumnFull(target) && (
-                          <span className="pimolu-kanban__move-full">
+                          <span className={mergeClasses("pimolu-kanban__move-full", partClasses.moveFull)}>
                             {labels.full}
                           </span>
                         )}
@@ -646,14 +655,14 @@ function KanbanCardView({
         </div>
       </div>
     </li>
-  );
+  ));
 }
 
 /* =========================================
    BOARD
 ========================================= */
 
-export function Kanban({
+export function Kanban({ classNames,
   columns: controlledColumns,
   defaultColumns,
   onColumnsChange,
@@ -666,6 +675,8 @@ export function Kanban({
   "aria-describedby": ariaDescribedBy,
   ...props
 }: PimoluKanbanProps) {
+  const [partClasses, scopeParts] = usePartClasses("kanban", classNames, true);
+
   const labels: PimoluKanbanLabels = {
     ...defaultLabels,
     ...labelOverrides,
@@ -960,7 +971,7 @@ export function Kanban({
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={rootRef}
@@ -971,12 +982,12 @@ export function Kanban({
           .filter(Boolean)
           .join(" ") || undefined
       }
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       data-pimolu-kanban=""
     >
       <p
         id={instructionsId}
-        className="pimolu-kanban__sr"
+        className={mergeClasses("pimolu-kanban__sr", partClasses.sr)}
       >
         {labels.instructions}
       </p>
@@ -996,27 +1007,27 @@ export function Kanban({
         return (
           <section
             key={column.id}
-            className={[
+            className={mergeClasses([
               "pimolu-kanban__column",
               activeDrop && "pimolu-kanban__column--drop",
               full && "pimolu-kanban__column--full",
             ]
               .filter(Boolean)
-              .join(" ")}
+              .join(" "), partClasses.column)}
             data-column-id={column.id}
             data-full={full ? "true" : undefined}
             data-drop-target={
               activeDrop ? "true" : undefined
             }
           >
-            <header className="pimolu-kanban__column-header">
+            <header className={mergeClasses("pimolu-kanban__column-header", partClasses.columnHeader)}>
               <h3
                 id={headingId}
-                className="pimolu-kanban__column-title"
+                className={mergeClasses("pimolu-kanban__column-title", partClasses.columnTitle)}
               >
                 <span>{column.title}</span>
 
-                <span className="pimolu-kanban__count">
+                <span className={mergeClasses("pimolu-kanban__count", partClasses.count)}>
                   {labels.count(
                     column.cards.length,
                     column.limit
@@ -1035,14 +1046,14 @@ export function Kanban({
                 </Badge>
               )}
               {column.limit != null && column.limit > 0 && (
-                <span className="pimolu-kanban__capacity" aria-hidden="true">
+                <span className={mergeClasses("pimolu-kanban__capacity", partClasses.capacity)} aria-hidden="true">
                   <span style={{ width: `${Math.min(100, column.cards.length / column.limit * 100)}%` }} />
                 </span>
               )}
             </header>
 
             <ol
-              className="pimolu-kanban__list"
+              className={mergeClasses("pimolu-kanban__list", partClasses.list)}
               aria-labelledby={headingId}
               data-full={full || undefined}
               onDragOver={(event) =>
@@ -1064,7 +1075,7 @@ export function Kanban({
                 <Fragment key={card.id}>
                   {activeDrop && dropIndex === index && (
                     <li
-                      className="pimolu-kanban__drop-indicator"
+                      className={mergeClasses("pimolu-kanban__drop-indicator", partClasses.dropIndicator)}
                       aria-hidden="true"
                     />
                   )}
@@ -1112,24 +1123,24 @@ export function Kanban({
               {activeDrop &&
                 dropIndex === column.cards.length && (
                   <li
-                    className="pimolu-kanban__drop-indicator"
+                    className={mergeClasses("pimolu-kanban__drop-indicator", partClasses.dropIndicator)}
                     aria-hidden="true"
                   />
                 )}
 
               {column.cards.length === 0 &&
                 !activeDrop && (
-                  <li className="pimolu-kanban__empty">
+                  <li className={mergeClasses("pimolu-kanban__empty", partClasses.empty)}>
                     {labels.emptyColumn}
                   </li>
                 )}
             </ol>
 
             {onAddCard && (
-              <div className="pimolu-kanban__column-footer">
+              <div className={mergeClasses("pimolu-kanban__column-footer", partClasses.columnFooter)}>
                 <button
                   type="button"
-                  className="pimolu-kanban__add"
+                  className={mergeClasses("pimolu-kanban__add", partClasses.add)}
                   aria-label={labels.addCardTo(column.title)}
                   disabled={full}
                   onClick={() => onAddCard(column.id)}
@@ -1144,7 +1155,7 @@ export function Kanban({
       })}
 
       <div
-        className="pimolu-kanban__announcement"
+        className={mergeClasses("pimolu-kanban__announcement", partClasses.announcement)}
         role="status"
         aria-live="polite"
         aria-atomic="true"
@@ -1152,5 +1163,5 @@ export function Kanban({
         {announcement}
       </div>
     </div>
-  );
+  ));
 }

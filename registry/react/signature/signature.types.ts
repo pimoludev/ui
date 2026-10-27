@@ -1,7 +1,12 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties } from "react";
 
 export interface PimoluSignatureProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"signature">;
+
   id?: string;
 
   /** Controlled signature as a PNG data URL, or `null` when empty. */

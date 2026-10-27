@@ -3,5 +3,11 @@
     "file": "prose-technical.tsx",
     "title": "Technical release note",
     "description": "Semantic article content with headings, inline code, a list and a quotation."
+  },
+  {
+    "file": "prose-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

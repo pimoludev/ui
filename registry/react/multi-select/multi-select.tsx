@@ -1,4 +1,8 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+
+
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   forwardRef,
@@ -70,6 +74,7 @@ export const MultiSelect = forwardRef<
     invalid = false,
     fullWidth = false,
 
+    classNames,
     className,
     inputClassName,
     style,
@@ -80,6 +85,8 @@ export const MultiSelect = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("multi-select", classNames, true);
+
   /* ======================================
      IDS AND REFS
   ====================================== */
@@ -456,25 +463,26 @@ export const MultiSelect = forwardRef<
     disabled && "pimolu-multiselect--disabled",
     isOpen && "pimolu-multiselect--open",
     className,
+    partClasses.root,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <div
       ref={rootRef}
-      className={rootClasses}
+      className={mergeClasses(rootClasses, partClasses.root)}
       style={style}
       onBlur={handleRootBlur}
     >
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-multiselect__label"
+          className={mergeClasses("pimolu-multiselect__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-multiselect__required"
+              className={mergeClasses("pimolu-multiselect__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -483,9 +491,9 @@ export const MultiSelect = forwardRef<
         </label>
       )}
 
-      <div className="pimolu-multiselect__field">
+      <div className={mergeClasses("pimolu-multiselect__field", partClasses.field)}>
         <div
-          className="pimolu-multiselect__value-area"
+          className={mergeClasses("pimolu-multiselect__value-area", partClasses.valueArea)}
           onClick={(event) => {
             if (
               !(event.target instanceof Element) ||
@@ -495,7 +503,7 @@ export const MultiSelect = forwardRef<
             }
           }}
         >
-          <div className="pimolu-multiselect__selection">
+          <div className={mergeClasses("pimolu-multiselect__selection", partClasses.selection)}>
             {/* Selected tags */}
 
             {selectedValues.map((selectedValue) => {
@@ -509,15 +517,15 @@ export const MultiSelect = forwardRef<
               return (
                 <span
                   key={selectedValue}
-                  className="pimolu-multiselect__tag"
+                  className={mergeClasses("pimolu-multiselect__tag", partClasses.tag)}
                 >
-                  <span className="pimolu-multiselect__tag-label">
+                  <span className={mergeClasses("pimolu-multiselect__tag-label", partClasses.tagLabel)}>
                     {selectedLabel}
                   </span>
 
                   <button
                     type="button"
-                    className="pimolu-multiselect__tag-remove"
+                    className={mergeClasses("pimolu-multiselect__tag-remove", partClasses.tagRemove)}
                     aria-label={`Remove ${selectedLabel}`}
                     disabled={disabled}
                     onClick={() =>
@@ -543,6 +551,7 @@ export const MultiSelect = forwardRef<
               className={[
                 "pimolu-multiselect__input",
                 inputClassName,
+                partClasses.control,
               ].filter(Boolean).join(" ")}
 
               value={query}
@@ -576,13 +585,13 @@ export const MultiSelect = forwardRef<
             />
           </div>
 
-          <div className="pimolu-multiselect__actions">
+          <div className={mergeClasses("pimolu-multiselect__actions", partClasses.actions)}>
             {clearable &&
               selectedValues.length > 0 &&
               !disabled && (
                 <button
                   type="button"
-                  className="pimolu-multiselect__clear"
+                  className={mergeClasses("pimolu-multiselect__clear", partClasses.clearButton)}
                   aria-label="Clear all selections"
                   onClick={clearAll}
                 >
@@ -591,7 +600,7 @@ export const MultiSelect = forwardRef<
               )}
 
             <span
-              className="pimolu-multiselect__chevron"
+              className={mergeClasses("pimolu-multiselect__chevron", partClasses.chevron)}
               aria-hidden="true"
             >
               <svg
@@ -634,12 +643,12 @@ export const MultiSelect = forwardRef<
                 ? `Options: ${label}`
                 : "Options"
             }
-            className="pimolu-multiselect__listbox"
+            className={mergeClasses("pimolu-multiselect__listbox", partClasses.listbox)}
             style={popupStyle}
           >
             {filteredOptions.length === 0 ? (
               <li
-                className="pimolu-multiselect__empty"
+                className={mergeClasses("pimolu-multiselect__empty", partClasses.empty)}
                 role="presentation"
               >
                 <span role="status">
@@ -667,6 +676,7 @@ export const MultiSelect = forwardRef<
                     }
                     className={[
                       "pimolu-multiselect__option",
+                      partClasses.option,
                       selected &&
                         "pimolu-multiselect__option--selected",
                       !available &&
@@ -680,13 +690,13 @@ export const MultiSelect = forwardRef<
                     onClick={() => toggleOption(option)}
                   >
                     <span
-                      className="pimolu-multiselect__option-indicator"
+                      className={mergeClasses("pimolu-multiselect__option-indicator", partClasses.optionIndicator)}
                       aria-hidden="true"
                     >
                       {selected ? "✓" : ""}
                     </span>
 
-                    <span className="pimolu-multiselect__option-label">
+                    <span className={mergeClasses("pimolu-multiselect__option-label", partClasses.optionLabel)}>
                       {option.label}
                     </span>
                   </li>
@@ -700,7 +710,7 @@ export const MultiSelect = forwardRef<
 
       <span
         id={instructionsId}
-        className="pimolu-multiselect__sr-only"
+        className={mergeClasses("pimolu-multiselect__sr-only", partClasses.srOnly)}
       >
         Use arrow keys to browse options and Enter to
         toggle a selection. Press Backspace in an empty
@@ -710,11 +720,9 @@ export const MultiSelect = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            errorMessage
+          className={mergeClasses(errorMessage
               ? "pimolu-multiselect__error"
-              : "pimolu-multiselect__helper"
-          }
+              : "pimolu-multiselect__helper", partClasses.message)}
           role={errorMessage ? "alert" : undefined}
         >
           {message}
@@ -722,12 +730,12 @@ export const MultiSelect = forwardRef<
       )}
 
       {maxSelected !== undefined && (
-        <span className="pimolu-multiselect__count">
+        <span className={mergeClasses("pimolu-multiselect__count", partClasses.count)}>
           {selectedValues.length}/{maxSelected} selected
         </span>
       )}
     </div>
-  );
+  ));
 });
 
 MultiSelect.displayName = "PimoluMultiSelect";

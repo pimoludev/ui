@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   InputHTMLAttributes,
 } from "react";
@@ -23,6 +25,9 @@ export interface PimoluCheckboxProps
     | "children"
     | "readOnly"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"checkbox">;
+
   /** Size of the checkbox. */
   size?: PimoluCheckboxSize;
 

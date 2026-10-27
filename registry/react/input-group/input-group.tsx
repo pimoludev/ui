@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -26,7 +29,7 @@ export const InputGroup = forwardRef<
   HTMLDivElement,
   PimoluInputGroupProps
 >(function InputGroup(
-  {
+  { classNames,
     children,
     orientation = "horizontal",
     size = "md",
@@ -39,6 +42,8 @@ export const InputGroup = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("input-group", classNames, true);
+
   const classes = [
     "pimolu-input-group",
     `pimolu-input-group--${orientation}`,
@@ -51,7 +56,7 @@ export const InputGroup = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <InputGroupContext.Provider
       value={{ disabled, invalid }}
     >
@@ -63,52 +68,56 @@ export const InputGroup = forwardRef<
         data-orientation={orientation}
         data-disabled={disabled ? "true" : undefined}
         data-invalid={invalid ? "true" : undefined}
-        className={classes}
+        className={mergeClasses(classes, partClasses.root)}
       >
         {children}
       </div>
     </InputGroupContext.Provider>
-  );
+  ));
 });
 
 InputGroup.displayName = "PimoluInputGroup";
 
-export function InputGroupAddon({
+export function InputGroupAddon({ classNames,
   align = "inline-start",
   className,
   ...props
 }: PimoluInputGroupAddonProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("input-group", classNames, false);
+
+  return scopeParts((
     <span
       {...props}
-      className={[
+      className={mergeClasses([
         "pimolu-input-group__addon",
         `pimolu-input-group__addon--${align}`,
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.addon, classNames?.root)}
     />
-  );
+  ));
 }
 
 InputGroupAddon.displayName = "PimoluInputGroupAddon";
 
-export function InputGroupText({
+export function InputGroupText({ classNames,
   className,
   ...props
 }: PimoluInputGroupTextProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("input-group", classNames, false);
+
+  return scopeParts((
     <span
       {...props}
-      className={[
+      className={mergeClasses([
         "pimolu-input-group__text",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.text, classNames?.root)}
     />
-  );
+  ));
 }
 
 InputGroupText.displayName = "PimoluInputGroupText";
@@ -117,7 +126,7 @@ export const InputGroupInput = forwardRef<
   HTMLInputElement,
   PimoluInputGroupInputProps
 >(function InputGroupInput(
-  {
+  { classNames,
     className,
     disabled,
     "aria-invalid": ariaInvalid,
@@ -125,9 +134,11 @@ export const InputGroupInput = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("input-group", classNames, false);
+
   const group = useContext(InputGroupContext);
 
-  return (
+  return scopeParts((
     <input
       {...props}
       ref={ref}
@@ -136,15 +147,15 @@ export const InputGroupInput = forwardRef<
         ariaInvalid ??
         (group?.invalid ? true : undefined)
       }
-      className={[
+      className={mergeClasses([
         "pimolu-input__control",
         "pimolu-input-group__input",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.control, classNames?.root)}
     />
-  );
+  ));
 });
 
 InputGroupInput.displayName = "PimoluInputGroupInput";
@@ -153,7 +164,7 @@ export const InputGroupButton = forwardRef<
   HTMLButtonElement,
   PimoluInputGroupButtonProps
 >(function InputGroupButton(
-  {
+  { classNames,
     className,
     type = "button",
     disabled,
@@ -161,22 +172,24 @@ export const InputGroupButton = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("input-group", classNames, false);
+
   const group = useContext(InputGroupContext);
 
-  return (
+  return scopeParts((
     <button
       {...props}
       ref={ref}
       type={type}
       disabled={disabled || group?.disabled}
-      className={[
+      className={mergeClasses([
         "pimolu-input-group__button",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.button, classNames?.root)}
     />
-  );
+  ));
 });
 
 InputGroupButton.displayName =

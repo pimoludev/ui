@@ -3,6 +3,7 @@ import type {
   Key,
   ReactNode,
 } from "react";
+import type { PimoluClassNames } from "../customization/customization.types";
 
 /* =========================================
    SHARED PROPS
@@ -13,6 +14,8 @@ interface PimoluVirtualListBaseProps
     HTMLAttributes<HTMLDivElement>,
     "children"
   > {
+  /** Additive classes on the viewport, spacer and rendered items. */
+  classNames?: PimoluClassNames<"virtual-list">;
 
   /** Fixed height of every row, in pixels. */
   itemHeight: number;

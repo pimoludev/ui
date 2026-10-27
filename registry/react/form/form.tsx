@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -28,7 +31,7 @@ import type {
    HELPERS
 ========================================= */
 
-function classNames(
+function formClasses(
   ...values: Array<string | false | undefined>
 ) {
   return values.filter(Boolean).join(" ");
@@ -308,14 +311,16 @@ export function useForm<T extends FormValues>({
    FORM
 ========================================= */
 
-export function Form<T extends FormValues = FormValues>({
+export function Form<T extends FormValues = FormValues>({ classNames,
   form,
   noValidate = true,
   className,
   children,
   ...props
 }: PimoluFormProps<T>) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("form", classNames, true);
+
+  return scopeParts((
     <FormContext.Provider
       value={{
         formId: form.formId,
@@ -329,7 +334,7 @@ export function Form<T extends FormValues = FormValues>({
       <form
         {...props}
         noValidate={noValidate}
-        className={classNames("pimolu-form", className)}
+        className={mergeClasses(formClasses("pimolu-form", className), partClasses.root)}
         onSubmit={(event) => {
           void form.handleSubmit(event);
         }}
@@ -337,59 +342,63 @@ export function Form<T extends FormValues = FormValues>({
         {children}
       </form>
     </FormContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
    FORM ERROR
 ========================================= */
 
-export function FormError({
+export function FormError({ classNames,
   name,
   className,
 }: PimoluFormErrorProps) {
+  const [partClasses, scopeParts] = usePartClasses("form", classNames, false);
+
   const { errors, formId } = useFormContext("FormError");
 
   const message = errors[name];
 
-  if (!message) return null;
+  if (!message) return scopeParts(null);
 
-  return (
+  return scopeParts((
     <p
       id={`${formId}-${name}-error`}
       role="alert"
-      className={classNames(
+      className={mergeClasses(formClasses(
         "pimolu-form__error",
         className
-      )}
+      ), partClasses.error, classNames?.root)}
     >
       {message}
     </p>
-  );
+  ));
 }
 
 /* =========================================
    FORM SUBMIT
 ========================================= */
 
-export function FormSubmit({
+export function FormSubmit({ classNames,
   children = "Submit",
   className,
   ...props
 }: PimoluFormSubmitProps) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("form", classNames, false);
+
   const { isSubmitting } = useFormContext("FormSubmit");
 
-  return (
+  return scopeParts((
     <Button
       {...props}
       type="submit"
       loading={isSubmitting}
-      className={classNames(
+      className={mergeClasses(formClasses(
         "pimolu-form__submit",
         className
-      )}
+      ), partClasses.submit, classNames?.root)} classNames={forwardedParts}
     >
       {children}
     </Button>
-  );
+  ));
 }

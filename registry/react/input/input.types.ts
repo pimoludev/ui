@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   InputHTMLAttributes,
   MouseEventHandler,
@@ -47,6 +49,9 @@ export interface PimoluInputProps
   fullWidth?: boolean;
 
   containerClassName?: string;
+
+  /** Additive classes for named parts; legacy className targets are unchanged. */
+  classNames?: PimoluClassNames<"input">;
   
   /** Show an accessible clear button when the input is not empty. */
   clearable?: boolean;

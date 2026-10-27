@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   MouseEventHandler,
   ReactNode,
@@ -29,6 +31,9 @@ export interface PimoluSplitButtonItem {
 }
 
 export interface PimoluSplitButtonProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"split-button">;
+
   /** Content of the primary action. Takes precedence over `label`. */
   children?: ReactNode;
 

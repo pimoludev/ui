@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties, ReactNode } from "react";
 
 export interface PimoluMentionsOption {
@@ -16,6 +18,9 @@ export interface PimoluMentionsOption {
 }
 
 export interface PimoluMentionsProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"mentions">;
+
   id?: string;
   name?: string;
 

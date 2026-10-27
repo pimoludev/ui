@@ -13,5 +13,11 @@
     "file": "donut-chart-4.tsx",
     "title": "Compact summary",
     "description": "Use a thinner ring and retain the accessible data alternative."
+  },
+  {
+    "file": "donut-chart-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Style this chart directly through typed geometry and surface hooks.",
+    "append": true
   }
 ]

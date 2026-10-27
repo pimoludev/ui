@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { ReactElement, ReactNode } from "react";
 
 export type PimoluTooltipPlacement =
@@ -8,6 +10,9 @@ export type PimoluTooltipPlacement =
   | "right";
 
 export interface PimoluTooltipProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tooltip">;
+
   /** Content of the bubble. */
   content: ReactNode;
 

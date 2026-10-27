@@ -13,5 +13,11 @@
     "file": "bar-chart-4.tsx",
     "title": "Horizontal categories",
     "description": "Give longer category labels more room."
+  },
+  {
+    "file": "bar-chart-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Style this chart directly through typed geometry and surface hooks.",
+    "append": true
   }
 ]

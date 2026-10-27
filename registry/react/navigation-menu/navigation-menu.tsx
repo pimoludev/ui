@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -34,10 +38,12 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-function Chevron() {
-  return (
+function Chevron({ classNames }: { classNames?: PimoluClassNames<"navigation-menu"> } = {}) {
+  const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-navigation-menu__chevron"
+      className={mergeClasses("pimolu-navigation-menu__chevron", partClasses.chevron)}
       viewBox="0 0 24 24"
       width="14"
       height="14"
@@ -51,7 +57,7 @@ function Chevron() {
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
-  );
+  ));
 }
 
 /* =========================================
@@ -105,13 +111,15 @@ function useNavigationMenuItem(component: string) {
    ROOT
 ========================================= */
 
-export function NavigationMenu({
+export function NavigationMenu({ classNames,
   children,
   label,
   "aria-label": ariaLabel,
   className,
   ...props
 }: PimoluNavigationMenuProps) {
+  const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, true);
+
   const [openValue, setOpenValue] = useState<string | null>(
     null
   );
@@ -144,7 +152,7 @@ export function NavigationMenu({
       document.removeEventListener("keydown", handleKeyDown);
   }, [baseId, openValue]);
 
-  return (
+  return scopeParts((
     <NavigationMenuContext.Provider
       value={{
         baseId,
@@ -157,60 +165,64 @@ export function NavigationMenu({
         {...props}
         ref={rootRef}
         aria-label={ariaLabel ?? label ?? "Main"}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-navigation-menu",
           className
-        )}
+        ), partClasses.root)}
       >
         {children}
       </nav>
     </NavigationMenuContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
    LIST
 ========================================= */
 
-export function NavigationMenuList({
+export function NavigationMenuList({ classNames,
   children,
   className,
   ...props
 }: PimoluNavigationMenuListProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, false);
+
+  return scopeParts((
     <ul
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-navigation-menu__list",
         className
-      )}
+      ), partClasses.list, classNames?.root)}
     >
       {children}
     </ul>
-  );
+  ));
 }
 
-export function NavigationMenuItem({
+export function NavigationMenuItem({ classNames,
   value,
   children,
   className,
   ...props
 }: PimoluNavigationMenuItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, false);
+
   const root = useNavigationMenu("NavigationMenuItem");
 
   const triggerId = `${root.baseId}-trigger-${slug(value)}`;
   const contentId = `${root.baseId}-content-${slug(value)}`;
 
-  return (
+  return scopeParts((
     <NavigationMenuItemContext.Provider
       value={{ value, triggerId, contentId }}
     >
       <li
         {...props}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-navigation-menu__item",
           className
-        )}
+        ), partClasses.item, classNames?.root)}
         data-state={
           root.openValue === value ? "open" : "closed"
         }
@@ -218,17 +230,19 @@ export function NavigationMenuItem({
         {children}
       </li>
     </NavigationMenuItemContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
    TRIGGER
 ========================================= */
 
-export function NavigationMenuTrigger({
+export function NavigationMenuTrigger({ classNames,
   children,
   className,
 }: PimoluNavigationMenuTriggerProps) {
+  const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, false);
+
   const root = useNavigationMenu("NavigationMenuTrigger");
   const item = useNavigationMenuItem("NavigationMenuTrigger");
 
@@ -262,17 +276,17 @@ export function NavigationMenuTrigger({
     }
   }
 
-  return (
+  return scopeParts((
     <button
       type="button"
       id={item.triggerId}
       aria-expanded={open}
       aria-controls={item.contentId}
       data-state={open ? "open" : "closed"}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-navigation-menu__trigger",
         className
-      )}
+      ), partClasses.trigger, classNames?.root)}
       onClick={() =>
         root.setOpenValue(open ? null : item.value)
       }
@@ -282,43 +296,45 @@ export function NavigationMenuTrigger({
 
       <Chevron />
     </button>
-  );
+  ));
 }
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function NavigationMenuContent({
+export function NavigationMenuContent({ classNames,
   children,
   className,
 }: PimoluNavigationMenuContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, false);
+
   const root = useNavigationMenu("NavigationMenuContent");
   const item = useNavigationMenuItem("NavigationMenuContent");
 
   const open = root.openValue === item.value;
 
-  return (
+  return scopeParts((
     <div
       id={item.contentId}
       aria-labelledby={item.triggerId}
       hidden={!open}
       data-state={open ? "open" : "closed"}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-navigation-menu__content",
         className
-      )}
+      ), partClasses.content, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    LINK
 ========================================= */
 
-export function NavigationMenuLink({
+export function NavigationMenuLink({ classNames,
   active = false,
   disabled = false,
   children,
@@ -326,28 +342,30 @@ export function NavigationMenuLink({
   onClick,
   ...props
 }: PimoluNavigationMenuLinkProps) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("navigation-menu", classNames, false);
+
   const root = useNavigationMenu("NavigationMenuLink");
 
-  return (
+  return scopeParts((
     <Link
       {...props}
       variant="muted"
       underline="none"
       disabled={disabled}
       aria-current={active ? "page" : undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-navigation-menu__link",
         className
-      )}
+      ), partClasses.link, classNames?.root)}
       onClick={(event) => {
         onClick?.(event);
 
         if (!event.defaultPrevented) {
           root.setOpenValue(null);
         }
-      }}
+      }} classNames={forwardedParts}
     >
       {children}
     </Link>
-  );
+  ));
 }

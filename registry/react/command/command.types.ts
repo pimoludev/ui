@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 /**
@@ -33,6 +35,9 @@ export interface PimoluCommandItem {
 }
 
 export interface PimoluCommandProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"command">;
+
   items: readonly PimoluCommandItem[];
 
   /** Placeholder of the search field. */
@@ -55,6 +60,9 @@ export interface PimoluCommandProps {
 }
 
 export interface PimoluCommandPaletteProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"command">;
+
   /** Controlled open state. Omit to let the component own it. */
   open?: boolean;
 

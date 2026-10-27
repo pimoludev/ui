@@ -2,7 +2,7 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @source "../content/generated";
-@import "@pimolu/web-styles/styles.css" layer(pimolu);
+@import "@pimolu/web-styles/layered.css";
 
 /* No Tailwind Preflight: Pimolu owns its component defaults. */
 @theme inline {

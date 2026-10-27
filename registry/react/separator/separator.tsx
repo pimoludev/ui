@@ -1,4 +1,7 @@
 
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 import { forwardRef } from "react";
 
 import type {
@@ -15,7 +18,7 @@ export const Separator = forwardRef<
   HTMLDivElement,
   PimoluSeparatorProps
 >(function Separator(
-  {
+  { classNames,
     orientation = "horizontal",
     appearance = "solid",
     thickness = "thin",
@@ -31,6 +34,8 @@ export const Separator = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("separator", classNames, true);
+
   const separatorClassName = [
     separatorVariants({
       orientation,
@@ -44,11 +49,11 @@ export const Separator = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
-      className={separatorClassName}
+      className={mergeClasses(separatorClassName, partClasses.root)}
 
       role={decorative ? "none" : "separator"}
 
@@ -69,7 +74,7 @@ export const Separator = forwardRef<
       data-orientation={orientation}
       data-decorative={decorative ? "true" : "false"}
     />
-  );
+  ));
 });
 
 Separator.displayName = "PimoluSeparator";

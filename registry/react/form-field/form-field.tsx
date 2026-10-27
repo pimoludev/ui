@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   cloneElement,
@@ -54,7 +57,7 @@ function classes(
    FORM FIELD
 ========================================= */
 
-export function FormField({
+export function FormField({ classNames,
   children,
   label,
   id,
@@ -67,6 +70,8 @@ export function FormField({
   disabled = false,
   className,
 }: PimoluFormFieldProps) {
+  const [partClasses, scopeParts] = usePartClasses("form-field", classNames, true);
+
   const generatedId = useId();
 
   const controlId = id ?? `pimolu-field-${generatedId}`;
@@ -76,7 +81,7 @@ export function FormField({
   const message = errorMessage ?? helperText;
   const hasMessage = Boolean(message);
 
-  return (
+  return scopeParts((
     <FormFieldContext.Provider
       value={{
         controlId,
@@ -88,14 +93,15 @@ export function FormField({
       }}
     >
       <div
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-form-field",
           disabled && "pimolu-form-field--disabled",
           className
-        )}
+        ), partClasses.root)}
       >
         {label && (
           <Label
+            className={partClasses.label}
             htmlFor={controlId}
             required={required}
             optional={optional}
@@ -110,6 +116,7 @@ export function FormField({
 
         {message && (
           <FormMessage
+            className={partClasses.message}
             id={messageId}
             variant={hasError ? "error" : "helper"}
           >
@@ -118,7 +125,7 @@ export function FormField({
         )}
       </div>
     </FormFieldContext.Provider>
-  );
+  ));
 }
 
 /* =========================================
@@ -176,115 +183,121 @@ export function FormControl({
    FORM MESSAGE
 ========================================= */
 
-export function FormMessage({
+export function FormMessage({ classNames,
   children,
   variant = "helper",
   id,
   className,
 }: PimoluFormMessageProps) {
-  if (!children) return null;
+  const [partClasses, scopeParts] = usePartClasses("form-field", classNames, true);
 
-  return (
+  if (!children) return scopeParts(null);
+
+  return scopeParts((
     <p
       id={id}
       role={variant === "error" ? "alert" : undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-form-message",
         `pimolu-form-message--${variant}`,
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </p>
-  );
+  ));
 }
 
 /* =========================================
    FORM GROUP
 ========================================= */
 
-export function FormGroup({
+export function FormGroup({ classNames,
   children,
   label,
   description,
   orientation = "vertical",
   className,
 }: PimoluFormGroupProps) {
+  const [partClasses, scopeParts] = usePartClasses("form-field", classNames, true);
+
   const generatedId = useId();
   const labelId = `pimolu-form-group-${generatedId}`;
 
-  return (
+  return scopeParts((
     <div
       role="group"
       aria-labelledby={label ? labelId : undefined}
       data-orientation={orientation}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-form-group",
         `pimolu-form-group--${orientation}`,
         className
-      )}
+      ), partClasses.root)}
     >
       {label && (
         <span
           id={labelId}
-          className="pimolu-form-group__label"
+          className={mergeClasses("pimolu-form-group__label", partClasses.label)}
         >
           {label}
         </span>
       )}
 
       {description && (
-        <p className="pimolu-form-group__description">
+        <p className={mergeClasses("pimolu-form-group__description", partClasses.description)}>
           {description}
         </p>
       )}
 
-      <div className="pimolu-form-group__items">
+      <div className={mergeClasses("pimolu-form-group__items", partClasses.items)}>
         {children}
       </div>
     </div>
-  );
+  ));
 }
 
 /* =========================================
    FIELDSET
 ========================================= */
 
-export function Fieldset({
+export function Fieldset({ classNames,
   children,
   legend,
   description,
   disabled = false,
   className,
 }: PimoluFieldsetProps) {
+  const [partClasses, scopeParts] = usePartClasses("form-field", classNames, true);
+
   const generatedId = useId();
 
   const descriptionId = description
     ? `pimolu-fieldset-${generatedId}`
     : undefined;
 
-  return (
+  return scopeParts((
     <fieldset
       disabled={disabled}
       aria-describedby={descriptionId}
-      className={classes("pimolu-fieldset", className)}
+      className={mergeClasses(classes("pimolu-fieldset", className), partClasses.root)}
     >
-      <legend className="pimolu-fieldset__legend">
+      <legend className={mergeClasses("pimolu-fieldset__legend", partClasses.legend)}>
         {legend}
       </legend>
 
       {description && (
         <p
           id={descriptionId}
-          className="pimolu-fieldset__description"
+          className={mergeClasses("pimolu-fieldset__description", partClasses.description)}
         >
           {description}
         </p>
       )}
 
-      <div className="pimolu-fieldset__items">
+      <div className={mergeClasses("pimolu-fieldset__items", partClasses.items)}>
         {children}
       </div>
     </fieldset>
-  );
+  ));
 }

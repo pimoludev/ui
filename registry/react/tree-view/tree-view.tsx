@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useEffect,
@@ -48,10 +52,12 @@ function flatten(
   return nodes;
 }
 
-function Chevron() {
-  return (
+function Chevron({ classNames }: { classNames?: PimoluClassNames<"tree-view"> } = {}) {
+  const [partClasses, scopeParts] = usePartClasses("tree-view", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-tree__chevron"
+      className={mergeClasses("pimolu-tree__chevron", partClasses.chevron)}
       viewBox="0 0 24 24"
       width="14"
       height="14"
@@ -65,10 +71,10 @@ function Chevron() {
     >
       <path d="m9 18 6-6-6-6" />
     </svg>
-  );
+  ));
 }
 
-export function TreeView({
+export function TreeView({ classNames,
   items,
   expandedIds: controlledExpanded,
   defaultExpandedIds = [],
@@ -79,6 +85,8 @@ export function TreeView({
   "aria-label": ariaLabel,
   className,
 }: PimoluTreeViewProps) {
+  const [partClasses, scopeParts] = usePartClasses("tree-view", classNames, true);
+
   const isExpandedControlled =
     controlledExpanded !== undefined;
 
@@ -266,16 +274,16 @@ export function TreeView({
     }
   }
 
-  return (
+  return scopeParts((
     <ul
       role="tree"
       aria-label={ariaLabel}
-      className={[
+      className={mergeClasses([
         "pimolu-tree",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       onKeyDown={handleKeyDown}
     >
       {visible.map((node) => {
@@ -317,7 +325,7 @@ export function TreeView({
                 "--pimolu-tree-level": level,
               } as CSSProperties
             }
-            className="pimolu-tree__item"
+            className={mergeClasses("pimolu-tree__item", partClasses.item)}
             onFocus={() => setFocusedId(item.id)}
             onClick={() => {
               if (item.disabled) return;
@@ -330,18 +338,18 @@ export function TreeView({
             }}
           >
             <span
-              className="pimolu-tree__chevron-slot"
+              className={mergeClasses("pimolu-tree__chevron-slot", partClasses.chevronSlot)}
               aria-hidden="true"
             >
               {hasChildren && <Chevron />}
             </span>
 
-            <span className="pimolu-tree__label">
+            <span className={mergeClasses("pimolu-tree__label", partClasses.label)}>
               {item.label}
             </span>
           </li>
         );
       })}
     </ul>
-  );
+  ));
 }

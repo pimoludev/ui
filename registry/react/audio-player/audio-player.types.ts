@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   AudioHTMLAttributes,
   ReactEventHandler,
@@ -41,6 +43,9 @@ export interface PimoluAudioPlayerProps
     | "onVolumeChange"
     | "onDurationChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"audio-player">;
+
   /** Audio URL. */
   src: string;
 

@@ -13,5 +13,11 @@
     "file": "sparkline-4.tsx",
     "title": "Stable values",
     "description": "Represent a constant series without inventing variation."
+  },
+  {
+    "file": "sparkline-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Style this chart directly through typed geometry and surface hooks.",
+    "append": true
   }
 ]

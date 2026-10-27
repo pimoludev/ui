@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ButtonHTMLAttributes,
   HTMLAttributes,
@@ -6,6 +8,9 @@ import type {
 
 export interface PimoluMenubarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "role"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   children: ReactNode;
 
   /** Accessible name of the menubar. Defaults to "Menu bar". */
@@ -13,6 +18,9 @@ export interface PimoluMenubarProps
 }
 
 export interface PimoluMenubarMenuProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   children: ReactNode;
 
   className?: string;
@@ -29,11 +37,17 @@ export interface PimoluMenubarTriggerProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     "type"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   children: ReactNode;
 }
 
 export interface PimoluMenubarContentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "role"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   children: ReactNode;
 
   /** Distance from the trigger. Defaults to 4. */
@@ -45,6 +59,9 @@ export interface PimoluMenubarItemProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     "type" | "onSelect"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   children: ReactNode;
 
   /** Runs before the menu closes and returns focus to its trigger. */
@@ -52,10 +69,16 @@ export interface PimoluMenubarItemProps
 }
 
 export interface PimoluMenubarSeparatorProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   className?: string;
 }
 
 export interface PimoluMenubarLabelProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"menubar">;
+
   children: ReactNode;
   className?: string;
 }

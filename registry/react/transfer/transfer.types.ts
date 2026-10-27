@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties, ReactNode } from "react";
 
 export interface PimoluTransferItem {
@@ -9,6 +11,9 @@ export interface PimoluTransferItem {
 }
 
 export interface PimoluTransferProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"transfer">;
+
   data: readonly PimoluTransferItem[];
 
   /** Controlled keys of the target (right) list. */

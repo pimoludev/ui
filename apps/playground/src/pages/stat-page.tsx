@@ -1,3 +1,4 @@
+import { CustomizationExample } from "./stat-customization-demo";
 import {
   Badge,
   Card,
@@ -257,6 +258,7 @@ export function StatPage() {
           </CardContent>
         </Card>
       </Section>
-    </>
+    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+</>
   );
 }

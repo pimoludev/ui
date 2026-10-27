@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -16,7 +19,7 @@ export const Switch = forwardRef<
   HTMLInputElement,
   PimoluSwitchProps
 >(function Switch(
-  {
+  { classNames,
     id,
     label,
     description,
@@ -39,6 +42,8 @@ export const Switch = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("switch", classNames, true);
+
   /* Stable ID for accessibility */
 
   const generatedId = useId();
@@ -80,21 +85,21 @@ export const Switch = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
+  return scopeParts((
     <div
-      className={switchClassName}
+      className={mergeClasses(switchClassName, partClasses.root)}
       style={style}
     >
       {/* Native switch control */}
 
-      <span className="pimolu-switch__control">
+      <span className={mergeClasses("pimolu-switch__control", partClasses.control)}>
         <input
           {...inputProps}
           ref={ref}
           id={switchId}
           type="checkbox"
           role="switch"
-          className="pimolu-switch__input"
+          className={mergeClasses("pimolu-switch__input", partClasses.input)}
           disabled={disabled}
           required={required}
           onChange={handleChange}
@@ -102,27 +107,27 @@ export const Switch = forwardRef<
         />
 
         <span
-          className="pimolu-switch__track"
+          className={mergeClasses("pimolu-switch__track", partClasses.track)}
           aria-hidden="true"
         >
-          <span className="pimolu-switch__thumb" />
+          <span className={mergeClasses("pimolu-switch__thumb", partClasses.thumb)} />
         </span>
       </span>
 
       {/* Optional visible text */}
 
       {(label || description) && (
-        <span className="pimolu-switch__content">
+        <span className={mergeClasses("pimolu-switch__content", partClasses.content)}>
           {label && (
             <label
               htmlFor={switchId}
-              className="pimolu-switch__label"
+              className={mergeClasses("pimolu-switch__label", partClasses.label)}
             >
               {label}
 
               {required && (
                 <span
-                  className="pimolu-switch__required"
+                  className={mergeClasses("pimolu-switch__required", partClasses.required)}
                   aria-hidden="true"
                 >
                   *
@@ -134,7 +139,7 @@ export const Switch = forwardRef<
           {description && (
             <span
               id={descriptionId}
-              className="pimolu-switch__description"
+              className={mergeClasses("pimolu-switch__description", partClasses.description)}
             >
               {description}
             </span>
@@ -142,7 +147,7 @@ export const Switch = forwardRef<
         </span>
       )}
     </div>
-  );
+  ));
 });
 
 Switch.displayName = "PimoluSwitch";

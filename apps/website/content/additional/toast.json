@@ -13,5 +13,11 @@
     "file": "toast-undo.tsx",
     "title": "Undo a local action",
     "description": "Archive a draft and restore it through the toast action."
+  },
+  {
+    "file": "toast-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

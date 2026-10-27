@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   AnchorHTMLAttributes,
   HTMLAttributes,
@@ -6,6 +8,9 @@ import type {
 
 export interface PimoluSidebarProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   /** Stick to the top of the scroll container. */
   sticky?: boolean;
 
@@ -26,6 +31,9 @@ export interface PimoluSidebarProps
 
 export interface PimoluSidebarHeaderProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   children: ReactNode;
 
   /** Logo or compact identity kept visible in the collapsed desktop rail. */
@@ -34,6 +42,9 @@ export interface PimoluSidebarHeaderProps
 
 export interface PimoluSidebarContentProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   "aria-label"?: string;
 
   children: ReactNode;
@@ -41,16 +52,25 @@ export interface PimoluSidebarContentProps
 
 export interface PimoluSidebarGroupProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   children: ReactNode;
 }
 
 export interface PimoluSidebarGroupLabelProps
   extends HTMLAttributes<HTMLSpanElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   children: ReactNode;
 }
 
 export interface PimoluSidebarItemProps
   extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   active?: boolean;
 
   disabled?: boolean;
@@ -63,6 +83,9 @@ export interface PimoluSidebarItemProps
 
 export interface PimoluSidebarFooterProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"sidebar">;
+
   children: ReactNode;
 
   /** Profile/avatar kept visible when the navigation is collapsed. */

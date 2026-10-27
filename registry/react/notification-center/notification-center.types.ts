@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 import type { PimoluPopoverPlacement } from "../popover/popover.types";
@@ -30,6 +32,9 @@ export interface PimoluNotification {
 export type PimoluNotificationTab = "all" | "unread";
 
 export interface PimoluNotificationCenterProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"notification-center">;
+
   notifications: PimoluNotification[];
 
   /** Marks one notification as read. */

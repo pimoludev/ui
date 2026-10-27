@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type {
   PimoluListItemProps,
@@ -14,24 +17,26 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function List({
+export function List({ classNames,
   variant = "divided",
   size = "md",
   children,
   className,
   ...props
 }: PimoluListProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("list", classNames, true);
+
+  return scopeParts((
     <ul
       {...props}
-      className={listVariants({ variant, size }, className)}
+      className={mergeClasses(listVariants({ variant, size }, className), partClasses.root)}
     >
       {children}
     </ul>
-  );
+  ));
 }
 
-export function ListItem({
+export function ListItem({ classNames,
   title,
   description,
   start,
@@ -43,40 +48,42 @@ export function ListItem({
   className,
   ...props
 }: PimoluListItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("list", classNames, false);
+
   const content = (
     <>
       {start && (
         <span
-          className="pimolu-list__start"
+          className={mergeClasses("pimolu-list__start", partClasses.start, classNames?.root)}
           aria-hidden="true"
         >
           {start}
         </span>
       )}
 
-      <span className="pimolu-list__main">
+      <span className={mergeClasses("pimolu-list__main", partClasses.main, classNames?.root)}>
         {(title || children) && (
-          <span className="pimolu-list__title">
+          <span className={mergeClasses("pimolu-list__title", partClasses.title)}>
             {title ?? children}
           </span>
         )}
 
         {description && (
-          <span className="pimolu-list__description">
+          <span className={mergeClasses("pimolu-list__description", partClasses.description)}>
             {description}
           </span>
         )}
       </span>
 
       {end && (
-        <span className="pimolu-list__end">
+        <span className={mergeClasses("pimolu-list__end", partClasses.end, classNames?.root)}>
           {end}
         </span>
       )}
     </>
   );
 
-  return (
+  return scopeParts((
     <li
       {...props}
       aria-current={active ? "true" : undefined}
@@ -87,25 +94,25 @@ export function ListItem({
             ? "active"
             : "default"
       }
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-list__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
     >
       {onClick ? (
         <button
           type="button"
-          className="pimolu-list__row"
+          className={mergeClasses("pimolu-list__row", partClasses.row)}
           disabled={disabled}
           onClick={onClick}
         >
           {content}
         </button>
       ) : (
-        <div className="pimolu-list__row">
+        <div className={mergeClasses("pimolu-list__row", partClasses.row)}>
           {content}
         </div>
       )}
     </li>
-  );
+  ));
 }

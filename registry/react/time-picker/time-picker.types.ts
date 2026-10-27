@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   InputHTMLAttributes,
   ReactNode,
@@ -24,6 +26,9 @@ export interface PimoluTimePickerProps
     | "max"
     | "step"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"time-picker">;
+
   /**
    * Controlled time. Accepts `"HH:mm"`, or `"HH:mm:ss"` when
    * `withSeconds` is set. `null` represents an empty field.

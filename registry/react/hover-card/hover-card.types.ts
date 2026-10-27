@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactElement, ReactNode } from "react";
 
 export type PimoluHoverCardPlacement =
@@ -50,10 +52,10 @@ export type PimoluHoverCardLabelling =
   | { labelledBy: string; label?: undefined };
 
 export type PimoluHoverCardContentProps =
-  PimoluHoverCardLabelling & {
+  (PimoluHoverCardLabelling & {
     /** Rich, interactive content of the card. */
     children: ReactNode;
 
     /** Class applied to the panel. */
     className?: string;
-  };
+  }) & { classNames?: PimoluClassNames<"hover-card"> };

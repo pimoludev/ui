@@ -158,9 +158,13 @@ for (const component of catalog) {
         const name = property.getName();
         const local = property.declarations?.some((node) => node.getSourceFile().fileName.replaceAll("\\", "/").startsWith(path.join(root, "registry/react").replaceAll("\\", "/") + "/"));
         if (!local && !nativeProps.has(name)) continue;
-        const description = ts.displayPartsToString(property.getDocumentationComment(checker)).replace(/\s+/g, " ").trim();
+        let description = ts.displayPartsToString(property.getDocumentationComment(checker)).replace(/\s+/g, " ").trim();
         const declaredDefault = description.match(/Defaults? to (.+?)\.(?:\s|$)/i)?.[1];
         const valueType = checker.getTypeOfSymbolAtLocation(property, declaration);
+        if (name === "classNames") {
+          const parts = checker.getNonNullableType(valueType).getProperties().map((part) => part.getName()).sort();
+          if (parts.length) description += ` Parts: ${parts.join(", ")}. Parts render only when the corresponding component or state is present.`;
+        }
         rows.push({
           name,
           type: checker.typeToString(valueType, declaration, ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope),

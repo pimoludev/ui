@@ -1,8 +1,12 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
 import {
   forwardRef,
   type ButtonHTMLAttributes,
   type ReactNode,
 } from "react";
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   buttonVariants,
@@ -18,6 +22,8 @@ export interface ButtonProps
   endIcon?: ReactNode;
   fullWidth?: boolean;
   iconOnly?: boolean;
+  /** Additive classes for stable named parts; className still targets the root. */
+  classNames?: PimoluClassNames<"button">;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -34,12 +40,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       iconOnly = false,
       disabled,
       className = "",
+      classNames,
       type = "button",
       children,
       ...props
     },
     ref
   ) {
+  const [partClasses, scopeParts] = usePartClasses("button", classNames, true);
+
     const classes = [
       buttonVariants(
         { variant, appearance, size, radius },
@@ -47,39 +56,40 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ),
       fullWidth && !iconOnly && "pimolu-button--full-width",
       iconOnly && "pimolu-button--icon-only",
+      partClasses.root,
     ]
       .filter(Boolean)
       .join(" ");
 
-    return (
+    return scopeParts((
       <button
         {...props}
         ref={ref}
         type={type}
         disabled={disabled || loading}
         aria-busy={loading || undefined}
-        className={classes}
+        className={mergeClasses(classes, partClasses.root)}
       >
         {loading ? (
           <span
-            className="pimolu-button__spinner"
+            className={mergeClasses("pimolu-button__spinner", partClasses.spinner)}
             aria-hidden="true"
           />
         ) : (
           startIcon && (
-            <span aria-hidden="true">{startIcon}</span>
+            <span className={partClasses.startIcon} aria-hidden="true">{startIcon}</span>
           )
         )}
 
-        <span className="pimolu-button__label">
+        <span className={mergeClasses("pimolu-button__label", partClasses.label)}>
           {children}
         </span>
 
         {!loading && endIcon && (!iconOnly || !startIcon) && (
-          <span aria-hidden="true">{endIcon}</span>
+          <span className={partClasses.endIcon} aria-hidden="true">{endIcon}</span>
         )}
       </button>
-    );
+    ));
   }
 );
 

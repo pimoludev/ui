@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type { CSSProperties } from "react";
 
@@ -16,7 +19,7 @@ function classes(
  * sidebar, the main region and an optional right rail. It is intentionally
  * different from DashboardLayout, whose navbar only spans the content column.
  */
-export function AppShell({
+export function AppShell({ classNames,
   header,
   sidebar,
   children,
@@ -31,6 +34,8 @@ export function AppShell({
   style,
   ...props
 }: PimoluAppShellProps) {
+  const [partClasses, scopeParts] = usePartClasses("app-shell", classNames, true);
+
   const hasSidebar = sidebar != null;
   const hasAside = aside != null;
 
@@ -54,35 +59,35 @@ export function AppShell({
       : {}),
   } as CSSProperties;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       data-sidebar={hasSidebar ? "true" : "false"}
       data-aside={hasAside ? "true" : "false"}
       data-sticky-header={stickyHeader || undefined}
-      className={classes("pimolu-app-shell", className)}
+      className={mergeClasses(classes("pimolu-app-shell", className), partClasses.root)}
       style={shellStyle}
     >
-      <header className="pimolu-app-shell__header">
+      <header className={mergeClasses("pimolu-app-shell__header", partClasses.header)}>
         {header}
       </header>
 
       {hasSidebar && (
         <aside
-          className="pimolu-app-shell__sidebar"
+          className={mergeClasses("pimolu-app-shell__sidebar", partClasses.sidebar)}
           aria-label={sidebarLabel}
         >
           {sidebar}
         </aside>
       )}
 
-      <main className="pimolu-app-shell__main">
+      <main className={mergeClasses("pimolu-app-shell__main", partClasses.main)}>
         {children}
       </main>
 
       {hasAside && (
         <aside
-          className="pimolu-app-shell__aside"
+          className={mergeClasses("pimolu-app-shell__aside", partClasses.aside)}
           aria-label={asideLabel}
         >
           {aside}
@@ -90,12 +95,12 @@ export function AppShell({
       )}
 
       {footer != null && (
-        <footer className="pimolu-app-shell__footer">
+        <footer className={mergeClasses("pimolu-app-shell__footer", partClasses.footer)}>
           {footer}
         </footer>
       )}
     </div>
-  );
+  ));
 }
 
 AppShell.displayName = "PimoluAppShell";

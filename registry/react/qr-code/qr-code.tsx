@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { useMemo } from "react";
 
@@ -1029,7 +1032,7 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-export function QRCode({
+export function QRCode({ classNames,
   value,
   size = 160,
   level = "M",
@@ -1042,6 +1045,8 @@ export function QRCode({
   style,
   "aria-label": ariaLabel,
 }: PimoluQRCodeProps) {
+  const [partClasses, scopeParts] = usePartClasses("qr-code", classNames, true);
+
   const quietZone = Number.isFinite(margin)
     ? clamp(Math.trunc(margin), 0, 16)
     : 4;
@@ -1076,15 +1081,15 @@ export function QRCode({
 
   const label = ariaLabel ?? title ?? "QR code";
 
-  return (
+  return scopeParts((
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={[
+      className={mergeClasses([
         "pimolu-qr-code",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       width={size}
       height={size}
       viewBox={`0 0 ${dimension} ${dimension}`}
@@ -1105,20 +1110,20 @@ export function QRCode({
       {title ? <title>{title}</title> : null}
 
       <rect
-        className="pimolu-qr-code__background"
+        className={mergeClasses("pimolu-qr-code__background", partClasses.background)}
         width={dimension}
         height={dimension}
         fill={lightColor}
       />
 
       <path
-        className="pimolu-qr-code__modules"
+        className={mergeClasses("pimolu-qr-code__modules", partClasses.modules)}
         d={path}
         fill={darkColor}
         shapeRendering="crispEdges"
       />
     </svg>
-  );
+  ));
 }
 
 QRCode.displayName = "PimoluQRCode";

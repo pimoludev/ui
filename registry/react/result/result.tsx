@@ -1,3 +1,6 @@
+
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef } from "react";
 
 import type { PimoluResultProps } from "./result.types";
@@ -8,7 +11,7 @@ export const Result = forwardRef<
   HTMLDivElement,
   PimoluResultProps
 >(function Result(
-  {
+  { classNames,
     status = "info",
     title,
     description,
@@ -19,6 +22,8 @@ export const Result = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("result", classNames, true);
+
   const classes = [
     resultVariants({ status }),
     className,
@@ -28,40 +33,40 @@ export const Result = forwardRef<
 
   const role = status === "error" ? "alert" : "status";
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       role={role}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       data-status={status}
     >
       {icon != null && (
         <span
-          className="pimolu-result__icon"
+          className={mergeClasses("pimolu-result__icon", partClasses.icon)}
           aria-hidden="true"
         >
           {icon}
         </span>
       )}
 
-      <p className="pimolu-result__title">
+      <p className={mergeClasses("pimolu-result__title", partClasses.title)}>
         {title}
       </p>
 
       {description != null && (
-        <p className="pimolu-result__description">
+        <p className={mergeClasses("pimolu-result__description", partClasses.description)}>
           {description}
         </p>
       )}
 
       {actions != null && (
-        <div className="pimolu-result__actions">
+        <div className={mergeClasses("pimolu-result__actions", partClasses.actions)}>
           {actions}
         </div>
       )}
     </div>
-  );
+  ));
 });
 
 Result.displayName = "PimoluResult";

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -13,6 +15,9 @@ export type PimoluStatTrend = "up" | "down" | "neutral";
 
 export interface PimoluStatProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"stat">;
+
 
   /** Metric name, also used to label the group. */
   label: string;

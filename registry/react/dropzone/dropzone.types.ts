@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -24,6 +26,9 @@ export interface PimoluDropzoneProps
     | "onDragOver"
     | "onDragLeave"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"dropzone">;
+
   /** Controlled list of files. */
   files?: File[];
 

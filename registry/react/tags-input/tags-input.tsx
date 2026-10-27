@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -47,7 +50,7 @@ export const TagsInput = forwardRef<
   HTMLInputElement,
   PimoluTagsInputProps
 >(function TagsInput(
-  {
+  { classNames,
     id,
     value,
     defaultValue,
@@ -82,6 +85,8 @@ export const TagsInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("tags-input", classNames, true);
+
   const generatedId = useId();
   const inputId = id ?? `pimolu-tags-input-${generatedId}`;
 
@@ -288,9 +293,9 @@ export const TagsInput = forwardRef<
       ? "Press Enter to add a tag. Backspace removes the last tag."
       : `Press Enter to add a tag. Backspace removes the last tag. Maximum ${limit} tags.`;
 
-  return (
+  return scopeParts((
     <div
-      className={[
+      className={mergeClasses([
         "pimolu-tags-input",
         sizeClass[size],
         fullWidth && "pimolu-tags-input--full-width",
@@ -300,18 +305,18 @@ export const TagsInput = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-tags-input__label"
+          className={mergeClasses("pimolu-tags-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-tags-input__required"
+              className={mergeClasses("pimolu-tags-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -321,26 +326,26 @@ export const TagsInput = forwardRef<
       )}
 
       <div
-        className="pimolu-tags-input__wrapper"
+        className={mergeClasses("pimolu-tags-input__wrapper", partClasses.wrapper)}
         onClick={handleContainerClick}
       >
         {tags.length > 0 && (
           <ul
-            className="pimolu-tags-input__tags"
+            className={mergeClasses("pimolu-tags-input__tags", partClasses.tags)}
             aria-label="Selected tags"
           >
             {tags.map((tag, index) => (
               <li
                 key={`${tag}-${index}`}
-                className="pimolu-tags-input__tag"
+                className={mergeClasses("pimolu-tags-input__tag", partClasses.tag)}
               >
-                <span className="pimolu-tags-input__tag-label">
+                <span className={mergeClasses("pimolu-tags-input__tag-label", partClasses.tagLabel)}>
                   {tag}
                 </span>
 
                 <button
                   type="button"
-                  className="pimolu-tags-input__remove"
+                  className={mergeClasses("pimolu-tags-input__remove", partClasses.remove)}
                   aria-label={`Remove ${tag}`}
                   disabled={disabled || readOnly}
                   onClick={() => removeTag(index)}
@@ -369,7 +374,7 @@ export const TagsInput = forwardRef<
           ref={setInputRef}
           id={inputId}
           type="text"
-          className="pimolu-tags-input__input"
+          className={mergeClasses("pimolu-tags-input__input", partClasses.input)}
           value={draft}
           placeholder={placeholder}
           onChange={(event) =>
@@ -390,7 +395,7 @@ export const TagsInput = forwardRef<
 
       <span
         id={hintId}
-        className="pimolu-tags-input__sr-only"
+        className={mergeClasses("pimolu-tags-input__sr-only", partClasses.srOnly)}
       >
         {instruction}
       </span>
@@ -398,18 +403,16 @@ export const TagsInput = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            hasError
+          className={mergeClasses(hasError
               ? "pimolu-tags-input__error"
-              : "pimolu-tags-input__helper"
-          }
+              : "pimolu-tags-input__helper", partClasses.error)}
           role={hasError ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 TagsInput.displayName = "PimoluTagsInput";

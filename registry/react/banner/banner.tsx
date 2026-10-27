@@ -1,3 +1,6 @@
+
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
 import { forwardRef } from "react";
 
 import type { PimoluBannerProps } from "./banner.types";
@@ -27,7 +30,7 @@ export const Banner = forwardRef<
   HTMLDivElement,
   PimoluBannerProps
 >(function Banner(
-  {
+  { classNames,
     variant = "info",
     title,
     description,
@@ -43,6 +46,8 @@ export const Banner = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("banner", classNames, true);
+
   const classes = [
     bannerVariants({ variant }),
     sticky && "pimolu-banner--sticky",
@@ -57,38 +62,38 @@ export const Banner = forwardRef<
   const showDismiss =
     Boolean(onDismiss) && dismissible !== false;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       role={resolvedRole}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       data-variant={variant}
       data-sticky={sticky ? "true" : "false"}
     >
-      <div className="pimolu-banner__inner">
+      <div className={mergeClasses("pimolu-banner__inner", partClasses.inner)}>
         {icon != null && (
           <span
-            className="pimolu-banner__icon"
+            className={mergeClasses("pimolu-banner__icon", partClasses.icon)}
             aria-hidden="true"
           >
             {icon}
           </span>
         )}
 
-        <div className="pimolu-banner__content">
-          <p className="pimolu-banner__title">
+        <div className={mergeClasses("pimolu-banner__content", partClasses.content)}>
+          <p className={mergeClasses("pimolu-banner__title", partClasses.title)}>
             {title}
           </p>
 
           {description != null && (
-            <p className="pimolu-banner__description">
+            <p className={mergeClasses("pimolu-banner__description", partClasses.description)}>
               {description}
             </p>
           )}
 
           {actions != null && (
-            <div className="pimolu-banner__actions">
+            <div className={mergeClasses("pimolu-banner__actions", partClasses.actions)}>
               {actions}
             </div>
           )}
@@ -97,7 +102,7 @@ export const Banner = forwardRef<
         {showDismiss && (
           <button
             type="button"
-            className="pimolu-banner__dismiss"
+            className={mergeClasses("pimolu-banner__dismiss", partClasses.dismiss)}
             aria-label={dismissLabel}
             onClick={onDismiss}
           >
@@ -106,7 +111,7 @@ export const Banner = forwardRef<
         )}
       </div>
     </div>
-  );
+  ));
 });
 
 Banner.displayName = "PimoluBanner";

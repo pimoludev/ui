@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ReactEventHandler,
   ReactNode,
@@ -52,6 +54,9 @@ export interface PimoluVideoPlayerProps
     | "onDurationChange"
     | "onClick"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"video-player">;
+
   /** Video URL. Sources may also be provided through `captions`/native markup. */
   src?: string;
 

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -10,6 +12,9 @@ export interface PimoluLoadingOverlayProps
     HTMLAttributes<HTMLDivElement>,
     "role" | "aria-busy"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"loading-overlay">;
+
   /** Whether the overlay is visible. Defaults to true. */
   loading?: boolean;
 

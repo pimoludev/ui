@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { useState } from "react";
 
@@ -58,7 +61,7 @@ function clamp(page: number, pageCount: number) {
   );
 }
 
-export function Pagination({
+export function Pagination({ classNames,
   page: controlledPage,
   defaultPage = 1,
   pageCount,
@@ -71,6 +74,8 @@ export function Pagination({
   className,
   ...props
 }: PimoluPaginationProps) {
+  const [partClasses, scopeParts] = usePartClasses("pagination", classNames, true);
+
   const [uncontrolledPage, setUncontrolledPage] =
     useState(defaultPage);
 
@@ -99,20 +104,20 @@ export function Pagination({
     onPageChange?.(page);
   }
 
-  return (
+  return scopeParts((
     <nav
       {...props}
       aria-label={props["aria-label"] ?? "Pagination"}
-      className={paginationVariants(
+      className={mergeClasses(paginationVariants(
         { size },
         className
-      )}
+      ), partClasses.root)}
     >
-      <ul className="pimolu-pagination__list">
+      <ul className={mergeClasses("pimolu-pagination__list", partClasses.list)}>
         <li>
           <button
             type="button"
-            className="pimolu-pagination__button pimolu-pagination__arrow"
+            className={mergeClasses("pimolu-pagination__button pimolu-pagination__arrow", partClasses.button)}
             aria-label={previousLabel}
             disabled={disabled || current <= 1}
             onClick={() => goTo(current - 1)}
@@ -126,7 +131,7 @@ export function Pagination({
             <li key={item}>
               <button
                 type="button"
-                className="pimolu-pagination__button"
+                className={mergeClasses("pimolu-pagination__button", partClasses.button)}
                 aria-label={`Page ${item}`}
                 aria-current={
                   item === current ? "page" : undefined
@@ -146,7 +151,7 @@ export function Pagination({
             <li
               key={item}
               aria-hidden="true"
-              className="pimolu-pagination__ellipsis"
+              className={mergeClasses("pimolu-pagination__ellipsis", partClasses.ellipsis)}
             >
               …
             </li>
@@ -156,7 +161,7 @@ export function Pagination({
         <li>
           <button
             type="button"
-            className="pimolu-pagination__button pimolu-pagination__arrow"
+            className={mergeClasses("pimolu-pagination__button pimolu-pagination__arrow", partClasses.button)}
             aria-label={nextLabel}
             disabled={
               disabled || current >= pageCount
@@ -168,5 +173,5 @@ export function Pagination({
         </li>
       </ul>
     </nav>
-  );
+  ));
 }

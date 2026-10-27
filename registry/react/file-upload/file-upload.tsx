@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -187,7 +190,7 @@ export const FileUpload = forwardRef<
   HTMLDivElement,
   PimoluFileUploadProps
 >(function FileUpload(
-  {
+  { classNames,
     files,
     defaultFiles,
     onFilesChange,
@@ -213,6 +216,8 @@ export const FileUpload = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("file-upload", classNames, true);
+
   const generatedId = useId();
   const inputId = `pimolu-file-upload-${generatedId}`;
   const labelId = `${inputId}-label`;
@@ -321,26 +326,26 @@ export const FileUpload = forwardRef<
   const removeLabel = (file: File) =>
     removeFileLabel?.(file) ?? `Remove ${file.name}`;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
       data-disabled={disabled || undefined}
       data-invalid={hasError || undefined}
-      className={[
+      className={mergeClasses([
         "pimolu-file-upload",
         disabled && "pimolu-file-upload--disabled",
         hasError && "pimolu-file-upload--invalid",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       {label && (
         <label
           id={labelId}
           htmlFor={inputId}
-          className="pimolu-file-upload__label"
+          className={mergeClasses("pimolu-file-upload__label", partClasses.label)}
         >
           {label}
         </label>
@@ -349,7 +354,7 @@ export const FileUpload = forwardRef<
       {description && (
         <p
           id={descriptionId}
-          className="pimolu-file-upload__description"
+          className={mergeClasses("pimolu-file-upload__description", partClasses.description)}
         >
           {description}
         </p>
@@ -358,7 +363,7 @@ export const FileUpload = forwardRef<
       {hasError && (
         <p
           id={errorId}
-          className="pimolu-file-upload__error"
+          className={mergeClasses("pimolu-file-upload__error", partClasses.error)}
           role="alert"
         >
           {error}
@@ -368,7 +373,7 @@ export const FileUpload = forwardRef<
       <input
         ref={inputRef}
         id={inputId}
-        className="pimolu-file-upload__input"
+        className={mergeClasses("pimolu-file-upload__input", partClasses.input)}
         type="file"
         accept={accept}
         multiple={multiple}
@@ -387,9 +392,9 @@ export const FileUpload = forwardRef<
       />
 
       {currentFiles.length === 0 ? (
-        <div className="pimolu-file-upload__empty">
+        <div className={mergeClasses("pimolu-file-upload__empty", partClasses.empty)}>
           <span
-            className="pimolu-file-upload__empty-icon"
+            className={mergeClasses("pimolu-file-upload__empty-icon", partClasses.emptyIcon)}
             aria-hidden="true"
           >
             <svg
@@ -407,13 +412,13 @@ export const FileUpload = forwardRef<
             </svg>
           </span>
 
-          <p className="pimolu-file-upload__empty-text">
+          <p className={mergeClasses("pimolu-file-upload__empty-text", partClasses.emptyText)}>
             {emptyText}
           </p>
 
           <button
             type="button"
-            className="pimolu-file-upload__trigger"
+            className={mergeClasses("pimolu-file-upload__trigger", partClasses.trigger)}
             disabled={disabled}
             aria-labelledby={
               label
@@ -430,13 +435,13 @@ export const FileUpload = forwardRef<
       ) : (
         <>
           <ul
-            className="pimolu-file-upload__list"
+            className={mergeClasses("pimolu-file-upload__list", partClasses.list)}
             aria-label="Selected files"
           >
             {currentFiles.map((file, index) => (
               <li
                 key={`${file.name}-${file.size}-${file.lastModified}-${index}`}
-                className="pimolu-file-upload__item"
+                className={mergeClasses("pimolu-file-upload__item", partClasses.item)}
               >
                 {showPreviews ? (
                   <FilePreview
@@ -446,7 +451,7 @@ export const FileUpload = forwardRef<
                   />
                 ) : (
                   <span
-                    className="pimolu-file-upload__file-icon"
+                    className={mergeClasses("pimolu-file-upload__file-icon", partClasses.fileIcon)}
                     data-file-preview="fallback"
                     aria-hidden="true"
                   >
@@ -466,19 +471,19 @@ export const FileUpload = forwardRef<
                 )}
 
                 <span
-                  className="pimolu-file-upload__file-name"
+                  className={mergeClasses("pimolu-file-upload__file-name", partClasses.fileName)}
                   title={file.name}
                 >
                   {file.name}
                 </span>
 
-                <span className="pimolu-file-upload__file-size">
+                <span className={mergeClasses("pimolu-file-upload__file-size", partClasses.fileSize)}>
                   {formatFileSize(file.size)}
                 </span>
 
                 <button
                   type="button"
-                  className="pimolu-file-upload__remove"
+                  className={mergeClasses("pimolu-file-upload__remove", partClasses.remove)}
                   aria-label={removeLabel(file)}
                   disabled={disabled}
                   onClick={() => removeFile(index)}
@@ -501,7 +506,7 @@ export const FileUpload = forwardRef<
 
           <button
             type="button"
-            className="pimolu-file-upload__trigger"
+            className={mergeClasses("pimolu-file-upload__trigger", partClasses.trigger)}
             disabled={disabled}
             aria-labelledby={
               label
@@ -519,13 +524,13 @@ export const FileUpload = forwardRef<
 
       {rejections.length > 0 && (
         <div
-          className="pimolu-file-upload__rejections"
+          className={mergeClasses("pimolu-file-upload__rejections", partClasses.rejections)}
           role="alert"
         >
           {rejections.map((rejection, index) => (
             <p
               key={`${rejection.file.name}-${index}`}
-              className="pimolu-file-upload__rejection"
+              className={mergeClasses("pimolu-file-upload__rejection", partClasses.rejection)}
             >
               {rejection.message}
             </p>
@@ -533,7 +538,7 @@ export const FileUpload = forwardRef<
         </div>
       )}
     </div>
-  );
+  ));
 });
 
 FileUpload.displayName = "PimoluFileUpload";

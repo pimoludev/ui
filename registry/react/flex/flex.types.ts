@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -52,6 +54,9 @@ export type PimoluFlexJustify =
 
 export interface PimoluFlexProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"flex">;
+
   /** Element rendered by the flex container. Defaults to `div`. */
   as?: ElementType;
 

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useCallback,
@@ -99,7 +102,7 @@ function SearchIcon() {
    COMMAND
 ========================================= */
 
-export function Command({
+export function Command({ classNames,
   items,
   placeholder = "Search commands...",
   emptyMessage = "No commands found.",
@@ -108,6 +111,8 @@ export function Command({
   className,
   autoFocus = true,
 }: PimoluCommandProps) {
+  const [partClasses, scopeParts] = usePartClasses("command", classNames, true);
+
   const generatedId = useId();
 
   const listboxId = `pimolu-command-${generatedId}`;
@@ -294,10 +299,10 @@ export function Command({
             : undefined
         }
         data-active={isActive ? "true" : undefined}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-command__item",
           item.disabled && "pimolu-command__item--disabled"
-        )}
+        ), partClasses.item)}
         onMouseDown={(event) => {
           /* Keep the focus in the search field. */
           event.preventDefault();
@@ -311,22 +316,22 @@ export function Command({
       >
         {item.icon && (
           <span
-            className="pimolu-command__icon"
+            className={mergeClasses("pimolu-command__icon", partClasses.icon)}
             aria-hidden="true"
           >
             {item.icon}
           </span>
         )}
 
-        <span className="pimolu-command__main">
-          <span className="pimolu-command__label">
+        <span className={mergeClasses("pimolu-command__main", partClasses.main)}>
+          <span className={mergeClasses("pimolu-command__label", partClasses.label)}>
             {item.label}
           </span>
 
           {item.description && (
             <span
               id={`${optionId}-description`}
-              className="pimolu-command__description"
+              className={mergeClasses("pimolu-command__description", partClasses.description)}
             >
               {item.description}
             </span>
@@ -334,7 +339,7 @@ export function Command({
         </span>
 
         {item.shortcut && (
-          <kbd className="pimolu-command__shortcut">
+          <kbd className={mergeClasses("pimolu-command__shortcut", partClasses.shortcut)}>
             {item.shortcut}
           </kbd>
         )}
@@ -342,13 +347,13 @@ export function Command({
     );
   }
 
-  return (
+  return scopeParts((
     <div
-      className={classes("pimolu-command", className)}
+      className={mergeClasses(classes("pimolu-command", className), partClasses.root)}
     >
-      <div className="pimolu-command__field">
+      <div className={mergeClasses("pimolu-command__field", partClasses.field)}>
         <span
-          className="pimolu-command__search-icon"
+          className={mergeClasses("pimolu-command__search-icon", partClasses.searchIcon)}
           aria-hidden="true"
         >
           <SearchIcon />
@@ -365,7 +370,7 @@ export function Command({
           aria-label={ariaLabel}
           autoComplete="off"
           spellCheck={false}
-          className="pimolu-command__input"
+          className={mergeClasses("pimolu-command__input", partClasses.input)}
           placeholder={placeholder}
           value={query}
           onChange={handleChange}
@@ -378,11 +383,11 @@ export function Command({
         id={listboxId}
         role="listbox"
         aria-label={ariaLabel}
-        className="pimolu-command__list"
+        className={mergeClasses("pimolu-command__list", partClasses.list)}
       >
         {filteredItems.length === 0 ? (
           <p
-            className="pimolu-command__empty"
+            className={mergeClasses("pimolu-command__empty", partClasses.empty)}
             role="status"
           >
             {emptyMessage}
@@ -402,11 +407,11 @@ export function Command({
                 key={group.name}
                 role="group"
                 aria-labelledby={labelId}
-                className="pimolu-command__group"
+                className={mergeClasses("pimolu-command__group", partClasses.group)}
               >
                 <div
                   id={labelId}
-                  className="pimolu-command__group-label"
+                  className={mergeClasses("pimolu-command__group-label", partClasses.groupLabel)}
                 >
                   {group.name}
                 </div>
@@ -420,7 +425,7 @@ export function Command({
         )}
       </div>
     </div>
-  );
+  ));
 }
 
 Command.displayName = "PimoluCommand";
@@ -429,7 +434,7 @@ Command.displayName = "PimoluCommand";
    COMMAND PALETTE
 ========================================= */
 
-export function CommandPalette({
+export function CommandPalette({ classNames,
   open: controlledOpen,
   defaultOpen = false,
   onOpenChange,
@@ -442,6 +447,8 @@ export function CommandPalette({
   className,
   autoFocus = true,
 }: PimoluCommandPaletteProps) {
+  const [partClasses, scopeParts] = usePartClasses("command", classNames, true);
+
   const isControlled = controlledOpen !== undefined;
 
   const [uncontrolledOpen, setUncontrolledOpen] =
@@ -500,15 +507,15 @@ export function CommandPalette({
      RENDER
   ====================================== */
 
-  return (
+  return scopeParts((
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
         role="dialog"
         aria-label={label}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-command-palette",
           className
-        )}
+        ), partClasses.root)}
         showCloseButton={false}
       >
         <Command
@@ -524,7 +531,7 @@ export function CommandPalette({
         />
       </DialogContent>
     </Dialog>
-  );
+  ));
 }
 
 CommandPalette.displayName = "PimoluCommandPalette";

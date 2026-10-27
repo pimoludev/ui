@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { forwardRef } from "react";
 
@@ -10,7 +13,7 @@ export const Label = forwardRef<
   HTMLLabelElement,
   PimoluLabelProps
 >(function Label(
-  {
+  { classNames,
     required = false,
     optional = false,
     optionalLabel = "Optional",
@@ -22,18 +25,20 @@ export const Label = forwardRef<
   },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("label", classNames, true);
+
+  return scopeParts((
     <label
       {...props}
       ref={ref}
       data-disabled={disabled || undefined}
-      className={labelVariants({ size }, className)}
+      className={mergeClasses(labelVariants({ size }, className), partClasses.root)}
     >
       {children}
 
       {required && (
         <span
-          className="pimolu-label__required"
+          className={mergeClasses("pimolu-label__required", partClasses.required)}
           aria-hidden="true"
         >
           *
@@ -41,10 +46,10 @@ export const Label = forwardRef<
       )}
 
       {optional && (
-        <span className="pimolu-label__optional">
+        <span className={mergeClasses("pimolu-label__optional", partClasses.optional)}>
           {optionalLabel}
         </span>
       )}
     </label>
-  );
+  ));
 });

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -22,6 +24,9 @@ export interface PimoluResizableProps
     HTMLAttributes<HTMLDivElement>,
     "children" | "onChange" | "onReset"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"resizable">;
+
 
   /** Exactly two panes: the start pane, then the end pane. */
   children: [ReactNode, ReactNode];

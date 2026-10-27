@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -77,7 +80,7 @@ export const Stack = forwardRef<
   HTMLElement,
   PimoluStackProps
 >(function Stack(
-  {
+  { classNames,
     as: Tag = "div",
     direction = "column",
     gap = 3,
@@ -92,6 +95,8 @@ export const Stack = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("stack", classNames, true);
+
   const classes = [
     "pimolu-stack",
     direction === "row" && "pimolu-stack--row",
@@ -106,11 +111,11 @@ export const Stack = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       style={
         {
           "--pimolu-stack-gap": stackSpaceValue(gap),
@@ -121,7 +126,7 @@ export const Stack = forwardRef<
     >
       {children}
     </Component>
-  );
+  ));
 });
 
 Stack.displayName = "PimoluStack";
@@ -134,13 +139,15 @@ export const HStack = forwardRef<
   HTMLElement,
   PimoluHStackProps
 >(function HStack(props, ref) {
-  return (
+  const [, scopeParts, forwardedParts] = usePartClasses("stack", props.classNames, true);
+
+  return scopeParts((
     <Stack
       {...props}
       ref={ref}
-      direction="row"
+      direction="row" classNames={forwardedParts}
     />
-  );
+  ));
 });
 
 HStack.displayName = "PimoluHStack";
@@ -149,13 +156,15 @@ export const VStack = forwardRef<
   HTMLElement,
   PimoluVStackProps
 >(function VStack(props, ref) {
-  return (
+  const [, scopeParts, forwardedParts] = usePartClasses("stack", props.classNames, true);
+
+  return scopeParts((
     <Stack
       {...props}
       ref={ref}
-      direction="column"
+      direction="column" classNames={forwardedParts}
     />
-  );
+  ));
 });
 
 VStack.displayName = "PimoluVStack";

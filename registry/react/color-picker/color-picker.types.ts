@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -17,6 +19,9 @@ export interface PimoluColorPickerProps
     HTMLAttributes<HTMLDivElement>,
     "defaultValue" | "onChange" | "color"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"color-picker">;
+
   /** Controlled hex color, for example `"#5B55E7"`. */
   value?: string;
 

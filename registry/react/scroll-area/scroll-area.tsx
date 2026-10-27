@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import type { PimoluScrollAreaProps } from "./scroll-area.types";
 
@@ -9,7 +12,7 @@ function classes(
   return [base, className].filter(Boolean).join(" ");
 }
 
-export function ScrollArea({
+export function ScrollArea({ classNames,
   orientation = "vertical",
   maxHeight,
   viewportClassName,
@@ -17,26 +20,28 @@ export function ScrollArea({
   className,
   ...props
 }: PimoluScrollAreaProps) {
+  const [partClasses, scopeParts] = usePartClasses("scroll-area", classNames, true);
+
   const {
     "aria-label": ariaLabel,
     "aria-labelledby": ariaLabelledBy,
     ...rest
   } = props;
 
-  return (
+  return scopeParts((
     <div
       {...rest}
       data-orientation={orientation}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-scroll-area",
         className
-      )}
+      ), partClasses.root)}
     >
       <div
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-scroll-area__viewport",
           viewportClassName
-        )}
+        ), partClasses.viewport)}
         style={{ maxHeight }}
         tabIndex={0}
         aria-label={ariaLabel}
@@ -45,5 +50,5 @@ export function ScrollArea({
         {children}
       </div>
     </div>
-  );
+  ));
 }

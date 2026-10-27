@@ -1,5 +1,9 @@
 
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   createContext,
@@ -167,6 +171,9 @@ function isDensity(
 /* Provider */
 
 export interface PimoluProviderProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"provider">;
+
   children: ReactNode;
 
   theme?: PimoluThemeMode;
@@ -204,7 +211,7 @@ export interface PimoluProviderProps {
   className?: string;
 }
 
-export function PimoluProvider({
+export function PimoluProvider({ classNames,
   children,
 
   theme: controlledTheme,
@@ -232,6 +239,8 @@ export function PimoluProvider({
 
   className,
 }: PimoluProviderProps) {
+  const [partClasses, scopeParts] = usePartClasses("provider", classNames, true);
+
   const parent = useContext(PimoluContext);
 
   const [localTheme, setLocalTheme] =
@@ -476,7 +485,7 @@ export function PimoluProvider({
     onBrandColorChange?.(value);
   }
 
-  return (
+  return scopeParts((
     <PimoluContext.Provider
       value={{
         theme,
@@ -498,12 +507,12 @@ export function PimoluProvider({
         data-pimolu-radius={radius}
         data-pimolu-density={density}
         style={brandStyle}
-        className={className}
+        className={mergeClasses(className, partClasses.root)}
       >
         {children}
       </div>
     </PimoluContext.Provider>
-  );
+  ));
 }
 
 /* Public hook */

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -31,7 +34,7 @@ export const FocusScope = forwardRef<
   HTMLElement,
   PimoluFocusScopeProps
 >(function FocusScope(
-  {
+  { classNames,
     as: Tag = "div",
     active = true,
     trapped = true,
@@ -45,6 +48,8 @@ export const FocusScope = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("focus-scope", classNames, true);
+
   const containerRef = useRef<HTMLElement | null>(null);
 
   const restoreFocusRef = useRef(restoreFocus);
@@ -128,12 +133,12 @@ export const FocusScope = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={setRef}
       tabIndex={tabIndex ?? -1}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       style={style}
       data-active={active ? "true" : "false"}
       data-trapped={
@@ -142,7 +147,7 @@ export const FocusScope = forwardRef<
     >
       {children}
     </Component>
-  );
+  ));
 });
 
 FocusScope.displayName = "PimoluFocusScope";

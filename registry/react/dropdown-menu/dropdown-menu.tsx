@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   cloneElement,
@@ -154,12 +157,14 @@ export function DropdownMenuTrigger({
   });
 }
 
-export function DropdownMenuContent({
+export function DropdownMenuContent({ classNames,
   children,
   sideOffset = 6,
   align = "start",
   className,
 }: PimoluDropdownMenuContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("dropdown-menu", classNames, true);
+
   const menu = useMenu("DropdownMenuContent");
   const { rendered, state } = usePresence(menu.open, 120);
 
@@ -195,7 +200,7 @@ export function DropdownMenuContent({
     }
   }, [menu.open, menu.contentRef]);
 
-  if (!rendered) return null;
+  if (!rendered) return scopeParts(null);
 
   function handleKeyDown(
     event: KeyboardEvent<HTMLDivElement>
@@ -243,43 +248,45 @@ export function DropdownMenuContent({
     items[nextIndex]?.focus();
   }
 
-  return (
+  return scopeParts((
     <Portal anchorRef={menu.scopeRef}>
       <div
         ref={attachContent}
         id={menu.contentId}
         role="menu"
         data-state={state}
-        className={[
+        className={mergeClasses([
           "pimolu-dropdown-menu",
           className,
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(" "), partClasses.root)}
         style={style}
         onKeyDown={handleKeyDown}
       >
         {children}
       </div>
     </Portal>
-  );
+  ));
 }
 
-export function DropdownMenuItem({
+export function DropdownMenuItem({ classNames,
   children,
   onSelect,
   disabled = false,
 }: PimoluDropdownMenuItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("dropdown-menu", classNames, false);
+
   const menu = useMenu("DropdownMenuItem");
 
-  return (
+  return scopeParts((
     <button
       type="button"
       role="menuitem"
       tabIndex={-1}
       aria-disabled={disabled || undefined}
       disabled={disabled}
-      className="pimolu-dropdown-menu__item"
+      className={mergeClasses("pimolu-dropdown-menu__item", partClasses.item, classNames?.root)}
       onClick={() => {
         onSelect?.();
         menu.setOpen(false);
@@ -288,39 +295,43 @@ export function DropdownMenuItem({
     >
       {children}
     </button>
-  );
+  ));
 }
 
-export function DropdownMenuSeparator({
+export function DropdownMenuSeparator({ classNames,
   className,
 }: PimoluDropdownMenuSeparatorProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("dropdown-menu", classNames, false);
+
+  return scopeParts((
     <div
       role="separator"
-      className={[
+      className={mergeClasses([
         "pimolu-dropdown-menu__separator",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.separator, classNames?.root)}
     />
-  );
+  ));
 }
 
-export function DropdownMenuLabel({
+export function DropdownMenuLabel({ classNames,
   children,
   className,
 }: PimoluDropdownMenuLabelProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("dropdown-menu", classNames, false);
+
+  return scopeParts((
     <div
-      className={[
+      className={mergeClasses([
         "pimolu-dropdown-menu__label",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.label, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }

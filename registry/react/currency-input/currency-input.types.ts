@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   InputHTMLAttributes,
   ReactNode,
@@ -21,6 +23,9 @@ export interface PimoluCurrencyInputProps
     | "max"
     | "inputMode"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"currency-input">;
+
   /**
    * Controlled numeric value. `null` represents an empty field.
    * The displayed text is formatted with `Intl.NumberFormat`.

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -20,6 +22,9 @@ export interface PimoluFileUploadProps
     HTMLAttributes<HTMLDivElement>,
     "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"file-upload">;
+
   /** Controlled list of files. */
   files?: File[];
 

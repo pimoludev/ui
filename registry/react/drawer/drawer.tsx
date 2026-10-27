@@ -1,4 +1,9 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+
+
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   cloneElement,
@@ -296,6 +301,8 @@ interface DrawerSurfaceProps {
   side: PimoluDrawerSide;
   size: PimoluDrawerSize;
   className?: string;
+  style?: PimoluDrawerContentProps["style"];
+  classNames?: PimoluClassNames<"drawer">;
 
   showCloseButton: boolean;
   closeLabel: string;
@@ -323,6 +330,8 @@ function DrawerSurface({
   side,
   size,
   className,
+  classNames,
+  style,
   showCloseButton,
   closeLabel,
   labelledBy,
@@ -332,6 +341,8 @@ function DrawerSurface({
   onClose,
   children,
 }: DrawerSurfaceProps) {
+  const [partClasses, scopeParts] = usePartClasses("drawer", classNames, false);
+
   useFocusTrap({
     active: open,
     containerRef: contentRef,
@@ -363,7 +374,7 @@ function DrawerSurface({
     (preferred ?? content).focus();
   }, [open, contentRef]);
 
-  return (
+  return scopeParts((
     <div
       ref={contentRef}
       id={id}
@@ -373,7 +384,8 @@ function DrawerSurface({
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
       tabIndex={-1}
-      className={contentClasses(side, size, className)}
+      className={mergeClasses(contentClasses(side, size, className), partClasses.root)}
+      style={style}
       data-state={state}
       data-side={side}
       data-close-button={
@@ -385,7 +397,7 @@ function DrawerSurface({
       {showCloseButton && (
         <button
           type="button"
-          className="pimolu-drawer__close"
+          className={mergeClasses("pimolu-drawer__close", partClasses.closeButton)}
           aria-label={closeLabel}
           onClick={onClose}
         >
@@ -393,7 +405,7 @@ function DrawerSurface({
         </button>
       )}
     </div>
-  );
+  ));
 }
 
 export function DrawerContent({
@@ -408,11 +420,15 @@ export function DrawerContent({
   closeLabel = "Close",
 
   className,
+  classNames,
+  style,
 
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
 }: PimoluDrawerContentProps) {
+  const [partClasses, scopeParts] = usePartClasses("drawer", classNames, true);
+
   const {
     open,
     setOpen,
@@ -447,7 +463,7 @@ export function DrawerContent({
     closeOnEscape,
   });
 
-  if (!rendered) return null;
+  if (!rendered) return scopeParts(null);
 
   const labelledBy =
     ariaLabelledBy ?? titleId ?? undefined;
@@ -455,15 +471,15 @@ export function DrawerContent({
   const describedBy =
     ariaDescribedBy ?? descriptionId ?? undefined;
 
-  return (
+  return scopeParts((
     <Portal anchorRef={scopeRef}>
       <div
-        className="pimolu-drawer"
+        className={mergeClasses("pimolu-drawer", partClasses.root)}
         data-state={state}
         data-side={side}
       >
         <div
-          className="pimolu-drawer__overlay"
+          className={mergeClasses("pimolu-drawer__overlay", partClasses.overlay)}
           data-state={state}
         />
 
@@ -474,7 +490,9 @@ export function DrawerContent({
           state={state}
           side={side}
           size={size}
-          className={className}
+          className={mergeClasses(className, partClasses.content)}
+          classNames={classNames}
+          style={style}
           showCloseButton={showCloseButton}
           closeLabel={closeLabel}
           labelledBy={labelledBy}
@@ -487,54 +505,60 @@ export function DrawerContent({
         </DrawerSurface>
       </div>
     </Portal>
-  );
+  ));
 }
 
 /* =========================================
    HEADER & FOOTER
 ========================================= */
 
-export function DrawerHeader({
+export function DrawerHeader({ classNames,
   children,
   className,
 }: PimoluDrawerHeaderProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("drawer", classNames, false);
+
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-drawer__header",
         className
-      )}
+      ), partClasses.header, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
-export function DrawerFooter({
+export function DrawerFooter({ classNames,
   children,
   className,
 }: PimoluDrawerFooterProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("drawer", classNames, false);
+
+  return scopeParts((
     <div
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-drawer__footer",
         className
-      )}
+      ), partClasses.footer, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    TITLE & DESCRIPTION
 ========================================= */
 
-export function DrawerTitle({
+export function DrawerTitle({ classNames,
   children,
   id,
   className,
 }: PimoluDrawerTitleProps) {
+  const [partClasses, scopeParts] = usePartClasses("drawer", classNames, false);
+
   const { setTitleId } = useDrawer("DrawerTitle");
 
   const generatedId = useId();
@@ -551,24 +575,26 @@ export function DrawerTitle({
       );
   }, [setTitleId, titleId]);
 
-  return (
+  return scopeParts((
     <h2
       id={titleId}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-drawer__title",
         className
-      )}
+      ), partClasses.title, classNames?.root)}
     >
       {children}
     </h2>
-  );
+  ));
 }
 
-export function DrawerDescription({
+export function DrawerDescription({ classNames,
   children,
   id,
   className,
 }: PimoluDrawerDescriptionProps) {
+  const [partClasses, scopeParts] = usePartClasses("drawer", classNames, false);
+
   const { setDescriptionId } =
     useDrawer("DrawerDescription");
 
@@ -586,17 +612,17 @@ export function DrawerDescription({
       );
   }, [setDescriptionId, descriptionId]);
 
-  return (
+  return scopeParts((
     <p
       id={descriptionId}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-drawer__description",
         className
-      )}
+      ), partClasses.description, classNames?.root)}
     >
       {children}
     </p>
-  );
+  ));
 }
 
 /* =========================================

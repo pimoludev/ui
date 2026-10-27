@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   Children,
@@ -35,41 +38,45 @@ function isElementOfType(
    TIMELINE
 ========================================= */
 
-export function Timeline({
+export function Timeline({ classNames,
   variant = "default",
   align = "start",
   children,
   className,
   ...props
 }: PimoluTimelineProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, true);
+
+  return scopeParts((
     <ol
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline",
         variant === "compact" &&
           "pimolu-timeline--compact",
         align === "center" &&
           "pimolu-timeline--align-center",
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </ol>
-  );
+  ));
 }
 
 /* =========================================
    ITEM
 ========================================= */
 
-export function TimelineItem({
+export function TimelineItem({ classNames,
   status = "default",
   icon,
   children,
   className,
   ...props
 }: PimoluTimelineItemProps) {
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, false);
+
   const nodes = Children.toArray(children);
 
   const explicitIndicator = nodes.find((node) =>
@@ -84,7 +91,7 @@ export function TimelineItem({
     content.length === 1 &&
     isElementOfType(content[0], TimelineContent);
 
-  return (
+  return scopeParts((
     <li
       {...props}
       data-status={status}
@@ -92,13 +99,13 @@ export function TimelineItem({
         props["aria-current"] ??
         (status === "active" ? "step" : undefined)
       }
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline__item",
         className
-      )}
+      ), partClasses.item, classNames?.root)}
     >
       {status === "error" && (
-        <span className="pimolu-timeline__sr-only">
+        <span className={mergeClasses("pimolu-timeline__sr-only", partClasses.srOnly)}>
           Error:{" "}
         </span>
       )}
@@ -111,126 +118,136 @@ export function TimelineItem({
         (contentIsWrapped ? (
           content
         ) : (
-          <div className="pimolu-timeline__content">
+          <div className={mergeClasses("pimolu-timeline__content", partClasses.content)}>
             {content}
           </div>
         ))}
     </li>
-  );
+  ));
 }
 
 /* =========================================
    INDICATOR
 ========================================= */
 
-export function TimelineIndicator({
+export function TimelineIndicator({ classNames,
   children,
   className,
   ...props
 }: PimoluTimelineIndicatorProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, false);
+
+  return scopeParts((
     <span
       {...props}
       aria-hidden="true"
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline__indicator",
         className
-      )}
+      ), partClasses.indicator, classNames?.root)}
     >
       {children}
     </span>
-  );
+  ));
 }
 
 /* =========================================
    CONTENT
 ========================================= */
 
-export function TimelineContent({
+export function TimelineContent({ classNames,
   children,
   className,
   ...props
 }: PimoluTimelineContentProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, false);
+
+  return scopeParts((
     <div
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline__content",
         className
-      )}
+      ), partClasses.content, classNames?.root)}
     >
       {children}
     </div>
-  );
+  ));
 }
 
 /* =========================================
    TITLE
 ========================================= */
 
-export function TimelineTitle({
+export function TimelineTitle({ classNames,
   as: Tag = "h3",
   children,
   className,
   ...props
 }: PimoluTimelineTitleProps) {
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, false);
+
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline__title",
         className
-      )}
+      ), partClasses.title, classNames?.root)}
     >
       {children}
     </Component>
-  );
+  ));
 }
 
 /* =========================================
    DESCRIPTION
 ========================================= */
 
-export function TimelineDescription({
+export function TimelineDescription({ classNames,
   children,
   className,
   ...props
 }: PimoluTimelineDescriptionProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, false);
+
+  return scopeParts((
     <p
       {...props}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline__description",
         className
-      )}
+      ), partClasses.description, classNames?.root)}
     >
       {children}
     </p>
-  );
+  ));
 }
 
 /* =========================================
    TIME
 ========================================= */
 
-export function TimelineTime({
+export function TimelineTime({ classNames,
   dateTime,
   children,
   className,
   ...props
 }: PimoluTimelineTimeProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("timeline", classNames, false);
+
+  return scopeParts((
     <time
       {...props}
       dateTime={dateTime}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-timeline__time",
         className
-      )}
+      ), partClasses.time, classNames?.root)}
     >
       {children}
     </time>
-  );
+  ));
 }

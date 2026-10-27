@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -5,6 +7,9 @@ import type {
 
 export interface PimoluVisuallyHiddenProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"visually-hidden">;
+
   /** Element rendered by the wrapper. Defaults to `span`. */
   as?: ElementType;
 

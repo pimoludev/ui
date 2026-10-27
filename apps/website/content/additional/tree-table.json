@@ -3,5 +3,11 @@
     "file": "tree-table-selection.tsx",
     "title": "Controlled row selection",
     "description": "Select nested rows while the application owns the selected ids."
+  },
+  {
+    "file": "tree-table-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

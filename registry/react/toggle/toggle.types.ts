@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ButtonHTMLAttributes,
   ReactNode,
@@ -18,6 +20,9 @@ export interface PimoluToggleProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     "onChange"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"toggle">;
+
   /** Controlled pressed state. */
   pressed?: boolean;
 

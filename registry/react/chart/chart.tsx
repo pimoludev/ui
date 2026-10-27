@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -193,6 +197,9 @@ function categoryLabel(
 
 interface ChartContainerProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
   kind: string;
   className?: string;
   containerRef?: Ref<HTMLDivElement>;
@@ -209,7 +216,7 @@ interface ChartContainerProps
   children: ReactNode;
 }
 
-function ChartContainer({
+function ChartContainer({ classNames,
   kind,
   className,
   containerRef,
@@ -221,6 +228,8 @@ function ChartContainer({
   children,
   ...props
 }: ChartContainerProps) {
+  const [partClasses, scopeParts] = usePartClasses("chart", classNames, false);
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [keyboard, setKeyboard] = useState(false);
   const pointerFocus = useRef(false);
@@ -246,26 +255,26 @@ function ChartContainer({
     if (nearest !== dismissedIndex.current) setActiveIndex(nearest);
   }
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={containerRef}
       data-chart={kind}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-chart",
         `pimolu-chart--${kind}`,
         empty && "pimolu-chart--empty",
         className
-      )}
+      ), partClasses.root)}
     >
       {empty ? (
-        <p className="pimolu-chart__empty" role="status">
+        <p className={mergeClasses("pimolu-chart__empty", partClasses.empty)} role="status">
           {emptyLabel}
         </p>
       ) : (
         <>
           <div
-            className="pimolu-chart__canvas"
+            className={mergeClasses("pimolu-chart__canvas", partClasses.canvas)}
             tabIndex={exploration ? 0 : undefined}
             role={exploration ? "group" : undefined}
             aria-label={exploration ? `${exploration.label}: explore values` : undefined}
@@ -296,21 +305,21 @@ function ChartContainer({
           >
             {children}
             {exploration && (
-              <span id={instructionsId} className="pimolu-chart__sr-only">
+              <span id={instructionsId} className={mergeClasses("pimolu-chart__sr-only", partClasses.srOnly)}>
                 {exploration.instructions ?? "Use arrow keys to explore values, Home and End to jump, Escape to dismiss."}
               </span>
             )}
             {active && (
               <>
                 {exploration?.axis === "x" && (
-                  <span className="pimolu-chart__cursor" aria-hidden="true"
+                  <span className={mergeClasses("pimolu-chart__cursor", partClasses.cursor)} aria-hidden="true"
                     style={{ left: `${active.position * 100}%` }} />
                 )}
-                <div id={tooltipId} role="tooltip" className="pimolu-chart__tooltip" aria-live={keyboard ? "polite" : "off"}>
+                <div id={tooltipId} role="tooltip" className={mergeClasses("pimolu-chart__tooltip", partClasses.tooltip)} aria-live={keyboard ? "polite" : "off"}>
                   <strong>{active.label}</strong>
                   {active.rows.map((row, index) => (
-                    <div className="pimolu-chart__tooltip-row" key={index}>
-                      <span className="pimolu-chart__legend-swatch" aria-hidden="true" style={{ backgroundColor: row.color }} />
+                    <div className={mergeClasses("pimolu-chart__tooltip-row", partClasses.tooltipRow)} key={index}>
+                      <span className={mergeClasses("pimolu-chart__legend-swatch", partClasses.legendSwatch)} aria-hidden="true" style={{ backgroundColor: row.color }} />
                       <span>{row.label}</span><b>{row.value}</b>
                     </div>
                   ))}
@@ -324,10 +333,13 @@ function ChartContainer({
         </>
       )}
     </div>
-  );
+  ));
 }
 
 interface ChartSvgProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
   width: number;
   height: number;
   label: string;
@@ -335,16 +347,18 @@ interface ChartSvgProps {
   children: ReactNode;
 }
 
-function ChartSvg({
+function ChartSvg({ classNames,
   width,
   height,
   label,
   description,
   children,
 }: ChartSvgProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("chart", classNames, false);
+
+  return scopeParts((
     <svg
-      className="pimolu-chart__svg"
+      className={mergeClasses("pimolu-chart__svg", partClasses.svg)}
       viewBox={`0 0 ${width} ${height}`}
       direction="ltr"
       role="img"
@@ -356,7 +370,7 @@ function ChartSvg({
       <desc>{description}</desc>
       {children}
     </svg>
-  );
+  ));
 }
 
 /* =========================================
@@ -369,29 +383,34 @@ interface ChartLegendItem {
   value?: string;
 }
 
-function ChartLegend({
+function ChartLegend({ classNames,
   label,
   items,
 }: {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
   label: string;
   items: ChartLegendItem[];
 }) {
+  const [partClasses, scopeParts] = usePartClasses("chart", classNames, false);
+
   if (items.length === 0) {
-    return null;
+    return scopeParts(null);
   }
 
-  return (
+  return scopeParts((
     <ul
-      className="pimolu-chart__legend"
+      className={mergeClasses("pimolu-chart__legend", partClasses.legend)}
       aria-label={`${label} legend`}
     >
       {items.map((item, index) => (
         <li
           key={`${item.label}-${index}`}
-          className="pimolu-chart__legend-item"
+          className={mergeClasses("pimolu-chart__legend-item", partClasses.legendItem)}
         >
           <span
-            className="pimolu-chart__legend-swatch"
+            className={mergeClasses("pimolu-chart__legend-swatch", partClasses.legendSwatch)}
             style={{
               ...styleForColor(item.color),
               backgroundColor: item.color,
@@ -399,36 +418,41 @@ function ChartLegend({
             aria-hidden="true"
           />
 
-          <span className="pimolu-chart__legend-label">
+          <span className={mergeClasses("pimolu-chart__legend-label", partClasses.legendLabel)}>
             {item.label}
           </span>
 
           {item.value != null && (
-            <span className="pimolu-chart__legend-value">
+            <span className={mergeClasses("pimolu-chart__legend-value", partClasses.legendValue)}>
               {item.value}
             </span>
           )}
         </li>
       ))}
     </ul>
-  );
+  ));
 }
 
-function ChartDataTable({
+function ChartDataTable({ classNames,
   label,
   columns,
   rows,
 }: {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
   label: string;
   columns: string[];
   rows: string[][];
 }) {
+  const [partClasses, scopeParts] = usePartClasses("chart", classNames, false);
+
   if (rows.length === 0) {
-    return null;
+    return scopeParts(null);
   }
 
-  return (
-    <div className="pimolu-chart__sr-only">
+  return scopeParts((
+    <div className={mergeClasses("pimolu-chart__sr-only", partClasses.srOnly)}>
     <table>
       <caption>{label} data</caption>
 
@@ -455,7 +479,7 @@ function ChartDataTable({
       </tbody>
     </table>
     </div>
-  );
+  ));
 }
 
 /* =========================================
@@ -466,7 +490,7 @@ export const BarChart = forwardRef<
   HTMLDivElement,
   PimoluBarChartProps
 >(function BarChart(
-  {
+  { classNames,
     data = [],
     series = [],
     labels,
@@ -491,6 +515,8 @@ export const BarChart = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("chart", classNames, true);
+
   const formatter = valueFormatter ?? formatDefault;
   const viewport = useCartesianViewport(width, ref, responsive);
   const viewWidth = viewport.width;
@@ -641,7 +667,7 @@ export const BarChart = forwardRef<
       categoryTicks.push(
         <text
           key={`category-${categoryIndex}`}
-          className="pimolu-chart__axis-label"
+          className={mergeClasses("pimolu-chart__axis-label", partClasses.axisLabel)}
           x={plotLeft - 10}
           y={
             plotTop +
@@ -661,7 +687,7 @@ export const BarChart = forwardRef<
     categoryTicks.push(
       <text
         key={`category-${categoryIndex}`}
-        className="pimolu-chart__axis-label"
+        className={mergeClasses("pimolu-chart__axis-label", partClasses.axisLabel)}
         x={
           plotLeft +
           verticalBand * categoryIndex +
@@ -709,7 +735,7 @@ export const BarChart = forwardRef<
           bars.push(
             <rect
               key={`bar-${categoryIndex}-${seriesIndex}`}
-              className="pimolu-chart__bar pimolu-chart__bar--horizontal"
+              className={mergeClasses("pimolu-chart__bar pimolu-chart__bar--horizontal", partClasses.bar)}
               x={plotLeft + startRatio * plotWidth}
               y={groupTop}
               width={Math.max(0, barWidth)}
@@ -737,7 +763,7 @@ export const BarChart = forwardRef<
           valueLabels.push(
             <text
               key={`value-${categoryIndex}`}
-              className="pimolu-chart__value-label"
+              className={mergeClasses("pimolu-chart__value-label", partClasses.valueLabel)}
               x={plotLeft + topRatio * plotWidth + 6}
               y={groupTop + horizontalUsable / 2}
               textAnchor="start"
@@ -769,7 +795,7 @@ export const BarChart = forwardRef<
           bars.push(
             <rect
               key={`bar-${categoryIndex}-${seriesIndex}`}
-              className="pimolu-chart__bar pimolu-chart__bar--horizontal"
+              className={mergeClasses("pimolu-chart__bar pimolu-chart__bar--horizontal", partClasses.bar)}
               x={plotLeft}
               y={barY}
               width={barWidth}
@@ -792,7 +818,7 @@ export const BarChart = forwardRef<
             valueLabels.push(
               <text
                 key={`value-${categoryIndex}-${seriesIndex}`}
-                className="pimolu-chart__value-label"
+                className={mergeClasses("pimolu-chart__value-label", partClasses.valueLabel)}
                 x={plotLeft + barWidth + 6}
                 y={barY + horizontalBarHeight / 2}
                 textAnchor="start"
@@ -818,7 +844,7 @@ export const BarChart = forwardRef<
       bars.push(
         <rect
           key={`bar-${categoryIndex}`}
-          className="pimolu-chart__bar pimolu-chart__bar--horizontal"
+          className={mergeClasses("pimolu-chart__bar pimolu-chart__bar--horizontal", partClasses.bar)}
           x={plotLeft}
           y={groupTop}
           width={barWidth}
@@ -837,7 +863,7 @@ export const BarChart = forwardRef<
         valueLabels.push(
           <text
             key={`value-${categoryIndex}`}
-            className="pimolu-chart__value-label"
+            className={mergeClasses("pimolu-chart__value-label", partClasses.valueLabel)}
             x={plotLeft + barWidth + 6}
             y={groupTop + horizontalUsable / 2}
             textAnchor="start"
@@ -882,7 +908,7 @@ export const BarChart = forwardRef<
           bars.push(
             <rect
               key={`bar-${categoryIndex}-${seriesIndex}`}
-              className="pimolu-chart__bar pimolu-chart__bar--vertical"
+              className={mergeClasses("pimolu-chart__bar pimolu-chart__bar--vertical", partClasses.bar)}
               x={groupLeft}
               y={
                 plotBottom - endRatio * plotHeight
@@ -912,7 +938,7 @@ export const BarChart = forwardRef<
           valueLabels.push(
             <text
               key={`value-${categoryIndex}`}
-              className="pimolu-chart__value-label"
+              className={mergeClasses("pimolu-chart__value-label", partClasses.valueLabel)}
               x={groupLeft + verticalUsable / 2}
               y={
                 plotBottom -
@@ -944,7 +970,7 @@ export const BarChart = forwardRef<
           bars.push(
             <rect
               key={`bar-${categoryIndex}-${seriesIndex}`}
-              className="pimolu-chart__bar pimolu-chart__bar--vertical"
+              className={mergeClasses("pimolu-chart__bar pimolu-chart__bar--vertical", partClasses.bar)}
               x={
                 groupLeft +
                 seriesIndex * verticalBarWidth
@@ -970,7 +996,7 @@ export const BarChart = forwardRef<
             valueLabels.push(
               <text
                 key={`value-${categoryIndex}-${seriesIndex}`}
-                className="pimolu-chart__value-label"
+                className={mergeClasses("pimolu-chart__value-label", partClasses.valueLabel)}
                 x={
                   groupLeft +
                   seriesIndex * verticalBarWidth +
@@ -999,7 +1025,7 @@ export const BarChart = forwardRef<
       bars.push(
         <rect
           key={`bar-${categoryIndex}`}
-          className="pimolu-chart__bar pimolu-chart__bar--vertical"
+          className={mergeClasses("pimolu-chart__bar pimolu-chart__bar--vertical", partClasses.bar)}
           x={groupLeft}
           y={plotBottom - barHeight}
           width={verticalUsable}
@@ -1018,7 +1044,7 @@ export const BarChart = forwardRef<
         valueLabels.push(
           <text
             key={`value-${categoryIndex}`}
-            className="pimolu-chart__value-label"
+            className={mergeClasses("pimolu-chart__value-label", partClasses.valueLabel)}
             x={groupLeft + verticalUsable / 2}
             y={plotBottom - barHeight - 6}
             textAnchor="middle"
@@ -1059,7 +1085,7 @@ export const BarChart = forwardRef<
           ]
   );
 
-  return (
+  return scopeParts((
     <ChartContainer
       {...props}
       containerRef={viewport.containerRef}
@@ -1080,12 +1106,12 @@ export const BarChart = forwardRef<
           })) : [{ label, color: resolveColor(data[index]?.color, index), value: formatter(data[index]?.value ?? 0) }],
         })),
       } : undefined}
-      className={classes(
+      className={mergeClasses(classes(
         horizontal
           ? "pimolu-chart--horizontal"
           : undefined,
         className
-      )}
+      ), partClasses.root)}
       empty={empty}
       emptyLabel={emptyLabel}
       legend={
@@ -1106,7 +1132,7 @@ export const BarChart = forwardRef<
           }
           rows={tableRows}
         />
-      }
+      } classNames={forwardedParts}
     >
       <ChartSvg
         width={viewWidth}
@@ -1126,7 +1152,7 @@ export const BarChart = forwardRef<
               return horizontal ? (
                 <line
                   key={`grid-${index}`}
-                  className="pimolu-chart__grid"
+                  className={mergeClasses("pimolu-chart__grid", partClasses.grid)}
                   x1={position}
                   x2={position}
                   y1={plotTop}
@@ -1135,7 +1161,7 @@ export const BarChart = forwardRef<
               ) : (
                 <line
                   key={`grid-${index}`}
-                  className="pimolu-chart__grid"
+                  className={mergeClasses("pimolu-chart__grid", partClasses.grid)}
                   x1={plotLeft}
                   x2={plotRight}
                   y1={position}
@@ -1146,7 +1172,7 @@ export const BarChart = forwardRef<
 
           {horizontal ? (
             <line
-              className="pimolu-chart__axis"
+              className={mergeClasses("pimolu-chart__axis", partClasses.axis)}
               x1={plotLeft}
               x2={plotLeft}
               y1={plotTop}
@@ -1154,7 +1180,7 @@ export const BarChart = forwardRef<
             />
           ) : (
             <line
-              className="pimolu-chart__axis"
+              className={mergeClasses("pimolu-chart__axis", partClasses.axis)}
               x1={plotLeft}
               x2={plotRight}
               y1={plotBottom}
@@ -1171,7 +1197,7 @@ export const BarChart = forwardRef<
               return (
                 <text
                   key={`tick-${index}`}
-                  className="pimolu-chart__axis-label"
+                  className={mergeClasses("pimolu-chart__axis-label", partClasses.axisLabel)}
                   x={
                     plotLeft +
                     (tick / effectiveMax) * plotWidth
@@ -1187,7 +1213,7 @@ export const BarChart = forwardRef<
             return (
               <text
                 key={`tick-${index}`}
-                className="pimolu-chart__axis-label"
+                className={mergeClasses("pimolu-chart__axis-label", partClasses.axisLabel)}
                 x={plotLeft - 8}
                 y={
                   plotBottom -
@@ -1207,7 +1233,7 @@ export const BarChart = forwardRef<
 
           {xAxisLabel != null && (
             <text
-              className="pimolu-chart__axis-title"
+              className={mergeClasses("pimolu-chart__axis-title", partClasses.axisTitle)}
               x={(plotLeft + plotRight) / 2}
               y={viewHeight - 6}
               textAnchor="middle"
@@ -1218,7 +1244,7 @@ export const BarChart = forwardRef<
 
           {yAxisLabel != null && (
             <text
-              className="pimolu-chart__axis-title"
+              className={mergeClasses("pimolu-chart__axis-title", partClasses.axisTitle)}
               x={14}
               y={(plotTop + plotBottom) / 2}
               textAnchor="middle"
@@ -1232,7 +1258,7 @@ export const BarChart = forwardRef<
         </g>
       </ChartSvg>
     </ChartContainer>
-  );
+  ));
 });
 
 BarChart.displayName = "PimoluBarChart";
@@ -1242,6 +1268,9 @@ BarChart.displayName = "PimoluBarChart";
 ========================================= */
 
 interface LinePlotProps extends PimoluLineChartProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
   area: boolean;
   forwardedRef: Ref<HTMLDivElement>;
 }
@@ -1257,7 +1286,7 @@ function trendPath(points: Array<{ x: number; y: number }>, smooth: boolean): st
   }).join(" ");
 }
 
-function LinePlot({
+function LinePlot({ classNames,
   area,
   forwardedRef,
   series,
@@ -1281,6 +1310,8 @@ function LinePlot({
   "aria-label": ariaLabel,
   ...props
 }: LinePlotProps) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("chart", classNames, false);
+
   const gradientId = `pimolu-chart-${useId().replace(/:/g, "")}`;
   const formatter = valueFormatter ?? formatDefault;
   const viewport = useCartesianViewport(width, forwardedRef, responsive);
@@ -1452,7 +1483,7 @@ function LinePlot({
     rangeText ? ` ${rangeText}` : ""
   }`;
 
-  return (
+  return scopeParts((
     <ChartContainer
       {...props}
       containerRef={viewport.containerRef}
@@ -1469,7 +1500,7 @@ function LinePlot({
           })),
         })),
       } : undefined}
-      className={className}
+      className={mergeClasses(className, partClasses.root)}
       empty={empty}
       emptyLabel={emptyLabel}
       legend={
@@ -1489,7 +1520,7 @@ function LinePlot({
           ]}
           rows={tableRows}
         />
-      }
+      } classNames={forwardedParts}
     >
       <ChartSvg
         width={viewWidth}
@@ -1512,7 +1543,7 @@ function LinePlot({
             ticks.map((tick, index) => (
               <line
                 key={`grid-${index}`}
-                className="pimolu-chart__grid"
+                className={mergeClasses("pimolu-chart__grid", partClasses.grid)}
                 x1={plotLeft}
                 x2={plotRight}
                 y1={yForValue(tick)}
@@ -1521,7 +1552,7 @@ function LinePlot({
             ))}
 
           <line
-            className="pimolu-chart__axis"
+            className={mergeClasses("pimolu-chart__axis", partClasses.axis)}
             x1={plotLeft}
             x2={plotRight}
             y1={plotBottom}
@@ -1531,7 +1562,7 @@ function LinePlot({
           {ticks.map((tick, index) => (
             <text
               key={`tick-${index}`}
-              className="pimolu-chart__axis-label"
+              className={mergeClasses("pimolu-chart__axis-label", partClasses.axisLabel)}
               x={plotLeft - 8}
               y={yForValue(tick)}
               textAnchor="end"
@@ -1552,7 +1583,7 @@ function LinePlot({
             return (
               <text
                 key={`category-${index}`}
-                className="pimolu-chart__axis-label"
+                className={mergeClasses("pimolu-chart__axis-label", partClasses.axisLabel)}
                 x={xForIndex(index)}
                 y={plotBottom + 18}
                 textAnchor="middle"
@@ -1566,7 +1597,7 @@ function LinePlot({
             entry.areaPath !== "" ? (
               <path
                 key={`area-${entry.seriesIndex}`}
-                className="pimolu-chart__area"
+                className={mergeClasses("pimolu-chart__area", partClasses.area)}
                 d={entry.areaPath}
                 fill={areaFill === "gradient" ? `url(#${gradientId}-${entry.seriesIndex})` : entry.color}
                 style={{ ...styleForColor(entry.color),
@@ -1581,7 +1612,7 @@ function LinePlot({
             entry.linePath !== "" ? (
               <path
                 key={`line-${entry.seriesIndex}`}
-                className="pimolu-chart__line"
+                className={mergeClasses("pimolu-chart__line", partClasses.line)}
                 d={entry.linePath}
                 pathLength={1}
                 fill="none"
@@ -1606,7 +1637,7 @@ function LinePlot({
                 {entry.points.map((point) => (
                   <circle
                     key={`point-${entry.seriesIndex}-${point.index}`}
-                    className="pimolu-chart__point"
+                    className={mergeClasses("pimolu-chart__point", partClasses.point)}
                     cx={point.x}
                     cy={point.y}
                     r={3.5}
@@ -1623,7 +1654,7 @@ function LinePlot({
 
           {xAxisLabel != null && (
             <text
-              className="pimolu-chart__axis-title"
+              className={mergeClasses("pimolu-chart__axis-title", partClasses.axisTitle)}
               x={(plotLeft + plotRight) / 2}
               y={viewHeight - 6}
               textAnchor="middle"
@@ -1634,7 +1665,7 @@ function LinePlot({
 
           {yAxisLabel != null && (
             <text
-              className="pimolu-chart__axis-title"
+              className={mergeClasses("pimolu-chart__axis-title", partClasses.axisTitle)}
               x={14}
               y={(plotTop + plotBottom) / 2}
               textAnchor="middle"
@@ -1648,20 +1679,22 @@ function LinePlot({
         </g>
       </ChartSvg>
     </ChartContainer>
-  );
+  ));
 }
 
 export const LineChart = forwardRef<
   HTMLDivElement,
   PimoluLineChartProps
 >(function LineChart(props, ref) {
-  return (
+  const [, scopeParts, forwardedParts] = usePartClasses("chart", props.classNames, true);
+
+  return scopeParts((
     <LinePlot
       {...props}
       area={false}
-      forwardedRef={ref}
+      forwardedRef={ref} classNames={forwardedParts}
     />
-  );
+  ));
 });
 
 LineChart.displayName = "PimoluLineChart";
@@ -1670,13 +1703,15 @@ export const AreaChart = forwardRef<
   HTMLDivElement,
   PimoluAreaChartProps
 >(function AreaChart(props, ref) {
-  return (
+  const [, scopeParts, forwardedParts] = usePartClasses("chart", props.classNames, true);
+
+  return scopeParts((
     <LinePlot
       {...props}
       area
-      forwardedRef={ref}
+      forwardedRef={ref} classNames={forwardedParts}
     />
-  );
+  ));
 });
 
 AreaChart.displayName = "PimoluAreaChart";
@@ -1689,7 +1724,7 @@ export const DonutChart = forwardRef<
   HTMLDivElement,
   PimoluDonutChartProps
 >(function DonutChart(
-  {
+  { classNames,
     data = [],
     width = DONUT_SIZE,
     height = DONUT_SIZE,
@@ -1707,6 +1742,8 @@ export const DonutChart = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("chart", classNames, true);
+
   const formatter = valueFormatter ?? formatDefault;
   const viewWidth = safeSize(width, DONUT_SIZE);
   const viewHeight = safeSize(height, DONUT_SIZE);
@@ -1762,7 +1799,7 @@ export const DonutChart = forwardRef<
     segments.push(
       <circle
         key={`segment-${index}`}
-        className="pimolu-chart__segment"
+        className={mergeClasses("pimolu-chart__segment", partClasses.segment)}
         cx={centerX}
         cy={centerY}
         r={radius}
@@ -1816,7 +1853,7 @@ export const DonutChart = forwardRef<
     total > 0 ? ` Total ${formatter(total)}.` : ""
   }`;
 
-  return (
+  return scopeParts((
     <ChartContainer
       {...props}
       containerRef={ref}
@@ -1831,7 +1868,7 @@ export const DonutChart = forwardRef<
             value: `${formatter(values[index])} · ${total > 0 ? Math.round(values[index] / total * 100) : 0}%` }],
         })),
       } : undefined}
-      className={className}
+      className={mergeClasses(className, partClasses.root)}
       empty={empty}
       emptyLabel={emptyLabel}
       legend={
@@ -1848,7 +1885,7 @@ export const DonutChart = forwardRef<
           columns={["Segment", "Value", "Share"]}
           rows={tableRows}
         />
-      }
+      } classNames={forwardedParts}
     >
       <ChartSvg
         width={viewWidth}
@@ -1858,7 +1895,7 @@ export const DonutChart = forwardRef<
       >
         <g aria-hidden="true">
           <circle
-            className="pimolu-chart__donut-track"
+            className={mergeClasses("pimolu-chart__donut-track", partClasses.donutTrack)}
             cx={centerX}
             cy={centerY}
             r={radius}
@@ -1870,7 +1907,7 @@ export const DonutChart = forwardRef<
 
           {centerValue != null && (
             <text
-              className="pimolu-chart__center-value"
+              className={mergeClasses("pimolu-chart__center-value", partClasses.centerValue)}
               x={centerX}
               y={centerLabel != null ? centerY - 4 : centerY}
               textAnchor="middle"
@@ -1882,7 +1919,7 @@ export const DonutChart = forwardRef<
 
           {centerLabel != null && (
             <text
-              className="pimolu-chart__center-label"
+              className={mergeClasses("pimolu-chart__center-label", partClasses.centerLabel)}
               x={centerX}
               y={
                 centerValue != null
@@ -1898,7 +1935,7 @@ export const DonutChart = forwardRef<
         </g>
       </ChartSvg>
     </ChartContainer>
-  );
+  ));
 });
 
 DonutChart.displayName = "PimoluDonutChart";
@@ -1911,7 +1948,7 @@ export const Sparkline = forwardRef<
   HTMLDivElement,
   PimoluSparklineProps
 >(function Sparkline(
-  {
+  { classNames,
     data = [],
     area = false,
     color,
@@ -1925,6 +1962,8 @@ export const Sparkline = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts, forwardedParts] = usePartClasses("chart", classNames, true);
+
   const formatter = valueFormatter ?? formatDefault;
   const viewWidth = safeSize(width, SPARKLINE_WIDTH);
   const viewHeight = safeSize(height, SPARKLINE_HEIGHT);
@@ -2004,12 +2043,12 @@ export const Sparkline = forwardRef<
     formatter(value),
   ]);
 
-  return (
+  return scopeParts((
     <ChartContainer
       {...props}
       containerRef={ref}
       kind="sparkline"
-      className={className}
+      className={mergeClasses(className, partClasses.root)}
       empty={empty}
       emptyLabel={emptyLabel}
       table={
@@ -2018,7 +2057,7 @@ export const Sparkline = forwardRef<
           columns={["Point", "Value"]}
           rows={tableRows}
         />
-      }
+      } classNames={forwardedParts}
     >
       <ChartSvg
         width={viewWidth}
@@ -2029,7 +2068,7 @@ export const Sparkline = forwardRef<
         <g aria-hidden="true">
           {areaPath !== "" && (
             <path
-              className="pimolu-chart__area"
+              className={mergeClasses("pimolu-chart__area", partClasses.area)}
               d={areaPath}
               fill={resolvedColor}
               style={styleForColor(resolvedColor)}
@@ -2038,7 +2077,7 @@ export const Sparkline = forwardRef<
 
           {linePath !== "" && (
             <path
-              className="pimolu-chart__line pimolu-chart__sparkline-line"
+              className={mergeClasses("pimolu-chart__line pimolu-chart__sparkline-line", partClasses.line)}
               d={linePath}
               pathLength={1}
               fill="none"
@@ -2049,7 +2088,7 @@ export const Sparkline = forwardRef<
 
           {values.length === 1 && (
             <circle
-              className="pimolu-chart__point"
+              className={mergeClasses("pimolu-chart__point", partClasses.point)}
               cx={viewWidth / 2}
               cy={yForValue(values[0])}
               r={2.5}
@@ -2061,7 +2100,7 @@ export const Sparkline = forwardRef<
         </g>
       </ChartSvg>
     </ChartContainer>
-  );
+  ));
 });
 
 Sparkline.displayName = "PimoluSparkline";

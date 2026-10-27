@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -166,7 +169,7 @@ export const VideoPlayer = forwardRef<
   HTMLDivElement,
   PimoluVideoPlayerProps
 >(function VideoPlayer(
-  {
+  { classNames,
     src,
     poster,
     captions,
@@ -208,6 +211,8 @@ export const VideoPlayer = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("video-player", classNames, true);
+
   const mediaRef = useRef<HTMLVideoElement | null>(
     null
   );
@@ -623,16 +628,16 @@ export const VideoPlayer = forwardRef<
   const currentLabel = formatTime(currentTime);
   const durationLabel = formatTime(duration);
 
-  return (
+  return scopeParts((
     <div
       ref={setRootRef}
       role="group"
       aria-label={resolvedLabels.player}
       tabIndex={0}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-video-player",
         className
-      )}
+      ), partClasses.root)}
       data-playing={isPlaying ? "true" : "false"}
       data-fullscreen={fullscreen ? "true" : "false"}
       style={{
@@ -645,10 +650,10 @@ export const VideoPlayer = forwardRef<
       <video
         {...props}
         ref={mediaRef}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-video-player__media",
           videoClassName
-        )}
+        ), partClasses.media)}
         src={src}
         poster={poster}
         preload={preload}
@@ -669,11 +674,11 @@ export const VideoPlayer = forwardRef<
         {fallback}
       </video>
 
-      <div className="pimolu-video-player__controls">
-        <div className="pimolu-video-player__row">
+      <div className={mergeClasses("pimolu-video-player__controls", partClasses.controls)}>
+        <div className={mergeClasses("pimolu-video-player__row", partClasses.row)}>
           <button
             type="button"
-            className="pimolu-video-player__button pimolu-video-player__toggle"
+            className={mergeClasses("pimolu-video-player__button pimolu-video-player__toggle", partClasses.button)}
             aria-label={
               isPlaying
                 ? resolvedLabels.pause
@@ -686,13 +691,13 @@ export const VideoPlayer = forwardRef<
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
 
-          <span className="pimolu-video-player__time">
+          <span className={mergeClasses("pimolu-video-player__time", partClasses.time)}>
             {currentLabel} / {durationLabel}
           </span>
 
           <input
             type="range"
-            className="pimolu-native-range pimolu-video-player__timeline"
+            className={mergeClasses("pimolu-native-range pimolu-video-player__timeline", partClasses.timeline)}
             style={{
               "--pimolu-native-range-progress": `${duration > 0 ? (Math.min(currentTime, duration) / duration) * 100 : 0}%`,
             } as CSSProperties}
@@ -715,10 +720,10 @@ export const VideoPlayer = forwardRef<
           />
         </div>
 
-        <div className="pimolu-video-player__row pimolu-video-player__row--secondary">
+        <div className={mergeClasses("pimolu-video-player__row pimolu-video-player__row--secondary", partClasses.row)}>
           <button
             type="button"
-            className="pimolu-video-player__button"
+            className={mergeClasses("pimolu-video-player__button", partClasses.button)}
             aria-label={
               muted
                 ? resolvedLabels.unmute
@@ -732,7 +737,7 @@ export const VideoPlayer = forwardRef<
 
           <input
             type="range"
-            className="pimolu-native-range pimolu-video-player__volume"
+            className={mergeClasses("pimolu-native-range pimolu-video-player__volume", partClasses.volume)}
             style={{
               "--pimolu-native-range-progress": `${volume * 100}%`,
             } as CSSProperties}
@@ -750,7 +755,7 @@ export const VideoPlayer = forwardRef<
           {showFullscreen && canFullscreen && (
             <button
               type="button"
-              className="pimolu-video-player__button pimolu-video-player__fullscreen"
+              className={mergeClasses("pimolu-video-player__button pimolu-video-player__fullscreen", partClasses.button)}
               aria-label={
                 fullscreen
                   ? resolvedLabels.exitFullscreen
@@ -765,7 +770,7 @@ export const VideoPlayer = forwardRef<
         </div>
       </div>
     </div>
-  );
+  ));
 });
 
 VideoPlayer.displayName = "PimoluVideoPlayer";

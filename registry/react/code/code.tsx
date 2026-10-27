@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { forwardRef } from "react";
 
@@ -16,7 +19,7 @@ export const Code = forwardRef<
   HTMLElement,
   PimoluCodeProps
 >(function Code(
-  {
+  { classNames,
     block = false,
     size = "sm",
     className,
@@ -25,51 +28,55 @@ export const Code = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("code", classNames, true);
+
   if (block) {
-    return (
-      <pre className="pimolu-code-block">
+    return scopeParts((
+      <pre className={mergeClasses("pimolu-code-block", partClasses.root)}>
         <code
           {...props}
           ref={ref}
-          className={codeVariants(
+          className={mergeClasses(codeVariants(
             { size },
             className
-          )}
+          ), partClasses.root)}
         >
           {children}
         </code>
       </pre>
-    );
+    ));
   }
 
-  return (
+  return scopeParts((
     <code
       {...props}
       ref={ref}
-      className={codeVariants(
+      className={mergeClasses(codeVariants(
         { size },
         className
-      )}
+      ), partClasses.root)}
     >
       {children}
     </code>
-  );
+  ));
 });
 
 export const Kbd = forwardRef<
   HTMLElement,
   PimoluKbdProps
 >(function Kbd(
-  { size = "sm", className, children, ...props },
+  { classNames, size = "sm", className, children, ...props },
   ref
 ) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("code", classNames, true);
+
+  return scopeParts((
     <kbd
       {...props}
       ref={ref}
-      className={kbdVariants({ size }, className)}
+      className={mergeClasses(kbdVariants({ size }, className), partClasses.root)}
     >
       {children}
     </kbd>
-  );
+  ));
 });

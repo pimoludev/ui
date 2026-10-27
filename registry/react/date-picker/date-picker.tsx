@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -60,7 +63,7 @@ export const DatePicker = forwardRef<
   HTMLButtonElement,
   PimoluDatePickerProps
 >(function DatePicker(
-  {
+  { classNames,
     id,
     name,
 
@@ -90,6 +93,8 @@ export const DatePicker = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("date-picker", classNames, true);
+
   const generatedId = useId();
 
   const triggerId =
@@ -298,18 +303,18 @@ export const DatePicker = forwardRef<
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div ref={fieldRef} className={rootClassName}>
+  return scopeParts((
+    <div ref={fieldRef} className={mergeClasses(rootClassName, partClasses.root)}>
       {label && (
         <span
           id={labelId}
-          className="pimolu-date-picker__label"
+          className={mergeClasses("pimolu-date-picker__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-date-picker__required"
+              className={mergeClasses("pimolu-date-picker__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -318,12 +323,12 @@ export const DatePicker = forwardRef<
         </span>
       )}
 
-      <div className="pimolu-date-picker__field">
+      <div className={mergeClasses("pimolu-date-picker__field", partClasses.field)}>
         <button
           ref={assignTriggerRef}
           type="button"
           id={triggerId}
-          className="pimolu-date-picker__trigger"
+          className={mergeClasses("pimolu-date-picker__trigger", partClasses.trigger)}
           disabled={disabled}
           aria-haspopup="dialog"
           aria-expanded={open}
@@ -344,7 +349,7 @@ export const DatePicker = forwardRef<
           onKeyDown={handleTriggerKeyDown}
         >
           <span
-            className="pimolu-date-picker__icon"
+            className={mergeClasses("pimolu-date-picker__icon", partClasses.icon)}
             aria-hidden="true"
           >
             <CalendarIcon />
@@ -352,13 +357,13 @@ export const DatePicker = forwardRef<
 
           <span
             id={valueId}
-            className={[
+            className={mergeClasses([
               "pimolu-date-picker__value",
               !hasValue &&
                 "pimolu-date-picker__value--placeholder",
             ]
               .filter(Boolean)
-              .join(" ")}
+              .join(" "), partClasses.value)}
           >
             {formattedValue ?? placeholder}
           </span>
@@ -367,7 +372,7 @@ export const DatePicker = forwardRef<
         {showClear && (
           <button
             type="button"
-            className="pimolu-date-picker__clear"
+            className={mergeClasses("pimolu-date-picker__clear", partClasses.clear)}
             aria-label={clearLabel ?? "Clear date"}
             onClick={handleClear}
           >
@@ -393,7 +398,7 @@ export const DatePicker = forwardRef<
             role="dialog"
             aria-label={panelLabel}
             tabIndex={-1}
-            className="pimolu-date-picker__panel"
+            className={mergeClasses("pimolu-date-picker__panel", partClasses.panel)}
             style={panelStyle}
             data-state={state}
             data-side={side}
@@ -413,7 +418,7 @@ export const DatePicker = forwardRef<
         </Portal>
       )}
     </div>
-  );
+  ));
 });
 
 DatePicker.displayName = "PimoluDatePicker";

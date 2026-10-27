@@ -13,5 +13,11 @@
     "file": "table-of-contents-controlled.tsx",
     "title": "Controlled active heading",
     "description": "Every outline entry points to an actual heading in this isolated document."
+  },
+  {
+    "file": "table-of-contents-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

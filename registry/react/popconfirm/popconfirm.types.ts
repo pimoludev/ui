@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactElement, ReactNode } from "react";
 
 import type { PimoluPopoverPlacement } from "../popover/popover.types";
@@ -7,6 +9,9 @@ export type PimoluPopconfirmVariant =
   | "destructive";
 
 export interface PimoluPopconfirmProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"popconfirm">;
+
   /**
    * The element that opens the confirmation: any element, or a component
    * that passes down the props it receives. Focus returns to it when the

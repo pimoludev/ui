@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { HTMLAttributes } from "react";
 
 import type {
@@ -27,6 +29,9 @@ export interface PimoluSeparatorProps
     | "aria-hidden"
     | "aria-orientation"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"separator">;
+
   /** Direction of the separator. */
   orientation?: PimoluSeparatorOrientation;
 

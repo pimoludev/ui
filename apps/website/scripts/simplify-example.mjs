@@ -129,7 +129,22 @@ export function createExampleSimplifier(program) {
     const transformed = ts.transform(file, [(context) => {
       const f = context.factory;
       const toNode = (v) => typeof v === "string" ? f.createStringLiteral(v) : typeof v === "boolean" ? (v ? f.createTrue() : f.createFalse()) : f.createNumericLiteral(v);
+      function portableClasses(value) {
+        const result = value.split(/\s+/).map((name) => layouts[name] ?? name).filter(Boolean).join(" ");
+        if (/\bpg-/.test(result)) throw new Error(`Add a portable layout for ${result}`);
+        return result;
+      }
+      function classValue(node, env) {
+        if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) return f.createStringLiteral(portableClasses(node.text));
+        if (ts.isConditionalExpression(node)) return f.updateConditionalExpression(node, visit(node.condition, env), node.questionToken, classValue(node.whenTrue, env), node.colonToken, classValue(node.whenFalse, env));
+        if (ts.isParenthesizedExpression(node)) return f.updateParenthesizedExpression(node, classValue(node.expression, env));
+        if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken) return f.updateBinaryExpression(node, visit(node.left, env), node.operatorToken, classValue(node.right, env));
+        return ts.visitEachChild(node, (child) => classValue(child, env), context);
+      }
       function visit(node, env = new Map()) {
+        if (ts.isShorthandPropertyAssignment(node) && env.has(node.name.text) && env.get(node.name.text) !== unknown) {
+          return f.createPropertyAssignment(node.name, toNode(env.get(node.name.text)));
+        }
         if (ts.isConditionalExpression(node) && env.size) {
           const condition = evaluate(node.condition, env);
           if (condition !== unknown) return visit(unwrap(condition ? node.whenTrue : node.whenFalse), env);
@@ -168,10 +183,8 @@ export function createExampleSimplifier(program) {
           const value = evaluate(node.initializer.expression, env);
           if (typeof value === "string") return f.updateJsxAttribute(node, node.name, f.createStringLiteral(value));
         }
-        if (ts.isJsxAttribute(node) && /className$/i.test(node.name.text) && node.initializer && ts.isStringLiteral(node.initializer)) {
-          const value = node.initializer.text.split(/\s+/).map((name) => layouts[name] ?? name).filter(Boolean).join(" ");
-          if (/\bpg-/.test(value)) throw new Error(`Add a portable layout for ${value}`);
-          return f.updateJsxAttribute(node, node.name, f.createStringLiteral(value));
+        if (ts.isJsxAttribute(node) && /className$/i.test(node.name.text) && node.initializer) {
+          return f.updateJsxAttribute(node, node.name, classValue(node.initializer, env));
         }
         if (ts.isJsxExpression(node) && node.expression && env.size) {
           const value = evaluate(node.expression, env);
@@ -188,6 +201,7 @@ export function createExampleSimplifier(program) {
         }
         if (ts.isIdentifier(node) && env.has(node.text) && env.get(node.text) !== unknown) {
           if (ts.isPropertyAccessExpression(node.parent) && node.parent.name === node) return node;
+          if (ts.isPropertyAssignment(node.parent) && node.parent.name === node) return node;
           if (ts.isJsxAttribute(node.parent) && node.parent.name === node) return node;
           return toNode(env.get(node.text));
         }

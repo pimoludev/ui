@@ -341,6 +341,9 @@
 
 .pg-stack {
   display: grid;
+  /* Let calendars wrap and tables scroll inside their own available width. */
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 14px;
 }
 

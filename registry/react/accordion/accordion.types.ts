@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ReactNode,
 } from "react";
@@ -38,10 +40,13 @@ interface AccordionMultipleProps {
   onValueChange?: (value: string[]) => void;
 }
 
-export type PimoluAccordionProps = AccordionBaseProps &
-  (AccordionSingleProps | AccordionMultipleProps);
+export type PimoluAccordionProps = (AccordionBaseProps &
+  (AccordionSingleProps | AccordionMultipleProps)) & { classNames?: PimoluClassNames<"accordion"> };
 
 export interface PimoluAccordionItemProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"accordion">;
+
   /** Value shared with the trigger and content. */
   value: string;
 
@@ -53,11 +58,17 @@ export interface PimoluAccordionItemProps {
 }
 
 export interface PimoluAccordionTriggerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"accordion">;
+
   children: ReactNode;
   className?: string;
 }
 
 export interface PimoluAccordionContentProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"accordion">;
+
   children: ReactNode;
   className?: string;
 }

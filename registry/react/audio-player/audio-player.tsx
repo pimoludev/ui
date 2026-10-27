@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -135,7 +138,7 @@ export const AudioPlayer = forwardRef<
   HTMLDivElement,
   PimoluAudioPlayerProps
 >(function AudioPlayer(
-  {
+  { classNames,
     src,
     title,
     subtitle,
@@ -173,6 +176,8 @@ export const AudioPlayer = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("audio-player", classNames, true);
+
   const mediaRef = useRef<HTMLAudioElement | null>(
     null
   );
@@ -499,26 +504,26 @@ export const AudioPlayer = forwardRef<
   const currentLabel = formatTime(currentTime);
   const durationLabel = formatTime(duration);
 
-  return (
+  return scopeParts((
     <div
       ref={setRootRef}
       role="group"
       aria-label={regionLabel}
       tabIndex={0}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-audio-player",
         className
-      )}
+      ), partClasses.root)}
       data-playing={isPlaying ? "true" : "false"}
       onKeyDown={handleRootKeyDown}
     >
       <audio
         {...props}
         ref={mediaRef}
-        className={classes(
+        className={mergeClasses(classes(
           "pimolu-audio-player__media",
           audioClassName
-        )}
+        ), partClasses.media)}
         src={src}
         preload={preload}
         autoPlay={autoPlay}
@@ -533,10 +538,10 @@ export const AudioPlayer = forwardRef<
         onVolumeChange={handleVolumeChange}
       />
 
-      <div className="pimolu-audio-player__surface">
+      <div className={mergeClasses("pimolu-audio-player__surface", partClasses.surface)}>
         <button
           type="button"
-          className="pimolu-audio-player__toggle"
+          className={mergeClasses("pimolu-audio-player__toggle", partClasses.toggle)}
           aria-label={
             isPlaying
               ? resolvedLabels.pause
@@ -547,30 +552,30 @@ export const AudioPlayer = forwardRef<
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </button>
 
-        <div className="pimolu-audio-player__info">
+        <div className={mergeClasses("pimolu-audio-player__info", partClasses.info)}>
           {title && (
-            <span className="pimolu-audio-player__title">
+            <span className={mergeClasses("pimolu-audio-player__title", partClasses.title)}>
               {title}
             </span>
           )}
 
           {subtitle && (
-            <span className="pimolu-audio-player__subtitle">
+            <span className={mergeClasses("pimolu-audio-player__subtitle", partClasses.subtitle)}>
               {subtitle}
             </span>
           )}
         </div>
 
         {showTime && (
-          <span className="pimolu-audio-player__time">
+          <span className={mergeClasses("pimolu-audio-player__time", partClasses.time)}>
             {currentLabel} / {durationLabel}
           </span>
         )}
 
-        <div className="pimolu-audio-player__volume-group">
+        <div className={mergeClasses("pimolu-audio-player__volume-group", partClasses.volumeGroup)}>
           <button
             type="button"
-            className="pimolu-audio-player__mute"
+            className={mergeClasses("pimolu-audio-player__mute", partClasses.mute)}
             aria-label={
               muted
                 ? resolvedLabels.unmute
@@ -585,7 +590,7 @@ export const AudioPlayer = forwardRef<
           {showVolume && (
             <input
               type="range"
-              className="pimolu-native-range pimolu-audio-player__volume"
+              className={mergeClasses("pimolu-native-range pimolu-audio-player__volume", partClasses.volume)}
               style={{
                 "--pimolu-native-range-progress": `${volume * 100}%`,
               } as CSSProperties}
@@ -604,7 +609,7 @@ export const AudioPlayer = forwardRef<
 
         <input
           type="range"
-          className="pimolu-native-range pimolu-audio-player__timeline"
+          className={mergeClasses("pimolu-native-range pimolu-audio-player__timeline", partClasses.timeline)}
           style={{
             "--pimolu-native-range-progress": `${duration > 0 ? (Math.min(currentTime, duration) / duration) * 100 : 0}%`,
           } as CSSProperties}
@@ -627,7 +632,7 @@ export const AudioPlayer = forwardRef<
         />
       </div>
     </div>
-  );
+  ));
 });
 
 AudioPlayer.displayName = "PimoluAudioPlayer";

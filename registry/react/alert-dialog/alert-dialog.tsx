@@ -1,4 +1,6 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+
 
 import type {
   PimoluAlertDialogActionProps,
@@ -23,21 +25,23 @@ export function AlertDialog(props: PimoluAlertDialogProps) {
 
 export { DialogTrigger as AlertDialogTrigger };
 
-export function AlertDialogContent({
+export function AlertDialogContent({ classNames,
   children,
   ...props
 }: PimoluAlertDialogContentProps) {
-  return (
+  const [, scopeParts, forwardedParts] = usePartClasses("alert-dialog", classNames, true);
+
+  return scopeParts((
     <DialogContent
       closeOnOverlayClick={false}
       closeOnEscape={false}
       showCloseButton={false}
       {...props}
-      role="alertdialog"
+      role="alertdialog" classNames={forwardedParts}
     >
       {children}
     </DialogContent>
-  );
+  ));
 }
 
 export {

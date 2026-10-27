@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   HTMLAttributes,
   ReactNode,
@@ -16,6 +18,9 @@ export interface PimoluResultProps
     HTMLAttributes<HTMLDivElement>,
     "title" | "role" | "children"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"result">;
+
   /** Outcome conveyed by the screen. */
   status?: PimoluResultStatus;
 

@@ -1,4 +1,9 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+
+
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   forwardRef,
@@ -24,35 +29,40 @@ const CLEARABLE_TYPES = new Set([
 
 
 interface InputActionButtonProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"input">;
+
   action: PimoluInputAction;
   position: "start" | "end";
   disabled: boolean;
 }
 
-function InputActionButton({
+function InputActionButton({ classNames,
   action,
   position,
   disabled,
 }: InputActionButtonProps) {
-  return (
+  const [partClasses, scopeParts] = usePartClasses("input", classNames, false);
+
+  return scopeParts((
     <button
       type="button"
-      className={[
+      className={mergeClasses([
         "pimolu-input__action",
         `pimolu-input__action--${position}`,
-      ].join(" ")}
+      ].join(" "), partClasses.action)}
       aria-label={action.label}
       disabled={disabled || action.disabled}
       onClick={action.onClick}
     >
       <span
-        className="pimolu-input__action-icon"
+        className={mergeClasses("pimolu-input__action-icon", partClasses.actionIcon)}
         aria-hidden="true"
       >
         {action.icon}
       </span>
     </button>
-  );
+  ));
 }
 
 
@@ -96,6 +106,7 @@ export const Input = forwardRef<
     disabled,
     readOnly,
 
+    classNames,
     className,
     containerClassName,
 
@@ -103,6 +114,8 @@ export const Input = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("input", classNames, true);
+
   const generatedId = useId();
   const inputId = id ?? `pimolu-input-${generatedId}`;
 
@@ -246,6 +259,7 @@ const [passwordVisible, setPasswordVisible] = useState(false);
     hasError && "pimolu-input--invalid",
     disabled && "pimolu-input--disabled",
     containerClassName,
+    partClasses.root,
   ]
     .filter(Boolean)
     .join(" ");
@@ -253,22 +267,23 @@ const [passwordVisible, setPasswordVisible] = useState(false);
   const controlClassName = [
     "pimolu-input__control",
     className,
+    partClasses.control,
   ]
     .filter(Boolean)
     .join(" ");
 
-  return (
-    <div className={fieldClassName}>
+  return scopeParts((
+    <div className={mergeClasses(fieldClassName, partClasses.root)}>
       {label && (
         <label
           htmlFor={inputId}
-          className="pimolu-input__label"
+          className={mergeClasses("pimolu-input__label", partClasses.label)}
         >
           {label}
 
           {required && (
             <span
-              className="pimolu-input__required"
+              className={mergeClasses("pimolu-input__required", partClasses.required)}
               aria-hidden="true"
             >
               *
@@ -277,10 +292,10 @@ const [passwordVisible, setPasswordVisible] = useState(false);
         </label>
       )}
 
-      <div className="pimolu-input__wrapper">
+      <div className={mergeClasses("pimolu-input__wrapper", partClasses.wrapper)}>
         {startIcon && (
           <span
-            className="pimolu-input__start-icon"
+            className={mergeClasses("pimolu-input__start-icon", partClasses.startIcon)}
             aria-hidden="true"
           >
             {startIcon}
@@ -300,7 +315,7 @@ const [passwordVisible, setPasswordVisible] = useState(false);
           ref={setInputRef}
           id={inputId}
           type={displayedType}
-          className={controlClassName}
+          className={mergeClasses(controlClassName, partClasses.control)}
           value={isControlled ? value : undefined}
           defaultValue={
             isControlled ? undefined : defaultValue
@@ -318,7 +333,7 @@ const [passwordVisible, setPasswordVisible] = useState(false);
         {showClearButton && (
           <button
             type="button"
-            className="pimolu-input__clear"
+            className={mergeClasses("pimolu-input__clear", partClasses.clearButton)}
             aria-label={
               clearLabel ??
               (label ? `Clear ${label}` : "Clear input")
@@ -333,7 +348,7 @@ const [passwordVisible, setPasswordVisible] = useState(false);
         {canTogglePassword && (
           <button
             type="button"
-            className="pimolu-input__visibility"
+            className={mergeClasses("pimolu-input__visibility", partClasses.visibilityButton)}
             aria-label={
               passwordVisible
                 ? hidePasswordLabel
@@ -380,7 +395,7 @@ const [passwordVisible, setPasswordVisible] = useState(false);
 
         {endIcon && (
           <span
-            className="pimolu-input__end-icon"
+            className={mergeClasses("pimolu-input__end-icon", partClasses.endIcon)}
             aria-hidden="true"
           >
             {endIcon}
@@ -391,18 +406,16 @@ const [passwordVisible, setPasswordVisible] = useState(false);
       {message && (
         <p
           id={messageId}
-          className={
-            isErrorMessage
+          className={mergeClasses(isErrorMessage
               ? "pimolu-input__error"
-              : "pimolu-input__helper"
-          }
+              : "pimolu-input__helper", partClasses.message)}
           role={isErrorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 Input.displayName = "PimoluInput";

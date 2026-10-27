@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type { CSSProperties } from "react";
 
 export interface PimoluCascaderOption {
@@ -9,6 +11,9 @@ export interface PimoluCascaderOption {
 }
 
 export interface PimoluCascaderProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"cascader">;
+
   id?: string;
 
   options: readonly PimoluCascaderOption[];

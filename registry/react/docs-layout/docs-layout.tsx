@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useId,
@@ -14,7 +17,7 @@ function classes(
   return [base, ...extra].filter(Boolean).join(" ");
 }
 
-export function DocsLayout({
+export function DocsLayout({ classNames,
   header,
   sidebar,
   children,
@@ -27,6 +30,8 @@ export function DocsLayout({
   style,
   ...props
 }: PimoluDocsLayoutProps) {
+  const [partClasses, scopeParts] = usePartClasses("docs-layout", classNames, true);
+
   const mainId = `pimolu-docs-main-${useId().replace(
     /[^a-zA-Z0-9_-]/g,
     ""
@@ -57,35 +62,35 @@ export function DocsLayout({
       : {}),
   } as CSSProperties;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       data-sidebar={hasSidebar ? "true" : "false"}
       data-toc={hasToc ? "true" : "false"}
       data-sticky={sticky || undefined}
-      className={classes(
+      className={mergeClasses(classes(
         "pimolu-docs-layout",
         className
-      )}
+      ), partClasses.root)}
       style={layoutStyle}
     >
       <a
-        className="pimolu-docs-layout__skip-link"
+        className={mergeClasses("pimolu-docs-layout__skip-link", partClasses.skipLink)}
         href={`#${mainId}`}
       >
         Skip to content
       </a>
 
       {hasHeader && (
-        <div className="pimolu-docs-layout__header">
+        <div className={mergeClasses("pimolu-docs-layout__header", partClasses.header)}>
           {header}
         </div>
       )}
 
-      <div className="pimolu-docs-layout__body">
+      <div className={mergeClasses("pimolu-docs-layout__body", partClasses.body)}>
         {hasSidebar && (
           <aside
-            className="pimolu-docs-layout__sidebar"
+            className={mergeClasses("pimolu-docs-layout__sidebar", partClasses.sidebar)}
             aria-label="Documentation sidebar"
           >
             {sidebar}
@@ -95,14 +100,14 @@ export function DocsLayout({
         <main
           id={mainId}
           tabIndex={-1}
-          className="pimolu-docs-layout__main"
+          className={mergeClasses("pimolu-docs-layout__main", partClasses.main)}
         >
           {children}
         </main>
 
         {hasToc && (
           <aside
-            className="pimolu-docs-layout__toc"
+            className={mergeClasses("pimolu-docs-layout__toc", partClasses.toc)}
             aria-label="Table of contents"
           >
             {toc}
@@ -111,12 +116,12 @@ export function DocsLayout({
       </div>
 
       {hasFooter && (
-        <div className="pimolu-docs-layout__footer">
+        <div className={mergeClasses("pimolu-docs-layout__footer", partClasses.footer)}>
           {footer}
         </div>
       )}
     </div>
-  );
+  ));
 }
 
 DocsLayout.displayName = "PimoluDocsLayout";

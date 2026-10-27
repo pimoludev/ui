@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -33,7 +36,7 @@ export const Rating = forwardRef<
   HTMLDivElement,
   PimoluRatingProps
 >(function Rating(
-  {
+  { classNames,
     value,
     defaultValue,
     onValueChange,
@@ -57,6 +60,8 @@ export const Rating = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("rating", classNames, true);
+
   const generatedId = useId();
   const labelId = `pimolu-rating-${generatedId}-label`;
 
@@ -170,7 +175,7 @@ export const Rating = forwardRef<
 
   const labelIdToUse = label ? labelId : undefined;
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={ref}
@@ -184,7 +189,7 @@ export const Rating = forwardRef<
       aria-disabled={disabled || undefined}
       data-readonly={readOnly || undefined}
       data-disabled={disabled || undefined}
-      className={[
+      className={mergeClasses([
         "pimolu-rating",
         `pimolu-rating--${size}`,
         readOnly && "pimolu-rating--readonly",
@@ -192,7 +197,7 @@ export const Rating = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       onKeyDown={handleKeyDown}
       onMouseLeave={(event) => {
         setHovered(null);
@@ -202,14 +207,14 @@ export const Rating = forwardRef<
       {label && (
         <span
           id={labelId}
-          className="pimolu-rating__label"
+          className={mergeClasses("pimolu-rating__label", partClasses.label)}
         >
           {label}
         </span>
       )}
 
       <div
-        className="pimolu-rating__items"
+        className={mergeClasses("pimolu-rating__items", partClasses.items)}
         onMouseLeave={() => setHovered(null)}
       >
         {Array.from(
@@ -240,18 +245,18 @@ export const Rating = forwardRef<
                 disabled={disabled}
                 data-filled={filled ? "true" : "false"}
                 data-rating-value={index}
-                className="pimolu-rating__item"
+                className={mergeClasses("pimolu-rating__item", partClasses.item)}
                 onClick={() => activate(index)}
                 onMouseEnter={() => {
                   if (!locked) setHovered(index);
                 }}
               >
                 <span
-                  className="pimolu-rating__icon"
+                  className={mergeClasses("pimolu-rating__icon", partClasses.icon)}
                   aria-hidden="true"
                 >
                   <svg
-                    className="pimolu-rating__star"
+                    className={mergeClasses("pimolu-rating__star", partClasses.star)}
                     viewBox="0 0 24 24"
                     fill={
                       filled ? "currentColor" : "none"
@@ -272,7 +277,7 @@ export const Rating = forwardRef<
         )}
       </div>
     </div>
-  );
+  ));
 });
 
 Rating.displayName = "PimoluRating";

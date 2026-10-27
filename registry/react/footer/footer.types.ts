@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { PimoluFooterAppearance } from "./footer.variants";
 
 import type {
@@ -32,6 +34,9 @@ export interface PimoluFooterColumn {
  */
 export interface PimoluFooterProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"footer">;
+
   /** Surface treatment. Defaults to surface; transparent inherits the page background. */
   appearance?: PimoluFooterAppearance;
 

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -14,7 +17,7 @@ export const Toggle = forwardRef<
   HTMLButtonElement,
   PimoluToggleProps
 >(function Toggle(
-  {
+  { classNames,
     pressed: controlledPressed,
     defaultPressed = false,
     onPressedChange,
@@ -32,6 +35,8 @@ export const Toggle = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("toggle", classNames, true);
+
   const isControlled = controlledPressed !== undefined;
 
   const [uncontrolledPressed, setUncontrolledPressed] =
@@ -55,7 +60,7 @@ export const Toggle = forwardRef<
     onPressedChange?.(next);
   }
 
-  return (
+  return scopeParts((
     <button
       {...props}
       ref={ref}
@@ -63,13 +68,13 @@ export const Toggle = forwardRef<
       disabled={disabled}
       aria-pressed={pressed}
       data-state={pressed ? "on" : "off"}
-      className={toggleVariants(
+      className={mergeClasses(toggleVariants(
         { variant, size },
         className
-      )}
+      ), partClasses.root)}
       onClick={handleClick}
     >
       {children}
     </button>
-  );
+  ));
 });

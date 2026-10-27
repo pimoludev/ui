@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useEffect,
@@ -190,7 +193,7 @@ function Chevron({
    SCHEDULER
 ========================================= */
 
-export function Scheduler({
+export function Scheduler({ classNames,
   events,
 
   date,
@@ -216,6 +219,8 @@ export function Scheduler({
   className,
   "aria-label": ariaLabel = "Schedule",
 }: PimoluSchedulerProps) {
+  const [partClasses, scopeParts] = usePartClasses("scheduler", classNames, true);
+
   const dateControlled = date !== undefined;
 
   const [internalDate, setInternalDate] = useState(
@@ -547,15 +552,15 @@ export function Scheduler({
     return ((minutes - minHour * 60) / rangeMinutes) * 100;
   }
 
-  return (
+  return scopeParts((
     <section
-      className={[
+      className={mergeClasses([
         "pimolu-scheduler",
         `pimolu-scheduler--${resolvedView}`,
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       aria-label={ariaLabel}
       style={
         {
@@ -563,8 +568,8 @@ export function Scheduler({
         } as CSSProperties
       }
     >
-      <div className="pimolu-scheduler__toolbar">
-        <div className="pimolu-scheduler__navigation">
+      <div className={mergeClasses("pimolu-scheduler__toolbar", partClasses.toolbar)}>
+        <div className={mergeClasses("pimolu-scheduler__navigation", partClasses.navigation)}>
           <Button
             type="button"
             size="sm"
@@ -609,7 +614,7 @@ export function Scheduler({
         </div>
 
         <div
-          className="pimolu-scheduler__title"
+          className={mergeClasses("pimolu-scheduler__title", partClasses.title)}
           aria-live="polite"
         >
           {title}
@@ -631,17 +636,17 @@ export function Scheduler({
 
       {!hasVisibleEvents && (
         <p
-          className="pimolu-scheduler__empty"
+          className={mergeClasses("pimolu-scheduler__empty", partClasses.empty)}
           role="status"
         >
           No events scheduled.
         </p>
       )}
 
-      <p id={keyboardHintId} className="pimolu-scheduler__sr-only">Use arrow keys to navigate dates and times, Home and End to reach row boundaries, Control Home and Control End for the whole grid. Enter activates a slot. F2 explores actions inside a cell; Escape returns to the cell.</p>
-      <div className="pimolu-scheduler__scroll" style={{ maxHeight }}>
+      <p id={keyboardHintId} className={mergeClasses("pimolu-scheduler__sr-only", partClasses.srOnly)}>Use arrow keys to navigate dates and times, Home and End to reach row boundaries, Control Home and Control End for the whole grid. Enter activates a slot. F2 explores actions inside a cell; Escape returns to the cell.</p>
+      <div className={mergeClasses("pimolu-scheduler__scroll", partClasses.scroll)} style={{ maxHeight }}>
         <div
-          className="pimolu-scheduler__board"
+          className={mergeClasses("pimolu-scheduler__board", partClasses.board)}
           style={
             {
               "--pimolu-scheduler-day-count": days.length,
@@ -649,7 +654,7 @@ export function Scheduler({
           }
         >
           <div
-            className="pimolu-scheduler__grid"
+            className={mergeClasses("pimolu-scheduler__grid", partClasses.grid)}
             role="grid"
             ref={gridRef}
             onKeyDown={handleGridKeyDown}
@@ -659,14 +664,14 @@ export function Scheduler({
             aria-colcount={days.length + 1}
           >
             <div
-              className="pimolu-scheduler__header-row"
+              className={mergeClasses("pimolu-scheduler__header-row", partClasses.headerRow)}
               role="row"
             >
             <div
-              className="pimolu-scheduler__corner"
+              className={mergeClasses("pimolu-scheduler__corner", partClasses.corner)}
               role="columnheader"
             >
-              <span className="pimolu-scheduler__sr-only">
+              <span className={mergeClasses("pimolu-scheduler__sr-only", partClasses.srOnly)}>
                 Time
               </span>
             </div>
@@ -684,19 +689,19 @@ export function Scheduler({
                     today ? "date" : undefined
                   }
                   data-today={today || undefined}
-                  className={[
+                  className={mergeClasses([
                     "pimolu-scheduler__day-header",
                     today
                       ? "pimolu-scheduler__day-header--today"
                       : "",
                   ]
                     .filter(Boolean)
-                    .join(" ")}
+                    .join(" "), partClasses.dayHeader)}
                 >
-                  <span className="pimolu-scheduler__weekday">
+                  <span className={mergeClasses("pimolu-scheduler__weekday", partClasses.weekday)}>
                     {weekdayFormatter.format(day)}
                   </span>
-                  <span className="pimolu-scheduler__day-number">
+                  <span className={mergeClasses("pimolu-scheduler__day-number", partClasses.dayNumber)}>
                     {day.getDate()}
                   </span>
                 </div>
@@ -705,11 +710,11 @@ export function Scheduler({
           </div>
 
           <div
-            className="pimolu-scheduler__allday-row"
+            className={mergeClasses("pimolu-scheduler__allday-row", partClasses.alldayRow)}
             role="row"
           >
             <div
-              className="pimolu-scheduler__time pimolu-scheduler__allday-label"
+              className={mergeClasses("pimolu-scheduler__time pimolu-scheduler__allday-label", partClasses.time)}
               role="rowheader"
             >
               All day
@@ -728,14 +733,14 @@ export function Scheduler({
                   if (event.target === event.currentTarget) setEditingCell(null);
                 }}
                 onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setEditingCell(null); }}
-                className="pimolu-scheduler__allday-cell"
+                className={mergeClasses("pimolu-scheduler__allday-cell", partClasses.alldayCell)}
               >
                 {layout.allDay.map((event) => (
                   <button
                     key={`${event.source.id}-allday-${dayKey(layout.day)}`}
                     type="button"
                     tabIndex={editingCell === `0:${columnIndex}` ? 0 : -1}
-                    className="pimolu-scheduler__allday-event"
+                    className={mergeClasses("pimolu-scheduler__allday-event", partClasses.alldayEvent)}
                     onClick={() =>
                       onEventClick?.(event.source)
                     }
@@ -758,12 +763,12 @@ export function Scheduler({
           {hours.map((hour, rowIndex) => (
             <div
               key={hour}
-              className="pimolu-scheduler__hour-row"
+              className={mergeClasses("pimolu-scheduler__hour-row", partClasses.hourRow)}
               role="row"
               aria-rowindex={rowIndex + 3}
             >
               <div
-                className="pimolu-scheduler__time"
+                className={mergeClasses("pimolu-scheduler__time", partClasses.time)}
                 role="rowheader"
               >
                 {hourFormatter.format(
@@ -788,7 +793,7 @@ export function Scheduler({
                 return (
                   <div
                     key={`${dayKey(day)}-${hour}`}
-                    className="pimolu-scheduler__slot-cell"
+                    className={mergeClasses("pimolu-scheduler__slot-cell", partClasses.slotCell)}
                     role="gridcell"
                     data-scheduler-row={rowIndex + 1}
                     data-scheduler-column={columnIndex}
@@ -803,7 +808,7 @@ export function Scheduler({
                     {onSlotClick ? (
                       <button
                         type="button"
-                        className="pimolu-scheduler__slot"
+                        className={mergeClasses("pimolu-scheduler__slot", partClasses.slot)}
                         tabIndex={editingCell === `${rowIndex + 1}:${columnIndex}` ? 0 : -1}
                         aria-label={label}
                         onClick={() =>
@@ -814,13 +819,13 @@ export function Scheduler({
                           })
                         }
                       >
-                        <span className="pimolu-scheduler__sr-only">
+                        <span className={mergeClasses("pimolu-scheduler__sr-only", partClasses.srOnly)}>
                           {label}
                         </span>
                       </button>
                     ) : (
                       <span
-                        className="pimolu-scheduler__slot"
+                        className={mergeClasses("pimolu-scheduler__slot", partClasses.slot)}
                         aria-hidden="true"
                       />
                     )}
@@ -832,14 +837,14 @@ export function Scheduler({
           </div>
 
           <div
-            className="pimolu-scheduler__events"
+            className={mergeClasses("pimolu-scheduler__events", partClasses.events)}
             role="group"
             aria-label="Timed events"
           >
             {dayLayouts.map((layout) => (
               <div
                 key={`events-${dayKey(layout.day)}`}
-                className="pimolu-scheduler__events-day"
+                className={mergeClasses("pimolu-scheduler__events-day", partClasses.eventsDay)}
               >
                 {layout.timed.map((segment) => {
                   const width = 100 / segment.lanes;
@@ -856,7 +861,7 @@ export function Scheduler({
                     <button
                       key={`${segment.event.source.id}-${dayKey(layout.day)}`}
                       type="button"
-                      className="pimolu-scheduler__event"
+                      className={mergeClasses("pimolu-scheduler__event", partClasses.event)}
                       data-lane={segment.lane}
                       data-lanes={segment.lanes}
                       data-compact={(segment.end - segment.start) / 60 * hourHeight < 44 || undefined}
@@ -878,10 +883,10 @@ export function Scheduler({
                         } as CSSProperties
                       }
                     >
-                      <span className="pimolu-scheduler__event-title">
+                      <span className={mergeClasses("pimolu-scheduler__event-title", partClasses.eventTitle)}>
                         {segment.event.source.title}
                       </span>
-                      <span className="pimolu-scheduler__event-time">
+                      <span className={mergeClasses("pimolu-scheduler__event-time", partClasses.eventTime)}>
                         {timeFormatter.format(
                           segment.event.start
                         )}{" "}
@@ -900,7 +905,7 @@ export function Scheduler({
                       isSameDay(day, layout.day)
                     ) && (
                     <div
-                      className="pimolu-scheduler__now"
+                      className={mergeClasses("pimolu-scheduler__now", partClasses.now)}
                       data-current-time="true"
                       aria-hidden="true"
                       style={{
@@ -916,5 +921,5 @@ export function Scheduler({
         </div>
       </div>
     </section>
-  );
+  ));
 }

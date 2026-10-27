@@ -1,4 +1,8 @@
 "use client";
+import type { PimoluClassNames } from "../customization/customization.types";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -25,6 +29,9 @@ interface InternalVirtualListProps
     HTMLAttributes<HTMLDivElement>,
     "children"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"virtual-list">;
+
   itemHeight: number;
   height: number;
   overscan?: number;
@@ -39,7 +46,7 @@ interface InternalVirtualListProps
 ========================================= */
 
 function VirtualListComponent(
-  {
+  { classNames,
     itemHeight,
     height,
     overscan = 3,
@@ -61,6 +68,8 @@ function VirtualListComponent(
   }: InternalVirtualListProps,
   forwardedRef: ForwardedRef<HTMLDivElement>
 ) {
+  const [partClasses, scopeParts] = usePartClasses("virtual-list", classNames, true);
+
   const [scrollTop, setScrollTop] = useState(0);
 
   const hasItems = Array.isArray(rawItems);
@@ -149,19 +158,19 @@ function VirtualListComponent(
     return getKey?.(index) ?? index;
   }
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={forwardedRef}
       role={role}
       aria-label={ariaLabel}
       tabIndex={tabIndex}
-      className={[
+      className={mergeClasses([
         "pimolu-virtual-list",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       style={{
         ...style,
         height: safeHeight,
@@ -171,14 +180,14 @@ function VirtualListComponent(
       onScroll={handleScroll}
     >
       <div
-        className="pimolu-virtual-list__spacer"
+        className={mergeClasses("pimolu-virtual-list__spacer", partClasses.spacer)}
         style={{ height: totalHeight }}
         role="presentation"
       >
         {indexes.map((index) => (
           <div
             key={rowKey(index)}
-            className="pimolu-virtual-list__item"
+            className={mergeClasses("pimolu-virtual-list__item", partClasses.item)}
             role="listitem"
             data-index={index}
             aria-setsize={count}
@@ -193,7 +202,7 @@ function VirtualListComponent(
         ))}
       </div>
     </div>
-  );
+  ));
 }
 
 type VirtualListComponentType = <T>(

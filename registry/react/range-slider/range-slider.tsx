@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -57,7 +60,7 @@ export const RangeSlider = forwardRef<
   HTMLDivElement,
   PimoluRangeSliderProps
 >(function RangeSlider(
-  {
+  { classNames,
     id,
     label,
     helperText,
@@ -100,6 +103,8 @@ export const RangeSlider = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("range-slider", classNames, true);
+
   const generatedId = useId();
   const baseId = id ?? `pimolu-range-slider-${generatedId}`;
 
@@ -285,27 +290,27 @@ export const RangeSlider = forwardRef<
     className,
   ].filter(Boolean).join(" ");
 
-  return (
+  return scopeParts((
     <div
       ref={forwardedRef}
       role="group"
       aria-labelledby={label ? labelId : undefined}
       aria-label={label ? undefined : ariaLabel}
-      className={containerClasses}
+      className={mergeClasses(containerClasses, partClasses.root)}
       style={containerStyle}
     >
       {(label || showValue) && (
-        <div className="pimolu-range-slider__header">
+        <div className={mergeClasses("pimolu-range-slider__header", partClasses.header)}>
           {label && (
             <span
               id={labelId}
-              className="pimolu-range-slider__label"
+              className={mergeClasses("pimolu-range-slider__label", partClasses.label)}
             >
               {label}
 
               {required && (
                 <span
-                  className="pimolu-range-slider__required"
+                  className={mergeClasses("pimolu-range-slider__required", partClasses.required)}
                   aria-hidden="true"
                 >
                   *
@@ -318,7 +323,7 @@ export const RangeSlider = forwardRef<
             /* Each range announces its own value, so the
                shared readout is decorative. */
             <span
-              className="pimolu-range-slider__value"
+              className={mergeClasses("pimolu-range-slider__value", partClasses.value)}
               aria-hidden="true"
             >
               {displayedValue}
@@ -328,12 +333,12 @@ export const RangeSlider = forwardRef<
       )}
 
       <div
-        className="pimolu-range-slider__control"
+        className={mergeClasses("pimolu-range-slider__control", partClasses.control)}
         style={controlStyle}
         onClick={handleTrackClick}
       >
         <div
-          className="pimolu-range-slider__track"
+          className={mergeClasses("pimolu-range-slider__track", partClasses.track)}
           aria-hidden="true"
         />
 
@@ -347,7 +352,7 @@ export const RangeSlider = forwardRef<
           id={minId}
           type="range"
 
-          className={`${inputClasses} pimolu-range-slider__input--min`}
+          className={mergeClasses(`${inputClasses} pimolu-range-slider__input--min`, partClasses.input)}
 
           min={min}
           max={max}
@@ -372,7 +377,7 @@ export const RangeSlider = forwardRef<
           id={maxId}
           type="range"
 
-          className={`${inputClasses} pimolu-range-slider__input--max`}
+          className={mergeClasses(`${inputClasses} pimolu-range-slider__input--max`, partClasses.input)}
 
           min={min}
           max={max}
@@ -395,18 +400,16 @@ export const RangeSlider = forwardRef<
       {message && (
         <p
           id={messageId}
-          className={
-            errorMessage
+          className={mergeClasses(errorMessage
               ? "pimolu-range-slider__error"
-              : "pimolu-range-slider__helper"
-          }
+              : "pimolu-range-slider__helper", partClasses.error)}
           role={errorMessage ? "alert" : undefined}
         >
           {message}
         </p>
       )}
     </div>
-  );
+  ));
 });
 
 RangeSlider.displayName = "PimoluRangeSlider";

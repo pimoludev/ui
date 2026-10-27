@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { ReactNode } from "react";
 
 import type {
@@ -18,6 +20,9 @@ export type PimoluTabsActivationMode =
   | "manual";
 
 export interface PimoluTabsProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tabs">;
+
   /** TabsList and the TabsContent panels. */
   children: ReactNode;
 
@@ -53,6 +58,9 @@ export interface PimoluTabsProps {
 }
 
 export interface PimoluTabsListProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tabs">;
+
   children: ReactNode;
 
   /** Accessible name of the tablist. */
@@ -83,6 +91,9 @@ export interface PimoluTabsListProps {
 }
 
 export interface PimoluTabsTriggerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tabs">;
+
   /** Value shared with the matching TabsContent. */
   value: string;
 
@@ -95,6 +106,9 @@ export interface PimoluTabsTriggerProps {
 }
 
 export interface PimoluTabsContentProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tabs">;
+
   /** Value shared with the matching TabsTrigger. */
   value: string;
 

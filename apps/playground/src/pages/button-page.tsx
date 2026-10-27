@@ -8,6 +8,45 @@ import {
 } from "../demo-data";
 import { PageHeader, Section } from "../section";
 
+function CustomizedParts() {
+  return (
+    <>
+      <Button
+        classNames={{
+          root: "parts-button",
+          label: "parts-button-label",
+          startIcon: "parts-button-icon"
+        }}
+        startIcon={<span aria-hidden="true">+</span>}
+      >
+        Create project
+      </Button>
+      <style>
+        {
+          `
+.parts-button {
+  border-radius: 16px;
+  gap: 16px;
+}
+.parts-button:hover:enabled {
+  background: var(--pimolu-success);
+  color: var(--pimolu-success-foreground);
+}
+.parts-button-label {
+  font-weight: 600;
+}
+.parts-button-icon {
+  display: inline-flex;
+  align-items: center;
+}
+`
+        }
+      </style>
+    </>
+  );
+}
+
+
 export function ButtonPage() {
   return (
     <>
@@ -98,6 +137,9 @@ export function ButtonPage() {
             </div>
           </div>
         </div>
+      </Section>
+      <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
+        <CustomizedParts />
       </Section>
     </>
   );

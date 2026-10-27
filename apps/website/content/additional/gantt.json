@@ -8,5 +8,11 @@
     "file": "gantt-inspection.tsx",
     "title": "Task inspection",
     "description": "Navigate the timeline and zoom; task details remain available as text."
+  },
+  {
+    "file": "gantt-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

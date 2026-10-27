@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useCallback,
@@ -247,7 +250,7 @@ function clampStep(index: number, length: number) {
    TOUR
 ========================================= */
 
-export function Tour({
+export function Tour({ classNames,
   steps,
   open: controlledOpen,
   defaultOpen = false,
@@ -263,6 +266,8 @@ export function Tour({
   skipLabel = "Skip",
   className,
 }: PimoluTourProps) {
+  const [partClasses, scopeParts] = usePartClasses("tour", classNames, true);
+
   const isControlled = controlledOpen !== undefined;
 
   const [uncontrolledOpen, setUncontrolledOpen] =
@@ -546,7 +551,7 @@ export function Tour({
   }
 
   if (!mounted || !isOpen || !currentStep) {
-    return <span ref={scopeRef} hidden />;
+    return scopeParts(<span ref={scopeRef} hidden />);
   }
 
   const missingTarget = !target;
@@ -555,7 +560,7 @@ export function Tour({
 
   const lastStep = index === steps.length - 1;
 
-  return (
+  return scopeParts((
     <>
       {/*
        * Kept in the application tree so the portal can inherit the nearest
@@ -565,12 +570,12 @@ export function Tour({
 
       <Portal anchorRef={scopeRef}>
         <div
-          className={[
+          className={mergeClasses([
             "pimolu-tour",
             className,
           ]
             .filter(Boolean)
-            .join(" ")}
+            .join(" "), partClasses.root)}
           data-placement={geometry.placement}
           data-missing-target={
             missingTarget ? "true" : "false"
@@ -580,13 +585,13 @@ export function Tour({
           }
         >
           <div
-            className="pimolu-tour__blocker"
+            className={mergeClasses("pimolu-tour__blocker", partClasses.blocker)}
             aria-hidden="true"
           />
 
           {hasSpotlight && (
             <div
-              className="pimolu-tour__spotlight"
+              className={mergeClasses("pimolu-tour__spotlight", partClasses.spotlight)}
               style={geometry.spotlight ?? undefined}
               aria-hidden="true"
             />
@@ -603,14 +608,14 @@ export function Tour({
                 : undefined
             }
             tabIndex={-1}
-            className="pimolu-tour__card"
+            className={mergeClasses("pimolu-tour__card", partClasses.card)}
             data-placement={geometry.placement}
             style={geometry.card}
             onKeyDown={handleKeyDown}
           >
-            <div className="pimolu-tour__header">
+            <div className={mergeClasses("pimolu-tour__header", partClasses.header)}>
               <p
-                className="pimolu-tour__counter"
+                className={mergeClasses("pimolu-tour__counter", partClasses.counter)}
                 aria-live="polite"
               >
                 Step {index + 1} of {steps.length}
@@ -619,7 +624,7 @@ export function Tour({
               {showSkip && (
                 <button
                   type="button"
-                  className="pimolu-tour__skip"
+                  className={mergeClasses("pimolu-tour__skip", partClasses.skip)}
                   onClick={skip}
                 >
                   {skipLabel}
@@ -629,7 +634,7 @@ export function Tour({
 
             <h2
               id={titleId}
-              className="pimolu-tour__title"
+              className={mergeClasses("pimolu-tour__title", partClasses.title)}
             >
               {currentStep.title}
             </h2>
@@ -637,16 +642,16 @@ export function Tour({
             {currentStep.description != null && (
               <p
                 id={descriptionId}
-                className="pimolu-tour__description"
+                className={mergeClasses("pimolu-tour__description", partClasses.description)}
               >
                 {currentStep.description}
               </p>
             )}
 
-            <div className="pimolu-tour__footer">
+            <div className={mergeClasses("pimolu-tour__footer", partClasses.footer)}>
               <button
                 type="button"
-                className="pimolu-tour__button pimolu-tour__button--ghost"
+                className={mergeClasses("pimolu-tour__button pimolu-tour__button--ghost", partClasses.button)}
                 disabled={index === 0}
                 onClick={previous}
               >
@@ -655,7 +660,7 @@ export function Tour({
 
               <button
                 type="button"
-                className="pimolu-tour__button pimolu-tour__button--primary"
+                className={mergeClasses("pimolu-tour__button pimolu-tour__button--primary", partClasses.button)}
                 onClick={next}
               >
                 {lastStep ? finishLabel : nextLabel}
@@ -665,7 +670,7 @@ export function Tour({
         </div>
       </Portal>
     </>
-  );
+  ));
 }
 
 Tour.displayName = "PimoluTour";

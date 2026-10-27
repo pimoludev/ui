@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 export type PimoluSchedulerView = "week" | "day";
 
 /** A single event displayed by the Scheduler. */
@@ -34,6 +36,9 @@ export interface PimoluSchedulerSlot {
 }
 
 export interface PimoluSchedulerProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"scheduler">;
+
   /** Events to display. Events outside the visible days are ignored. */
   events: readonly PimoluSchedulerEvent[];
 

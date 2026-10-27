@@ -1,4 +1,8 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+
+
+import { mergeClasses } from "../internal/merge-classes";
 
 import {
   Children,
@@ -141,6 +145,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
       onChange,
       onValueChange,
 
+      classNames,
       className,
       containerClassName,
 
@@ -152,6 +157,8 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
     },
     ref
   ) {
+  const [partClasses, scopeParts] = usePartClasses("select", classNames, true);
+
     /* Stable accessible IDs */
 
     const generatedId = useId();
@@ -267,11 +274,13 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
       disabled && "pimolu-select--disabled",
 
       containerClassName,
+      partClasses.root,
     ].filter(Boolean).join(" ");
 
     const controlClasses = [
       "pimolu-select__control",
       className,
+      partClasses.control,
     ].filter(Boolean).join(" ");
 
     /* Selection */
@@ -400,18 +409,18 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
        DOM for form submission and constraint validation. */
 
     if (native) {
-      return (
-        <div className={containerClasses}>
+      return scopeParts((
+        <div className={mergeClasses(containerClasses, partClasses.root)}>
           {label && (
             <label
               htmlFor={selectId}
-              className="pimolu-select__label"
+              className={mergeClasses("pimolu-select__label", partClasses.label)}
             >
               {label}
 
               {required && (
                 <span
-                  className="pimolu-select__required"
+                  className={mergeClasses("pimolu-select__required", partClasses.required)}
                   aria-hidden="true"
                 >
                   *
@@ -420,13 +429,13 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
             </label>
           )}
 
-          <div className="pimolu-select__field">
+          <div className={mergeClasses("pimolu-select__field", partClasses.field)}>
             <select
               {...nativeProps}
               ref={ref as Ref<HTMLSelectElement>}
               id={selectId}
               name={name}
-              className={controlClasses}
+              className={mergeClasses(controlClasses, partClasses.control)}
               value={value}
               defaultValue={
                 isControlled ? undefined : initialValue
@@ -451,7 +460,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
             </select>
 
             <span
-              className="pimolu-select__chevron"
+              className={mergeClasses("pimolu-select__chevron", partClasses.chevron)}
               aria-hidden="true"
             >
               <Chevron />
@@ -461,32 +470,30 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
           {message && (
             <p
               id={messageId}
-              className={
-                errorMessage
+              className={mergeClasses(errorMessage
                   ? "pimolu-select__error"
-                  : "pimolu-select__helper"
-              }
+                  : "pimolu-select__helper", partClasses.message)}
               role={errorMessage ? "alert" : undefined}
             >
               {message}
             </p>
           )}
         </div>
-      );
+      ));
     }
 
-    return (
-      <div className={containerClasses}>
+    return scopeParts((
+      <div className={mergeClasses(containerClasses, partClasses.root)}>
         {label && (
           <span
             id={labelId}
-            className="pimolu-select__label"
+            className={mergeClasses("pimolu-select__label", partClasses.label)}
           >
             {label}
 
             {required && (
               <span
-                className="pimolu-select__required"
+                className={mergeClasses("pimolu-select__required", partClasses.required)}
                 aria-hidden="true"
               >
                 *
@@ -495,7 +502,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
           </span>
         )}
 
-        <div className="pimolu-select__field" ref={rootRef}>
+        <div className={mergeClasses("pimolu-select__field", partClasses.field)} ref={rootRef}>
           <button
             {...triggerAttributes}
             autoFocus={nativeProps.autoFocus}
@@ -504,6 +511,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
             title={nativeProps.title}
             tabIndex={nativeProps.tabIndex}
             form={nativeProps.form}
+            style={nativeProps.style}
             ref={(node) => {
               triggerRef.current = node;
 
@@ -516,7 +524,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
             }}
             type="button"
             id={selectId}
-            className={`${controlClasses} pimolu-select__trigger`}
+            className={mergeClasses(`${controlClasses} pimolu-select__trigger`, partClasses.trigger)}
             role="combobox"
             aria-haspopup="listbox"
             aria-expanded={open}
@@ -543,11 +551,9 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
             onKeyDown={handleTriggerKeyDown}
           >
             <span
-              className={
-                selectedOption
+              className={mergeClasses(selectedOption
                   ? "pimolu-select__value"
-                  : "pimolu-select__value pimolu-select__value--placeholder"
-              }
+                  : "pimolu-select__value pimolu-select__value--placeholder", partClasses.value)}
             >
               {displayLabel}
             </span>
@@ -558,7 +564,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
 
           <select
             ref={nativeRef}
-            className="pimolu-select__native"
+            className={mergeClasses("pimolu-select__native", partClasses.native)}
             name={name}
             value={current}
             required={required}
@@ -579,7 +585,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
           </select>
 
           <span
-            className="pimolu-select__chevron"
+            className={mergeClasses("pimolu-select__chevron", partClasses.chevron)}
             aria-hidden="true"
           >
             <Chevron />
@@ -592,7 +598,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
               ref={listboxRef}
               id={listboxId}
               role="listbox"
-              className="pimolu-select__listbox"
+              className={mergeClasses("pimolu-select__listbox", partClasses.listbox)}
               style={position}
               aria-labelledby={label ? labelId : undefined}
             >
@@ -602,7 +608,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
                     option.group !==
                       options[index - 1]?.group && (
                       <div
-                        className="pimolu-select__group"
+                        className={mergeClasses("pimolu-select__group", partClasses.group)}
                         role="presentation"
                       >
                         {option.group}
@@ -612,7 +618,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
                   <div
                     id={optionId(index)}
                     role="option"
-                    className="pimolu-select__option"
+                    className={mergeClasses("pimolu-select__option", partClasses.option)}
                     aria-selected={option.value === current}
                     aria-disabled={option.disabled || undefined}
                     data-active={
@@ -633,7 +639,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
                     {option.label}
                     {option.value === current && (
                       <span
-                        className="pimolu-select__check"
+                        className={mergeClasses("pimolu-select__check", partClasses.check)}
                         aria-hidden="true"
                       >
                         ✓
@@ -649,18 +655,16 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
         {message && (
           <p
             id={messageId}
-            className={
-              errorMessage
+            className={mergeClasses(errorMessage
                 ? "pimolu-select__error"
-                : "pimolu-select__helper"
-            }
+                : "pimolu-select__helper", partClasses.message)}
             role={errorMessage ? "alert" : undefined}
           >
             {message}
           </p>
         )}
       </div>
-    );
+    ));
   }
 );
 

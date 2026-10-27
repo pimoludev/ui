@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   useEffect,
@@ -25,7 +28,7 @@ function sectionUrl(id: string) {
   return `${withoutHash}#${id}`;
 }
 
-export function Anchor({
+export function Anchor({ classNames,
   id,
   level = 2,
   children,
@@ -35,6 +38,8 @@ export function Anchor({
   className,
   ...props
 }: PimoluAnchorProps) {
+  const [partClasses, scopeParts] = usePartClasses("anchor", classNames, true);
+
   const [copied, setCopied] = useState(false);
   const feedbackTimer = useRef<
     ReturnType<typeof setTimeout> | undefined
@@ -92,20 +97,20 @@ export function Anchor({
     props["aria-labelledby"] ??
     (props["aria-label"] != null ? undefined : labelId);
 
-  return (
+  return scopeParts((
     <div
       data-level={level}
-      className={classes("pimolu-anchor", className)}
+      className={mergeClasses(classes("pimolu-anchor", className), partClasses.root)}
     >
       <Tag
         {...props}
         id={id}
         aria-labelledby={labelledBy}
-        className="pimolu-anchor__heading"
+        className={mergeClasses("pimolu-anchor__heading", partClasses.heading)}
       >
         <span
           id={labelId}
-          className="pimolu-anchor__label"
+          className={mergeClasses("pimolu-anchor__label", partClasses.label)}
         >
           {children}
         </span>
@@ -114,7 +119,7 @@ export function Anchor({
           href={href ?? `#${id}`}
           aria-label={copyLabel}
           aria-describedby={labelId}
-          className="pimolu-anchor__link"
+          className={mergeClasses("pimolu-anchor__link", partClasses.link)}
           onClick={() => {
             void handleCopy();
           }}
@@ -127,12 +132,12 @@ export function Anchor({
         role="status"
         aria-live="polite"
         data-visible={copied || undefined}
-        className="pimolu-anchor__feedback"
+        className={mergeClasses("pimolu-anchor__feedback", partClasses.feedback)}
       >
         {copied ? "Copied" : ""}
       </span>
     </div>
-  );
+  ));
 }
 
 Anchor.displayName = "PimoluAnchor";

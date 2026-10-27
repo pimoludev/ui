@@ -1,4 +1,6 @@
 
+import type { PimoluClassNames } from "../customization/customization.types";
+
 import type {
   HTMLAttributes,
   ReactNode,
@@ -24,6 +26,9 @@ export type {
 
 export interface PimoluBadgeProps
   extends HTMLAttributes<HTMLSpanElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"badge">;
+
 
   variant?: PimoluBadgeVariant;
 

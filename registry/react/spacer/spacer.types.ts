@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   ElementType,
   HTMLAttributes,
@@ -40,6 +42,9 @@ export type PimoluSpacerAxis =
 
 export interface PimoluSpacerProps
   extends HTMLAttributes<HTMLElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"spacer">;
+
   /** Element rendered by the spacer. Defaults to `div`. */
   as?: ElementType;
 

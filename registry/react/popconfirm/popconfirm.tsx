@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   cloneElement,
@@ -54,7 +57,7 @@ function WarningIcon() {
  * title; the cancel action is first in DOM order, so it receives focus first
  * and a destructive confirmation never starts on the irreversible button.
  */
-export function Popconfirm({
+export function Popconfirm({ classNames,
   children,
   title,
   description,
@@ -72,6 +75,8 @@ export function Popconfirm({
   icon,
   className,
 }: PimoluPopconfirmProps) {
+  const [partClasses, scopeParts] = usePartClasses("popconfirm", classNames, true);
+
   const isControlled = controlledOpen !== undefined;
 
   const [uncontrolledOpen, setUncontrolledOpen] =
@@ -137,37 +142,37 @@ export function Popconfirm({
 
   const content = (
     <div
-      className="pimolu-popconfirm"
+      className={mergeClasses("pimolu-popconfirm", partClasses.root)}
       data-variant={variant}
     >
-      <div className="pimolu-popconfirm__header">
+      <div className={mergeClasses("pimolu-popconfirm__header", partClasses.header)}>
         <span
-          className="pimolu-popconfirm__icon"
+          className={mergeClasses("pimolu-popconfirm__icon", partClasses.icon)}
           aria-hidden="true"
         >
           {icon ?? <WarningIcon />}
         </span>
 
-        <div className="pimolu-popconfirm__body">
+        <div className={mergeClasses("pimolu-popconfirm__body", partClasses.body)}>
           <h2
             id={titleId}
-            className="pimolu-popconfirm__title"
+            className={mergeClasses("pimolu-popconfirm__title", partClasses.title)}
           >
             {title}
           </h2>
 
           {description != null && (
-            <p className="pimolu-popconfirm__description">
+            <p className={mergeClasses("pimolu-popconfirm__description", partClasses.description)}>
               {description}
             </p>
           )}
         </div>
       </div>
 
-      <div className="pimolu-popconfirm__actions">
+      <div className={mergeClasses("pimolu-popconfirm__actions", partClasses.actions)}>
         <button
           type="button"
-          className="pimolu-popconfirm__button pimolu-popconfirm__button--cancel"
+          className={mergeClasses("pimolu-popconfirm__button pimolu-popconfirm__button--cancel", partClasses.button)}
           onClick={() => {
             onCancel?.();
             closeFromAction();
@@ -178,7 +183,7 @@ export function Popconfirm({
 
         <button
           type="button"
-          className="pimolu-popconfirm__button pimolu-popconfirm__button--confirm"
+          className={mergeClasses("pimolu-popconfirm__button pimolu-popconfirm__button--confirm", partClasses.button)}
           onClick={() => {
             onConfirm?.();
             closeFromAction();
@@ -190,7 +195,7 @@ export function Popconfirm({
     </div>
   );
 
-  return (
+  return scopeParts((
     <Popover
       content={content}
       labelledBy={titleId}
@@ -199,16 +204,16 @@ export function Popconfirm({
       placement={placement}
       offset={offset}
       disabled={disabled}
-      className={[
+      className={mergeClasses([
         "pimolu-popconfirm__panel",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.panel)}
     >
       {trigger}
     </Popover>
-  );
+  ));
 }
 
 Popconfirm.displayName = "PimoluPopconfirm";

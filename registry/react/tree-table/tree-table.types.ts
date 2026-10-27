@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { CSSProperties, ReactNode } from "react";
 
 import type { PimoluTableDensity } from "../table/table.types";
@@ -98,6 +100,9 @@ export interface PimoluTreeTableLabels {
 export interface PimoluTreeTableProps<
   T extends PimoluTreeTableNode,
 > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"tree-table">;
+
   /** Root nodes. The tree is never mutated. */
   nodes: readonly T[];
 

@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type { HTMLAttributes } from "react";
 
 /* =========================================
@@ -68,6 +70,9 @@ export interface PimoluChartBaseProps
 
 export interface PimoluBarChartProps
   extends PimoluChartBaseProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
 
   /** Fits the drawing coordinates to the container to keep text legible. Defaults to true. */
   responsive?: boolean;
@@ -115,6 +120,9 @@ export interface PimoluBarChartProps
 
 export interface PimoluLineChartProps
   extends PimoluChartBaseProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
 
   /** Fits the drawing coordinates to the container to keep text legible. Defaults to true. */
   responsive?: boolean;
@@ -155,6 +163,9 @@ export type PimoluAreaChartProps = PimoluLineChartProps;
 
 export interface PimoluDonutChartProps
   extends PimoluChartBaseProps {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
 
   /** Segments of the ring. Values are treated as positive weights. */
   data: PimoluChartDatum[];
@@ -175,6 +186,9 @@ export interface PimoluDonutChartProps
 
 export interface PimoluSparklineProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"chart">;
+
 
   /** Trend values, oldest first. */
   data: number[];

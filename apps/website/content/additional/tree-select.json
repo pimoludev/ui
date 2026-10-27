@@ -3,5 +3,11 @@
     "file": "tree-select-touch-scrolling.tsx",
     "title": "Long lists and touch scrolling",
     "description": "Swipe to browse the options without selecting them. Complete a tap to make a choice."
+  },
+  {
+    "file": "tree-select-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

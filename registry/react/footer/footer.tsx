@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import { footerVariants } from "./footer.variants";
 
@@ -8,7 +11,7 @@ import { Link } from "../link/link";
 
 import type { PimoluFooterProps } from "./footer.types";
 
-export function Footer({
+export function Footer({ classNames,
   appearance = "surface",
   bordered = true,
   brand,
@@ -20,6 +23,8 @@ export function Footer({
   className,
   ...props
 }: PimoluFooterProps) {
+  const [partClasses, scopeParts] = usePartClasses("footer", classNames, true);
+
   const id = useId().replace(/[^a-zA-Z0-9_-]/g, "");
 
   const hasBrand =
@@ -27,29 +32,29 @@ export function Footer({
 
   const hasBottom = copyright != null || bottom != null;
 
-  return (
+  return scopeParts((
     <footer
       {...props}
       data-bordered={bordered || undefined}
-      className={footerVariants({ appearance }, className)}
+      className={mergeClasses(footerVariants({ appearance }, className), partClasses.root)}
     >
-      <div className="pimolu-footer__inner">
+      <div className={mergeClasses("pimolu-footer__inner", partClasses.inner)}>
         {hasBrand && (
-          <div className="pimolu-footer__brand">
+          <div className={mergeClasses("pimolu-footer__brand", partClasses.brand)}>
             {brand != null && (
-              <div className="pimolu-footer__brand-mark">
+              <div className={mergeClasses("pimolu-footer__brand-mark", partClasses.brandMark)}>
                 {brand}
               </div>
             )}
 
             {description != null && (
-              <p className="pimolu-footer__description">
+              <p className={mergeClasses("pimolu-footer__description", partClasses.description)}>
                 {description}
               </p>
             )}
 
             {actions != null && (
-              <div className="pimolu-footer__actions">
+              <div className={mergeClasses("pimolu-footer__actions", partClasses.actions)}>
                 {actions}
               </div>
             )}
@@ -57,41 +62,41 @@ export function Footer({
         )}
 
         {columns.length > 0 && (
-          <div className="pimolu-footer__columns">
+          <div className={mergeClasses("pimolu-footer__columns", partClasses.columns)}>
             {columns.map((column, columnIndex) => {
               const titleId = `pimolu-footer-${id}-${columnIndex}`;
 
               return (
                 <nav
                   key={columnIndex}
-                  className="pimolu-footer__column"
+                  className={mergeClasses("pimolu-footer__column", partClasses.column)}
                   aria-labelledby={titleId}
                 >
                   <h2
                     id={titleId}
-                    className="pimolu-footer__column-title"
+                    className={mergeClasses("pimolu-footer__column-title", partClasses.columnTitle)}
                   >
                     {column.title}
                   </h2>
 
                   {column.links.length > 0 && (
-                    <ul className="pimolu-footer__links">
+                    <ul className={mergeClasses("pimolu-footer__links", partClasses.links)}>
                       {column.links.map((link, linkIndex) => (
                         <li
                           key={`${linkIndex}-${link.href}`}
-                          className="pimolu-footer__item"
+                          className={mergeClasses("pimolu-footer__item", partClasses.item)}
                         >
                           <Link
                             href={link.href}
                             external={link.external}
                             variant="muted"
                             underline="hover"
-                            className="pimolu-footer__link"
+                            className={mergeClasses("pimolu-footer__link", partClasses.link)}
                           >
                             {link.label}
 
                             {link.external && (
-                              <span className="pimolu-footer__external-hint">
+                              <span className={mergeClasses("pimolu-footer__external-hint", partClasses.externalHint)}>
                                 {" "}
                                 (opens in a new tab)
                               </span>
@@ -109,20 +114,20 @@ export function Footer({
       </div>
 
       {hasBottom && (
-        <div className="pimolu-footer__bottom">
+        <div className={mergeClasses("pimolu-footer__bottom", partClasses.bottom)}>
           {copyright != null && (
-            <p className="pimolu-footer__copyright">
+            <p className={mergeClasses("pimolu-footer__copyright", partClasses.copyright)}>
               {copyright}
             </p>
           )}
 
           {bottom != null && (
-            <div className="pimolu-footer__legal">
+            <div className={mergeClasses("pimolu-footer__legal", partClasses.legal)}>
               {bottom}
             </div>
           )}
         </div>
       )}
     </footer>
-  );
+  ));
 }

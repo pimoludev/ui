@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -58,7 +61,7 @@ export const Spacer = forwardRef<
   HTMLElement,
   PimoluSpacerProps
 >(function Spacer(
-  {
+  { classNames,
     as: Tag = "div",
     size,
     axis = "both",
@@ -68,6 +71,8 @@ export const Spacer = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("spacer", classNames, true);
+
   const fixed = size !== undefined;
 
   const classes = [
@@ -87,11 +92,11 @@ export const Spacer = forwardRef<
 
   const Component = Tag as ElementType;
 
-  return (
+  return scopeParts((
     <Component
       {...props}
       ref={ref}
-      className={classes}
+      className={mergeClasses(classes, partClasses.root)}
       style={
         {
           ...layoutVars,
@@ -101,7 +106,7 @@ export const Spacer = forwardRef<
       data-axis={axis}
       aria-hidden="true"
     />
-  );
+  ));
 });
 
 Spacer.displayName = "PimoluSpacer";

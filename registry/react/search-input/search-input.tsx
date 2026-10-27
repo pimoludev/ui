@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -42,7 +45,7 @@ export const SearchInput = forwardRef<
   HTMLInputElement,
   PimoluSearchInputProps
 >(function SearchInput(
-  {
+  { classNames,
     value,
     defaultValue,
 
@@ -70,6 +73,8 @@ export const SearchInput = forwardRef<
   },
   forwardedRef
 ) {
+  const [partClasses, scopeParts] = usePartClasses("search-input", classNames, true);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const isControlled = value !== undefined;
@@ -112,16 +117,16 @@ export const SearchInput = forwardRef<
     }
   }
 
-  return (
+  return scopeParts((
     <div
-      className={[
+      className={mergeClasses([
         "pimolu-search-input",
         `pimolu-search-input--${size}`,
         disabled && "pimolu-search-input--disabled",
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
     >
       <Input
         ref={(node) => {
@@ -152,7 +157,7 @@ export const SearchInput = forwardRef<
         endIcon={
           shortcut ? (
             <Kbd
-              className="pimolu-search-input__shortcut"
+              className={mergeClasses("pimolu-search-input__shortcut", partClasses.shortcut)}
               size={size === "lg" ? "md" : "sm"}
             >
               {shortcut}
@@ -164,7 +169,7 @@ export const SearchInput = forwardRef<
         onKeyDown={handleKeyDown}
       />
     </div>
-  );
+  ));
 });
 
 SearchInput.displayName = "PimoluSearchInput";

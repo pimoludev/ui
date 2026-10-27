@@ -1,0 +1,26 @@
+/* Application overrides: ordinary selectors, no !important or ids. */
+.audit-radius { border-radius: 14px; }
+.audit-hover:hover { background: #b45309; }
+.audit-safe-hover:hover:enabled { background: #b45309; }
+.audit-icon { gap: 18px; }
+.audit-input-control { font-size: 19px; }
+.audit-input-container .pimolu-input__wrapper { border-radius: 19px; }
+.audit-card { border-radius: 17px; }
+.audit-card-content { padding: 29px; }
+.audit-dialog { width: 310px; max-width: calc(100vw - 32px); border-radius: 21px; }
+.audit-dialog-title { font-size: 25px; }
+.audit-local-scope { --pimolu-primary: #126b43; --audit-scope-proof: local; }
+.audit-local-scope .pimolu-select__listbox { border-radius: 23px; }
+.audit-provider-scope .pimolu-select__listbox { border-radius: 23px; }
+.audit-provider-scope .pimolu-select__option { padding-block: 13px; }
+.audit-select-control { font-size: 18px; }
+.audit-hook-select { border-radius: 23px; --audit-scope-proof: local; }
+.audit-hook-option { padding-block: 13px; }
+.audit-hook-dialog { --pimolu-primary: #126b43; }
+.audit-hook-overlay { background: rgba(15, 23, 42, .65); }
+.audit-hook-close { border-radius: 9px; }
+.audit-hook-icon { width: 22px; display: inline-flex; justify-content: center; }
+.audit-hook-label { font-weight: 600; }
+.audit-hook-combo, .audit-hook-multi { border-radius: 23px; }
+.audit-hook-tag { border-radius: 7px; }
+.audit-hook-drawer { border-color: #126b43; }

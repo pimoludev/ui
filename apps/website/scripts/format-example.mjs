@@ -50,7 +50,8 @@ function formatPass(source) {
     if ((ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) && node.text.length > examplePrintWidth) {
       const parent = node.parent;
       const jsxAttribute = ts.isJsxAttribute(parent);
-      const protectedLiteral = ts.isImportDeclaration(parent) || ts.isExportDeclaration(parent) || ts.isLiteralTypeNode(parent) || (ts.isPropertyAssignment(parent) && parent.name === node) || (jsxAttribute && (/className$/i.test(parent.name.text) || node.text.includes("&")));
+      const embeddedStyle = ts.isJsxExpression(parent) && ts.isJsxElement(parent.parent) && parent.parent.openingElement.tagName.getText(file) === "style";
+      const protectedLiteral = embeddedStyle || ts.isImportDeclaration(parent) || ts.isExportDeclaration(parent) || ts.isLiteralTypeNode(parent) || (ts.isPropertyAssignment(parent) && parent.name === node) || (jsxAttribute && (/className$/i.test(parent.name.text) || node.text.includes("&")));
       if (!protectedLiteral) {
         const chunks = [];
         let rest = node.text;

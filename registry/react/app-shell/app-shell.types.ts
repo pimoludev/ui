@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   CSSProperties,
   HTMLAttributes,
@@ -6,6 +8,9 @@ import type {
 
 export interface PimoluAppShellProps
   extends HTMLAttributes<HTMLDivElement> {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"app-shell">;
+
   /** Full-width application header. Required: every shell has chrome. */
   header: ReactNode;
 

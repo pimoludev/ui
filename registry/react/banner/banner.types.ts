@@ -1,3 +1,5 @@
+
+import type { PimoluClassNames } from "../customization/customization.types";
 import type {
   AriaRole,
   HTMLAttributes,
@@ -17,6 +19,9 @@ export interface PimoluBannerProps
     HTMLAttributes<HTMLDivElement>,
     "title" | "role" | "children"
   > {
+  /** Additive classes for stable named parts, including composed descendants. */
+  classNames?: PimoluClassNames<"banner">;
+
   /** Semantic tone of the page-level message. */
   variant?: PimoluBannerVariant;
 

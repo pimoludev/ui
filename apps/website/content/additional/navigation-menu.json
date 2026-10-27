@@ -8,5 +8,11 @@
     "file": "navigation-menu-minimal.tsx",
     "title": "Direct destinations",
     "description": "Real documentation destinations, with disclosure or direct-link navigation."
+  },
+  {
+    "file": "navigation-menu-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
+    "append": true
   }
 ]

@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -16,7 +19,7 @@ export const SegmentedControl = forwardRef<
   HTMLDivElement,
   PimoluSegmentedControlProps
 >(function SegmentedControl(
-  {
+  { classNames,
     options,
 
     value: controlledValue,
@@ -35,6 +38,8 @@ export const SegmentedControl = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("segmented-control", classNames, true);
+
   const firstEnabled = options.find(
     (option) => !option.disabled
   )?.value;
@@ -152,7 +157,7 @@ export const SegmentedControl = forwardRef<
     }
   }
 
-  return (
+  return scopeParts((
     <div
       {...props}
       ref={(node) => {
@@ -168,7 +173,7 @@ export const SegmentedControl = forwardRef<
       aria-orientation={orientation}
       aria-disabled={disabled || undefined}
       data-disabled={disabled || undefined}
-      className={[
+      className={mergeClasses([
         segmentedControlVariants({ size }),
         fullWidth &&
           "pimolu-segmented-control--full-width",
@@ -177,7 +182,7 @@ export const SegmentedControl = forwardRef<
         className,
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(" "), partClasses.root)}
       onKeyDown={handleKeyDown}
     >
       {options.map((option) => {
@@ -198,7 +203,7 @@ export const SegmentedControl = forwardRef<
             }
             data-value={option.value}
             disabled={optionDisabled}
-            className="pimolu-segmented-control__item"
+            className={mergeClasses("pimolu-segmented-control__item", partClasses.item)}
             onClick={() => select(option.value)}
           >
             {option.label}
@@ -214,5 +219,5 @@ export const SegmentedControl = forwardRef<
         />
       )}
     </div>
-  );
+  ));
 });

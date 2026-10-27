@@ -1,4 +1,7 @@
 "use client";
+import { usePartClasses } from "../internal/use-part-classes";
+import { mergeClasses } from "../internal/merge-classes";
+
 
 import {
   forwardRef,
@@ -46,7 +49,7 @@ export const Avatar = forwardRef<
   HTMLSpanElement,
   PimoluAvatarProps
 >(function Avatar(
-  {
+  { classNames,
     name,
     src,
     size = "md",
@@ -59,6 +62,8 @@ export const Avatar = forwardRef<
   },
   ref
 ) {
+  const [partClasses, scopeParts] = usePartClasses("avatar", classNames, true);
+
   const [imageState, setImageState] =
     useState<ImageState | null>(null);
 
@@ -88,19 +93,19 @@ export const Avatar = forwardRef<
 
   const initials = getAvatarInitials(name);
 
-  return (
+  return scopeParts((
     <span
       {...props}
       ref={ref}
       role="img"
       aria-label={props["aria-label"] ?? name}
-      className={avatarClassName}
+      className={mergeClasses(avatarClassName, partClasses.root)}
       data-state={status}
     >
       {showImage && (
         <img
           key={src}
-          className="pimolu-avatar__image"
+          className={mergeClasses("pimolu-avatar__image", partClasses.image)}
           src={src}
           alt=""
           aria-hidden="true"
@@ -126,7 +131,7 @@ export const Avatar = forwardRef<
 
       {showFallback && (
         <span
-          className="pimolu-avatar__fallback"
+          className={mergeClasses("pimolu-avatar__fallback", partClasses.fallback)}
           aria-hidden="true"
         >
           {fallback !== undefined
@@ -135,7 +140,7 @@ export const Avatar = forwardRef<
         </span>
       )}
     </span>
-  );
+  ));
 });
 
 Avatar.displayName = "PimoluAvatar";
