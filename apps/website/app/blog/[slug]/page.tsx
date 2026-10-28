@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CodeBlock, Link } from "@/components/ui";
+import { Link } from "@/components/ui";
 import { EditorialArtwork } from "@/components/editorial/artwork";
 import { BreadcrumbData, StructuredData } from "@/components/structured-data";
 import { blogPostStructuredData } from "@/lib/structured-data";
 import { ScrollOutline } from "@/components/scroll-outline";
 import { journalPosts, readingMinutes, formatJournalDate } from "@/content/journal";
+import { journalContents } from "@/content/generated/blog/contents";
+import { journalMDXComponents } from "@/components/editorial/journal-mdx";
 import "../../editorial.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 export default async function JournalArticle({ params }: Props) {
   const post = findPost((await params).slug);
+  const Content = journalContents[post.slug];
   return <main id="main-content" tabIndex={-1} className="journal-page journal-article-page">
     <StructuredData data={blogPostStructuredData(post)} />
     <BreadcrumbData items={[{ name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }]} />
@@ -33,11 +36,7 @@ export default async function JournalArticle({ params }: Props) {
     <div className="journal-reading-layout">
       <article className="journal-article">
         <EditorialArtwork kind={post.artwork} />
-        {post.sections.map((section) => <section id={section.id} key={section.id}>
-          <h2>{section.title}</h2>
-          {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {section.code && <CodeBlock code={section.code} language={section.language} wrap />}
-        </section>)}
+        <Content components={journalMDXComponents} />
         <nav className="journal-related" aria-label="More articles"><h2>Keep exploring</h2>{journalPosts.filter((entry) => entry.slug !== post.slug).map((entry) => <Link key={entry.slug} href={`/blog/${entry.slug}`}>{entry.title} <span aria-hidden="true">↗</span></Link>)}</nav>
       </article>
       <aside className="editorial-outline"><ScrollOutline items={post.sections.map(({ id, title }) => ({ id, label: title }))} /><Link href="/docs">Build with Pimolu →</Link></aside>

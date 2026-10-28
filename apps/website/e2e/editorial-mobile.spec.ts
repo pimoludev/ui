@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { journalPosts } from "../content/journal";
 
 test("mobile article filters form an even grid and retain keyboard filtering", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -20,12 +21,12 @@ test("mobile article filters form an even grid and retain keyboard filtering", a
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
   await radios.getByText("Engineering", { exact: true }).click();
-  await expect(page.locator(".journal-card")).toHaveCount(1);
+  await expect(page.locator(".journal-card")).toHaveCount(journalPosts.filter((post) => post.category === "Engineering").length);
   const engineering = group.getByRole("radio", { name: "Engineering", exact: true });
   await engineering.focus();
   await engineering.press("Home");
   await expect(group.getByRole("radio", { name: "All notes", exact: true })).toHaveAttribute("aria-checked", "true");
-  await expect(page.locator(".journal-card")).toHaveCount(3);
+  await expect(page.locator(".journal-card")).toHaveCount(journalPosts.length);
   await page.setViewportSize({ width: 1440, height: 900 });
   const rows = await radios.evaluateAll((nodes) => nodes.map((node) => node.getBoundingClientRect().y));
   expect(new Set(rows).size).toBe(1);

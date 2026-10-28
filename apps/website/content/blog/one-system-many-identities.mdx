@@ -1,0 +1,49 @@
+export const metadata = {
+  "slug": "one-system-many-identities",
+  "title": "One system, many identities",
+  "description": "Why Pimolu separates color, visual character and component behavior, and what that means for your product.",
+  "category": "Design system",
+  "date": "2026-10-22",
+  "artwork": "palette",
+  "order": "1"
+};
+
+<JournalSection id="starting-point" title="An identity is more than an accent color">
+
+Two products can share an indigo button and still feel entirely different. Typography, proportions, surface contrast, corner treatments and the way an action responds all contribute to identity. Treating a theme as a single hex value leaves most of that work scattered through the application.
+
+Pimolu's answer is a set of independent decisions. Color mode describes the viewing environment. A visual preset describes the character of the interface. Brand, radius and density refine the product. Keeping those axes separate makes a change easier to explain and easier to review.
+
+</JournalSection>
+
+<JournalSection id="roles" title="Start with roles, then choose values">
+
+A component should ask for a surface or a primary foreground, rather than for a particular shade of violet. Semantic roles let the light and dark palettes make different choices while preserving the meaning of the interface.
+
+That distinction also keeps application CSS small. A summary panel can use the surface, foreground and border tokens without declaring another palette. The preset changes the values beneath those names; the application continues to describe the same relationship.
+
+</JournalSection>
+
+<JournalSection id="character" title="Visual character belongs in data">
+
+Pimolu keeps palette and visual-token sources apart. Borders, shadows, radius, typography and press effects are represented in platform-neutral visual data. The web build translates those decisions into CSS variables.
+
+Default, Monochrome, Cartoon, Glass, Luxury, Neo-Brutalism and Adaptive remain available. They are compatible starting points, not a requirement to use seven styles in a single product. Default is the reference direction; Adaptive's longer-term role as a palette is still being evaluated.
+
+</JournalSection>
+
+<JournalSection id="local" title="Leave room for the application">
+
+A library cannot decide the right spacing for every dashboard, checkout and creative portfolio. Pimolu components own their internal presentation; application layouts own the relationship between them. Start with Provider settings, then use local classes for composition.
+
+The website's Design Lab experiments and the component gallery serve different purposes. An experiment can explore an identity. A reference should show the actual component clearly. Neither is a reason to silently replace the public token system.
+
+</JournalSection>
+
+<JournalSection id="verify" title="Review the system in context">
+
+A palette does not prove readability by itself. Review text on its actual surface, visible focus, disabled states and feedback. Check a complete workflow at a narrow width before treating the visual direction as finished.
+
+The color explorer in the documentation reads the generated palettes directly. Use it to understand the roles, then try a component's interactive examples. The goal is a recognizable system that still gives your product its own voice.
+
+</JournalSection>

@@ -7,7 +7,7 @@
     "node": ">=22.6"
   },
   "scripts": {
-    "docs:generate": "node scripts/build-releases.mjs && node --experimental-strip-types scripts/build-docs.mjs",
+    "docs:generate": "node scripts/build-releases.mjs && node scripts/build-blog.mjs && node --experimental-strip-types scripts/build-docs.mjs",
     "dev": "pnpm docs:generate && next dev -p 3001",
     "build": "pnpm docs:generate && next build",
     "start": "next start -p 3001",

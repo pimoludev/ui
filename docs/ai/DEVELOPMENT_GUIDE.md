@@ -35,7 +35,7 @@ Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, the
 | `pnpm skills:check` | Validates the `.agents/skills` catalog. |
 | `pnpm verify:quick` | Build, typecheck, audit, tokens, themes, React and CSS tests. |
 | `pnpm verify` | Quick verification + lint + skills + playground build. |
-| `pnpm check` | Full verification + `examples/nextjs` build. |
+| `pnpm check` | Full repository verification (`pnpm verify`). |
 
 `pnpm --dir registry/react exec vitest run button/button.test.tsx` targets one
 React test. The website has its own checks:
@@ -47,9 +47,9 @@ pre-push runs `verify`. The GitHub workflow
 lint, documentation and three-engine browser checks on Node 24. CI is enabled
 by maintainer request; it does not deploy.
 
-The TypeScript configurations of the root, the playground and the Next.js example
-use `strict`. The root typecheck covers packages and registry; the playground and
-Next.js builds check their own applications.
+The TypeScript configurations of the root and the playground use `strict`. The
+root typecheck covers packages and registry; the Playground build checks its
+application.
 
 ## Adding or changing a component
 

@@ -40,6 +40,9 @@
   .journal-article > section { margin-block: 44px; scroll-margin-block-start: 104px; }
   .journal-article h2 { font-size: 1.5rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.35; }
   .journal-article section p { margin-block-start: 20px; color: var(--pimolu-muted-foreground); line-height: 1.9; max-width: 72ch; }
+  .journal-article section :is(ul, ol) { margin-block: 20px; padding-inline-start: 1.5rem; color: var(--pimolu-muted-foreground); line-height: 1.9; }
+  .journal-article section ul { list-style: disc; }
+  .journal-article section ol { list-style: decimal; }
   .journal-article .pimolu-codeblock { margin-block-start: 24px; }
   .journal-related { display: grid; gap: 20px; padding-block-start: 32px; border-block-start: 1px solid var(--pimolu-border); }
   @media (max-width: 960px) {

@@ -1,0 +1,55 @@
+export const metadata = {
+  "slug": "from-tokens-to-components",
+  "title": "From tokens to a working interface",
+  "description": "A guided look at the build pipeline connecting design data, shared CSS and the React registry.",
+  "category": "Engineering",
+  "date": "2026-10-22",
+  "artwork": "system",
+  "order": "2"
+};
+
+<JournalSection id="layers" title="Three layers with different jobs">
+
+Pimolu is a pnpm monorepo. The React registry provides component behavior and typed APIs. Shared web styles provide presentation. Design tokens and themes provide the values those styles consume. An application brings the layers together.
+
+That separation prevents a visual change from becoming a rewrite of every React component. It also makes the source of a decision easier to find: interaction belongs with the component, reusable styling belongs in web-styles, and shared values belong in the token and theme sources.
+
+</JournalSection>
+
+<JournalSection id="build" title="Why a fresh checkout needs a build">
+
+Published React and core packages ship compiled ESM and declarations; theme and web-style packages expose generated assets. This source workspace keeps the same split, so a checkout can resolve the React import while still lacking a generated stylesheet. Building all assets prepares both sides of the integration.
+
+The root build command generates the design tokens and base themes. build:all also prepares preset palettes, visual assets and the shared component CSS bundle. Use the broader command when preparing a fresh checkout.
+
+```bash
+pnpm install
+pnpm build:all
+pnpm dev:website
+```
+
+</JournalSection>
+
+<JournalSection id="truth" title="Keep generated files downstream">
+
+Primitive tokens live in packages/design-tokens/src/tokens.json. Semantic aliases live in packages/themes/src/themes.json. Preset palette and visual sources add their own controlled variations. Build scripts validate and resolve that data before generating outputs.
+
+Editing a dist file directly creates a temporary illusion: the next build overwrites it. Follow a rendered value back to its source, make the smallest change there, then regenerate and review its consumers.
+
+</JournalSection>
+
+<JournalSection id="docs" title="Documentation is another consumer">
+
+This website reads the actual component inventory and TypeScript declarations. Its API references are generated, while example selections and usage advice are authored. All 129 families have four examples. Their copied source is checked independently so a working preview does not hide a broken import in the code tab.
+
+The catalogue uses light and dark captures of the real components. Those are orientation aids. The component reference provides the interactive state, configuration and code needed to understand the behavior.
+
+</JournalSection>
+
+<JournalSection id="future" title="A useful foundation, not a completed adapter">
+
+Platform-neutral token data creates a path toward more renderers. It does not make a web Dialog a React Native Dialog. Each adapter still needs a rendering strategy, keyboard or touch model, accessibility semantics and its own validation.
+
+React and Next.js are the implemented path today. The most valuable architectural rule is to keep the data reusable while being explicit about the implementation that actually exists.
+
+</JournalSection>

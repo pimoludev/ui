@@ -1,0 +1,49 @@
+export const metadata = {
+  "slug": "a-component-is-not-a-workflow",
+  "title": "A component is not a complete workflow",
+  "description": "Keyboard paths, focus return and room to breathe: the details that make composed interfaces dependable.",
+  "category": "Accessibility",
+  "date": "2026-10-22",
+  "artwork": "interaction",
+  "order": "3"
+};
+
+<JournalSection id="composition" title="The gaps appear between components">
+
+A button can have a good accessible name and a dialog can contain focus correctly, yet their composition can still be confusing. The button might open the wrong panel, a save action might silently close it, or focus might return to an element no longer on screen.
+
+Reviewing the complete task is therefore different from reviewing its parts. Start at the entry point, follow the keyboard path, trigger an error and leave the interaction. That sequence reveals what an isolated prop gallery cannot.
+
+</JournalSection>
+
+<JournalSection id="focus" title="Focus is part of the interaction">
+
+When an overlay opens, the initial focus should make sense for the task. Escape and dismissal need an intelligible result. On return, focus should land at a useful control without jumping the document unexpectedly.
+
+Pimolu's anchored menu work illustrates how timing matters. Positioning must account for alignment before clamping to the viewport. Focus must follow the real portal mount rather than an effect that can run before its content exists. These details need browser checks in addition to jsdom tests.
+
+</JournalSection>
+
+<JournalSection id="space" title="Responsive means preserving the task">
+
+Fitting a layout into a smaller rectangle is not enough. A toolbar may technically fit while its labels wrap into unreadable fragments. A filter group may look aligned while leaving no useful width for the actual input.
+
+Stack sections when their content needs the space. Keep data scrolling inside a named, contained region. Decide deliberately whether mobile navigation collapses to a rail or opens an overlay: those are different interactions, even if both involve a sidebar.
+
+</JournalSection>
+
+<JournalSection id="preferences" title="Honor more than light and dark">
+
+Reduced motion, forced colors and RTL each expose a different assumption. A state expressed only by a background color may disappear in forced colors. A physical left offset may be wrong in RTL. A long entrance animation may delay a keyboard user from reaching the task.
+
+Preserve text labels, visible focus and a stable final state. Test the actual composed page with the preferences enabled, rather than assuming that a component's internal CSS covers application styling too.
+
+</JournalSection>
+
+<JournalSection id="evidence" title="Report the evidence precisely">
+
+TypeScript, unit tests, browser checks and assistive-technology review answer different questions. A pass count should name its scope. An automated accessibility scan does not certify the entire library, and a screenshot does not prove keyboard behavior.
+
+Pimolu's public documentation keeps that distinction visible. Use the accessibility notes to prepare a review, then test your own data, language, preset and workflow. The outcome is a more dependable product, not just a larger list of components.
+
+</JournalSection>

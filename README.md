@@ -112,7 +112,7 @@ export function App() {
 
 Tokens are also available as JSON, so React Native and other JavaScript consumers feed the same values into native style objects. On native the priority is visual consistency through shared tokens rather than shared component code.
 
-A complete Next.js App Router example, including server-read theme cookies, lives in `examples/nextjs`.
+The integration guides show how to use Pimolu UI with Next.js. A standalone Next.js starter will be maintained in a separate repository.
 
 ## Customization (next package release)
 

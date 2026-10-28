@@ -235,9 +235,42 @@ Run `pnpm previews:capture` while the website is available on localhost:3001. Se
 
 ### Journal, development notes and palette exploration
 
-`content/journal.ts` owns articles. Releases are authored in **`content/releases/*.mdx`**,
+Articles are authored in **`content/blog/*.mdx`**. Releases are authored in **`content/releases/*.mdx`**,
 one file per version plus `unreleased.mdx`. `content/releases.ts` is only the typed
 adapter for generated metadata. Keep publication claims backed by npm and the source tag.
+
+### Writing a blog article
+
+Create `content/blog/<slug>.mdx` with literal string metadata and one or more
+`JournalSection` blocks. The filename must match the slug; section IDs must be
+unique. Categories are `Engineering`, `Design system` and `Accessibility`;
+artwork is `system`, `palette` or `interaction`. Dates use `YYYY-MM-DD`.
+
+```mdx
+export const metadata = {
+  slug: "my-article",
+  title: "My article",
+  description: "A short description for the listing and RSS feed.",
+  category: "Engineering",
+  date: "2026-10-28",
+  artwork: "system"
+};
+
+<JournalSection id="first-steps" title="First steps">
+
+Write your article in **Markdown**, with [links](/docs) and fenced code blocks.
+
+</JournalSection>
+```
+
+The generated metadata supplies the listing, search, reading time, RSS, sitemap,
+SEO and outline. Articles sort by descending date; optional string `order` sets
+the order for articles on the same day. Markdown links and fenced code use Pimolu
+Link and CodeBlock; `Alert`, `Badge`, `Button` and `CodeBlock` are also available.
+The generator compiles trusted local MDX using the existing `@mdx-js/mdx` package.
+Run the usual dev/build/test commands to regenerate the ignored
+`content/generated/blog/` outputs; restart the dev command after editing MDX.
+No route registration is required. Invalid metadata or duplicate anchors fail the build.
 
 ### Writing a release
 

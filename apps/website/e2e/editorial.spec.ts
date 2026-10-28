@@ -5,13 +5,13 @@ import { journalPosts } from "../content/journal";
 test("blog filters, article navigation and global search work", async ({ page }) => {
   await page.goto("/blog");
   await expect(page.locator("main")).toHaveCount(1);
-  await expect(page.locator(".journal-card")).toHaveCount(3);
+  await expect(page.locator(".journal-card")).toHaveCount(journalPosts.length);
   await page.getByRole("radio", { name: "Engineering", exact: true }).click();
-  await expect(page.locator(".journal-card")).toHaveCount(1);
+  await expect(page.locator(".journal-card")).toHaveCount(journalPosts.filter((post) => post.category === "Engineering").length);
   await page.getByRole("textbox", { name: "Search articles" }).fill("no-such-article");
   await expect(page.getByRole("heading", { name: "No articles found." })).toBeVisible();
   await page.getByRole("button", { name: "Clear article search" }).click();
-  const article = page.locator(".journal-card");
+  const article = page.getByRole("link", { name: "Read From tokens to a working interface" });
   await article.focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/blog\/from-tokens-to-components$/);
@@ -78,7 +78,7 @@ test("RSS and machine-readable map are usable and unknown article routes return 
     const document = new DOMParser().parseFromString(text, "application/xml");
     return { items: document.querySelectorAll("item").length, errors: document.querySelectorAll("parsererror").length };
   }, xml);
-  expect(parsed).toEqual({ items: 3, errors: 0 });
+  expect(parsed).toEqual({ items: journalPosts.length, errors: 0 });
   const map = await request.get("/llms.txt");
   expect(map.ok()).toBe(true);
   expect(await map.text()).toContain("/components/button");

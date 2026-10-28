@@ -15,7 +15,7 @@ packages/themes/src/visual/*.json (six visual token sets)
 packages/themes/style-presets.css (imports + web helpers + radius + density)
   → packages/web-styles/src/*.css → scripts/build.mjs → dist/pimolu.css + per-component CSS
 packages/core/createVariants → registry/react/* + PimoluProvider
-  → apps/playground and examples/nextjs
+  → apps/playground
 ```
 
 `pnpm build:all` runs that chain in order. The `dist` outputs are generated and
@@ -60,7 +60,7 @@ their appearance.
   data-driven and CSS-token based.
 - `apps/playground/src/router.ts` declares the demo pages;
   `apps/playground/src/demo-data.ts` derives the option lists from the public
-  variant maps. `examples/nextjs` is a separate integration example.
+  variant maps. Framework starter templates are maintained outside this repository.
 
 ## Limits of the current architecture
 

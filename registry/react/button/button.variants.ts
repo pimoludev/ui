@@ -5,7 +5,7 @@ import type { VariantProps } from "@pimolu/core";
  * Single source of truth for the Button variant axes.
  *
  * Publicly exported (through the package entry) so consumers such as the
- * playground, the docs and the Next.js example can enumerate the options
+ * playground and the docs can enumerate the options
  * instead of duplicating them.
  */
 export const buttonVariantMap = {

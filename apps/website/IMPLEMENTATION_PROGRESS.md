@@ -1,5 +1,18 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 28 octobre 2026 — Articles du blog en MDX
+
+- Les trois articles existants sont rédigés dans `content/blog/*.mdx` ; leurs
+  URL, textes et ancres sont conservés. `scripts/build-blog.mjs` compile le MDX
+  local et génère les métadonnées utilisées par le catalogue, la recherche, le
+  sommaire, le RSS, le sitemap et le SEO. `content/journal.ts` reste l'adaptateur
+  typé ; le guide de rédaction figure dans le README du site.
+- Vérifications : génération et build Next.js/TypeScript, lint, 39 tests du site
+  et 24 scénarios Playwright éditoriaux/SEO sur Chromium, Firefox et WebKit.
+  Les textes et ancres migrés ont également été comparés aux sources précédentes.
+- Les fichiers MDX sont compilés au lancement des scripts du site ; redémarrer
+  le serveur de développement après une modification, comme pour les releases.
+
 ## 27 octobre 2026 — Redirection du guide providers et contrôle SEO
 
 - `next.config.ts` : redirection permanente `/docs/providers` → `/docs/theming`.

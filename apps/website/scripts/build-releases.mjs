@@ -3,12 +3,12 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-function textOf(node) {
+export function textOf(node) {
   return node.value ?? node.children?.map(textOf).join(" ").replace(/\s+/g, " ").trim() ?? "";
 }
 
 /** Read literal metadata from the MDX syntax tree without evaluating authored JS. */
-function readMetadata(node) {
+export function readMetadata(node) {
   if (node?.type !== "ObjectExpression") throw new Error("metadata must be an object literal");
   return Object.fromEntries(node.properties.map(property => {
     if (property.type !== "Property" || property.computed || property.value.type !== "Literal" || typeof property.value.value !== "string") {

@@ -12,8 +12,6 @@
     "dev:playground": "pnpm build:packages && pnpm --dir apps/playground dev",
     "build:playground": "pnpm --dir apps/playground build",
 
-    "dev:examples:nextjs": "pnpm build:packages && pnpm --dir examples/nextjs dev",
-    
     "dev:website": "pnpm build:packages && pnpm --dir apps/website dev",
     "build:website": "pnpm build:all && pnpm --dir apps/website build",
     "start:website": "pnpm --dir apps/website exec next start",
@@ -37,7 +35,7 @@
     "skills:check": "node .agents/skills/pimolu-orchestrator/scripts/list-skills.mjs",
     "verify:quick": "pnpm build:all && pnpm typecheck && pnpm audit:themes && pnpm test && pnpm test:themes && pnpm test:react && pnpm test:web-styles",
     "verify": "pnpm verify:quick && pnpm lint && pnpm skills:check && pnpm --dir apps/playground run build",
-    "check": "pnpm verify && pnpm --dir examples/nextjs build",
+    "check": "pnpm verify",
     "prepare": "node scripts/setup-hooks.mjs"
   },
   "engines": {

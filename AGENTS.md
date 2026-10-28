@@ -49,7 +49,7 @@ requirements and apply automatically to future component video requests.
 - `pnpm skills:check` — validates the `.agents/skills` catalog (frontmatter, names, duplicates).
 - `pnpm verify:quick` — `build:all → typecheck → audit:themes → test → test:themes → test:react → test:web-styles`.
 - `pnpm verify` — `verify:quick + lint + skills:check + playground build`. The canonical full check.
-- `pnpm check` — `verify + examples/nextjs build`.
+- `pnpm check` — full repository verification (`pnpm verify`).
 - `pnpm "playground dev"` — Vite dev server for `apps/playground` (the script name contains a space).
 
 ## Skills (`.agents/skills/<name>/SKILL.md`)
@@ -119,7 +119,7 @@ Hard rules (see the skills for detail): never claim unexecuted tests passed; nev
 - `@pimolu/core` compiles to `dist/`; `@pimolu/themes`, `@pimolu/web-styles` and `@pimolu/design-tokens` export generated files and need `build:all`.
 - Styling is plain CSS classes (`pimolu-*`) + CSS variables. No Tailwind / CSS-in-JS. Theming is attribute-driven: `PimoluProvider` sets `data-pimolu-theme` and `data-pimolu-style` on a wrapping `<div>`.
 - `@pimolu/design-tokens`, `@pimolu/themes`, `@pimolu/core`, `@pimolu/react` and `@pimolu/web-styles` are publishable at the same version; the website stays private. `release-manager` owns version sync, pack checks, changelog and tagging. Never run `npm publish` without a separate explicit request.
-- `apps/playground` is the manual verification app: one hash-routed page per component (`src/pages/*`, registered in `src/router.ts`), shared demo data in `src/demo-data.ts`, and styles imported from `@pimolu/web-styles/styles.css` (so `pnpm build:all` must run first). Each component page ends with real-world examples, not just prop permutations. `examples/nextjs` is a working Next.js App Router integration example (`pnpm --dir examples/nextjs build`). `apps/website` is the public Next.js documentation site (303 generated pages, Playwright suite). Other platform registries are not implemented yet.
+- `apps/playground` is the manual verification app: one hash-routed page per component (`src/pages/*`, registered in `src/router.ts`), shared demo data in `src/demo-data.ts`, and styles imported from `@pimolu/web-styles/styles.css` (so `pnpm build:all` must run first). Each component page ends with real-world examples, not just prop permutations. `apps/website` is the public Next.js documentation site (303 generated pages, Playwright suite). Framework starters are maintained in separate repositories. Other platform registries are not implemented yet.
 
 ## Tests
 
