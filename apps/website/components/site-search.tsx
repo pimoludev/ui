@@ -22,7 +22,7 @@ export function SiteSearchProvider({ children }: { children: ReactNode }) {
   return <SearchContext.Provider value={{ open, show: () => setOpen(true) }}><Dialog open={open} onOpenChange={setOpen}>
     {children}
     <DialogContent className="site-search-dialog" closeLabel="Close site search">
-      <DialogHeader><DialogTitle>Search Pimolu</DialogTitle><DialogDescription>Components, guides, articles and releases. Search by name or API property.</DialogDescription></DialogHeader>
+      <DialogHeader><DialogTitle>Search Pimolu</DialogTitle><DialogDescription>Components, guides, projects, articles and releases. Search by name or API property.</DialogDescription></DialogHeader>
       <Search onSelect={() => setOpen(false)} />
     </DialogContent>
   </Dialog></SearchContext.Provider>;

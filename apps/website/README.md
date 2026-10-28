@@ -233,6 +233,20 @@ The catalogue uses 266 product illustrations: one light and one dark PNG for eac
 
 Run `pnpm previews:capture` while the website is available on localhost:3001. Set `PREVIEWS_BASE_URL` to use another running server (production review used localhost:3002). Optional family arguments regenerate only those illustrations, e.g. `pnpm previews:capture tabs accordion`. The tracked `public/component-previews/capture-manifest.json` records the selected examples, selectors, complete bounds and fitted dimensions. Review changed product illustrations before committing; these are not automatically accepted visual-test snapshots.
 
+### Showcase projects
+
+`/showcase` lists real projects from `content/showcase.ts`. Add an entry with a
+unique slug, name, description, category, destination URL and technologies.
+Store real project screenshots in
+`public/images/showcase/` and provide both light/dark image paths plus descriptive
+alternative text. The same image can be used for both modes. The page switches the visible capture with the site color mode.
+The gallery and category filters are generated from those entries. No page
+registration or component change is needed when adding a project.
+
+Project Workspace is the first entry. The page is linked from the
+header, footer and global search, and included in the sitemap with canonical and
+collection structured data.
+
 ### Journal, development notes and palette exploration
 
 Articles are authored in **`content/blog/*.mdx`**. Releases are authored in **`content/releases/*.mdx`**,

@@ -35,6 +35,9 @@
   .docs-section { margin-block-start: 44px; scroll-margin-block-start: 104px; }
   .docs-section > h2, .docs-section > div > h2 { font-size: 1.5rem; line-height: 1.3; letter-spacing: -0.025em; font-weight: 600; }
   .docs-section > p { max-width: 72ch; color: var(--pimolu-muted-foreground); }
+  .docs-guide-section > p { line-height: 1.8; }
+  .docs-guide-section > p strong { color: inherit; background: transparent; border: 0; padding: 0; font-weight: 800; }
+  .docs-guide-section > p code { padding: .12em .35em; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-sm); background: var(--pimolu-muted); color: var(--pimolu-foreground); font-family: ui-monospace, monospace; font-size: .875em; overflow-wrap: anywhere; box-decoration-break: clone; }
   .docs-live-label { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--pimolu-border); border-radius: var(--pimolu-radius-md); color: var(--pimolu-muted-foreground); background: var(--pimolu-surface); font-size: .6875rem; line-height: 1.4; letter-spacing: .01em; }
   .docs-live-dot { display: inline-block; width: 6px; height: 6px; margin-inline-end: 6px; border-radius: 50%; background: var(--pimolu-primary); }
   .docs-section > * + * { margin-block-start: 20px; }

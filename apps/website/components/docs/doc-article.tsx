@@ -11,6 +11,7 @@ import additionalExamples from "@/content/generated/additional-examples.json";
 import { ScrollOutline } from "../scroll-outline";
 import { AdditionalExamples } from "./additional-examples";
 import { BreadcrumbData } from "../structured-data";
+import { emphasizeGuideText } from "@/lib/guide-emphasis";
 
 export function DocArticle({ slug, initialSettings }: { slug: string; initialSettings?: PreviewSettings }) {
   const guide = guides.find((entry) => entry.slug === slug);
@@ -34,9 +35,9 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
     <article className="docs-article">
       <PageHeader eyebrow={guide ? docNavigation.find((item) => item.slug === slug)?.group ?? "Handbook" : "Component reference"} title={catalogEntry?.title ?? entry.title} description={entry.description} />
       {catalogEntry && <nav aria-label="Component sources" className="flex flex-wrap gap-5 mt-6 text-sm"><Link href={`https://github.com/pimoludev/ui/tree/dev/${catalogEntry.source}`} external>Implementation</Link>{catalogEntry.stylesheet && <Link href={`https://github.com/pimoludev/ui/blob/dev/${catalogEntry.stylesheet}`} external>Shared CSS</Link>}{catalogEntry.tests.map((file, index) => <Link key={file} href={`https://github.com/pimoludev/ui/blob/dev/${file}`} external>Source tests{catalogEntry.tests.length > 1 ? ` ${index + 1}` : ""}</Link>)}</nav>}
-      {guide ? guide.sections.map((section) => <section key={section.id} id={section.id} className="docs-section">
+      {guide ? guide.sections.map((section) => <section key={section.id} id={section.id} className="docs-section docs-guide-section">
         <h2>{section.title}</h2>
-        {section.paragraphs.map((text) => <p key={text}>{text}</p>)}
+        {section.paragraphs.map((text) => <p key={text}>{emphasizeGuideText(slug, text).map((part, index) => part.kind === "code" ? <code key={index}>{part.text}</code> : part.kind === "important" ? <strong key={index}>{part.text}</strong> : part.text)}</p>)}
         {slug === "colors" && section.id === "palette" && <ColorReference />}
         {slug === "agents" && section.id === "llms" && <Link href="/llms.txt">Open the documentation map →</Link>}
         {slug === "agents" && section.id === "context" && <Link href="https://github.com/pimoludev/ui/blob/dev/AGENTS.md" external>Repository agent instructions</Link>}

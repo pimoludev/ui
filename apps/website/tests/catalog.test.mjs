@@ -61,7 +61,8 @@ test("customized copied examples remain parsable with isolated Provider settings
 
 test("sitemap includes each canonical reference once and excludes preview routes", () => {
   const paths = indexablePaths(catalog, guides);
-  assert.equal(paths.length, 161);
+  assert.equal(paths.length, 162);
+  assert.ok(paths.includes("/showcase"));
   assert.ok(paths.includes("/blog") && paths.includes("/releases/unreleased"));
   assert.ok(paths.includes("/releases/0.1.0-beta.3.1"));
   assert.ok(paths.includes("/releases/0.1.0-beta.3"));

@@ -20,7 +20,8 @@ change: these notes do not replace it.
   carried by `PimoluProvider`.
 - `apps/website` is the Next.js App Router site: workspace integration,
   homepage, guides under `/docs`, an illustrated catalog and **133 live component
-  references** under `/components` and a development-status `/releases` page.
+  references** under `/components`, a development-status `/releases` page and a
+  `/showcase` collection of real projects authored in `content/showcase.ts`.
   All families have curated examples, generated APIs, usage and accessibility notes.
   The original twenty are authored standalone; the additional 109 use curated
   Playground compositions with standalone overrides when needed. Preview settings

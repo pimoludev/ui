@@ -11,6 +11,7 @@ import {
 const navigation = [
   { href: "/docs", label: "Docs" },
   { href: "/components", label: "Components" },
+  { href: "/showcase", label: "Showcase" },
   { href: "/blog", label: "Blog" },
   { href: "/releases", label: "Releases" },
 ];

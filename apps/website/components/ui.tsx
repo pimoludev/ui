@@ -5,5 +5,5 @@
 export {
   Badge, Button, Card, CardContent, CardHeader, CardTitle, CardDescription,
   CodeBlock, DocsLayout, Footer, Link, PageHeader, ApiTable, TableOfContents, Alert,
-  DescriptionList, DescriptionItem, Code,
+  DescriptionList, DescriptionItem, Code, Image,
 } from "@pimolu/react";

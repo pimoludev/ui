@@ -1,5 +1,59 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 28 octobre 2026 — Showcase : retrait du site Pimolu
+
+- Le site officiel ne figure plus parmi les projets de la galerie. Project
+  Workspace reste la première réalisation présentée.
+
+## 28 octobre 2026 — Cartes Showcase et Project Workspace
+
+- Les cartes de la galerie sont des liens sur toute leur surface ; elles montrent
+  uniquement la capture, le nom et la catégorie, dans une grille jusqu'à quatre
+  colonnes. Les catégories sont filtrables au clavier et au pointeur.
+- Ajout du site réel `https://saas-landing.pimolu.com/` sous le nom Project
+  Workspace, avec des captures de son rendu clair et sombre.
+- Build Next.js/TypeScript, lint, huit tests ciblés et neuf scénarios Playwright
+  Chromium/Firefox/WebKit réussis. Ces scénarios couvrent le filtrage et le clic
+  sur la carte vers sa destination ; le rendu a été examiné sur desktop sombre et
+  mobile clair.
+
+## 28 octobre 2026 — Galerie Showcase
+
+- La collection présente les captures en grille responsive, avec un filtre par
+  catégorie dérivé des projets existants. Les recherches menant à un projet
+  réinitialisent le filtre afin de rendre sa carte accessible. Un seul projet réel
+  est actuellement enregistré ; aucun projet fictif n'a été ajouté.
+- Build Next.js/TypeScript, lint, 42 tests du site et 12 scénarios navigateur
+  (Chromium, Firefox, WebKit) réussis. Captures examinées sur desktop sombre et
+  mobile clair ; autres combinaisons vérifiées par les scénarios navigateur.
+
+## 28 octobre 2026 — Showcase des projets Pimolu
+
+- Nouvelle page `/showcase` : projets réels issus de `content/showcase.ts`, captures
+  clair/sombre, description, technologies, lien vers le site et dépôt facultatif.
+  Le site officiel constitue la première réalisation ; ses deux captures WebP
+  proviennent du rendu réel. La présentation compose PageHeader, Card, Image,
+  Badge et Link de Pimolu.
+- Ajout au header, au footer, à la recherche globale (page et projets) et au
+  sitemap. Métadonnées canoniques et données structurées CollectionPage/ItemList.
+  Le README décrit comment ajouter une réalisation.
+- Build Next.js/TypeScript, lint et 42 tests du site réussis. Douze scénarios
+  navigateur sur Chromium, Firefox et WebKit vérifient la navigation, la recherche,
+  le chargement des captures, le SEO et les largeurs 390/768/1440 px en clair/sombre.
+  Captures de la page examinées sur desktop sombre et mobile clair.
+
+## 28 octobre 2026 — Hiérarchie de lecture des guides
+
+- Les quinze guides `/docs` mettent en évidence les concepts et les références
+  techniques avec des styles basés sur les tokens du site. Les sélections sont
+  éditées dans `lib/guide-emphasis.ts` ; les paragraphes source restent inchangés
+  pour la recherche et le texte accessible.
+- Vérifications : build Next.js/TypeScript, lint, 41 tests du site et 60 contrôles
+  Chromium sur les quinze guides en clair/sombre à 390 et 1440 px. Le texte rendu
+  a été comparé à sa source et les débordements de page contrôlés. Captures de
+  l'introduction sur desktop en clair/sombre et du quick start sur mobile en
+  clair examinées.
+
 ## 28 octobre 2026 — Articles du blog en MDX
 
 - Les trois articles existants sont rédigés dans `content/blog/*.mdx` ; leurs
