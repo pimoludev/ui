@@ -10,11 +10,20 @@ export interface AdditionalExample {
   origin: string;
 }
 
-function ExampleCard({ family, example }: { family: string; example: AdditionalExample }) {
+export function ExampleCard({ family, example, initialSource, filename, showHeading = true, surface = "additional" }: {
+  family: string;
+  example: AdditionalExample;
+  initialSource?: string;
+  filename?: string;
+  showHeading?: boolean;
+  /** Setup cards reuse the card UI but are not part of the "More examples" set. */
+  surface?: "additional" | "setup";
+}) {
+  const prefix = surface === "setup" ? "setup-example" : "additional-example";
   const theme = usePimoluTheme();
   const iframe = useRef<HTMLIFrameElement>(null);
   const [height, setHeight] = useState(440);
-  const [source, setSource] = useState<string>();
+  const [source, setSource] = useState<string | undefined>(initialSource);
   const [view, setView] = useState("preview");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -42,15 +51,19 @@ function ExampleCard({ family, example }: { family: string; example: AdditionalE
     } catch { setError("The source could not be loaded. Try again."); }
     finally { setBusy(false); }
   }
-  return <section className="additional-example" aria-labelledby={`${family}-${example.id}`}>
-    <div className="additional-example-heading"><div><h3 id={`${family}-${example.id}`}>{example.title}</h3><p>{example.description}</p></div><Link href={url} external>Open preview</Link></div>
+  return <section className={prefix} aria-labelledby={`${family}-${example.id}`}>
+    <div className={`${prefix}-heading`}>
+      {showHeading ? <div><h3 id={`${family}-${example.id}`}>{example.title}</h3><p>{example.description}</p></div>
+        : <span id={`${family}-${example.id}`} className="sr-only">{example.title}</span>}
+      <Link href={url} external>Open preview</Link>
+    </div>
     <Tabs className="example-switcher" variant="segmented" size="sm" value={view} onValueChange={(value) => { setView(value); if (value === "code") void loadCode(); }}>
       <TabsList aria-label={`${example.title} example view`}><TabsTrigger value="preview">Preview</TabsTrigger><TabsTrigger value="code">Code</TabsTrigger></TabsList>
-      <TabsContent value="preview"><iframe ref={iframe} className="additional-example-frame" title={`${family}: ${example.title}`} src={url} style={{ height }} loading="lazy" /></TabsContent>
+      <TabsContent value="preview"><iframe ref={iframe} className={`${prefix}-frame`} title={`${family}: ${example.title}`} src={url} style={{ height }} loading="lazy" /></TabsContent>
       <TabsContent value="code">
         {busy && <p className="example-code-status" role="status">Loading example source…</p>}
         {error && <div className="example-code-status"><p role="alert">{error}</p><Button appearance="outline" size="sm" onClick={loadCode}>Try again</Button></div>}
-        {source && <CodeBlock code={source} language="tsx" filename={`${family}-${example.id}.tsx`} maxHeight={520} wrap />}
+        {source && <CodeBlock code={source} language="tsx" filename={filename ?? `${family}-${example.id}.tsx`} maxHeight={520} wrap />}
       </TabsContent>
     </Tabs>
   </section>;

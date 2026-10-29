@@ -181,7 +181,7 @@ function App() {
         </div>
       </footer>
 
-      <Toaster position="bottom-right" />
+      {route.id !== "toast" && <Toaster position="bottom-right" />}
     </PimoluProvider>
   );
 }

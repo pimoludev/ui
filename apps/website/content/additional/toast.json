@@ -19,5 +19,29 @@
     "title": "Named-part customization",
     "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
     "append": true
+  },
+  {
+    "file": "toast-loading.tsx",
+    "title": "Loading and updates",
+    "description": "Keep feedback visible while a task runs, then update the same notification.",
+    "append": true
+  },
+  {
+    "file": "toast-promise.tsx",
+    "title": "Promise feedback",
+    "description": "Follow a local asynchronous export through loading, success or failure.",
+    "append": true
+  },
+  {
+    "file": "toast-icons.tsx",
+    "title": "Icons and dismissal",
+    "description": "Replace or hide the icon and customize the dismiss control.",
+    "append": true
+  },
+  {
+    "file": "toast-position.tsx",
+    "title": "Position and timer pause",
+    "description": "Try the six positions. Hover or focus a notification to pause its remaining delay.",
+    "append": true
   }
 ]

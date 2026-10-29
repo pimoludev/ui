@@ -13,6 +13,7 @@ import {
   FormSubmit,
   Input,
   Select,
+  Spinner,
   Textarea,
   useForm,
 } from "@pimolu/react";
@@ -276,6 +277,12 @@ export function FormPage() {
           </div>
         </div>
       </Section>
+      <Section title="FormSubmit: custom loading" hint="FormSubmit inherits Button presentation and loadingIndicator. Form owns the pending state and submit type; the custom indicator stays decorative.">
+        <CustomSubmitExample />
+      </Section>
+      <Section title="FormError: field feedback" hint="FormError reads the matching name from Form context. It appears only for an error, announces it, and is associated with register's control.">
+        <FieldErrorExample />
+      </Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
 </>
   );
@@ -299,4 +306,39 @@ function NativeForm() {
       <FormSubmit>Subscribe</FormSubmit>
     </Form>
   );
+}
+
+function CustomSubmitExample() {
+  const [message, setMessage] = useState("");
+  const form = useForm({
+    defaultValues: { name: "Ada" },
+    onSubmit: async (values) => {
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      setMessage("Saved locally: " + values.name);
+    },
+  });
+  return <Form form={form} autoComplete="off" className="pg-panel pg-stack">
+    <Input label="Name" {...form.register("name")} fullWidth />
+    <FormSubmit loadingIndicator={<Spinner appearance="dots" size="sm" variant="warning" decorative />}>
+      {form.isSubmitting ? "Saving…" : "Save locally"}
+    </FormSubmit>
+    <p role="status">{message}</p>
+  </Form>;
+}
+
+function FieldErrorExample() {
+  const form = useForm({
+    defaultValues: { name: "" },
+    validate: (values) => values.name.trim() ? {} : { name: "Enter your name." },
+  });
+  return <Form form={form} autoComplete="off" className="pg-panel pg-stack">
+    <Input label="Name" {...form.register("name")} fullWidth />
+    <FormError name="name" classNames={{ error: "custom-field-error" }} />
+    <div className="pg-row">
+      <FormSubmit>Validate</FormSubmit>
+      <Button onClick={() => form.setError("name", "This name is already used (simulated server response).")}>Simulate server error</Button>
+      <Button appearance="ghost" onClick={() => form.clearErrors("name")}>Clear error</Button>
+    </div>
+    <style>{`.custom-field-error { font-weight: 600; border-inline-start: 3px solid currentColor; padding-inline-start: 12px; }`}</style>
+  </Form>;
 }

@@ -13,8 +13,8 @@ const api = await read("catalog-api");
 const examples = await read("examples");
 
 test("catalog covers exported families with real source, CSS, API and test paths", async () => {
-  assert.equal(catalog.length, 133);
-  assert.equal(new Set(catalog.map((entry) => entry.source)).size, 129, "Five chart references share one existing source family");
+  assert.equal(catalog.length, 135);
+  assert.equal(new Set(catalog.map((entry) => entry.source)).size, 129, "Chart and Form references share their existing source families");
   assert.equal(new Set(catalog.map((entry) => entry.family)).size, catalog.length);
   assert.equal(catalog.filter((entry) => entry.documented).length, components.length);
   for (const entry of catalog) {
@@ -61,7 +61,7 @@ test("customized copied examples remain parsable with isolated Provider settings
 
 test("sitemap includes each canonical reference once and excludes preview routes", () => {
   const paths = indexablePaths(catalog, guides);
-  assert.equal(paths.length, 162);
+  assert.equal(paths.length, 164);
   assert.ok(paths.includes("/showcase"));
   assert.ok(paths.includes("/blog") && paths.includes("/releases/unreleased"));
   assert.ok(paths.includes("/releases/0.1.0-beta.3.1"));

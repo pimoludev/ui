@@ -10,6 +10,8 @@ for (const entry of catalog) {
     await expect(page.locator("main")).toHaveCount(1);
     const preview = page.locator(".docs-preview");
     if (await preview.locator("iframe").count()) {
+      // The setup section can precede Preview; bring the lazy iframe into view.
+      await preview.scrollIntoViewIfNeeded();
       await expect(preview.frameLocator("iframe").locator('.example-ready[data-example-hydrated="true"]').first()).toBeVisible();
     } else await expect(preview.locator('.example-ready[data-example-hydrated="true"]').first()).toBeAttached();
     await expect(page.locator("#usage")).toContainText(/\S/);

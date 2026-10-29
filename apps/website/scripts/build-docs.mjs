@@ -1,16 +1,19 @@
 import { componentFingerprint, componentStatus } from "./component-status.mjs";
 import { chartReferences } from "../content/chart-references.ts";
+import { formReferences } from "../content/form-references.ts";
 import { normalizeDemoAssets } from "./website-demo-assets.mjs";
 import { readFile, writeFile, mkdir, readdir, cp } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { components, guides, docNavigation } from "../content/docs.ts";
+import { componentSetups } from "../content/component-setups.ts";
 import { journalPosts } from "../content/journal.ts";
 import { releaseNotes } from "../content/releases.ts";
 import { extendedComponents } from "../content/extended-components.ts";
 import { extractExample } from "./extract-example.mjs";
 import { buildAdditionalExamples } from "./build-additional-examples.mjs";
+import { buildSetupExamples } from "./build-setup-examples.mjs";
 import { createExampleSimplifier } from "./simplify-example.mjs";
 import { pimoluPresets } from "@pimolu/themes/presets";
 
@@ -70,6 +73,16 @@ function readPages(node) {
   ts.forEachChild(node, readPages);
 }
 readPages(router);
+// Document existing Form exports independently without inventing library families.
+const formEntry = catalog.find((entry) => entry.family === "form");
+formEntry.apiTypes = ["UseFormOptions", "PimoluFormRegistration", "UseFormReturn", "PimoluFormProps"];
+catalog.splice(catalog.indexOf(formEntry) + 1, 0, ...formReferences.map((reference) => ({
+  family: reference.family, title: reference.title, group: "Forms", description: reference.description,
+  exports: [reference.title], source: "registry/react/form", playgroundFamily: "form",
+  apiTypes: [`Pimolu${reference.title}Props`],
+  stylesheet: reference.family === "form-submit" ? "packages/web-styles/src/button.css" : "packages/web-styles/src/form.css",
+  documented: true, href: `/components/${reference.family}`,
+})));
 const baseline = JSON.parse(await readFile(path.join(website, "content/component-baseline.json"), "utf8"));
 const statusOverrides = JSON.parse(await readFile(path.join(website, "content/component-status-overrides.json"), "utf8"));
 for (const entry of catalog) entry.status = componentStatus(entry, await componentFingerprint(root, entry.source, entry.stylesheet), baseline, statusOverrides);
@@ -91,6 +104,7 @@ const simplifyExample = createExampleSimplifier(demoProgram);
 const demoOutput = path.join(output, "demos");
 await mkdir(demoOutput, { recursive: true });
 await buildAdditionalExamples({ catalog, extendedComponents, program: demoProgram, root, website, output, simplifyExample });
+await buildSetupExamples(output);
 const extendedSources = new Map();
 for (const entry of extendedComponents) {
   const filename = path.join(root, `apps/playground/src/pages/${entry.playgroundFamily ?? entry.family}-page.tsx`);
@@ -114,6 +128,7 @@ const catalogApi = {};
 const examples = {};
 const index = [];
 const descriptions = {
+  autoComplete: "Native browser hint: off requests no saved suggestions; email, name and current-password identify field purpose. Browsers and password managers may override this hint.",
   variant: "Variant exposed by this component.", appearance: "Visual treatment of the control or surface.",
   size: "Component size.", radius: "Corner-radius treatment.",
   loading: "Show the busy state and prevent activation.", fullWidth: "Use the available width of the parent.",
@@ -157,7 +172,8 @@ for (const component of catalog) {
       for (const property of type.getProperties()) {
         const name = property.getName();
         const local = property.declarations?.some((node) => node.getSourceFile().fileName.replaceAll("\\", "/").startsWith(path.join(root, "registry/react").replaceAll("\\", "/") + "/"));
-        if (!local && !nativeProps.has(name)) continue;
+        const documentAutocomplete = name === "autoComplete" && ["input", "form", "password-input", "search-input", "input-group"].includes(component.family);
+        if (!local && !nativeProps.has(name) && !documentAutocomplete) continue;
         let description = ts.displayPartsToString(property.getDocumentationComment(checker)).replace(/\s+/g, " ").trim();
         const declaredDefault = description.match(/Defaults? to (.+?)\.(?:\s|$)/i)?.[1];
         const valueType = checker.getTypeOfSymbolAtLocation(property, declaration);
@@ -209,10 +225,11 @@ for (const component of catalog) {
 for (const entry of docNavigation) {
   const component = components.find((item) => `components/${item.family}` === entry.slug);
   const guide = guides.find((item) => item.slug === entry.slug);
+  const setup = component && componentSetups[component.family];
   index.push({
     ...entry, href: entry.slug.startsWith("components/") ? `/${entry.slug}` : entry.slug ? `/docs/${entry.slug}` : "/docs",
     keywords: component
-      ? [...component.usage, ...component.accessibility, ...api[component.family].flatMap((group) => group.rows.map((row) => `${row.name} ${row.description}`))]
+      ? [...component.usage, ...component.accessibility, ...(setup ? [setup.title, ...setup.paragraphs, ...setup.examples.flatMap((example) => [example.title ?? "", ...(example.paragraphs ?? [])]), ...(setup.notes ?? [])] : []), ...api[component.family].flatMap((group) => group.rows.map((row) => `${row.name} ${row.description}`))]
       : guide.sections.flatMap((section) => [section.title, ...section.paragraphs]),
   });
 }

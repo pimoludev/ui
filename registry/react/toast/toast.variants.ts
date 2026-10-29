@@ -13,6 +13,8 @@ export const toastVariantMap = {
     success: "pimolu-toast--success",
     warning: "pimolu-toast--warning",
     danger: "pimolu-toast--danger",
+    info: "pimolu-toast--info",
+    loading: "pimolu-toast--loading",
   },
 } as const;
 

@@ -3,6 +3,8 @@
 test("navbar examples stay in their iframe and preserve local interactions", async ({ page }) => {
   await page.goto("/components/navbar");
   const frame = page.frameLocator('iframe[src*="example=example-2"]');
+  // Setup examples precede "More examples"; load the lazy example iframe.
+  await page.locator('iframe[src*="example=example-2"]').scrollIntoViewIfNeeded();
   await frame.locator('[data-example-hydrated="true"]').waitFor();
   const original = await frame.locator('body').evaluate(() => location.href);
   for (const name of ["surface navigation", "transparent navigation", "floating navigation"]) {

@@ -4,6 +4,20 @@ Pimolu UI — a pnpm-workspace monorepo for a cross-platform design system. The 
 
 Start with `docs/ai/PROJECT_CONTEXT.md`; follow its links to the verified architecture, design system, component inventory, development guide and roadmap. Recheck the source files relevant to each task because this reference is a snapshot.
 
+## Permanent component update badges
+
+Whenever an existing component is changed, ensure its website reference displays
+the **Updated** badge. This includes implementation, styles, playground examples,
+website documentation, setup instructions and copyable examples. For shared
+changes, mark every affected reference.
+
+Source fingerprints do not detect documentation-only edits. Add or refresh the
+affected entries in `apps/website/content/component-status-overrides.json` with
+`kind: "updated"` and a meaningful description, then run the website documentation
+generator and confirm the generated catalog status. Do not reset the baseline to
+hide changes. Newly introduced components retain **New** and intentional
+deprecations retain **Deprecated**.
+
 ## Permanent marketing video conventions
 
 For every Pimolu component video, read and apply

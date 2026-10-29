@@ -115,7 +115,7 @@ export interface PimoluComponentParts {
   "theme-builder": "colorInput" | "colorRow" | "colorValue" | "controls" | "eyebrow" | "field" | "header" | "label" | "layout" | "preset" | "presetDescription" | "presetLabel" | "presets" | "preview" | "root" | "sample" | "sampleActions" | "sampleCopy" | "sampleHead" | "sampleTitle" | "selects" | "summary" | "swatch" | "swatches" | "title";
   "time-picker": "clear" | "control" | "error" | "formatHint" | "label" | "root" | "wrapper";
   "timeline": "content" | "description" | "indicator" | "item" | "root" | "srOnly" | "time" | "title";
-  "toast": "action" | "actions" | "body" | "close" | "description" | "root" | "title" | "toast";
+  "toast": "action" | "actions" | "body" | "close" | "description" | "icon" | "root" | "title" | "toast";
   "toggle": "root";
   "toggle-group": "item" | "root";
   "toolbar": "button" | "group" | "link" | "root" | "separator" | "toggleGroup";

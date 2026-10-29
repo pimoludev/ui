@@ -73,6 +73,45 @@ describe("Button", () => {
     ).not.toBeNull();
   });
 
+  it("replaces the loading visual without changing the button name or busy state", async () => {
+    const onClick = vi.fn();
+    const user = userEvent.setup();
+    render(<Button loading loadingIndicator={<svg data-testid="custom-loader" />} classNames={{ spinner: "my-loader" }} onClick={onClick}>Save</Button>);
+    const button = screen.getByRole("button", { name: "Save" });
+    const loader = screen.getByTestId("custom-loader");
+    expect(loader.parentElement).toHaveClass("my-loader");
+    expect(loader.parentElement).toHaveAttribute("aria-hidden", "true");
+    expect(button.querySelector(".pimolu-button__spinner")).toBeNull();
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute("aria-busy", "true");
+    expect(button).not.toHaveAttribute("loadingIndicator");
+    await user.click(button);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("only renders the custom indicator while loading and restores the default when omitted", () => {
+    const indicator = <span data-testid="custom-loader">Please wait</span>;
+    const { rerender } = render(<Button loadingIndicator={indicator} startIcon={<span data-testid="start">+</span>}>Save</Button>);
+    const button = screen.getByRole("button", { name: "Save" });
+    expect(screen.queryByTestId("custom-loader")).toBeNull();
+    expect(screen.getByTestId("start")).toBeInTheDocument();
+    expect(button).toBeEnabled();
+    rerender(<Button loading loadingIndicator={indicator}>Save</Button>);
+    expect(screen.getByTestId("custom-loader")).toBeInTheDocument();
+    expect(screen.queryByTestId("start")).toBeNull();
+    rerender(<Button loading>Save</Button>);
+    expect(screen.queryByTestId("custom-loader")).toBeNull();
+    expect(button.querySelector(".pimolu-button__spinner")).not.toBeNull();
+  });
+
+  it.each([null, false])("allows hiding the loading visual with %s while keeping submission blocked", (loadingIndicator) => {
+    render(<Button loading loadingIndicator={loadingIndicator}>Save</Button>);
+    const button = screen.getByRole("button", { name: "Save" });
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute("aria-busy", "true");
+    expect(button.querySelector(".pimolu-button__spinner, .pimolu-button__loading-indicator")).toBeNull();
+  });
+
   it("affiche les icônes", () => {
     render(
       <Button

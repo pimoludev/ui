@@ -17,6 +17,8 @@ const descriptions: Record<string, string> = {
   success: "The deployment finished.",
   warning: "The token is close to its limit.",
   danger: "The deployment failed.",
+  info: "A new workspace update is available.",
+  loading: "Dismiss this notification when you are done.",
 };
 
 export function CustomizationExample() {

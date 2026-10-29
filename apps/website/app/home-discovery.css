@@ -7,8 +7,6 @@
   .discovery-calendar { display: flex; justify-content: center; width: 100%; }
   .discovery-signin .pimolu-input__wrapper { padding-inline: var(--pimolu-input-padding); }
   .discovery-signin .pimolu-password-input__toggle { display: grid; place-items: center; align-self: center; width: 32px; height: 32px; padding: 0; line-height: 0; }
-  /* Native autofill must share the surrounding field surface, not paint an inner rectangle. */
-  .discovery-signin .pimolu-input__control:is(:autofill, :-webkit-autofill) { box-shadow: 0 0 0 1000px var(--pimolu-surface) inset; -webkit-text-fill-color: var(--pimolu-foreground); caret-color: var(--pimolu-foreground); }
   .discovery-small { font-size: .75rem; line-height: 1.65; color: var(--pimolu-muted-foreground); overflow-wrap: anywhere; }
   .discovery-title { font-size: 1.125rem; line-height: 1.4; font-weight: 500; letter-spacing: -.025em; margin: 0; }
   .discovery-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: stretch; }

@@ -19,7 +19,7 @@ change: these notes do not replace it.
   (`data-pimolu-radius`), density (`data-pimolu-density`) and a brand colour
   carried by `PimoluProvider`.
 - `apps/website` is the Next.js App Router site: workspace integration,
-  homepage, guides under `/docs`, an illustrated catalog and **133 live component
+  homepage, guides under `/docs`, an illustrated catalog and **135 live component
   references** under `/components`, a development-status `/releases` page and a
   `/showcase` collection of real projects authored in `content/showcase.ts`.
   All families have curated examples, generated APIs, usage and accessibility notes.
@@ -60,6 +60,47 @@ documentation, developer tooling, AI integrations and MCP. Those targets are not
 features present in the repository.
 
 ## Latest library and website iteration
+
+- Button now accepts an optional `loadingIndicator` React node; FormSubmit
+  inherits it. Omission preserves the ring, while null/false hides the visual
+  without changing disabled/aria-busy. The custom wrapper uses the existing
+  `classNames.spinner` hook. This additive API is local and unpublished.
+  `/components/form-submit` and `/components/form-error` have separate sidebar
+  entries, focused APIs, functional Preview/Code examples and related links.
+  Form keeps its values/validation guidance, without the companions' API groups
+  or detailed setup blocks. Old setup preview URLs redirect to the new pages.
+  These are references for existing exports, not new library families. Setup
+  guidance now spans 30 references and 33 modules; Form, FormSubmit and FormError
+  are marked Updated. The root `.gitignore`
+  explicitly excludes `/.artifacts/`; no artifact files are tracked.
+
+- Shared Input CSS now clips native autofill paint to text so its wrapper keeps
+  the intended surface (including translucent presets); forced colors retains
+  system text colors and focus remains visible. PasswordInput, SearchInput and
+  InputGroup inherit it. Form website demos request `autoComplete="off"`, while
+  the library keeps native autocomplete configurable. Browser policies can
+  override this hint. See the latest website progress for forced-state Chromium
+  coverage and limits; this stylesheet change is not published yet.
+
+- Website setup guidance now covers 27 references with 30 real Preview/Code
+  examples. `build-setup-examples.mjs` compiles trusted authored modules from
+  `content/component-setups.ts` / `compound-setups.ts`; generated `setup-*` ids
+  are validated before previews or source responses are served. `ExampleCard`
+  is shared with supplementary examples. Setup previews have their own mutable
+  appearance provider; Toast samples receive the required surrounding wiring.
+  The Form API sample uses the stateless `/api/demo/profile` documentation route.
+  Every component/page/example update must keep its Updated status visible;
+  documentation-only changes use `component-status-overrides.json` (AGENTS.md).
+  Exact checks and browser coverage are in the website implementation progress.
+
+- Toast now supports `info`/`loading` tones, built-in or custom decorative icons,
+  `toast.update`, `toast.promise`, semantic shortcuts, dismissal callbacks and
+  independent hover/focus timer pauses. Loading is persistent; late async results
+  cannot restore dismissed or manually updated notifications. Six logical/center
+  positions, `classNames.icon` and sizing/motion CSS variables are demonstrated in
+  the playground and four appended website examples, preserving old example ids.
+  These are workspace changes pending publication. See `docs/TOAST.md` and the
+  website implementation progress for exact validation coverage.
 
 - Tabs adds a native CSS sliding indicator (workspace only): `animated` defaults
   to true, `classNames.indicator` exposes the decorative surface, and component

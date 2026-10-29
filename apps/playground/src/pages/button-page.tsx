@@ -1,4 +1,4 @@
-import { Button } from "@pimolu/react";
+import { Button, Spinner } from "@pimolu/react";
 
 import {
   buttonAppearances,
@@ -121,6 +121,15 @@ export function ButtonPage() {
         </div>
       </Section>
 
+      <Section title="Loading indicators" hint="loadingIndicator replaces only the decorative loader. The button remains disabled and aria-busy. undefined keeps the ring; null hides the visual.">
+        <div className="pg-row">
+          <Button loading>Default ring</Button>
+          <Button loading loadingIndicator={<Spinner appearance="dots" size="sm" decorative />}>Dots</Button>
+          <Button loading loadingIndicator={<Spinner appearance="arc" size="sm" variant="warning" decorative />}>Colored arc</Button>
+          <Button loading loadingIndicator={<span>⌛</span>}>Custom content</Button>
+          <Button loading loadingIndicator={null}>Text only</Button>
+        </div>
+      </Section>
       <Section
         title="Example: project actions"
         hint="A primary action and a quiet escape route in a compact toolbar."

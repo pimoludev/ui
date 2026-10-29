@@ -1,5 +1,218 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 29 octobre 2026 — Références autonomes FormSubmit et FormError
+
+- Création de `/components/form-submit` et `/components/form-error`, avec entrées
+  alphabétiques dans la catégorie Forms de la sidebar desktop et du drawer
+  mobile. Les trois références Form/FormSubmit/FormError portent Updated.
+- Chaque page a sa description, ses exemples Preview / Code, sa personnalisation,
+  son API TypeScript filtrée, ses notes d'accessibilité et ses liens associés.
+  FormSubmit montre l'envoi asynchrone, le loader, les apparences, disabled et
+  les named parts ; FormError montre validation, blur, serveur, Select et styles.
+- Les deux blocs Setup détaillés quittent Form, ainsi que leurs groupes API.
+  Form conserve la récupération des valeurs et les compositions générales,
+  avec des liens vers les références dédiées. Les anciens liens de preview
+  setup-custom-submit / setup-field-error redirigent en 308 et conservent les
+  paramètres de thème. Aucun export ni comportement de bibliothèque modifié.
+- Générateur, recherche, sitemap et catalogue synchronisés : 135 références
+  pour les 129 familles existantes, 545 exemples supplémentaires et 33 modules
+  Setup sur 30 références. Quatre nouvelles illustrations PNG clair/sombre
+  capturées sur les vrais composants, avec leur manifeste.
+- Vérifications réussies : TypeScript, lint, 44 tests website ; les 717 modules
+  de code (exemples, guides et Setup) compilent indépendamment. Tests existants
+  adaptés au nombre de références et à la séparation effective des API.
+- Chromium/Argent : sidebar active et Updated, drawer mobile, API dédiées,
+  envoi local FormSubmit et validation/association ARIA de FormError contrôlés.
+  Pages et previews à 390 px sans débordement ; rendu desktop contrôlé.
+  Pas de nouvelle matrice de presets ou de moteurs, les styles partagés et
+  composants publics n'ayant pas changé. Build Next.js final réussi : 309 pages
+  générées. Aucun commit, push ou déploiement effectué.
+
+## 29 octobre 2026 — Loaders personnalisables et documentation Form
+
+- Button accepte `loadingIndicator` ; FormSubmit en bénéficie par héritage.
+  Sans valeur, le cercle existant reste utilisé ; null/false masque le visuel.
+  Le loader fourni remplace uniquement le visuel décoratif, dans un wrapper
+  aria-hidden ciblable par classNames.spinner. Aucun changement de la gestion
+  disabled, aria-busy, du formulaire ou du submit. Aucun package supplémentaire.
+- Démonstrations playground : cercle, dots, arc coloré, contenu personnalisé et
+  loader masqué. Form propose un envoi asynchrone avec dots et une démonstration
+  des erreurs de validation/serveur/effacement. Les anciens ids restent stables.
+- `/components/form#form-submit` et `#form-error` : sections dédiées, ancres du
+  sommaire, explications, personnalisation et exemples Preview / Code complets.
+  Button propose aussi une preview interactive des loaders. Statuts Updated
+  actualisés pour Button et Form. 33 modules Setup sur 28 références au total.
+- `/.artifacts/` est explicitement ignoré à la racine ; aucun fichier de ce
+  dossier n'est suivi. Changelog et contrat de personnalisation synchronisés.
+- Vérifications : pnpm verify réussi (1 507 tests React, 30 tests CSS, thèmes,
+  typecheck, lint et build playground). Cinq nouveaux tests Button/Form couvrent
+  le loader, le fallback, null/false et la soumission. Website : typecheck, lint,
+  44 tests et build Next.js réussis, 305 pages générées. Les 708 modules d'exemples
+  compilent. L'avertissement Vite préexistant sur le chunk principal subsiste.
+- Chromium/Argent : soumission avec dots, disabled/aria-busy pendant l'attente,
+  retour à l'état disponible et résultat local vérifiés. FormError : validation,
+  erreur serveur, effacement et association aria-describedby vérifiés. Ancres,
+  liens de sommaire et sources Setup contrôlés sur la page Form produite.
+- Contrôle visuel des loaders sur les 7 presets × clair/sombre, à 390 px et
+  desktop (~1 424 px), sans débordement horizontal. Captures et planches locales
+  dans `.artifacts/loading-indicator/`. Réduction des animations vérifiée : cercle,
+  dots et arc sans animation. Les loaders externes restent responsables de leur
+  propre prise en charge. Pas de nouvelle matrice Firefox/WebKit ni de contrôle
+  lecteur d'écran dans cette itération. API disponible localement, non publiée.
+
+## 29 octobre 2026 — Suggestions navigateur et fond d'autofill
+
+- Correction partagée dans `packages/web-styles/src/input.css` : le fond natif
+  de l'état autofill est limité au texte, dont la couleur suit le foreground
+  Pimolu. Le wrapper conserve ses surfaces outline/soft/filled/glass, sans
+  ombre interne opaque ni transition retardée. Le focus reste visible ; en
+  couleurs forcées, les couleurs système reprennent la main. PasswordInput,
+  SearchInput et InputGroup réutilisent ce correctif. Le patch CSS spécifique
+  de la homepage est remplacé par la règle de bibliothèque.
+- Démos Form (principal et trois Setup) : `autoComplete="off"`. La page Input
+  propose une case pour autoriser les suggestions. Documentation de la limite
+  navigateur et du caractère indicatif de cet attribut ; aucune désactivation
+  globale dans la bibliothèque. L'API affiche cet attribut natif sur les
+  cinq références pertinentes. Le playground démontre name/email, glass et off.
+- Badges Updated actualisés : Input, Form, PasswordInput, SearchInput, InputGroup,
+  DataTable, DataGrid, FileManager et ThemeBuilder (consommateurs de l'Input).
+- Vérifications réussies : 30 tests CSS, 49 tests React des quatre familles de
+  champs, typechecks/lints du dépôt et du website, 44 tests documentation,
+  builds Next.js et playground ; audit thèmes strict 0 erreur / 0 warning.
+  L'avertissement Vite préexistant sur le chunk principal reste présent.
+- Diagnostic Chromium sur le markup SSR des vrais composants : état autofill
+  forcé via DevTools sur 7 presets × 2 modes × 390/1440 px, soit 28 cas et 280
+  champs. Échantillons de fond inchangés, aucun débordement horizontal ; captures
+  et planche examinées dans `.artifacts/input-autofill/`. Focus et retour à un
+  fond transparent après retrait de l'état vérifiés sur les 14 couples ; couleurs
+  forcées et réduction des animations vérifiées. Les données personnelles et
+  propositions enregistrées du navigateur utilisateur n'ont pas été utilisées.
+  Le remplissage natif par protocole a été tenté mais indisponible sur la fixture ;
+  ce contrôle valide le rendu de l'état CSS, pas le panneau natif ni les politiques
+  des gestionnaires de mots de passe. Pas de nouveau test de régression versionné.
+- Correctif local, à inclure dans une prochaine version de web-styles.
+
+## 29 octobre 2026 — Previews interactives des exemples Setup
+
+- Les 30 modules de mise en route des 27 références proposent maintenant les
+  onglets Preview / Code, une iframe isolée et un lien Open preview. Le système
+  existant d'exemples supplémentaires est réutilisé ; la source copiée conserve
+  son fichier d'origine et correspond exactement au module rédigé.
+- `scripts/build-setup-examples.mjs` compile les sources locales pendant
+  docs:generate et produit les manifests, loaders dynamiques et modules ignorés
+  par Git. Les ids `setup-*` dérivent des noms de fichiers et sont validés par
+  la route preview et l'API des sources ; aucun code fourni par URL n'est évalué.
+- Les previews fournissent leur contexte d'application : Toaster unique pour
+  les exemples Toast, Provider local modifiable pour ThemeBuilder. Le formulaire
+  API appelle réellement `/api/demo/profile`, qui valide la requête et répond
+  sans stocker de profil ni appeler de service externe. Le code et les notes
+  indiquent de remplacer cet endpoint dans une application utilisatrice.
+- Badges Updated actualisés sur les 27 références. Aucun changement dans les
+  composants publics de la bibliothèque ; aucune dépendance ajoutée.
+- Vérifications : TypeScript, lint, 44 tests website et build Next.js réussis.
+  Tests ajoutés pour la correspondance manifeste/source et la validation de
+  l'endpoint de démonstration. 30 routes et API sources répondent correctement,
+  sources exactes, ids inconnus en 404 et 27 statuts Updated contrôlés.
+- Chromium/Argent : les 30 modules s'hydratent au format desktop, sans débordement
+  horizontal ni message console. Basculement Preview / Code puis retour testé ;
+  les trois formulaires transmettent les valeurs attendues (JSON, réponse réseau,
+  rôle du Select). Changement de preset ThemeBuilder appliqué à son Provider local ;
+  Toast affiché avec une seule instance de Toaster. Pas de nouvelle matrice complète
+  mobile, presets ou moteurs dans cette vérification.
+
+## 29 octobre 2026 — Récupérer les données de Form
+
+- `/components/form` explique directement `onSubmit(values)` et `form.values`,
+  le rôle du formulaire HTML, l'affichage conditionnel de FormError et le bouton
+  rendu par FormSubmit. Trois modules copiables montrent la récupération des
+  données, un envoi JSON asynchrone et un Select connecté par setValue.
+- Le preview principal affiche les valeurs courantes pendant la saisie et le
+  dernier objet soumis en JSON. Deux champs obligatoires démontrent les erreurs ;
+  Reset efface les champs et le résultat. Aucun envoi réseau dans ce preview.
+  La recette `/api/profile` nécessite explicitement un backend fourni par le lecteur.
+- Les blocs de mise en route acceptent un titre et une explication individuels,
+  également indexés par la recherche. Override Updated de Form actualisé.
+- Vérifications : TypeScript, lint, 42 tests website et build Next.js réussis.
+  705 modules compilent indépendamment (675 existants + 30 de mise en route).
+  Serveur de production : les trois recettes et le statut Updated sont présents.
+  Parcours Chromium via Argent : erreurs sur champs vides, saisie, soumission par
+  bouton, comparaison état courant/résultat soumis, puis Reset vérifiés dans le DOM.
+  L'envoi à l'API est une recette documentée ; aucun backend de démonstration créé.
+
+## 29 octobre 2026 — Mise en route des composants composés
+
+- Ajout d'une section Setup avant les previews sur 27 références, avec lien
+  dans le sommaire et contenu indexé par la recherche. 28 modules TSX autonomes
+  et copiables expliquent le placement, les dépendances locales et la gestion
+  de l'état. Le guide Toast existant utilise maintenant le même rendu commun.
+- Les 27 références portent explicitement le badge Updated pour cette révision
+  documentaire. La règle de marquage de toute mise à jour est inscrite dans
+  `AGENTS.md`, y compris les modifications limitées aux pages et exemples.
+- Couverture : Form/useForm, FormField/FormControl, Command/CommandPalette,
+  ThemeBuilder/PimoluProvider, NotificationCenter, Tour, TableOfContents ; Dialog,
+  AlertDialog, Drawer, DropdownMenu, ContextMenu, HoverCard, Popover, Accordion,
+  Menubar, NavigationMenu, Tabs, ToggleGroup, Toolbar, Stepper, InputGroup,
+  RadioGroup, FocusScope, Navbar et Sidebar.
+- Clarifications : instance globale de Toaster, raccourci actif de la palette
+  et indication visuelle d'un item, application des cinq réglages ThemeBuilder,
+  état de la boîte de notifications, observation des titres, contextes parents,
+  champs natifs/enregistrés et fermeture explicite d'AlertDialog. FormControl
+  transmet automatiquement les associations accessibles ; Échap est désactivé
+  par défaut dans AlertDialog. Les nouveautés non publiées restent signalées.
+- Fichiers : `content/component-setups.ts`, `content/compound-setups.ts`,
+  `components/docs/component-setup.tsx`, `components/docs/doc-article.tsx`,
+  `content/extended-components.ts`, `scripts/build-docs.mjs`,
+  `tests/docs.test.mjs`. Aucun composant public de bibliothèque modifié.
+- Vérifications : typecheck, lint, 42 tests website et build Next.js réussis.
+  Les 703 modules d'exemples (675 existants + 28 de mise en route) compilent
+  indépendamment. Contrôle HTTP du serveur de production sur les 27 pages :
+  statut 200, section Setup, ancre du sommaire, blocs de code et index de recherche
+  présents. Aucune nouvelle vérification visuelle ou avec lecteur d'écran.
+
+## Toast — chargement, icônes et cycle de vie (workspace)
+
+- Bibliothèque : ajout des variants `info` / `loading`, icônes sémantiques et
+  personnalisables (`icon: null` les masque), raccourcis `toast.success/error/warning/info/loading`,
+  `toast.update`, `toast.promise`, `onDismiss`, `dismissible` et `dismissLabel`.
+  Les identifiants réutilisés mettent à jour la carte sans duplication ; les anciens
+  timers sont annulés. Une promesse terminée après fermeture ou modification manuelle
+  ne restaure pas la notification. Fermer la notification n'annule pas la tâche.
+- Le chargement reste visible jusqu'à fermeture/mise à jour. Le délai se suspend
+  indépendamment au pointeur et au focus, puis reprend avec le temps restant.
+  La région live vide reste montée ; les actions de chargement sont désactivées.
+  Six positions respectent le RTL, la pile reste défilante dans un écran court et
+  les contrôles tactiles mesurent au moins 44 px.
+- Personnalisation : `classNames.icon` et variables locales de largeur, padding,
+  durée et courbe d'entrée. Spinner existant, CSS natif, réduction des animations
+  et couleurs forcées ; aucune dépendance ajoutée.
+- Playground : `toast-page.tsx`, `toast-customization-demo.tsx`, `App.tsx` (une seule
+  instance de Toaster, position configurable sur sa page). Website : quatre nouveaux
+  exemples rédigés (chargement, promesse, icônes, positions), ajoutés **après** les
+  exemples existants pour conserver leurs identifiants. API et notes d'usage générées,
+  miniatures réelles clair/sombre du catalogue régénérées et examinées.
+- Sources principales : `registry/react/toast/*`, `customization.types.ts`,
+  `registry/react/index.ts`, `packages/web-styles/src/toast.css`,
+  `components/docs/additional/toast-*.tsx`, `content/additional/toast.json`,
+  `content/docs.ts`, `content/releases/unreleased.mdx`, `e2e/toast.spec.ts` et
+  `tests/docs.test.mjs`. Documentation : `docs/TOAST.md`, `docs/CUSTOMIZATION.md`,
+  `docs/ai/PROJECT_CONTEXT.md` et `CHANGELOG.md`.
+- Vérifications exécutées : `pnpm verify` réussi (1 502 tests React dont 28 nouveaux,
+  30 tests CSS, TypeScript, lint, build playground, tokens/thèmes et skills) ;
+  audit des thèmes strict : 0 erreur / 0 warning. Build Next.js/TypeScript, lint et
+  42 tests website réussis ; les 671 exemples composants et quatre exemples guides
+  compilent indépendamment. Après les captures, les sept tests catalogue passent.
+- Navigateurs : 21 scénarios Toast réussis sur Chromium, Firefox et WebKit : loading,
+  promesses, résultats tardifs, icônes, fermeture au clavier, pause du délai,
+  six positions en RTL, 390/1440 px, pile tactile 320×400, réduction des animations,
+  activation effective des couleurs forcées et bordure CanvasText. Les assertions
+  renforcées de couleurs forcées ont été relancées sur les trois moteurs : succès.
+- Revue visuelle Chromium du playground : sept presets × clair/sombre × 390/1440 px,
+  soit 28 cas et 168 notifications, sans débordement ; captures et planches examinées
+  dans `.artifacts/toast-review/` (ignorées par Git). Aucun téléphone physique ni
+  lecteur d'écran n'a été testé. L'avertissement Vite sur le chunk principal
+  (765,62 kB) reste présent. Changements non publiés ; prochaine étape : validation
+  mainteneur puis inclusion dans une future bêta.
+
 ## 28 octobre 2026 — Showcase : retrait du site Pimolu
 
 - Le site officiel ne figure plus parmi les projets de la galerie. Project

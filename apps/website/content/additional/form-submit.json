@@ -1,0 +1,6 @@
+[
+  { "title": "Button appearances", "description": "Reuse Button's presentation props while Form owns submission.", "file": "form-submit-appearances.tsx" },
+  { "title": "Explicitly disable submission", "description": "Keep a submit action unavailable until the user accepts a condition.", "file": "form-submit-disabled.tsx" },
+  { "title": "Text-only pending feedback", "description": "Hide the decorative loader and keep a readable pending label.", "file": "form-submit-text.tsx" },
+  { "title": "Named-part customization", "description": "Target the submit button label and loader without changing the shared Button styles.", "file": "form-submit-style.tsx" }
+]

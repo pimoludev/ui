@@ -326,6 +326,13 @@
 
 /* Spinner */
 
+.pimolu-button__loading-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .pimolu-button__spinner {
   width: 1em;
   height: 1em;

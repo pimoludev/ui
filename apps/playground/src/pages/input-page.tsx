@@ -233,6 +233,23 @@ export function InputPage() {
       </Section>
 
       <Section
+        title="Browser autofill"
+        hint="autoComplete controls the browser hint. Suggestions belong to the browser; accepted autofill keeps the Input wrapper's surface, including glass. Focus remains visible."
+      >
+        <div className="pg-grid">
+          <form className="pg-panel pg-stack" onSubmit={(event) => event.preventDefault()}>
+            <Input label="Full name" name="name" autoComplete="name" fullWidth />
+            <Input label="Email address" name="email" type="email" autoComplete="email" fullWidth />
+            <Input label="Glass email" name="glass-email" type="email" autoComplete="section-glass email" appearance="glass" fullWidth />
+            <Button type="submit">Try autofill</Button>
+          </form>
+          <form autoComplete="off" className="pg-panel pg-stack" onSubmit={(event) => event.preventDefault()}>
+            <Input label="Local demo value" name="demo-value" autoComplete="off" helperText="Requests no saved suggestions; the browser may override this hint." fullWidth />
+            <Button type="submit">Use local value</Button>
+          </form>
+        </div>
+      </Section>
+      <Section
         title="Example: account sign in"
         hint="Native form fields, autofill and a clear primary action."
       >

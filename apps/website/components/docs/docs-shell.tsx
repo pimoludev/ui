@@ -23,7 +23,11 @@ function DocsNavigation({ onNavigate, section }: { onNavigate?: () => void; sect
   return <nav className="docs-navigation" aria-label={section === "docs" ? "Documentation" : "Components"}>
     {[...new Set(entries.map((entry) => entry.group))].map((group) => <div key={group} className="docs-nav-group">
       <p className="docs-nav-label">{group}</p>
-      {entries.filter((entry) => entry.group === group).map((entry) => <Fragment key={entry.slug}>
+      {entries.filter((entry) => entry.group === group)
+        .sort((a, b) => section === "components"
+          ? a.title.localeCompare(b.title, "en", { sensitivity: "base", numeric: true })
+          : 0)
+        .map((entry) => <Fragment key={entry.slug}>
         <Link href={href(entry.slug)} variant="muted" aria-current={pathname === href(entry.slug) ? "page" : undefined} aria-describedby={entry.status ? `${id}-${entry.slug}` : undefined} onClick={onNavigate}>
           <span className="docs-nav-title">{entry.title}</span>
           {entry.status && <Badge className="docs-nav-status" aria-hidden="true" variant={entry.status.kind === "new" ? "success" : entry.status.kind === "deprecated" ? "warning" : "primary"}>{entry.status.kind === "new" ? "New" : entry.status.kind === "deprecated" ? "Deprecated" : "Updated"}</Badge>}

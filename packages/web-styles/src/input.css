@@ -107,6 +107,15 @@
   opacity: 1;
 }
 
+/* The wrapper owns the surface, including translucent/soft appearances.
+   Clip the UA autofill paint to the text instead of adding an opaque inset
+   shadow. Editing removes :autofill and restores the transparent control. */
+.pimolu-input__control:is(:autofill, :-webkit-autofill) {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: var(--pimolu-foreground);
+}
+
 /* The browser's native search clear button would double our own clear
    button and only exists in WebKit/Blink. Hidden so the component renders
    the same everywhere; `clearable` is the cross-browser replacement. */
@@ -423,6 +432,12 @@
 
 /* High contrast */
 @media (forced-colors: active) {
+  .pimolu-input__control:is(:autofill, :-webkit-autofill) {
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: CanvasText;
+  }
+
   .pimolu-input__wrapper:focus-within {
     outline: 2px solid Highlight;
     outline-offset: 2px;

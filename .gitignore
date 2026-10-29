@@ -10,5 +10,8 @@ next-env.d.ts
 !.env.example
 packages/web-styles/dist/
 
+# Local diagnostics, browser captures and generated review artifacts.
+/.artifacts/
+
 # Local marketing and launch-video project (large media and render outputs).
 /docs/marketing/

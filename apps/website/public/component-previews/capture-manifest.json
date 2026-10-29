@@ -1649,6 +1649,38 @@
   },
   {
     "example": "primary",
+    "family": "form-error",
+    "theme": "dark",
+    "selector": ".pimolu-form__error",
+    "bounds": {
+      "x": 20,
+      "y": 103.59375,
+      "width": 320,
+      "height": 18.1875
+    },
+    "rendered": {
+      "width": 544,
+      "height": 32
+    }
+  },
+  {
+    "example": "primary",
+    "family": "form-error",
+    "theme": "light",
+    "selector": ".pimolu-form__error",
+    "bounds": {
+      "x": 20,
+      "y": 103.59375,
+      "width": 320,
+      "height": 18.1875
+    },
+    "rendered": {
+      "width": 544,
+      "height": 32
+    }
+  },
+  {
+    "example": "primary",
     "family": "form-field",
     "theme": "dark",
     "selector": ".pimolu-form-field",
@@ -1697,6 +1729,38 @@
   },
   {
     "example": "primary",
+    "family": "form-submit",
+    "theme": "dark",
+    "selector": ".pimolu-button",
+    "bounds": {
+      "x": 20,
+      "y": 103.59375,
+      "width": 111.859375,
+      "height": 40
+    },
+    "rendered": {
+      "width": 224,
+      "height": 82
+    }
+  },
+  {
+    "example": "primary",
+    "family": "form-submit",
+    "theme": "light",
+    "selector": ".pimolu-button",
+    "bounds": {
+      "x": 20,
+      "y": 103.59375,
+      "width": 111.859375,
+      "height": 40
+    },
+    "rendered": {
+      "width": 224,
+      "height": 82
+    }
+  },
+  {
+    "example": "primary",
     "family": "gantt",
     "theme": "dark",
     "selector": ".pimolu-gantt",
@@ -3781,14 +3845,14 @@
     "theme": "dark",
     "selector": ".pimolu-toast",
     "bounds": {
-      "x": 24,
-      "y": 897.40625,
-      "width": 320,
-      "height": 86.59375
+      "x": 16,
+      "y": 893.40625,
+      "width": 328,
+      "height": 90.59375
     },
     "rendered": {
       "width": 544,
-      "height": 148
+      "height": 151
     }
   },
   {
@@ -3797,14 +3861,14 @@
     "theme": "light",
     "selector": ".pimolu-toast",
     "bounds": {
-      "x": 24,
-      "y": 897.40625,
-      "width": 320,
-      "height": 86.59375
+      "x": 16,
+      "y": 893.40625,
+      "width": 328,
+      "height": 90.59375
     },
     "rendered": {
       "width": 544,
-      "height": 148
+      "height": 151
     }
   },
   {

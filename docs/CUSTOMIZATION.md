@@ -34,6 +34,43 @@ from this recipe; if the application needs a reset, keep it in the earlier base
 layer and verify its effect on native controls. For rules in another named
 application layer, declare that layer after `pimolu` in the order statement.
 
+## Button and FormSubmit loading indicators (source workspace)
+
+The optional `loadingIndicator` prop replaces Button's decorative loading visual.
+FormSubmit inherits it from Button; its parent Form still owns `type="submit"`
+and the pending state through `form.isSubmitting`. These additions await the next
+package release.
+
+```tsx
+import { FormSubmit, Spinner } from "@pimolu/react";
+
+// Inside <Form form={form}>:
+<FormSubmit
+  loadingIndicator={
+    <Spinner appearance="dots" size="sm" variant="warning" decorative />
+  }
+  classNames={{ spinner: "profile-loader" }}
+>
+  Save profile
+</FormSubmit>
+```
+
+Omitting the prop keeps the existing ring. `null` or `false` hides the visual
+without removing the disabled or `aria-busy` state. The indicator is rendered only
+while loading, inside an `aria-hidden` wrapper. Keep it non-interactive and keep
+the button's label meaningful. Custom indicators have no forced ring border,
+dimensions or rotation; their component or CSS controls those details.
+`classNames.spinner` targets either the original ring or this wrapper.
+Pimolu Spinner and the default ring respect `prefers-reduced-motion`. When
+providing your own animated content, honor that preference in its CSS or logic.
+
+For FormError, `name` selects the error from the parent Form's state. Use
+`className` or `classNames.error` to style the message. `form.register(name)`
+associates it with the native-style control; use `form.setError` and
+`form.clearErrors` for application/server feedback. The website documents both
+parts at `/components/form-submit` and `/components/form-error`, with
+independent interactive examples and their code.
+
 ## Named parts
 
 `classNames` is an optional, typed map of additive classes. It never replaces
@@ -165,6 +202,14 @@ its supported keys. CSS class order still does not change cascade priority.
 `Toaster` supports both global card parts and per-notification overrides through
 `toast({ classNames })`. `VirtualList<T>` preserves its generic item type while
 exposing its viewport, spacer and item hooks.
+
+Toast includes a decorative `classNames.icon` hook. Customize its container with
+`classNames.root` on Toaster, or an individual card through `toast({ classNames })`.
+On the Toaster root, `--pimolu-toast-width` (24rem), `--pimolu-toast-padding` (14px),
+`--pimolu-toast-duration` (180ms) and `--pimolu-toast-easing` control sizing and entry
+motion. Per-toast classes can override inherited padding/duration/easing. Set the
+duration to `0ms` to disable entry motion; reduced motion disables it automatically.
+See [Toast feedback](TOAST.md) for loading, icons, promises and dismissal.
 
 Custom colors and overrides remain the application's responsibility: retain
 contrast, disabled states, keyboard focus and reduced-motion behavior. The

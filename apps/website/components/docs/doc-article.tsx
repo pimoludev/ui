@@ -12,6 +12,8 @@ import { ScrollOutline } from "../scroll-outline";
 import { AdditionalExamples } from "./additional-examples";
 import { BreadcrumbData } from "../structured-data";
 import { emphasizeGuideText } from "@/lib/guide-emphasis";
+import { ComponentSetup } from "./component-setup";
+import { componentSetups } from "@/content/component-setups";
 
 export function DocArticle({ slug, initialSettings }: { slug: string; initialSettings?: PreviewSettings }) {
   const guide = guides.find((entry) => entry.slug === slug);
@@ -19,7 +21,10 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
   if (!guide && !component) return null;
   const entry = (guide ?? component)!;
   const catalogEntry = catalog.find((item) => item.family === component?.family);
+  const setup = component ? componentSetups[component.family] : undefined;
   const sections = guide ? guide.sections.map(({ id, title }) => ({ id, label: title })) : [
+    ...(setup ? [{ id: "setup", label: "Setup" }] : []),
+    ...(setup?.examples.flatMap((example) => example.id ? [{ id: example.id, label: example.outlineLabel ?? example.title ?? example.id }] : []) ?? []),
     { id: "preview", label: "Preview" }, { id: "examples", label: "More examples" }, { id: "usage", label: "Usage" },
     { id: "api", label: "API reference" }, { id: "accessibility", label: "Accessibility" },
     { id: "related", label: "Related components" },
@@ -43,6 +48,7 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
         {slug === "agents" && section.id === "context" && <Link href="https://github.com/pimoludev/ui/blob/dev/AGENTS.md" external>Repository agent instructions</Link>}
         {section.code && <CodeBlock code={section.code} language={section.language} filename={section.filename} wrap />}
       </section>) : component && <>
+        {setup && <ComponentSetup family={component.family} content={setup} />}
         <section id="preview" className="docs-section">
           <div className="flex flex-wrap justify-between items-center gap-3"><h2>Preview</h2><Badge className="docs-live-label" appearance="outline" size="sm"><span className="docs-live-dot" aria-hidden="true" />Live preview</Badge></div>
           <PreviewWorkbench key={`${component.family}:${JSON.stringify(initialSettings ?? {})}`} family={component.family} example={component.example} source={examples[component.family as keyof typeof examples]} initialSettings={initialSettings} />

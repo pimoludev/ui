@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -45,6 +45,37 @@ function EmailForm({
 }
 
 describe("Pimolu Form", () => {
+  it("FormSubmit inherits a custom loading indicator and follows the pending submission", async () => {
+    let finish: () => void = () => undefined;
+    const pending = new Promise<void>((resolve) => { finish = resolve; });
+    const onSubmit = vi.fn(() => pending);
+    function CustomSubmitForm() {
+      const form = useForm({ defaultValues: { name: "Ada" }, onSubmit });
+      return <Form form={form}><FormSubmit
+        loadingIndicator={<span data-testid="submit-loader">Working</span>}
+        classNames={{ spinner: "custom-submit-spinner" }}
+      >Save</FormSubmit></Form>;
+    }
+    render(<CustomSubmitForm />);
+    const button = screen.getByRole("button", { name: "Save" });
+    expect(button).toHaveAttribute("type", "submit");
+    expect(screen.queryByTestId("submit-loader")).toBeNull();
+    const user = userEvent.setup();
+    await user.click(button);
+    await waitFor(() => expect(button).toBeDisabled());
+    expect(button).toHaveAttribute("aria-busy", "true");
+    expect(screen.getByTestId("submit-loader").parentElement).toHaveClass("custom-submit-spinner");
+    expect(screen.getByTestId("submit-loader").parentElement).toHaveAttribute("aria-hidden", "true");
+    expect(button.querySelector(".pimolu-button__spinner")).toBeNull();
+    expect(onSubmit).toHaveBeenCalledWith({ name: "Ada" });
+    await user.click(button);
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await act(async () => { finish(); });
+    await waitFor(() => expect(button).toBeEnabled());
+    expect(button).not.toHaveAttribute("aria-busy");
+    expect(screen.queryByTestId("submit-loader")).toBeNull();
+  });
+
   it("blocks submit and announces the error when invalid", async () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();

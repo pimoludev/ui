@@ -4,6 +4,33 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+- EN: Button adds `loadingIndicator` for a custom decorative loader, inherited
+  automatically by FormSubmit. Omitting it preserves the ring; null/false hides
+  the visual while keeping disabled and aria-busy. FormSubmit and FormError gain
+  standalone documentation pages, sidebar entries and interactive examples. Local `.artifacts/`
+  outputs are explicitly ignored by the shared repository configuration.
+- FR : Button ajoute `loadingIndicator` pour personnaliser le loader décoratif,
+  automatiquement disponible sur FormSubmit. Sans prop, le cercle reste ;
+  null/false masque le visuel tout en conservant disabled et aria-busy.
+  FormSubmit et FormError ont leurs pages dédiées dans la sidebar avec exemples
+  interactifs. Les sorties locales `.artifacts/` sont explicitement ignorées.
+
+- EN: Input keeps its themed surface during browser autofill and subsequent
+  editing, including translucent appearances and controls sharing its styles.
+  Native autocomplete remains configurable; Form documentation demos request
+  no saved suggestions, while focus and forced-colors support are preserved.
+- FR : Input conserve sa surface lors du remplissage automatique et de la
+  saisie suivante, y compris les apparences translucides et champs dérivés.
+  L'autocomplétion reste configurable ; les démos Form demandent de désactiver
+  les suggestions enregistrées, en préservant le focus et les couleurs forcées.
+
+- EN: Toast adds loading/info tones, semantic/custom icons, promise feedback,
+  in-place updates, dismissal callbacks and configurable hover/focus timer pauses.
+  Added six positions, an icon customization hook and responsive touch controls.
+- FR : Toast ajoute les états chargement/information, les icônes personnalisables,
+  le suivi des promesses, les mises à jour et les pauses du délai au survol/focus.
+  Ajout de six positions, du hook icon et de contrôles adaptés au tactile.
+
 - EN: SegmentedControl shares the CSS sliding indicator and always keeps a
   scrollable track, with optional visible scrollbars. TabsList adds `showScrollbar`; native bars
   stay hidden by default. Tabs galleries have wider responsive cards, and site

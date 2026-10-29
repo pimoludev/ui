@@ -48,8 +48,10 @@ test('the password eye is centered and autofill uses the field surface',async({p
     const cdp=await page.context().newCDPSession(page);await cdp.send('DOM.enable');await cdp.send('CSS.enable');const {root}=await cdp.send('DOM.getDocument');
     const {nodeId}=await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.discovery-signin input[type="email"]'});
     await cdp.send('CSS.forcePseudoState',{nodeId,forcedPseudoClasses:['autofill']});
-    const style=await form.getByRole('textbox',{name:'Email address',exact:true}).evaluate(node=>({autofill:node.matches(':autofill'),shadow:getComputedStyle(node).boxShadow,border:getComputedStyle(node).borderWidth}));
-    expect(style.autofill).toBe(true);expect(style.shadow).toContain('inset');expect(style.border).toBe('0px');await cdp.detach();
+    const style=await form.getByRole('textbox',{name:'Email address',exact:true}).evaluate(node=>{const computed=getComputedStyle(node);return{autofill:node.matches(':autofill'),clip:computed.backgroundClip,fill:computed.getPropertyValue('-webkit-text-fill-color'),border:computed.borderWidth};});
+    // The wrapper owns the surface now: autofill paint is clipped to the text
+    // instead of covering it with an opaque inset shadow.
+    expect(style.autofill).toBe(true);expect(style.clip).toBe('text');expect(style.fill).not.toBe('');expect(style.border).toBe('0px');await cdp.detach();
   }
 });
 

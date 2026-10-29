@@ -230,7 +230,7 @@ export const extendedComponents = [
     },
     "description": "Label and feedback compositions for profile fields.",
     "usage": [
-      "Connect the field's id to its label and descriptive feedback rather than duplicating labels."
+      "Compose FormField, FormControl and one control. FormControl forwards the generated id, error/help associations, required and disabled state. Put the label on FormField to keep a single visible field label."
     ],
     "accessibility": [
       "Keep help and errors associated with the input and explain errors in text."
@@ -1278,7 +1278,7 @@ export const extendedComponents = [
       "Reserve interruptive confirmation for consequential actions and use precise button labels."
     ],
     "accessibility": [
-      "Check the named alert dialog, safe initial focus, Escape and restoration to the trigger."
+      "Keep the alert dialog named and Cancel reachable. Escape dismissal defaults to disabled; verify it if explicitly enabled, along with focus restoration to the trigger."
     ]
   },
   {

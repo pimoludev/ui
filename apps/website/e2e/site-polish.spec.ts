@@ -3,6 +3,8 @@ import { test, expect } from "@playwright/test";
 test("nested tabs keep their own variant inside the Preview/Code presentation", async ({ page }) => {
   await page.goto("/components/tabs");
   const demo = page.frameLocator(".docs-preview iframe");
+  // The setup section can precede Preview; bring the lazy iframe into view.
+  await page.locator(".docs-preview").scrollIntoViewIfNeeded();
   await demo.locator('.example-ready[data-example-hydrated="true"]').waitFor();
   expect(await demo.locator(".pimolu-tabs__list").evaluate((element) => getComputedStyle(element).borderRadius)).toBe("0px");
   await demo.getByRole("tab", { name: "Activity", exact: true }).click();

@@ -656,6 +656,7 @@ export {
   toast,
   dismissToast,
   dismissAllToasts,
+  updateToast,
   useToast,
   useToasts,
 } from "./toast/toast";
@@ -664,6 +665,8 @@ export { toastVariantMap } from "./toast/toast.variants";
 
 export type {
   PimoluToastOptions,
+  PimoluToastUpdate,
+  PimoluToastPromiseOptions,
   PimoluToastItem,
   PimoluToastAction,
   PimoluToastVariant,

@@ -88,6 +88,7 @@ for (const [family, entries] of Object.entries(manifest)) {
       if (family === "context-menu") await page.getByText("Right-click this panel to open the project menu.", { exact: true }).click({ button: "right" });
       else if (family === "hover-card") await page.getByRole("button", { name: "Immediate", exact: true }).focus();
       else if (family === "tooltip") await page.getByRole("button", { name: "Top", exact: true }).focus();
+      else if (family === "form-error") await page.getByRole("button", { name: "Simulate a conflict", exact: true }).click();
       else if (family === "image") await page.getByRole("button", { name: "Show cached image", exact: true }).click();
       else if (family === "notification-center") await page.getByRole("button", { name: "Open from the page", exact: true }).click();
       else if (["alert-dialog", "dropdown-menu", "popover", "popconfirm", "lightbox", "toast", "tour"].includes(family)) {

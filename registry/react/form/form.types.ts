@@ -149,6 +149,7 @@ export interface PimoluFormErrorProps {
   className?: string;
 }
 
+/** Button presentation props, including loadingIndicator. Form owns type and loading state. */
 export interface PimoluFormSubmitProps
   extends Omit<ButtonProps, "type" | "loading"> {
   /** Additive classes for stable named parts, including composed descendants. */

@@ -13,6 +13,8 @@ const output = path.join(website, "public/component-previews");
 const baseURL = process.env.PREVIEWS_BASE_URL || "http://localhost:3001";
 // Select the actual component, never the surrounding documentation card or controls.
 const targets = {
+  "form-submit": ".pimolu-button",
+  "form-error": ".pimolu-form__error",
   "bar-chart": ".pimolu-chart--bar", "line-chart": ".pimolu-chart--line", "area-chart": ".pimolu-chart--area", "donut-chart": ".pimolu-chart--donut", sparkline: ".pimolu-chart--sparkline",
   spacer: ".pimolu-flex",
   "theme-builder": ".pimolu-theme-builder__presets",
@@ -70,6 +72,7 @@ try {
       await page.unroute("**/demos/**");
       await page.evaluate(() => document.fonts.ready);
       const trigger = page.locator('.example-ready .pimolu-button').first();
+      if (entry.family === "form-error") await trigger.click();
       if (["dialog", "alert-dialog", "drawer", "toast", "popconfirm", "dropdown-menu", "popover", "lightbox"].includes(entry.family)) await trigger.click();
       if (["hover-card", "tooltip"].includes(entry.family)) await trigger.hover();
       if (entry.family === "context-menu") await trigger.click({ button: "right" });

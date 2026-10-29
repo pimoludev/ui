@@ -18,6 +18,8 @@ export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     ButtonVariants {
   loading?: boolean;
+  /** Replaces the decorative loader while loading. undefined keeps the default ring; null/false hides it. */
+  loadingIndicator?: ReactNode;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   fullWidth?: boolean;
@@ -34,6 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       radius,
       loading = false,
+      loadingIndicator,
       startIcon,
       endIcon,
       fullWidth = false,
@@ -70,7 +73,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         aria-busy={loading || undefined}
         className={mergeClasses(classes, partClasses.root)}
       >
-        {loading ? (
+        {loading && loadingIndicator !== undefined ? (
+          loadingIndicator !== null && loadingIndicator !== false && (
+            <span
+              className={mergeClasses("pimolu-button__loading-indicator", partClasses.spinner)}
+              aria-hidden="true"
+            >
+              {loadingIndicator}
+            </span>
+          )
+        ) : loading ? (
           <span
             className={mergeClasses("pimolu-button__spinner", partClasses.spinner)}
             aria-hidden="true"

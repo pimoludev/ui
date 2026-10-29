@@ -1,5 +1,7 @@
 "use client";
 
+import { SetupPreview } from "./setup-preview";
+
 import "./demo-compositions.css";
 import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
@@ -21,6 +23,8 @@ export const componentExamples = {
   "data-table": dynamic(() => import("./examples/data-table").then((module) => readyExample(module.DataTableExample)), { loading: LoadingExample }),
   "data-grid": dynamic(() => import("./examples/data-grid").then((module) => readyExample(module.DataGridExample)), { loading: LoadingExample }),
   "form": dynamic(() => import("./examples/form").then((module) => readyExample(module.FormExample)), { loading: LoadingExample }),
+  "form-submit": dynamic(() => import("./examples/form-submit").then((module) => readyExample(module.FormSubmitExample)), { loading: LoadingExample }),
+  "form-error": dynamic(() => import("./examples/form-error").then((module) => readyExample(module.FormErrorExample)), { loading: LoadingExample }),
   "navbar": dynamic(() => import("./examples/navbar").then((module) => readyExample(module.NavbarExample)), { loading: LoadingExample }),
   "sidebar": dynamic(() => import("./examples/sidebar").then((module) => readyExample(module.SidebarExample)), { loading: LoadingExample }),
   "dashboard-layout": dynamic(() => import("./examples/dashboard-layout").then((module) => readyExample(module.DashboardLayoutExample)), { loading: LoadingExample }),
@@ -66,5 +70,8 @@ export function StandaloneExample({ family, exampleId, theme, preset, radius, de
     return () => observer.disconnect();
   }, []);
   const layout = ["dashboard-layout", "app-shell", "docs-layout"].includes(family);
-  return <div dir={direction}><PimoluProvider theme={theme} stylePreset={preset} radius={radius} density={density} brandColor={brandColor} className="docs-standalone"><div ref={content} className={`demo-composition demo-composition--${family}`} data-example-ready={family}>{layout ? <Example /> : <main><Example /></main>}</div></PimoluProvider></div>;
+  const renderedExample = exampleId?.startsWith("setup-")
+    ? <SetupPreview key={`${family}/${exampleId}`} family={family} exampleId={exampleId} />
+    : <Example />;
+  return <div dir={direction}><PimoluProvider theme={theme} stylePreset={preset} radius={radius} density={density} brandColor={brandColor} className="docs-standalone"><div ref={content} className={`demo-composition demo-composition--${family}`} data-example-ready={family}>{layout ? renderedExample : <main>{renderedExample}</main>}</div></PimoluProvider></div>;
 }
