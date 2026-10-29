@@ -1,6 +1,6 @@
 # Toast feedback
 
-These additions are available in the source workspace, pending a package release.
+These additions ship in 0.1.0-beta.4.
 Existing `toast({ title, description, variant, duration, action })` calls still work.
 Mount **one** `Toaster` inside `PimoluProvider` and import the shared stylesheet.
 Calls to toast belong in client event handlers/effects, not server rendering.

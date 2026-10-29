@@ -1,6 +1,6 @@
 # Named-part customization by family
 
-Workspace additions for the next release; not yet published on npm. See [the contract](CUSTOMIZATION.md) for cascade layers and scoping. All 129 component families expose typed hooks on their rendered surfaces; PimoluProvider additionally exposes its root. Headless control components use their Content, child element or rendered surface rather than receiving a fictitious DOM class.
+Available in 0.1.0-beta.4. See [the contract](CUSTOMIZATION.md) for cascade layers and scoping. All 129 component families expose typed hooks on their rendered surfaces; PimoluProvider additionally exposes its root. Headless control components use their Content, child element or rendered surface rather than receiving a fictitious DOM class.
 
 Every component accepts its family's typed map. Only rendered parts exist in the DOM. Root classes belong to the current surface; independently nested roots reset inherited maps. Explicit local part classes override inherited part classes without replacing built-in structural classes.
 

@@ -1,0 +1,61 @@
+export const metadata = {
+  "slug": "0.1.0-beta.4",
+  "title": "0.1.0-beta.4",
+  "status": "Preview",
+  "date": "2026-10-29",
+  "tag": "v0.1.0-beta.4",
+  "summary": "Complete toast feedback, focused form references, a replaceable loading indicator and a clearer component setup path.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.4 with the latest and beta tags. Pimolu UI remains a beta release."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.4">
+
+- **Toast now covers the whole feedback lifecycle.** Loading and information tones, semantic or custom icons, promise helpers, in-place updates, dismissal callbacks, six positions and hover/focus timer pauses ship with responsive touch controls.
+- **Button and Form share one loading contract.** Button adds `loadingIndicator`; FormSubmit inherits it and keeps submission disabled with `aria-busy`. FormSubmit and FormError gain their own reference pages, focused APIs and interactive examples.
+- **Input keeps its themed surface during autofill.** Browser paint is clipped to the text, so translucent appearances, focus and forced colors stay consistent while editing.
+- **Every changed reference explains its setup.** Authored Setup sections, generated previews and Updated badges make the install path and the live examples easier to follow.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.4 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.4.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.4 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="components" label="React and CSS" title="Components and interactions">
+
+- Toast accepts loading and info tones, semantic icons or a custom icon node, promise feedback and `toast.update`. Passing an existing id updates one card instead of duplicating it, and dismissal callbacks run once.
+- Toast timers pause independently on pointer and keyboard focus. Six placements, translated dismissal labels, named icon classes and touch controls keep long stacks usable in short viewports.
+- Button `loadingIndicator` replaces the decorative loader without changing the disabled or busy state. Omit it for the existing ring; pass null or false to hide the visual only.
+- FormSubmit inherits Button loading props, and FormError exposes a stable root part. Both now have standalone references, setup modules and examples beside the Form guide.
+- Input clips browser autofill paint to the text instead of covering the themed wrapper. Focus, high contrast and later editing preserve the same surface.
+- Tabs and SegmentedControl keep the shared CSS sliding indicator, optional visible scrollbars and reduced-motion support.
+
+</ReleaseSection>
+
+<ReleaseSection id="website" label="Reference" title="Documentation and tooling">
+
+- Component references now open with authored Setup sections and real generated previews before the main example.
+- The journal is authored in MDX and generates its metadata, search content, RSS feed, sitemap and compiled modules from the source articles.
+- A new showcase page presents a real Pimolu project with theme-aware captures, project facts and structured data.
+- The website builds 310 pages. Legacy documentation paths redirect permanently, and the component catalog keeps source-backed Updated badges.
+- The release planner now reads multi-segment beta tags correctly and starts fewer Git processes.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The seven complex-component assistive-technology reviews remain open; browser tests do not replace manual visual and screen-reader review.
+- Native, Angular and web registries remain unimplemented.
+- The Playground bundle still exceeds the Vite 500 kB warning threshold.
+
+</ReleaseSection>

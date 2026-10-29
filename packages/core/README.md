@@ -6,7 +6,7 @@ A tiny, framework-independent utility for composing class names from named varia
 
 [Source](https://github.com/pimoludev/ui/tree/main/packages/core) · [Component docs](https://pimolu.com/components)
 
-> **Beta:** `0.1.0-beta.3.1` is a preview.
+> **Beta:** `0.1.0-beta.4` is a preview.
 
 ## Why @pimolu/core?
 

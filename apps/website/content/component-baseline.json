@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.3.1",
+  "version": "0.1.0-beta.4",
   "references": [
     "theme-builder",
     "button",
@@ -47,6 +47,8 @@
     "tree-select",
     "signature",
     "form",
+    "form-submit",
+    "form-error",
     "masked-input",
     "currency-input",
     "phone-input",
@@ -146,7 +148,7 @@
       ]
     },
     "button": {
-      "fingerprint": "38b30189a464129c363a0228f6862ab80ccdd5b8eeb2177a09e97b8f3a9e0e47",
+      "fingerprint": "9c061302c9199e8a22668d6e5d9e2fd359992e1f1d98a3ac5bb86f7df5789bcb",
       "exports": [
         "Button",
         "buttonVariantMap"
@@ -198,7 +200,7 @@
       ]
     },
     "tabs": {
-      "fingerprint": "8f9e1b8dc40da50cbb28c8917cd00cfe794d27ef707cf4972e042b4b08a7a0bd",
+      "fingerprint": "a3b47fbe269f9bf1d7a2a41bfbac054d1f6499f0287fa5293200977773c8b857",
       "exports": [
         "Tabs",
         "TabsList",
@@ -208,7 +210,7 @@
       ]
     },
     "segmented-control": {
-      "fingerprint": "5e7564841115855db6b99daca901cbbecdcdda5c85ea1a983c3548f2a38156fc",
+      "fingerprint": "1c041a94945c4aad757311e9dea3379220189c68b499526acc728cb4925a7a3a",
       "exports": [
         "SegmentedControl",
         "segmentedControlVariantMap"
@@ -309,7 +311,7 @@
       ]
     },
     "input": {
-      "fingerprint": "e24db954276c5b1e03b76937dee3cee274dfbbf2023e6110c3611805460e878c",
+      "fingerprint": "0c60c6cf33bb70dd47198ef3d3f70675e9f6320e140de0f7cb11dfdba146e715",
       "exports": [
         "Input",
         "inputVariantMap"
@@ -473,7 +475,7 @@
       ]
     },
     "form": {
-      "fingerprint": "3e0cb811786e630ee5b9c0d96917467000cf5c5712850c1a2b1adca764fecb4f",
+      "fingerprint": "5b095146e9f6533c21a8ebb6d32e4837a28555148c8d9a61c61c2cf690d6a7d2",
       "exports": [
         "Form",
         "FormError",
@@ -1064,12 +1066,13 @@
       ]
     },
     "toast": {
-      "fingerprint": "d5c40e5ffe8db69c2a9f2e38ef5a79edeb28e60675b6d867693db4e6afc095d2",
+      "fingerprint": "40927a0d9342c11ad56baacabea2932e01e5bb26795fc53f82540077b9b2aa7c",
       "exports": [
         "Toaster",
         "toast",
         "dismissToast",
         "dismissAllToasts",
+        "updateToast",
         "useToast",
         "useToasts",
         "toastVariantMap"

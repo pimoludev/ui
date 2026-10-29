@@ -70,7 +70,7 @@ export function ButtonLoading() {
 }
 ` }],
     notes: [
-      "This additive prop is available in the source workspace and awaits the next npm release. The default Button loader and existing loading calls keep their behavior. Custom indicators sit in an aria-hidden wrapper; use decorative on Spinner to express that purpose directly.",
+      "This additive prop is available in 0.1.0-beta.4. The default Button loader and existing loading calls keep their behavior. Custom indicators sit in an aria-hidden wrapper; use decorative on Spinner to express that purpose directly.",
     ],
   },
   toast: {
@@ -115,7 +115,7 @@ export function ConfirmationButton() {
     notes: [
       "Call toast from event handlers or client effects. Each notification owns its content, tone and duration; the root Toaster displays them all.",
       "Each preview below includes its own Toaster because previews run independently. In your application, keep the single root instance rather than adding one per button or page.",
-      "The basic setup above works with 0.1.0-beta.3.1. Loading, promise helpers and advanced icon controls shown below are workspace additions pending a package release.",
+      "The basic setup above works with 0.1.0-beta.4. Loading, promise helpers and advanced icon controls shown below ship in 0.1.0-beta.4.",
     ],
   },
   form: {
@@ -307,7 +307,7 @@ export function CustomSubmit() {
 }
 `,
     }],
-    notes: ["The loadingIndicator prop awaits the next npm release. See Usage and API reference below for the supported inherited Button props."],
+    notes: ["The loadingIndicator prop is available in 0.1.0-beta.4. See Usage and API reference below for the supported inherited Button props."],
   },
   "form-error": {
     title: "Connect validation and server errors",

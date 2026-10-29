@@ -10,7 +10,7 @@ export const formReferences: ComponentDoc[] = [
     usage: [
       "Place FormSubmit inside Form. It renders a Button with type=submit and reads form.isSubmitting automatically. Return or await your asynchronous work in useForm's onSubmit so the pending state lasts until that work completes.",
       "Use Button's variant, appearance, size, radius, fullWidth, icons, disabled, className and style props. Do not pass type or loading: Form owns both. Prevent submission through validation rather than running business logic in onClick.",
-      "loadingIndicator accepts a decorative Spinner or custom React content. Configure Spinner's appearance, size and variant to change its shape and color. Omission keeps the ring; null/false hides the visual while retaining disabled and aria-busy. This prop is local to the workspace and awaits the next npm release.",
+      "loadingIndicator accepts a decorative Spinner or custom React content. Configure Spinner's appearance, size and variant to change its shape and color. Omission keeps the ring; null/false hides the visual while retaining disabled and aria-busy. This prop ships in 0.1.0-beta.4.",
       "Use classNames.root, label and spinner for named-part customization. Form-level classNames.submit styles the submit button; prefer the page's local classes when several forms need different treatments.",
     ],
     accessibility: [

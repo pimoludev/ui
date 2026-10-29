@@ -6,7 +6,7 @@ Une bibliothèque de composants React pilotée par les tokens, pensée pour les 
 
 [Documentation](https://pimolu.com/components) · [Démarrage rapide](https://pimolu.com/docs/quick-start) · [Personnalisation](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react)
 
-> **Bêta :** `0.1.0-beta.3.1` est une prévisualisation. Les API des composants et les tokens visuels peuvent évoluer avant `1.0.0`.
+> **Bêta :** `0.1.0-beta.4` est une prévisualisation. Les API des composants et les tokens visuels peuvent évoluer avant `1.0.0`.
 
 ## Pourquoi Pimolu ?
 

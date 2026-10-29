@@ -1,6 +1,6 @@
 # Customization contract
 
-The layered entry and named-part hooks below are available in 0.1.0-beta.3.1.
+The layered entry and named-part hooks below are available in 0.1.0-beta.4.
 The existing unlayered `styles.css` entry remains compatible.
 
 ## Cascade order
@@ -34,12 +34,12 @@ from this recipe; if the application needs a reset, keep it in the earlier base
 layer and verify its effect on native controls. For rules in another named
 application layer, declare that layer after `pimolu` in the order statement.
 
-## Button and FormSubmit loading indicators (source workspace)
+## Button and FormSubmit loading indicators
 
 The optional `loadingIndicator` prop replaces Button's decorative loading visual.
 FormSubmit inherits it from Button; its parent Form still owns `type="submit"`
-and the pending state through `form.isSubmitting`. These additions await the next
-package release.
+and the pending state through `form.isSubmitting`. These additions ship in
+0.1.0-beta.4.
 
 ```tsx
 import { FormSubmit, Spinner } from "@pimolu/react";

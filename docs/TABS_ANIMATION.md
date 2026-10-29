@@ -1,6 +1,6 @@
 # Tabs animation
 
-Workspace addition for the next release. No animation dependency is required.
+Available in 0.1.0-beta.4. No animation dependency is required.
 
 ```tsx
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@pimolu/react";

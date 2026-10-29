@@ -6,7 +6,7 @@ The styling layer behind Pimolu UI. Load one complete stylesheet, opt into predi
 
 [Quick start](https://pimolu.com/docs/quick-start) · [Theming](https://pimolu.com/docs/theming) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/packages/web-styles)
 
-> **Beta:** `0.1.0-beta.3.1` is a preview. Public CSS entry points and visual tokens may change before `1.0.0`.
+> **Beta:** `0.1.0-beta.4` is a preview. Public CSS entry points and visual tokens may change before `1.0.0`.
 
 ## Why Pimolu styles?
 

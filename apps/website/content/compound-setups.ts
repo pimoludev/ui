@@ -352,7 +352,7 @@ export function ProjectTabs() {
   );
 }
 ` }],
-    notes: ["Use value/onValueChange when your application owns the active panel. The root connects keyboard navigation and ARIA relationships. The basic composition above works in beta.3.1; animated and the sliding-indicator customizations documented below await the next npm release."],
+    notes: ["Use value/onValueChange when your application owns the active panel. The root connects keyboard navigation and ARIA relationships. The basic composition above works in 0.1.0-beta.4; animated and the sliding-indicator customizations documented below are available in the same release."],
   },
   "toggle-group": {
     title: "Let the group coordinate its items",

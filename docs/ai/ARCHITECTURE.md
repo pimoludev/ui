@@ -65,7 +65,7 @@ their appearance.
 ## Limits of the current architecture
 
 The React and Core packages compile to `dist/` and are published on npm at
-`0.1.0-beta.3.1` alongside the token, theme and web-style packages. Web components
+`0.1.0-beta.4` alongside the token, theme and web-style packages. Web components
 and visual data are separate, which prepares token reuse on other platforms, but
 no native or Angular implementation exists yet. Playwright covers the website;
 the full Playground visual matrix remains a manual review.

@@ -38,7 +38,7 @@ change: these notes do not replace it.
   root verify. Other examples and non-React registries are not implemented yet.
 - The five library packages (`@pimolu/design-tokens`, `@pimolu/themes`,
   `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are published on npm
-  at `0.1.0-beta.3.1`; both `latest` and `beta` dist-tags point to it.
+  at `0.1.0-beta.4`; both `latest` and `beta` dist-tags point to it.
   `@pimolu/react` is a single ESM bundle with `"use client"` and declarations;
   `@pimolu/core` compiles to ESM. Install the beta with
   `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`. The website stays
@@ -80,7 +80,7 @@ features present in the repository.
   InputGroup inherit it. Form website demos request `autoComplete="off"`, while
   the library keeps native autocomplete configurable. Browser policies can
   override this hint. See the latest website progress for forced-state Chromium
-  coverage and limits; this stylesheet change is not published yet.
+  coverage and limits; this stylesheet change ships in 0.1.0-beta.4.
 
 - Website setup guidance now covers 27 references with 30 real Preview/Code
   examples. `build-setup-examples.mjs` compiles trusted authored modules from
@@ -99,10 +99,10 @@ features present in the repository.
   cannot restore dismissed or manually updated notifications. Six logical/center
   positions, `classNames.icon` and sizing/motion CSS variables are demonstrated in
   the playground and four appended website examples, preserving old example ids.
-  These are workspace changes pending publication. See `docs/TOAST.md` and the
+  These ship in 0.1.0-beta.4. See `docs/TOAST.md` and the
   website implementation progress for exact validation coverage.
 
-- Tabs adds a native CSS sliding indicator (workspace only): `animated` defaults
+- Tabs adds a native CSS sliding indicator (available in 0.1.0-beta.4): `animated` defaults
   to true, `classNames.indicator` exposes the decorative surface, and component
   CSS variables configure duration/easing. All four variants, unequal widths,
   vertical/scrolling lists, reduced motion and forced colors are handled.
@@ -113,7 +113,7 @@ features present in the repository.
   independent of layout. Native scrollbars are hidden by default, as on TabsList, which also exposes
   `showScrollbar`. Website base-layer scrollbar rules respect those choices.
 
-- Workspace changes pending a package release: TreeTable supports opt-in `selectionMode="cascade"`
+- Available in 0.1.0-beta.4: TreeTable supports opt-in `selectionMode="cascade"`
   (hidden descendants, mixed parents, controlled selection); independent selection remains the default.
   The website explorer enables cascade mode and its archive/restore actions modify only local demo data.
 - Scheduler adds `maxHeight` with sticky day headings and compact short events. PageHeader adds
@@ -135,7 +135,7 @@ features present in the repository.
 
 ### Website reader experience
 
-Workspace customization additions (not yet published): opt-in
+Customization additions available in 0.1.0-beta.4: opt-in
 `@pimolu/web-styles/layered.css`; typed additive `classNames` maps across all 129
 families and their rendered subcomponents; panel
 `style` on the two modal content components. Select's styled trigger now honors
@@ -208,7 +208,7 @@ Its larger palette-panel geometry is local website CSS, not a public Popover API
 anchors before the usual docs generator runs. `content/releases.ts` is only a typed
 adapter over the generated index; generated MDX modules remain Server Components with
 Pimolu component mappings. Fenced code uses the client CodeBlock for copy support.
-The repository preview is `0.1.0-beta.3.1` and is tagged `v0.1.0-beta.3.1`; the root
+The repository preview is `0.1.0-beta.4` and is tagged `v0.1.0-beta.4`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.

@@ -4,49 +4,68 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+No unreleased changes yet.
+
+## [0.1.0-beta.4] — 2026-10-29
+
+Preview release. Tag: `v0.1.0-beta.4`. All five library packages are published
+on npm at this version with `latest` and `beta` dist-tags. The website documents
+310 pages. Pimolu UI remains a beta release while the visual and
+assistive-technology reviews stay open.
+
+- EN: Toast adds loading and information tones, semantic or custom icons,
+  promise feedback, in-place updates and dismissal callbacks. Timers pause
+  independently on pointer and keyboard focus, six positions cover every corner,
+  and touch controls keep long stacks usable in short viewports.
+- FR : Toast ajoute les états chargement et information, les icônes sémantiques
+  ou personnalisées, le suivi des promesses, les mises à jour sur place et les
+  callbacks de fermeture. Les délais se suspendent indépendamment au survol et au
+  focus clavier, six positions couvrent chaque coin et les contrôles tactiles
+  gardent les longues piles utilisables dans un viewport court.
+
 - EN: Button adds `loadingIndicator` for a custom decorative loader, inherited
-  automatically by FormSubmit. Omitting it preserves the ring; null/false hides
-  the visual while keeping disabled and aria-busy. FormSubmit and FormError gain
-  standalone documentation pages, sidebar entries and interactive examples. Local `.artifacts/`
-  outputs are explicitly ignored by the shared repository configuration.
+  by FormSubmit. Omitting it preserves the ring; null or false hides only the
+  visual while keeping disabled and `aria-busy`. FormSubmit and FormError gain
+  standalone references, setup modules, focused APIs and interactive examples.
 - FR : Button ajoute `loadingIndicator` pour personnaliser le loader décoratif,
-  automatiquement disponible sur FormSubmit. Sans prop, le cercle reste ;
-  null/false masque le visuel tout en conservant disabled et aria-busy.
-  FormSubmit et FormError ont leurs pages dédiées dans la sidebar avec exemples
-  interactifs. Les sorties locales `.artifacts/` sont explicitement ignorées.
+  hérité par FormSubmit. Sans prop, le cercle reste ; null ou false masque
+  uniquement le visuel en conservant disabled et `aria-busy`. FormSubmit et
+  FormError ont leurs références dédiées, modules de setup, API ciblées et
+  exemples interactifs.
 
 - EN: Input keeps its themed surface during browser autofill and subsequent
   editing, including translucent appearances and controls sharing its styles.
-  Native autocomplete remains configurable; Form documentation demos request
-  no saved suggestions, while focus and forced-colors support are preserved.
-- FR : Input conserve sa surface lors du remplissage automatique et de la
-  saisie suivante, y compris les apparences translucides et champs dérivés.
-  L'autocomplétion reste configurable ; les démos Form demandent de désactiver
-  les suggestions enregistrées, en préservant le focus et les couleurs forcées.
-
-- EN: Toast adds loading/info tones, semantic/custom icons, promise feedback,
-  in-place updates, dismissal callbacks and configurable hover/focus timer pauses.
-  Added six positions, an icon customization hook and responsive touch controls.
-- FR : Toast ajoute les états chargement/information, les icônes personnalisables,
-  le suivi des promesses, les mises à jour et les pauses du délai au survol/focus.
-  Ajout de six positions, du hook icon et de contrôles adaptés au tactile.
-
-- EN: SegmentedControl shares the CSS sliding indicator and always keeps a
-  scrollable track, with optional visible scrollbars. TabsList adds `showScrollbar`; native bars
-  stay hidden by default. Tabs galleries have wider responsive cards, and site
-  scrollbar defaults respect component CSS layers.
-- FR : SegmentedControl partage l’indicateur CSS glissant et conserve une piste
-  défilante avec contrôle des barres natives. TabsList ajoute `showScrollbar`,
-  masqué par défaut. Les galeries Tabs sont aérées et les styles globaux du site
-  respectent les choix de scrollbar des composants.
+  Native autocomplete remains configurable; focus and forced-colors support are
+  preserved.
+- FR : Input conserve sa surface thématisée pendant le remplissage automatique
+  et la saisie suivante, y compris les apparences translucides et les champs
+  dérivés. L'autocomplétion reste configurable ; le focus et les couleurs forcées
+  sont préservés.
 
 - EN: Tabs gains a native CSS sliding indicator across all variants, unequal
   widths, vertical and scrollable lists. Added `animated` (default `true`),
-  `classNames.indicator` and CSS duration/easing controls; reduced motion disables transitions.
+  `classNames.indicator` and CSS duration/easing controls; reduced motion disables
+  transitions. SegmentedControl shares the indicator and keeps a scrollable track
+  with optional visible scrollbars; TabsList adds `showScrollbar`.
 - FR : Tabs ajoute un indicateur glissant en CSS natif pour tous les variants,
   les largeurs différentes et les listes verticales ou défilantes. Ajout de
   `animated` (actif par défaut), `classNames.indicator` et des réglages CSS de
   durée/courbe ; la réduction des animations supprime les transitions.
+  SegmentedControl partage l'indicateur et conserve une piste défilante avec
+  barres natives optionnelles ; TabsList ajoute `showScrollbar`.
+
+- EN: Component references open with authored Setup sections and generated
+  previews. The journal is authored in MDX and generates metadata, search
+  content, RSS, sitemap and compiled modules. A showcase page presents a real
+  Pimolu project, legacy documentation paths redirect permanently, and the
+  release planner now parses multi-segment beta tags correctly with fewer Git
+  processes.
+- FR : Les références de composants s'ouvrent sur des sections Setup rédigées
+  et des aperçus générés. Le journal est rédigé en MDX et génère ses métadonnées,
+  son contenu de recherche, le RSS, le sitemap et les modules compilés. Une page
+  showcase présente un vrai projet Pimolu, les anciens chemins de documentation
+  redirigent définitivement, et le planificateur de release lit correctement les
+  tags bêta multi-segments avec moins de processus Git.
 
 ## [0.1.0-beta.3.1] — 2026-10-27
 
@@ -475,6 +494,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.4]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.4
 [0.1.0-beta.3.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3.1
 [0.1.0-beta.3]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.2
