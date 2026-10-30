@@ -1,4 +1,5 @@
 import { CustomizationExample } from "./navbar-customization-demo";
+import { NavbarMenuDemo } from "./navbar-menu-demo";
 import {
   navbarVariantMap,
   Button,
@@ -232,6 +233,7 @@ export function NavbarPage() {
         </Card>
       </Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+    <Section title="Directional mobile menu" hint="NavbarMenu groups navigation and actions into a modal panel when the navbar's content width is at most 700px. Choose an opening edge, size, full screen and animation. The same children stay inline in wider bars."><NavbarMenuDemo /></Section>
 </>
   );
 }

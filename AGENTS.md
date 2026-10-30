@@ -18,6 +18,21 @@ generator and confirm the generated catalog status. Do not reset the baseline to
 hide changes. Newly introduced components retain **New** and intentional
 deprecations retain **Deprecated**.
 
+## Permanent user-facing documentation updates
+
+Whenever a change introduces something important for users to know, update the
+public documentation in `apps/website` as part of the same work. Do not wait for
+a separate documentation request. This includes new features or props, changed
+defaults or behavior, customization, setup/update commands, accessibility,
+limitations, compatibility and migration guidance.
+
+Explain when and how to use the feature, include working Preview/Code examples
+where relevant, and keep generated APIs, related links and release notes aligned.
+Clearly distinguish source-workspace changes from APIs already published on npm.
+Use `documentation-sync` and the relevant website checks; an internal progress
+note or changelog alone does not replace user-facing documentation. Apply the
+Updated badge rule above to every affected existing component reference.
+
 ## Permanent marketing video conventions
 
 For every Pimolu component video, read and apply

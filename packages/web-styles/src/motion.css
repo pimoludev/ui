@@ -1,0 +1,44 @@
+/* Native interaction baseline. Low specificity leaves component and app rules
+   in charge. Static layouts do not receive decorative entrance animations. */
+:root {
+  --pimolu-interaction-duration: 150ms;
+  --pimolu-interaction-easing: ease-out;
+}
+
+:where(
+  .pimolu-card, .pimolu-badge, .pimolu-avatar,
+  .pimolu-table__row, .pimolu-command__item, .pimolu-toolbar__button, .pimolu-toolbar__link,
+  .pimolu-navbar__item, .pimolu-navbar__toggle, .pimolu-accordion__trigger
+) {
+  transition:
+    background-color var(--pimolu-interaction-duration, 150ms) var(--pimolu-interaction-easing, ease-out),
+    border-color var(--pimolu-interaction-duration, 150ms) var(--pimolu-interaction-easing, ease-out),
+    color var(--pimolu-interaction-duration, 150ms) var(--pimolu-interaction-easing, ease-out),
+    box-shadow var(--pimolu-interaction-duration, 150ms) var(--pimolu-interaction-easing, ease-out);
+}
+
+/* An application may disable motion globally or for a subtree, including
+   custom entry animations on composite components. Put the attribute on the
+   Provider or a portal host when its overlay children must inherit the choice. */
+:where([data-pimolu-motion="off"], [data-pimolu-motion="off"] *),
+:where([data-pimolu-motion="off"], [data-pimolu-motion="off"] *)::before,
+:where([data-pimolu-motion="off"], [data-pimolu-motion="off"] *)::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+:where([data-pimolu-motion="off"]) .pimolu-accordion__content[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([class^="pimolu-"], [class*=" pimolu-"]),
+  :where([class^="pimolu-"], [class*=" pimolu-"])::before,
+  :where([class^="pimolu-"], [class*=" pimolu-"])::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .pimolu-accordion__content[hidden] { display: none !important; }
+}

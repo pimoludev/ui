@@ -1,4 +1,5 @@
 import { CustomizationExample } from "./accordion-customization-demo";
+import { NativeMotionDemo } from "./native-motion-demo";
 import { useState } from "react";
 
 import {
@@ -186,6 +187,7 @@ export function AccordionPage() {
         <ControlledAccordion />
       </Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+    <Section title="Native motion" hint="Natural-height expansion and collapse, validation feedback and pending submission. Compare animations with instant interaction and the operating system's reduced-motion preference."><NativeMotionDemo /></Section>
 </>
   );
 }

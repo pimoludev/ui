@@ -1,5 +1,6 @@
 import { CustomizationExample } from "./form-customization-demo";
 import { useState } from "react";
+import { NativeMotionDemo } from "./native-motion-demo";
 
 import {
   Button,
@@ -284,6 +285,7 @@ export function FormPage() {
         <FieldErrorExample />
       </Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+    <Section title="Native motion" hint="Validation feedback and pending submission animate without moving the form itself. Compare native animations with an instant subtree."><NativeMotionDemo /></Section>
 </>
   );
 }

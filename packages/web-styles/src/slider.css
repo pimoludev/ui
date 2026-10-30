@@ -1,3 +1,5 @@
+@import "./motion.css";
+
 
 /* =========================================
    PIMOLU UI — SLIDER
@@ -293,3 +295,18 @@
     background: ButtonFace;
   }
 }
+
+.pimolu-slider__control::-webkit-slider-thumb { transition: box-shadow 150ms ease-out; }
+.pimolu-slider__control::-moz-range-thumb { transition: box-shadow 150ms ease-out; }
+.pimolu-slider__control:not(:disabled):is(:hover, :focus-visible)::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pimolu-slider-tone) 18%, transparent);
+}
+.pimolu-slider__control:not(:disabled):is(:hover, :focus-visible)::-moz-range-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pimolu-slider-tone) 18%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-slider__control::-webkit-slider-thumb { transition: none; }
+  .pimolu-slider__control::-moz-range-thumb { transition: none; }
+}
+[data-pimolu-motion="off"] .pimolu-slider__control::-webkit-slider-thumb { transition: none; }
+[data-pimolu-motion="off"] .pimolu-slider__control::-moz-range-thumb { transition: none; }

@@ -113,7 +113,8 @@ export const extendedComponents = [
     },
     "description": "Application-controlled disclosure of related content.",
     "usage": [
-      "Choose single or multiple expansion according to whether users compare panels."
+      "Choose single or multiple expansion according to whether users compare panels.",
+      "Expansion and collapse animate to natural content height with native CSS. Set animated=false to disable motion. Closing regions become inert and leave accessibility immediately; reduced-motion preferences and data-pimolu-motion=off are respected."
     ],
     "accessibility": [
       "Keep heading order meaningful and verify Enter/Space activation on the triggers."
@@ -1411,5 +1412,17 @@ export const extendedComponents = [
       "Name the bell and panel, verify tabs and item actions, and keep dismiss actions separate from reading."
     ]
   },
-  {"family":"link","selection":{"section":"Examples"},"description":"Navigation links with consistent tone and emphasis.","usage":["Use Link for a destination and Button for a command; preserve href and normal browser link behavior."],"accessibility":["Write meaningful link text and explain external destinations when needed without relying on an icon alone."]}
+  {
+    "family": "link",
+    "selection": {
+      "section": "Examples"
+    },
+    "description": "Navigation links with consistent tone and emphasis.",
+    "usage": [
+      "Use Link for a destination and Button for a command; preserve href and normal browser link behavior."
+    ],
+    "accessibility": [
+      "Write meaningful link text and explain external destinations when needed without relying on an icon alone."
+    ]
+  }
 ];

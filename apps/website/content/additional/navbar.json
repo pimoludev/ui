@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
     "append": true
+  },
+  {
+    "file": "navbar-mobile-menu.tsx",
+    "title": "Directional mobile menu",
+    "description": "Choose four opening edges, full screen and optional animation. Links and actions stay together.",
+    "append": true
   }
 ]

@@ -25,4 +25,17 @@ export const showcaseProjects: readonly ShowcaseProject[] = [
     },
     technologies: ["Pimolu UI", "Next.js"],
   },
+  {
+    slug: "mecanes",
+    name: "MECANES",
+    description: "A digital development studio creating websites, applications, custom software and Unreal Engine solutions.",
+    category: "Agency & studio",
+    url: "https://www.mecanes.fr/",
+    image: {
+      light: "/images/showcase/mecanes.webp",
+      dark: "/images/showcase/mecanes.webp",
+      alt: "MECANES studio homepage with its blue emblem and web, apps, software and Unreal Engine services.",
+    },
+    technologies: ["Pimolu UI"],
+  },
 ];

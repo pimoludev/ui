@@ -22,7 +22,7 @@ test("every styled public export has typed named parts; headless exceptions stay
     if (props.getProperty("classNames")) styled.push(entry.name);
     else headless.push(entry.name);
   }
-  assert.equal(styled.length, 236);
+  assert.equal(styled.length, 237);
   assert.deepEqual(headless.sort(), ["Dialog", "DialogTrigger", "DialogClose", "FormControl", "AlertDialog", "AlertDialogTrigger", "AlertDialogAction", "AlertDialogCancel", "DropdownMenu", "DropdownMenuTrigger", "Drawer", "DrawerTrigger", "DrawerClose", "ContextMenu", "ContextMenuTrigger", "HoverCard", "HoverCardTrigger", "Portal"].sort());
 });
 

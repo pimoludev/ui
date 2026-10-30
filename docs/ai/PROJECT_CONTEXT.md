@@ -61,6 +61,24 @@ features present in the repository.
 
 ## Latest library and website iteration
 
+- Native CSS motion refinements (unpublished) add a shared `motion.css` policy,
+  subtree opt-out through `data-pimolu-motion="off"` and comprehensive
+  prefers-reduced-motion safeguards. Accordion adds `animated` and natural-height
+  grid-track entry/exit with inert closed content. Form/FormField errors reveal
+  subtly; Sidebar sizes and simple interactive surfaces gain transitions.
+  Static layout/typography stay stationary. The full bundles include the policy;
+  standalone consumers may import `@pimolu/web-styles/motion.css`. Put the opt-out
+  outside PimoluProvider to include its portal host. See `docs/NATIVE_MOTION.md`,
+  `docs/NATIVE_MOTION_AUDIT.md` and the website progress for coverage and limits.
+
+- Navbar adds optional `NavbarMenu` (unpublished): group NavbarContent and
+  NavbarActions inside it, leaving the brand/toggle outside. At content widths
+  <=700px in a collapsible Navbar it uses Drawer for a modal panel; otherwise
+  it preserves inline composition. Props: side, size, fullScreen, animated,
+  label/closeLabel, style/className and six menu named-part hooks. Existing
+  navbars keep their inline mobile behavior. See `docs/NAVBAR_MOBILE_MENU.md`
+  and the latest website implementation progress for verification and limits.
+
 - Button now accepts an optional `loadingIndicator` React node; FormSubmit
   inherits it. Omission preserves the ring, while null/false hides the visual
   without changing disabled/aria-busy. The custom wrapper uses the existing

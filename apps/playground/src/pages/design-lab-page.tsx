@@ -1,4 +1,5 @@
 import { useState, type CSSProperties } from "react";
+import { NativeMotionDemo } from "./native-motion-demo";
 
 import {
   Badge,
@@ -566,6 +567,12 @@ export function DesignLabPage() {
           <span>2</span><i /> <span>4</span><i /> <span>7</span>
           <small>directions · contexts · presets</small>
         </div>
+      </section>
+
+      <section className="pg-panel pg-stack" aria-label="Native motion comparison">
+        <Heading level={2}>Feel the interaction</Heading>
+        <Paragraph>Open sections, validate fields and submit. Disable motion locally to compare.</Paragraph>
+        <NativeMotionDemo />
       </section>
 
       <section className="pdl-controls" aria-label="Design comparison controls">

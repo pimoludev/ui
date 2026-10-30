@@ -69,7 +69,7 @@ export interface PimoluComponentParts {
   "mentions": "avatar" | "createMark" | "empty" | "field" | "helper" | "label" | "listbox" | "option" | "optionDescription" | "optionLabel" | "optionMain" | "required" | "root" | "textarea";
   "menubar": "content" | "item" | "label" | "menu" | "root" | "separator" | "trigger";
   "multi-select": "actions" | "chevron" | "clearButton" | "control" | "count" | "empty" | "field" | "label" | "listbox" | "message" | "option" | "optionIndicator" | "optionLabel" | "required" | "root" | "selection" | "srOnly" | "tag" | "tagLabel" | "tagRemove" | "valueArea";
-  "navbar": "actions" | "brand" | "content" | "inner" | "item" | "itemIcon" | "root" | "toggle" | "toggleIcon";
+  "navbar": "actions" | "brand" | "content" | "inner" | "item" | "itemIcon" | "root" | "toggle" | "toggleIcon" | "menuLayer" | "menuOverlay" | "menuPanel" | "menuHeader" | "menuTitle" | "menuCloseButton";
   "navigation-menu": "chevron" | "content" | "item" | "link" | "list" | "root" | "trigger";
   "notification-center": "action" | "badge" | "body" | "content" | "count" | "description" | "dismiss" | "empty" | "emptyText" | "header" | "heading" | "icon" | "item" | "itemTitle" | "list" | "meta" | "panel" | "readAll" | "root" | "tab" | "tabCount" | "tabs" | "time" | "title" | "trigger";
   "number-input": "affix" | "control" | "error" | "label" | "required" | "root" | "stepper" | "steppers" | "wrapper";

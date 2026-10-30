@@ -1,5 +1,57 @@
 # Pimolu Website — Suivi d'implémentation
 
+## 30 octobre 2026 — NavbarMenu et animations CSS natives
+
+- NavbarMenu, exporté avec son type, regroupe les liens/actions en panneau modal
+  lorsque le contenu d'une Navbar collapsible mesure au plus 700 px. Quatre
+  côtés physiques, tailles sm/md/lg, plein écran, animation facultative,
+  titre/fermeture traduisibles et styles/parties nommées du portail. La navigation
+  desktop reste intégrée ; les anciennes compositions restent compatibles.
+  Drawer fournit focus, Échap, backdrop, retour au déclencheur et scroll lock.
+  Au retour desktop, le focus rejoint les liens visibles. Cible de fermeture 44 px.
+- Accordion ouvre/ferme à hauteur naturelle avec des pistes CSS grid, sans mesure
+  de hauteur ni dépendance d'animation. animated=false permet une interaction
+  immédiate ; le contenu fermé devient hidden/aria-hidden/inert immédiatement
+  pendant que seule sa sortie visuelle termine. Les valeurs de champs sont conservées.
+- Politique partagée motion.css : préférences reduced-motion, pseudo-éléments,
+  data-pimolu-motion=off par zone, transitions discrètes de surface/couleur.
+  FormError et FormField animent leurs erreurs, Sidebar sa largeur/padding et
+  Slider son halo. Les animations existantes des autres composants sont conservées.
+  Les textes et primitives de layout restent fixes. Imports individuels concernés
+  synchronisés ; nouvel export @pimolu/web-styles/motion.css construit.
+- Playground : Navbar, Accordion, Form et Design Lab proposent des interactions
+  réelles et contrôles de comparaison. Website : setup Navbar, nouvel exemple
+  directionnel et exemples Native motion sur Accordion/Form/FormError/FormField ;
+  guide /docs/animation, API, changelog, notes unreleased et statuts Updated
+  synchronisés. Le statut New/Deprecated éventuel est préservé.
+- Documentation : docs/NAVBAR_MOBILE_MENU.md, docs/NATIVE_MOTION.md et inventaire
+  de source docs/NATIVE_MOTION_AUDIT.md. 135 références/129 familles : 100 CSS
+  déclarent des animations/transitions, 35 références statiques ou par composition.
+  Ce relevé ne prouve pas un audit visuel ou de performance de toutes les pages.
+- Vérifications : pnpm verify réussi (1 518 tests React avant ajout des quatre
+  derniers cas Accordion, 30 tests CSS, thèmes, lint et build playground). Les
+  quatre nouveaux cas Accordion passent dans une vérification ciblée de 32 tests
+  Accordion/NavbarMenu/Form ; typecheck final et lint website passent aussi.
+  44 tests website réussis, 722 modules copiables compilent indépendamment ;
+  build Next.js réussi, 310 pages générées. Audit thèmes strict : 0/0.
+  L'avertissement Vite préexistant reste présent (chunk principal ~768 kB).
+- Tests ajoutés avec autorisation : 11 cas unitaires NavbarMenu, 4 Accordion,
+  6 scénarios E2E NavbarMenu et 2 animations/formulaires. Les 24 exécutions E2E
+  sur Chromium/Firefox/WebKit passent : côtés, dimensions, animation, focus,
+  fermeture, resize, RTL, réduction des mouvements, couleurs forcées, hauteur
+  interpolée, validation, interruption et désactivation. Une première passe a
+  échoué sur un locator lié au libellé changeant, corrigé ; une autre a rencontré
+  une erreur de fichier trace lors du teardown, puis une passe isolée complète a
+  réussi. Aucun test désactivé ni snapshot de référence remplacé.
+- Contrôles visuels Chromium/Argent : Accordion/Form 7 presets × clair/sombre
+  à 390/1440 px (28 captures), NavbarMenu sur les 14 couples dans un conteneur
+  étroit desktop, directions/plein écran sur mobile et page playground Accordion.
+  Aucun débordement constaté ; interpolations ouverture/fermeture mesurées dans
+  le navigateur. Captures/planches locales dans .artifacts/navbar-menu/.
+  Pas de profilage de frame rate sur appareil physique, ni nouveau contrôle avec
+  lecteur d'écran, ni audit visuel exhaustif des 135 références dans cette passe.
+- Travail local après beta.4, sans commit, push, publication npm ou déploiement.
+
 ## 29 octobre 2026 — Références autonomes FormSubmit et FormError
 
 - Création de `/components/form-submit` et `/components/form-error`, avec entrées

@@ -14,6 +14,9 @@ interface AccordionBaseProps {
   /** Visual treatment. Defaults to "default". */
   variant?: PimoluAccordionVariant;
 
+  /** Animate expansion and collapse. Defaults to true; reduced motion is respected. */
+  animated?: boolean;
+
   /**
    * In single mode, allow closing the open item. Defaults to false.
    */

@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
     "append": true
+  },
+  {
+    "file": "native-motion.tsx",
+    "title": "Native motion",
+    "description": "Natural-height accordion, validation feedback and pending submission with a local animation switch.",
+    "append": true
   }
 ]

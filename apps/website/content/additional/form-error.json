@@ -1,5 +1,23 @@
 [
-  { "title": "Validate on blur", "description": "Choose when to set a field message and clear it on editing.", "file": "form-error-blur.tsx" },
-  { "title": "Styled Select integration", "description": "Connect a control using onValueChange with explicit ARIA associations.", "file": "form-error-select.tsx" },
-  { "title": "Named-part customization", "description": "Style the error slot while preserving its alert role and field association.", "file": "form-error-style.tsx" }
+  {
+    "title": "Validate on blur",
+    "description": "Choose when to set a field message and clear it on editing.",
+    "file": "form-error-blur.tsx"
+  },
+  {
+    "title": "Styled Select integration",
+    "description": "Connect a control using onValueChange with explicit ARIA associations.",
+    "file": "form-error-select.tsx"
+  },
+  {
+    "title": "Named-part customization",
+    "description": "Style the error slot while preserving its alert role and field association.",
+    "file": "form-error-style.tsx"
+  },
+  {
+    "file": "native-motion.tsx",
+    "title": "Native motion",
+    "description": "Natural-height accordion, validation feedback and pending submission with a local animation switch.",
+    "append": true
+  }
 ]

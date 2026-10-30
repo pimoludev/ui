@@ -26,6 +26,7 @@
   },
 
   "exports": {
+    "./motion.css": "./dist/motion.css",
     "./styles.css": "./dist/pimolu.css",
     "./layered.css": "./dist/layered.css",
     "./pimolu.min.css": "./dist/pimolu.min.css",

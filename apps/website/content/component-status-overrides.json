@@ -1,146 +1,542 @@
 {
   "dialog": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Assemble a trigger and its dialog."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "alert-dialog": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Connect the confirmation and cancel actions."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "drawer": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Assemble a drawer for one screen interaction."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "dropdown-menu": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Keep each menu trigger and panel together."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "context-menu": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Provide a context target and a visible action path."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "hover-card": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Connect supplementary content to its trigger."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "popover": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Supply a trigger and a named panel."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "accordion": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Group triggers and panels by item."
+    "description": "Smooth expansion/collapse, animated opt-out, inert closing content and reduced-motion support."
   },
   "menubar": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Give each application menu its own group."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "navigation-menu": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Group destination links under their trigger."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "tabs": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Match each trigger to its panel."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "toggle-group": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Let the group coordinate its items."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "toolbar": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Use toolbar parts for coordinated keyboard navigation."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "stepper": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Connect the current step to application state."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "input-group": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "radio": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Share selection through RadioGroup."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "focus-scope": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Activate managed focus only during the interaction."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "navbar": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Connect the mobile toggle to its navigation."
+    "description": "NavbarMenu adds four opening edges, full screen and optional animation; inline mobile navigation gains a subtle reveal."
   },
   "sidebar": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Keep identity and navigation inside the sidebar."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "toast": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Set up once, notify anywhere."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "form": {
     "kind": "updated",
-    "description": "Dedicated FormSubmit and FormError references keep Form focused on state, validation and values."
+    "description": "Validation feedback animates subtly; native motion preferences and scoped opt-out remain available."
   },
   "form-field": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Connect the label, control and message."
+    "description": "Validation feedback animates subtly; native motion preferences and scoped opt-out remain available."
   },
   "command": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Choose an inline search or an application palette."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "theme-builder": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "notification-center": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Supply the inbox and update it through callbacks."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "tour": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Open a tour with real targets."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "table-of-contents": {
     "kind": "updated",
-    "description": "Interactive Preview/Code setup examples: Connect headings and the current section."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "input": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "password-input": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "search-input": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "data-grid": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "data-table": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "file-manager": {
     "kind": "updated",
-    "description": "Shared Input autofill styling preserves the themed surface and visible focus, including after editing."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "button": {
     "kind": "updated",
-    "description": "Button adds a replaceable loadingIndicator with accessible busy/disabled state and Preview/Code examples."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "form-submit": {
     "kind": "updated",
-    "description": "Dedicated documentation with interactive examples, customization, accessibility and a focused API reference."
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   },
   "form-error": {
     "kind": "updated",
-    "description": "Dedicated documentation with interactive examples, customization, accessibility and a focused API reference."
+    "description": "Validation feedback animates subtly; native motion preferences and scoped opt-out remain available."
+  },
+  "button-group": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "split-button": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "toggle": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "popconfirm": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "segmented-control": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "link": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "breadcrumbs": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "pagination": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "checkbox": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "combobox": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "label": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "multi-select": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "range-slider": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "select": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "slider": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "switch": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "textarea": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "number-input": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "pin-input": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "tags-input": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "time-picker": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "calendar": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "date-picker": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "date-range-picker": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "file-upload": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "dropzone": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "color-picker": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "tree-select": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "signature": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "masked-input": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "currency-input": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "phone-input": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "mentions": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "cascader": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "transfer": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "avatar": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "badge": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "card": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "list": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "description-list": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "table": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "tree-table": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "bar-chart": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "line-chart": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "area-chart": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "donut-chart": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "sparkline": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "api-table": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "stat": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "timeline": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "rating": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "image": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "carousel": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "virtual-list": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "tree-view": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "kanban": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "scheduler": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "gantt": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "chat": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "video-player": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "audio-player": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "pdf-viewer": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "lightbox": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "image-cropper": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "qr-code": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "typography": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "prose": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "anchor": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "code-block": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "code": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "dashboard-layout": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "app-shell": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "page-header": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "hero": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "footer": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "docs-layout": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "watermark": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "box": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "stack": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "flex": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "grid": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "container": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "center": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "spacer": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "aspect-ratio": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "visually-hidden": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "resizable": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "scroll-area": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "separator": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "circular-progress": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "alert": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "banner": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "empty-state": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "result": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "loading-overlay": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "progress": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "skeleton": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "spinner": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
+  },
+  "tooltip": {
+    "kind": "updated",
+    "description": "Native motion preferences: reduced-motion safeguard and scoped animation opt-out; existing interaction animations retained."
   }
 }

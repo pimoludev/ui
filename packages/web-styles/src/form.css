@@ -1,3 +1,5 @@
+@import "./motion.css";
+
 /* =========================================
    PIMOLU UI - FORM
    Shared Web Styles
@@ -36,6 +38,7 @@
 ========================================= */
 
 .pimolu-form__error {
+  animation: pimolu-form-feedback-in 180ms cubic-bezier(0.16, 1, 0.3, 1);
   margin: 0;
 
   color: var(--pimolu-danger, #dc2626);
@@ -44,6 +47,11 @@
   line-height: 1.4;
 
   overflow-wrap: anywhere;
+}
+
+@keyframes pimolu-form-feedback-in {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================

@@ -1,4 +1,5 @@
 import { compoundSetups } from "./compound-setups.ts";
+import { navbarMenuSetup } from "./navbar-menu-setup.ts";
 
 export function setupExampleId(filename: string) {
   return "setup-" + filename.replace(/\.tsx$/, "").replace(/[^a-z0-9-]/gi, "-");
@@ -21,6 +22,7 @@ export interface ComponentSetup {
 /** Authored setup snippets. Each code block is a complete, independently checked module. */
 export const componentSetups: Record<string, ComponentSetup> = {
   ...compoundSetups,
+  navbar: navbarMenuSetup,
   button: {
     title: "Choose your loading indicator",
     paragraphs: [

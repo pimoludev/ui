@@ -4,7 +4,23 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-No unreleased changes yet.
+- EN: Native motion gains a shared reduced-motion/subtree opt-out policy,
+  natural-height Accordion expansion/collapse with animated=false, subtle form
+  error feedback and surface transitions. Layout and typography stay static;
+  existing component animations and optional Motion remain separate.
+- FR : Les animations CSS partagent une protection reduced-motion et une
+  désactivation par zone. Accordion ouvre/ferme à hauteur naturelle avec
+  animated=false ; erreurs de formulaire et surfaces ont des transitions
+  discrètes. Les layouts et textes restent fixes, Motion reste optionnel.
+
+- EN: Navbar adds NavbarMenu for modal mobile navigation opening from any of
+  four edges, with partial sizes, full screen and optional native CSS animation.
+  It reuses Drawer focus, dismissal and scroll-lock behavior, preserves inline
+  desktop composition, and exposes named parts for portal customization.
+- FR : Navbar ajoute NavbarMenu pour une navigation mobile modale depuis les
+  quatre côtés, avec tailles partielles, plein écran et animation CSS optionnelle.
+  Focus, fermeture et blocage du défilement réutilisent Drawer ; la composition
+  desktop reste intégrée et les parties du portail sont personnalisables.
 
 ## [0.1.0-beta.4] — 2026-10-29
 

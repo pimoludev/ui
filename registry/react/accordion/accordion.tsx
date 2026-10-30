@@ -2,6 +2,7 @@
 import type { PimoluClassNames } from "../customization/customization.types";
 import { usePartClasses } from "../internal/use-part-classes";
 import { mergeClasses } from "../internal/merge-classes";
+import { usePresence } from "../internal/use-presence";
 
 
 import {
@@ -56,6 +57,7 @@ function Chevron({ classNames }: { classNames?: PimoluClassNames<"accordion"> } 
 ========================================= */
 
 interface AccordionContextValue {
+  animated: boolean;
   baseId: string;
   variant: PimoluAccordionVariant;
   isOpen: (value: string) => boolean;
@@ -111,6 +113,7 @@ export function Accordion(props: PimoluAccordionProps) {
   const { classNames,
     children,
     variant = "default",
+    animated = true,
     collapsible = false,
     className,
   } = props;
@@ -191,6 +194,7 @@ export function Accordion(props: PimoluAccordionProps) {
   return scopeParts((
     <AccordionContext.Provider
       value={{
+        animated,
         baseId,
         variant,
         isOpen,
@@ -200,6 +204,7 @@ export function Accordion(props: PimoluAccordionProps) {
     >
       <div
         ref={rootRef}
+        data-animated={animated}
         className={mergeClasses(accordionVariants(
           { variant },
           className
@@ -348,6 +353,9 @@ export function AccordionContent({ classNames,
   const [partClasses, scopeParts] = usePartClasses("accordion", classNames, false);
 
   const item = useAccordionItem("AccordionContent");
+  const root = useAccordion("AccordionContent");
+  const { rendered } = usePresence(item.open, root.animated ? 220 : 0);
+  const closing = root.animated && rendered && !item.open;
 
   return scopeParts((
     <div
@@ -355,7 +363,9 @@ export function AccordionContent({ classNames,
       role="region"
       aria-labelledby={item.triggerId}
       hidden={!item.open}
-      data-state={item.open ? "open" : "closed"}
+      aria-hidden={!item.open || undefined}
+      inert={!item.open || undefined}
+      data-state={item.open ? "open" : closing ? "closing" : "closed"}
       className={mergeClasses([
         "pimolu-accordion__content",
         className,
@@ -363,8 +373,10 @@ export function AccordionContent({ classNames,
         .filter(Boolean)
         .join(" "), partClasses.content, classNames?.root)}
     >
-      <div className={mergeClasses("pimolu-accordion__content-inner", partClasses.contentInner)}>
-        {children}
+      <div className="pimolu-accordion__content-clip">
+        <div className={mergeClasses("pimolu-accordion__content-inner", partClasses.contentInner)}>
+          {children}
+        </div>
       </div>
     </div>
   ));

@@ -1,3 +1,5 @@
+@import "./motion.css";
+
 /* =========================================
    PIMOLU UI - ACCORDION
    Shared Web Styles
@@ -146,6 +148,8 @@
 ========================================= */
 
 .pimolu-accordion__content {
+  display: grid;
+  grid-template-rows: 1fr;
   min-width: 0;
 
   color: var(--pimolu-muted-foreground);
@@ -154,12 +158,27 @@
   line-height: 1.6;
 }
 
+.pimolu-accordion__content[hidden] { display: none; }
+.pimolu-accordion__content-clip { min-height: 0; overflow: hidden; }
+
 .pimolu-accordion__content[data-state="open"] {
   animation:
     pimolu-accordion-in
-    160ms
-    ease-out;
+    220ms
+    cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Closed content is inert and absent from accessibility immediately; only
+   its decorative exit remains until presence releases it. */
+.pimolu-accordion__content[hidden][data-state="closing"] {
+  display: grid;
+  animation: pimolu-accordion-out 220ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.pimolu-accordion[data-animated="false"] .pimolu-accordion__content {
+  animation: none;
+}
+.pimolu-accordion[data-animated="false"] .pimolu-accordion__chevron { transition: none; }
 
 .pimolu-accordion__content-inner {
   padding: 0 0 16px;
@@ -179,16 +198,23 @@
 
 @keyframes pimolu-accordion-in {
   from {
+    grid-template-rows: 0fr;
     opacity: 0;
 
     transform: translateY(-3px);
   }
 
   to {
+    grid-template-rows: 1fr;
     opacity: 1;
 
     transform: translateY(0);
   }
+}
+
+@keyframes pimolu-accordion-out {
+  from { grid-template-rows: 1fr; opacity: 1; }
+  to { grid-template-rows: 0fr; opacity: 0; }
 }
 
 /* =========================================
@@ -200,7 +226,8 @@
     transition: none;
   }
 
-  .pimolu-accordion__content[data-state="open"] {
+  .pimolu-accordion__content[data-state="open"],
+  .pimolu-accordion__content[hidden][data-state="closing"] {
     animation: none;
   }
 }

@@ -1,10 +1,12 @@
 
 import type { PimoluClassNames } from "../customization/customization.types";
 import type { PimoluNavbarAppearance } from "./navbar.variants";
+import type { PimoluDrawerSide, PimoluDrawerSize } from "../drawer/drawer.types";
 
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
+  CSSProperties,
   HTMLAttributes,
   ReactNode,
 } from "react";
@@ -60,6 +62,29 @@ export interface PimoluNavbarContentProps
   "aria-label"?: string;
 
   children: ReactNode;
+}
+
+/** Groups links and actions into a modal menu in narrow, collapsible navbars. */
+export interface PimoluNavbarMenuProps {
+  children: ReactNode;
+  /** Physical viewport edge. Defaults to right; left slides from left to right. */
+  side?: PimoluDrawerSide;
+  /** Width for left/right or height for top/bottom. Defaults to sm. */
+  size?: PimoluDrawerSize;
+  /** Cover the entire viewport instead of a partial panel. Defaults to false. */
+  fullScreen?: boolean;
+  /** Animate entry and exit with native CSS. Defaults to true; reduced motion is respected. */
+  animated?: boolean;
+  /** Visible heading and accessible dialog name. Defaults to Navigation. */
+  label?: string;
+  /** Accessible name of the panel close button. Defaults to Close menu. */
+  closeLabel?: string;
+  /** Classes on the mobile panel, or the contents wrapper on desktop. */
+  className?: string;
+  /** Mobile panel styles, including --pimolu-drawer-size for custom dimensions. */
+  style?: CSSProperties;
+  /** Named parts remain available inside the portal. */
+  classNames?: PimoluClassNames<"navbar">;
 }
 
 export interface PimoluNavbarToggleProps

@@ -15,6 +15,7 @@ async function load(name) {
 test("generates the full CSS bundles and every component stylesheet", async () => {
   for (const file of [
     "pimolu.css",
+    "motion.css",
     "layered.css",
     "pimolu.min.css",
     "button.css",
