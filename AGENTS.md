@@ -18,6 +18,14 @@ generator and confirm the generated catalog status. Do not reset the baseline to
 hide changes. Newly introduced components retain **New** and intentional
 deprecations retain **Deprecated**.
 
+Updated badges describe changes made **after** the current baseline, not the
+release that just shipped. When the version changes, refresh the baseline and
+remove the `updated` overrides from the previous cycle: those references are now
+up to date and must no longer display the badge. Only keep or add overrides for
+changes made after the new baseline, including documentation-only changes not
+detected by fingerprints. Never preserve an Updated badge merely because it
+existed in the previous release.
+
 ## Permanent user-facing documentation updates
 
 Whenever a change introduces something important for users to know, update the

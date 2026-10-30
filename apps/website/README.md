@@ -394,6 +394,12 @@ normalizes Windows/Linux line endings and does not use Git or network access.
 Tests and generated output are excluded from the source fingerprint. Changes in
 shared/transitive dependencies need an explicit editorial override.
 
+At each release, `docs:baseline` advances the snapshot to the new version and
+captures the current fingerprints. Remove the previous cycle's `updated`
+overrides at that point: those references are now up to date and must no longer
+show the badge. Keep or add overrides only for changes made after the new
+baseline, including documentation-only changes that fingerprints cannot detect.
+
 To mark a deprecation or supply a specific explanation, add an entry to
 `content/component-status-overrides.json`:
 

@@ -17,6 +17,22 @@ test("component statuses distinguish changed implementations, new exports and ne
   assert.equal(componentStatus({ family: "new-family", source: "registry/react/new-family", exports: ["NewComponent"] }, "original", baseline).kind, "new");
 });
 
+test("compound references sharing a source directory use their own baseline entry", () => {
+  const compoundBaseline = {
+    version: "0.1.0-beta.6",
+    references: ["form", "form-submit"],
+    components: {
+      form: { fingerprint: "form", exports: ["Form"] },
+      "form-submit": { fingerprint: "submit", exports: ["FormSubmit"] },
+    },
+  };
+  const form = { family: "form", source: "registry/react/form", exports: ["Form"] };
+  const submit = { family: "form-submit", source: "registry/react/form", exports: ["FormSubmit"] };
+  assert.equal(componentStatus(form, "form", compoundBaseline), null);
+  assert.equal(componentStatus(submit, "submit", compoundBaseline), null);
+  assert.equal(componentStatus(submit, "changed", compoundBaseline).kind, "updated");
+});
+
 test("deprecation is an explicit editorial decision with a required explanation", () => {
   const overrides = { chart: { kind: "deprecated", description: "Use the individual chart references." } };
   assert.deepEqual(componentStatus(entry, "original", baseline, overrides), overrides.chart);

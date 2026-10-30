@@ -29,7 +29,10 @@ export function componentStatus(entry, fingerprint, baseline, overrides = {}) {
     return override;
   }
   const sourceFamily = entry.source.split("/").at(-1);
-  const known = baseline.components[sourceFamily];
+  // Compound references can share a source directory but use different
+  // stylesheets (Form/FormSubmit/FormError). Prefer the reference key and
+  // fall back to the source family for older baselines.
+  const known = baseline.components[entry.family] ?? baseline.components[sourceFamily];
   if (!known) return { kind: "new", description: `New component since the ${baseline.version} reference snapshot.` };
   if (entry.exports.some((name) => !known.exports.includes(name))) return { kind: "new", description: `New documented export since the ${baseline.version} reference snapshot.` };
   if (known.fingerprint !== fingerprint) return { kind: "updated", description: `Implementation or styles updated since the ${baseline.version} reference snapshot.` };

@@ -9,13 +9,13 @@ const catalog = JSON.parse(await readFile(path.join(website, "content/generated/
 const { version } = JSON.parse(await readFile(path.join(root, "registry/react/package.json"), "utf8"));
 const components = {};
 for (const entry of catalog) {
-  const family = entry.source.split("/").at(-1);
-  const previous = components[family];
-  components[family] = {
-    fingerprint: previous?.fingerprint ?? await componentFingerprint(root, entry.source, entry.stylesheet),
-    exports: [...new Set([...(previous?.exports ?? []), ...entry.exports])],
+  // Key by reference, not source directory: compound references may share
+  // sources but include different stylesheets in their fingerprint.
+  components[entry.family] = {
+    fingerprint: await componentFingerprint(root, entry.source, entry.stylesheet),
+    exports: [...new Set(entry.exports)],
   };
 }
 const baseline = { version, references: catalog.map((entry) => entry.family), components };
 await writeFile(path.join(website, "content/component-baseline.json"), JSON.stringify(baseline, null, 2) + "\n");
-console.log(`Reference snapshot: ${Object.keys(components).length} source families, version ${version}.`);
+console.log(`Reference snapshot: ${Object.keys(components).length} references, version ${version}.`);

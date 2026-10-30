@@ -105,6 +105,15 @@ Update the root `CHANGELOG.md` with a bilingual section:
 - Update the website release MDX entry in the same release. Lead it with an
   **At a glance** section that highlights the few changes users must notice;
   the release index and detail outline derive from those sections.
+- Refresh the component status baseline after the version bump:
+  `pnpm --dir apps/website docs:baseline`. Then remove every `updated` override
+  from the previous cycle in `apps/website/content/component-status-overrides.json`.
+  Those components are now up to date and must no longer show the Updated badge.
+  Keep or add overrides only for changes made after the new baseline, including
+  documentation-only changes that fingerprints cannot detect. Run
+  `pnpm --dir apps/website docs:generate` and confirm the released references
+  have no Updated badge. Never keep a stale badge merely because the previous
+  release displayed it.
 
 ### 6. Tag and preview
 Only after steps 1–5:
