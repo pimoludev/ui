@@ -110,7 +110,8 @@ describe("NavbarMenu", () => {
     fireEvent.click(within(panel).getByRole("button", { name: "Close menu" }));
     expect(panel).toHaveAttribute("data-state", "closing");
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
-    expect(document.body.style.overflow).not.toBe("hidden");
+    // Scroll-lock cleanup runs in the Drawer effect after the exit commit.
+    await waitFor(() => expect(document.body.style.overflow).not.toBe("hidden"));
   });
 
   it("honors reduced motion for an animated menu's exit", async () => {
