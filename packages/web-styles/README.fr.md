@@ -6,7 +6,7 @@ La couche de style derrière Pimolu UI. Chargez une feuille complète, optez pou
 
 [Démarrage rapide](https://pimolu.com/docs/quick-start) · [Thèmes](https://pimolu.com/docs/theming) · [Personnalisation](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/packages/web-styles)
 
-> **Bêta :** `0.1.0-beta.4` est une prévisualisation. Les entrées CSS publiques et les tokens visuels peuvent évoluer avant `1.0.0`.
+> **Bêta :** `0.1.0-beta.5` est une prévisualisation. Les entrées CSS publiques et les tokens visuels peuvent évoluer avant `1.0.0`.
 
 ## Pourquoi les styles Pimolu ?
 

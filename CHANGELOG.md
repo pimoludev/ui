@@ -4,23 +4,44 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-- EN: Native motion gains a shared reduced-motion/subtree opt-out policy,
-  natural-height Accordion expansion/collapse with animated=false, subtle form
-  error feedback and surface transitions. Layout and typography stay static;
-  existing component animations and optional Motion remain separate.
-- FR : Les animations CSS partagent une protection reduced-motion et une
-  désactivation par zone. Accordion ouvre/ferme à hauteur naturelle avec
-  animated=false ; erreurs de formulaire et surfaces ont des transitions
-  discrètes. Les layouts et textes restent fixes, Motion reste optionnel.
+No unreleased changes yet.
 
-- EN: Navbar adds NavbarMenu for modal mobile navigation opening from any of
+## [0.1.0-beta.5] — 2026-10-30
+
+Preview release. Tag: `v0.1.0-beta.5`. All five library packages are published
+on npm at this version with `latest` and `beta` dist-tags. The website documents
+311 pages. Pimolu UI remains a beta release while the visual and
+assistive-technology reviews stay open.
+
+- EN: Navbar adds `NavbarMenu` for modal mobile navigation opening from any of
   four edges, with partial sizes, full screen and optional native CSS animation.
   It reuses Drawer focus, dismissal and scroll-lock behavior, preserves inline
   desktop composition, and exposes named parts for portal customization.
-- FR : Navbar ajoute NavbarMenu pour une navigation mobile modale depuis les
+- FR : Navbar ajoute `NavbarMenu` pour une navigation mobile modale depuis les
   quatre côtés, avec tailles partielles, plein écran et animation CSS optionnelle.
   Focus, fermeture et blocage du défilement réutilisent Drawer ; la composition
   desktop reste intégrée et les parties du portail sont personnalisables.
+
+- EN: Native motion gains a shared reduced-motion and subtree opt-out policy,
+  natural-height Accordion expansion/collapse with `animated={false}`, subtle
+  form error feedback and surface transitions. Layout and typography stay static;
+  existing component animations and optional Motion remain separate. The
+  standalone `@pimolu/web-styles/motion.css` entry is now published.
+- FR : Les animations CSS partagent une protection reduced-motion et une
+  désactivation par zone. Accordion ouvre et ferme à hauteur naturelle avec
+  `animated={false}` ; les erreurs de formulaire et les surfaces ont des
+  transitions discrètes. Les layouts et textes restent fixes ; les animations
+  existantes et Motion restent séparés. L'entrée `@pimolu/web-styles/motion.css`
+  est désormais publiée.
+
+- EN: Component references document both changes with Setup guidance, generated
+  APIs, Playground demos, real Preview/Code examples and Updated badges. The
+  website adds dedicated NavbarMenu and native-motion coverage in Chromium,
+  Firefox and WebKit.
+- FR : Les références documentent les deux changements avec les guides Setup,
+  les API générées, les démos Playground, de vrais exemples Preview/Code et les
+  badges Updated. Le site ajoute une couverture dédiée NavbarMenu et motion
+  native sur Chromium, Firefox et WebKit.
 
 ## [0.1.0-beta.4] — 2026-10-29
 
@@ -510,6 +531,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.5]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.4
 [0.1.0-beta.3.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3.1
 [0.1.0-beta.3]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3

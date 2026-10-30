@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.4",
+  "version": "0.1.0-beta.5",
   "references": [
     "theme-builder",
     "button",
@@ -182,7 +182,7 @@
       ]
     },
     "toolbar": {
-      "fingerprint": "b1d1fd295003d3bce30530b00f015a3ff55e645384e8188756e268b9d9b2aa4a",
+      "fingerprint": "dccb0cf781fb4651976e2585d779c9370c43b12534c1ea860b2fc32725c2aa04",
       "exports": [
         "Toolbar",
         "ToolbarGroup",
@@ -224,7 +224,7 @@
       ]
     },
     "accordion": {
-      "fingerprint": "3ee3e948e756084ae8f972a00a7005a815edf447d9a709e55e42a923f9a46a9e",
+      "fingerprint": "3533a0a42a41ff9ce363e0af8c50564a2a319831767c2f79fdcc574068596475",
       "exports": [
         "Accordion",
         "AccordionItem",
@@ -301,7 +301,7 @@
       ]
     },
     "form-field": {
-      "fingerprint": "cb020082adea9dc5f1f43cfcaa2f7677da70f3c3fc4d4446e5b7000d45a3a113",
+      "fingerprint": "5d7957b54b8eacee6516406684f62aa8aeee6e786a4bb7d97ad671e0d86f23de",
       "exports": [
         "FormField",
         "FormControl",
@@ -355,7 +355,7 @@
       ]
     },
     "slider": {
-      "fingerprint": "ee2c4a425354f03216ea9cf3431d7f8c47f0abcfc35ad65c88c4212da7eb5468",
+      "fingerprint": "0b010a53b7cae3a10a819c835a391856610c234f871ae387b8ae0d4152d47ec2",
       "exports": [
         "Slider",
         "sliderVariantMap"
@@ -475,7 +475,7 @@
       ]
     },
     "form": {
-      "fingerprint": "5b095146e9f6533c21a8ebb6d32e4837a28555148c8d9a61c61c2cf690d6a7d2",
+      "fingerprint": "d9359d6e297e06f0ef9ea989226fc455da357cc14f501ff600f9ed0e5145ca58",
       "exports": [
         "Form",
         "FormError",
@@ -521,7 +521,7 @@
       ]
     },
     "avatar": {
-      "fingerprint": "546a7a6d8d3cb93dae135a298cf737b98935531d24f88622f6a8279bf96df39c",
+      "fingerprint": "05f9b22c8737c2826142a85c43323c43079fde682c376aac5f10010f496280b5",
       "exports": [
         "Avatar",
         "getAvatarInitials",
@@ -531,14 +531,14 @@
       ]
     },
     "badge": {
-      "fingerprint": "7ef764f939960acb242445f4812447e4b59fa9126f1671ce196594524d89289b",
+      "fingerprint": "719e061ed8c1f9404545cf26e8e67ecca72fc0c545cae65b839e17e0fa781055",
       "exports": [
         "Badge",
         "badgeVariantMap"
       ]
     },
     "card": {
-      "fingerprint": "23b3f5709f2cb5757fdf24c454c11d1153d8a758061998d4467177e96aac98f2",
+      "fingerprint": "0d1f7c35e4b33fcb59ad78ec399e8a301eab3fd23c47da9ab2b5957b1f496b2c",
       "exports": [
         "Card",
         "CardHeader",
@@ -566,7 +566,7 @@
       ]
     },
     "table": {
-      "fingerprint": "625b04d30f8369e3fd16b1954d8a8d01999e79b8db0788911bd6b2a67706515e",
+      "fingerprint": "94dba4a1f7f674c7740934c0bf26f7f96d326fdae41e2622d0761a13efa130c0",
       "exports": [
         "Table",
         "TableHeader",
@@ -764,11 +764,12 @@
       ]
     },
     "navbar": {
-      "fingerprint": "63c0d3d3ad3c5a05a4615f0fe6ade6c0859e5301338d0710019d8d8d2053fc79",
+      "fingerprint": "e3a477ce995aab63e9e255066bcf1fc3fce1f442f3e6739f6dd792114e1251ce",
       "exports": [
         "Navbar",
         "NavbarBrand",
         "NavbarToggle",
+        "NavbarMenu",
         "NavbarContent",
         "NavbarItem",
         "NavbarActions",
@@ -776,7 +777,7 @@
       ]
     },
     "sidebar": {
-      "fingerprint": "80c5551effba30023f1d83309c853e91c535239f2c688409a806a9e31ffc0614",
+      "fingerprint": "dd2818b2d9b95a94816a372ab55420790aae90d0cfc6e1c740dd1489623f20e2",
       "exports": [
         "Sidebar",
         "SidebarHeader",
@@ -999,7 +1000,7 @@
       ]
     },
     "command": {
-      "fingerprint": "39b627a6a93a567202608aa76237be480689a7ad5e11ac3da0c2111a260ffdf0",
+      "fingerprint": "4caa2772e295151d263dae5d5f75cc860118e190e77f400e610982d8ec5e68b1",
       "exports": [
         "Command",
         "CommandPalette"

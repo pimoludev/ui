@@ -19,12 +19,13 @@ test("journal articles and releases have unique routes, section anchors and hone
     assert.ok(post.sections.length > 0);
     assert.ok(post.sections.every((section) => section.paragraphs.length > 0));
   }
-  assert.deepEqual(releaseNotes.map((entry) => entry.slug), ["0.1.0-beta.4", "0.1.0-beta.3.1", "0.1.0-beta.3", "0.1.0-beta.2", "0.1.0-beta.1", "unreleased"]);
-  assert.equal(releaseNotes[0].tag, "v0.1.0-beta.4");
+  assert.deepEqual(releaseNotes.map((entry) => entry.slug), ["0.1.0-beta.5", "0.1.0-beta.4", "0.1.0-beta.3.1", "0.1.0-beta.3", "0.1.0-beta.2", "0.1.0-beta.1", "unreleased"]);
+  assert.equal(releaseNotes[0].tag, "v0.1.0-beta.5");
   assert.equal(releaseNotes[0].status, "Preview");
   assert.ok(releaseNotes[0].sections.some((section) => section.items.some((item) => item.includes("published on npm"))));
-  assert.equal(releaseNotes[1].tag, "v0.1.0-beta.3.1");
-  assert.ok(releaseNotes[5].sections.some((section) => section.items.some((item) => item.includes("0.1.0-beta.4"))));
+  assert.equal(releaseNotes[1].tag, "v0.1.0-beta.4");
+  assert.equal(releaseNotes[2].tag, "v0.1.0-beta.3.1");
+  assert.ok(releaseNotes[6].sections.some((section) => section.items.some((item) => item.includes("0.1.0-beta.5"))));
   assert.ok(guides.find((guide) => guide.slug === "agents").sections.some((section) => section.paragraphs.some((text) => text.includes("no distributed Pimolu MCP server"))));
 });
 
@@ -40,8 +41,8 @@ test("RSS and llms.txt cover real content and escape XML metacharacters", async 
   }
   for (const entry of catalog) assert.ok(map.includes(entry.href));
   for (const guide of guides) assert.ok(map.includes(`/docs${guide.slug ? `/${guide.slug}` : ""}`));
-  assert.match(map, /0\.1\.0-beta\.4/);
-  assert.ok(map.includes("/releases/0.1.0-beta.4"));
+  assert.match(map, /0\.1\.0-beta\.5/);
+  assert.ok(map.includes("/releases/0.1.0-beta.5"));
   assert.match(map, /published on npm/);
   assert.ok(!map.includes("npx @pimolu"));
 });

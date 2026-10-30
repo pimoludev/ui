@@ -117,7 +117,7 @@ export function ConfirmationButton() {
     notes: [
       "Call toast from event handlers or client effects. Each notification owns its content, tone and duration; the root Toaster displays them all.",
       "Each preview below includes its own Toaster because previews run independently. In your application, keep the single root instance rather than adding one per button or page.",
-      "The basic setup above works with 0.1.0-beta.4. Loading, promise helpers and advanced icon controls shown below ship in 0.1.0-beta.4.",
+      "The basic setup above works with 0.1.0-beta.4 and later. Loading, promise helpers and advanced icon controls shown below ship in 0.1.0-beta.4.",
     ],
   },
   form: {
@@ -273,7 +273,7 @@ export function RoleForm() {
       title: "FormSubmit — a submit button with a custom loader",
       paragraphs: [
         "FormSubmit belongs inside Form and inherits Button's presentation props: variant, appearance, size, radius, fullWidth, icons, className, style and classNames. Form owns type=submit and loading through isSubmitting, so an asynchronous onSubmit drives the pending state automatically.",
-        "Provide loadingIndicator to replace the ring. Configure the Spinner's appearance and variant to change its shape and color, or supply your own decorative content. classNames.spinner styles its wrapper independently of the label. Omit the prop for the default ring, or pass null to hide the visual. This new prop awaits the next package release.",
+        "Provide loadingIndicator to replace the ring. Configure the Spinner's appearance and variant to change its shape and color, or supply your own decorative content. classNames.spinner styles its wrapper independently of the label. Omit the prop for the default ring, or pass null to hide the visual. This prop ships in 0.1.0-beta.4.",
       ],
       code: `"use client";
 

@@ -38,7 +38,7 @@ change: these notes do not replace it.
   root verify. Other examples and non-React registries are not implemented yet.
 - The five library packages (`@pimolu/design-tokens`, `@pimolu/themes`,
   `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are published on npm
-  at `0.1.0-beta.4`; both `latest` and `beta` dist-tags point to it.
+  at `0.1.0-beta.5`; both `latest` and `beta` dist-tags point to it.
   `@pimolu/react` is a single ESM bundle with `"use client"` and declarations;
   `@pimolu/core` compiles to ESM. Install the beta with
   `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`. The website stays
@@ -61,7 +61,7 @@ features present in the repository.
 
 ## Latest library and website iteration
 
-- Native CSS motion refinements (unpublished) add a shared `motion.css` policy,
+- Native CSS motion refinements (available in 0.1.0-beta.5) add a shared `motion.css` policy,
   subtree opt-out through `data-pimolu-motion="off"` and comprehensive
   prefers-reduced-motion safeguards. Accordion adds `animated` and natural-height
   grid-track entry/exit with inert closed content. Form/FormField errors reveal
@@ -71,7 +71,7 @@ features present in the repository.
   outside PimoluProvider to include its portal host. See `docs/NATIVE_MOTION.md`,
   `docs/NATIVE_MOTION_AUDIT.md` and the website progress for coverage and limits.
 
-- Navbar adds optional `NavbarMenu` (unpublished): group NavbarContent and
+- Navbar adds optional `NavbarMenu` (available in 0.1.0-beta.5): group NavbarContent and
   NavbarActions inside it, leaving the brand/toggle outside. At content widths
   <=700px in a collapsible Navbar it uses Drawer for a modal panel; otherwise
   it preserves inline composition. Props: side, size, fullScreen, animated,
@@ -226,7 +226,7 @@ Its larger palette-panel geometry is local website CSS, not a public Popover API
 anchors before the usual docs generator runs. `content/releases.ts` is only a typed
 adapter over the generated index; generated MDX modules remain Server Components with
 Pimolu component mappings. Fenced code uses the client CodeBlock for copy support.
-The repository preview is `0.1.0-beta.4` and is tagged `v0.1.0-beta.4`; the root
+The repository preview is `0.1.0-beta.5` and is tagged `v0.1.0-beta.5`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.

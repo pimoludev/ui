@@ -39,7 +39,7 @@ test("guides, visual catalog, releases and legacy redirects", async ({ page, req
   await expect.poll(() => image.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBe(640);
   await page.goto("/releases");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Releases");
-  await expect(page.getByRole("heading", { name: "0.1.0-beta.4" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "0.1.0-beta.5" })).toBeVisible();
 });
 
 test("catalog illustrations follow the resolved system color mode", async ({ page }) => {

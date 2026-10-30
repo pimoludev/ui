@@ -6,7 +6,7 @@ Pimolu's colour themes, seven style presets and platform-neutral visual data. Us
 
 [Theming guide](https://pimolu.com/docs/theming) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/packages/themes)
 
-> **Beta:** `0.1.0-beta.4` is a preview. Preset and token names may change before `1.0.0`.
+> **Beta:** `0.1.0-beta.5` is a preview. Preset and token names may change before `1.0.0`.
 
 ## Why Pimolu themes?
 

@@ -1,0 +1,61 @@
+export const metadata = {
+  "slug": "0.1.0-beta.5",
+  "title": "0.1.0-beta.5",
+  "status": "Preview",
+  "date": "2026-10-30",
+  "tag": "v0.1.0-beta.5",
+  "summary": "A modal NavbarMenu for narrow layouts, natural-height Accordion motion and a shared reduced-motion policy.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.5 with the latest and beta tags. Pimolu UI remains a beta release."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.5">
+
+- **Navbar gains a real mobile menu.** `NavbarMenu` opens a modal panel from any of four edges, supports partial sizes or full screen, optional native animation and Drawer focus, dismissal and scroll locking.
+- **Motion becomes a shared contract.** A reduced-motion policy, a subtree opt-out and the published `@pimolu/web-styles/motion.css` entry keep interaction feedback consistent without animating layout or reading content.
+- **Accordion expands at natural height.** Expansion and collapse use CSS grid tracks, handle unequal heights and rapid toggles, and can be disabled with `animated={false}`.
+- **Validation feedback stays subtle.** Form errors and surfaces gain quiet transitions while static layouts, typography and existing component-specific motion remain unchanged.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.5 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.5.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.5 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="components" label="React and CSS" title="Components and interactions">
+
+- NavbarMenu keeps the existing inline composition on wide navbars and switches to a modal Drawer panel inside narrow collapsible containers.
+- The panel accepts left, right, top or bottom placement, partial sizes or full screen, an accessible label and close label, custom styles and typed named parts. Desktop composition and focus restoration remain intact.
+- Accordion animates expansion and collapse at the content's natural height. Closed content is inert and removed from the accessibility tree immediately; `animated={false}` removes entry, exit and chevron motion.
+- FormError and FormField validation messages enter with a short fade and translation. Cards, badges, avatars, table rows, command items, navigation controls and Sidebar sizing use quiet surface transitions.
+- Reduced motion always wins. `data-pimolu-motion="off"` disables animation and transition within a subtree, including pseudo-elements and custom children.
+- Tabs, SegmentedControl, splitters, chart exploration and existing overlay feedback keep their component-specific behavior.
+
+</ReleaseSection>
+
+<ReleaseSection id="website" label="Reference" title="Documentation and examples">
+
+- Navbar and Accordion references include Setup guidance, generated APIs, real Preview/Code examples and Updated badges.
+- The Navbar example covers all four opening edges, partial and full-screen panels, animation switches, RTL, reduced motion and forced colors.
+- The Accordion example covers natural-height motion, rapid toggles, nested controls, validation feedback and the motion opt-out.
+- The website builds 311 pages. Dedicated NavbarMenu and native-motion journeys run in Chromium, Firefox and WebKit.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The seven complex-component assistive-technology reviews remain open; browser tests do not replace manual visual and screen-reader review.
+- CSS opt-out suppresses visual movement but does not change existing overlay presence timers. Use `animated={false}` when an immediate close or unmount is required.
+- Native, Angular and web registries remain unimplemented.
+- The Playground bundle still exceeds the Vite 500 kB warning threshold.
+
+</ReleaseSection>
