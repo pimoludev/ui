@@ -1,6 +1,7 @@
 # Customization contract
 
-The layered entry and named-part hooks below are available in 0.1.0-beta.4.
+The layered entry and named-part hooks below are available since
+0.1.0-beta.4. Tailwind Preflight compatibility is covered since 0.1.0-beta.6.
 The existing unlayered `styles.css` entry remains compatible.
 
 ## Cascade order
@@ -20,19 +21,35 @@ Unlayered application rules override normal rules in the `pimolu` layer without
 specificity escalation. Class-name order in JSX does not determine CSS priority.
 Import either `styles.css` or `layered.css`, not both.
 
-With Tailwind v4, declare the complete layer order before importing either:
+With Tailwind v4, declare the complete layer order before importing either.
+Preflight is supported in the `base` layer:
 
 ```css
 @layer theme, base, pimolu, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
 @import "@pimolu/web-styles/layered.css";
 @import "tailwindcss/utilities.css" layer(utilities);
 ```
 
-Configure Tailwind's source scanning as usual. Preflight is intentionally omitted
-from this recipe; if the application needs a reset, keep it in the earlier base
-layer and verify its effect on native controls. For rules in another named
+Configure Tailwind's source scanning as usual. For rules in another named
 application layer, declare that layer after `pimolu` in the order statement.
+
+If the application imports the unlayered `styles.css` entry instead, import it
+after Tailwind's Preflight so component declarations follow the reset.
+
+## Tailwind Preflight and hidden content
+
+Pimolu supports Tailwind v4 Preflight, including its
+`[hidden] { display: none !important; }` rule. Since 0.1.0-beta.6, Accordion
+removes `hidden` while its closing box animates, so the reset cannot cancel the
+exit. Closed content still has `hidden`, `aria-hidden` and `inert`.
+
+Do not add application CSS that forces `display: none` or `display: block` on
+`.pimolu-accordion__content`; use the component's `animated` prop or the
+`data-pimolu-motion="off"` subtree attribute instead. Chat attachment links also
+declare their underline explicitly because Preflight resets anchors to
+`text-decoration: inherit`.
 
 ## Button and FormSubmit loading indicators
 

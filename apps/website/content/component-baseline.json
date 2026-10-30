@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.5",
+  "version": "0.1.0-beta.6",
   "references": [
     "theme-builder",
     "button",
@@ -224,7 +224,7 @@
       ]
     },
     "accordion": {
-      "fingerprint": "3533a0a42a41ff9ce363e0af8c50564a2a319831767c2f79fdcc574068596475",
+      "fingerprint": "fe6dd29c6d39d5f479df02fbff3d2df3278bf46a89b5e4573c048b27d562e76e",
       "exports": [
         "Accordion",
         "AccordionItem",
@@ -679,7 +679,7 @@
       ]
     },
     "chat": {
-      "fingerprint": "a62650b3906ccf4d8a4ebeea8e490e0bcd8384211d7111b24daa9007038d9d57",
+      "fingerprint": "c742684c7e6786922a620d4c4e24b9ff4f2e4a72ae916d7cb7d9c08b8cee7d05",
       "exports": [
         "Chat"
       ]

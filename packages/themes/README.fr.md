@@ -6,7 +6,7 @@ Les thèmes de couleur, sept presets de style et les données visuelles neutres 
 
 [Guide des thèmes](https://pimolu.com/docs/theming) · [Personnalisation](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/packages/themes)
 
-> **Bêta :** `0.1.0-beta.5` est une prévisualisation. Les noms des presets et des tokens peuvent évoluer avant `1.0.0`.
+> **Bêta :** `0.1.0-beta.6` est une prévisualisation. Les noms des presets et des tokens peuvent évoluer avant `1.0.0`.
 
 ## Pourquoi les thèmes Pimolu ?
 

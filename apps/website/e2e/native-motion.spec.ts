@@ -53,6 +53,22 @@ test("Native motion: natural height, validation, interruption and subtree opt-ou
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
+test("Native motion: Accordion exit survives the Tailwind [hidden] reset", async ({ page }) => {
+  await ready(page);
+  // Tailwind 4 Preflight resets every hidden element with !important.
+  await page.addStyleTag({ content: '[hidden]:where(:not([hidden="until-found"])) { display: none !important; }' });
+  const trigger = page.getByRole("button", { name: "Workspace preferences" });
+  const content = page.locator(".pimolu-accordion__content").first();
+  await trigger.click();
+  await expect(content).toHaveAttribute("data-state", "open");
+  await trigger.click();
+  await expect(content).toHaveAttribute("data-state", "closing");
+  await expect(content).not.toHaveAttribute("hidden");
+  expect(await content.evaluate((node) => getComputedStyle(node).display)).toBe("grid");
+  expect(await content.evaluate((node) => node.getBoundingClientRect().height)).toBeGreaterThan(0);
+  await expect(content).toHaveAttribute("hidden", "", { timeout: 2000 });
+});
+
 test("Native motion: reduced-motion and forced-colors preserve useful feedback", async ({ page }) => {
   await ready(page);
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });

@@ -1,6 +1,6 @@
 # Navbar mobile panels
 
-`NavbarMenu` is an additive API available in 0.1.0-beta.5.
+`NavbarMenu` is an additive API available since 0.1.0-beta.5.
 It reuses Pimolu Drawer behavior and native CSS animations. No Motion dependency
 is required. Existing navbars without NavbarMenu retain their inline mobile menu.
 

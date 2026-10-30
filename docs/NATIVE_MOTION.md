@@ -1,6 +1,6 @@
 # Native motion in Pimolu
 
-These refinements are available in 0.1.0-beta.5. They add no animation
+These refinements are available since 0.1.0-beta.5; Tailwind Preflight compatibility is covered since 0.1.0-beta.6. They add no animation
 dependency. `@pimolu/motion` is still a separate, optional direction.
 
 Motion explains interaction rather than making every component move on mount:

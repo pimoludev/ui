@@ -6,7 +6,7 @@ Un petit utilitaire indépendant du framework pour composer des noms de classes 
 
 [Source](https://github.com/pimoludev/ui/tree/main/packages/core) · [Composants](https://pimolu.com/components)
 
-> **Bêta :** `0.1.0-beta.5` est une prévisualisation.
+> **Bêta :** `0.1.0-beta.6` est une prévisualisation.
 
 ## Pourquoi @pimolu/core ?
 

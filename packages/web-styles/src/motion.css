@@ -28,7 +28,8 @@
   scroll-behavior: auto !important;
 }
 
-:where([data-pimolu-motion="off"]) .pimolu-accordion__content[hidden] {
+:where([data-pimolu-motion="off"]) .pimolu-accordion__content[hidden],
+:where([data-pimolu-motion="off"]) .pimolu-accordion__content[data-state="closing"] {
   display: none !important;
 }
 
@@ -40,5 +41,6 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-  .pimolu-accordion__content[hidden] { display: none !important; }
+  .pimolu-accordion__content[hidden],
+  .pimolu-accordion__content[data-state="closing"] { display: none !important; }
 }

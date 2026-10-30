@@ -362,7 +362,7 @@ export function AccordionContent({ classNames,
       id={item.contentId}
       role="region"
       aria-labelledby={item.triggerId}
-      hidden={!item.open}
+      hidden={!item.open && !closing}
       aria-hidden={!item.open || undefined}
       inert={!item.open || undefined}
       data-state={item.open ? "open" : closing ? "closing" : "closed"}

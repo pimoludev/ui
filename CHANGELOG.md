@@ -6,6 +6,40 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 No unreleased changes yet.
 
+## [0.1.0-beta.6] — 2026-10-30
+
+Preview release. Tag: `v0.1.0-beta.6`. All five library packages are published
+on npm at this version with `latest` and `beta` dist-tags. The website documents
+312 pages. Pimolu UI remains a beta release while the visual and
+assistive-technology reviews stay open.
+
+- EN: Accordion now removes `hidden` while its closing box animates, so Tailwind
+  v4 Preflight's `[hidden] { display: none !important; }` cannot cancel the exit.
+  Closed content still carries `hidden`, `aria-hidden` and `inert`; reduced motion
+  and `data-pimolu-motion="off"` close it immediately.
+- FR : Accordion retire désormais `hidden` pendant l'animation de fermeture, afin
+  que le Preflight Tailwind v4 (`[hidden] { display: none !important; }`) ne
+  supprime plus la sortie. Le contenu fermé conserve `hidden`, `aria-hidden` et
+  `inert` ; reduced motion et `data-pimolu-motion="off"` le ferment immédiatement.
+
+- EN: Chat attachment links declare an explicit underline instead of relying on
+  the browser default reset by Preflight. The Tailwind compatibility audit covered
+  all 135 references with Tailwind 4.3.3; remaining differences are invisible
+  controls or icon-only surfaces.
+- FR : Les liens de pièces jointes Chat déclarent un soulignement explicite au
+  lieu de dépendre du style navigateur réinitialisé par Preflight. L'audit de
+  compatibilité Tailwind couvre les 135 références avec Tailwind 4.3.3 ; les
+  différences restantes concernent des contrôles invisibles ou des surfaces
+  icon-only.
+
+- EN: The Customization guide and Handbook document a Tailwind v4 recipe with
+  Preflight in the base layer, the unlayered `styles.css` ordering rule, and the
+  Accordion hidden-content contract. Regression tests cover both fixes.
+- FR : Le guide Customization et le Handbook documentent une recette Tailwind v4
+  avec Preflight dans la couche base, l'ordre d'import de `styles.css` non
+  layerisé et le contrat de contenu fermé d'Accordion. Des tests de régression
+  couvrent les deux correctifs.
+
 ## [0.1.0-beta.5] — 2026-10-30
 
 Preview release. Tag: `v0.1.0-beta.5`. All five library packages are published
@@ -531,6 +565,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.6]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.6
 [0.1.0-beta.5]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.4
 [0.1.0-beta.3.1]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.3.1

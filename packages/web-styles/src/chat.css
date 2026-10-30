@@ -374,7 +374,10 @@
   white-space: nowrap;
 }
 
+/* Explicit affordance: Tailwind Preflight resets anchors to
+   text-decoration: inherit, so the component cannot rely on the UA default. */
 a.pimolu-chat__attachment-name {
+  text-decoration: underline;
   text-underline-offset: 2px;
 }
 

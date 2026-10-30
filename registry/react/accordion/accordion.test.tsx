@@ -14,6 +14,7 @@ import {
 
 function Example(
   props: {
+    animated?: boolean;
     collapsible?: boolean;
     variant?: "default" | "separated" | "ghost";
     onValueChange?: (value: string | undefined) => void;
@@ -23,6 +24,7 @@ function Example(
     <Accordion
       type="single"
       defaultValue="one"
+      animated={props.animated}
       collapsible={props.collapsible}
       variant={props.variant}
       onValueChange={props.onValueChange}
@@ -49,7 +51,7 @@ describe("Pimolu Accordion", () => {
   it("opens one item and closes the previous one", () => {
     const onValueChange = vi.fn();
 
-    render(<Example onValueChange={onValueChange} />);
+    render(<Example animated={false} onValueChange={onValueChange} />);
 
     const first = screen.getByRole("button", {
       name: "First",
@@ -93,7 +95,7 @@ describe("Pimolu Accordion", () => {
   });
 
   it("closes the open item when collapsible is true", () => {
-    render(<Example collapsible />);
+    render(<Example animated={false} collapsible />);
 
     fireEvent.click(
       screen.getByRole("button", { name: "First" })

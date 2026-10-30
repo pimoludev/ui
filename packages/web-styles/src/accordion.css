@@ -170,7 +170,7 @@
 
 /* Closed content is inert and absent from accessibility immediately; only
    its decorative exit remains until presence releases it. */
-.pimolu-accordion__content[hidden][data-state="closing"] {
+.pimolu-accordion__content[data-state="closing"] {
   display: grid;
   animation: pimolu-accordion-out 220ms cubic-bezier(0.4, 0, 1, 1) both;
 }
@@ -226,8 +226,12 @@
     transition: none;
   }
 
-  .pimolu-accordion__content[data-state="open"],
-  .pimolu-accordion__content[hidden][data-state="closing"] {
+  .pimolu-accordion__content[data-state="open"] {
+    animation: none;
+  }
+
+  .pimolu-accordion__content[data-state="closing"] {
+    display: none;
     animation: none;
   }
 }

@@ -6,7 +6,7 @@ Pimolu's primitive design tokens as CSS variables and plain JSON. Use this packa
 
 [Theming guide](https://pimolu.com/docs/theming) · [Source](https://github.com/pimoludev/ui/tree/main/packages/design-tokens)
 
-> **Beta:** `0.1.0-beta.5` is a preview. Public token names may change before `1.0.0`.
+> **Beta:** `0.1.0-beta.6` is a preview. Public token names may change before `1.0.0`.
 
 ## Why Pimolu tokens?
 

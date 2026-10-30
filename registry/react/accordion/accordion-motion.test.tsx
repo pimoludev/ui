@@ -22,12 +22,15 @@ describe("Accordion motion", () => {
     const region = screen.getByRole("region", { name: "Profile" });
     fireEvent.click(screen.getByRole("button", { name: "Profile" }));
     expect(region).toHaveAttribute("data-state", "closing");
-    expect(region).toHaveAttribute("hidden");
+    // `hidden` must be absent while the box animates; Tailwind Preflight
+    // otherwise forces display:none !important and cancels the exit.
+    expect(region).not.toHaveAttribute("hidden");
     expect(region).toHaveAttribute("aria-hidden", "true");
     expect(region).toHaveAttribute("inert");
     expect(screen.queryByRole("textbox", { name: "Display name" })).not.toBeInTheDocument();
     act(() => { vi.advanceTimersByTime(220); });
     expect(region).toHaveAttribute("data-state", "closed");
+    expect(region).toHaveAttribute("hidden");
   });
 
   it("cancels an interrupted exit without losing the input value or closing a reopened region", () => {

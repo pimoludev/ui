@@ -1694,3 +1694,21 @@ test("Phase 4 feedback and data styles are bundled", async () => {
     assert.ok(full.includes(selector), `bundle missing ${selector}`);
   }
 });
+
+test("Tailwind Preflight compatibility", async () => {
+  const accordion = await load("accordion.css");
+  const chat = await load("chat.css");
+
+  assert.match(
+    accordion,
+    /\.pimolu-accordion__content\[data-state=["']?closing["']?\]\s*\{[^}]*display:\s*grid/s
+  );
+  assert.doesNotMatch(
+    accordion,
+    /\.pimolu-accordion__content\[hidden\]\[data-state=["']?closing["']?\]/
+  );
+  assert.match(
+    chat,
+    /a\.pimolu-chat__attachment-name\s*\{[^}]*text-decoration:\s*underline/s
+  );
+});

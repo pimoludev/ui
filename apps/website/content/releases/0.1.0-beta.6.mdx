@@ -1,0 +1,59 @@
+export const metadata = {
+  "slug": "0.1.0-beta.6",
+  "title": "0.1.0-beta.6",
+  "status": "Preview",
+  "date": "2026-10-30",
+  "tag": "v0.1.0-beta.6",
+  "summary": "Tailwind Preflight compatibility for Accordion, explicit Chat link affordances and a verified reset audit.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.6 with the latest and beta tags. Pimolu UI remains a beta release."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.6">
+
+- **Accordion now survives Tailwind Preflight.** The closing box no longer carries `hidden`, so Preflight's `[hidden] { display: none !important; }` cannot cancel the exit animation.
+- **Chat links keep their affordance.** Attachment links declare an explicit underline instead of relying on the browser default that Preflight resets.
+- **The reset audit is documented.** Every reference was checked with Tailwind 4.3.3 Preflight in the base layer; remaining differences are limited to invisible controls or icon-only surfaces.
+- **The Tailwind recipe is supported.** The layered entry now documents Preflight explicitly, including the unlayered `styles.css` ordering rule.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.6 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.6.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.6 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="compatibility" label="Tailwind and CSS" title="Preflight without surprises">
+
+- Accordion removes `hidden` only while its closing box animates. Closed content still has `hidden`, `aria-hidden` and `inert`.
+- `data-pimolu-motion="off"` and reduced motion close the decorative box immediately, without waiting for a hidden reset.
+- Chat attachment links set `text-decoration: underline` explicitly; other anchors already declare their intended underline or quiet variant.
+- Preflight belongs in the `base` layer before `pimolu`. If you import the unlayered `styles.css`, place it after Preflight.
+- Avoid application rules that force `display` on `.pimolu-accordion__content`; use the component `animated` prop or the motion opt-out subtree instead.
+
+</ReleaseSection>
+
+<ReleaseSection id="website" label="Reference" title="Documentation and verification">
+
+- The Customization guide and Handbook show a Tailwind v4 recipe with Preflight included in the base layer.
+- The Accordion reference documents the closing contract, and the native-motion journey includes a regression test with the real Preflight hidden reset.
+- The website builds 312 pages. The release, editorial, catalog and motion journeys are verified across Chromium, Firefox and WebKit.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The seven complex-component assistive-technology reviews remain open; browser tests do not replace manual visual and screen-reader review.
+- The audit covers Tailwind 4.3.3 Preflight on the documented component references. Arbitrary application resets and global element rules can still override component behavior.
+- Native, Angular and web registries remain unimplemented.
+- The Playground bundle still exceeds the Vite 500 kB warning threshold.
+
+</ReleaseSection>

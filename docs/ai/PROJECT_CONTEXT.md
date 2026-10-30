@@ -38,7 +38,7 @@ change: these notes do not replace it.
   root verify. Other examples and non-React registries are not implemented yet.
 - The five library packages (`@pimolu/design-tokens`, `@pimolu/themes`,
   `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are published on npm
-  at `0.1.0-beta.5`; both `latest` and `beta` dist-tags point to it.
+  at `0.1.0-beta.6`; both `latest` and `beta` dist-tags point to it.
   `@pimolu/react` is a single ESM bundle with `"use client"` and declarations;
   `@pimolu/core` compiles to ESM. Install the beta with
   `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`. The website stays
@@ -68,7 +68,10 @@ features present in the repository.
   subtly; Sidebar sizes and simple interactive surfaces gain transitions.
   Static layout/typography stay stationary. The full bundles include the policy;
   standalone consumers may import `@pimolu/web-styles/motion.css`. Put the opt-out
-  outside PimoluProvider to include its portal host. See `docs/NATIVE_MOTION.md`,
+  outside PimoluProvider to include its portal host. Accordion removes `hidden`
+  during its closing frame so Tailwind v4 Preflight cannot cancel the exit;
+  Chat attachment links declare an explicit underline against the anchor reset.
+  See `docs/NATIVE_MOTION.md`,
   `docs/NATIVE_MOTION_AUDIT.md` and the website progress for coverage and limits.
 
 - Navbar adds optional `NavbarMenu` (available in 0.1.0-beta.5): group NavbarContent and
@@ -226,7 +229,7 @@ Its larger palette-panel geometry is local website CSS, not a public Popover API
 anchors before the usual docs generator runs. `content/releases.ts` is only a typed
 adapter over the generated index; generated MDX modules remain Server Components with
 Pimolu component mappings. Fenced code uses the client CodeBlock for copy support.
-The repository preview is `0.1.0-beta.5` and is tagged `v0.1.0-beta.5`; the root
+The repository preview is `0.1.0-beta.6` and is tagged `v0.1.0-beta.6`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.
