@@ -37,6 +37,7 @@ Do **not** activate for a trivial single-step edit (typo, one-line fix) — do i
 | Commit | `git-commit` (it pulls in `test-runner` + `test-coverage-audit`) |
 | Push | `github-push` (full `test-runner`) |
 | Release | `release-manager` → `public-api-review` → `documentation-sync` → `test-runner` |
+| GitHub issue | `github-issue` (+ `release-manager` / `documentation-sync` when tied to a release) |
 | "Audit everything" | `theme-integrity-audit` (global mode) / `test-coverage-audit` per component |
 
 These are examples of routing, **not** a list to run exhaustively.
