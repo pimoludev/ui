@@ -65,7 +65,7 @@ npm install @pimolu/react@beta @pimolu/web-styles@beta
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 ```
 
-The current release is **0.1.0-beta.6**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
+The current release is **0.1.0-beta.7**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
 
 To update an existing installation to the current beta:
 
@@ -171,7 +171,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.6`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.6`, with both `latest` and `beta` tags:
+Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.7`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.7`, with both `latest` and `beta` tags:
 
 ```bash
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta

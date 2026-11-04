@@ -17,7 +17,7 @@ ignoré par Git et absent d'un clone neuf.
 
 ## Versions et travail courant
 
-- Les cinq packages npm sont publiés en `0.1.0-beta.6`. Le [changelog](../../CHANGELOG.md)
+- Les cinq packages npm sont publiés en `0.1.0-beta.7`. Le [changelog](../../CHANGELOG.md)
   et les releases publiques distinguent le publié du workspace.
 - La branche `feat/ink-and-signal` implémente la nouvelle direction sur Default :
   palette encre/papier et iris, contours fonctionnels distincts, rôles typographiques

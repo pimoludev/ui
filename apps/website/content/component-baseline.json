@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.6",
+  "version": "0.1.0-beta.7",
   "references": [
     "theme-builder",
     "button",
@@ -148,7 +148,7 @@
       ]
     },
     "button": {
-      "fingerprint": "9c061302c9199e8a22668d6e5d9e2fd359992e1f1d98a3ac5bb86f7df5789bcb",
+      "fingerprint": "1420a4be8a6eab658c473d730415c1b44093912359338f658a497928038e4d59",
       "exports": [
         "Button",
         "buttonVariantMap"
@@ -287,14 +287,14 @@
       ]
     },
     "checkbox": {
-      "fingerprint": "57cd1998f85d988d315cf90fa81eafda85c13ed7263f599beb1ae38afcaf29c0",
+      "fingerprint": "092702a8e748fa94ecb79de68f5f505b52a64a00c06212ef0024c00d48ea363f",
       "exports": [
         "Checkbox",
         "checkboxVariantMap"
       ]
     },
     "combobox": {
-      "fingerprint": "31c1294b4b697a9e5732bee639af06d7b2cb5f7a68b9aee33e58872b6362c101",
+      "fingerprint": "44523011c336de0a71d218c47abc731e56fcaf35ad11b3bab55baab66c8026b9",
       "exports": [
         "Combobox",
         "comboboxVariantMap"
@@ -311,7 +311,7 @@
       ]
     },
     "input": {
-      "fingerprint": "0c60c6cf33bb70dd47198ef3d3f70675e9f6320e140de0f7cb11dfdba146e715",
+      "fingerprint": "91dd131779ad9af2946d87be8bccbe2c84c12cc2d562e0bbef4abef889820467",
       "exports": [
         "Input",
         "inputVariantMap"
@@ -325,14 +325,14 @@
       ]
     },
     "multi-select": {
-      "fingerprint": "a1fa28996ef66860de58e4627c0571848f652613af67d4285b393bb4c480ffb8",
+      "fingerprint": "dc0ff4f86bb93eb158fd4df7547cdfbba4dcee68af195adec69631e760446a73",
       "exports": [
         "MultiSelect",
         "multiSelectVariantMap"
       ]
     },
     "radio": {
-      "fingerprint": "6e562e0b0c363773833210c0bdc122de005a9d55cffea990ee16d80c6ad81d8b",
+      "fingerprint": "416962327e0e49ed2b3e153319f718aaa02790e3d48d6e2f1b301de592578ca3",
       "exports": [
         "Radio",
         "RadioGroup",
@@ -348,7 +348,7 @@
       ]
     },
     "select": {
-      "fingerprint": "a1ad3c5fef77d93f74d82912a3db9cfba7c4caafb5accef26bd6045322678bae",
+      "fingerprint": "57e0adca231ba16d728d596cda92a19c3cf63474cdfa79d944c666a4c514214d",
       "exports": [
         "Select",
         "selectVariantMap"
@@ -362,39 +362,39 @@
       ]
     },
     "switch": {
-      "fingerprint": "4805a60d7e043cb73a1a4cd0f7aa3c3932779c664226e4f20b4be7e3fc727a27",
+      "fingerprint": "95400a3a962892e74a1899ec5dfa120da159ffc475ee63e14712be711b09f1ed",
       "exports": [
         "Switch",
         "switchVariantMap"
       ]
     },
     "textarea": {
-      "fingerprint": "67828f6ead21d9f0cc0c5c970604bb805b650a5b9226adc18891500529b86f4e",
+      "fingerprint": "8f57a17b6a160ba4779147edb4ebb303263f28b62929004007986e73fd49caa4",
       "exports": [
         "Textarea",
         "textareaVariantMap"
       ]
     },
     "number-input": {
-      "fingerprint": "0c53d7c2faec35a0ae4b643c5ad90420245079d41f60921dac2934d3626bd65c",
+      "fingerprint": "ec2216ccde183b15df631534d35dfc3683e7e919ff5b97e8e1fa36c05c45278d",
       "exports": [
         "NumberInput"
       ]
     },
     "pin-input": {
-      "fingerprint": "f4ecae725edcbe42f4e435bcf1560e80b0a549f2a9ce4895a7f615f154f4bca6",
+      "fingerprint": "e825b4ff256b0d7282fa4a9c17410843f1e461dcda9004160d05785ee8df0f27",
       "exports": [
         "PinInput"
       ]
     },
     "tags-input": {
-      "fingerprint": "119a21461fa44cc23d6eb3cdef78bea81bd684cf2f67297f4afca9461f983418",
+      "fingerprint": "441abdda94fdf8acbe9f39669aab2cc075c8d3a331efe5d564a04bca870204e6",
       "exports": [
         "TagsInput"
       ]
     },
     "time-picker": {
-      "fingerprint": "732bf61db8ee5563a0f1f9e9ad052e1f085c3a349a9f270df46c3425866da1ab",
+      "fingerprint": "bee14a75297b2421c93d6f2a639f9fb094e9293c03024681a2b1ce069736f8bf",
       "exports": [
         "TimePicker"
       ]
@@ -406,7 +406,7 @@
       ]
     },
     "date-picker": {
-      "fingerprint": "cc8191f89fc7eface6574565768edd1e938069c92d62ff26159a8a73ab1ee1ae",
+      "fingerprint": "181f673d1c35115dac43e9ca6637e7c7d7f33b6f323eb20c8ddf3be4cad67f4b",
       "exports": [
         "DatePicker"
       ]
@@ -431,7 +431,7 @@
       ]
     },
     "color-picker": {
-      "fingerprint": "fbbdc83838832930229c543520c31b72bcc16e73b3c11f7d5239e8ba47538813",
+      "fingerprint": "0e1a6a247643bd06974efa8a45f0531844e0cead4ad1aa356a05c2ac621342bf",
       "exports": [
         "ColorPicker",
         "DEFAULT_COLOR_PICKER_VALUE",
@@ -453,7 +453,7 @@
       ]
     },
     "input-group": {
-      "fingerprint": "4adec182b2f6c6b558fc105a50ec4a0100ba6eb76c03887c5e82473a86724272",
+      "fingerprint": "e36bed8dd1296c49d693424db9090abfdb97655b764d87c2135fd62401adab6c",
       "exports": [
         "InputGroup",
         "InputGroupAddon",
@@ -463,7 +463,7 @@
       ]
     },
     "tree-select": {
-      "fingerprint": "f142dc5676a5e1686d195b9f678f6f09915554755ae93d4c97432f334cb0d676",
+      "fingerprint": "6bcf9b069ba8f61231484f987c20c87ffbcedac3d5ea6ecfdbb8d3348b53eda8",
       "exports": [
         "TreeSelect"
       ]
@@ -484,7 +484,7 @@
       ]
     },
     "form-submit": {
-      "fingerprint": "3085edab4223a38d00838487e77f6c556aea94f0e39bb0c7e9b1a6259928debd",
+      "fingerprint": "53d8f034a06bf89c517375d1b52aca6f2f7188ab10bfd1d5292bec927af9deb4",
       "exports": [
         "FormSubmit"
       ]
@@ -496,32 +496,32 @@
       ]
     },
     "masked-input": {
-      "fingerprint": "404cb9762d03e3af07c4392e59ae1b0f363075a5c908052f0cfa50c16189fac7",
+      "fingerprint": "bd0c2b9f87637e04a3bbfeed7a005aa1d869500e93f5c07e0723777195247a49",
       "exports": [
         "MaskedInput"
       ]
     },
     "currency-input": {
-      "fingerprint": "710b0e9623e530c21711f7b3619bbe1253304254f7929394a515015d7312fb9a",
+      "fingerprint": "88cd44a206ae5322fe047ce8c7a7a44a8722ea3e594bab3ac170ffdf4b34d3b5",
       "exports": [
         "CurrencyInput"
       ]
     },
     "phone-input": {
-      "fingerprint": "10f9400d19ecd7541d9bdd0cc90edd7ef36a06fafc58848d6549b29482bf26f3",
+      "fingerprint": "339fa91c1e4ddcfb6de006ee76d82445f08474e530870ffe29655d5625f30596",
       "exports": [
         "PhoneInput",
         "defaultPhoneCountries"
       ]
     },
     "mentions": {
-      "fingerprint": "62295f871749d392561e8f903e3d8ad18b98d8a64893dd6bfc115191244bd2b8",
+      "fingerprint": "a35bc7608fce013674aff8a0cad205ff9174b834adb9f0460c995803819477b8",
       "exports": [
         "Mentions"
       ]
     },
     "cascader": {
-      "fingerprint": "c0577e460f7ff2d22986b1a92994319ae8649641897df8454215c1846a289bab",
+      "fingerprint": "6f6ade54cc3f4cbf5fa7e5c34e6563f03322f07271d9057b250a7c08060a68fa",
       "exports": [
         "Cascader"
       ]

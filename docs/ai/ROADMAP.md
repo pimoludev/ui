@@ -15,7 +15,7 @@ in [PLATFORM_ROADMAP.md](PLATFORM_ROADMAP.md).
    Default direction and Identity Kit scope are defined in
    [DESIGN_DIRECTION.md](DESIGN_DIRECTION.md).
 3. **Stabilise the published distribution.** Five compiled library packages are
-   available on npm at `0.1.0-beta.6`. Keep exports, peer dependencies and the
+   available on npm at `0.1.0-beta.7`. Keep exports, peer dependencies and the
    SemVer policy aligned; expand the React/Next.js compatibility matrix and
    validate installation outside the monorepo before subsequent releases.
 4. **Complete the developer experience.** Bilingual component documentation,

@@ -1,0 +1,75 @@
+export const metadata = {
+  "slug": "0.1.0-beta.7",
+  "title": "0.1.0-beta.7",
+  "status": "Preview",
+  "date": "2026-11-04",
+  "tag": "v0.1.0-beta.7",
+  "summary": "Ink & Signal gives the Default preset a warm paper/ink identity, an iris signal and optional editorial typography.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.7 with the latest and beta tags. Pimolu UI remains a beta release. The human design and assistive-technology reviews stay open."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.7">
+
+- **Default has a new identity.** Ink & Signal replaces the slate/indigo Default with warm paper and ink neutrals, an iris signal and 10/16 px control/surface radii.
+- **Borders now carry meaning.** Functional `control-border` is separate from decorative `border`, so fields and buttons stay readable without making every separator loud.
+- **Typography is optional and self-hosted.** Default names DM Sans, Newsreader and IBM Plex Mono with system fallbacks; the library downloads nothing, and the website serves the licensed files itself.
+- **Your palettes are untouched.** The six other named presets and `adaptive` keep their published colours, and explicit radius, density and brand-colour choices still win.
+- **The mobile dashboard table is keyboard reachable.** Its scroll container is a named, focusable region instead of a pointer-only overflow.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.7 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.7.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.7 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="identity" label="Ink & Signal" title="What changed in Default">
+
+- Background, surface and foreground roles move to warm paper and ink instead of cool slate.
+- `primary` is an iris signal; `primary-soft` and `primary-soft-foreground` add a quieter companion for badges, highlights and selected rows.
+- `control-border` is the functional outline for inputs, selects, pickers and buttons. `border` stays decorative and intentionally quieter.
+- Default controls use 10 px radii and surfaces 16 px. Presets that declare their own radii keep them.
+- Font roles are data, not downloads: `font-sans`, `font-display` and `font-mono` name DM Sans, Newsreader and IBM Plex Mono, each with a system fallback stack.
+- Motion, elevation and density tokens keep their existing scale so layout behaviour does not change with the palette.
+
+</ReleaseSection>
+
+<ReleaseSection id="migration" label="Migration" title="Upgrading from beta.6">
+
+- No public React API changed in this release. Components, props and hooks keep their signatures.
+- If you import `styles.css` or a preset stylesheet, update the version and reload: Default now resolves to the Ink & Signal values.
+- Pin a preset when you need the previous look. `monochrome`, `cartoon`, `glass`, `luxury`, `neo-brutalism` and `adaptive` are unchanged.
+- Explicit `radius`, `density` and `brandColor` props still override the Default palette, so existing overrides keep working.
+- If you built custom CSS on the old Default hex values, move to the semantic variables (`--pimolu-primary`, `--pimolu-control-border`, `--pimolu-surface`) instead of hard-coded colours.
+- The library ships no font files. Import the fonts yourself, or keep the system fallbacks that the token roles already declare.
+
+</ReleaseSection>
+
+<ReleaseSection id="review" label="Evidence" title="What was verified">
+
+- 1,522 React tests and 31 CSS tests pass through `pnpm check`, together with typecheck, the theme audit and the playground build.
+- The website passes lint, typecheck, 45 editorial tests and a 313-page production build.
+- The full Chromium, Firefox and WebKit matrix reports 1,668 passed and 18 skipped, with no failure.
+- 12 axe-core scenarios cover the marketing, form and dashboard review surfaces at 390 and 1440 px in light and dark, with no violation. That is browser evidence, not a WCAG conformance claim.
+- The human design review and the screen-reader review remain open, which is why this stays a beta.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The 5–8 person design review and the assistive-technology review have not been executed.
+- The axe-core run covers three closed review surfaces only. Overlays, screen-reader flows and arbitrary application CSS are outside it.
+- The website chrome is only partially migrated: the home display typography uses the new role, the rest keeps the previous surface treatment until Default adoption is decided.
+- Native, Angular and web registries remain unimplemented.
+- The Playground bundle still exceeds the Vite 500 kB warning threshold.
+
+</ReleaseSection>

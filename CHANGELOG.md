@@ -4,21 +4,70 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-- EN: Implement Ink & Signal on the existing Default preset in the source branch:
-  warm ink/paper neutrals, iris primary, separate functional control borders,
-  optional font roles and 10/16 px control/surface radii. Preserve the other
-  named palettes and explicit radius/density choices. Website fonts are licensed
-  and self-hosted; the component library imposes no font downloads. Real review
-  compositions live in versioned Design Lab. `/design-preview` is an optional
-  Git-ignored local route. npm beta.6 is unchanged.
-- FR : Implémentation d'Ink & Signal sur le preset Default de la branche source :
-  neutres encre/papier, accent iris, contours fonctionnels distincts,
-  rôles typographiques facultatifs et rayons contrôles/surfaces de 10/16 px.
-  Les autres palettes et les choix explicites de rayon/densité sont conservés.
-  Le site auto-héberge les polices sous licence ; la bibliothèque n'impose
-  aucun téléchargement. Les compositions réelles sont dans Design Lab versionné ;
-  `/design-preview` reste une route locale facultative ignorée par Git.
-  La version npm beta.6 reste inchangée.
+- EN: No unreleased changes yet. Work after beta.7 is tracked in the development
+  notes on the website.
+- FR : Aucun changement non publié pour le moment. Le travail après beta.7 est
+  suivi dans les notes de développement du site.
+
+## [0.1.0-beta.7] — 2026-11-04
+
+Preview release. Tag: `v0.1.0-beta.7`. All five library packages are published
+on npm at this version with `latest` and `beta` dist-tags. The website documents
+313 pages. Pimolu UI remains a beta release: the human design review, the
+assistive-technology review and the stable promotion stay open.
+
+- EN: Default adopts **Ink & Signal**: warm paper and ink neutrals, an iris
+  signal, a functional `control-border` separated from the decorative `border`,
+  new `primary-soft` roles and 10/16 px control/surface radii. The six other
+  named presets and `adaptive` keep their published palettes, and explicit
+  radius, density and brand-colour choices keep precedence.
+- FR : Default adopte **Ink & Signal** : neutres papier/encre, signal iris,
+  `control-border` fonctionnel distinct du `border` décoratif, nouveaux rôles
+  `primary-soft` et rayons contrôles/surfaces de 10/16 px. Les six autres presets
+  nommés et `adaptive` conservent leurs palettes publiées, et les choix explicites
+  de rayon, densité et couleur de marque restent prioritaires.
+
+- EN: Optional typography roles name DM Sans, Newsreader for editorial display
+  and IBM Plex Mono, each with system fallbacks. The library downloads no fonts;
+  the website self-hosts the licensed files. Buttons, fields, pickers and text
+  inputs consume the new border, radius and weight tokens while focus, invalid,
+  disabled and forced-colours states keep their behaviour.
+- FR : Les rôles typographiques facultatifs nomment DM Sans, Newsreader pour les
+  titres éditoriaux et IBM Plex Mono, chacun avec des fallbacks système. La
+  bibliothèque ne télécharge aucune police ; le site auto-héberge les fichiers
+  sous licence. Boutons, champs, pickers et contrôles texte consomment les
+  nouveaux tokens de contour, rayon et graisse, en conservant le comportement des
+  états focus, invalide, désactivé et forced-colors.
+
+- EN: Playground Design Lab adds real marketing, validated form and searchable
+  dashboard compositions with a frozen beta.6 comparison. The mobile dashboard
+  table is a named, focusable scroll region so keyboard users reach the clipped
+  columns.
+- FR : Le Design Lab du playground ajoute de vraies compositions marketing,
+  formulaire validé et dashboard filtrable avec une comparaison beta.6 figée. Le
+  tableau du dashboard mobile est une région scrollable nommée et focusable, afin
+  que les utilisateurs clavier atteignent les colonnes coupées.
+
+- EN: Component previews are regenerated against the new Default in light and
+  dark. The documentation records the executed evidence: 1,522 React tests, 31
+  CSS tests, a 313-page build, the full Chromium/Firefox/WebKit matrix
+  (1,668 passed, 18 skipped) and 12 axe-core scenarios without violations. That
+  axe run covers the three review surfaces only; it is not a WCAG conformance
+  claim.
+- FR : Les captures de composants sont régénérées avec le nouveau Default en
+  clair et sombre. La documentation consigne les preuves exécutées : 1 522 tests
+  React, 31 tests CSS, un build de 313 pages, la matrice complète
+  Chromium/Firefox/WebKit (1 668 réussis, 18 ignorés) et 12 scénarios axe-core
+  sans violation. Cette exécution axe couvre uniquement les trois surfaces de
+  revue ; ce n'est pas une certification WCAG.
+
+- EN: The component status baseline advances to beta.7 and the beta.6 Updated
+  overrides are cleared, so released references no longer carry a stale badge.
+  The GitHub issue workflow is documented bilingually for maintainers.
+- FR : La baseline des statuts de composants passe à beta.7 et les overrides
+  Updated de beta.6 sont supprimés : les références publiées ne portent plus de
+  badge obsolète. Le workflow de publication d'issue GitHub est documenté en
+  bilingue pour les mainteneurs.
 
 ## [0.1.0-beta.6] — 2026-10-30
 
@@ -579,6 +628,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.7]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.7
 [0.1.0-beta.6]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.6
 [0.1.0-beta.5]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.4
