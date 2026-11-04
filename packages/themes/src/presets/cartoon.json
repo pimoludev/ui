@@ -1,4 +1,3 @@
-
 {
   "light": {
     "primary": "#ffbd2e",
@@ -14,7 +13,10 @@
     "muted": "#fff0c2",
     "mutedForeground": "#525252",
     "border": "#171717",
-    "focusRing": "#2563eb"
+    "focusRing": "#2563eb",
+    "controlBorder": "#171717",
+    "primarySoft": "#fff0c2",
+    "primarySoftForeground": "#ffbd2e"
   },
   "dark": {
     "primary": "#ffbd2e",
@@ -30,6 +32,9 @@
     "muted": "#323232",
     "mutedForeground": "#d4d4d4",
     "border": "#ffffff",
-    "focusRing": "#ffbd2e"
+    "focusRing": "#ffbd2e",
+    "controlBorder": "#ffffff",
+    "primarySoft": "#323232",
+    "primarySoftForeground": "#ffbd2e"
   }
 }

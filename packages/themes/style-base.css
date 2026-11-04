@@ -6,7 +6,7 @@
 :where([data-pimolu-style]) {
   
   /* Semantic defaults */
-  --pimolu-outline-hover-border: var(--pimolu-border);
+  --pimolu-outline-hover-border: var(--pimolu-control-border, var(--pimolu-border));
 
   --pimolu-secondary: var(--pimolu-muted);
   --pimolu-secondary-hover: var(--pimolu-border);
@@ -31,12 +31,16 @@
 
   --pimolu-font-body: var(--pimolu-font-family-sans, system-ui, sans-serif);
   --pimolu-font-heading: inherit;
+  --pimolu-font-display: var(--pimolu-font-heading, inherit);
   --pimolu-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --pimolu-button-font-weight: 400;
   --pimolu-button-letter-spacing: normal;
 
   /* Interactions */
+
+  --pimolu-interaction-duration: 150ms;
+  --pimolu-interaction-easing: ease-out;
 
   --pimolu-button-active-transform: none;
   --pimolu-button-active-shadow: none;

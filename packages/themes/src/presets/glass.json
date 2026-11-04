@@ -16,7 +16,10 @@
     "glassBorder": "rgba(255, 255, 255, 0.85)",
     "secondary": "rgba(255, 255, 255, 0.65)",
     "secondaryHover": "rgba(255, 255, 255, 0.88)",
-    "secondaryForeground": "#17213b"
+    "secondaryForeground": "#17213b",
+    "controlBorder": "rgba(255, 255, 255, 0.75)",
+    "primarySoft": "rgba(255, 255, 255, 0.65)",
+    "primarySoftForeground": "#6265ef"
   },
   "dark": {
     "primary": "#818cf8",
@@ -35,6 +38,9 @@
     "glassBorder": "rgba(255, 255, 255, 0.2)",
     "secondary": "rgba(51, 65, 85, 0.65)",
     "secondaryHover": "rgba(71, 85, 105, 0.85)",
-    "secondaryForeground": "#f8fafc"
+    "secondaryForeground": "#f8fafc",
+    "controlBorder": "rgba(255, 255, 255, 0.18)",
+    "primarySoft": "rgba(51, 65, 85, 0.65)",
+    "primarySoftForeground": "#818cf8"
   }
 }

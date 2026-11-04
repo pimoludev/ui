@@ -16,7 +16,9 @@
     "surface": "#FFFFFF",
     "surfaceForeground": "#171B2B",
     "accent": "#0C9E8B",
-    "accentForeground": "#FFFFFF"
+    "accentForeground": "#FFFFFF",
+    "primarySoft": "#F1F3F9",
+    "primarySoftForeground": "#5B55E7"
   },
   "dark": {
     "primary": "#7C77F0",
@@ -35,6 +37,8 @@
     "surface": "#161A26",
     "surfaceForeground": "#E8EAF2",
     "accent": "#2BC4AF",
-    "accentForeground": "#062A25"
+    "accentForeground": "#062A25",
+    "primarySoft": "#1C2130",
+    "primarySoftForeground": "#7C77F0"
   }
 }
