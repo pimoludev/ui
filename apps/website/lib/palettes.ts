@@ -3,7 +3,7 @@ import themes from "@pimolu/themes/themes.json" with { type: "json" };
 import type { PimoluStylePreset } from "@pimolu/react";
 
 export const presetDescriptions: Record<PimoluStylePreset, string> = {
-  default: "Balanced and versatile",
+  default: "Slate neutrals and an indigo accent",
   adaptive: "Indigo with a teal accent",
   monochrome: "A study in neutrals",
   cartoon: "Playful, confident contrast",

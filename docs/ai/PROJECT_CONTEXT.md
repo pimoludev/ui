@@ -65,8 +65,10 @@ features present in the repository.
 
 ## Latest library and website iteration
 
-- Ink & Signal is implemented in source on `feat/ink-and-signal`, not npm beta.6.
-  The existing Default changes palette and visual token roles; no eighth preset.
+- Ink & Signal ships in npm beta.7. After that release, the source workspace
+  restores the Default slate/indigo colors from commit f01aca8 in light and dark,
+  retaining the newer typography, shape, spacing and motion. Light secondary text
+  has a small contrast correction. The other palettes are preserved; no eighth preset.
   `control-border` separates functional outlines from decorative `border`.
   Named palettes explicitly isolate new semantics. Optional font roles have
   fallbacks; apps load self-hosted OFL fonts. Versioned Design Lab and the optional Git-ignored local `/design-preview` route

@@ -4,10 +4,16 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-- EN: No unreleased changes yet. Work after beta.7 is tracked in the development
-  notes on the website.
-- FR : Aucun changement non publié pour le moment. Le travail après beta.7 est
-  suivi dans les notes de développement du site.
+- EN: Default restores the slate/indigo palette from commit `f01aca8` in light
+  and dark, preserving the newer typography, shape, spacing, motion and layouts.
+  Light secondary text is slightly darkened for contrast on muted surfaces;
+  functional borders and soft accent roles remain. Other presets are preserved.
+  This source-workspace restoration is not included in the published beta.7.
+- FR : Default retrouve la palette slate/indigo du commit `f01aca8` en clair et
+  en sombre, tout en conservant la nouvelle typographie, les formes, espacements,
+  animations et mises en page. Le texte secondaire clair est légèrement assombri
+  pour le contraste ; les contours fonctionnels et accents doux sont conservés,
+  ainsi que les autres presets. Ce retour de palette n’est pas publié dans beta.7.
 
 ## [0.1.0-beta.7] — 2026-11-04
 

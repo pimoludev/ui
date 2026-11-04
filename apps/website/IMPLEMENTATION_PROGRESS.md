@@ -19,19 +19,45 @@ ignoré par Git et absent d'un clone neuf.
 
 - Les cinq packages npm sont publiés en `0.1.0-beta.7`. Le [changelog](../../CHANGELOG.md)
   et les releases publiques distinguent le publié du workspace.
-- La branche `feat/ink-and-signal` implémente la nouvelle direction sur Default :
-  palette encre/papier et iris, contours fonctionnels distincts, rôles typographiques
-  facultatifs et rayons contrôle/surface de 10/16 px. Aucun huitième preset.
+- Ink & Signal est publié en beta.7 : palette encre/papier et iris, contours
+  fonctionnels distincts, rôles typographiques facultatifs et rayons de 10/16 px.
+  Le workspace rétablit ensuite les couleurs slate/indigo du commit `f01aca8`,
+  en conservant le nouveau design et une légère correction de contraste du texte
+  secondaire clair. Aucun huitième preset ; ce retour n’est pas publié sur npm.
 - La bibliothèque ne télécharge pas de polices. Le site les auto-héberge avec leurs
   licences dans `public/fonts/`. Les autres palettes conservent leurs valeurs
   publiées ; rayon et densité explicites restent prioritaires.
-- Les guides Theming/Colors, README EN/FR et notes Unreleased expliquent ces
-  modifications non publiées. Les 135 références portent Updated ; le baseline
-  de release beta.6 n'a pas été réinitialisé.
+- Les guides Theming/Colors, README EN/FR et notes Unreleased distinguent beta.7
+  du retour de palette dans le workspace. Les 135 références concernées portent
+  Updated ; le baseline reste celui de beta.7.
 - Le Design Lab versionné utilise les vrais composants pour trois compositions.
   `/design-preview`, son adaptateur et ses tests dédiés sont regroupés dans
   `app/design-preview/`, ignoré et facultatif. La CI n'en dépend pas.
   Next.js inclut cette route dans un build local si le dossier est présent.
+
+## Retour de palette Default — 4 novembre 2026
+
+- À la demande du mainteneur, Default reprend les couleurs du commit
+  `f01aca89fddeae45df523d90996ff492da3e0abb` en clair et en sombre. La proposition
+  graphite intermédiaire est abandonnée. La typographie, les rayons, espacements,
+  animations, layouts et améliorations récentes de l’accueil sont conservés.
+- Les 39 autres alias historiques correspondent au commit. Seul le texte
+  secondaire clair passe de `#64748B` à `#607087` pour atteindre 4,60:1 sur la
+  surface atténuée. Les rôles récents de contour fonctionnel et d’accent doux
+  restent disponibles. Les anciennes primitives et les autres presets sont préservés.
+- Les 270 illustrations du catalogue sont régénérées. Les 135 références portent
+  Updated, avec une description de ce retour de palette ; la baseline beta.7
+  n’est pas modifiée. Ce travail reste distinct de la version publiée sur npm.
+- Vérifications sur cette palette finale : `pnpm verify` réussi, dont 1 522 tests
+  React, 13 tests thèmes et 31 tests CSS ; audit strict à 0 erreur / 0 warning.
+  Website : build avec TypeScript (314 pages avec la route locale), lint,
+  45 tests de documentation et 42 parcours navigateur réussis sur trois moteurs.
+- Revue responsive : 72 contrôles sur accueil/catalogue/theming, trois moteurs,
+  deux modes et quatre largeurs de 320 à 1440 px, sans overflow de page ni
+  exception. La police de titre actuelle et l’aperçu sombre indépendant sont
+  contrôlés ; captures et rapports dans `.artifacts/default-restoration/`.
+- Ces vérifications ne remplacent pas une revue exhaustive de chaque état et
+  technologie d’assistance. Aucun commit, push ou publication réalisé.
 
 ## Ajustements de l’accueil — 4 novembre 2026
 

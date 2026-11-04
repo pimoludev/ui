@@ -1,2 +1,542 @@
-{}
-
+{
+  "theme-builder": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "button": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "button-group": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "split-button": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "toggle": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "toggle-group": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "toolbar": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "popconfirm": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tabs": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "segmented-control": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "link": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "accordion": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "breadcrumbs": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "pagination": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "stepper": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "navigation-menu": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "menubar": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "table-of-contents": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "checkbox": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "combobox": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "form-field": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "label": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "multi-select": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "radio": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "range-slider": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "select": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "slider": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "switch": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "textarea": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "number-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "pin-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tags-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "time-picker": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "calendar": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "date-picker": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "date-range-picker": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "file-upload": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "dropzone": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "color-picker": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "search-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "password-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "input-group": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tree-select": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "signature": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "form": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "form-submit": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "form-error": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "masked-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "currency-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "phone-input": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "mentions": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "cascader": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "transfer": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "avatar": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "badge": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "card": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "list": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "description-list": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "table": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "data-table": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "data-grid": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tree-table": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "bar-chart": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "line-chart": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "area-chart": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "donut-chart": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "sparkline": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "api-table": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "stat": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "timeline": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "rating": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "image": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "carousel": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "virtual-list": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tree-view": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "kanban": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "scheduler": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "gantt": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "chat": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "file-manager": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "video-player": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "audio-player": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "pdf-viewer": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "lightbox": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "image-cropper": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "qr-code": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "typography": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "prose": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "anchor": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "code-block": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "code": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "navbar": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "sidebar": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "dashboard-layout": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "app-shell": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "page-header": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "hero": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "footer": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "docs-layout": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "watermark": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "box": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "stack": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "flex": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "grid": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "container": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "center": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "spacer": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "aspect-ratio": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "visually-hidden": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "focus-scope": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "resizable": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "scroll-area": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "separator": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "circular-progress": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "dialog": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "alert": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "banner": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "empty-state": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "result": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "loading-overlay": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "alert-dialog": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "context-menu": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "command": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "dropdown-menu": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "drawer": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "hover-card": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "popover": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "progress": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "skeleton": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "spinner": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "toast": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tour": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "notification-center": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  },
+  "tooltip": {
+    "kind": "updated",
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct."
+  }
+}

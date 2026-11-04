@@ -182,7 +182,7 @@ export function InkSignalDemo() {
               </PimoluProvider>}
               <PimoluProvider theme={theme} stylePreset={preset} density={density} className="ink-pilot-provider">
                 <div className="ink-pilot-reference" data-review-current>
-                  <p className="ink-pilot-caption">{preset === "default" ? "Ink & Signal · workspace Default" : `${preset} · preset review`}</p>
+                  <p className="ink-pilot-caption">{preset === "default" ? "Slate / Indigo · current design" : `${preset} · preset review`}</p>
                   <ReferenceSurface surface={value} />
                 </div>
               </PimoluProvider>

@@ -653,14 +653,14 @@ export function DesignLabPage() {
       </section>
 
       <section className="pdl-preset-section" aria-labelledby="ink-signal-title">
-        <Heading level={2} id="ink-signal-title">Ink & Signal · real component review</Heading>
-        <Paragraph>Marketing, forms and dense data on the workspace Default. Compare with the frozen beta.6 reference.</Paragraph>
+        <Heading level={2} id="ink-signal-title">Default · real component review</Heading>
+        <Paragraph>Marketing, forms and dense data with the restored slate/indigo palette and the current typography, shape and spacing. Compare with the frozen beta.6 reference.</Paragraph>
         <InkSignalDemo />
       </section>
 
       <footer className="pdl-lab-footnote">
         <span>Experimental Playground surface</span>
-        <span>Ink & Signal is implemented in workspace tokens; npm remains on beta.6.</span>
+        <span>The source workspace restores the f01aca8 colors while retaining the newer design. npm beta.7 keeps its published palette.</span>
       </footer>
     </div>
   );

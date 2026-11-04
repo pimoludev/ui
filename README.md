@@ -31,7 +31,7 @@ The design system has two complementary layers. A colour theme gives meaning to 
 
 | Preset | Character |
 | --- | --- |
-| `default` | Ink & Signal: warm neutrals, an iris accent and discreet surfaces |
+| `default` | Slate/indigo restored in the workspace, with the current typography and shape |
 | `monochrome` | A restrained greyscale palette |
 | `cartoon` | Bold outlines and a playful feel |
 | `glass` | Translucent surfaces and soft depth |
@@ -184,6 +184,8 @@ The [public website](https://pimolu.com) includes guides, 135 live component ref
 This is still a beta. APIs and visual tokens may evolve; complex-component assistive-technology reviews and the full visual quality audit remain open. Automated browser checks do not establish complete accessibility conformance. See the [quality audit](docs/ai/QUALITY_AUDIT.md), [website accessibility audit](apps/website/ACCESSIBILITY_AUDIT.md) and [changelog](CHANGELOG.md) for coverage and limits.
 
 ## Design direction and next steps
+
+The source workspace restores Default's slate/indigo colors from commit `f01aca8` in light and dark, retaining the newer typography, radius, spacing, motion and layouts. Light secondary text is slightly darker for contrast on muted surfaces; functional outlines and soft accent roles remain supported. Other named presets retain their palettes. This restoration is not yet published on npm; the website and playground use the locally built tokens.
 
 Since **0.1.0-beta.7**, the published Default uses **Ink & Signal**: warm neutrals, an iris accent, separate functional control borders and optional DM Sans / Newsreader / IBM Plex Mono roles with fallbacks. The website self-hosts the fonts; the library does not download them. This updates the existing Default without adding an eighth preset. When upgrading from beta.6, review the changed palette, radii and typography in your application; the other named presets retain their palettes. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
 

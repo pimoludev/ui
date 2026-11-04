@@ -30,7 +30,7 @@ Le design system repose sur deux couches complémentaires. Un thème de couleurs
 
 | Preset | Caractère |
 | --- | --- |
-| `default` | Ink & Signal : neutres chaleureux, accent iris et surfaces discrètes |
+| `default` | Slate/indigo rétabli dans le workspace, avec la typographie et les formes actuelles |
 | `monochrome` | Une palette grise et retenue |
 | `cartoon` | Des contours marqués et un rendu ludique |
 | `glass` | Des surfaces translucides et une profondeur douce |
@@ -185,6 +185,8 @@ Le [site public](https://pimolu.com) comprend des guides, 135 références de co
 Le projet reste en bêta. Les API et tokens visuels peuvent évoluer ; les revues avec technologies d'assistance des composants complexes et l'audit visuel complet restent ouverts. Les contrôles navigateur automatisés ne constituent pas une garantie complète de conformité d'accessibilité. Consultez l'[audit qualité](docs/ai/QUALITY_AUDIT.md), l'[audit d'accessibilité du site](apps/website/ACCESSIBILITY_AUDIT.md) et le [changelog](CHANGELOG.md) pour la couverture et les limites.
 
 ## Direction visuelle et prochaines étapes
+
+Le workspace rétablit les couleurs slate/indigo de Default du commit `f01aca8`, en clair et en sombre, et conserve la nouvelle typographie, les rayons, les espacements, les animations et les mises en page. Le texte secondaire clair est légèrement assombri pour le contraste sur les surfaces atténuées ; les contours fonctionnels et les rôles d’accent doux restent disponibles. Les autres presets nommés conservent leurs palettes. Ce rétablissement n’est pas encore publié sur npm ; le site et le playground utilisent les tokens compilés localement.
 
 Depuis **0.1.0-beta.7**, le Default publié utilise **Ink & Signal** : neutres chauds, accent iris, contours fonctionnels distincts et rôles DM Sans / Newsreader / IBM Plex Mono facultatifs avec polices de secours. Le site auto-héberge les polices ; la bibliothèque ne les télécharge pas. Cette évolution remplace le Default existant sans ajouter de huitième preset. Lors d'une mise à jour depuis beta.6, vérifiez la nouvelle palette, les rayons et la typographie dans votre application ; les autres presets nommés conservent leurs palettes. Le futur **Identity Kit** reste une proposition pour prolonger ThemeBuilder avec prévisualisation et export d'identité.
 
