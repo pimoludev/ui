@@ -31,7 +31,7 @@ The design system has two complementary layers. A colour theme gives meaning to 
 
 | Preset | Character |
 | --- | --- |
-| `default` | The reference look, based on the active theme |
+| `default` | Ink & Signal: warm neutrals, an iris accent and discreet surfaces |
 | `monochrome` | A restrained greyscale palette |
 | `cartoon` | Bold outlines and a playful feel |
 | `glass` | Translucent surfaces and soft depth |
@@ -185,9 +185,9 @@ This is still a beta. APIs and visual tokens may evolve; complex-component assis
 
 ## Design direction and next steps
 
-The published beta.6 still uses the slate/indigo Default. On the source branch `feat/ink-and-signal`, **Ink & Signal** is implemented on the existing Default: warm neutrals, an iris accent, separate functional control borders and optional DM Sans / Newsreader / IBM Plex Mono roles with fallbacks. The website self-hosts the fonts; the library does not download them. These changes are not published on npm. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
+Since **0.1.0-beta.7**, the published Default uses **Ink & Signal**: warm neutrals, an iris accent, separate functional control borders and optional DM Sans / Newsreader / IBM Plex Mono roles with fallbacks. The website self-hosts the fonts; the library does not download them. This updates the existing Default without adding an eighth preset. When upgrading from beta.6, review the changed palette, radii and typography in your application; the other named presets retain their palettes. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
 
-The branch provides real component comparisons in Playground Design Lab (versioned), plus an optional local `/design-preview` route ignored by Git: marketing, a validated local form and a searchable dashboard, with a frozen beta.6 specimen. Review light/dark, responsive layouts, dense data, interactive states, customization and accessibility before a release. No eighth preset or stable release is introduced. Use `--pimolu-control-border` for essential field boundaries and `--pimolu-border` for decorative separators; the new roles require this source branch.
+Playground Design Lab provides real marketing, validated local form and searchable dashboard compositions, with a frozen beta.6 specimen for comparison. The optional local `/design-preview` route is ignored by Git and is not required to build the website. Use `--pimolu-control-border` for essential field boundaries and `--pimolu-border` for decorative separators; `--pimolu-primary-soft` and `--pimolu-primary-soft-foreground` provide a subtle accent surface and its text colour. These roles are available in beta.7. Human design and assistive-technology reviews remain open before a stable release.
 
 See the [design specification](docs/ai/pimolu-design-spec-v0.1.md), [design direction](docs/ai/DESIGN_DIRECTION.md) and [platform roadmap](docs/ai/PLATFORM_ROADMAP.md). React, Next.js and Vite are the current focus; Blocks and Electron integration come next, with React Native/Expo, Angular and a standalone HTML/JavaScript layer remaining future work. Shared CSS bundles already exist; they are not a complete framework-independent interaction library.
 

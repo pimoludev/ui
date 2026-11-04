@@ -33,6 +33,27 @@ ignoré par Git et absent d'un clone neuf.
   `app/design-preview/`, ignoré et facultatif. La CI n'en dépend pas.
   Next.js inclut cette route dans un build local si le dossier est présent.
 
+## Ajustements de l’accueil — 4 novembre 2026
+
+- Les cards de découverte utilisent `surface` / `surface-foreground`, les légendes
+  sont agrandies et le fond du workspace distingue mieux ses cards internes.
+  Les changements restent dans les styles de l’accueil ; aucun token ni défaut
+  de composant de la bibliothèque n’est modifié.
+- L’aperçu d’identité démarre en sombre, avec code synchronisé et interrupteur
+  indépendant des préférences du site. Le texte d’aide et les notes Unreleased
+  décrivent ce comportement.
+- Vérifications de cette itération : build Next.js avec TypeScript réussi
+  (314 pages, dont la route locale facultative), lint et 45 tests de documentation
+  réussis ; 36 parcours existants Home Discovery / Brand Polish réussis sur
+  Chromium, Firefox et WebKit.
+- Revue ponctuelle : 24 contrôles Default (trois moteurs × deux modes × quatre
+  largeurs de 320 à 1440 px) et 12 contrôles des autres presets à 390 px, sans
+  débordement de page. Le clavier confirme que l’interrupteur change uniquement
+  l’aperçu et son code. Captures locales dans `.artifacts/home-polish/`.
+- Les captures ont été examinées ; la comparaison pixel à pixel d’Argent n’a pas
+  pu être utilisée, car la version installée ne la prend pas en charge sur Chromium.
+  Ces contrôles ne mesurent pas la préférence des visiteurs pour la palette.
+
 ## Architecture et maintenance
 
 - `app/` : routes Next.js, métadonnées, styles globaux et accueil.

@@ -30,7 +30,7 @@ Le design system repose sur deux couches complémentaires. Un thème de couleurs
 
 | Preset | Caractère |
 | --- | --- |
-| `default` | L'apparence de référence, fondée sur le thème actif |
+| `default` | Ink & Signal : neutres chaleureux, accent iris et surfaces discrètes |
 | `monochrome` | Une palette grise et retenue |
 | `cartoon` | Des contours marqués et un rendu ludique |
 | `glass` | Des surfaces translucides et une profondeur douce |
@@ -186,9 +186,9 @@ Le projet reste en bêta. Les API et tokens visuels peuvent évoluer ; les revue
 
 ## Direction visuelle et prochaines étapes
 
-La bêta.6 publiée utilise encore le Default slate/indigo. Sur la branche source `feat/ink-and-signal`, **Ink & Signal** est implémenté sur le Default existant : neutres chauds, accent iris, contours fonctionnels distincts et rôles DM Sans / Newsreader / IBM Plex Mono facultatifs avec polices de secours. Le site auto-héberge les polices ; la bibliothèque ne les télécharge pas. Ces modifications ne sont pas publiées sur npm. Le futur **Identity Kit** reste une proposition pour prolonger ThemeBuilder avec prévisualisation et export d'identité.
+Depuis **0.1.0-beta.7**, le Default publié utilise **Ink & Signal** : neutres chauds, accent iris, contours fonctionnels distincts et rôles DM Sans / Newsreader / IBM Plex Mono facultatifs avec polices de secours. Le site auto-héberge les polices ; la bibliothèque ne les télécharge pas. Cette évolution remplace le Default existant sans ajouter de huitième preset. Lors d'une mise à jour depuis beta.6, vérifiez la nouvelle palette, les rayons et la typographie dans votre application ; les autres presets nommés conservent leurs palettes. Le futur **Identity Kit** reste une proposition pour prolonger ThemeBuilder avec prévisualisation et export d'identité.
 
-La branche propose de vraies comparaisons de composants dans Design Lab (versionné), ainsi que sur une route locale facultative `/design-preview` ignorée par Git : marketing, formulaire local avec validation et dashboard filtrable, accompagnés d'une référence beta.6 figée. Vérifier le clair/sombre, le responsive, les données denses, les états interactifs, la personnalisation et l'accessibilité avant une release. Aucun huitième preset ni version stable n'est introduit. Utilisez `--pimolu-control-border` pour les limites essentielles des champs et `--pimolu-border` pour les séparateurs décoratifs ; ces nouveaux rôles nécessitent la branche source.
+Le Design Lab du playground propose de vraies compositions marketing, formulaire local avec validation et dashboard filtrable, accompagnées d'une référence beta.6 figée pour comparaison. La route locale facultative `/design-preview` est ignorée par Git et n'est pas nécessaire au build du site. Utilisez `--pimolu-control-border` pour les limites essentielles des champs et `--pimolu-border` pour les séparateurs décoratifs ; `--pimolu-primary-soft` et `--pimolu-primary-soft-foreground` définissent une surface d'accent discrète et sa couleur de texte. Ces rôles sont disponibles dans beta.7. Les revues humaines du design et avec technologies d'assistance restent ouvertes avant une version stable.
 
 Voir la [spécification de design](docs/ai/pimolu-design-spec-v0.1.md), la [direction visuelle](docs/ai/DESIGN_DIRECTION.md) et la [roadmap des plateformes](docs/ai/PLATFORM_ROADMAP.md). React, Next.js et Vite sont la priorité actuelle ; les Blocks et l'intégration Electron viennent ensuite. React Native/Expo, Angular et une couche HTML/JavaScript autonome restent à venir. Les bundles CSS partagés existent déjà ; ils ne constituent pas une bibliothèque d'interactions complète indépendante des frameworks.
 

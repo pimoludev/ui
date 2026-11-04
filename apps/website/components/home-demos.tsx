@@ -121,7 +121,7 @@ export function WorkspaceDemo() {
 
 export function IdentityDemo() {
   const [preset, setPreset] = useState<PimoluStylePreset>("default");
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [radius, setRadius] = useState<PimoluRadius | undefined>();
   const [email, setEmail] = useState(true);
   const [saved, setSaved] = useState(false);
@@ -134,7 +134,7 @@ export function IdentityDemo() {
           <Select fullWidth label="Corners" value={radius ?? "preset"} onValueChange={(value) => setRadius(value === "preset" ? undefined : value as PimoluRadius)}><option value="preset">Preset default</option><option value="sharp">Sharp</option><option value="medium">Medium</option><option value="round">Round</option></Select>
         </div>
         <Switch label="Dark preview" checked={dark} onCheckedChange={setDark} />
-        <p className="text-sm text-muted">These controls change only the preview below. Your site preferences stay yours.</p>
+        <p className="text-sm text-muted">The preview starts in dark mode. These controls change only the preview below; your site preferences stay yours.</p>
         <PimoluProvider theme={dark ? "dark" : "light"} stylePreset={preset} radius={radius} className="home-identity-preview">
           <Card fullWidth>
             <CardHeader><div className="flex items-start justify-between gap-4"><Avatar name="Morgan Lee" size="lg" /><Badge variant="success">Available</Badge></div><CardTitle className="mt-4">A space that feels like you.</CardTitle><p className="text-sm text-muted mt-2">A few considered details make all the difference.</p></CardHeader>
