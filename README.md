@@ -2,7 +2,7 @@
 
 **A design system that keeps its promises.** One source of visual truth, themes and styles you can switch at runtime, and accessible React components — with no styling framework to learn.
 
-[Repository](https://github.com/pimoludev/ui) · MIT License · Node.js 20+
+[Documentation](https://pimolu.com/docs) · [Components](https://pimolu.com/components) · [Showcase](https://pimolu.com/showcase) · [Repository](https://github.com/pimoludev/ui) · MIT License
 
 **English** · [Français](README.fr.md)
 
@@ -19,11 +19,11 @@ The third is restraint. There is no CSS-in-JS runtime, no utility-class framewor
 | What | What it means for you |
 | --- | --- |
 | A single source of truth | Values are authored once as design tokens and compiled for the web and for JavaScript. A change propagates instead of being repeated. |
-| Themes without rewrites | Light and dark themes, plus six visual presets, are switched at runtime with an attribute. No component is touched. |
+| Themes without rewrites | Light, dark and system modes, plus seven visual presets, are switched at runtime with an attribute. No component is touched. |
 | Accessible components | Keyboard support, visible focus, busy and disabled states, screen-reader labels and reduced-motion handling are built in, not bolted on. |
 | No framework to learn | Plain CSS classes and CSS variables. Predictable output, easy overrides, no lock-in. |
 | Typed from end to end | Strict TypeScript across components and public APIs, so mistakes are caught before runtime. |
-| Quality you do not have to remember | One command verifies the build, the types, the theme system, every test suite, the lint and the playground. |
+| Automated verification | `pnpm verify` checks the library and playground. The website has separate build, documentation and three-engine browser checks in CI. |
 
 ## Themes and presets
 
@@ -37,6 +37,9 @@ The design system has two complementary layers. A colour theme gives meaning to 
 | `glass` | Translucent surfaces and soft depth |
 | `luxury` | Refined typography and warm neutrals |
 | `neo-brutalism` | Hard borders, flat shadows and high contrast |
+| `adaptive` | An alternative palette, available for comparison; not the Default |
+
+Radius (`sharp`, `medium`, `round`), density (`compact`, `comfortable`, `spacious`) and `brandColor` can be configured independently through `PimoluProvider`. Density adjusts box metrics without shrinking text or icons. A custom brand colour does not automatically recalculate the foreground or guarantee contrast: verify the resulting text, hover and focus states.
 
 ```html
 <div data-pimolu-theme="dark" data-pimolu-style="glass">
@@ -64,9 +67,19 @@ pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 
 The current release is **0.1.0-beta.6**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
 
+To update an existing installation to the current beta:
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+# Or with pnpm
+pnpm update @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+Update any other directly installed `@pimolu/*` packages to the same version and review the [release notes](https://pimolu.com/releases) before upgrading.
+
 ### Contributing and running the Playground
 
-The source repository requires Node.js 20 or newer and the pnpm version pinned in `packageManager`. The website's test runner requires Node.js 22.6 or newer. Clone the repository only to contribute or explore the local Playground:
+The source repository declares Node.js 20 or newer and pins pnpm in `packageManager`. Use **Node.js 24**, as CI does, for the full workspace; the website declares a minimum of Node.js 22.6. Clone the repository only to contribute or explore the local Playground:
 
 ```bash
 git clone https://github.com/pimoludev/ui.git
@@ -86,13 +99,17 @@ pnpm "playground dev"
 | `pnpm test:react` | Run the component tests |
 | `pnpm audit:themes` | Read-only theme and preset integrity check |
 | `pnpm "playground dev"` | Start the playground development server |
+| `pnpm dev:website` | Compile the packages, generate the documentation and start the website on port 3001; run `build:all` first on a fresh clone |
+| `pnpm build:website` | Build all workspace assets and the production Next.js website |
+| `pnpm start:website` | Serve the production website (`PORT`, default 3000) |
 
 ## Use it
 
 On the web, import the generated stylesheet and apply a theme and a style through attributes. Custom styles are written against semantic variables such as `var(--pimolu-primary)` and `var(--pimolu-radius-md)`.
 
-```tsx
-import "@pimolu/web-styles/styles.css";
+```css
+/* globals.css, or your application's global stylesheet */
+@import "@pimolu/web-styles/styles.css";
 ```
 
 In React, the provider and components wrap the same foundations, so markup stays stable while the design evolves around it.
@@ -110,13 +127,21 @@ export function App() {
 }
 ```
 
-Tokens are also available as JSON, so React Native and other JavaScript consumers feed the same values into native style objects. On native the priority is visual consistency through shared tokens rather than shared component code.
+The CSS import in the React example is an alternative to the global CSS `@import`; use one integration point. With Next.js App Router, put `@import` in `app/globals.css`, import that file from the root layout and place `PimoluProvider` in a Client Component. See the [Next.js guide](https://pimolu.com/docs/nextjs).
+
+Tokens are also available as JSON and visual token data as JavaScript. These are foundations for future React Native rendering; Pimolu does not yet provide React Native components. Native will share design data and use its own rendering rather than React DOM components.
 
 The integration guides show how to use Pimolu UI with Next.js. A standalone Next.js starter will be maintained in a separate repository.
 
-## Customization (next package release)
+## Customization
 
-The workspace adds an opt-in `@pimolu/web-styles/layered.css` entry and typed `classNames` part hooks across all 129 component families, including compound descendants and portalled surfaces. The existing CSS entry and class targets remain supported. These additions ship in 0.1.0-beta.6. See [the customization contract](docs/CUSTOMIZATION.md) for tested CSS/Tailwind recipes, portal styling and stable targets.
+The published beta includes an opt-in `@pimolu/web-styles/layered.css` entry and typed `classNames` part hooks across all 129 component families, including compound descendants and portalled surfaces. Public props, semantic CSS variables and named parts let you refine components without copying their implementation. The existing CSS entry and class targets remain supported.
+
+Choose `styles.css` or `layered.css`, rather than loading both. With Tailwind v4, put Preflight in the `base` layer before `pimolu`; with the unlayered entry, load Pimolu after Preflight. Portal content may sit outside your application wrapper: use its named parts to style the actual panel. See the [customization guide](https://pimolu.com/docs/customization) and [customization contract](docs/CUSTOMIZATION.md) for tested recipes and limits.
+
+## Native CSS motion
+
+The published beta includes sliding indicators for Tabs and SegmentedControl, natural-height Accordion transitions, directional NavbarMenu panels and subtle form-error feedback. These use native CSS without requiring Motion. Supported components expose `animated={false}`; `prefers-reduced-motion` is respected. To disable CSS motion for a subtree, place `data-pimolu-motion="off"` on a wrapper outside `PimoluProvider` so its portal host is included. This CSS switch does not replace each overlay's presence lifecycle. See the [animation guide](https://pimolu.com/docs/animation) and [native motion notes](docs/NATIVE_MOTION.md).
 
 ## Responsive navigation
 
@@ -136,9 +161,11 @@ import { Navbar, NavbarBrand, NavbarToggle, NavbarContent, NavbarItem } from "@p
 
 Navbar and Footer accept `appearance="surface"` (the existing default), `"transparent"` (no surface fill) or `"floating"` (a framed surface using preset radius and raised-shadow tokens). Use `bordered={false}` to remove the horizontal divider; the floating appearance keeps its surrounding frame. For an edge-to-edge site, place a transparent Navbar or Footer inside a full-width section and constrain only its content.
 
+For a modal mobile menu, compose `NavbarMenu` around the content and actions. It supports all four sides, a partial or full-screen panel and optional animation. The original inline menu remains available. See the [Navbar reference](https://pimolu.com/components/navbar) for working examples and focus behavior.
+
 ## Quality, automated
 
-Correctness should not rely on memory. A single command, `pnpm verify`, builds the assets, type-checks the code, audits the theme system, runs every test suite, lints the application and builds the playground. GitHub CI runs this verification plus a separate website production build, lint, documentation tests and Chromium/Firefox/WebKit suite. Build the website from the monorepo root with `pnpm build:website`, then run `pnpm start:website`.
+Correctness should not rely on memory. `pnpm verify` builds the assets, type-checks the code, audits the theme system, runs library test suites, lints the playground and builds it. GitHub CI runs this verification plus a separate website production build, lint, documentation tests and Chromium/Firefox/WebKit suite. Build the website from the monorepo root with `pnpm build:website`, then run `pnpm start:website`.
 
 A dedicated read-only auditor guards the theme system specifically. It confirms light and dark parity, validates every preset, checks that palettes and their styles stay consistent, verifies the generated types, and reports any place where a theme or preset must still be registered. Git hooks run a quick verification before each commit and the full pipeline before each push, so the repository stays healthy without anyone having to think about it.
 
@@ -152,7 +179,17 @@ pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 
 Browse all five packages in the [Pimolu npm organization](https://www.npmjs.com/org/pimolu).
 
-The public documentation site's source is in `apps/website`. See [technical context](docs/ai/PROJECT_CONTEXT.md) and [CHANGELOG.md](CHANGELOG.md) for the verified architecture and current limits.
+The [public website](https://pimolu.com) includes guides, 135 live component references, a searchable illustrated catalogue, MDX articles and releases, and a showcase of real projects. Its Next.js App Router source is in `apps/website`.
+
+This is still a beta. APIs and visual tokens may evolve; complex-component assistive-technology reviews and the full visual quality audit remain open. Automated browser checks do not establish complete accessibility conformance. See the [quality audit](docs/ai/QUALITY_AUDIT.md), [website accessibility audit](apps/website/ACCESSIBILITY_AUDIT.md) and [changelog](CHANGELOG.md) for coverage and limits.
+
+## Design direction and next steps
+
+The published beta.6 still uses the slate/indigo Default. On the source branch `feat/ink-and-signal`, **Ink & Signal** is implemented on the existing Default: warm neutrals, an iris accent, separate functional control borders and optional DM Sans / Newsreader / IBM Plex Mono roles with fallbacks. The website self-hosts the fonts; the library does not download them. These changes are not published on npm. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
+
+The branch provides real component comparisons in Playground Design Lab (versioned), plus an optional local `/design-preview` route ignored by Git: marketing, a validated local form and a searchable dashboard, with a frozen beta.6 specimen. Review light/dark, responsive layouts, dense data, interactive states, customization and accessibility before a release. No eighth preset or stable release is introduced. Use `--pimolu-control-border` for essential field boundaries and `--pimolu-border` for decorative separators; the new roles require this source branch.
+
+See the [design specification](docs/ai/pimolu-design-spec-v0.1.md), [design direction](docs/ai/DESIGN_DIRECTION.md) and [platform roadmap](docs/ai/PLATFORM_ROADMAP.md). React, Next.js and Vite are the current focus; Blocks and Electron integration come next, with React Native/Expo, Angular and a standalone HTML/JavaScript layer remaining future work. Shared CSS bundles already exist; they are not a complete framework-independent interaction library.
 
 ## Contributing
 

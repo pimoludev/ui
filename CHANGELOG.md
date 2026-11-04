@@ -4,7 +4,21 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-No unreleased changes yet.
+- EN: Implement Ink & Signal on the existing Default preset in the source branch:
+  warm ink/paper neutrals, iris primary, separate functional control borders,
+  optional font roles and 10/16 px control/surface radii. Preserve the other
+  named palettes and explicit radius/density choices. Website fonts are licensed
+  and self-hosted; the component library imposes no font downloads. Real review
+  compositions live in versioned Design Lab. `/design-preview` is an optional
+  Git-ignored local route. npm beta.6 is unchanged.
+- FR : Implémentation d'Ink & Signal sur le preset Default de la branche source :
+  neutres encre/papier, accent iris, contours fonctionnels distincts,
+  rôles typographiques facultatifs et rayons contrôles/surfaces de 10/16 px.
+  Les autres palettes et les choix explicites de rayon/densité sont conservés.
+  Le site auto-héberge les polices sous licence ; la bibliothèque n'impose
+  aucun téléchargement. Les compositions réelles sont dans Design Lab versionné ;
+  `/design-preview` reste une route locale facultative ignorée par Git.
+  La version npm beta.6 reste inchangée.
 
 ## [0.1.0-beta.6] — 2026-10-30
 
