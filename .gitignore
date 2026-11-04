@@ -13,5 +13,12 @@ packages/web-styles/dist/
 # Local diagnostics, browser captures and generated review artifacts.
 /.artifacts/
 
+# Private maintainer scratch notes; durable contracts and audits stay versioned.
+/docs/local/
+
+# Optional local design review route, adapter and route-specific browser tests.
+# Next.js still includes this route in local builds while the folder exists.
+/apps/website/app/design-preview/
+
 # Local marketing and launch-video project (large media and render outputs).
 /docs/marketing/

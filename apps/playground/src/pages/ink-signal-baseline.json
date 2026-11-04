@@ -1,0 +1,61 @@
+{
+  "description": "Frozen slate/indigo Default from npm 0.1.0-beta.6, for comparison only.",
+  "themes": {
+    "light": {
+      "background": "#FFFFFF",
+      "foreground": "#020617",
+      "surface": "#F8FAFC",
+      "surface-foreground": "#0F172A",
+      "muted": "#F1F5F9",
+      "muted-foreground": "#64748B",
+      "border": "#E2E8F0",
+      "primary": "#4F46E5",
+      "primary-hover": "#4338CA",
+      "primary-foreground": "#FFFFFF",
+      "focus-ring": "#6366F1",
+      "success": "#15803D",
+      "success-hover": "#166534",
+      "success-foreground": "#FFFFFF",
+      "warning": "#F59E0B",
+      "warning-hover": "#D97706",
+      "warning-foreground": "#020617",
+      "danger": "#DC2626",
+      "danger-hover": "#B91C1C",
+      "danger-foreground": "#FFFFFF"
+    },
+    "dark": {
+      "background": "#020617",
+      "foreground": "#F8FAFC",
+      "surface": "#0F172A",
+      "surface-foreground": "#F8FAFC",
+      "muted": "#1E293B",
+      "muted-foreground": "#94A3B8",
+      "border": "#1E293B",
+      "primary": "#818CF8",
+      "primary-hover": "#6366F1",
+      "primary-foreground": "#020617",
+      "focus-ring": "#818CF8",
+      "success": "#22C55E",
+      "success-hover": "#16A34A",
+      "success-foreground": "#020617",
+      "warning": "#F59E0B",
+      "warning-hover": "#D97706",
+      "warning-foreground": "#020617",
+      "danger": "#F87171",
+      "danger-hover": "#EF4444",
+      "danger-foreground": "#020617"
+    }
+  },
+  "visuals": {
+    "light": {
+      "control-border-width": "1px",
+      "solid-border-color": "transparent",
+      "shadow-raised": "none",
+      "shadow-sm": "0 1px 2px rgba(15, 23, 42, 0.12)",
+      "button-font-weight": "400"
+    },
+    "dark": {
+      "shadow-sm": "0 1px 2px rgba(0, 0, 0, 0.3)"
+    }
+  }
+}

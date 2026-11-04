@@ -1,5 +1,19 @@
 # Pimolu website
 
+## Documentation maintenance
+
+Keep `IMPLEMENTATION_PROGRESS.md` concise: current phases, dated verification
+summaries, known limits and next steps. Full session journals, transcripts,
+temporary screenshots and scratch plans belong in `.artifacts/notes/` or
+`docs/local/`, both ignored by Git. These local files are not available to a fresh
+clone and must not be required by documentation links, tests or builds.
+
+Keep user guides, package READMEs, MDX content, architecture/design contracts,
+roadmaps, audits and agent/contributor instructions versioned. Do not ignore
+all Markdown files or an entire documentation tree to hide temporary notes.
+
+## Overview
+
 Next.js App Router application consuming Pimolu directly from the root workspace.
 
 The public guides target npm consumers: install `@pimolu/react@beta` and

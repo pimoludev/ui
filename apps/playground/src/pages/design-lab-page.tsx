@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { NativeMotionDemo } from "./native-motion-demo";
+import { InkSignalDemo } from "./ink-signal-demo";
 
 import {
   Badge,
@@ -642,7 +643,7 @@ export function DesignLabPage() {
       <section className="pdl-preset-section" aria-labelledby="pdl-presets-title">
         <div className="pdl-section-heading">
           <div>
-            <span className="pdl-kicker">CURRENT SYSTEM · UNCHANGED</span>
+            <span className="pdl-kicker">WORKSPACE SYSTEM · SEVEN PRESETS</span>
             <Heading level={2} className="pdl-section-title" id="pdl-presets-title">Existing style presets</Heading>
             <Paragraph className="pdl-scene-copy">A compact preview of every preset currently exported by the repository.</Paragraph>
           </div>
@@ -651,9 +652,15 @@ export function DesignLabPage() {
         <PresetGallery theme={theme} />
       </section>
 
+      <section className="pdl-preset-section" aria-labelledby="ink-signal-title">
+        <Heading level={2} id="ink-signal-title">Ink & Signal · real component review</Heading>
+        <Paragraph>Marketing, forms and dense data on the workspace Default. Compare with the frozen beta.6 reference.</Paragraph>
+        <InkSignalDemo />
+      </section>
+
       <footer className="pdl-lab-footnote">
         <span>Experimental Playground surface</span>
-        <span>Public React, token, preset and provider files are untouched.</span>
+        <span>Ink & Signal is implemented in workspace tokens; npm remains on beta.6.</span>
       </footer>
     </div>
   );

@@ -8,6 +8,7 @@ import { Footer, Link } from "@/components/ui";
 import { parsePreset, parseTheme, presetCookie, themeCookie } from "@/lib/preferences";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
+import "./fonts.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

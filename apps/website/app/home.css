@@ -6,6 +6,9 @@
   .home-hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; align-items: center; gap: 72px; margin-block-start: 32px; }
   .home-title { font-size: clamp(3.5rem, 7.8vw, 7rem); font-weight: 550; letter-spacing: -0.065em; line-height: 0.98; }
   .home-title > span { color: var(--pimolu-primary); }
+  .site-root[data-pimolu-style="default"] .home-title,
+  .site-root[data-pimolu-style="default"] .home-section-title { font-family: var(--pimolu-font-display, Georgia, serif); font-weight: 400; letter-spacing: -.045em; line-height: 1.08; }
+  .site-root[data-pimolu-style="default"] .home-title > span { font-style: italic; }
   .home-hero-description { margin-block-start: 28px; max-width: 560px; color: var(--pimolu-muted-foreground); font-size: clamp(1.125rem, 1.7vw, 1.375rem); line-height: 1.6; letter-spacing: -0.015em; }
   .home-hero-footnote { margin-block-start: 22px; color: var(--pimolu-muted-foreground); font-size: 0.75rem; }
   .home-cta { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 48px; padding: 12px 22px; border: 1px solid var(--pimolu-primary); border-radius: var(--pimolu-radius-md); background: var(--pimolu-primary); color: var(--pimolu-primary-foreground); font-weight: 500; text-decoration: none; transition: background 160ms ease, transform 160ms ease; }
