@@ -1,7 +1,9 @@
 # Proposed roadmap
 
 This document orders the work by technical dependency. It promises neither a
-date nor a feature that is already delivered.
+date nor a feature that is already delivered. The general platform sequence
+(React/Next/Vite, Blocks/Electron, React Native/Expo, Angular, CDN) is summarized
+in [PLATFORM_ROADMAP.md](PLATFORM_ROADMAP.md).
 
 1. **Stabilise what exists.** Track the verified work and the remaining
    page-by-page review in [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Check the 131
@@ -9,7 +11,9 @@ date nor a feature that is already delivered.
    complex-component accessibility cases, forced colors, reduced motion and RTL.
 2. **Fix the design system contracts.** Document the public tokens, check
    contrast and states, establish visual references for Default and the other
-   presets, then reduce the remaining isolated CSS values.
+   presets, then reduce the remaining isolated CSS values. The identity grammar,
+   Default direction and Identity Kit scope are defined in
+   [DESIGN_DIRECTION.md](DESIGN_DIRECTION.md).
 3. **Stabilise the published distribution.** Five compiled library packages are
    available on npm at `0.1.0-beta.6`. Keep exports, peer dependencies and the
    SemVer policy aligned; expand the React/Next.js compatibility matrix and

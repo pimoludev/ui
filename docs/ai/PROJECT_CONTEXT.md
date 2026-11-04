@@ -1,8 +1,10 @@
 # Pimolu UI — technical context
 
-Updated: 2026-10-27. This folder describes the local repository and is the
+Updated: 2026-11-01. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
-change: these notes do not replace it.
+change: these notes do not replace it. Product positioning, the Pimolu design
+grammar and the Identity Kit direction live in
+[DESIGN_DIRECTION.md](DESIGN_DIRECTION.md).
 
 ## Verified state
 
@@ -26,7 +28,9 @@ change: these notes do not replace it.
   The original twenty are authored standalone; the additional 109 use curated
   Playground compositions with standalone overrides when needed. Preview settings
   are isolated and shareable. Old docs component URLs redirect permanently.
-  See `apps/website/IMPLEMENTATION_PROGRESS.md` for actual checks and screenshots.
+  See `apps/website/IMPLEMENTATION_PROGRESS.md` for dated verification summaries
+  and remaining limits. Detailed session journals and screenshots stay local in
+  `.artifacts/notes/` and the corresponding ignored audit folders.
   Playwright plus Chromium/Firefox/WebKit are installed with maintainer approval;
   CI now runs these checks as described below. See `apps/website/ACCESSIBILITY_AUDIT.md` for the exact
   coverage, public-library findings and remaining assistive-technology work.
@@ -60,6 +64,14 @@ documentation, developer tooling, AI integrations and MCP. Those targets are not
 features present in the repository.
 
 ## Latest library and website iteration
+
+- Ink & Signal is implemented in source on `feat/ink-and-signal`, not npm beta.6.
+  The existing Default changes palette and visual token roles; no eighth preset.
+  `control-border` separates functional outlines from decorative `border`.
+  Named palettes explicitly isolate new semantics. Optional font roles have
+  fallbacks; apps load self-hosted OFL fonts. Versioned Design Lab and the optional Git-ignored local `/design-preview` route
+  share real marketing/form/dashboard compositions with a frozen beta.6 specimen.
+  See `DESIGN_SYSTEM.md` and the latest website progress for validation scope.
 
 - Native CSS motion refinements (available in 0.1.0-beta.5) add a shared `motion.css` policy,
   subtree opt-out through `data-pimolu-motion="off"` and comprehensive
@@ -172,7 +184,8 @@ plain/wrapper audit remains a record of the unsupported recipes.
 The final generalization checks passed: `pnpm check` (1,465 React tests), website
 build/typecheck/lint, 36 documentation tests and 1,056 browser tests with 18
 explicit CDP-only skips. The isolated customization runner passed 1,974 observations.
-See the 27 October entries in `IMPLEMENTATION_PROGRESS.md` for scope and limits.
+See the historical customization summary in `IMPLEMENTATION_PROGRESS.md` and
+`docs/audits/CUSTOMIZATION_2026-10-26.md` for scope and limits.
 The Calendar and TreeTable mobile Playground overflows were subsequently fixed
 in the shared demo grid: a shrinkable column keeps Calendar months wrapping and
 TreeTable scrolling inside its own container. All 129 families passed the

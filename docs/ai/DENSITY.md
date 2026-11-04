@@ -1,10 +1,10 @@
 
 # Density
 
-Status: **contract written, implementation pending.** The per-component custom
-properties already exist, so density can be a layer instead of a rewrite — but
-the selectors that consume some of them still have to be read before writing a
-single rule, otherwise half the controls silently keep their old metrics.
+Status: **implemented for the controls listed below**, in
+`packages/themes/density.css`, the Provider and the Playground toolbar.
+This is a scoped implementation, not a claim that every component or every
+internal part scales. Check the actual selectors before extending its coverage.
 
 ## Contract
 
@@ -30,32 +30,33 @@ Rules:
 
 | Component | Variable | Property today |
 | --- | --- | --- |
-| Button | `--pimolu-button-height` | `height` — button.css:66 |
-| Input | `--pimolu-input-height`, `--pimolu-input-padding` | `min-height`, `padding-inline` — input.css:58-60 |
-| Select | `--pimolu-select-height`, `--pimolu-select-padding-x` | `height` — select.css:142 |
-| Combobox | `--pimolu-combobox-height`, `--pimolu-combobox-padding-x` | `height` — combobox.css:146 |
-| MultiSelect | `--pimolu-multiselect-height`, `--pimolu-multiselect-padding` | `min-height`, `padding` — multi-select.css:141-143 |
+| Button, excluding icon-only | `--pimolu-button-height`, `--pimolu-button-padding-x` | `min-height`, `padding-inline` on `.pimolu-button` |
+| Input | `--pimolu-input-height`, `--pimolu-input-padding` | `min-height`, `padding-inline` on the `.pimolu-input` root |
+| Select | `--pimolu-select-height` | `height` on `.pimolu-select__control` |
+| Combobox | `--pimolu-combobox-height` | `height` on `.pimolu-combobox__input` |
+| MultiSelect | `--pimolu-multiselect-height`, `--pimolu-multiselect-padding` | `min-height`, `padding` on `.pimolu-multiselect__value-area` |
 | Textarea | `--pimolu-textarea-padding-x`, `--pimolu-textarea-padding-y` | padding (height is content-driven) |
 
-Gap found: the Button takes its horizontal padding from `--pimolu-spacing-*` in
-the size classes, not from a dedicated variable. Add `--pimolu-button-padding-x`
-to the size classes before density can act on it.
+Button size classes already expose `--pimolu-button-padding-x`. Select and
+Combobox intentionally scale height only: inline padding reserves chevron space.
+Input's rule currently targets its root, while the visible control wrapper owns
+its own metrics. Do not infer that every internal field dimension scales from
+the presence of a density attribute; verify the intended part in a browser.
 
-## Implementation order
+## Integration points
 
-1. Read the selectors that consume each variable above (`grep -n "var(--pimolu-<comp>"`).
-2. Add `packages/themes/density.css`: the three factor blocks, then one override
-   per control. Import it after `radius.css` so both dimensions compose.
-3. Add the missing `--pimolu-button-padding-x` in `button.css`.
-4. Provider: `density`, `defaultDensity`, `onDensityChange`, persistence and
-   `data-pimolu-density`, mirroring the radius axis in `PimoluProvider`.
-5. Playground toolbar: a Density select next to Radius.
-6. Visual pass — mandatory: six presets × light/dark × three densities × the
-   five sizes, plus a form and a toolbar composition, at narrow width.
+1. `packages/themes/style-presets.css` imports density after radius so both axes compose.
+2. `PimoluProvider` exposes `density`, `defaultDensity`, `onDensityChange`,
+   persistence and `data-pimolu-density`; `usePimoluTheme` exposes the setter.
+3. The Playground toolbar exposes the Density select next to Radius.
+4. Before changing a selector, read the control's CSS and verify which element
+   owns the height, padding and reserved icon space.
+5. For extensions, review all seven presets × light/dark × three densities,
+   supported sizes, a form and a toolbar at narrow and wide widths.
 
 ## Acceptance criteria
 
 - `pnpm verify` green and `pnpm audit:themes` at 0 error / 0 warning.
 - No font-size, icon-size or radius change between densities.
 - No clipped label and no overlapping chip at `compact`, on every size.
-- The three densities compose with all six presets and with the radius axis.
+- The three densities compose with all seven presets and with the radius axis.

@@ -1,5 +1,9 @@
 # Pimolu design system
 
+Positioning, identity grammar, preset direction and the Identity Kit are defined
+in [DESIGN_DIRECTION.md](DESIGN_DIRECTION.md). This document remains the source
+of truth for the token and preset architecture.
+
 ## Sources of truth
 
 - Primitives: `packages/design-tokens/src/tokens.json` (colours, spacing,
@@ -35,10 +39,15 @@ persist preferences when `persist` is enabled; read
   Contract and variable map in [Density](DENSITY.md).
 - **Brand colour**: `PimoluProvider` accepts a `#RRGGBB` value and overrides
   only `primary`, its derived hover and the focus ring. Foregrounds, surfaces
-  and semantic colours stay with the palette, so a brand colour cannot make text
-  unreadable.
+  and semantic colours stay with the palette. The provider does not recalculate
+  the foreground: a custom brand colour requires its own text, hover and focus
+  contrast checks.
 
 ## Proposed art direction for Default
+
+[DESIGN_DIRECTION.md](DESIGN_DIRECTION.md) defines the identity grammar and the
+candidate **Ink & Signal** direction. The slate/indigo description below remains
+the compatibility baseline until a replacement is validated on the full matrix.
 
 Default should be the calm and precise reference: readable slate neutrals,
 indigo concentrated on primary actions, semantic success/warning/danger signals,
@@ -53,6 +62,27 @@ The direction is a design proposal, not a complete visual validation. Before
 freezing new values, compare the seven presets on the playground pages on desktop
 and mobile, check the contrasts and keep reference captures. The project has no
 automated visual tests today.
+
+## Ink & Signal implementation in the source branch
+
+`feat/ink-and-signal` implements the candidate on `default`; npm beta.6 still
+contains slate/indigo. Primitives remain in `tokens.json`, semantics in
+`themes.json` and shape/type roles in `src/visual/default.json`. Six named
+palettes explicitly own the new roles to prevent inheritance from Default.
+
+`border` is decorative. `control-border` identifies necessary field boundaries;
+`primary-soft` / `primary-soft-foreground` form a paired accent surface. Controls
+consume the strong border with a fallback to `border`. Default uses 10px/16px
+control/surface radii; the radius dimension still wins when explicitly set.
+Font roles have system fallbacks; only the apps load optional self-hosted fonts.
+
+See the versioned Playground Design Lab for real, interactive comparisons.
+The optional local `/design-preview` route, its adapter and its route-specific
+browser checks are grouped in `apps/website/app/design-preview/`, ignored by Git.
+A fresh clone does not contain this page. Git ignore is not a Next.js build
+exclusion: local builds include the route while its folder is present.
+Implementation is not a claim that the full quality audit is complete. No golden
+component captures or release baseline were replaced to accept this design.
 
 ## Adding a preset
 
