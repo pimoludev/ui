@@ -103,6 +103,7 @@ Validate the catalog with `pnpm skills:check`.
 | Add/change a theme or preset | `theme-integrity-audit` → `test-runner` → `test-coverage-audit` → `playground-sync` |
 | Change tokens / CSS variables | `theme-integrity-audit` → `test-runner` → `playground-visual-tests` |
 | Change a public API | `public-api-review` → `documentation-sync` |
+| Write or update a blog article | `blog-authoring` → `test-runner` |
 | Interactive component | `accessibility-audit` |
 | Commit | `git-commit` (which invokes the needed validations) |
 | Push | `github-push` (runs the full pre-push checks) |

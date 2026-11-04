@@ -34,6 +34,7 @@ Do **not** activate for a trivial single-step edit (typo, one-line fix) — do i
 | Change tokens/CSS variables | `theme-integrity-audit` → `test-runner` → `playground-visual-tests` |
 | Playground work | `playground-sync` → `playground-visual-tests` → `test-runner` (+ `theme-integrity-audit` if styles) |
 | Change a public API | `public-api-review` → `documentation-sync` → `test-runner` |
+| Write/update a blog article | `blog-authoring` → `test-runner` (+ `documentation-sync` for counters) |
 | Commit | `git-commit` (it pulls in `test-runner` + `test-coverage-audit`) |
 | Push | `github-push` (full `test-runner`) |
 | Release | `release-manager` → `public-api-review` → `documentation-sync` → `test-runner` |
