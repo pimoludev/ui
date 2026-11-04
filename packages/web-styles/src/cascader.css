@@ -76,7 +76,7 @@
 
   border:
     var(--pimolu-control-border-width, 1px)
-    solid var(--pimolu-border);
+    solid var(--pimolu-control-border, var(--pimolu-border));
 
   border-radius: var(--pimolu-radius-md, 8px);
 

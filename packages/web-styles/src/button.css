@@ -15,7 +15,9 @@
 
   cursor: pointer;
 
-  transition: background-color 150ms, opacity 150ms;
+  transition:
+    background-color var(--pimolu-interaction-duration, 150ms) var(--pimolu-interaction-easing, ease-out),
+    opacity var(--pimolu-interaction-duration, 150ms) var(--pimolu-interaction-easing, ease-out);
   
   letter-spacing: var(--pimolu-button-letter-spacing, normal);
 
@@ -173,7 +175,7 @@
 .pimolu-button--outline {
   background: transparent;
   color: var(--pimolu-foreground);
-  border-color: var(--pimolu-border);
+  border-color: var(--pimolu-control-border, var(--pimolu-border));
 }
 
 .pimolu-button--outline:hover:not(:disabled) {
