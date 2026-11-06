@@ -98,7 +98,7 @@ pnpm "playground dev"
 | `pnpm test:react` | Exécuter les tests de composants |
 | `pnpm audit:themes` | Contrôle d'intégrité des thèmes et presets, en lecture seule |
 | `pnpm "playground dev"` | Démarrer le serveur de développement du playground |
-| `pnpm dev:website` | Compiler les packages, générer la documentation et lancer le site sur le port 3001 ; lancer `build:all` au préalable sur un clone neuf |
+| `pnpm dev:website` | Reconstruire les tokens, thèmes, CSS et packages, puis générer la documentation et lancer le site sur le port 3001 |
 | `pnpm build:website` | Construire toutes les ressources du workspace et le site Next.js de production |
 | `pnpm start:website` | Servir le site de production (`PORT`, 3000 par défaut) |
 

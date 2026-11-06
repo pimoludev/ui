@@ -4,6 +4,54 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+- EN: Block sources are organized by category, subcategory and variant, with
+  per-category manifests and website-only helpers in `_catalog`. Individual
+  previews load lazily and existing URLs stay unchanged. Four authentication
+  compositions join the compact sign-in: split-panel sign-in, sign-up with
+  password confirmation, reset request and six-digit verification. The catalogue
+  now has eight blocks, five for authentication, with standalone copyable source.
+  Their handlers are local demos; verification uses the stated code `123456`.
+- FR : Les sources des Blocks sont rangées par catégorie, sous-catégorie et
+  variante, avec des manifests par catégorie et les outils du site dans `_catalog`.
+  Les previews sont chargées individuellement et les URL existantes conservées.
+  Quatre compositions complètent la connexion compacte : connexion avec panneau,
+  inscription avec confirmation du mot de passe, demande de réinitialisation et
+  vérification à six chiffres. Le catalogue compte huit blocs, dont cinq pour
+  l’authentification, avec un code copiable autonome. Les handlers sont locaux ;
+  la vérification utilise le code de démonstration explicite `123456`.
+
+- EN: Blocks now follows the component catalogue: compact linked previews and
+  a category/subcategory sidebar, shown as a Drawer on mobile. Six curated
+  collections distinguish implemented blocks from planned uses. Search
+  matches individual words and classification labels, combines with categories,
+  and supports clear/reset, shareable URLs, refresh and browser Back. Decorative
+  thumbnails no longer contain login inputs; the search disables autocomplete
+  where supported by the browser.
+- FR : Blocks reprend la présentation du catalogue de composants : aperçus
+  compacts cliquables et sidebar de catégories/sous-catégories, en Drawer sur
+  mobile. Six collections distinguent les blocs disponibles des usages
+  prévus. La recherche combine mots et catégories, avec effacement, remise à
+  zéro, URL partageable, actualisation et retour navigateur. Les miniatures ne
+  contiennent plus de champs de connexion ; la recherche désactive l’autocomplétion
+  lorsque le navigateur respecte cette préférence.
+
+- EN: The website adds eight free, interactive Blocks with searchable categories,
+  Preview/Code views and copyable, typechecked React source. Blog and Releases
+  move into a Resources menu; Docs, Components, Blocks and Showcase stay visible.
+  NavigationMenu gains optional `openOnHover` without changing click or keyboard
+  defaults. This prop is available in the source workspace, after beta.7.
+- FR : Le site ajoute huit Blocks gratuits et interactifs, filtrables, avec
+  vues Preview/Code et code React copiable vérifié par TypeScript. Blog et Releases
+  rejoignent Resources ; Docs, Components, Blocks et Showcase restent visibles.
+  NavigationMenu propose `openOnHover` en option, sans changer ses interactions
+  par défaut. Cette prop appartient au workspace, après beta.7.
+- EN: `dev:website` rebuilds all workspace assets before starting Next.js.
+  CSS outputs are checked for empty content and replaced atomically so an
+  interrupted build cannot leave a partially written stylesheet.
+- FR : `dev:website` reconstruit tous les assets avant de démarrer Next.js.
+  Les sorties CSS vides sont rejetées et les fichiers remplacés de façon atomique
+  afin de préserver les feuilles existantes si une génération est interrompue.
+
 - EN: Default restores the slate/indigo palette from commit `f01aca8` in light
   and dark, preserving the newer typography, shape, spacing, motion and layouts.
   Light secondary text is slightly darkened for contrast on muted surfaces;

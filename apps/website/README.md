@@ -237,7 +237,7 @@ All **532** snippets are compiled together as independent virtual modules in `te
 
 `scripts/format-example.mjs` wraps TSX by syntax (88-column target), then applies TypeScript indentation. It handles imports, JSX props/children, object and array literals, destructured parameters, calls, conditional expressions and return blocks. Long prose and embedded asset strings are split without changing their runtime value. Module/type names and CSS class tokens are not split blindly. Provider wrappers produced by customization also place settings on separate lines.
 
-Every one of the **532** primary/supplemental examples is checked for stable formatting, a **140-character maximum line**, valid standalone TypeScript and complete public imports. This runs through `pnpm test`; no formatting dependency is installed. Generated files remain ignored and must not be hand-edited.
+Every one of the **532** primary/supplemental examples is checked for stable formatting, a **140-character maximum line**, valid standalone TypeScript and complete public imports. This runs through `pnpm test`; component examples use the syntax-aware formatter described above. Blocks use development-only Prettier through `scripts/format-block-source.mjs`, shared by `blocks:format`, `blocks:format:check` and the source generator. Generated files remain ignored and must not be hand-edited.
 
 ### Component gallery illustrations
 
@@ -442,3 +442,47 @@ profile. Desktop rails preserve these slots and describe item icons with tooltip
 mobile folded navigation preserves the full brand and compact profile. The website
 examples and playground demonstrate both slots. See `docs/COMPONENT_ROADMAP.md`
 at the repository root for chart candidates that are not implemented.
+
+
+## Blocks and navigation
+
+The source website now includes 141 free, standalone React compositions under
+`/blocks`: Authentication (17), Marketing (31), Application (18), Commerce (54),
+Content (15) and Navigation (6). Blog and Releases share the Resources menu;
+Docs, Components, Blocks and Showcase remain direct links.
+
+All blocks displays illustrated categories and real counts. Category and
+subcategory views list individual compositions; search and Back preserve URL
+filters. Mobile navigation uses a Drawer. Each detail page offers Preview/Code
+with source generated from its real module, plus download links for its artwork.
+
+Modules live in `components/blocks/<category>/<subcategory>`, with metadata in
+`content/blocks/<category>.ts` and lazy imports in `_catalog/block-previews.tsx`.
+The catalogue includes boutique, gaming, SaaS and editorial variants for login,
+registration, pricing, footers, contact, About, blogs, posts, FAQ, Hero, Compare,
+CTA, Features, Help, Help center, downloads and invitations. Local forms, billing
+and invitations need your backend; download examples produce real text files.
+
+There are 282 checked-in WebP captures, one light and one dark per composition.
+Run `pnpm --dir apps/website blocks:capture` against a running website;
+`PREVIEWS_BASE_URL` overrides localhost:3001 and optional slug arguments narrow
+the capture. These gallery images use Default; live previews support all presets.
+See [the authoring guide](components/blocks/README.md).
+
+Run `pnpm dev:website` from the root to rebuild workspace assets first. The CSS
+builder writes atomically, skips identical files and retries transient Windows
+locks. A persistent EPERM/EBUSY requires closing the process holding the output
+and retrying; reinstalling dependencies does not unlock it.
+
+On Windows, `next.config.ts` disables Turbopack's development filesystem cache
+to avoid reopening a corrupted persistence database (`Failed to open database`,
+truncated `.meta` files). In-memory caching and hot updates remain enabled. The
+first compilation after restarting may take longer. Stop Next.js before moving
+`apps/website/.next/dev/cache/turbopack` aside if recovering another checkout.
+The production cache setting is independent.
+
+Every available Blocks collection has at least three distinct authored variants.
+Commerce separates 18 use cases, from product discovery to checkout, order
+operations, reviews and clearly labelled simulated live purchases. Launch,
+Leaderboard and Verify email are dedicated collections. See
+[the catalogue guide](../../docs/BLOCKS_CATALOG.md) for the complete taxonomy.

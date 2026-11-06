@@ -2,7 +2,7 @@
   {
     "file": "navigation-menu-resources.tsx",
     "title": "Resource directory",
-    "description": "Real documentation destinations, with disclosure or direct-link navigation."
+    "description": "In the source workspace after beta.7, openOnHover adds mouse disclosure without moving focus. Click/touch and ArrowDown still work; Escape restores focus. Omit the prop for the existing click-only default."
   },
   {
     "file": "navigation-menu-minimal.tsx",

@@ -14,6 +14,9 @@ export interface PimoluNavigationMenuProps
   /** Accessible name of the navigation landmark; `aria-label` takes precedence. */
   label?: string;
 
+  /** Open disclosure panels on mouse hover without moving focus. Default: false. */
+  openOnHover?: boolean;
+
   children: ReactNode;
 }
 

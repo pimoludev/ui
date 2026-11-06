@@ -149,6 +149,19 @@ export function NavigationMenuPage() {
         </Card>
       </Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+      <Section title="Open on hover" hint="openOnHover opts in to mouse hover without moving focus. Click, touch, ArrowDown and Escape remain available; moving focus outside closes this example.">
+        <NavigationMenu openOnHover label="Hover resources">
+          <NavigationMenuList>
+            <NavigationMenuItem value="resources">
+              <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <NavigationMenuLink href="#/button">Components</NavigationMenuLink>
+                <NavigationMenuLink href="#/typography">Typography</NavigationMenuLink>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </Section>
 </>
   );
 }

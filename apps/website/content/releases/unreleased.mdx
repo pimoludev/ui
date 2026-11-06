@@ -8,6 +8,8 @@ export const metadata = {
 
 <ReleaseSection id="library" label="Available in the workspace" title="The library">
 
+- **141 free Blocks in the source website.** Each of the 46 available collections now has at least three authored variants. Commerce contains 54 compositions across product cards, details, galleries, lists, search, quick view, inventory, wishlists, carts, checkout, orders, order history, management, tracking, payment methods, promotions, reviews and live purchase notifications. Launch, Leaderboard and email verification also have dedicated collections. Every block provides its real source and a light/dark capture. Commerce transactions, authentication and notifications use explicitly local sample state; connect real services before production. These website additions do not introduce a new npm version.
+
 - **Familiar colors, current design.** The source workspace restores the Default slate/indigo colors from commit [f01aca8](https://github.com/pimoludev/ui/commit/f01aca89fddeae45df523d90996ff492da3e0abb) in light and dark. The newer typography, radius, spacing, motion and layouts remain. Light secondary text changes from `#64748B` to `#607087` for contrast on muted surfaces; functional outlines and soft accent roles stay supported. Other presets keep their palettes. This restoration is not included in the published npm beta.7.
 
 - **Ink & Signal ships in 0.1.0-beta.7.** Default uses warm paper/ink neutrals and an iris signal, with `control-border` separate from decorative `border`. The six other named palettes keep their existing colors; no eighth preset is introduced.
@@ -67,3 +69,28 @@ export const metadata = {
 - React Native, Angular, direct CDN adapters and a Pimolu MCP server remain future directions.
 
 </ReleaseSection>
+
+### Nested tabs and focused authentication blocks
+
+In the source workspace after beta.7, Tabs variants and orientations are scoped to their own lists and triggers. Nested line tabs no longer inherit segmented hover backgrounds from an outer Preview/Code switcher.
+
+Password recovery and email verification blocks now use focused forms and inbox states, with less presentation copy. Resend, email correction and local validation remain interactive; these previews do not send emails or verify real identities. Block detail headings also give the free-block badge more space.
+
+### Cleaner blocks and readable source
+
+All 141 blocks now expose consistently formatted React source, with separate
+variable declarations and readable event handlers. Previews remove repeated
+category headings and default integration messages; feedback still appears after
+actions. Onboarding screens show the actual setup fields directly.
+
+Order history, inventory, order management, leaderboard and comparison tables
+now use Pimolu table parts for consistent header and cell alignment. The empty
+Testimonials subcategory has been removed from Marketing.
+
+### Accessible block browsing
+
+Selected category labels, card classifications and the setup link use readable
+text colors across presets. The catalogue toolbar is a named region, with one
+global skip link and a top-level main landmark. The sign-in block starts its
+form heading at h2. Automated accessibility regressions cover the catalogue,
+mobile category Drawer and sign-in preview in every preset and color mode.

@@ -1,6 +1,7 @@
 import { componentFingerprint, componentStatus } from "./component-status.mjs";
 import { chartReferences } from "../content/chart-references.ts";
 import { formReferences } from "../content/form-references.ts";
+import { blocks, blockClassification } from "../content/blocks.ts";
 import { normalizeDemoAssets } from "./website-demo-assets.mjs";
 import { readFile, writeFile, mkdir, readdir, cp } from "node:fs/promises";
 import path from "node:path";
@@ -239,6 +240,12 @@ for (const release of releaseNotes) index.push({ slug: `releases/${release.slug}
 
 for (const entry of catalog.filter((entry) => !entry.documented)) {
   index.push({ slug: `catalog/${entry.family}`, href: entry.href, title: entry.title, description: entry.description, group: "Source references", keywords: [...entry.exports, ...catalogApi[entry.family].flatMap((group) => group.rows.map((row) => row.name))] });
+}
+
+index.push({ slug: "site/blocks", href: "/blocks", title: "Free Pimolu Blocks", description: "Real React compositions with interactive previews and copyable source.", group: "Blocks", keywords: ["blocks", "compositions", "free"] });
+for (const block of blocks) {
+  const labels = blockClassification(block);
+  index.push({ slug: `blocks/${block.slug}`, href: `/blocks/${block.slug}`, title: block.title, description: block.description, group: "Blocks", keywords: [labels.category.label, labels.subcategory.label, ...block.components] });
 }
 
 await mkdir(output, { recursive: true });

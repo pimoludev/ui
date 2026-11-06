@@ -69,6 +69,7 @@ interface NavigationMenuContextValue {
   openValue: string | null;
   setOpenValue: (value: string | null) => void;
   rootRef: RefObject<HTMLElement | null>;
+  hoverItem: (value: string) => void;
 }
 
 const NavigationMenuContext =
@@ -114,6 +115,10 @@ function useNavigationMenuItem(component: string) {
 export function NavigationMenu({ classNames,
   children,
   label,
+  openOnHover = false,
+  onPointerEnter,
+  onPointerLeave,
+  onBlur,
   "aria-label": ariaLabel,
   className,
   ...props
@@ -126,11 +131,37 @@ export function NavigationMenu({ classNames,
 
   const rootRef = useRef<HTMLElement | null>(null);
   const baseId = `pimolu-navigation-menu-${useId()}`;
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function cancelHover() {
+    if (hoverTimer.current !== null) clearTimeout(hoverTimer.current);
+    hoverTimer.current = null;
+  }
+
+  function changeOpen(value: string | null) {
+    cancelHover();
+    setOpenValue(value);
+  }
+
+  function hoverItem(value: string) {
+    if (!openOnHover) return;
+    const trigger = document.getElementById(`${baseId}-trigger-${slug(value)}`);
+    if (!trigger || trigger.matches(":disabled")) return;
+    cancelHover();
+    hoverTimer.current = setTimeout(() => {
+      if (trigger.isConnected && !trigger.matches(":disabled")) setOpenValue(value);
+      hoverTimer.current = null;
+    }, 100);
+  }
+
+  useEffect(() => () => {
+    if (hoverTimer.current !== null) clearTimeout(hoverTimer.current);
+  }, [openOnHover]);
 
   useOutsidePointer(
     rootRef,
-    openValue !== null,
-    () => setOpenValue(null)
+    openValue !== null || openOnHover,
+    () => changeOpen(null)
   );
 
   useEffect(() => {
@@ -143,7 +174,7 @@ export function NavigationMenu({ classNames,
       document
         .getElementById(`${baseId}-trigger-${slug(openValue)}`)
         ?.focus();
-      setOpenValue(null);
+      changeOpen(null);
     }
 
     document.addEventListener("keydown", handleKeyDown);
@@ -157,14 +188,31 @@ export function NavigationMenu({ classNames,
       value={{
         baseId,
         openValue,
-        setOpenValue,
+        setOpenValue: changeOpen,
         rootRef,
+        hoverItem,
       }}
     >
       <nav
         {...props}
         ref={rootRef}
         aria-label={ariaLabel ?? label ?? "Main"}
+        onPointerEnter={(event) => {
+          onPointerEnter?.(event);
+          if (openOnHover && event.pointerType === "mouse") cancelHover();
+        }}
+        onPointerLeave={(event) => {
+          onPointerLeave?.(event);
+          if (!openOnHover || event.pointerType !== "mouse") return;
+          cancelHover();
+          // Keyboard users keep the panel while its trigger or links have focus.
+          if (rootRef.current?.contains(document.activeElement)) return;
+          hoverTimer.current = setTimeout(() => changeOpen(null), 180);
+        }}
+        onBlur={(event) => {
+          onBlur?.(event);
+          if (openOnHover && !event.currentTarget.contains(event.relatedTarget as Node | null)) changeOpen(null);
+        }}
         className={mergeClasses(classes(
           "pimolu-navigation-menu",
           className
@@ -204,6 +252,7 @@ export function NavigationMenuItem({ classNames,
   value,
   children,
   className,
+  onPointerEnter,
   ...props
 }: PimoluNavigationMenuItemProps) {
   const [partClasses, scopeParts] = usePartClasses("navigation-menu", classNames, false);
@@ -219,6 +268,10 @@ export function NavigationMenuItem({ classNames,
     >
       <li
         {...props}
+        onPointerEnter={(event) => {
+          onPointerEnter?.(event);
+          if (!event.defaultPrevented && event.pointerType === "mouse") root.hoverItem(value);
+        }}
         className={mergeClasses(classes(
           "pimolu-navigation-menu__item",
           className

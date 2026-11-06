@@ -1,5 +1,25 @@
 # Audit technique d’accessibilité — 21 octobre 2026
 
+## Complément ciblé Blocks — 6 novembre 2026
+
+Les trois constats de la revue finale du catalogue sont corrigés : couleurs des
+textes lisibles sur les surfaces choisies, barre du catalogue dans une région
+nommée avec un main de premier niveau et un seul lien de saut, titre h2 pour
+le formulaire de `/blocks/sign-in`. La découverte du lien de saut par Tab a été
+confirmée aussi dans WebKit grâce à un tabIndex explicite.
+
+Les contrôles axe-core 4.14.0 couvrent sept presets, clair/sombre, catalogue,
+catégorie Commerce, Drawer mobile et fiche sign-in dans Chromium, Firefox et
+WebKit : **168 analyses, zéro violation détectée dans ce périmètre**. La suite
+`e2e/blocks-accessibility.spec.ts` conserve ces régressions en CI. Les 21 cas
+par preset et les six cas clavier/sign-in ont été validés, ainsi que le build,
+le lint, TypeScript et les 50 tests site. Les vignettes sign-in sont régénérées.
+
+Il s'agit d'une vérification automatisée ciblée, distincte des preuves historiques
+ci-dessous : elle ne remplace pas une validation avec lecteur d'écran ni un audit
+WCAG complet des 141 blocks. Les résultats détaillés restent dans
+`.artifacts/blocks-a11y-*.log` ; aucune palette ni API de bibliothèque n'a changé.
+
 ## Périmètre réellement vérifié
 
 - 129 références : montage interactif, un h1 et une région main, conseils présents, aucune exception JavaScript, absence de débordement de page à 390 × 844 après ouverture à 1440 × 900. Vérification sur Chromium, Firefox et WebKit.

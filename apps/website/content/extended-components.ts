@@ -166,7 +166,8 @@ export const extendedComponents = [
     },
     "description": "Grouped destinations for a product navigation bar.",
     "usage": [
-      "Use navigation links with actual destinations rather than command handlers."
+      "Use navigation links with actual destinations rather than command handlers.",
+      "In the source workspace after npm beta.7, openOnHover opts in to mouse disclosure after a short delay without moving focus. The default remains click-only. Click/touch, ArrowDown, Escape and named-part customization remain available; hover menus close when focus leaves the navigation."
     ],
     "accessibility": [
       "Label the navigation region and check keyboard opening, dismissal and focus return."

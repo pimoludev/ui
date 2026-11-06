@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Avoid reopening a truncated persistence database after Windows file locks.
+    // Turbopack still caches in memory during the development session.
+    turbopackFileSystemCacheForDev: process.platform !== "win32",
+  },
   redirects() {
     return [
       { source: "/docs/installation", destination: "/docs/quick-start", permanent: true },

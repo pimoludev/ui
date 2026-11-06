@@ -10,6 +10,7 @@ import { componentSetups, setupExampleId } from "../content/component-setups.ts"
 import { POST as demoProfile } from "../app/api/demo/profile/route.ts";
 import { orderSearchDocuments } from "../lib/docs-search.ts";
 import { journalPosts } from "../content/journal.ts";
+import { blocks } from "../content/blocks.ts";
 import { releaseNotes } from "../content/releases.ts";
 import { formatExample } from "../scripts/format-example.mjs";
 import { createExampleSimplifier } from "../scripts/simplify-example.mjs";
@@ -177,7 +178,10 @@ test("API generation retains mapped variant unions and generic required props", 
 });
 
 test("search covers every route and includes public API keywords", () => {
-  assert.equal(index.length, docNavigation.length + catalog.filter((entry) => !entry.documented).length + journalPosts.length + releaseNotes.length);
+  assert.equal(index.length, docNavigation.length + catalog.filter((entry) => !entry.documented).length + journalPosts.length + releaseNotes.length + blocks.length + 1);
+  for (const slug of ["site/blocks", ...blocks.map((block) => `blocks/${block.slug}`)]) {
+    assert.ok(index.some((entry) => entry.slug === slug), `Missing block search entry: ${slug}`);
+  }
   assert.equal(new Set(index.map((entry) => entry.slug)).size, index.length);
   assert.ok(index.find((entry) => entry.slug === "components/select").keywords.some((word) => word.includes("onValueChange")));
   for (const guide of guides) {

@@ -6,14 +6,15 @@ import { SiteAppearance } from "./site-appearance";
 import { SocialIcon } from "./social-icon";
 import {
   Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarActions, NavbarToggle,
+  NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger,
+  NavigationMenuContent, NavigationMenuLink,
 } from "@pimolu/react";
 
 const navigation = [
   { href: "/docs", label: "Docs" },
   { href: "/components", label: "Components" },
+  { href: "/blocks", label: "Blocks" },
   { href: "/showcase", label: "Showcase" },
-  { href: "/blog", label: "Blog" },
-  { href: "/releases", label: "Releases" },
 ];
 
 export function SiteHeader() {
@@ -31,6 +32,23 @@ export function SiteHeader() {
           {navigation.map(({ href, label }) => (
             <NavbarItem key={href} href={href} active={path === href || path.startsWith(`${href}/`)}>{label}</NavbarItem>
           ))}
+          <NavigationMenu openOnHover label="Resources" className="site-resources">
+            <NavigationMenuList>
+              <NavigationMenuItem value="resources" className={/^\/(blog|releases)(\/|$)/.test(path) ? "site-resources-active" : undefined}>
+                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuLink href="/blog" active={path.startsWith("/blog")}>
+                    <span className="site-resource-title">Blog</span>
+                    <span className="site-resource-description">Design decisions and engineering notes.</span>
+                  </NavigationMenuLink>
+                  <NavigationMenuLink href="/releases" active={path.startsWith("/releases")}>
+                    <span className="site-resource-title">Releases</span>
+                    <span className="site-resource-description">What’s new, improved and ready to use.</span>
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </NavbarContent>
         <NavbarActions className="flex-nowrap">
           <SiteSearchTrigger />

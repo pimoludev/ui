@@ -13,6 +13,19 @@ export interface ShowcaseProject {
 // Add completed projects here. Images are real project captures in public/images/showcase/.
 export const showcaseProjects: readonly ShowcaseProject[] = [
   {
+    slug: "pimolu-headset",
+    name: "Pimolu Headset",
+    description: "A headphone concept storefront with an editorial product presentation, finish selection and a demo shopping cart.",
+    category: "E-commerce",
+    url: "https://pimolu-headset.pimolu.com/",
+    image: {
+      light: "/images/showcase/pimolu-headset.webp",
+      dark: "/images/showcase/pimolu-headset.webp",
+      alt: "Pimolu Headset storefront featuring champagne headphones, finish options and an add-to-cart action.",
+    },
+    technologies: ["Pimolu UI"],
+  },
+  {
     slug: "project-workspace",
     name: "Project Workspace",
     description: "A SaaS landing page for a workspace that helps teams plan projects and organize tasks.",

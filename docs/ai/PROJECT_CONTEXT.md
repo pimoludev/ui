@@ -1,6 +1,6 @@
 # Pimolu UI — technical context
 
-Updated: 2026-11-01. This folder describes the local repository and is the
+Updated: 2026-11-05. This folder describes the local repository and is the
 starting point for the next sessions. Re-read the relevant source before any
 change: these notes do not replace it. Product positioning, the Pimolu design
 grammar and the Identity Kit direction live in
@@ -24,6 +24,23 @@ grammar and the Identity Kit direction live in
   homepage, guides under `/docs`, an illustrated catalog and **135 live component
   references** under `/components`, a development-status `/releases` page and a
   `/showcase` collection of real projects authored in `content/showcase.ts`.
+  `/blocks` lists 141 authored compositions, including 17 authentication
+  examples, with filters and Preview/Code detail pages. Standalone sources live
+  in `components/blocks/<category>/<subcategory>/`; website helpers and lazy
+  preview imports stay in `_catalog/`. Category manifests live in `content/blocks/`
+  and are aggregated by `content/blocks.ts`. Sources are formatted via
+  `scripts/build-blocks.mjs`; metadata also feeds search, sitemap and llms.txt.
+  A compact gallery and a responsive category Drawer share the six-category
+  taxonomy in `content/blocks.ts`. Subcategory counts include real blocks only;
+  zero-count collections are Planned. Word search includes classification labels;
+  All blocks shows category cards and counts before individual compositions.
+  Detail Back links preserve originating catalog filters, with a category fallback
+  for direct visits.
+  `q`, `category` and `subcategory` persist in the URL and restore on Back/refresh.
+  See `docs/BLOCKS_CATALOG.md` for the curated use cases and authoring contract.
+  The header keeps Docs, Components, Blocks and Showcase visible and groups only
+  Blog/Releases under Resources. Its optional NavigationMenu `openOnHover` is
+  a source-workspace addition after beta.7; touch/click and keyboard remain usable.
   All families have curated examples, generated APIs, usage and accessibility notes.
   The original twenty are authored standalone; the additional 109 use curated
   Playground compositions with standalone overrides when needed. Preview settings
@@ -53,6 +70,8 @@ grammar and the Identity Kit direction live in
 - GitHub CI is enabled in `.github/workflows/ci.yml`: Node 24 jobs run library
   verification and website production checks, including three-engine Playwright.
   `pnpm build:website` builds all workspace assets before Next.js;
+  `pnpm dev:website` now does the same before development. Shared CSS outputs
+  build in memory and replace files atomically, rejecting empty output.
   `pnpm start:website` honors the host PORT. Canonical domain: https://pimolu.com.
   Local hooks remain active; CI does not deploy.
 

@@ -24,6 +24,11 @@
   .site-root { min-height: 100dvh; color: var(--pimolu-foreground); background: var(--pimolu-background); font-family: var(--pimolu-font-body, system-ui, sans-serif); line-height: 1.6; }
   .site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--pimolu-border); background: var(--pimolu-background); }
   .site-nav { padding: 16px 24px; border: 0; }
+  .site-resources .pimolu-navigation-menu__content { width: 280px; }
+  .site-resources .pimolu-navigation-menu__link { display: grid; gap: 4px; padding: 12px; }
+  .site-resource-title { font-weight: 500; color: var(--pimolu-foreground); }
+  .site-resource-description { font-size: .8125rem; line-height: 1.5; color: var(--pimolu-muted-foreground); white-space: normal; }
+  .site-resources-active .pimolu-navigation-menu__trigger { background: var(--pimolu-muted); color: var(--pimolu-foreground); }
   .site-mark { display: inline-block; flex: none; width: 38px; height: 42px; margin-inline-end: 6px; background: var(--pimolu-primary); mask: url("/icon.svg") center / contain no-repeat; }
   .site-search-trigger.pimolu-button { width: clamp(208px, 20vw, 264px); justify-content: start; min-height: 38px; background: var(--pimolu-surface); color: var(--pimolu-muted-foreground); border-color: var(--pimolu-border); box-shadow: none; }
   .site-search-trigger .pimolu-button__label { display: flex; width: 100%; gap: 10px; align-items: center; }
@@ -59,6 +64,10 @@
     .site-search-trigger .site-search-placeholder, .site-search-trigger .pimolu-kbd { display: none; }
   }
   @media (max-width: 960px) {
+    .site-resources { width: 100%; }
+    .site-resources .pimolu-navigation-menu__list, .site-resources .pimolu-navigation-menu__item { width: 100%; }
+    .site-resources .pimolu-navigation-menu__trigger { width: 100%; justify-content: space-between; padding: 10px 12px; }
+    .site-resources .pimolu-navigation-menu__content { position: static; width: 100%; min-width: 0; max-width: 100%; margin-block: 6px; box-shadow: none; }
     .site-search-mobile { display: flex; align-items: center; gap: 2px; margin-inline-start: auto; }
     .site-search-mobile .site-search-trigger.pimolu-button { width: 38px; padding: 8px; background: transparent; }
     .site-search-mobile .site-search-placeholder, .site-search-mobile .pimolu-kbd { display: none; }

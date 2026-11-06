@@ -1,6 +1,7 @@
 
 import { build } from "esbuild";
 import { mkdir } from "node:fs/promises";
+import { writeCss } from "./write-css.mjs";
 import { fileURLToPath } from "node:url";
 
 const srcDir = new URL("../src/", import.meta.url);
@@ -669,7 +670,7 @@ const outputs = [
 await mkdir(distDir, { recursive: true });
 
 for (const item of outputs) {
-  await build({
+  const result = await build({
     entryPoints: [
       fileURLToPath(new URL(item.input, srcDir)),
     ],
@@ -680,10 +681,19 @@ for (const item of outputs) {
 
     bundle: true,
     minify: item.minify,
+    write: false,
 
     charset: "utf8",
     logLevel: "silent",
   });
+
+  // Never expose a truncated stylesheet to a running development server.
+  // Build in memory, then replace each output only once its bytes are ready.
+  if (!result.outputFiles?.length) throw new Error(`No CSS output for ${item.input}`);
+  for (const output of result.outputFiles) {
+    if (!output.contents.byteLength) throw new Error(`Empty stylesheet: ${item.output}`);
+    await writeCss(output.path, output.contents);
+  }
 
   console.log(`Generated: dist/${item.output}`);
 }

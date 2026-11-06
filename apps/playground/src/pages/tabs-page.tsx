@@ -631,6 +631,25 @@ export function TabsPage() {
           </Card>
         </div>
       </Section>
+    <Section title="Nested navigation" hint="A line tablist inside a segmented panel keeps its own hover, underline and keyboard navigation. Available in the source workspace after beta.7.">
+      <Tabs defaultValue="preview" variant="segmented">
+        <TabsList aria-label="Nested example view">
+          <TabsTrigger value="preview">Preview</TabsTrigger>
+          <TabsTrigger value="notes">Notes</TabsTrigger>
+        </TabsList>
+        <TabsContent value="preview">
+          <Tabs defaultValue="design" variant="line">
+            <TabsList aria-label="Nested product information">
+              <TabsTrigger value="design">Design</TabsTrigger>
+              <TabsTrigger value="delivery">Delivery and returns</TabsTrigger>
+            </TabsList>
+            <TabsContent value="design">Soft cushions and a balanced frame.</TabsContent>
+            <TabsContent value="delivery">Shipping and return information.</TabsContent>
+          </Tabs>
+        </TabsContent>
+        <TabsContent value="notes">Each tablist owns its appearance and selection.</TabsContent>
+      </Tabs>
+    </Section>
     <Section title="Sliding indicator" hint="A shared CSS indicator follows the selected tab, including unequal widths, vertical lists and interruptions. Customize its duration and easing, or disable animations with animated=false. Reduced motion always takes priority."><SlidingIndicatorTabs /></Section>
     <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
 </>

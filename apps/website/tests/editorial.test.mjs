@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { journalPosts, readingMinutes } from "../content/journal.ts";
+import { blocks } from "../content/blocks.ts";
 import { releaseNotes } from "../content/releases.ts";
 import { guides } from "../content/docs.ts";
 import { documentationMap, escapeXML, journalFeed } from "../lib/text-resources.ts";
@@ -42,6 +43,7 @@ test("RSS and llms.txt cover real content and escape XML metacharacters", async 
     assert.ok(map.includes(`/blog/${post.slug}`));
   }
   for (const entry of catalog) assert.ok(map.includes(entry.href));
+  for (const block of blocks) assert.ok(map.includes(`/blocks/${block.slug}`));
   for (const guide of guides) assert.ok(map.includes(`/docs${guide.slug ? `/${guide.slug}` : ""}`));
   assert.match(map, /0\.1\.0-beta\.7/);
   assert.ok(map.includes("/releases/0.1.0-beta.7"));
