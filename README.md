@@ -65,7 +65,7 @@ npm install @pimolu/react@beta @pimolu/web-styles@beta
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta
 ```
 
-The current release is **0.1.0-beta.7**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
+The current release is **0.1.0-beta.8**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
 
 To update an existing installation to the current beta:
 
@@ -171,7 +171,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.7`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.7`, with both `latest` and `beta` tags:
+Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.8`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.8`, with both `latest` and `beta` tags:
 
 ```bash
 pnpm add @pimolu/react@beta @pimolu/web-styles@beta
@@ -185,11 +185,9 @@ This is still a beta. APIs and visual tokens may evolve; complex-component assis
 
 ## Design direction and next steps
 
-The source workspace restores Default's slate/indigo colors from commit `f01aca8` in light and dark, retaining the newer typography, radius, spacing, motion and layouts. Light secondary text is slightly darker for contrast on muted surfaces; functional outlines and soft accent roles remain supported. Other named presets retain their palettes. This restoration is not yet published on npm; the website and playground use the locally built tokens.
+Since **0.1.0-beta.8**, the published Default uses the restored **slate/indigo** palette: the earlier background, surface, primary, hover and status colours in both modes, with light secondary text darkened to `#607087` for contrast on muted surfaces. The newer DM Sans / Newsreader / IBM Plex Mono roles, radii, spacing, motion and layouts remain, and the functional `control-border` plus the soft accent roles stay available. This replaces the beta.7 Ink & Signal palette in Default without adding an eighth preset. When upgrading from beta.7, review colours, radii and typography in your application; the other named presets keep their own palettes. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
 
-Since **0.1.0-beta.7**, the published Default uses **Ink & Signal**: warm neutrals, an iris accent, separate functional control borders and optional DM Sans / Newsreader / IBM Plex Mono roles with fallbacks. The website self-hosts the fonts; the library does not download them. This updates the existing Default without adding an eighth preset. When upgrading from beta.6, review the changed palette, radii and typography in your application; the other named presets retain their palettes. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
-
-Playground Design Lab provides real marketing, validated local form and searchable dashboard compositions, with a frozen beta.6 specimen for comparison. The optional local `/design-preview` route is ignored by Git and is not required to build the website. Use `--pimolu-control-border` for essential field boundaries and `--pimolu-border` for decorative separators; `--pimolu-primary-soft` and `--pimolu-primary-soft-foreground` provide a subtle accent surface and its text colour. These roles are available in beta.7. Human design and assistive-technology reviews remain open before a stable release.
+Playground Design Lab provides real marketing, validated local form and searchable dashboard compositions, with a frozen beta.6 specimen for comparison. The optional local `/design-preview` route is ignored by Git and is not required to build the website. Use `--pimolu-control-border` for essential field boundaries and `--pimolu-border` for decorative separators; `--pimolu-primary-soft` and `--pimolu-primary-soft-foreground` provide a subtle accent surface and its text colour. These roles are available in beta.8. Human design and assistive-technology reviews remain open before a stable release.
 
 See the [design specification](docs/ai/pimolu-design-spec-v0.1.md), [design direction](docs/ai/DESIGN_DIRECTION.md) and [platform roadmap](docs/ai/PLATFORM_ROADMAP.md). React, Next.js and Vite are the current focus; Blocks and Electron integration come next, with React Native/Expo, Angular and a standalone HTML/JavaScript layer remaining future work. Shared CSS bundles already exist; they are not a complete framework-independent interaction library.
 

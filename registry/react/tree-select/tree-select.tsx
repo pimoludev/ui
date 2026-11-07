@@ -206,6 +206,7 @@ export const TreeSelect = forwardRef<
   const fieldRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const typeaheadRef = useRef({
     text: "",
@@ -673,6 +674,12 @@ export const TreeSelect = forwardRef<
     closeOnEscape: false,
   });
 
+  // Focus after the panel is revealed: WebKit ignores focus on a hidden surface.
+  useEffect(() => {
+    if (!isOpen || popupStyle?.visibility === "hidden") return;
+    if (searchable) searchRef.current?.focus({ preventScroll: true });
+  }, [isOpen, searchable, popupStyle?.visibility]);
+
   /* Keep the highlighted node visible while the tree scrolls. */
   useEffect(() => {
     if (!isOpen || !activeValue) return;
@@ -836,7 +843,7 @@ export const TreeSelect = forwardRef<
                     aria-controls={treeId}
                     aria-activedescendant={activeDescendant}
                     placeholder="Search options"
-                    autoFocus
+                    ref={searchRef}
                     value={query}
                     onChange={(event) =>
                       handleSearchChange(

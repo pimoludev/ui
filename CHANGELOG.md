@@ -4,64 +4,72 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-- EN: Block sources are organized by category, subcategory and variant, with
-  per-category manifests and website-only helpers in `_catalog`. Individual
-  previews load lazily and existing URLs stay unchanged. Four authentication
-  compositions join the compact sign-in: split-panel sign-in, sign-up with
-  password confirmation, reset request and six-digit verification. The catalogue
-  now has eight blocks, five for authentication, with standalone copyable source.
-  Their handlers are local demos; verification uses the stated code `123456`.
-- FR : Les sources des Blocks sont rangées par catégorie, sous-catégorie et
-  variante, avec des manifests par catégorie et les outils du site dans `_catalog`.
-  Les previews sont chargées individuellement et les URL existantes conservées.
-  Quatre compositions complètent la connexion compacte : connexion avec panneau,
-  inscription avec confirmation du mot de passe, demande de réinitialisation et
-  vérification à six chiffres. Le catalogue compte huit blocs, dont cinq pour
-  l’authentification, avec un code copiable autonome. Les handlers sont locaux ;
-  la vérification utilise le code de démonstration explicite `123456`.
+- EN: No unreleased changes yet. Work after beta.8 is tracked in the development
+  notes on the website.
+- FR : Aucun changement non publié pour le moment. Le travail après beta.8 est
+  suivi dans les notes de développement du site.
 
-- EN: Blocks now follows the component catalogue: compact linked previews and
-  a category/subcategory sidebar, shown as a Drawer on mobile. Six curated
-  collections distinguish implemented blocks from planned uses. Search
-  matches individual words and classification labels, combines with categories,
-  and supports clear/reset, shareable URLs, refresh and browser Back. Decorative
-  thumbnails no longer contain login inputs; the search disables autocomplete
-  where supported by the browser.
-- FR : Blocks reprend la présentation du catalogue de composants : aperçus
-  compacts cliquables et sidebar de catégories/sous-catégories, en Drawer sur
-  mobile. Six collections distinguent les blocs disponibles des usages
-  prévus. La recherche combine mots et catégories, avec effacement, remise à
-  zéro, URL partageable, actualisation et retour navigateur. Les miniatures ne
-  contiennent plus de champs de connexion ; la recherche désactive l’autocomplétion
-  lorsque le navigateur respecte cette préférence.
+## [0.1.0-beta.8] — 2026-11-08
 
-- EN: The website adds eight free, interactive Blocks with searchable categories,
-  Preview/Code views and copyable, typechecked React source. Blog and Releases
-  move into a Resources menu; Docs, Components, Blocks and Showcase stay visible.
-  NavigationMenu gains optional `openOnHover` without changing click or keyboard
-  defaults. This prop is available in the source workspace, after beta.7.
-- FR : Le site ajoute huit Blocks gratuits et interactifs, filtrables, avec
-  vues Preview/Code et code React copiable vérifié par TypeScript. Blog et Releases
-  rejoignent Resources ; Docs, Components, Blocks et Showcase restent visibles.
-  NavigationMenu propose `openOnHover` en option, sans changer ses interactions
-  par défaut. Cette prop appartient au workspace, après beta.7.
-- EN: `dev:website` rebuilds all workspace assets before starting Next.js.
-  CSS outputs are checked for empty content and replaced atomically so an
-  interrupted build cannot leave a partially written stylesheet.
-- FR : `dev:website` reconstruit tous les assets avant de démarrer Next.js.
-  Les sorties CSS vides sont rejetées et les fichiers remplacés de façon atomique
-  afin de préserver les feuilles existantes si une génération est interrompue.
+Preview release. Tag: `v0.1.0-beta.8`. All five library packages are published
+on npm at this version with `latest` and `beta` dist-tags. The website documents
+456 pages, including 141 free Blocks. Pimolu UI remains a beta release: the human
+design review and the assistive-technology review stay open.
 
 - EN: Default restores the slate/indigo palette from commit `f01aca8` in light
-  and dark, preserving the newer typography, shape, spacing, motion and layouts.
-  Light secondary text is slightly darkened for contrast on muted surfaces;
-  functional borders and soft accent roles remain. Other presets are preserved.
-  This source-workspace restoration is not included in the published beta.7.
+  and dark, after the Ink & Signal palette of beta.7. Typography, radii,
+  spacing, motion and layouts keep the newer treatment; light secondary text is
+  darkened to `#607087` for contrast on muted surfaces. The functional
+  `control-border` and the soft accent roles remain, and the six other named
+  presets keep their published palettes.
 - FR : Default retrouve la palette slate/indigo du commit `f01aca8` en clair et
-  en sombre, tout en conservant la nouvelle typographie, les formes, espacements,
-  animations et mises en page. Le texte secondaire clair est légèrement assombri
-  pour le contraste ; les contours fonctionnels et accents doux sont conservés,
-  ainsi que les autres presets. Ce retour de palette n’est pas publié dans beta.7.
+  en sombre, après la palette Ink & Signal de beta.7. La typographie, les rayons,
+  les espacements, les animations et les mises en page conservent le traitement
+  récent ; le texte secondaire clair est assombri à `#607087` pour le contraste
+  sur les surfaces atténuées. `control-border` et les rôles d'accent doux restent
+  disponibles, et les six autres presets nommés conservent leurs palettes.
+
+- EN: The website publishes 141 free React Blocks across application,
+  authentication, commerce, content, marketing and navigation collections.
+  Every block has a searchable listing entry, category and subcategory filters,
+  a live preview in light and dark, copyable typechecked source and its own page.
+  Blocks are included in the sitemap, `llms.txt`, structured data and site search.
+- FR : Le site publie 141 Blocks React gratuits répartis entre application,
+  authentification, commerce, contenu, marketing et navigation. Chaque bloc a sa
+  fiche filtrable, un aperçu réel en clair et sombre, un code source copiable
+  vérifié par TypeScript et sa propre page. Les Blocks sont intégrés au sitemap,
+  à `llms.txt`, aux données structurées et à la recherche du site.
+
+- EN: Anchored panels no longer jump when they open. Select, Combobox,
+  MultiSelect, TreeSelect, Cascader, Mentions, DropdownMenu, Menubar, Popover,
+  Tooltip, HoverCard, DatePicker and DateRangePicker measure the mounted surface
+  while hidden and reveal it already placed. Panels follow local container
+  resizes, lateral content caps its height and scrolls, and focus loops skip
+  hidden, inert and disabled controls.
+- FR : Les panneaux ancrés ne sautent plus à l'ouverture. Select, Combobox,
+  MultiSelect, TreeSelect, Cascader, Mentions, DropdownMenu, Menubar, Popover,
+  Tooltip, HoverCard, DatePicker et DateRangePicker mesurent la surface montée en
+  la gardant cachée et la révèlent déjà placée. Les panneaux suivent les
+  redimensionnements locaux, le contenu latéral est plafonné et défilable, et les
+  boucles de focus ignorent les contrôles cachés, inertes et désactivés.
+
+- EN: NavigationMenu gains an optional `openOnHover` prop without changing the
+  click and keyboard defaults. Blog and Releases move under a Resources menu,
+  while Docs, Components, Blocks and Showcase stay visible.
+- FR : NavigationMenu ajoute la prop facultative `openOnHover` sans changer les
+  comportements clic et clavier par défaut. Blog et Releases passent sous un menu
+  Resources, tandis que Docs, Components, Blocks et Showcase restent visibles.
+
+- EN: The homepage separates demonstration cards from the page with the surface
+  tokens and larger supporting text, and the identity preview starts in dark
+  mode. `dev:website` rebuilds every workspace asset before Next.js starts, and
+  CSS outputs are rejected when empty and replaced atomically so an interrupted
+  build cannot truncate an existing stylesheet.
+- FR : L'accueil distingue les cartes de démonstration de la page avec les tokens
+  de surface et un texte secondaire plus grand, et l'aperçu d'identité démarre en
+  sombre. `dev:website` reconstruit tous les assets du workspace avant Next.js,
+  et les sorties CSS vides sont rejetées puis remplacées de façon atomique : une
+  génération interrompue ne peut plus tronquer une feuille existante.
 
 ## [0.1.0-beta.7] — 2026-11-04
 
@@ -682,6 +690,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.8]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.8
 [0.1.0-beta.7]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.7
 [0.1.0-beta.6]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.6
 [0.1.0-beta.5]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.5

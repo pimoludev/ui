@@ -45,12 +45,13 @@ persist preferences when `persist` is enabled; read
 
 ## Default: restored colors, current design
 
-Npm beta.7 ships Ink & Signal. After that release, the source workspace restores
-the slate/indigo palette from commit `f01aca89fddeae45df523d90996ff492da3e0abb`
-in both modes, retaining the newer shape, typography, spacing, motion and layouts.
+Npm beta.8 ships the restored slate/indigo Default, after the beta.7 Ink & Signal
+preview. Default uses the palette from commit
+`f01aca89fddeae45df523d90996ff492da3e0abb` in both modes, retaining the newer
+shape, typography, spacing, motion and layouts.
 Dark background is `#020617`, surface `#0F172A`, muted `#1E293B` and primary
 `#818CF8`; light background is white, surface `#F8FAFC` and primary `#4F46E5`.
-This restoration is not yet published on npm.
+This palette is published in beta.8.
 
 The original semantic aliases are restored in `themes.json`, with one contrast
 correction: light muted text uses the additive `slate.550` (`#607087`) rather than

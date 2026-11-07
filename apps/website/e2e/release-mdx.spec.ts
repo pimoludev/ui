@@ -6,7 +6,7 @@ test("MDX releases render, copy code and preserve navigation on mobile and deskt
   await page.addInitScript(() => Object.defineProperty(navigator, "clipboard", {
     configurable: true, value: { writeText: async (value: string) => sessionStorage.setItem("release-code", value) },
   }));
-  await page.goto("/releases/0.1.0-beta.7");
+  await page.goto("/releases/0.1.0-beta.8");
   const packages = page.locator("#packages");
   await expect(packages.getByRole("heading", { name: "Published packages" })).toBeVisible();
   await expect(packages.locator(".pimolu-codeblock")).toContainText("npm install @pimolu/react@beta @pimolu/web-styles@beta");
@@ -20,7 +20,7 @@ test("MDX releases render, copy code and preserve navigation on mobile and deskt
   await page.getByRole("button", { name: "Browse releases" }).click();
   await page.getByRole("dialog", { name: "Release navigation", exact: true }).getByRole("link", { name: "Unreleased" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Unreleased");
-  await expect(page.locator("#refinements")).toContainText("Scheduler");
+  await expect(page.locator("#before-release")).toContainText("0.1.0-beta.8");
   expect((await request.get("/releases/not-a-release")).status()).toBe(404);
   expect(errors).toEqual([]);
 });

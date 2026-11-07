@@ -18,7 +18,7 @@ Next.js App Router application consuming Pimolu directly from the root workspace
 
 The public guides target npm consumers: install `@pimolu/react@beta` and
 `@pimolu/web-styles@beta`, load the shared CSS and add `PimoluProvider`.
-The current published version is `0.1.0-beta.7` for all five library packages.
+The current published version is `0.1.0-beta.8` for all five library packages.
 Repository build instructions below are for contributors; npm consumers do not
 need a clone, `build:all` or `transpilePackages`. Quick start owns the npm setup;
 `/docs/contributing` contains repository setup and contributor checks. The removed
@@ -104,7 +104,7 @@ browser tests wait for a genuinely interactive example rather than clicking unhy
 DashboardLayout, AppShell, DocsLayout, Anchor, TableOfContents and Tabs use isolated preview documents to preserve landmarks and fragment destinations.
 The other examples render directly inside the workbench.
 
-Search composes Pimolu Dialog and Command (Ctrl/Cmd K). It includes **148** generated guide, component, article and development-note references, plus Home, the catalogue, Blog and Releases (**152 destinations**).
+Search composes Pimolu Dialog and Command (Ctrl/Cmd K). It includes **305** generated guide, component, Block, article and release references, plus Home, the catalogue, Blog and Releases (**309 destinations**).
 The search module loads on opening; deferred autofocus lets Dialog capture and restore the actual opener.
 The mobile sidebar uses Drawer. APIs and examples use ApiTable and CodeBlock.
 

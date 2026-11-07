@@ -59,7 +59,7 @@ grammar and the Identity Kit direction live in
   root verify. Other examples and non-React registries are not implemented yet.
 - The five library packages (`@pimolu/design-tokens`, `@pimolu/themes`,
   `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are published on npm
-  at `0.1.0-beta.7`; both `latest` and `beta` dist-tags point to it.
+  at `0.1.0-beta.8`; both `latest` and `beta` dist-tags point to it.
   `@pimolu/react` is a single ESM bundle with `"use client"` and declarations;
   `@pimolu/core` compiles to ESM. Install the beta with
   `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`. The website stays
@@ -228,7 +228,7 @@ runs in an isolated preview document to prevent the outer tab styles from changi
 `ScrollOutline` controls TableOfContents for catalogue categories and article sections; article
 outlines are keyed by route. Application-layout CSS details are not shown to readers.
 `SiteAppearance` owns header preset selection and the light/dark icon toggle; device mode remains
-available in its popup. `/themes` redirects to `/docs/theming`. Search and sitemap have 152 destinations.
+available in its popup. `/themes` redirects to `/docs/theming`. Search has 309 destinations and the sitemap 311 paths.
 The docs generator runs `scripts/simplify-example.mjs` on all 532 copied examples: variant maps are
 expanded at build time, Playground layout classes become Tailwind utilities and sibling sections
 receive a gap. Supplemental previews render the same generated modules. Tests compile every copied
@@ -263,7 +263,7 @@ Its larger palette-panel geometry is local website CSS, not a public Popover API
 anchors before the usual docs generator runs. `content/releases.ts` is only a typed
 adapter over the generated index; generated MDX modules remain Server Components with
 Pimolu component mappings. Fenced code uses the client CodeBlock for copy support.
-The repository preview is `0.1.0-beta.7` and is tagged `v0.1.0-beta.7`; the root
+The repository preview is `0.1.0-beta.8` and is tagged `v0.1.0-beta.8`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.

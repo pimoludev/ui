@@ -1,7 +1,7 @@
 # Floating panel placement
 
-Source-workspace correction after **0.1.0-beta.7**. This fix has not been
-published to npm yet; it does not add a public prop or dependency.
+Published in **0.1.0-beta.8**, after the **0.1.0-beta.7** preview. The fix adds
+no public prop or dependency.
 
 Select and the other anchored components measure their real panel before making
 it visible. Previously, the placement hook could choose a side using an estimated
@@ -50,8 +50,7 @@ ancestors are read once and the next interaction sees live visibility changes.
 
 The playground and website provide working Preview/Code examples for resizing
 Select, long lateral Popover content and conditional Dialog actions. The 29
-affected references have refreshed Updated overrides. These changes are source
-workspace fixes after beta.7 and are not yet published on npm.
+affected references carry refreshed Updated overrides for the beta.8 release.
 
 See the dated website implementation progress entry for executed checks and
 the recovery of damaged local source files and caches.

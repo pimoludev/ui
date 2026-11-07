@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.7",
+  "version": "0.1.0-beta.8",
   "references": [
     "theme-builder",
     "button",
@@ -200,7 +200,7 @@
       ]
     },
     "tabs": {
-      "fingerprint": "a3b47fbe269f9bf1d7a2a41bfbac054d1f6499f0287fa5293200977773c8b857",
+      "fingerprint": "6b47507b0bffa895b9dcea3d6f07310c9a09219429e6ac43d7f9298bb2cc2737",
       "exports": [
         "Tabs",
         "TabsList",
@@ -258,7 +258,7 @@
       ]
     },
     "navigation-menu": {
-      "fingerprint": "d09b0ca06e4fff59d3f3b0155b7fe9349e2f1749de6f3ac1c2f19b10599aa9ef",
+      "fingerprint": "8624e246d38339db8a674b3562333a868a92e64aa8719052e39722c6e200b2d5",
       "exports": [
         "NavigationMenu",
         "NavigationMenuList",
@@ -269,7 +269,7 @@
       ]
     },
     "menubar": {
-      "fingerprint": "eb71e0ec5fc46919fd9c8957b969870a861a78aa4ce2829d8805dc09cbaacc3d",
+      "fingerprint": "24a09c0d1a3b36ebb81bd8946813791e88baf39df0120eb2cf19e04ace0134dd",
       "exports": [
         "Menubar",
         "MenubarMenu",
@@ -294,7 +294,7 @@
       ]
     },
     "combobox": {
-      "fingerprint": "44523011c336de0a71d218c47abc731e56fcaf35ad11b3bab55baab66c8026b9",
+      "fingerprint": "f22d5516eaa888b420fe97cb40b5c87e10c4bb1f79513367edece50f3774c5cb",
       "exports": [
         "Combobox",
         "comboboxVariantMap"
@@ -325,7 +325,7 @@
       ]
     },
     "multi-select": {
-      "fingerprint": "dc0ff4f86bb93eb158fd4df7547cdfbba4dcee68af195adec69631e760446a73",
+      "fingerprint": "ead85633bc2b4a5209290f01814bb20d9698cb43615c1e5b76362b829de8c003",
       "exports": [
         "MultiSelect",
         "multiSelectVariantMap"
@@ -348,7 +348,7 @@
       ]
     },
     "select": {
-      "fingerprint": "57e0adca231ba16d728d596cda92a19c3cf63474cdfa79d944c666a4c514214d",
+      "fingerprint": "1c8eb379ec6ff27ae90b368b7489e1d226623504cb1975a1202d2c313f45641b",
       "exports": [
         "Select",
         "selectVariantMap"
@@ -406,13 +406,13 @@
       ]
     },
     "date-picker": {
-      "fingerprint": "181f673d1c35115dac43e9ca6637e7c7d7f33b6f323eb20c8ddf3be4cad67f4b",
+      "fingerprint": "43e4b018ccf66e36560dfbbd071cc940c598039553ffd027cc03f583a7b2be85",
       "exports": [
         "DatePicker"
       ]
     },
     "date-range-picker": {
-      "fingerprint": "21cb4cf8bbeb1a811946a41707d2a0a4a85caffdc226d8d9333e80b725370af2",
+      "fingerprint": "0be8b0fc2e9e34297942609003c95f014c10d16af1b5e5328eeac8c5726486c1",
       "exports": [
         "DateRangePicker"
       ]
@@ -463,7 +463,7 @@
       ]
     },
     "tree-select": {
-      "fingerprint": "6bcf9b069ba8f61231484f987c20c87ffbcedac3d5ea6ecfdbb8d3348b53eda8",
+      "fingerprint": "67c7bfdaa5c9591cbe732464ba1786f2d99104c05b062d44268e4e6b4e6ec396",
       "exports": [
         "TreeSelect"
       ]
@@ -515,13 +515,13 @@
       ]
     },
     "mentions": {
-      "fingerprint": "a35bc7608fce013674aff8a0cad205ff9174b834adb9f0460c995803819477b8",
+      "fingerprint": "f1908f2810fa04e883c0b17433f9cc11f2a04dffdb1a6d9c826d02064105e3c6",
       "exports": [
         "Mentions"
       ]
     },
     "cascader": {
-      "fingerprint": "6f6ade54cc3f4cbf5fa7e5c34e6563f03322f07271d9057b250a7c08060a68fa",
+      "fingerprint": "0439a0cd08e7a23ef434381f209568672d68198a7daec858a2ad297109cadb97",
       "exports": [
         "Cascader"
       ]
@@ -1021,7 +1021,7 @@
       ]
     },
     "context-menu": {
-      "fingerprint": "f3e10c6230135d2b75e6fb86611ecb53a5f964d071c94e43ea27afc09208ce5c",
+      "fingerprint": "b0873e25625b2fd7de9ed6c36391fa7939cf4e39fd6d66b63df678624340886b",
       "exports": [
         "ContextMenu",
         "ContextMenuTrigger",
@@ -1039,7 +1039,7 @@
       ]
     },
     "dropdown-menu": {
-      "fingerprint": "6944a5e54046e32220e6d26b568627863362cabcb73f516e3103f0c04da52574",
+      "fingerprint": "46bda7820e6614e32b9bbc05ed1a8bd053eeb86e9e69ce48d6efdbf9fde56036",
       "exports": [
         "DropdownMenu",
         "DropdownMenuTrigger",
@@ -1063,7 +1063,7 @@
       ]
     },
     "hover-card": {
-      "fingerprint": "441146faa7514f32bb2985f43dfc73640c95360ed26aa2c7661df4114549d5f4",
+      "fingerprint": "13705609ada078cbe68832c28af478962b9785d94185b51751c1fb5352d047f7",
       "exports": [
         "HoverCard",
         "HoverCardTrigger",
@@ -1071,7 +1071,7 @@
       ]
     },
     "popover": {
-      "fingerprint": "47a4a1ece8db67a29e8448aaf74c2f3a0a7fcdea2074af20962688b8a10efe46",
+      "fingerprint": "9c6e76ade0b4c9bee7bcf2881de1ac27d8ccd230980d170988b061322e14e0d9",
       "exports": [
         "Popover",
         "popoverVariantMap"
@@ -1124,7 +1124,7 @@
       ]
     },
     "tooltip": {
-      "fingerprint": "ee8f924ccb075afd2c24ad9a7b951eee53e444e6516beb0937e927cd15838253",
+      "fingerprint": "c636e987840acd55887e5e50a67541a2c9afd93eb3b0e495e8d512c47f996be3",
       "exports": [
         "Tooltip"
       ]

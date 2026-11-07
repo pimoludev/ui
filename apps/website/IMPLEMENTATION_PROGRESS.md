@@ -378,19 +378,17 @@ ignoré par Git et absent d'un clone neuf.
 
 ## Versions et travail courant
 
-- Les cinq packages npm sont publiés en `0.1.0-beta.7`. Le [changelog](../../CHANGELOG.md)
+- Les cinq packages npm sont publiés en `0.1.0-beta.8`. Le [changelog](../../CHANGELOG.md)
   et les releases publiques distinguent le publié du workspace.
-- Ink & Signal est publié en beta.7 : palette encre/papier et iris, contours
-  fonctionnels distincts, rôles typographiques facultatifs et rayons de 10/16 px.
-  Le workspace rétablit ensuite les couleurs slate/indigo du commit `f01aca8`,
-  en conservant le nouveau design et une légère correction de contraste du texte
-  secondaire clair. Aucun huitième preset ; ce retour n’est pas publié sur npm.
+- Ink & Signal a été publié en beta.7 ; beta.8 publie le retour aux couleurs
+  slate/indigo du commit `f01aca8`, en conservant le nouveau design et une légère
+  correction de contraste du texte secondaire clair. Aucun huitième preset.
 - La bibliothèque ne télécharge pas de polices. Le site les auto-héberge avec leurs
   licences dans `public/fonts/`. Les autres palettes conservent leurs valeurs
   publiées ; rayon et densité explicites restent prioritaires.
-- Les guides Theming/Colors, README EN/FR et notes Unreleased distinguent beta.7
-  du retour de palette dans le workspace. Les 135 références concernées portent
-  Updated ; le baseline reste celui de beta.7.
+- Les guides Theming/Colors, README EN/FR et notes Unreleased décrivent beta.8.
+  Le baseline des statuts est celui de beta.8 ; les 135 overrides du cycle
+  précédent ont été retirés.
 - Le Design Lab versionné utilise les vrais composants pour trois compositions.
   `/design-preview`, son adaptateur et ses tests dédiés sont regroupés dans
   `app/design-preview/`, ignoré et facultatif. La CI n'en dépend pas.

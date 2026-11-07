@@ -2,115 +2,30 @@ export const metadata = {
   "slug": "unreleased",
   "title": "Unreleased",
   "status": "Development",
-  "summary": "A shared visual foundation, a complete React reference and a clearer path from exploration to implementation.",
-  "notice": "These notes track the source workspace after 0.1.0-beta.7. The published preview is listed separately."
+  "summary": "What the source workspace holds after the latest preview, and what still blocks a stable release.",
+  "notice": "These notes track the source workspace after 0.1.0-beta.8. The published preview is listed separately."
 };
 
-<ReleaseSection id="floating-placement" label="Fixed in source" title="Stable floating panel placement">
+<ReleaseSection id="workspace" label="Available in the workspace" title="The workspace">
 
-- Late trigger refs now recover automatically while open; pending frame work is cancelled on close or unmount. Unrelated component renders do not remeasure a panel. Focus traversal reuses ancestor style reads for a single interaction and checks visibility afresh on the next one.
-- Open panels now follow local anchor resizing without a window resize. Left and right Popover panels cap their height, scroll long content within the viewport and fit narrow side spaces without their normal minimum width causing overflow.
-- Modal focus loops and automatic focus skip hidden, inert and disabled controls. ContextMenu preserves arrow navigation between its roving menu items. These changes are in source after beta.7, not yet published on npm.
-- Select and the shared anchored surfaces measure their mounted, constrained dimensions before appearing, preventing the initial side-switch jump. Delayed portals are observed after mounting, and keyboard focus enters menus, popovers and date pickers only once the panel is visible. Scrolling, resizing and content changes continue to update placement. This source-workspace fix is not yet available in the published beta.7 packages.
+- The workspace currently matches the **0.1.0-beta.8** preview: the restored slate/indigo Default, 141 free Blocks and the corrected floating panel placement. There are no unreleased source changes yet.
 
-</ReleaseSection>
+- 129 React component families, from everyday controls to data surfaces, application layouts and media, with seven visual presets, light and dark modes, brand colour, radius and density settings.
 
-<ReleaseSection id="library" label="Available in the workspace" title="The library">
+- Opt-in layered CSS and typed named-part customization across all 129 families, including compound descendants. Panel hooks follow portalled content; existing class props keep their targets.
 
-- **141 free Blocks in the source website.** Each of the 46 available collections now has at least three authored variants. Commerce contains 54 compositions across product cards, details, galleries, lists, search, quick view, inventory, wishlists, carts, checkout, orders, order history, management, tracking, payment methods, promotions, reviews and live purchase notifications. Launch, Leaderboard and email verification also have dedicated collections. Every block provides its real source and a light/dark capture. Commerce transactions, authentication and notifications use explicitly local sample state; connect real services before production. These website additions do not introduce a new npm version.
-
-- **Familiar colors, current design.** The source workspace restores the Default slate/indigo colors from commit [f01aca8](https://github.com/pimoludev/ui/commit/f01aca89fddeae45df523d90996ff492da3e0abb) in light and dark. The newer typography, radius, spacing, motion and layouts remain. Light secondary text changes from `#64748B` to `#607087` for contrast on muted surfaces; functional outlines and soft accent roles stay supported. Other presets keep their palettes. This restoration is not included in the published npm beta.7.
-
-- **Ink & Signal ships in 0.1.0-beta.7.** Default uses warm paper/ink neutrals and an iris signal, with `control-border` separate from decorative `border`. The six other named palettes keep their existing colors; no eighth preset is introduced.
-
-- **Optional typography and shape.** Default font roles name DM Sans, Newsreader for editorial displays, and IBM Plex Mono, each with fallbacks. The library downloads no fonts; the website self-hosts licensed fonts. Default control/surface radii are 10/16 px, and explicit radius and density choices retain precedence.
-
-- **Real review surfaces.** Playground Design Lab provides marketing, validated local form and searchable dashboard compositions. A beta.6 reference can be shown alongside them. This work does not close the full visual or assistive-technology audit.
-
-- 129 React component families, from everyday controls to data surfaces, application layouts and media.
-
-- Shared CSS with seven visual presets, light and dark modes, brand color, radius and density settings.
-
-- Platform-neutral palette and visual-token data, with generated web assets and integrity checks.
-
-- Opt-in layered CSS and typed named-part customization across all 129 component families, including compound descendants. Panel hooks follow portalled content; existing class props keep their targets.
-
-- Input focus halo restored independently of preset shadows. Styled Select honors its control style; Dialog and Drawer panels accept local inline styles.
-
-- Tabs adds a native CSS sliding indicator for every variant, including vertical and scrollable lists. Use `animated={false}` to disable animations, CSS variables to customize duration/easing, and `classNames.indicator` to style the surface. Reduced motion is respected.
-
-- SegmentedControl shares the sliding indicator and keeps a single scrollable track horizontally or vertically. `showScrollbar` changes only native bar visibility on SegmentedControl; bars stay hidden by default and overflow remains reachable. TabsList also supports `showScrollbar`. Tabs galleries use wider responsive cards.
-
-- Toast adds loading and information states, semantic or custom icons, promise feedback and in-place updates. Timers pause during hover/focus, notifications support six positions, and dismissal labels, callbacks and named icon styling are customizable. New examples cover these additions, published in 0.1.0-beta.4.
-
-- Button adds loadingIndicator for a custom decorative loader. FormSubmit inherits it while Form controls pending submission. Omitting it keeps the existing ring; null or false hides the visual without removing disabled or aria-busy. FormSubmit and FormError have their own reference pages and sidebar entries, with focused APIs, customization and interactive examples. This API addition ships in 0.1.0-beta.4.
+- Stable anchored placement shared by Select, Combobox, MultiSelect, TreeSelect, Cascader, Mentions, DropdownMenu, Menubar, Popover, Tooltip, HoverCard, DatePicker and DateRangePicker, with focus loops that skip hidden, inert and disabled controls.
 
 </ReleaseSection>
 
+<ReleaseSection id="before-release" label="Still in progress" title="Before a stable release">
 
-<ReleaseSection id="documentation" label="Website" title="A reference you can build from">
+- The library packages are published on npm at 0.1.0-beta.8. Install the beta with pnpm add @pimolu/react@beta @pimolu/web-styles@beta; a component-copy CLI is not announced.
 
-- **Homepage clarity.** Demonstration cards use the existing surface tokens to stand apart from the page, with larger supporting text and clearer nesting in the workspace. The identity preview starts in dark mode; its switch and preset controls remain independent of your site preferences. These website changes do not change library tokens or component defaults.
+- The 5–8 person design review and the assistive-technology review remain necessary before 0.1.0 stable.
 
-- An illustrated catalogue with search, categories and a direct path to each component's API.
-
-- At least four real examples per family: interactive previews, readable copyable code and source-derived public types, with a standalone typed customization example for every reference.
-
-- Integration and design-system guides, a palette explorer and original engineering articles in the journal.
-
-</ReleaseSection>
-
-
-<ReleaseSection id="refinements" label="Refined" title="Interaction refinements">
-
-- Anchored menus apply logical alignment before viewport clamping; DropdownMenu focuses commands after its portal mounts.
-
-- Scheduler exposes a grid keyboard model, including RTL navigation and focus return from a cell action.
-
-- Kanban capacity limits no longer mark operable cards in full columns as disabled.
-
-</ReleaseSection>
-
-
-<ReleaseSection id="before-release" label="Still in progress" title="Before a public release">
-
-- The library packages are published on npm at 0.1.0-beta.7. Install the beta with pnpm add @pimolu/react@beta @pimolu/web-styles@beta; a component-copy CLI is not announced.
-
-- Deeper assistive-technology and visual review remains necessary for complex families and complete application workflows.
+- Block previews use local sample state; they do not call real payments, email or authentication services.
 
 - React Native, Angular, direct CDN adapters and a Pimolu MCP server remain future directions.
 
 </ReleaseSection>
-
-
-### Nested tabs and focused authentication blocks
-
-
-In the source workspace after beta.7, Tabs variants and orientations are scoped to their own lists and triggers. Nested line tabs no longer inherit segmented hover backgrounds from an outer Preview/Code switcher.
-
-
-Password recovery and email verification blocks now use focused forms and inbox states, with less presentation copy. Resend, email correction and local validation remain interactive; these previews do not send emails or verify real identities. Block detail headings also give the free-block badge more space.
-
-
-### Cleaner blocks and readable source
-
-
-All 141 blocks now expose consistently formatted React source, with separate
-variable declarations and readable event handlers. Previews remove repeated
-category headings and default integration messages; feedback still appears after
-actions. Onboarding screens show the actual setup fields directly.
-
-
-Order history, inventory, order management, leaderboard and comparison tables
-now use Pimolu table parts for consistent header and cell alignment. The empty
-Testimonials subcategory has been removed from Marketing.
-
-
-### Accessible block browsing
-
-
-Selected category labels, card classifications and the setup link use readable
-text colors across presets. The catalogue toolbar is a named region, with one
-global skip link and a top-level main landmark. The sign-in block starts its
-form heading at h2. Automated accessibility regressions cover the catalogue,
-mobile category Drawer and sign-in preview in every preset and color mode.

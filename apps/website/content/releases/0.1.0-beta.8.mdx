@@ -1,0 +1,93 @@
+export const metadata = {
+  "slug": "0.1.0-beta.8",
+  "title": "0.1.0-beta.8",
+  "status": "Preview",
+  "date": "2026-11-08",
+  "tag": "v0.1.0-beta.8",
+  "summary": "Default returns to slate/indigo, 141 free Blocks join the website, and anchored panels stop jumping when they open.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.8 with the latest and beta tags. Pimolu UI remains a beta release. The human design and assistive-technology reviews stay open."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.8">
+
+- **Default is slate and indigo again.** The palette returns to the colours published before beta.7, while the newer typography, radii, spacing, motion and layouts stay.
+- **141 free Blocks are live.** Six collections, category and subcategory filters, real light/dark previews, copyable typechecked source and one page per block.
+- **Anchored panels no longer jump.** Select, Popover, DropdownMenu and ten other surfaces measure the mounted panel before revealing it, follow container resizes and cap long lateral content.
+- **NavigationMenu gains `openOnHover`.** It is opt-in: click, keyboard and touch behaviour keep their defaults.
+- **No breaking change.** No public React API was removed; the only addition is the optional `openOnHover` prop.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.8 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.8.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.8 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="palette" label="Design" title="Default returns to slate/indigo">
+
+- Background, surface, foreground, border and status colours are restored from commit f01aca8 in both modes.
+- Light secondary text moves from `#64748B` to `#607087` so it stays readable on muted surfaces.
+- Functional `control-border` uses slate.500, and `primary-soft` reuses the muted surface with an indigo foreground.
+- The DM Sans, Newsreader and IBM Plex Mono roles, the 10/16 px radii, spacing and motion remain from the beta.7 work.
+- The six other named presets and `adaptive` keep their published palettes.
+
+</ReleaseSection>
+
+<ReleaseSection id="blocks" label="Website" title="141 free React Blocks">
+
+- Application, authentication, commerce, content, marketing and navigation collections, each with subcategories and at least three variants.
+- Every block page shows a live preview, light and dark captures, copyable source and the Pimolu components it uses.
+- Search matches words and classification labels; filters, shareable URLs, refresh and browser Back all work.
+- Blocks appear in the sitemap, `llms.txt`, structured data and site search.
+- Commerce, authentication and notification demos use explicit local sample state. Connect real services before production.
+
+</ReleaseSection>
+
+<ReleaseSection id="placement" label="Fixed" title="Anchored panels open in place">
+
+- Select, Combobox, MultiSelect, TreeSelect, Cascader, Mentions, DropdownMenu, Menubar, Popover, Tooltip, HoverCard, DatePicker and DateRangePicker share the corrected placement hook.
+- The panel is measured while hidden and revealed only once placed, so it no longer switches sides after appearing.
+- Delayed portals notify the hook when their node commits, and the anchor plus the mounted surface are observed.
+- A local container resize moves an open list without waiting for a window resize.
+- Lateral panels cap their height, scroll long content and stay inside narrow viewports.
+- Focus loops skip hidden, inert and disabled controls, and menus receive focus only once visible.
+
+</ReleaseSection>
+
+<ReleaseSection id="migration" label="Migration" title="Upgrading from beta.7">
+
+- The Default palette changes: review colours, radii and typography in your application before shipping.
+- Pin another preset when you need the beta.7 look; the other presets are unchanged.
+- Explicit `radius`, `density` and `brandColor` props keep overriding the Default palette.
+- Move custom CSS from beta.7 hex values to semantic variables such as `--pimolu-primary`, `--pimolu-control-border` and `--pimolu-surface`.
+- A local `pnpm` patch for the anchored panel jump can be removed once the corrected package is installed.
+- No component or hook was removed; `openOnHover` is optional on NavigationMenu.
+
+</ReleaseSection>
+
+<ReleaseSection id="review" label="Evidence" title="What was verified">
+
+- 1,544 React tests, 33 CSS tests, 13 theme tests and the token test pass through the repository checks, with typecheck, the theme audit and the playground build.
+- The website builds 456 pages and its documentation tests pass.
+- The full Chromium, Firefox and WebKit matrix reports 1,848 passing journeys and 18 skipped, including the four floating-placement scenarios at 1440 and 390 px.
+- The five packages pass `release:pack-check` with the expected version, entry points and contents.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The 5–8 person design review and the assistive-technology review have not been executed.
+- Block previews use local sample state; they do not call real payments, email or authentication services.
+- The Playground bundle still exceeds the Vite 500 kB warning threshold.
+- Native, Angular and web registries remain unimplemented.
+
+</ReleaseSection>
