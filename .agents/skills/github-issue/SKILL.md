@@ -55,15 +55,15 @@ Typical cases that must **not** become issues:
 - a detail already covered by an open issue;
 - a task that belongs in a pull request or changelog only.
 
-## Bilingual contract
+## Language contract
 
-Every issue has English **and** French:
-
-- title: `English title / Titre français`;
-- body: `## English` then `## Français`, with the same sections and facts;
-- no untranslated placeholder, no summary in only one language;
-- French is properly accented (`é`, `è`, `à`, `ç`, …), not ASCII-folded;
-- commands, versions, URLs and code are identical in both sections.
+- **Title: English only, always.** Never translate it, never duplicate it in
+  French, never use an `English / Français` form.
+- **Body: English and French**, `## English` then `## Français`, with the same
+  sections and facts.
+- No untranslated placeholder, no summary in only one language.
+- French is properly accented (`é`, `è`, `à`, `ç`, …), not ASCII-folded.
+- Commands, versions, URLs and code are identical in both sections.
 
 Keep the two sections equivalent. Do not add a claim in one language that the
 other omits.
@@ -102,10 +102,10 @@ Never include secrets, tokens, private customer data or unredacted logs.
    `references/issue-template.md`.
 4. Validate both `## English` and `## Français` sections, the version numbers,
    commands and links.
-5. Publish with an existing label:
+5. Publish with an English-only title and an existing label:
    ```bash
    gh issue create \
-     --title "English title / Titre français" \
+     --title "English title" \
      --body-file <file> \
      --label bug
    ```
@@ -161,7 +161,7 @@ Abort or ask before publishing when:
 ```
 GITHUB ISSUE
 - number: <number or "not published">
-- title: <bilingual title>
+- title: <English title>
 - state: <open/closed> (<reason>)
 - labels: <list>
 - necessity: <why this needed a public issue>
@@ -175,7 +175,8 @@ GITHUB ISSUE
 - Publish an issue without an explicit request or approval.
 - Create an issue for every commit or release.
 - Open a duplicate without checking closed issues.
-- Publish English-only or French-only content.
+- Publish an English-only or French-only **body**.
+- Use a bilingual or French issue title.
 - Invent labels, versions, reproductions or test results.
 - Include tokens, customer data or unredacted logs.
 - Close a fixed issue without the release link and upgrade command.

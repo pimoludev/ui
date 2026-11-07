@@ -1,9 +1,9 @@
 # Issue template
 
-Title format:
+Title format (English only, never bilingual):
 
 ```text
-English title / Titre français
+English title
 ```
 
 Body:
