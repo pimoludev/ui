@@ -120,7 +120,7 @@ function clampToViewport(
 function getEnabledItems(panel: HTMLElement | null) {
   if (!panel) return [];
 
-  return getFocusable(panel).filter(
+  return getFocusable(panel, { includeNegativeTabIndex: true }).filter(
     (node) => node.getAttribute("role") === "menuitem"
   );
 }

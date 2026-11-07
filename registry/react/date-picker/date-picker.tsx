@@ -124,7 +124,7 @@ export const DatePicker = forwardRef<
     EXIT_DURATION
   );
 
-  const { style: panelStyle, side } = useAnchoredPosition(
+  const { style: panelStyle, side, onMount } = useAnchoredPosition(
     triggerRef,
     panelRef,
     rendered,
@@ -178,15 +178,15 @@ export const DatePicker = forwardRef<
     (node: HTMLDivElement | null) => {
       panelRef.current = node;
 
-      if (!node || !open) return;
+      if (!node || !open || panelStyle?.visibility !== "visible") return;
 
       const target = node.querySelector<HTMLElement>(
         '[role="gridcell"][tabindex="0"]'
       );
 
-      (target ?? node).focus();
+      (target ?? node).focus({ preventScroll: true });
     },
-    [open]
+    [open, panelStyle?.visibility]
   );
 
   function closeWithFocus() {
@@ -391,7 +391,7 @@ export const DatePicker = forwardRef<
       )}
 
       {rendered && (
-        <Portal anchorRef={triggerRef}>
+        <Portal anchorRef={triggerRef} onMount={onMount}>
           <div
             ref={setPanelRef}
             id={panelId}

@@ -175,7 +175,7 @@ export function DropdownMenuContent({ classNames,
     closeOnEscape: false,
   });
 
-  const { style } = useAnchoredPosition(
+  const { style, onMount } = useAnchoredPosition(
     menu.triggerRef,
     menu.contentRef,
     rendered,
@@ -193,12 +193,12 @@ export function DropdownMenuContent({ classNames,
   // actual menu node arrives, skipping disabled commands and avoiding scroll.
   const attachContent = useCallback((node: HTMLDivElement | null) => {
     menu.contentRef.current = node;
-    if (node && menu.open) {
+    if (node && menu.open && style?.visibility === "visible") {
       node.querySelector<HTMLElement>(
         '[role="menuitem"]:not([aria-disabled="true"]):not(:disabled)'
       )?.focus({ preventScroll: true });
     }
-  }, [menu.open, menu.contentRef]);
+  }, [menu.open, menu.contentRef, style?.visibility]);
 
   if (!rendered) return scopeParts(null);
 
@@ -249,7 +249,7 @@ export function DropdownMenuContent({ classNames,
   }
 
   return scopeParts((
-    <Portal anchorRef={menu.scopeRef}>
+    <Portal anchorRef={menu.scopeRef} onMount={onMount}>
       <div
         ref={attachContent}
         id={menu.contentId}

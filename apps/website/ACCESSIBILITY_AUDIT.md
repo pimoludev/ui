@@ -1,5 +1,61 @@
 # Audit technique d’accessibilité — 21 octobre 2026
 
+## Complément montage tardif et styles partagés — 7 novembre 2026
+
+Le positionnement récupère une ancre dont la ref arrive après l'ouverture, sans
+exiger de re-render, puis révèle le panneau à sa taille mesurée. Fermer ou démonter
+annule l'attente. Les parcours de focus partagent les styles des ancêtres pendant
+un appel seulement ; l'interaction suivante relit la visibilité courante.
+
+Validation : 1 544 tests React, 50 tests de documentation, 24 scénarios sur le site
+dans Chromium/Firefox/WebKit et 12 cas navigateur supplémentaires avec les vrais
+composants et mesures DOM. Dans le harnais de mise à jour de contenu, les mesures
+d'ancre restent à trois avant/après le re-render ; cela ne constitue pas un
+benchmark global de DataGrid ou Command. La matrice visuelle Chromium de 84 cas
+est également relancée. Aucune validation par lecteur d'écran ajoutée dans ce lot.
+
+## Complément focus conditionnel et contraintes latérales — 7 novembre 2026
+
+Les éléments masqués par CSS ou par un ancêtre hidden/inert ne participent plus
+au focus initial ou aux cycles clavier. Les fieldsets désactivés et le contenu
+de details fermés sont exclus. ContextMenu conserve sa navigation par flèches
+entre éléments à tabIndex négatif. La régression Dialog avec une première action
+masquée est couverte par les tests et par un exemple réel.
+
+Select suit le redimensionnement local de son déclencheur. Les Popover gauche et
+droite limitent leur hauteur, permettent de défiler jusqu'au dernier contrôle et
+respectent la largeur disponible sur mobile. La mesure initiale avant affichage
+et le retour de focus au déclencheur sont conservés.
+
+La suite React complète passe (1 539 tests). Les scénarios navigateur dédiés
+couvrent mobile/desktop et Chromium/Firefox/WebKit ; la matrice visuelle utilise
+sept presets, clair/sombre et deux largeurs. Les résultats finaux sont enregistrés
+dans le suivi d'implémentation et les preuves `.artifacts/bugfix-*`. Ce périmètre
+n'est pas un audit par lecteur d'écran ni un test sur appareils tactiles physiques.
+Correctifs dans les sources après beta.7, non publiés sur npm.
+
+Résultat final : 24 régressions placement/focus et 51 scénarios Blocks réussis
+dans Chromium, Firefox et WebKit. La matrice visuelle de 84 cas est passée ; les
+captures de chaque preset/mode ont été examinées aux largeurs 390 et 1440px.
+Les tests latéraux vérifient les quatre limites du viewport, le défilement et
+l'accès au dernier contrôle ; les tests Dialog vérifient Tab, Maj+Tab et Escape.
+
+## Complément surfaces flottantes — 7 novembre 2026
+
+Le positionnement partagé masque les panneaux pendant leur mesure initiale.
+Les menus, popovers et calendriers prennent le focus seulement après affichage ;
+Escape conserve le retour au déclencheur. Popover reprend correctement le focus
+si on le rouvre pendant sa fermeture. La correction est dans les sources après
+beta.7, pas encore dans les paquets npm publiés.
+
+Contrôles ciblés : 266 tests React réussis et 114 cas navigateur sur le playground
+compilé. Les 84 cas Select couvrent sept presets, clair/sombre et deux largeurs
+dans Chromium, Firefox et WebKit ; les 30 autres couvrent le focus de cinq
+surfaces dans les trois moteurs et aux deux largeurs. Ce contrôle ne remplace
+pas un audit de lecteur d'écran ou un test tactile sur appareil physique. La
+génération complète du site reste bloquée par une corruption distincte du fichier
+de catégories Blocks ; voir IMPLEMENTATION_PROGRESS.md pour les limites exactes.
+
 ## Complément ciblé Blocks — 6 novembre 2026
 
 Les trois constats de la revue finale du catalogue sont corrigés : couleurs des

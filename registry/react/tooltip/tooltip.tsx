@@ -83,7 +83,7 @@ export function Tooltip({ classNames,
 
   const visible = phase !== "closed";
 
-  const { style: panelStyle, side } = useAnchoredPosition(
+  const { style: panelStyle, side, onMount } = useAnchoredPosition(
     triggerRef,
     panelRef,
     visible,
@@ -219,7 +219,7 @@ export function Tooltip({ classNames,
       {cloneElement(trigger, triggerProps)}
 
       {visible && (
-        <Portal anchorRef={triggerRef}>
+        <Portal anchorRef={triggerRef} onMount={onMount}>
           <div
             ref={panelRef}
             id={tooltipId}

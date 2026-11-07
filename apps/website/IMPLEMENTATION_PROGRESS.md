@@ -1,5 +1,129 @@
 # Pimolu Website — État et vérifications
 
+## Robustesse du montage tardif et coût des parcours — 7 novembre 2026
+
+- La routine `measure` est déclarée avant la création du ResizeObserver. Les refs
+  sont lues au moment de la mesure : une ancre assignée après l'ouverture est
+  récupérée sans exiger un re-render du propriétaire du hook. Tant qu'elle est
+  absente, l'attente n'effectue aucune lecture de layout ; elle est annulée à la
+  fermeture et au démontage.
+- La passe de préparation masquée a des dépendances explicites. Un re-render sans
+  changement de placement ne relance pas la mesure. Les frames devenues inutiles
+  sont annulées dès que le panneau est prêt. Le suivi resize/scroll reste actif.
+- `getFocusable` mutualise les lectures de styles des ancêtres pour un seul
+  parcours. Le cache est recréé à chaque appel : une modification de visibilité
+  est immédiatement prise en compte lors de l'interaction suivante.
+- Les tests couvrent l'ancre tardive sans re-render, l'annulation, les rendus sans
+  mesure et 100 contrôles partageant un ancêtre. `pnpm verify` réussit : 1 544
+  tests React dans 142 fichiers, TypeScript, thèmes, CSS, lint et build playground.
+- Site : lint complet et 50 tests documentation réussis ; build production avec
+  456 pages. Les 24 tests de `floating-placement.spec.ts` passent dans Chromium,
+  Firefox et WebKit aux largeurs 390 et 1440px.
+- Un harnais temporaire utilisant les vrais Button, Portal et hook, sans mock DOM
+  ni mock ResizeObserver, passe 12 cas dans ces trois moteurs : attente sans
+  lecture de layout, récupération tardive, fermeture et mise à jour de contenu
+  sans nouvelle mesure. Preuves : `.artifacts/review-hardening-browser-results.json`.
+- La matrice Chromium de 84 cas (sept presets × deux modes × deux largeurs × trois
+  composants) est relancée. Documentation publique, notes Unreleased, démonstration
+  contrôlée Popover et 29 badges Updated synchronisés. Aucun nouveau prop/export ;
+  correctifs dans les sources après beta.7, non publiés sur npm.
+
+## Régressions clavier et placement, récupération locale — 7 novembre 2026
+
+- `internal/focusable.ts` exclut les contrôles masqués, les ancêtres `hidden` ou
+  `inert`, les fieldsets désactivés et les contenus de details fermés. Dialog ne
+  laisse plus Maj+Tab sortir quand une action initiale est masquée. ContextMenu
+  conserve explicitement ses éléments à tabIndex négatif pour les flèches.
+- Le positionnement observe l'ancre et le panneau ; une liste Select ouverte
+  suit un changement de largeur local. Les panneaux latéraux limitent leur
+  hauteur, et Popover peut réduire sa largeur minimale dans un espace étroit.
+- Trois compositions réelles sont ajoutées au playground et à la documentation
+  Preview/Code : conteneur Select redimensionné, checklist latérale défilante,
+  actions Dialog conditionnelles. Les 29 références concernées restent Updated.
+  Aucun nouvel export ni prop publique ; sources après beta.7, non publiées npm.
+- Les fichiers locaux endommagés ont été sauvegardés dans `.artifacts/recovery-backup`
+  puis récupérés par empreinte depuis les objets indexés : 24 fichiers TS/JS,
+  la feuille Tabs, le lockfile et 94 captures WebP. Le cache Vitest et le cache
+  Next.js ont été écartés ; les dépendances sont réinstallées depuis un store neuf.
+- 170 objets Git altérés ont été récupérés avec vérification SHA-1 et les packs
+  distants ont complété les objets absents. Les branches, tags et remotes sont
+  parcourables et le travail non commité est conservé. Limite : un ancien checkpoint
+  interne `refs/codex/turn-diffs/checkpoints/.../1793912335208/...` référence encore
+  le blob README `927849b1246839892a881fb1bf5950832ac4f88a`, vide avant récupération
+  et absent du distant. Il n'a pas été inventé ni la référence supprimée ; `git fsck`
+  signale ce seul objet manquant. Les branches du projet ne le référencent pas.
+- Vérification du dépôt exécutée : `pnpm verify` réussit, dont 1 539 tests React
+  dans 142 fichiers, les tests CSS/thèmes, TypeScript, lint et build playground.
+  Tests du site : 50 réussis, y compris les sources de tous les blocks et les
+  exemples copiables. Le build Next.js de production est de nouveau possible.
+- Les contrôles navigateur et visuels de cette correction sont consignés dans
+  le complément d'accessibilité ci-dessous et dans `.artifacts/bugfix-*`.
+- Résultats finaux : 75 tests Playwright réussis dans Chromium, Firefox et WebKit
+  (24 sur le placement/focus, 51 sur les captures, formulaires, filtres et la
+  navigation des Blocks), 84 cas visuels sur sept presets × clair/sombre × deux
+  largeurs × trois composants, captures examinées. Build production : 456 pages,
+  TypeScript réussi ; lint complet du site et 50 tests documentation réussis.
+  Après le dernier ajustement de largeur latérale, les 33 tests CSS repassent.
+- Les 24 118 fichiers de contenu du store propre ont été vérifiés par SHA-512 ;
+  cinq entrées altérées du store pnpm habituel ont été remplacées après sauvegarde.
+  Le dossier temporaire de récupération reste ignoré par Git.
+- Réinstallation finale réussie avec le store habituel `F:\.pnpm-store\v11`, sans
+  configuration locale ajoutée. `pnpm dev:website` démarre correctement ; la page
+  `/components/select` et ses feuilles CSS Pimolu répondent HTTP 200. Les serveurs
+  lancés pour ces vérifications ont été arrêtés après le contrôle.
+
+Les blocages de génération décrits dans l'entrée précédente sont résolus ; son
+historique de vérification reste conservé pour expliquer la récupération.
+
+## Positionnement des surfaces flottantes — 7 novembre 2026
+
+- Correction dans `registry/react/internal/use-anchored-position.ts` : contraintes
+  de taille appliquées pendant que le panneau est masqué, notification interne
+  du montage Portal, mesure terminée avant affichage et ResizeObserver attaché
+  au vrai nœud. Un RAF annulable reste disponible pour une ref retardée.
+- Les douze consommateurs placés autour d'un Portal transmettent la notification ;
+  Menubar mesure depuis sa surface déjà montée dans le portail. Aucun nouvel
+  export, prop publique, moteur d'animation ou dépendance.
+- DropdownMenu, Menubar, Popover et les deux DatePickers attendent la visibilité
+  avant de prendre le focus, sans déplacer la page. Popover reprend aussi le
+  focus lors d'une réouverture avant la fin de son animation de sortie.
+- Playground Select : composition avec zone défilante pour vérifier l'ouverture
+  près d'un bord. Site : usage des 21 références directes/composées concernées,
+  supplément Select Preview/Code ajouté à la fin de la liste, overrides Updated
+  rafraîchis, release Unreleased et `docs/FLOATING_PLACEMENT.md` actualisés.
+  Le correctif est **local, après beta.7, non publié sur npm**.
+- Vérifications exécutées : 266 tests ciblés / 22 fichiers réussis, dont cinq
+  tests du hook et la réouverture rapide Popover ; TypeScript racine et playground réussis ;
+  lint des fichiers site modifiés réussi. Bundle ESM et déclarations régénérés
+  avec les outils locaux, assets CSS/thèmes reconstruits. Vite playground
+  production réussi (avertissement de taille de chunk existant).
+- Navigateurs réels via Playwright sur le playground compilé : 84 cas Select
+  (Chromium, Firefox, WebKit × 7 presets × clair/sombre × 1440/390 px), position
+  mesurée dès la première frame visible, réouverture, clavier et retour du focus.
+  30 cas supplémentaires vérifient entrée/retour du focus et réouverture de
+  DropdownMenu, Menubar, Popover et des deux DatePickers dans les trois moteurs
+  aux deux largeurs. Captures des sept presets examinées. Pas de test de lecteur
+  d'écran ni de geste tactile sur appareil physique dans cette vérification.
+- Limites **non masquées** : la suite React complète échoue encore sur le
+  chargement DataGrid (JSON invalide) et le smoke Dropzone (timeout/token invalide),
+  également en exécution isolée. `pnpm` rencontre une erreur de contenu non UTF-8
+  dans sa résolution de gestionnaire ; les validations ciblées ont donc utilisé
+  les exécutables déjà installés. Un objet Git corrompu empêche `git status`.
+- La génération complète du site est bloquée par
+  `content/blocks/categories.ts`, qui contient du JSON de tsconfig à la place du
+  TypeScript attendu. Cette configuration n'a pas été réinventée. Le nouveau
+  test `e2e/floating-placement.spec.ts` est prêt pour CI mais n'a pas pu être
+  exécuté contre le site. Les 21 statuts Updated sont confirmés dans le catalogue
+  existant et par calcul avec les overrides rafraîchis ; leur nouveau texte et
+  le supplément doivent être régénérés une fois le fichier réparé.
+- Le fichier `content/releases/unreleased.mdx` était lui aussi endommagé : restauré
+  à partir de son arbre React généré, en vérifiant l'égalité exacte des métadonnées
+  et de toutes les sections avec l'index généré avant ajout de la correction.
+  Copie des octets abîmés conservée sous `.artifacts/`. Génération des neuf
+  releases MDX réussie ensuite. Aucun objet Git ni cache de dépendances modifié.
+- Traces : `.artifacts/floating-*.log`, résultats navigateurs JSON et captures.
+  Aucun commit, push, déploiement ni publication.
+
 ## Accessibilité du catalogue Blocks — 6 novembre 2026
 
 - Contraste : navigation active/hover/focus, classifications des cartes et

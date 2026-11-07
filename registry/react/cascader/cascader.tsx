@@ -510,7 +510,7 @@ export const Cascader = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  const { style: popupStyle } = useAnchoredPosition(
+  const { style: popupStyle, onMount } = useAnchoredPosition(
     fieldRef,
     listboxRef,
     isOpen && !disabled,
@@ -665,7 +665,7 @@ export const Cascader = forwardRef<
         </span>
 
         {isOpen && !disabled && (
-          <Portal anchorRef={fieldRef}>
+          <Portal anchorRef={fieldRef} onMount={onMount}>
             <div
               ref={listboxRef}
               id={listboxId}

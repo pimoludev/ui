@@ -20,6 +20,26 @@ function open(name = "Open") {
 }
 
 describe("Pimolu Popover", () => {
+  it("restores panel focus when reopened during its exit animation", () => {
+    vi.useFakeTimers();
+    render(
+      <Popover content={<button type="button">Panel action</button>} label="Details">
+        <button type="button">Open</button>
+      </Popover>
+    );
+    open();
+    const action = screen.getByRole("button", { name: "Panel action" });
+    const panel = screen.getByRole("dialog");
+    expect(action).toHaveFocus();
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.getByRole("button", { name: "Open" })).toHaveFocus();
+    expect(panel).toHaveAttribute("data-state", "closing");
+    open();
+    expect(screen.getByRole("dialog")).toBe(panel);
+    expect(panel).toHaveAttribute("data-state", "open");
+    expect(action).toHaveFocus();
+  });
+
   it("renders nothing until the trigger is clicked", () => {
     render(
       <Popover content="Panel content" label="Details">

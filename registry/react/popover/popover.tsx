@@ -94,12 +94,12 @@ function PopoverSurface({ classNames,
   useEffect(() => {
     const panel = surfaceRef.current;
 
-    if (!panel) return;
+    if (!panel || state !== "open" || style?.visibility !== "visible") return;
 
     const first = getFocusable(panel)[0];
 
-    (first ?? panel).focus();
-  }, [surfaceRef]);
+    (first ?? panel).focus({ preventScroll: true });
+  }, [surfaceRef, state, style?.visibility]);
 
   return scopeParts((
     <div
@@ -176,7 +176,7 @@ export function Popover({ classNames,
     typeof setTimeout
   > | null>(null);
 
-  const { style: panelStyle, side } = useAnchoredPosition(
+  const { style: panelStyle, side, onMount } = useAnchoredPosition(
     triggerRef,
     panelRef,
     rendered,
@@ -348,7 +348,7 @@ export function Popover({ classNames,
       {cloneElement(trigger, triggerProps)}
 
       {rendered && (
-        <Portal anchorRef={triggerRef}>
+        <Portal anchorRef={triggerRef} onMount={onMount}>
           <PopoverSurface
             surfaceRef={panelRef}
             id={panelId}

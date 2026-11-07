@@ -2,6 +2,7 @@
 
 import {
   useEffect,
+  useLayoutEffect,
   useState,
   type RefObject,
   type ReactNode,
@@ -21,10 +22,13 @@ export function Portal({
   children,
   container,
   anchorRef,
+  onMount,
 }: {
   children: ReactNode;
   container?: HTMLElement | null;
   anchorRef?: RefObject<HTMLElement | null>;
+  /** Internal placement notification, after portalled child refs are attached. */
+  onMount?: () => void;
 }) {
   const [host, setHost] = useState<HTMLElement | null>(
     null
@@ -41,6 +45,10 @@ export function Portal({
         (themed instanceof HTMLElement ? themed : document.body)
     );
   }, [container, anchorRef]);
+
+  useLayoutEffect(() => {
+    if (host) onMount?.();
+  }, [host, onMount]);
 
   if (!host) return null;
 

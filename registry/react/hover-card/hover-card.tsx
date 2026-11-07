@@ -455,7 +455,7 @@ export function HoverCardContent({ classNames,
 
   const hoverCard = useHoverCard("HoverCardContent");
 
-  const { style, side } = useAnchoredPosition(
+  const { style, side, onMount } = useAnchoredPosition(
     hoverCard.triggerRef,
     hoverCard.contentRef,
     hoverCard.rendered,
@@ -499,7 +499,7 @@ export function HoverCardContent({ classNames,
   }
 
   return scopeParts((
-    <Portal anchorRef={hoverCard.triggerRef}>
+    <Portal anchorRef={hoverCard.triggerRef} onMount={onMount}>
       <div
         ref={hoverCard.contentRef}
         id={hoverCard.contentId}

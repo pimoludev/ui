@@ -118,10 +118,24 @@ const pilotComponents: ComponentDoc[] = [
   { family: "tooltip", title: "Tooltip", example: "TooltipExample", description: "Supplementary context on a focusable trigger.", usage: ["Wrap a single child that forwards props and a ref. Placement is preferred rather than guaranteed: the bubble can flip when space is limited.", "Keep tooltip content brief and non-interactive. Use Popover for links or controls, and avoid essential instructions that touch-only users cannot reliably discover."], accessibility: ["The trigger needs its own name; the tooltip adds an accessible description.", "Check keyboard focus, hover and Escape. Do not use a tooltip as the sole label or an error message."], related: ["components/button", "components/dialog"] },
 ];
 
+const anchoredFamilies = new Set([
+  "select", "combobox", "multi-select", "tree-select", "cascader", "mentions",
+  "popover", "popconfirm", "dropdown-menu", "split-button", "menubar", "tooltip",
+  "hover-card", "date-picker", "date-range-picker", "phone-input", "theme-builder",
+  "color-picker", "notification-center", "data-grid", "sidebar",
+]);
+const focusFamilies = new Set(["dialog", "alert-dialog", "drawer", "focus-scope", "lightbox", "context-menu", "tour", "navbar", "sidebar", "popover", "popconfirm", "color-picker", "notification-center"]);
+
 export const components: ComponentDoc[] = [...pilotComponents, ...formReferences, ...chartReferences, ...extendedComponents.map((entry) => ({
   ...entry, title: ({ "qr-code": "QRCode", "pdf-viewer": "PDFViewer", "code": "Code + Kbd" } as Record<string, string>)[entry.family] ?? entry.family.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join(""),
   example: "DemoExample", related: ["customization", "accessibility"],
-}))];
+}))].map((entry) => anchoredFamilies.has(entry.family) ? {
+  ...entry,
+  usage: [...entry.usage, "Source workspace after beta.7: floating panels are sized and measured before becoming visible, avoiding a position jump on opening. An anchor mounted later is measured automatically; waiting is cancelled when closed. Trigger wrappers must still forward their DOM ref and event props. Open panels follow local trigger resizing, and left/right panels constrain long content to the viewport. No additional prop or application patch is required. These fixes are not yet published on npm."],
+} : entry).map((entry) => focusFamilies.has(entry.family) ? {
+  ...entry,
+  accessibility: [...entry.accessibility, "Source workspace after beta.7: automatic focus and keyboard loops skip controls hidden with CSS or hidden/inert ancestors, as well as disabled controls. Visibility is rechecked at each navigation; style lookups are shared only within that traversal, so later changes take effect immediately. Menu arrow navigation still reaches enabled items with roving tabIndex. Keep an accessible close action or Escape available when conditionally hiding actions. This fix is not yet published on npm."],
+} : entry);
 
 export const docNavigation = [
   ...guides.map(({ slug, title, description, group }) => ({ slug, title, description, group: group ?? (slug === "" || slug === "nextjs" ? "Getting started" : slug === "accessibility" ? "Quality" : "Design system") })),

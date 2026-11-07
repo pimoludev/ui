@@ -332,7 +332,7 @@ export const Combobox = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-    const { style: popupStyle } = useAnchoredPosition(
+    const { style: popupStyle, onMount } = useAnchoredPosition(
       rootRef,
       listboxRef,
       isOpen && !disabled
@@ -541,7 +541,7 @@ export const Combobox = forwardRef<
         {/* Custom listbox */}
 
         {isOpen && !disabled && (
-          <Portal anchorRef={rootRef}>
+          <Portal anchorRef={rootRef} onMount={onMount}>
           <ul
             ref={listboxRef}
             id={listboxId}

@@ -370,7 +370,7 @@ export const MultiSelect = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  const { style: popupStyle } = useAnchoredPosition(
+  const { style: popupStyle, onMount } = useAnchoredPosition(
     rootRef,
     listboxRef,
     isOpen && !disabled
@@ -632,7 +632,7 @@ export const MultiSelect = forwardRef<
           ))}
 
         {isOpen && !disabled && (
-          <Portal anchorRef={rootRef}>
+          <Portal anchorRef={rootRef} onMount={onMount}>
           <ul
             ref={listboxRef}
             id={listboxId}

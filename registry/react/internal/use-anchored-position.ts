@@ -2,6 +2,8 @@
 
 import {
   useLayoutEffect,
+  useCallback,
+  useRef,
   useState,
   type CSSProperties,
   type RefObject,
@@ -44,6 +46,9 @@ export interface AnchoredPosition {
 
   /** Side the surface actually sits on, after flipping. */
   side: AnchoredPlacement;
+
+  /** Measure when a delayed portal commits its floating DOM node. */
+  onMount: () => void;
 }
 
 function opposite(
@@ -65,11 +70,9 @@ function clamp(value: number, min: number, max: number) {
  * any of the four sides, and flips it to the opposite side when the preferred
  * one has less room than the other.
  *
- * The anchor is measured on open, then again on the next frame and whenever
- * the surface resizes: a panel rendered through a portal only exists one render
- * after `open`, so its size is unknown on the first pass. Until it is known the
- * surface is assumed to be as large as the cap, which keeps the flip decision
- * honest.
+ * Apply sizing while hidden, then reveal only after measuring the mounted
+ * surface at that width. Portals may mount after this hook's first layout
+ * effect; observe the actual node once it arrives, not an empty initial ref.
  */
 export function useAnchoredPosition(
   anchorRef: RefObject<HTMLElement | null>,
@@ -91,6 +94,15 @@ export function useAnchoredPosition(
 
   const [side, setSide] =
     useState<AnchoredPlacement>(placement);
+  const measureRef = useRef<(() => void) | null>(null);
+  const onMount = useCallback(() => measureRef.current?.(), []);
+
+  // Complete hidden sizing before paint, including delayed portal commits.
+  useLayoutEffect(() => {
+    if (open && style?.visibility === "hidden" && floatingRef.current) {
+      measureRef.current?.();
+    }
+  }, [open, style, floatingRef]);
 
   useLayoutEffect(() => {
     if (!open) {
@@ -98,11 +110,34 @@ export function useAnchoredPosition(
       return;
     }
 
-    const anchor = anchorRef.current;
+    let preparedPanel: HTMLElement | null = null;
+    let observedAnchor: HTMLElement | null = null;
+    let observedPanel: HTMLElement | null = null;
+    let frame = 0;
+    let observer: ResizeObserver | null = null;
 
-    if (!anchor) return;
+    function scheduleMeasure() {
+      if (!frame) frame = requestAnimationFrame(() => {
+        frame = 0;
+        measure();
+      });
+    }
 
-    const measure = () => {
+    function measure() {
+      const anchor = anchorRef.current;
+      if (!anchor) {
+        // Ref assignment need not re-render the hook's owner. Wait only while
+        // open, without reading layout until there is an anchor to measure.
+        preparedPanel = null;
+        if (observedAnchor || observedPanel) observer?.disconnect();
+        observedAnchor = observedPanel = null;
+        setStyle((previous) => previous?.visibility === "visible"
+          ? { ...previous, visibility: "hidden" }
+          : previous);
+        scheduleMeasure();
+        return;
+      }
+      if (anchor !== observedAnchor) preparedPanel = null;
       const rect = anchor.getBoundingClientRect();
 
       const viewportHeight =
@@ -159,6 +194,7 @@ export function useAnchoredPosition(
       const next: CSSProperties = {
         position: "fixed",
         zIndex: 50,
+        visibility: panel && panel === preparedPanel ? "visible" : "hidden",
       };
 
       if (vertical) {
@@ -227,6 +263,7 @@ export function useAnchoredPosition(
           );
         }
       } else {
+        next.maxHeight = Math.round(Math.max(0, Math.min(maxHeight, viewportHeight - padding * 2)));
         next.maxWidth = Math.round(
           Math.max(
             80,
@@ -261,30 +298,43 @@ export function useAnchoredPosition(
         );
       }
 
-      setStyle(next);
-    };
+      setStyle((previous) => {
+        const keys = Object.keys(next) as Array<keyof CSSProperties>;
+        return previous && keys.length === Object.keys(previous).length &&
+          keys.every((key) => previous[key] === next[key]) ? previous : next;
+      });
 
-    measure();
+      if (anchor !== observedAnchor || panel !== observedPanel) {
+        observer?.disconnect();
+        observer?.observe(anchor);
+        if (panel) observer?.observe(panel);
+        observedAnchor = anchor;
+        observedPanel = panel;
+      }
 
-    const frame =
-      typeof requestAnimationFrame === "function"
-        ? requestAnimationFrame(measure)
-        : 0;
-
-    const observer =
-      typeof ResizeObserver === "function" &&
-      floatingRef.current
-        ? new ResizeObserver(measure)
-        : null;
-
-    if (observer && floatingRef.current) {
-      observer.observe(floatingRef.current);
+      // A second pass sees the committed width/maxWidth, so wrapped content
+      // cannot change the chosen side immediately after the surface appears.
+      preparedPanel = panel;
+      if (!panel || next.visibility === "hidden") {
+        scheduleMeasure();
+      } else if (frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
     }
+
+    // The complete measurement routine exists before observation begins.
+    observer = typeof ResizeObserver === "function"
+      ? new ResizeObserver(measure)
+      : null;
+    measureRef.current = measure;
+    measure();
 
     window.addEventListener("resize", measure);
     window.addEventListener("scroll", measure, true);
 
     return () => {
+      measureRef.current = null;
       if (frame) cancelAnimationFrame(frame);
 
       observer?.disconnect();
@@ -305,5 +355,9 @@ export function useAnchoredPosition(
     align,
   ]);
 
-  return { style, side };
+  return {
+    style: open ? style ?? { position: "fixed", visibility: "hidden" } : undefined,
+    side,
+    onMount,
+  };
 }

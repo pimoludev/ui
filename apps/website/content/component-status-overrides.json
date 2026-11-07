@@ -1,7 +1,7 @@
 {
   "theme-builder": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "button": {
     "kind": "updated",
@@ -13,7 +13,7 @@
   },
   "split-button": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "toggle": {
     "kind": "updated",
@@ -29,7 +29,7 @@
   },
   "popconfirm": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "tabs": {
     "kind": "updated",
@@ -65,7 +65,7 @@
   },
   "menubar": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "table-of-contents": {
     "kind": "updated",
@@ -77,7 +77,7 @@
   },
   "combobox": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "form-field": {
     "kind": "updated",
@@ -93,7 +93,7 @@
   },
   "multi-select": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "radio": {
     "kind": "updated",
@@ -105,7 +105,7 @@
   },
   "select": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "slider": {
     "kind": "updated",
@@ -141,11 +141,11 @@
   },
   "date-picker": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "date-range-picker": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "file-upload": {
     "kind": "updated",
@@ -157,7 +157,7 @@
   },
   "color-picker": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Inherits measured-before-visible floating panels and preserved focus behavior from the shared placement correction after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "search-input": {
     "kind": "updated",
@@ -173,7 +173,7 @@
   },
   "tree-select": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "signature": {
     "kind": "updated",
@@ -201,15 +201,15 @@
   },
   "phone-input": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "mentions": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "cascader": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "transfer": {
     "kind": "updated",
@@ -245,7 +245,7 @@
   },
   "data-grid": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Inherits measured-before-visible floating panels and preserved focus behavior from the shared placement correction after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "tree-table": {
     "kind": "updated",
@@ -337,7 +337,7 @@
   },
   "lightbox": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "image-cropper": {
     "kind": "updated",
@@ -369,11 +369,11 @@
   },
   "navbar": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "sidebar": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Inherits measured-before-visible floating panels and preserved focus behavior from the shared placement correction after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "dashboard-layout": {
     "kind": "updated",
@@ -441,7 +441,7 @@
   },
   "focus-scope": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "resizable": {
     "kind": "updated",
@@ -461,7 +461,7 @@
   },
   "dialog": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "alert": {
     "kind": "updated",
@@ -485,11 +485,11 @@
   },
   "alert-dialog": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "context-menu": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "command": {
     "kind": "updated",
@@ -497,19 +497,19 @@
   },
   "dropdown-menu": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "drawer": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "hover-card": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   },
   "popover": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "progress": {
     "kind": "updated",
@@ -529,14 +529,14 @@
   },
   "tour": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "notification-center": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Inherits measured-before-visible floating panels and preserved focus behavior from the shared placement correction after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames. Focus traversal shares computed ancestor styles within one interaction and refreshes them for the next."
   },
   "tooltip": {
     "kind": "updated",
-    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output."
+    "description": "Default restores the slate/indigo colors from f01aca8 in the source workspace after beta.7, preserving the current typography and layout. Light secondary text has a small contrast correction; functional control outlines stay distinct. Shared CSS builds are now published atomically and rebuilt by dev:website. CSS generation also skips unchanged files and retries transient Windows locks without truncating existing output. Floating surfaces now wait for their mounted, constrained size before becoming visible; delayed portal observation, reopening and focus handoff are corrected in the source workspace after beta.7. Source workspace after beta.7: floating surfaces follow anchor resizing and constrain lateral panel height; focus navigation skips hidden, inert and disabled controls while preserving menu arrow navigation. Late trigger refs recover while open; placement setup has explicit effect dependencies and cancels redundant frames."
   }
 }

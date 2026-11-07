@@ -219,7 +219,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
     const listboxRef = useRef<HTMLDivElement | null>(null);
     const nativeRef = useRef<HTMLSelectElement | null>(null);
 
-    const { style: position } = useAnchoredPosition(
+    const { style: position, onMount } = useAnchoredPosition(
       triggerRef,
       listboxRef,
       open && !native
@@ -593,7 +593,7 @@ export const Select = forwardRef<HTMLElement, PimoluSelectProps>(
         </div>
 
         {open && (
-          <Portal anchorRef={rootRef}>
+          <Portal anchorRef={rootRef} onMount={onMount}>
             <div
               ref={listboxRef}
               id={listboxId}

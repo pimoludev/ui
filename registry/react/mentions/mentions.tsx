@@ -439,7 +439,7 @@ export const Mentions = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  const { style: popupStyle } = useAnchoredPosition(
+  const { style: popupStyle, onMount } = useAnchoredPosition(
     rootRef,
     listboxRef,
     suggestionsOpen,
@@ -595,7 +595,7 @@ export const Mentions = forwardRef<
         />
 
         {suggestionsOpen && (
-          <Portal anchorRef={rootRef}>
+          <Portal anchorRef={rootRef} onMount={onMount}>
             <ul
               ref={listboxRef}
               id={listboxId}

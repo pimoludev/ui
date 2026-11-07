@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ResizingSelectExample } from "./floating-regressions-demo";
 
 import {
   Button,
@@ -304,6 +305,14 @@ export function SelectPage() {
         <LongListExample />
       </Section>
 
+      <Section title="Opening near an edge" hint="The menu measures its real size before appearing. Scroll this panel and reopen either select to check placement and keyboard selection.">
+        <div style={{ height: 280, overflow: "auto", border: "1px solid var(--pimolu-border)", padding: 16 }}>
+          <FrameworkExample />
+          <div style={{ height: 200 }} aria-hidden="true" />
+          <LanguageExample />
+        </div>
+      </Section>
+
       <Section
         title="Examples"
         hint="Real compositions built from the same parts."
@@ -376,6 +385,7 @@ export function SelectPage() {
           </Card>
         </div>
       </Section>
+      <Section title="A changing container" hint="The open list follows local layout changes without a window resize."><ResizingSelectExample /></Section>
       <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
         <CustomizedParts />
       </Section>

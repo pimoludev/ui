@@ -72,6 +72,19 @@ function closeWithTimers() {
 }
 
 describe("Pimolu Dialog", () => {
+  it("cycles through visible controls when the first footer action is hidden", () => {
+    render(<Example />);
+    open();
+    screen.getByRole("button", { name: "Cancel" }).style.display = "none";
+    const last = screen.getByRole("button", { name: "Close" });
+    const first = screen.getByRole("button", { name: "Delete" });
+    first.focus();
+    fireEvent.keyDown(first, { key: "Tab", shiftKey: true });
+    expect(last).toHaveFocus();
+    fireEvent.keyDown(last, { key: "Tab" });
+    expect(first).toHaveFocus();
+  });
+
   it("renders nothing until the trigger is clicked", () => {
     render(<Example />);
 

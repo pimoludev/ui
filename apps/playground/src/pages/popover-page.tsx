@@ -1,4 +1,5 @@
 import { CustomizationExample } from "./popover-customization-demo";
+import { TallPopoverExample } from "./floating-regressions-demo";
 import { useState } from "react";
 
 import {
@@ -48,7 +49,8 @@ function FilterPopover() {
             <p className="pg-popover-title">Filter</p>
             <p className="pg-popover-hint">
               The panel stays open while you choose, because the
-              open state is controlled by the page.
+              open state is controlled by the page. Filter updates
+              preserve its placement.
             </p>
           </div>
 
@@ -481,7 +483,8 @@ export function PopoverPage() {
           </Card>
         </div>
       </Section>
-    <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
+    <Section title="A scrollable side panel" hint="Long content stays within the viewport, including left and right placement."><TallPopoverExample /></Section>
+      <Section title="Named-part customization" hint="This example supplies classNames on the real component. Named parts keep their built-in states and can be overridden without internal selectors."><CustomizationExample /></Section>
 </>
   );
 }

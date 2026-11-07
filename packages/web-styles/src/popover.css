@@ -82,6 +82,13 @@
   min-width: 0;
 }
 
+/* A lateral panel can have less than 12rem beside its trigger. Let the
+   measured max-width constrain it instead of overflowing a narrow viewport. */
+.pimolu-popover[data-side="left"],
+.pimolu-popover[data-side="right"] {
+  min-width: 0;
+}
+
 /* =========================================
    ANIMATION
 ========================================= */

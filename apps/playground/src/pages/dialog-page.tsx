@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { HiddenDialogActionExample } from "./floating-regressions-demo";
 
 import {
   Button,
@@ -436,6 +437,7 @@ function CustomizedParts() {
 export function DialogPage() {
   return (
     <>
+      <Section title="Conditional actions and focus" hint="Hidden actions are excluded from the keyboard loop."><HiddenDialogActionExample /></Section>
       <PageHeader
         title="Dialog"
         hint="A modal panel with an overlay, focus trap, Escape and overlay dismissal, scroll lock and focus return. Header, title, description, footer and close button are separate parts, so the content stays ordinary JSX. Styles come from @pimolu/web-styles/dialog.css."
@@ -565,6 +567,7 @@ export function DialogPage() {
           </Card>
         </div>
       </Section>
+      <Section title="Conditional actions and focus" hint="Hidden actions are excluded from the keyboard loop."><HiddenDialogActionExample /></Section>
       <Section title="Named-part customization" hint="Add classes directly to stable parts, including portalled panels. Existing className props keep their targets.">
         <CustomizedParts />
       </Section>

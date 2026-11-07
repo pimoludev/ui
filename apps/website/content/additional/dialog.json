@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content.",
     "append": true
+  },
+  {
+    "file": "dialog-hidden-actions.tsx",
+    "title": "Conditional actions and focus",
+    "description": "Tab and Shift+Tab skip hidden actions and stay within the dialog. Source workspace after beta.7; not yet published on npm.",
+    "append": true
   }
 ]

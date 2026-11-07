@@ -410,14 +410,14 @@ function MenubarSurface({ classNames,
   useEffect(() => {
     const panel = contentRef.current;
 
-    if (!panel) return;
+    if (!panel || style?.visibility !== "visible") return;
 
     const first = panel.querySelector<HTMLElement>(
       '[role="menuitem"]:not([aria-disabled="true"]):not(:disabled)'
     );
 
     (first ?? panel).focus({ preventScroll: true });
-  }, [contentRef]);
+  }, [contentRef, style?.visibility]);
 
   function handleKeyDown(
     event: KeyboardEvent<HTMLDivElement>

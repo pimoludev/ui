@@ -9,5 +9,17 @@
     "title": "Named-part customization",
     "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content.",
     "append": true
+  },
+  {
+    "file": "select-opening-placement.tsx",
+    "title": "Stable opening near viewport edges",
+    "description": "A short model menu appears at its measured position. Scroll the page and reopen it to check automatic placement. Source workspace after beta.7; not yet published on npm.",
+    "append": true
+  },
+  {
+    "file": "select-resizing-container.tsx",
+    "title": "A changing container",
+    "description": "Open the menu after starting the resize. Its width follows the field without resizing the window. Source workspace after beta.7; not yet published on npm.",
+    "append": true
   }
 ]

@@ -653,7 +653,7 @@ export const TreeSelect = forwardRef<
      SHARED BEHAVIOURS
   ====================================== */
 
-  const { style: popupStyle } = useAnchoredPosition(
+  const { style: popupStyle, onMount } = useAnchoredPosition(
     fieldRef,
     panelRef,
     isOpen && !disabled,
@@ -806,7 +806,7 @@ export const TreeSelect = forwardRef<
         </span>
 
         {isOpen && !disabled && (
-          <Portal anchorRef={fieldRef}>
+          <Portal anchorRef={fieldRef} onMount={onMount}>
             <div
               ref={panelRef}
               className={mergeClasses("pimolu-tree-select__panel", partClasses.panel)}
