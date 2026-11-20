@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
+    // Surface Next.js security advisories to coding agents working on the site.
+    agentUpgrade: "security",
     // Avoid reopening a truncated persistence database after Windows file locks.
     // Turbopack still caches in memory during the development session.
     turbopackFileSystemCacheForDev: process.platform !== "win32",
