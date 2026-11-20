@@ -12,6 +12,11 @@ import navigation from "@/content/generated/navigation.json";
 
 type NavigationStatus = { kind: "new" | "updated" | "deprecated"; description: string };
 
+const groupOverviews: Record<string, { href: string; label: string }> = {
+  Charts: { href: "/components/chart", label: "Choose a chart" },
+  Carousels: { href: "/components/carousels", label: "Choose a carousel" },
+};
+
 function DocsNavigation({ onNavigate, section }: { onNavigate?: () => void; section: "docs" | "components" }) {
   const pathname = usePathname();
   const id = useId();
@@ -23,6 +28,9 @@ function DocsNavigation({ onNavigate, section }: { onNavigate?: () => void; sect
   return <nav className="docs-navigation" aria-label={section === "docs" ? "Documentation" : "Components"}>
     {[...new Set(entries.map((entry) => entry.group))].map((group) => <div key={group} className="docs-nav-group">
       <p className="docs-nav-label">{group}</p>
+      {groupOverviews[group] && <Link href={groupOverviews[group].href} variant="muted" aria-current={pathname === groupOverviews[group].href ? "page" : undefined} onClick={onNavigate}>
+        <span className="docs-nav-title">{groupOverviews[group].label}</span>
+      </Link>}
       {entries.filter((entry) => entry.group === group)
         .sort((a, b) => section === "components"
           ? a.title.localeCompare(b.title, "en", { sensitivity: "base", numeric: true })
@@ -42,7 +50,7 @@ function DocsNavigation({ onNavigate, section }: { onNavigate?: () => void; sect
 export function DocsShell({ children, section = "docs" }: { children: ReactNode; section?: "docs" | "components" }) {
   const [navigationOpen, setNavigationOpen] = useState(false);
   return <div className="docs-container">
-    <div className="docs-toolbar">
+    <div role="region" aria-label="Documentation toolbar" className="docs-toolbar">
       <span className="docs-toolbar-label">{section === "docs" ? "THE PIMOLU HANDBOOK" : "THE COMPONENT LIBRARY"}</span>
       <div className="flex flex-wrap items-center gap-3">
         <div className="docs-mobile-navigation"><Drawer open={navigationOpen} onOpenChange={setNavigationOpen}>

@@ -73,5 +73,5 @@ export function StandaloneExample({ family, exampleId, theme, preset, radius, de
   const renderedExample = exampleId?.startsWith("setup-")
     ? <SetupPreview key={`${family}/${exampleId}`} family={family} exampleId={exampleId} />
     : <Example />;
-  return <div dir={direction}><PimoluProvider theme={theme} stylePreset={preset} radius={radius} density={density} brandColor={brandColor} className="docs-standalone"><div ref={content} className={`demo-composition demo-composition--${family}`} data-example-ready={family}>{layout ? renderedExample : <main>{renderedExample}</main>}</div></PimoluProvider></div>;
+  return <div dir={direction}><PimoluProvider theme={theme} stylePreset={preset} radius={radius} density={density} brandColor={brandColor} className="docs-standalone"><div ref={content} className={`demo-composition demo-composition--${family}`} data-example-ready={family}>{layout ? renderedExample : <main aria-label={`${family}${exampleId ? ` ${exampleId}` : ""} example preview`}>{renderedExample}</main>}</div></PimoluProvider></div>;
 }

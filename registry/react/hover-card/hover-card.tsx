@@ -29,6 +29,7 @@ import { Portal } from "../internal/portal";
 import { useAnchoredPosition } from "../internal/use-anchored-position";
 import { useDismissableLayer } from "../internal/use-dismissable-layer";
 import { usePresence } from "../internal/use-presence";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 /* =========================================
    HELPERS
@@ -361,6 +362,8 @@ export function HoverCardTrigger({
 
   function assignRef(node: HTMLElement | null) {
     hoverCard.triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 

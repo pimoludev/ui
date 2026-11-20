@@ -14,6 +14,10 @@
   min-width: 0;
   max-width: 100%;
 
+  /* Space reserved on each side for the previous/next controls. Override it
+     when the controls are hidden, resized or moved outside the viewport. */
+  --pimolu-carousel-control-reserve: 56px;
+
   color: var(--pimolu-foreground);
   font-family: var(--pimolu-font-body, inherit);
 }
@@ -74,7 +78,7 @@
 /* Reserve room for the absolutely positioned previous/next controls. */
 
 .pimolu-carousel[data-controls="true"] .pimolu-carousel__slide {
-  padding-inline: 56px;
+  padding-inline: var(--pimolu-carousel-control-reserve, 56px);
 }
 
 /* =========================================
@@ -326,6 +330,10 @@
 ========================================= */
 
 @media (max-width: 600px) {
+  .pimolu-carousel {
+    --pimolu-carousel-control-reserve: 44px;
+  }
+
   .pimolu-carousel__control {
     width: 2rem;
     height: 2rem;

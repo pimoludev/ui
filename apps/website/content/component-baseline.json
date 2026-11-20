@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.8",
+  "version": "0.1.0-beta.9",
   "references": [
     "theme-builder",
     "button",
@@ -75,6 +75,12 @@
     "rating",
     "image",
     "carousel",
+    "thumbnail-carousel",
+    "coverflow-carousel",
+    "peek-carousel",
+    "stack-carousel",
+    "arc-carousel",
+    "multi-carousel",
     "virtual-list",
     "tree-view",
     "kanban",
@@ -117,6 +123,7 @@
     "separator",
     "circular-progress",
     "dialog",
+    "modal",
     "alert",
     "banner",
     "empty-state",
@@ -463,7 +470,7 @@
       ]
     },
     "tree-select": {
-      "fingerprint": "67c7bfdaa5c9591cbe732464ba1786f2d99104c05b062d44268e4e6b4e6ec396",
+      "fingerprint": "6ae99c7cd2e373e415b995943584223037252c43678cf160c12a8d1ad64b56d8",
       "exports": [
         "TreeSelect"
       ]
@@ -639,7 +646,7 @@
       ]
     },
     "api-table": {
-      "fingerprint": "cb2de6b3950dc4de294490dbd83576b43c2ea6f02b322f7f871ef12b626a71e0",
+      "fingerprint": "12f9e71ef42ad49dff9157ec3758eef9aa6aefef0b3ec40464c36217aba525db",
       "exports": [
         "ApiTable"
       ]
@@ -675,9 +682,45 @@
       ]
     },
     "carousel": {
-      "fingerprint": "b7678000994f709fd293e4c7ae7a16e3298149e19d43a11debcb969197652bc2",
+      "fingerprint": "c114c47826fb0fbcc3acce22ac0f08bb119575876c8efb39e468944d6cf3d853",
       "exports": [
         "Carousel"
+      ]
+    },
+    "thumbnail-carousel": {
+      "fingerprint": "f00abce02635aa20b1638005e9cfdc72de18c50568e6e0ba9f6bc700006220a3",
+      "exports": [
+        "ThumbnailCarousel"
+      ]
+    },
+    "coverflow-carousel": {
+      "fingerprint": "b5ad5eb0bc930ef4f5867ac7a3238b3548e3d4c6ab716e7572fc3b56249b922b",
+      "exports": [
+        "CoverflowCarousel"
+      ]
+    },
+    "peek-carousel": {
+      "fingerprint": "eeea9d0ea0e85012ce4a10fae4cb7e2f565f9c61227ee71daf599c4a118a2f2b",
+      "exports": [
+        "PeekCarousel"
+      ]
+    },
+    "stack-carousel": {
+      "fingerprint": "5481f1e4e1e5ddbcd882e541c881d80b450e848254f2705382d8dae955eda67c",
+      "exports": [
+        "StackCarousel"
+      ]
+    },
+    "arc-carousel": {
+      "fingerprint": "14ebb833b84a654d19dd6581a768e48d9d2cb46a57206f0730f21d29396c4eb3",
+      "exports": [
+        "ArcCarousel"
+      ]
+    },
+    "multi-carousel": {
+      "fingerprint": "48217467df7c12ee51a8b7c080d13955a10a3864415e42a91013d9058ab03966",
+      "exports": [
+        "MultiCarousel"
       ]
     },
     "virtual-list": {
@@ -781,7 +824,7 @@
       ]
     },
     "code-block": {
-      "fingerprint": "6f9c79b73b854a3c5cc75e343256cf6e3d2d4c4ee81ccc118614335b49993141",
+      "fingerprint": "3e131f2529d2a75829deafd02013e80937155962c609f850c5e12f4ba79ed268",
       "exports": [
         "CodeBlock",
         "codeBlockLanguages"
@@ -859,7 +902,7 @@
       ]
     },
     "docs-layout": {
-      "fingerprint": "ac87048f85b7bed79dc83dff2c305528bbd7e7a1e25598efc8cc7ba247f1b9ca",
+      "fingerprint": "f600861b80de8cb33bf255d76b9c45802128b7cf625b83325c97850ec0f2b61f",
       "exports": [
         "DocsLayout"
       ]
@@ -959,7 +1002,7 @@
       ]
     },
     "dialog": {
-      "fingerprint": "b7e907bf4fefce7083a6d6f4bf1ba199eafce56e5d69e78a670655ab80195535",
+      "fingerprint": "928b8d811edc4fb4e9378cb09917045ef9b98e1711932c757a0f3f7364d8fd92",
       "exports": [
         "Dialog",
         "DialogTrigger",
@@ -970,6 +1013,20 @@
         "DialogFooter",
         "DialogClose",
         "dialogVariantMap"
+      ]
+    },
+    "modal": {
+      "fingerprint": "47a401d3c341ea36bff28bf586b428b401c5f4dd51a72fa860951e9b88946ebd",
+      "exports": [
+        "Modal",
+        "ModalTrigger",
+        "ModalContent",
+        "ModalHeader",
+        "ModalTitle",
+        "ModalDescription",
+        "ModalFooter",
+        "ModalClose",
+        "modalVariantMap"
       ]
     },
     "alert": {
@@ -1021,7 +1078,7 @@
       ]
     },
     "context-menu": {
-      "fingerprint": "b0873e25625b2fd7de9ed6c36391fa7939cf4e39fd6d66b63df678624340886b",
+      "fingerprint": "254295006922bd550f08dc08b2132a3562aafeb7f0139490f3b583327a535de7",
       "exports": [
         "ContextMenu",
         "ContextMenuTrigger",
@@ -1039,7 +1096,7 @@
       ]
     },
     "dropdown-menu": {
-      "fingerprint": "46bda7820e6614e32b9bbc05ed1a8bd053eeb86e9e69ce48d6efdbf9fde56036",
+      "fingerprint": "3e8e19d5989bb45e4f3187f8062c6d8d870e22e465c08bc407f87b1cafdc3550",
       "exports": [
         "DropdownMenu",
         "DropdownMenuTrigger",
@@ -1050,7 +1107,7 @@
       ]
     },
     "drawer": {
-      "fingerprint": "4db6a31106757f22dd682d744b5b4f15cb2ae5a78e755f6ded61a8c66a957767",
+      "fingerprint": "14f86f9961effbf087197080eedcb8bb25b9134005fd14d86f6fb266bc965f5b",
       "exports": [
         "Drawer",
         "DrawerTrigger",
@@ -1063,7 +1120,7 @@
       ]
     },
     "hover-card": {
-      "fingerprint": "13705609ada078cbe68832c28af478962b9785d94185b51751c1fb5352d047f7",
+      "fingerprint": "8dee82f6e09cbe5ca49bb35d2613f86e3c77b578f3b391dab119696ad88c9f6e",
       "exports": [
         "HoverCard",
         "HoverCardTrigger",
@@ -1071,7 +1128,7 @@
       ]
     },
     "popover": {
-      "fingerprint": "9c6e76ade0b4c9bee7bcf2881de1ac27d8ccd230980d170988b061322e14e0d9",
+      "fingerprint": "a8021ea050055cd84dfe136a1857b101225f4e1822c92194cb3dba84c715d495",
       "exports": [
         "Popover",
         "popoverVariantMap"
@@ -1124,7 +1181,7 @@
       ]
     },
     "tooltip": {
-      "fingerprint": "c636e987840acd55887e5e50a67541a2c9afd93eb3b0e495e8d512c47f996be3",
+      "fingerprint": "5dcc7d7a7f4b9fba58a9a2e61f5bf67febc86f117e272f089dbd21ca8e65cc5c",
       "exports": [
         "Tooltip"
       ]

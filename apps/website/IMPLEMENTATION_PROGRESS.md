@@ -1,5 +1,71 @@
 # Pimolu Website — État et vérifications
 
+## Six familles de carrousel — 19 novembre 2026
+
+- Les six démos ajoutées à la référence Carousel sont désormais autoportantes :
+  données, cartes et libellés sont intégrés à chaque fichier, sans import privé.
+- Six pages Playground indépendantes et six routes (`thumbnail-carousel`,
+  `coverflow-carousel`, `peek-carousel`, `stack-carousel`, `arc-carousel`,
+  `multi-carousel`) remplacent la page combinée. Chacune couvre un exemple de
+  base, la sélection contrôlée, les libellés localisés, une composition métier et
+  la personnalisation des parties nommées.
+- Six exemples `Named-part customization` autonomes et leurs entrées
+  `content/additional/*.json` accompagnent les six familles. Le type partagé
+  `CarouselClassNames` et les hooks `classNames` des sous-composants ajoutent des
+  classes sans remplacer les états intégrés.
+- Le catalogue passe à 142 références et 136 familles source. Les six nouvelles
+  références portent le badge New ; la référence Carousel conserve son badge
+  Updated. `styles.css` inclut les six feuilles de famille ; les cartes Multi
+  gardent une largeur lisible sur mobile et l'arc agrandit sa carte active.
+- Les sections Class names et CSS variables utilisent une grille de jetons
+  lisible avec compteur, au lieu d'une liste de pastilles. Le tableau API ne
+  provoque plus de défilement horizontal, affiche les types optionnels sans
+  `| undefined` et bascule en fiches sous 1280 px. `CarouselStageClassNames`
+  nomme proprement les parties des cinq familles sans rail de miniatures.
+- Les sept références Carousel sont regroupées dans une catégorie **Carousels**
+  de la navigation et du catalogue, comme **Charts**, via une surcharge de groupe
+  documentée. Les badges New/Updated restent visibles dans le groupe.
+- Une page `/components/carousels` sert d'entrée : tableau de choix (fiches sur
+  mobile), exemple minimal copiable avec aperçu réel et liens vers les sept
+  références. Elle officialise le positionnement : `Carousel` est le choix simple
+  avec autoplay, pause et contrôles ; les six familles sont les choix avancés de
+  mise en page, sans autoplay. Le groupe Carousels pointe vers cette page comme
+  Charts pointe vers « Choose a chart ».
+- MultiCarousel calcule maintenant ses pages atteignables
+  (`count - slidesPerView + 1`). Les points ne dépassent plus la fin du rail, le
+  dernier point reste actif à l'arrivée, et un swipe resynchronise l'index après
+  l'arrêt du défilement. Le test React et le parcours Playwright couvrent ce cas.
+- Validation : `pnpm check` vert (1 602 tests React), 51 tests documentation,
+  build Next.js de 473 pages, 296 tests Playwright Chromium/WebKit (12 parcours
+  carrousel + 284 contrôles de personnalisation), 284 captures de catalogue dont
+  12 nouvelles. La matrice complète Chromium/Firefox/WebKit rapporte 1 929
+  parcours verts et 18 ignorés. Les six familles ont été relues sur six presets ×
+  clair/sombre dans `.artifacts/carousel-families/`.
+- Release `0.1.0-beta.9` préparée : versions synchronisées, changelog et notes de
+  release bilingues, baseline régénérée, pack-check réussi. Aucun commit ni
+  publication au moment de cette entrée.
+
+## Installation recommandée avec @latest — 8 novembre 2026
+
+- Introduction, Quick start, politique de release, carte llms.txt et README anglais/
+  français du dépôt et des cinq packages utilisent `@latest` par défaut. Les
+  archives de releases versionnées conservent leurs commandes historiques.
+- Quick start explique les versions exactes avec `--save-exact` pour npm et pnpm,
+  l'alignement des packages, le rôle du lockfile et le canal `@beta` facultatif.
+  `@latest` est un tag de distribution : il pointe actuellement sur beta.8, sans
+  garantie d'une API stable. Le délai minimumReleaseAge de pnpm est documenté.
+- Les exemples Code, DocsLayout et Prose suivent ces commandes ; leurs trois
+  références affichent Updated après la baseline beta.8. Aucun changement d'API.
+- Essais réels dans des applications React isolées : npm avec @latest installe
+  beta.8 ; pnpm 12.14.0 avec sa politique par défaut choisit encore beta.7, la
+  publication beta.8 datant de moins de 24 heures. Les commandes de version exacte
+  avec --save-exact installent et figent beta.8 avec les deux gestionnaires.
+  Import de Button et résolution du CSS vérifiés pour chaque installation.
+- Validation : 50 tests documentation, lint complet, TypeScript et build Next.js
+  réussis (457 pages). 36 contrôles navigateur sur six pages/exemples × deux
+  largeurs × Chromium/Firefox/WebKit, sans débordement global ni erreur JavaScript.
+  Preuves locales : `.artifacts/latest-*`. Aucun commit, push ni publication.
+
 ## Robustesse du montage tardif et coût des parcours — 7 novembre 2026
 
 - La routine `measure` est déclarée avant la création du ResizeObserver. Les refs

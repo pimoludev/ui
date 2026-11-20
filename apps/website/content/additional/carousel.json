@@ -4,5 +4,41 @@
     "title": "Named-part customization",
     "description": "Use typed named-part hooks on this real composition. Dashed boundaries illustrate the customized root; built-in focus states remain.",
     "append": true
+  },
+  {
+    "file": "carousel-thumbnail-gallery.tsx",
+    "title": "Thumbnail gallery",
+    "description": "A large selected slide with a thumbnail rail underneath. Each thumbnail is a real button with aria-current, so pointer and keyboard users can switch the collection.",
+    "append": true
+  },
+  {
+    "file": "carousel-coverflow.tsx",
+    "title": "Coverflow",
+    "description": "Previous and next cards recede with scale, rotation and opacity while the active card stays centred. Arrow buttons, dots and the arrow keys share one active index.",
+    "append": true
+  },
+  {
+    "file": "carousel-peek-cards.tsx",
+    "title": "Peek cards",
+    "description": "A centre-mode scroll-snap rail shows the active card with both neighbours peeking. Previous and next buttons, dots and arrow keys keep the selection in sync.",
+    "append": true
+  },
+  {
+    "file": "carousel-stack.tsx",
+    "title": "Stacked deck",
+    "description": "Cards sit in a shallow deck behind the active one. Advance with the arrow buttons, dots or arrow keys; the stack re-orders around the active index.",
+    "append": true
+  },
+  {
+    "file": "carousel-arc-gallery.tsx",
+    "title": "Arc gallery",
+    "description": "Five cards fan across a shallow arc with rotation and vertical offset by distance from the active index. The outer cards leave the stage below 640px.",
+    "append": true
+  },
+  {
+    "file": "carousel-overflow-showcase.tsx",
+    "title": "Overflow showcase",
+    "description": "Three items per page at rest, with previous and next page controls. The toggle reveals every remaining item and reports its state through aria-expanded.",
+    "append": true
   }
 ]

@@ -64,7 +64,7 @@ export function DemoExample() {
               <pre>
                 <code>{
                   (
-                    "pnpm add @pimolu/react\npnpm add -D @pimolu/web-styles\n\n# then, " +
+                    "pnpm add @pimolu/react@latest @pimolu/web-styles@latest\n\n# then, " +
                     "at the root of the app\nimport \"@pimolu/web-styles/styles.css\";"
                   )
                 }</code>

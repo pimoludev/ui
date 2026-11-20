@@ -30,6 +30,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | Tooltip | `registry/react/tooltip/` | Contextual help | Present and tested |
 | Popover | `registry/react/popover/` | Anchored interactive panel | Present and tested |
 | Dialog | `registry/react/dialog/` | Modal panel, focus trap and scroll lock | Present and tested |
+| Modal | `registry/react/modal/` | Centered modal panel with size axis and focus management | Present and tested |
 | Tabs | `registry/react/tabs/` | Roving tabs, segmented controls and scrollable bars | Present and tested |
 | Toggle | `registry/react/toggle/` | Pressable on/off button | Present and tested |
 | ToggleGroup | `registry/react/toggle-group/` | Single or multiple toggle set | Present and tested |
@@ -90,6 +91,12 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | FocusScope | `registry/react/focus-scope/` | Reusable focus management | Present and tested |
 | Image | `registry/react/image/` | Image with loading and error states | Present and tested |
 | Carousel | `registry/react/carousel/` | Slide navigation | Present and tested |
+| ThumbnailCarousel | `registry/react/thumbnail-carousel/` | Stage with a shared thumbnail rail | Present and tested |
+| CoverflowCarousel | `registry/react/coverflow-carousel/` | Centred card with receding neighbours | Present and tested |
+| PeekCarousel | `registry/react/peek-carousel/` | Centred card with peeking neighbours | Present and tested |
+| StackCarousel | `registry/react/stack-carousel/` | Shallow stacked deck | Present and tested |
+| ArcCarousel | `registry/react/arc-carousel/` | Cards fanned along a shallow arc | Present and tested |
+| MultiCarousel | `registry/react/multi-carousel/` | Several cards per scroll-snap page | Present and tested |
 | Resizable | `registry/react/resizable/` | Draggable split panels | Present and tested |
 | VirtualList | `registry/react/virtual-list/` | Windowed large lists | Present and tested |
 | DataGrid | `registry/react/data-grid/` | Server mode, resizable and hideable columns, grouping | Present and tested |
@@ -140,7 +147,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 
 The provider lives in `registry/react/provider/`; the positioning and portal
 utilities in `registry/react/internal/`. `Portal` is also exported publicly as a
-low-level utility. The playground pages cover the 129 families (AvatarGroup and
+low-level utility. The playground pages cover the 136 families (AvatarGroup and
 RadioGroup are shown with their family).
 No native, Angular or web registry exists yet: no component from those
 platforms may be announced as existing.

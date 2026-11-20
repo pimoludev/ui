@@ -1,0 +1,17 @@
+[
+  {
+    "file": "modal-anatomy.tsx",
+    "title": "Triggers, focus and dismissal",
+    "description": "A non-focusable span trigger receives tabIndex and a button role. Focus moves inside the panel, Tab stays contained and Escape returns it to the trigger. Source workspace addition; not yet published on npm."
+  },
+  {
+    "file": "modal-sizes.tsx",
+    "title": "Sizes",
+    "description": "Enumerate the sm, md, lg and xl widths from modalVariantMap so the documentation and your application cannot drift apart."
+  },
+  {
+    "file": "modal-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to stable named parts without replacing built-in states. Panel classes follow portalled content."
+  }
+]

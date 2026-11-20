@@ -1,0 +1,8 @@
+[
+  {
+    "file": "coverflow-carousel-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to the stage, cards, controls and dots without replacing the built-in depth, focus or disabled states.",
+    "append": true
+  }
+]

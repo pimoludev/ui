@@ -919,6 +919,7 @@ export const CodeBlock = forwardRef<
       <pre
         className={mergeClasses("pimolu-codeblock__pre", partClasses.pre)}
         style={preStyle}
+        tabIndex={0}
         aria-label={
           filename
             ? `${language} code from ${filename}`

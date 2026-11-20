@@ -68,7 +68,7 @@ function readPages(node) {
       const documented = components.find((component) => component.family === data.id);
       if (!documented) throw new Error(`Add an authored website guide/example for the new family ${data.id}`);
       const role = inventory.split("\n").find((line) => line.includes(`\`registry/react/${data.id}/\``))?.split("|")[3]?.trim();
-      catalog.push({ family: data.id, title: data.label, group: data.group, description: documented?.description ?? role ?? `${data.label} primitives for ${data.group.toLowerCase()}.`, exports, source: `registry/react/${data.id}`, stylesheet: `packages/web-styles/src/${data.id}.css`, documented: Boolean(documented), href: `/components/${data.id}` });
+      catalog.push({ family: data.id, title: data.label, group: documented?.group ?? data.group, description: documented?.description ?? role ?? `${data.label} primitives for ${data.group.toLowerCase()}.`, exports, source: `registry/react/${data.id}`, stylesheet: `packages/web-styles/src/${data.id}.css`, documented: Boolean(documented), href: `/components/${data.id}` });
     }
   }
   ts.forEachChild(node, readPages);
@@ -126,6 +126,7 @@ const checker = program.getTypeChecker();
 const nativeProps = new Set(["children", "className", "style", "disabled", "required", "name", "type", "value", "defaultValue", "onChange", "onClick", "aria-label"]);
 const api = {};
 const catalogApi = {};
+const partsByFamily = {};
 const examples = {};
 const index = [];
 const descriptions = {
@@ -180,7 +181,10 @@ for (const component of catalog) {
         const valueType = checker.getTypeOfSymbolAtLocation(property, declaration);
         if (name === "classNames") {
           const parts = checker.getNonNullableType(valueType).getProperties().map((part) => part.getName()).sort();
-          if (parts.length) description += ` Parts: ${parts.join(", ")}. Parts render only when the corresponding component or state is present.`;
+          if (parts.length) {
+            description = `${description} Named parts are listed in the Class names table.`.trim();
+            partsByFamily[component.family] = [...new Set([...(partsByFamily[component.family] ?? []), ...parts])].sort();
+          }
         }
         rows.push({
           name,
@@ -246,6 +250,19 @@ index.push({ slug: "site/blocks", href: "/blocks", title: "Free Pimolu Blocks", 
 for (const block of blocks) {
   const labels = blockClassification(block);
   index.push({ slug: `blocks/${block.slug}`, href: `/blocks/${block.slug}`, title: block.title, description: block.description, group: "Blocks", keywords: [labels.category.label, labels.subcategory.label, ...block.components] });
+}
+
+// Named parts and consumed custom properties are derived from the public types
+// and the shared stylesheet, so a new part or token shows up without a second
+// hand-maintained list.
+const variablePattern = /var\(\s*(--pimolu-[a-z0-9-]+)/g;
+for (const entry of catalog) {
+  entry.parts = partsByFamily[entry.family] ?? [];
+  entry.cssVariables = [];
+  if (!entry.stylesheet) continue;
+  let css = "";
+  try { css = await readFile(path.join(root, entry.stylesheet), "utf8"); } catch { /* Optional stylesheet. */ }
+  entry.cssVariables = [...new Set([...css.matchAll(variablePattern)].map((match) => match[1]))].sort();
 }
 
 await mkdir(output, { recursive: true });

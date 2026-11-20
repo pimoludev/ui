@@ -34,6 +34,7 @@ import { getFocusable } from "../internal/focusable";
 import { Portal } from "../internal/portal";
 import { useDismissableLayer } from "../internal/use-dismissable-layer";
 import { usePresence } from "../internal/use-presence";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 /* Must match the exit animation duration of context-menu.css. */
 const EXIT_DURATION = 120;
@@ -223,6 +224,8 @@ export function ContextMenuTrigger({
 
   function assignRef(node: HTMLElement | null) {
     menu.triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 

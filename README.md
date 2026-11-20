@@ -57,22 +57,24 @@ Components consume tokens exclusively through CSS custom properties and data att
 
 ## Getting started
 
-Install the published beta in an existing React 18 or React 19 application:
+Install the recommended release in an existing React 18 or React 19 application:
 
 ```bash
-npm install @pimolu/react@beta @pimolu/web-styles@beta
+npm install @pimolu/react@latest @pimolu/web-styles@latest
 # Or with pnpm
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
-The current release is **0.1.0-beta.8**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
+The current release is **0.1.0-beta.9**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
 
-To update an existing installation to the current beta:
+`@latest` follows the recommended release channel, which currently contains a beta. For a specific version, replace `@latest` with, for example, `@0.1.0-beta.9` and add `--save-exact`. See [Quick start](https://pimolu.com/docs/quick-start#versions) for npm and pnpm examples. Keep your application's lockfile committed.
+
+To update an existing installation to the recommended release:
 
 ```bash
-npm install @pimolu/react@beta @pimolu/web-styles@beta
+npm install @pimolu/react@latest @pimolu/web-styles@latest
 # Or with pnpm
-pnpm update @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 Update any other directly installed `@pimolu/*` packages to the same version and review the [release notes](https://pimolu.com/releases) before upgrading.
@@ -109,8 +111,20 @@ On the web, import the generated stylesheet and apply a theme and a style throug
 
 ```css
 /* globals.css, or your application's global stylesheet */
-@import "@pimolu/web-styles/styles.css";
+@import "@pimolu/web-styles/layered.css";
 ```
+
+With Tailwind v4, declare the layer order first so utilities can override Pimolu without `!important`:
+
+```css
+@layer theme, base, pimolu, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "@pimolu/web-styles/layered.css";
+@import "tailwindcss/utilities.css" layer(utilities);
+```
+
+`classNames` adds hooks to named parts; it does not replace component classes, and with the unlayered `styles.css` entry it cannot repaint a declared rule. Use `layered.css` for utility overrides, or change the semantic variables. To ship only what you use, import `tokens.css` (every custom property) or `themes.css` (primitives and light/dark themes) and then individual component sheets such as `carousel.css`.
 
 In React, the provider and components wrap the same foundations, so markup stays stable while the design evolves around it.
 
@@ -135,7 +149,7 @@ The integration guides show how to use Pimolu UI with Next.js. A standalone Next
 
 ## Customization
 
-The published beta includes an opt-in `@pimolu/web-styles/layered.css` entry and typed `classNames` part hooks across all 129 component families, including compound descendants and portalled surfaces. Public props, semantic CSS variables and named parts let you refine components without copying their implementation. The existing CSS entry and class targets remain supported.
+The published beta includes an opt-in `@pimolu/web-styles/layered.css` entry and typed `classNames` part hooks across all 136 component families, including compound descendants and portalled surfaces. Public props, semantic CSS variables and named parts let you refine components without copying their implementation. The existing CSS entry and class targets remain supported.
 
 Choose `styles.css` or `layered.css`, rather than loading both. With Tailwind v4, put Preflight in the `base` layer before `pimolu`; with the unlayered entry, load Pimolu after Preflight. Portal content may sit outside your application wrapper: use its named parts to style the actual panel. See the [customization guide](https://pimolu.com/docs/customization) and [customization contract](docs/CUSTOMIZATION.md) for tested recipes and limits.
 
@@ -171,10 +185,10 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.8`**. The token pipeline, two color themes, seven visual presets and 129 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.8`, with both `latest` and `beta` tags:
+Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.9`**. The token pipeline, two color themes, seven visual presets and 136 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.9`, with both `latest` and `beta` tags:
 
 ```bash
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 Browse all five packages in the [Pimolu npm organization](https://www.npmjs.com/org/pimolu).

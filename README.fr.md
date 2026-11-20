@@ -56,22 +56,24 @@ Les composants n'utilisent les tokens que par des variables CSS et des attributs
 
 ## Démarrage
 
-Installez la bêta publiée dans une application React 18 ou React 19 existante :
+Installez la version recommandée dans une application React 18 ou React 19 existante :
 
 ```bash
-npm install @pimolu/react@beta @pimolu/web-styles@beta
+npm install @pimolu/react@latest @pimolu/web-styles@latest
 # Ou avec pnpm
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
-La version actuelle est **0.1.0-beta.8**. Importez `@pimolu/web-styles/styles.css` une fois au point d'entrée et placez votre interface dans `PimoluProvider` (voir « L'utiliser » ci-dessous). Core, thèmes et tokens sont installés comme dépendances ; ajoutez-les directement seulement si vous importez leurs API. Les packages publiés contiennent les fichiers ESM compilés, les types et le CSS : aucun clonage, build Pimolu ou réglage Next.js `transpilePackages` n'est nécessaire. Tailwind CSS reste facultatif.
+La version actuelle est **0.1.0-beta.9**. Importez `@pimolu/web-styles/styles.css` une fois au point d'entrée et placez votre interface dans `PimoluProvider` (voir « L'utiliser » ci-dessous). Core, thèmes et tokens sont installés comme dépendances ; ajoutez-les directement seulement si vous importez leurs API. Les packages publiés contiennent les fichiers ESM compilés, les types et le CSS : aucun clonage, build Pimolu ou réglage Next.js `transpilePackages` n'est nécessaire. Tailwind CSS reste facultatif.
 
-Pour mettre à jour une installation existante vers la bêta actuelle :
+`@latest` suit le canal de publication recommandé, qui contient actuellement une bêta. Pour une version précise, remplacez `@latest` par exemple par `@0.1.0-beta.9` et ajoutez `--save-exact`. Le [Quick start](https://pimolu.com/docs/quick-start#versions) fournit les exemples npm et pnpm. Conservez le lockfile de votre application dans Git.
+
+Pour mettre à jour une installation existante vers la version recommandée :
 
 ```bash
-npm install @pimolu/react@beta @pimolu/web-styles@beta
+npm install @pimolu/react@latest @pimolu/web-styles@latest
 # Ou avec pnpm
-pnpm update @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 Mettez les autres packages `@pimolu/*` installés directement à la même version et consultez les [notes de version](https://pimolu.com/releases) avant la mise à jour.
@@ -108,8 +110,20 @@ Sur le web, importez la feuille de style générée et appliquez un thème et un
 
 ```css
 /* globals.css, ou la feuille globale de votre application */
-@import "@pimolu/web-styles/styles.css";
+@import "@pimolu/web-styles/layered.css";
 ```
+
+Avec Tailwind v4, déclarez d'abord l'ordre des couches pour que les utilitaires puissent surcharger Pimolu sans `!important` :
+
+```css
+@layer theme, base, pimolu, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "@pimolu/web-styles/layered.css";
+@import "tailwindcss/utilities.css" layer(utilities);
+```
+
+`classNames` ajoute des hooks sur les parties nommées ; il ne remplace pas les classes du composant et, avec l'entrée non couchée `styles.css`, il ne peut pas repeindre une règle déjà déclarée. Utilisez `layered.css` pour surcharger avec des utilitaires, ou modifiez les variables sémantiques. Pour ne charger que le nécessaire, importez `tokens.css` (toutes les propriétés personnalisées) ou `themes.css` (primitives et thèmes clair/sombre), puis les feuilles de composants utilisées, par exemple `carousel.css`.
 
 En React, le provider et les composants s'appuient sur les mêmes fondations : le balisage reste stable tandis que le design évolue autour de lui.
 
@@ -134,7 +148,7 @@ Les guides d’intégration expliquent comment utiliser Pimolu UI avec Next.js. 
 
 ## Personnalisation
 
-La bêta publiée comprend une entrée optionnelle `@pimolu/web-styles/layered.css` et des hooks de parties typés `classNames` sur les 129 familles, leurs sous-composants composés et leurs surfaces en portail. Les props publiques, les variables CSS sémantiques et les parties nommées permettent d'adapter les composants sans copier leur implémentation. Les anciennes entrées CSS et cibles de classes restent compatibles.
+La bêta publiée comprend une entrée optionnelle `@pimolu/web-styles/layered.css` et des hooks de parties typés `classNames` sur les 136 familles, leurs sous-composants composés et leurs surfaces en portail. Les props publiques, les variables CSS sémantiques et les parties nommées permettent d'adapter les composants sans copier leur implémentation. Les anciennes entrées CSS et cibles de classes restent compatibles.
 
 Choisissez `styles.css` ou `layered.css`, plutôt que de charger les deux. Avec Tailwind v4, placez Preflight dans la couche `base` avant `pimolu` ; avec l'entrée sans couche, chargez Pimolu après Preflight. Un portail peut se trouver hors du wrapper de votre application : utilisez les parties nommées pour styler le panneau réel. Consultez le [guide de personnalisation](https://pimolu.com/docs/customization) et le [contrat de personnalisation](docs/CUSTOMIZATION.md) pour les recettes testées et leurs limites.
 
@@ -172,15 +186,15 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif et a publié sa dernière prévisualisation publique, **`0.1.0-beta.8`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 129 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme ne sont pas encore implémentés. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.8`, avec les tags `latest` et `beta` :
+Pimolu UI est en développement actif et a publié sa dernière prévisualisation publique, **`0.1.0-beta.9`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 136 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme ne sont pas encore implémentés. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.9`, avec les tags `latest` et `beta` :
 
 ```bash
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 Retrouvez les cinq packages dans l'[organisation Pimolu sur npm](https://www.npmjs.com/org/pimolu).
 
-Le [site public](https://pimolu.com) comprend des guides, 135 références de composants interactives, un catalogue illustré avec recherche, des articles et releases en MDX et un showcase de projets réels. Son code Next.js App Router se trouve dans `apps/website`.
+Le [site public](https://pimolu.com) comprend des guides, 136 références de composants interactives, un catalogue illustré avec recherche, des articles et releases en MDX et un showcase de projets réels. Son code Next.js App Router se trouve dans `apps/website`.
 
 Le projet reste en bêta. Les API et tokens visuels peuvent évoluer ; les revues avec technologies d'assistance des composants complexes et l'audit visuel complet restent ouverts. Les contrôles navigateur automatisés ne constituent pas une garantie complète de conformité d'accessibilité. Consultez l'[audit qualité](docs/ai/QUALITY_AUDIT.md), l'[audit d'accessibilité du site](apps/website/ACCESSIBILITY_AUDIT.md) et le [changelog](CHANGELOG.md) pour la couverture et les limites.
 

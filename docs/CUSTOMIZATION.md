@@ -4,6 +4,37 @@ The layered entry and named-part hooks below are available since
 0.1.0-beta.4. Tailwind Preflight compatibility is covered since 0.1.0-beta.6.
 The existing unlayered `styles.css` entry remains compatible.
 
+## Two entries, two trade-offs
+
+`styles.css` is unlayered: its declarations win over any `@layer utilities`
+rule, whatever the specificity. `classNames` therefore adds hooks, not an
+override layer — `classNames={{ control: "bg-[#ea580c]" }}` cannot repaint a
+control. Use `layered.css` when utilities or application rules must win, or set
+the semantic variables.
+
+## Minimal payloads
+
+The complete bundle is the simplest choice. To ship only what a page uses:
+
+```css
+@import "@pimolu/web-styles/tokens.css"; /* every custom property */
+@import "@pimolu/web-styles/carousel.css"; /* one component sheet */
+```
+
+`tokens.css` contains primitives, light/dark themes, preset palettes, visual
+tokens and motion variables without component rules. `themes.css` contains only
+the primitives and the light/dark semantic themes; pair it with component sheets
+when preset palettes are not needed. Do not import `tokens.css` and `themes.css`
+together, and do not combine them with `styles.css` or `layered.css`.
+
+## brandColor scope
+
+`brandColor` sets `--pimolu-primary`, its derived `--pimolu-primary-hover` and
+`--pimolu-focus-ring`. Surfaces that read `--pimolu-background`,
+`--pimolu-surface`, `--pimolu-muted` or `--pimolu-border` keep the theme values.
+Set those variables directly when the whole interface must follow the brand
+colour, for example a carousel arrow that uses `--pimolu-background`.
+
 ## Cascade order
 
 For application CSS, import the opt-in layered bundle once:
@@ -93,7 +124,7 @@ independent interactive examples and their code.
 `classNames` is an optional, typed map of additive classes. It never replaces
 Pimolu's structural, variant or state classes. These keys are public styling
 hooks; descendants, sibling order and other implementation classes are not a
-promise about internal markup. All 129 families now expose this map on their
+promise about internal markup. All 136 families now expose this map on their
 rendered components, including compound subcomponents. See the complete
 [family and part reference](COMPONENT_CUSTOMIZATION.md); the table below shows
 the initial examples. Headless controllers use their Content or child surface.

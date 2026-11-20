@@ -11,6 +11,13 @@ export interface PimoluDropdownMenuProps {
 
 export interface PimoluDropdownMenuTriggerProps {
   children: ReactElement;
+
+  /**
+   * Tab index forwarded to the cloned trigger. When the element is not
+   * natively focusable and no value is given, Pimolu adds `tabIndex={0}` and
+   * `role="button"` so keyboard users can reach it.
+   */
+  tabIndex?: number;
 }
 
 export interface PimoluDropdownMenuContentProps {

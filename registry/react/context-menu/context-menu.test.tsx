@@ -229,3 +229,22 @@ describe("Pimolu ContextMenu", () => {
     );
   });
 });
+
+
+describe("trigger focusability", () => {
+  it("adds keyboard access to a non-focusable trigger", () => {
+    render(
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <div>Note</div>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem>Copy</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+    );
+    const trigger = screen.getByText("Note");
+    expect(trigger).toHaveAttribute("tabindex", "0");
+    expect(trigger).toHaveAttribute("role", "button");
+  });
+});

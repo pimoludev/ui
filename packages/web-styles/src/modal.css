@@ -1,0 +1,364 @@
+/* =========================================
+   PIMOLU UI - MODAL
+   Shared Web Styles
+========================================= */
+
+.pimolu-modal {
+  position: fixed;
+  inset: 0;
+
+  z-index: 50;
+
+  display: grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  padding: var(
+    --pimolu-spacing-6,
+    24px
+  );
+
+  overflow: hidden;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.pimolu-modal__overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.55);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pimolu-modal__content {
+  --pimolu-modal-width: 32rem;
+
+  position: relative;
+  z-index: 1;
+
+  box-sizing: border-box;
+
+  width: min(100%, var(--pimolu-modal-width));
+
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
+
+  padding: var(--pimolu-spacing-6, 24px);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  background: var(
+    --pimolu-surface,
+    var(--pimolu-background)
+  );
+
+  color: var(
+    --pimolu-surface-foreground,
+    var(--pimolu-foreground)
+  );
+
+  border:
+    var(--pimolu-control-border-width, 1px)
+    solid var(--pimolu-border);
+
+  border-radius: var(--pimolu-radius-lg, 12px);
+
+  box-shadow: var(--pimolu-shadow-raised, none);
+
+  /* Presets with a translucent surface (glass) read as frosted glass; an
+     opaque surface is unaffected. */
+  -webkit-backdrop-filter: blur(
+    var(--pimolu-glass-blur, 18px)
+  );
+
+  backdrop-filter: blur(
+    var(--pimolu-glass-blur, 18px)
+  );
+
+  font-family: var(--pimolu-font-body, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  /* The panel receives focus only as a fallback when it holds nothing
+     focusable; a ring around the whole surface would read as a wrong state. */
+  outline: none;
+}
+
+.pimolu-modal__content--sm {
+  --pimolu-modal-width: 24rem;
+}
+
+.pimolu-modal__content--md {
+  --pimolu-modal-width: 32rem;
+}
+
+.pimolu-modal__content--lg {
+  --pimolu-modal-width: 48rem;
+}
+
+.pimolu-modal__content--xl {
+  --pimolu-modal-width: 64rem;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pimolu-modal__header {
+  display: grid;
+  gap: 6px;
+
+  min-width: 0;
+
+  margin-block-end: var(
+    --pimolu-spacing-4,
+    16px
+  );
+}
+
+/* The corner button must not sit on the title. */
+
+.pimolu-modal__content[data-close-button="true"]
+  .pimolu-modal__header {
+  padding-inline-end: var(
+    --pimolu-spacing-8,
+    32px
+  );
+}
+
+.pimolu-modal__title {
+  margin: 0;
+
+  color: inherit;
+
+  font-family: var(
+    --pimolu-font-heading,
+    inherit
+  );
+
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
+}
+
+.pimolu-modal__description {
+  margin: 0;
+
+  color: var(--pimolu-muted-foreground);
+
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.pimolu-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  gap: var(--pimolu-spacing-3, 12px);
+
+  margin-block-start: var(
+    --pimolu-spacing-6,
+    24px
+  );
+}
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.pimolu-modal__close {
+  position: absolute;
+
+  inset-block-start: 12px;
+  inset-inline-end: 12px;
+
+  display: inline-grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-sm, 4px);
+
+  background: transparent;
+  color: var(--pimolu-muted-foreground);
+
+  line-height: 0;
+
+  cursor: pointer;
+}
+
+.pimolu-modal__close:hover {
+  background: var(--pimolu-muted);
+  color: var(--pimolu-foreground);
+}
+
+.pimolu-modal__close:focus-visible {
+  outline:
+    2px solid
+    var(--pimolu-focus-ring, currentColor);
+
+  outline-offset: 2px;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+.pimolu-modal[data-state="open"]
+  .pimolu-modal__overlay {
+  animation:
+    pimolu-modal-overlay-in
+    150ms
+    ease-out;
+}
+
+.pimolu-modal[data-state="closing"]
+  .pimolu-modal__overlay {
+  animation:
+    pimolu-modal-overlay-out
+    150ms
+    ease-in
+    forwards;
+}
+
+.pimolu-modal[data-state="open"]
+  .pimolu-modal__content {
+  animation:
+    pimolu-modal-content-in
+    180ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pimolu-modal[data-state="closing"]
+  .pimolu-modal__content {
+  animation:
+    pimolu-modal-content-out
+    150ms
+    ease-in
+    forwards;
+}
+
+@keyframes pimolu-modal-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pimolu-modal-overlay-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes pimolu-modal-content-in {
+  from {
+    opacity: 0;
+
+    transform: translateY(8px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pimolu-modal-content-out {
+  from {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: scale(0.97);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .pimolu-modal {
+    padding: var(--pimolu-spacing-4, 16px);
+  }
+
+  .pimolu-modal__content {
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+
+    padding: var(--pimolu-spacing-4, 16px);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-modal[data-state="open"]
+    .pimolu-modal__overlay,
+  .pimolu-modal[data-state="closing"]
+    .pimolu-modal__overlay,
+  .pimolu-modal[data-state="open"]
+    .pimolu-modal__content,
+  .pimolu-modal[data-state="closing"]
+    .pimolu-modal__content {
+    animation: none;
+  }
+}
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+@media (forced-colors: active) {
+  .pimolu-modal__content {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-modal__close:focus-visible {
+    outline-color: Highlight;
+  }
+}

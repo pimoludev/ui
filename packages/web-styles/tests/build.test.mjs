@@ -12,6 +12,44 @@ async function load(name) {
   );
 }
 
+test("tokens and themes entries ship variables without component rules", async () => {
+  const tokens = await load("tokens.css");
+  const themes = await load("themes.css");
+
+  for (const token of ["--pimolu-primary", "--pimolu-color-iris-600", "--pimolu-font-body", "--pimolu-shadow-raised"]) {
+    assert.ok(tokens.includes(`${token}:`), `tokens.css is missing ${token}`);
+  }
+  assert.match(tokens, /\[data-pimolu-style=["']?glass["']?\]/, "tokens.css includes preset palettes");
+  assert.doesNotMatch(tokens, /\.pimolu-button\s*\{/, "tokens.css has no component rules");
+  assert.doesNotMatch(themes, /\[data-pimolu-style=["']?glass["']?\]/, "themes.css stays on light and dark themes");
+  assert.match(themes, /\[data-pimolu-theme=["']?dark["']?\]/);
+  assert.match(themes, /--pimolu-primary:/);
+});
+
+test("the carousel control reserve is a tunable custom property", async () => {
+  const carousel = await load("carousel.css");
+  assert.match(carousel, /--pimolu-carousel-control-reserve:\s*56px/);
+  assert.match(carousel, /padding-inline:\s*var\(--pimolu-carousel-control-reserve/);
+});
+
+test("carousel families share the base track and ship their own layout", async () => {
+  const full = await load("pimolu.css");
+  for (const [family, selector] of [
+    ["thumbnail-carousel", ".pimolu-thumbnail-carousel"],
+    ["coverflow-carousel", ".pimolu-coverflow-carousel"],
+    ["peek-carousel", ".pimolu-peek-carousel"],
+    ["stack-carousel", ".pimolu-stack-carousel"],
+    ["arc-carousel", ".pimolu-arc-carousel"],
+    ["multi-carousel", ".pimolu-multi-carousel"],
+  ]) {
+    const css = await load(`${family}.css`);
+    assert.ok(css.includes(selector), `${family}.css missing ${selector}`);
+    assert.ok(css.includes(".pimolu-carousel-root"), `${family}.css missing the shared base`);
+    assert.ok(full.includes(selector), `pimolu.css missing ${selector}`);
+  }
+  assert.match(full, /\.pimolu-carousel-root > \.pimolu-carousel__viewport\[data-scroll=(?:"false"|false)\]\s*\{[^}]*overflow:\s*hidden/s);
+});
+
 test("generates the full CSS bundles and every component stylesheet", async () => {
   for (const file of [
     "pimolu.css",
@@ -41,6 +79,7 @@ test("generates the full CSS bundles and every component stylesheet", async () =
     "tooltip.css",
     "popover.css",
     "dialog.css",
+    "modal.css",
     "tabs.css",
     "toggle.css",
     "toggle-group.css",
@@ -1505,10 +1544,61 @@ test("Dialog styles are included in the CSS build", async () => {
   );
 });
 
+test("Modal styles are included in the CSS build", async () => {
+  const full = await load("pimolu.css");
+  const modal = await load("modal.css");
+
+  const selectors = [
+    ".pimolu-modal",
+    ".pimolu-modal__overlay",
+    ".pimolu-modal__content",
+    ".pimolu-modal__content--sm",
+    ".pimolu-modal__content--md",
+    ".pimolu-modal__content--lg",
+    ".pimolu-modal__content--xl",
+    ".pimolu-modal__header",
+    ".pimolu-modal__title",
+    ".pimolu-modal__description",
+    ".pimolu-modal__footer",
+    ".pimolu-modal__close",
+  ];
+
+  for (const selector of selectors) {
+    assert.ok(
+      modal.includes(selector),
+      `Missing Modal selector: ${selector}`
+    );
+
+    assert.ok(
+      full.includes(selector),
+      `Missing bundled selector: ${selector}`
+    );
+  }
+
+  assert.ok(
+    modal.includes("--pimolu-modal-width"),
+    "The panel width must be driven by a custom property"
+  );
+
+  assert.ok(
+    modal.includes("pimolu-modal-content-in"),
+    "Missing the entrance animation"
+  );
+
+  assert.ok(
+    modal.includes("prefers-reduced-motion"),
+    "Missing reduced motion support"
+  );
+
+  assert.ok(
+    modal.includes("forced-colors"),
+    "Missing forced colors support"
+  );
+});
+
 test("Tabs styles are included in the CSS build", async () => {
   const full = await load("pimolu.css");
   const tabs = await load("tabs.css");
-
   const selectors = [
     ".pimolu-tabs",
     ".pimolu-tabs--line",

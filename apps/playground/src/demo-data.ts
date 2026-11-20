@@ -12,6 +12,7 @@ import {
   progressVariantMap,
   popoverVariantMap,
   dialogVariantMap,
+  modalVariantMap,
   tabsVariantMap,
   toggleVariantMap,
   segmentedControlVariantMap,
@@ -188,6 +189,10 @@ export const popoverPaddings = optionsOf(
 
 export const dialogSizes = optionsOf(
   dialogVariantMap.size,
+);
+
+export const modalSizes = optionsOf(
+  modalVariantMap.size,
 );
 
 export const tabsVariants = optionsOf(

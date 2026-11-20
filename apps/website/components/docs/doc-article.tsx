@@ -1,5 +1,5 @@
 import { ColorReference } from "../color-reference";
-import { Badge, CodeBlock, Link, PageHeader } from "@/components/ui";
+import { Badge, Code, CodeBlock, Link, PageHeader } from "@/components/ui";
 import { PreviewWorkbench } from "./preview-workbench";
 import { ApiReference } from "./api-reference";
 import type { PreviewSettings } from "@/lib/preview-settings";
@@ -15,6 +15,10 @@ import { emphasizeGuideText } from "@/lib/guide-emphasis";
 import { ComponentSetup } from "./component-setup";
 import { componentSetups } from "@/content/component-setups";
 
+function TokenGrid({ items, label }: { items: string[]; label: string }) {
+  return <ul className="docs-token-grid" aria-label={label}>{items.map((item) => <li key={item}><code>{item}</code></li>)}</ul>;
+}
+
 export function DocArticle({ slug, initialSettings }: { slug: string; initialSettings?: PreviewSettings }) {
   const guide = guides.find((entry) => entry.slug === slug);
   const component = components.find((entry) => `components/${entry.family}` === slug);
@@ -26,7 +30,10 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
     ...(setup ? [{ id: "setup", label: "Setup" }] : []),
     ...(setup?.examples.flatMap((example) => example.id ? [{ id: example.id, label: example.outlineLabel ?? example.title ?? example.id }] : []) ?? []),
     { id: "preview", label: "Preview" }, { id: "examples", label: "More examples" }, { id: "usage", label: "Usage" },
-    { id: "api", label: "API reference" }, { id: "accessibility", label: "Accessibility" },
+    { id: "api", label: "API reference" },
+    ...(catalogEntry?.parts?.length ? [{ id: "parts", label: "Class names" }] : []),
+    ...(catalogEntry?.cssVariables?.length ? [{ id: "variables", label: "CSS variables" }] : []),
+    { id: "accessibility", label: "Accessibility" },
     { id: "related", label: "Related components" },
   ];
   const pageNavigation = component ? catalog.map((item) => ({ slug: `components/${item.family}`, title: item.title })) : docNavigation.filter((item) => !item.slug.startsWith("components/"));
@@ -61,6 +68,22 @@ export function DocArticle({ slug, initialSettings }: { slug: string; initialSet
           <p>Generated from the public TypeScript declarations. Native HTML attributes are inherited where the component extends them; this reference includes Pimolu props and selected common native attributes.</p>
           <ApiReference groups={api[component.family as keyof typeof api]} />
         </section>
+        {catalogEntry?.parts?.length ? <section id="parts" className="docs-section">
+          <div className="docs-section-heading">
+            <h2>Class names</h2>
+            <Badge appearance="outline" size="sm">{catalogEntry.parts.length} parts</Badge>
+          </div>
+          <p>Pass these keys to <Code>classNames</Code> to style the matching element. A part renders only when its element or state is present; keys are additive and never replace the component class.</p>
+          <TokenGrid items={catalogEntry.parts} label="Class name parts" />
+        </section> : null}
+        {catalogEntry?.cssVariables?.length ? <section id="variables" className="docs-section">
+          <div className="docs-section-heading">
+            <h2>CSS variables</h2>
+            <Badge appearance="outline" size="sm">{catalogEntry.cssVariables.length} variables</Badge>
+          </div>
+          <p>Custom properties read by this component&apos;s shared stylesheet. Set them on the component, an ancestor or <Code>:root</Code>; they fall back to the theme when unset.</p>
+          <TokenGrid items={catalogEntry.cssVariables} label="CSS variables" />
+        </section> : null}
         <section id="accessibility" className="docs-section"><h2>Accessibility</h2><ul>{component.accessibility.map((text) => <li key={text}>{text}</li>)}</ul><Link href="/docs/accessibility">Read the accessibility guide →</Link></section>
         <section id="related" className="docs-section"><h2>Related components</h2><div className="flex flex-wrap gap-5">{component.related.map((target) => <Link key={target} href={docHref(target)}>{docNavigation.find((item) => item.slug === target)?.title}</Link>)}</div></section>
       </>}

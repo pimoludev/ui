@@ -1,5 +1,6 @@
 import { CustomizationExample } from "./carousel-customization-demo";
 import { useState } from "react";
+import type { CSSProperties } from "react";
 
 import {
   Badge,
@@ -77,6 +78,29 @@ export function CarouselPage() {
                   <Badge variant="secondary">Highlight</Badge>
                 </div>
 
+                <h3>{highlight.title}</h3>
+                <p className="pg-muted">{highlight.text}</p>
+              </div>
+            </div>
+          ))}
+        </Carousel>
+      </Section>
+
+      <Section
+        title="Control reserve"
+        hint="Slides reserve space for the absolute controls through --pimolu-carousel-control-reserve. Lower it when the controls are smaller, or raise it for larger icons; 56px is the default and 44px below 600px."
+      >
+        <Carousel
+          aria-label="Compact control reserve"
+          style={{ "--pimolu-carousel-control-reserve": "32px" } as CSSProperties}
+        >
+          {highlights.map((highlight) => (
+            <div
+              key={highlight.title}
+              className="pg-panel"
+              style={{ minHeight: 160 }}
+            >
+              <div className="pg-stack">
                 <h3>{highlight.title}</h3>
                 <p className="pg-muted">{highlight.text}</p>
               </div>

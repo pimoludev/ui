@@ -14,7 +14,7 @@ grammar and the Identity Kit direction live in
 - Two colour modes (`light`, `dark`) plus `system`; seven presets: `default`,
   `monochrome`, `cartoon`, `glass`, `luxury`, `neo-brutalism` and `adaptive`
   (candidate palette, not yet adopted as Default).
-- 129 React component families exported by `registry/react/index.ts`, each shown
+- 136 React component families exported by `registry/react/index.ts`, each shown
   in the playground. The website's Next.js guide documents App Router integration;
   framework starter templates are maintained in separate repositories.
 - Three design dimensions are independent of the preset: radius
@@ -59,7 +59,7 @@ grammar and the Identity Kit direction live in
   root verify. Other examples and non-React registries are not implemented yet.
 - The five library packages (`@pimolu/design-tokens`, `@pimolu/themes`,
   `@pimolu/core`, `@pimolu/react`, `@pimolu/web-styles`) are published on npm
-  at `0.1.0-beta.8`; both `latest` and `beta` dist-tags point to it.
+  at `0.1.0-beta.9`; both `latest` and `beta` dist-tags point to it.
   `@pimolu/react` is a single ESM bundle with `"use client"` and declarations;
   `@pimolu/core` compiles to ESM. Install the beta with
   `pnpm add @pimolu/react@beta @pimolu/web-styles@beta`. The website stays
@@ -190,7 +190,7 @@ features present in the repository.
 ### Website reader experience
 
 Customization additions available in 0.1.0-beta.4: opt-in
-`@pimolu/web-styles/layered.css`; typed additive `classNames` maps across all 129
+`@pimolu/web-styles/layered.css`; typed additive `classNames` maps across all 136
 families and their rendered subcomponents; panel
 `style` on the two modal content components. Select's styled trigger now honors
 its existing `style` prop. Legacy class targets and the plain CSS entry remain.
@@ -209,7 +209,7 @@ See the historical customization summary in `IMPLEMENTATION_PROGRESS.md` and
 `docs/audits/CUSTOMIZATION_2026-10-26.md` for scope and limits.
 The Calendar and TreeTable mobile Playground overflows were subsequently fixed
 in the shared demo grid: a shrinkable column keeps Calendar months wrapping and
-TreeTable scrolling inside its own container. All 129 families passed the
+TreeTable scrolling inside its own container. All 136 families passed the
 390px/1440px overflow smoke check; the two affected pages passed 336 checks
 across three engines, seven presets, light/dark and four viewport widths.
 
@@ -263,7 +263,7 @@ Its larger palette-panel geometry is local website CSS, not a public Popover API
 anchors before the usual docs generator runs. `content/releases.ts` is only a typed
 adapter over the generated index; generated MDX modules remain Server Components with
 Pimolu component mappings. Fenced code uses the client CodeBlock for copy support.
-The repository preview is `0.1.0-beta.8` and is tagged `v0.1.0-beta.8`; the root
+The repository preview is `0.1.0-beta.9` and is tagged `v0.1.0-beta.9`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.
@@ -319,7 +319,7 @@ remounts. See the newest website IMPLEMENTATION_PROGRESS entry for executed chec
 
 ## Navigation and chart references (2026-10-24)
 
-The library still exports 129 source families. The website splits the existing
+The library still exports 136 source families. The website splits the existing
 Chart family into BarChart, LineChart, AreaChart, DonutChart and Sparkline (133
 references / 532 component examples). `/components/chart` is a chart selection
 guide, and old chart preview addresses redirect while preserving appearance.

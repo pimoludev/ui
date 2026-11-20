@@ -1,6 +1,7 @@
 "use client";
 import { usePartClasses } from "../internal/use-part-classes";
 import { mergeClasses } from "../internal/merge-classes";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 
 import {
@@ -109,6 +110,7 @@ interface TriggerProps {
 
 export function DropdownMenuTrigger({
   children,
+  tabIndex,
 }: PimoluDropdownMenuTriggerProps) {
   const menu = useMenu("DropdownMenuTrigger");
 
@@ -122,6 +124,8 @@ export function DropdownMenuTrigger({
 
   function assignRef(node: HTMLElement | null) {
     menu.triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 
@@ -141,6 +145,9 @@ export function DropdownMenuTrigger({
 
   return cloneElement(trigger, {
     ref: assignRef,
+
+    ...(tabIndex !== undefined ? { tabIndex } : {}),
+
     "aria-haspopup": "menu",
     "aria-expanded": menu.open,
     "aria-controls": menu.open

@@ -1,6 +1,6 @@
 # Floating panel placement
 
-Published in **0.1.0-beta.8**, after the **0.1.0-beta.7** preview. The fix adds
+Published in **0.1.0-beta.9**, after the **0.1.0-beta.7** preview. The fix adds
 no public prop or dependency.
 
 Select and the other anchored components measure their real panel before making

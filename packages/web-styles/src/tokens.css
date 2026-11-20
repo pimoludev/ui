@@ -1,0 +1,7 @@
+/* Every Pimolu custom property, without component rules.
+
+   Use it when you import component stylesheets individually and still need the
+   primitives, semantic themes, preset palettes, visual tokens and motion
+   variables. Pair it with @pimolu/web-styles/<component>.css. */
+@import "@pimolu/themes/styles.css";
+@import "@pimolu/themes/presets.css";

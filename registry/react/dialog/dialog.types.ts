@@ -33,6 +33,13 @@ export interface PimoluDialogTriggerProps {
    * handler and the ref, and the handlers it already had keep working.
    */
   children: ReactElement;
+
+  /**
+   * Tab index forwarded to the cloned trigger. When the element is not
+   * natively focusable and no value is given, Pimolu adds `tabIndex={0}` and
+   * `role="button"` so keyboard users can reach it.
+   */
+  tabIndex?: number;
 }
 
 export interface PimoluDialogContentProps {

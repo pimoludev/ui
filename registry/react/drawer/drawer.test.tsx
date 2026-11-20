@@ -429,3 +429,39 @@ describe("Pimolu Drawer", () => {
     }
   });
 });
+
+
+describe("trigger focusability", () => {
+  it("adds keyboard access to a non-focusable trigger", () => {
+    render(
+      <Drawer>
+      <DrawerTrigger><span>Open settings</span></DrawerTrigger>
+      <DrawerContent><DrawerTitle>Settings</DrawerTitle></DrawerContent>
+    </Drawer>
+    );
+    const trigger = screen.getByText("Open settings");
+    expect(trigger).toHaveAttribute("tabindex", "0");
+    expect(trigger).toHaveAttribute("role", "button");
+  });
+
+  it("forwards an explicit tabIndex and leaves a native button untouched", () => {
+    const { unmount } = render(
+      <Drawer>
+      <DrawerTrigger tabIndex={-1}><span>Open settings</span></DrawerTrigger>
+      <DrawerContent><DrawerTitle>Settings</DrawerTitle></DrawerContent>
+    </Drawer>
+    );
+    expect(screen.getByText("Open settings")).toHaveAttribute("tabindex", "-1");
+    unmount();
+
+    render(
+      <Drawer>
+      <DrawerTrigger><button type="button">Native open</button></DrawerTrigger>
+      <DrawerContent><DrawerTitle>Settings</DrawerTitle></DrawerContent>
+    </Drawer>
+    );
+    const native = screen.getByRole("button", { name: "Native open" });
+    expect(native).not.toHaveAttribute("tabindex");
+    expect(native).not.toHaveAttribute("role");
+  });
+});

@@ -4,6 +4,7 @@ import { usePartClasses } from "../internal/use-part-classes";
 
 
 import { mergeClasses } from "../internal/merge-classes";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 import {
   cloneElement,
@@ -216,6 +217,7 @@ interface TriggerProps {
 
 export function DialogTrigger({
   children,
+  tabIndex,
 }: PimoluDialogTriggerProps) {
   const { open, setOpen, contentId, triggerRef } =
     useDialog("DialogTrigger");
@@ -230,6 +232,8 @@ export function DialogTrigger({
 
   function assignRef(node: HTMLElement | null) {
     triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 
@@ -249,6 +253,8 @@ export function DialogTrigger({
 
   return cloneElement(trigger, {
     ref: assignRef,
+
+    ...(tabIndex !== undefined ? { tabIndex } : {}),
 
     "aria-haspopup": "dialog",
     "aria-expanded": open,

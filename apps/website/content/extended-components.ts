@@ -710,15 +710,119 @@ export const extendedComponents = [
   },
   {
     "family": "carousel",
+    "group": "Carousels",
     "selection": {
       "section": "Product gallery"
     },
-    "description": "A browsable product gallery with image descriptions.",
+    "description": "The simple, batteries-included gallery with autoplay, pause, dots and controls.",
     "usage": [
-      "Keep navigation explicit; autoplay must be optional and pauseable when enabled. Touch swipes, dots and controls stay synchronized in RTL; horizontal arrow keys mirror the reading direction."
+      "Keep navigation explicit; autoplay must be optional and pauseable when enabled. Touch swipes, dots and controls stay synchronized in RTL; horizontal arrow keys mirror the reading direction.",
+      "Carousel is the simple entry point and owns autoplay, pause, dots and controls. The six carousel families focus on layout and intentionally omit autoplay; compose your own timer there, or choose Carousel for a straightforward gallery."
     ],
     "accessibility": [
       "Test previous/next and slide announcements, and respect reduced-motion preferences."
+    ]
+  },
+  {
+    "family": "thumbnail-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "A main stage with a thumbnail rail that shares one active index.",
+    "usage": [
+      "Compose ThumbnailCarousel with CarouselContent, CarouselSlide, CarouselPrevious, CarouselNext, CarouselThumbnails and CarouselThumbnail. The rail and the arrow keys use the same engine state.",
+      "Pass loop, index/defaultIndex and onIndexChange like the other families. gap controls the slide spacing; the thumbnail rail keeps its own compact spacing.",
+      "Source workspace addition: the carousel families are not yet published on npm."
+    ],
+    "accessibility": [
+      "Every thumbnail is a real button with aria-current, so pointer and keyboard users can switch the collection.",
+      "Verify previous/next, the rail selection and the live region; images need a meaningful alt in the thumbnail rail."
+    ]
+  },
+  {
+    "family": "coverflow-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "A centred card with scaled and rotated neighbours behind it.",
+    "usage": [
+      "CoverflowCarousel positions every slide from the active index instead of scrolling a track. Use CarouselContent, CarouselSlide and the shared controls.",
+      "The active card keeps focus and pointer events; cards beyond the immediate neighbours are inert to pointer input. loop and onIndexChange follow the shared contract.",
+      "Source workspace addition: the carousel families are not yet published on npm."
+    ],
+    "accessibility": [
+      "Check that arrow keys, dots and buttons move one shared index and that hidden cards are not announced as current.",
+      "Reduced motion disables the transform transition; the focus ring and disabled edge controls remain visible."
+    ]
+  },
+  {
+    "family": "peek-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "A centred card with both neighbours peeking into the viewport.",
+    "usage": [
+      "PeekCarousel keeps a scroll-snap rail while the active card is centred. Use CarouselSlide for each card and the shared controls for navigation.",
+      "The family defaults to centred alignment and a compact slide width, so the next and previous cards stay visible. gap controls the space between cards.",
+      "Source workspace addition: the carousel families are not yet published on npm."
+    ],
+    "accessibility": [
+      "Swipe, dots, buttons and arrow keys must keep the same active card; check the active slide's aria-current.",
+      "The viewport is focusable and exposes the carousel label. Do not remove the built-in focus-visible ring."
+    ]
+  },
+  {
+    "family": "stack-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "Cards stacked in a shallow deck behind the active one.",
+    "usage": [
+      "StackCarousel positions every slide from the active index. Compose CarouselContent, CarouselSlide, the shared controls and CarouselDots.",
+      "The stack re-orders around the active index; cards further away fade and stop receiving pointer events. loop keeps the deck continuous.",
+      "Source workspace addition: the carousel families are not yet published on npm."
+    ],
+    "accessibility": [
+      "Verify that pointer-inert cards are not reachable by Tab and that the active card is announced once.",
+      "The animation is decorative; reduced motion still updates the text and focus state immediately."
+    ]
+  },
+  {
+    "family": "arc-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "A shallow arc of cards with rotation and vertical offset.",
+    "usage": [
+      "ArcCarousel fans the cards around the active index. Use CarouselContent, CarouselSlide and the shared controls; gap changes the card spacing.",
+      "Below 640px the outer cards leave the stage and the active pair remains visible. The active card stays upright and closest to the viewer.",
+      "Source workspace addition: the carousel families are not yet published on npm."
+    ],
+    "accessibility": [
+      "Check the active card, dots and arrow buttons at narrow widths where outer cards are hidden.",
+      "Pointer-inert outer cards must not hide a required action; keep every essential control on the active card or in the shared controls."
+    ]
+  },
+  {
+    "family": "multi-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "Several cards per view on one shared scroll-snap track.",
+    "usage": [
+      "MultiCarousel shows slidesPerView cards at once. Use CarouselContent, CarouselSlide and the shared controls for paging.",
+      "The track keeps one active index while several cards remain visible. gap controls the space between cards; loop wraps the page navigation.",
+      "Source workspace addition: the carousel families are not yet published on npm."
+    ],
+    "accessibility": [
+      "Verify that the visible page, dots and previous/next controls describe the same selection at every viewport width.",
+      "Keep focus inside the visible track and test the layout at narrow widths where a multi-column page can become cramped."
     ]
   },
   {
@@ -1320,6 +1424,22 @@ export const extendedComponents = [
     ],
     "accessibility": [
       "Provide a title, a close path and verify focus containment and restoration."
+    ]
+  },
+  {
+    "family": "modal",
+    "selection": {
+      "section": "Anatomy"
+    },
+    "description": "A centered conversation that pauses the page until the user answers.",
+    "usage": [
+      "Compose ModalTrigger and ModalContent with a title and description. Size caps the panel from sm to xl; Dialog remains the lighter name for the same interaction in existing applications.",
+      "Use open/onOpenChange when your workflow owns dismissal. ModalClose wraps an existing button without creating a nested button, and a non-focusable trigger child receives tabIndex and a button role automatically.",
+      "Source workspace addition: the Modal family is not yet published on npm."
+    ],
+    "accessibility": [
+      "Use ModalTitle to name the panel and ModalDescription for context. Focus is trapped, Escape and the overlay dismiss by default, the page cannot scroll behind the panel, and focus returns to the trigger.",
+      "Keep a visible or programmatic close path. If you disable Escape and overlay dismissal, the footer actions must be the only deliberate way out and must remain reachable by keyboard."
     ]
   },
   {

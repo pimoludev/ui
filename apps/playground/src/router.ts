@@ -82,6 +82,12 @@ export const pages = [
   { id: "rating", label: "Rating", group: "Data display" },
   { id: "image", label: "Image", group: "Data display" },
   { id: "carousel", label: "Carousel", group: "Data display" },
+  { id: "thumbnail-carousel", label: "ThumbnailCarousel", group: "Data display" },
+  { id: "coverflow-carousel", label: "CoverflowCarousel", group: "Data display" },
+  { id: "peek-carousel", label: "PeekCarousel", group: "Data display" },
+  { id: "stack-carousel", label: "StackCarousel", group: "Data display" },
+  { id: "arc-carousel", label: "ArcCarousel", group: "Data display" },
+  { id: "multi-carousel", label: "MultiCarousel", group: "Data display" },
   { id: "virtual-list", label: "VirtualList", group: "Data display" },
   { id: "tree-view", label: "TreeView", group: "Data display" },
 
@@ -129,6 +135,7 @@ export const pages = [
 
   { id: "circular-progress", label: "CircularProgress", group: "Feedback" },
   { id: "dialog", label: "Dialog", group: "Feedback" },
+  { id: "modal", label: "Modal", group: "Feedback" },
   { id: "alert", label: "Alert", group: "Feedback" },
   { id: "banner", label: "Banner", group: "Feedback" },
   { id: "empty-state", label: "EmptyState", group: "Feedback" },

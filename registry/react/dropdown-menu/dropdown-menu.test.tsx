@@ -203,3 +203,39 @@ describe("Pimolu DropdownMenu", () => {
     expect(rename).toHaveFocus();
   });
 });
+
+
+describe("trigger focusability", () => {
+  it("adds keyboard access to a non-focusable trigger", () => {
+    render(
+      <DropdownMenu>
+      <DropdownMenuTrigger><span>Open settings</span></DropdownMenuTrigger>
+      <DropdownMenuContent><DropdownMenuItem>First</DropdownMenuItem></DropdownMenuContent>
+    </DropdownMenu>
+    );
+    const trigger = screen.getByText("Open settings");
+    expect(trigger).toHaveAttribute("tabindex", "0");
+    expect(trigger).toHaveAttribute("role", "button");
+  });
+
+  it("forwards an explicit tabIndex and leaves a native button untouched", () => {
+    const { unmount } = render(
+      <DropdownMenu>
+      <DropdownMenuTrigger tabIndex={-1}><span>Open settings</span></DropdownMenuTrigger>
+      <DropdownMenuContent><DropdownMenuItem>First</DropdownMenuItem></DropdownMenuContent>
+    </DropdownMenu>
+    );
+    expect(screen.getByText("Open settings")).toHaveAttribute("tabindex", "-1");
+    unmount();
+
+    render(
+      <DropdownMenu>
+      <DropdownMenuTrigger><button type="button">Native open</button></DropdownMenuTrigger>
+      <DropdownMenuContent><DropdownMenuItem>First</DropdownMenuItem></DropdownMenuContent>
+    </DropdownMenu>
+    );
+    const native = screen.getByRole("button", { name: "Native open" });
+    expect(native).not.toHaveAttribute("tabindex");
+    expect(native).not.toHaveAttribute("role");
+  });
+});

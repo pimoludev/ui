@@ -1,0 +1,7 @@
+/* Primitives plus the light and dark semantic colour themes.
+
+   Import it before component stylesheets when you want the colour themes
+   without preset palettes. Components that ship their own preset variables
+   keep working; use tokens.css instead when you also need preset and visual
+   tokens. */
+@import "@pimolu/themes/styles.css";

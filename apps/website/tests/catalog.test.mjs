@@ -13,8 +13,8 @@ const api = await read("catalog-api");
 const examples = await read("examples");
 
 test("catalog covers exported families with real source, CSS, API and test paths", async () => {
-  assert.equal(catalog.length, 135);
-  assert.equal(new Set(catalog.map((entry) => entry.source)).size, 129, "Chart and Form references share their existing source families");
+  assert.equal(catalog.length, 142);
+  assert.equal(new Set(catalog.map((entry) => entry.source)).size, 136, "Chart and Form references share their existing source families");
   assert.equal(new Set(catalog.map((entry) => entry.family)).size, catalog.length);
   assert.equal(catalog.filter((entry) => entry.documented).length, components.length);
   for (const entry of catalog) {
@@ -22,6 +22,19 @@ test("catalog covers exported families with real source, CSS, API and test paths
     const paths = [entry.source, ...(entry.stylesheet ? [entry.stylesheet] : []), ...entry.tests, ...api[entry.family].map((group) => group.source)];
     for (const path of paths) await stat(new URL(`../../../${path}`, import.meta.url));
     assert.ok(entry.href.startsWith("/components/"));
+  }
+});
+
+test("catalog publishes named parts and consumed CSS variables per family", () => {
+  const carousel = catalog.find((entry) => entry.family === "carousel");
+  assert.deepEqual(carousel.parts, ["autoplay", "control", "dot", "dots", "footer", "root", "slide", "viewport"]);
+  assert.ok(carousel.cssVariables.includes("--pimolu-carousel-control-reserve"));
+  assert.ok(carousel.cssVariables.includes("--pimolu-muted-foreground"));
+  for (const entry of catalog.filter((item) => item.documented)) {
+    assert.ok(Array.isArray(entry.parts), `${entry.family}: parts`);
+    assert.ok(Array.isArray(entry.cssVariables), `${entry.family}: cssVariables`);
+    assert.equal(new Set(entry.cssVariables).size, entry.cssVariables.length, `${entry.family}: duplicate variables`);
+    assert.ok(entry.cssVariables.every((variable) => variable.startsWith("--pimolu-")), `${entry.family}: variable prefix`);
   }
 });
 
@@ -61,10 +74,12 @@ test("customized copied examples remain parsable with isolated Provider settings
 
 test("sitemap includes each canonical reference once and excludes preview routes", () => {
   const paths = indexablePaths(catalog, guides);
-  assert.equal(paths.length, 311);
+  assert.equal(paths.length, 320);
+  assert.ok(paths.includes("/components/carousels"));
   assert.ok(paths.includes("/showcase"));
   assert.ok(paths.includes("/blocks") && paths.includes("/blocks/invite-team"));
   assert.ok(paths.includes("/blog") && paths.includes("/releases/unreleased"));
+  assert.ok(paths.includes("/releases/0.1.0-beta.9"));
   assert.ok(paths.includes("/releases/0.1.0-beta.8"));
   assert.ok(paths.includes("/releases/0.1.0-beta.6"));
   assert.ok(paths.includes("/releases/0.1.0-beta.5"));

@@ -33,6 +33,7 @@ const targets = {
   popconfirm: ".pimolu-popover",
   lightbox: ".pimolu-lightbox__panel",
   dialog: ".pimolu-dialog__content",
+  modal: ".pimolu-modal__content",
   "alert-dialog": ".pimolu-dialog__content",
   drawer: ".pimolu-drawer__content",
   toast: ".pimolu-toast",
@@ -73,7 +74,7 @@ try {
       await page.evaluate(() => document.fonts.ready);
       const trigger = page.locator('.example-ready .pimolu-button').first();
       if (entry.family === "form-error") await trigger.click();
-      if (["dialog", "alert-dialog", "drawer", "toast", "popconfirm", "dropdown-menu", "popover", "lightbox"].includes(entry.family)) await trigger.click();
+      if (["dialog", "alert-dialog", "modal", "drawer", "toast", "popconfirm", "dropdown-menu", "popover", "lightbox"].includes(entry.family)) await trigger.click();
       if (["hover-card", "tooltip"].includes(entry.family)) await trigger.hover();
       if (entry.family === "context-menu") await trigger.click({ button: "right" });
       if (entry.family === "notification-center") await page.locator('.example-ready button[aria-expanded]').first().click();

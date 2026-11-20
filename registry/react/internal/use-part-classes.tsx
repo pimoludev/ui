@@ -9,7 +9,7 @@ export const scopedPartFamilies: ReadonlySet<string> = new Set([
   "accordion", "breadcrumbs", "button-group", "card", "chart", "chat",
   "context-menu", "description-list", "dialog", "drawer", "dropdown-menu",
   "file-manager", "form", "hero", "image", "input", "input-group",
-  "kanban", "list", "menubar", "navbar", "navigation-menu", "popover",
+  "kanban", "list", "menubar", "modal", "navbar", "navigation-menu", "popover",
   "sidebar", "stat", "stepper", "table", "tabs", "theme-builder", "timeline",
   "toast", "toggle-group", "toolbar", "tree-table", "tree-view",
 ]);

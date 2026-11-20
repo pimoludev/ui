@@ -39,6 +39,7 @@
 @import "./tooltip.css";
 @import "./popover.css";
 @import "./dialog.css";
+@import "./modal.css";
 @import "./tabs.css";
 @import "./toggle.css";
 @import "./toggle-group.css";
@@ -97,6 +98,12 @@
 @import "./focus-scope.css";
 @import "./image.css";
 @import "./carousel.css";
+@import "./thumbnail-carousel.css";
+@import "./coverflow-carousel.css";
+@import "./peek-carousel.css";
+@import "./stack-carousel.css";
+@import "./arc-carousel.css";
+@import "./multi-carousel.css";
 @import "./resizable.css";
 @import "./virtual-list.css";
 @import "./dashboard-layout.css";

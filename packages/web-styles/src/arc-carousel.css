@@ -1,0 +1,39 @@
+@import "./carousel-base.css";
+
+/* Five cards fanned along a shallow arc. */
+.pimolu-arc-carousel .pimolu-carousel__viewport {
+  height: clamp(260px, 44vw, 400px);
+}
+
+.pimolu-arc-carousel .pimolu-carousel__slide {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+
+  width: min(42%, 340px);
+  height: 82%;
+
+  margin-inline-start: calc(min(42%, 340px) / -2);
+
+  border-radius: calc(var(--pimolu-radius-lg, 14px) + 2px);
+  border: 1px solid var(--pimolu-border);
+  background: var(--pimolu-surface);
+  overflow: hidden;
+
+  transform-origin: center bottom;
+}
+
+@media (max-width: 640px) {
+  .pimolu-arc-carousel .pimolu-carousel__slide {
+    display: none;
+
+    width: min(60%, 340px);
+
+    margin-inline-start: calc(min(60%, 340px) / -2);
+  }
+
+  .pimolu-arc-carousel .pimolu-carousel__slide[data-active="true"],
+  .pimolu-arc-carousel .pimolu-carousel__slide[data-distance="1"] {
+    display: block;
+  }
+}

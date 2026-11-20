@@ -6,13 +6,13 @@ The styling layer behind Pimolu UI. Load one complete stylesheet, opt into predi
 
 [Quick start](https://pimolu.com/docs/quick-start) · [Theming](https://pimolu.com/docs/theming) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/packages/web-styles)
 
-> **Beta:** `0.1.0-beta.8` is a preview. Public CSS entry points and visual tokens may change before `1.0.0`.
+> **Beta:** `0.1.0-beta.9` is a preview. Public CSS entry points and visual tokens may change before `1.0.0`.
 
 ## Why Pimolu styles?
 
 - **One import, the complete system.** `styles.css` combines primitive tokens, semantic themes, all seven presets and every component stylesheet.
 - **Overrides without `!important`.** `layered.css` places the library in a `pimolu` cascade layer so normal application rules and Tailwind utilities can win predictably.
-- **Component-level CSS when you need it.** Every family has an exported CSS subpath, so a small application can load only the foundations and controls it uses.
+- **Component-level CSS when you need it.** Every family has an exported CSS subpath, so a small application can load only the foundations and controls it uses. `tokens.css` provides every custom property and `themes.css` the light/dark semantic themes, both without component rules. 	okens.css provides every custom property and 	hemes.css the light/dark semantic themes, both without component rules.
 - **Plain CSS, zero runtime.** No style calculations in JavaScript and no generated class names. Theme changes are attribute-driven.
 - **Aligned releases.** The CSS and React packages ship at the same version. Keep them together.
 
@@ -20,7 +20,7 @@ The styling layer behind Pimolu UI. Load one complete stylesheet, opt into predi
 
 | | |
 | --- | --- |
-| Entries | `styles.css`, `layered.css`, `pimolu.min.css` |
+| Entries | `styles.css`, `layered.css`, `tokens.css`, `themes.css`, `pimolu.min.css` |
 | Component styles | 129 exported CSS subpaths |
 | Foundations | Tokens, semantic themes, seven visual presets |
 | Themes | Light and dark, including system preference through the Provider |
@@ -30,13 +30,13 @@ The styling layer behind Pimolu UI. Load one complete stylesheet, opt into predi
 ## Install
 
 ```bash
-pnpm add @pimolu/web-styles@beta
+pnpm add @pimolu/web-styles@latest
 ```
 
 Using React components as well?
 
 ```bash
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 ## Complete stylesheet
@@ -90,7 +90,7 @@ The customization contract covers panel hooks, portal scope and accessibility re
 Install the foundations package and import the component CSS you need:
 
 ```bash
-pnpm add @pimolu/web-styles@beta @pimolu/themes@beta
+pnpm add @pimolu/web-styles@latest @pimolu/themes@latest
 ```
 
 ```css

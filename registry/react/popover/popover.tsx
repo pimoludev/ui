@@ -29,6 +29,7 @@ import { Portal } from "../internal/portal";
 import { getFocusable } from "../internal/focusable";
 import { useAnchoredPosition } from "../internal/use-anchored-position";
 import { useOutsidePointer } from "../internal/use-outside-pointer";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 /* =========================================
    HELPERS
@@ -304,6 +305,8 @@ export function Popover({ classNames,
 
   function assignRef(node: HTMLElement | null) {
     triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 

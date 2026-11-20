@@ -4,10 +4,99 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
-- EN: No unreleased changes yet. Work after beta.8 is tracked in the development
-  notes on the website.
-- FR : Aucun changement non publié pour le moment. Le travail après beta.8 est
-  suivi dans les notes de développement du site.
+## [0.1.0-beta.9] — 2026-11-20
+
+Preview release. Tag: `v0.1.0-beta.9`. All five library packages are published on
+npm at this version with `latest` and `beta` dist-tags. The website builds 472
+pages, including 142 component references across 136 source families. Pimolu UI
+remains a beta release: the human design review and the assistive-technology
+review stay open.
+
+- EN: DialogTrigger, DrawerTrigger and DropdownMenuTrigger accept a tabIndex and
+  add `tabIndex={0}` plus `role="button"` when the cloned child is not natively
+  focusable, so keyboard users can reach the trigger. Popover, Tooltip,
+  HoverCard, ContextMenu and Popconfirm apply the same rule through the shared
+  helper, which keeps explicit roles and native controls untouched.
+- FR : DialogTrigger, DrawerTrigger et DropdownMenuTrigger acceptent un tabIndex
+  et ajoutent `tabIndex={0}` ainsi que `role="button"` quand l'enfant cloné n'est
+  pas focusable nativement, afin que le clavier atteigne le déclencheur. Un
+  helper partagé respecte les rôles explicites et les contrôles natifs.
+
+- EN: A new **Modal** family joins the library: Modal, ModalTrigger, ModalContent,
+  ModalHeader, ModalTitle, ModalDescription, ModalFooter and ModalClose, with
+  sm/md/lg/xl sizes, focus trap, Escape and overlay dismissal, scroll lock, focus
+  return and optional close button. It reuses the Dialog internals and the shared
+  focusable-trigger helper.
+- FR : Une nouvelle famille **Modal** rejoint la bibliothèque : Modal,
+  ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalDescription,
+  ModalFooter et ModalClose, avec tailles sm/md/lg/xl, piège de focus, fermeture
+  par Échap et overlay, verrou de scroll, retour du focus et bouton de fermeture
+  optionnel. Elle réutilise les internes de Dialog et le helper de trigger
+  focusable.
+
+- EN: Six carousel families join the library: ThumbnailCarousel,
+  CoverflowCarousel, PeekCarousel, StackCarousel, ArcCarousel and MultiCarousel.
+  They share the carousel engine (index state, loop, labels, live region and
+  keyboard navigation) and expose CarouselContent, CarouselSlide,
+  CarouselPrevious, CarouselNext, CarouselDots, CarouselThumbnails,
+  CarouselThumbnail and CarouselLiveRegion with typed named parts. Each family
+  has a copyable composition, a standalone Named-part customization example and
+  a Chromium/WebKit journey; the base Carousel API is unchanged. A Carousels
+  overview compares the seven references: Carousel is the simple entry point
+  with autoplay, while the six families are advanced layout choices.
+  MultiCarousel pagination counts reachable pages, so its dots no longer imply
+  extra slides after the end of the rail; swiping resynchronizes the active page.
+- FR : Six familles de carrousel rejoignent la bibliothèque : ThumbnailCarousel,
+  CoverflowCarousel, PeekCarousel, StackCarousel, ArcCarousel et MultiCarousel.
+  Elles partagent le moteur de carrousel (index, boucle, libellés, région live et
+  navigation clavier) et exposent CarouselContent, CarouselSlide,
+  CarouselPrevious, CarouselNext, CarouselDots, CarouselThumbnails,
+  CarouselThumbnail et CarouselLiveRegion avec des parties nommées typées.
+  Chaque famille a une composition copiable, un exemple autonome de
+  personnalisation des parties nommées et un parcours Chromium/WebKit ; l'API du
+  Carousel de base reste inchangée. Une page Carousels compare les sept
+  références : Carousel est l'entrée simple avec autoplay, les six familles sont
+  les choix avancés de mise en page. La pagination de MultiCarousel compte les
+  pages atteignables : ses points n'annoncent plus de slides supplémentaires
+  après la fin du rail, et un swipe resynchronise la page active.
+
+- EN: Installation guides recommend `@latest`; Quick start documents exact
+  versions with `--save-exact`, lockfile behaviour and the optional `@beta`
+  channel. Carousels gain a category and overview, Class names and CSS variables
+  use readable grids, API tables fit without horizontal scroll and optional
+  types omit `| undefined`. Scrollable code blocks are keyboard focusable.
+- FR : Les guides d'installation recommandent `@latest` ; le Quick start détaille
+  les versions exactes avec `--save-exact`, le comportement du lockfile et le
+  canal `@beta` facultatif. Les carrousels gagnent une catégorie et une page
+  d'introduction, Class names et variables CSS utilisent des grilles lisibles,
+  les tableaux API tiennent sans défilement horizontal et les types optionnels
+  omettent `| undefined`. Les blocs de code défilables sont focusables au clavier.
+
+- EN: Next.js moves from 16.4.2 to 16.4.6 on the website to address the published
+  security advisory; React stays on 19.3.1.
+- FR : Next.js passe de 16.4.2 à 16.4.6 sur le site pour corriger l'avis de
+  sécurité publié ; React reste en 19.3.1.
+
+- EN: @pimolu/web-styles adds `tokens.css` (every custom property without
+  component rules) and `themes.css` (primitives and light/dark semantic themes)
+  for applications that import component stylesheets individually.
+- FR : @pimolu/web-styles ajoute `tokens.css` (toutes les propriétés
+  personnalisées sans règle de composant) et `themes.css` (primitives et thèmes
+  sémantiques clair/sombre) pour les applications qui importent les feuilles de
+  composants individuellement.
+
+- EN: Component reference pages publish a Class names table from the typed
+  `classNames` parts and a CSS variables table generated from each shared
+  stylesheet. Carousel exposes `--pimolu-carousel-control-reserve` instead of a
+  hard-coded 56 px. The quick start uses `layered.css` and states that classNames
+  adds hooks rather than overriding styles; the brandColor scope is documented as
+  primary, hover and focus only.
+- FR : Les pages de référence publient un tableau Class names issu des parties
+  typées `classNames` et un tableau des variables CSS généré depuis chaque
+  feuille partagée. Carousel expose `--pimolu-carousel-control-reserve` au lieu
+  d'un 56 px codé en dur. Le Quick start utilise `layered.css` et précise que
+  classNames ajoute des hooks sans surcharger les styles ; le périmètre de
+  brandColor est documenté comme primary, hover et focus uniquement.
 
 ## [0.1.0-beta.8] — 2026-11-08
 
@@ -690,6 +779,7 @@ the component API, visual review and distribution packaging may still change.
 - La preview du site nécessite un hébergeur ; le build de production passe en
   local mais aucune URL publique n'est attachée à cette entrée.
 
+[0.1.0-beta.9]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.9
 [0.1.0-beta.8]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.8
 [0.1.0-beta.7]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.7
 [0.1.0-beta.6]: https://github.com/pimoludev/ui/releases/tag/v0.1.0-beta.6

@@ -627,3 +627,39 @@ describe("Pimolu Dialog", () => {
     }
   });
 });
+
+
+describe("trigger focusability", () => {
+  it("adds keyboard access to a non-focusable trigger", () => {
+    render(
+      <Dialog>
+      <DialogTrigger><span>Open settings</span></DialogTrigger>
+      <DialogContent><DialogTitle>Settings</DialogTitle></DialogContent>
+    </Dialog>
+    );
+    const trigger = screen.getByText("Open settings");
+    expect(trigger).toHaveAttribute("tabindex", "0");
+    expect(trigger).toHaveAttribute("role", "button");
+  });
+
+  it("forwards an explicit tabIndex and leaves a native button untouched", () => {
+    const { unmount } = render(
+      <Dialog>
+      <DialogTrigger tabIndex={-1}><span>Open settings</span></DialogTrigger>
+      <DialogContent><DialogTitle>Settings</DialogTitle></DialogContent>
+    </Dialog>
+    );
+    expect(screen.getByText("Open settings")).toHaveAttribute("tabindex", "-1");
+    unmount();
+
+    render(
+      <Dialog>
+      <DialogTrigger><button type="button">Native open</button></DialogTrigger>
+      <DialogContent><DialogTitle>Settings</DialogTitle></DialogContent>
+    </Dialog>
+    );
+    const native = screen.getByRole("button", { name: "Native open" });
+    expect(native).not.toHaveAttribute("tabindex");
+    expect(native).not.toHaveAttribute("role");
+  });
+});

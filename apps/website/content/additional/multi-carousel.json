@@ -1,0 +1,8 @@
+[
+  {
+    "file": "multi-carousel-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to the track, cards, controls and dots without replacing the built-in scroll-snap or focus states.",
+    "append": true
+  }
+]

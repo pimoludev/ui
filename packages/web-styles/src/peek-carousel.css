@@ -1,0 +1,21 @@
+@import "./carousel-base.css";
+
+/* Centred card with both neighbours peeking into the viewport. */
+.pimolu-peek-carousel .pimolu-carousel__viewport {
+  padding-block: 8px;
+}
+
+.pimolu-peek-carousel .pimolu-carousel__slide {
+  border-radius: calc(var(--pimolu-radius-lg, 14px) + 2px);
+  border: 1px solid var(--pimolu-border);
+  background: var(--pimolu-surface);
+  overflow: hidden;
+  opacity: 0.72;
+  transform: scale(0.95);
+}
+
+.pimolu-peek-carousel .pimolu-carousel__slide[data-active="true"] {
+  border-color: var(--pimolu-primary);
+  opacity: 1;
+  transform: scale(1);
+}

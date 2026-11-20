@@ -8,7 +8,10 @@ export function DemoExample() {
       {
         (<>
           <Paragraph>
-            Install components with <Code classNames={{ root: "custom-code-root" }}>pnpm add @pimolu/react @pimolu/web-styles</Code>,
+            Install components with{" "}
+            <Code classNames={{ root: "custom-code-root" }}>
+              pnpm add @pimolu/react@latest @pimolu/web-styles@latest
+            </Code>,
             then import <Code classNames={{ root: "custom-code-root" }}>@pimolu/web-styles/layered.css</Code> in your stylesheet.
           </Paragraph>
         </>)

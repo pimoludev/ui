@@ -426,3 +426,20 @@ describe("Pimolu HoverCard", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
+
+
+describe("trigger focusability", () => {
+  it("adds keyboard access to a non-focusable trigger", () => {
+    render(
+      <HoverCard>
+        <HoverCardTrigger>
+          <div>Ada Lovelace</div>
+        </HoverCardTrigger>
+        <HoverCardContent label="Profile">Mathematician</HoverCardContent>
+      </HoverCard>
+    );
+    const trigger = screen.getByText("Ada Lovelace");
+    expect(trigger).toHaveAttribute("tabindex", "0");
+    expect(trigger).toHaveAttribute("role", "button");
+  });
+});

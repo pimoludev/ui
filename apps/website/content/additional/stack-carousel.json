@@ -1,0 +1,8 @@
+[
+  {
+    "file": "stack-carousel-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to the deck, cards, controls and dots without replacing the built-in stacking or focus states.",
+    "append": true
+  }
+]

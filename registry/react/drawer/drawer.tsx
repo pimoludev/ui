@@ -4,6 +4,7 @@ import { usePartClasses } from "../internal/use-part-classes";
 
 
 import { mergeClasses } from "../internal/merge-classes";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 import {
   cloneElement,
@@ -236,6 +237,7 @@ interface TriggerProps {
 
 export function DrawerTrigger({
   children,
+  tabIndex,
 }: PimoluDrawerTriggerProps) {
   const { open, setOpen, contentId, triggerRef } =
     useDrawer("DrawerTrigger");
@@ -250,6 +252,8 @@ export function DrawerTrigger({
 
   function assignRef(node: HTMLElement | null) {
     triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 
@@ -269,6 +273,8 @@ export function DrawerTrigger({
 
   return cloneElement(trigger, {
     ref: assignRef,
+
+    ...(tabIndex !== undefined ? { tabIndex } : {}),
 
     "aria-haspopup": "dialog",
     "aria-expanded": open,

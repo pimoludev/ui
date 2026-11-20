@@ -1,0 +1,25 @@
+@import "./carousel-base.css";
+
+/* Center card with scaled and rotated neighbours behind it. */
+.pimolu-coverflow-carousel .pimolu-carousel__viewport {
+  height: clamp(240px, 42vw, 380px);
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.pimolu-coverflow-carousel .pimolu-carousel__slide {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+
+  width: min(62%, 520px);
+
+  margin-inline-start: calc(min(62%, 520px) / -2);
+
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+.pimolu-coverflow-carousel .pimolu-carousel__slide[data-active="true"] {
+  z-index: 10;
+}

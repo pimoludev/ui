@@ -171,7 +171,7 @@ function DocsArticle() {
         the application:
       </p>
       <pre>
-        <code>{`pnpm add @pimolu/react @pimolu/web-styles`}</code>
+        <code>{`pnpm add @pimolu/react@latest @pimolu/web-styles@latest`}</code>
       </pre>
       <Anchor id="pnpm-custom-parts" level={3}>With pnpm</Anchor>
       <p>

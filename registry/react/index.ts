@@ -321,6 +321,32 @@ export type {
   PimoluDialogSize,
 } from "./dialog/dialog.types";
 
+/* Modal */
+export {
+  Modal,
+  ModalTrigger,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
+  ModalDescription,
+  ModalFooter,
+  ModalClose,
+} from "./modal/modal";
+
+export { modalVariantMap } from "./modal/modal.variants";
+
+export type {
+  PimoluModalProps,
+  PimoluModalTriggerProps,
+  PimoluModalContentProps,
+  PimoluModalHeaderProps,
+  PimoluModalTitleProps,
+  PimoluModalDescriptionProps,
+  PimoluModalFooterProps,
+  PimoluModalCloseProps,
+  PimoluModalSize,
+} from "./modal/modal.types";
+
 /* Tabs */
 export {
   Tabs,
@@ -1079,6 +1105,40 @@ export type {
   PimoluCarouselProps,
   PimoluCarouselLabels,
 } from "./carousel/carousel.types";
+
+/* Carousel families */
+
+export { ThumbnailCarousel } from "./thumbnail-carousel/thumbnail-carousel";
+export type { ThumbnailCarouselProps } from "./thumbnail-carousel/thumbnail-carousel.types";
+export { CoverflowCarousel } from "./coverflow-carousel/coverflow-carousel";
+export type { CoverflowCarouselProps } from "./coverflow-carousel/coverflow-carousel.types";
+export { PeekCarousel } from "./peek-carousel/peek-carousel";
+export type { PeekCarouselProps } from "./peek-carousel/peek-carousel.types";
+export { StackCarousel } from "./stack-carousel/stack-carousel";
+export type { StackCarouselProps } from "./stack-carousel/stack-carousel.types";
+export { ArcCarousel } from "./arc-carousel/arc-carousel";
+export type { ArcCarouselProps } from "./arc-carousel/arc-carousel.types";
+export { MultiCarousel } from "./multi-carousel/multi-carousel";
+export type { MultiCarouselProps } from "./multi-carousel/multi-carousel.types";
+
+/* Shared carousel parts */
+
+export {
+  CarouselContent,
+  CarouselSlide,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselDots,
+  CarouselThumbnails,
+  CarouselThumbnail,
+  CarouselLiveRegion,
+} from "./internal/carousel/carousel-parts";
+export type {
+  CarouselClassNames,
+  CarouselLabels,
+  CarouselPartNames,
+  CarouselStageClassNames,
+} from "./internal/carousel/carousel-engine";
 
 /* Resizable */
 export { Resizable } from "./resizable/resizable";

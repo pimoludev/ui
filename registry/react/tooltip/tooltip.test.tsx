@@ -338,3 +338,17 @@ describe("Pimolu Tooltip", () => {
     expect(onMouseEnter).toHaveBeenCalled();
   });
 });
+
+
+describe("trigger focusability", () => {
+  it("adds keyboard access to a non-focusable trigger", () => {
+    render(
+      <Tooltip content="Saved">
+        <div>Save</div>
+      </Tooltip>
+    );
+    const trigger = screen.getByText("Save");
+    expect(trigger).toHaveAttribute("tabindex", "0");
+    expect(trigger).toHaveAttribute("role", "button");
+  });
+});

@@ -16,9 +16,9 @@ all Markdown files or an entire documentation tree to hide temporary notes.
 
 Next.js App Router application consuming Pimolu directly from the root workspace.
 
-The public guides target npm consumers: install `@pimolu/react@beta` and
-`@pimolu/web-styles@beta`, load the shared CSS and add `PimoluProvider`.
-The current published version is `0.1.0-beta.8` for all five library packages.
+The public guides target npm consumers: install `@pimolu/react@latest` and
+`@pimolu/web-styles@latest`, load the shared CSS and add `PimoluProvider`.
+The current published version is `0.1.0-beta.9` for all five library packages.
 Repository build instructions below are for contributors; npm consumers do not
 need a clone, `build:all` or `transpilePackages`. Quick start owns the npm setup;
 `/docs/contributing` contains repository setup and contributor checks. The removed
@@ -146,7 +146,7 @@ pnpm --filter @pimolu/website audit:a11y
 legacy redirects, search, responsive navigation, theme illustrations and targeted keyboard workflows in three engines.
 No GitHub workflow was enabled. WebKit on Windows is not a substitute for native Safari/iOS testing.
 
-`audit:a11y` requires the running site and scans the 129 initial Default/light standalone examples for unnamed controls,
+`audit:a11y` requires the running site and scans the 130 initial Default/light standalone examples for unnamed controls,
 duplicate ids, unresolved ARIA references and main landmarks. It writes `.artifacts/accessibility-structure.json` and exits nonzero on findings.
 It is a deliberately limited structural check, **not axe, a screen-reader test or WCAG certification**.
 See [ACCESSIBILITY_AUDIT.md](ACCESSIBILITY_AUDIT.md) for observed public-library issues and exact limits.

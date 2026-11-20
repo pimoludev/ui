@@ -6,7 +6,7 @@ Une bibliothèque de composants React pilotée par les tokens, pensée pour les 
 
 [Documentation](https://pimolu.com/components) · [Démarrage rapide](https://pimolu.com/docs/quick-start) · [Personnalisation](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react)
 
-> **Bêta :** `0.1.0-beta.8` est une prévisualisation. Les API des composants et les tokens visuels peuvent évoluer avant `1.0.0`.
+> **Bêta :** `0.1.0-beta.9` est une prévisualisation. Les API des composants et les tokens visuels peuvent évoluer avant `1.0.0`.
 
 ## Pourquoi Pimolu ?
 
@@ -21,7 +21,7 @@ Une bibliothèque de composants React pilotée par les tokens, pensée pour les 
 
 | | |
 | --- | --- |
-| Composants | 129 familles React |
+| Composants | 136 familles React |
 | Thèmes | Clair, sombre et système |
 | Presets | default, adaptive, cartoon, glass, luxury, monochrome, neo-brutalism |
 | Style | CSS natif, variables CSS, couches optionnelles |
@@ -33,7 +33,7 @@ Une bibliothèque de composants React pilotée par les tokens, pensée pour les 
 ## Installation
 
 ```bash
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 React et React DOM 18 ou 19 sont des peer dependencies. Chargez la feuille de styles partagée une fois au point d'entrée de l'application.
@@ -72,7 +72,7 @@ Le package est ESM uniquement. Son entrée inclut `"use client"` pour être impo
 | Surfaces et overlays | Card, Dialog, Drawer, Popover, Tooltip, Toast, Alert, Banner |
 | Navigation et layout | Navbar, Sidebar, Tabs, Breadcrumbs, Pagination, DashboardLayout, AppShell |
 | Données et productivité | Table, DataTable, DataGrid, TreeTable, Chart, Scheduler, Gantt, Kanban, FileManager |
-| Contenu et médias | Typography, Prose, CodeBlock, Carousel, VideoPlayer, AudioPlayer, PDFViewer, Lightbox |
+| Contenu et médias | Typography, Prose, CodeBlock, Carousel, ThumbnailCarousel, CoverflowCarousel, PeekCarousel, StackCarousel, ArcCarousel, MultiCarousel, VideoPlayer, AudioPlayer, PDFViewer, Lightbox |
 
 ## Personnaliser une partie, pas un sélecteur
 

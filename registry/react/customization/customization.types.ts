@@ -68,6 +68,7 @@ export interface PimoluComponentParts {
   "masked-input": "control" | "error" | "label" | "required" | "root" | "wrapper";
   "mentions": "avatar" | "createMark" | "empty" | "field" | "helper" | "label" | "listbox" | "option" | "optionDescription" | "optionLabel" | "optionMain" | "required" | "root" | "textarea";
   "menubar": "content" | "item" | "label" | "menu" | "root" | "separator" | "trigger";
+  "modal": "closeButton" | "content" | "description" | "footer" | "header" | "overlay" | "root" | "title";
   "multi-select": "actions" | "chevron" | "clearButton" | "control" | "count" | "empty" | "field" | "label" | "listbox" | "message" | "option" | "optionIndicator" | "optionLabel" | "required" | "root" | "selection" | "srOnly" | "tag" | "tagLabel" | "tagRemove" | "valueArea";
   "navbar": "actions" | "brand" | "content" | "inner" | "item" | "itemIcon" | "root" | "toggle" | "toggleIcon" | "menuLayer" | "menuOverlay" | "menuPanel" | "menuHeader" | "menuTitle" | "menuCloseButton";
   "navigation-menu": "chevron" | "content" | "item" | "link" | "list" | "root" | "trigger";

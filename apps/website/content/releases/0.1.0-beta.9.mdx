@@ -1,0 +1,99 @@
+export const metadata = {
+  "slug": "0.1.0-beta.9",
+  "title": "0.1.0-beta.9",
+  "status": "Preview",
+  "date": "2026-11-20",
+  "tag": "v0.1.0-beta.9",
+  "summary": "Six carousel families, a Modal family, focusable triggers and clearer component documentation.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.9 with the latest and beta tags. Pimolu UI remains a beta release. The human design and assistive-technology reviews stay open."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.9">
+
+- **Six carousel families are available.** ThumbnailCarousel, CoverflowCarousel, PeekCarousel, StackCarousel, ArcCarousel and MultiCarousel share one engine and expose named parts. `Carousel` remains the simple autoplay entry point.
+- **Modal joins the library.** Modal, ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalFooter and ModalClose provide sm/md/lg/xl sizes with managed focus.
+- **Non-focusable triggers become keyboard reachable.** Dialog, Drawer, DropdownMenu, Popover, Tooltip, HoverCard, ContextMenu and Popconfirm add `tabIndex={0}` and `role="button"` only when the cloned child is not natively focusable.
+- **Documentation is easier to scan.** Carousels have their own category and overview, Class names and CSS variables use readable grids, and API type columns no longer force a horizontal table scroll.
+- **No breaking change.** No public component or hook was removed. The new components and optional props are additive.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.9 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.9.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.9 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="carousels" label="New" title="Six carousel families">
+
+- ThumbnailCarousel, CoverflowCarousel, PeekCarousel, StackCarousel, ArcCarousel and MultiCarousel share index state, loop, labels, live announcements and keyboard navigation.
+- CarouselContent, CarouselSlide, CarouselPrevious, CarouselNext, CarouselDots, CarouselThumbnails, CarouselThumbnail and CarouselLiveRegion are available from `@pimolu/react`.
+- MultiCarousel counts reachable pages: its dots stop at the end of the rail, a swipe keeps the active page synchronized and `slidesPerView` adapts to the cards that actually fit.
+- Coverflow, Stack and Arc controls stay above transformed cards on touch screens.
+- The Carousels overview compares the seven references and explains the simple versus advanced choice.
+
+</ReleaseSection>
+
+<ReleaseSection id="modal" label="New" title="Modal family">
+
+- Modal adds a centered conversation with sm, md, lg and xl sizes, focus containment, Escape and overlay dismissal, scroll lock and focus return.
+- ModalHeader, ModalTitle, ModalDescription and ModalFooter structure the panel; ModalClose wraps an existing button without nesting one.
+- The optional close button, size axis, `classNames` parts and panel `style` match the documented Dialog contract.
+- Dialog remains the lighter name for existing applications; both share the same internals and focusable-trigger helper.
+
+</ReleaseSection>
+
+<ReleaseSection id="focus" label="Fixed" title="Keyboard reach for cloned triggers">
+
+- DialogTrigger, DrawerTrigger and DropdownMenuTrigger accept `tabIndex` and add `tabIndex={0}` plus `role="button"` when the child is not natively focusable.
+- Popover, Tooltip, HoverCard, ContextMenu and Popconfirm apply the same rule through the shared helper.
+- Native controls and explicit roles keep their behaviour; the helper does not overwrite them.
+
+</ReleaseSection>
+
+<ReleaseSection id="docs" label="Website" title="Clearer references and current install guidance">
+
+- The Carousels group links to a new overview with a choice table, a minimal live example and the seven references.
+- Class names and CSS variables use readable grids with counts; the API table fits its column and shows optional types without `| undefined`.
+- `CarouselStageClassNames` names the parts of the five families without a thumbnail rail.
+- Installation guides recommend `@latest`; Quick start documents exact versions with `--save-exact`, lockfile behaviour and the optional `@beta` channel.
+- The catalogue now covers 142 references and 136 component families, with New and Updated badges managed from the beta.9 baseline.
+
+</ReleaseSection>
+
+<ReleaseSection id="review" label="Evidence" title="What was verified">
+
+- `pnpm check`: 1,602 React tests, 37 CSS tests, 13 theme tests and the token test pass with typecheck, the theme audit, lint and the playground build.
+- The website passes 51 documentation tests and builds 472 pages.
+- The full Chromium, Firefox and WebKit matrix reports 1,929 passing journeys and 18 skipped, including the carousel, customization and responsive checks.
+- The carousel accessibility review mounted 729 examples with no unnamed control, duplicate id or missing ARIA reference; axe found no serious or critical issue after the contrast and scrollable-code fixes.
+- WebKit iPhone emulation exercised touch navigation, MultiCarousel end-of-rail dots, loop and reduced motion without overflow.
+- The five packages pass `release:pack-check` with the expected version, entry points and contents.
+
+</ReleaseSection>
+
+<ReleaseSection id="migration" label="Migration" title="Upgrading from beta.8">
+
+- No public component or hook was removed. New carousel parts, Modal components and trigger behaviour are additive.
+- Existing Dialog, Drawer, DropdownMenu, Popover, Tooltip, HoverCard, ContextMenu and Popconfirm markup keeps working.
+- Non-focusable trigger children that relied on pointer-only access now receive a tab stop and a button role; remove custom duplicate workarounds.
+- `Carousel` keeps its existing API. Choose a carousel family only when its layout is the point.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- The 5–8 person design review and the assistive-technology review have not been executed on hardware. The automated structural and axe checks are not a screen-reader certification.
+- MultiCarousel `loop` returns to the first page after the last page; the jump is functional but not seamless.
+- The six layout families intentionally omit autoplay. Use `Carousel` or compose your own timer.
+- Native, Angular and web registries remain unimplemented.
+
+</ReleaseSection>

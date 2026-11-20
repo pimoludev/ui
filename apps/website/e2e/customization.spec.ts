@@ -91,7 +91,7 @@ for (const [family, entries] of Object.entries(manifest)) {
       else if (family === "form-error") await page.getByRole("button", { name: "Simulate a conflict", exact: true }).click();
       else if (family === "image") await page.getByRole("button", { name: "Show cached image", exact: true }).click();
       else if (family === "notification-center") await page.getByRole("button", { name: "Open from the page", exact: true }).click();
-      else if (["alert-dialog", "dropdown-menu", "popover", "popconfirm", "lightbox", "toast", "tour"].includes(family)) {
+      else if (["alert-dialog", "dropdown-menu", "popover", "popconfirm", "lightbox", "toast", "tour", "modal"].includes(family)) {
         await page.locator('[data-example-hydrated="true"]').first().getByRole("button").first().click();
       }
       const root = page.locator(`.custom-${family}-root`).first();

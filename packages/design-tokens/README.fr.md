@@ -6,7 +6,7 @@ Les tokens de design primitifs de Pimolu en variables CSS et JSON simple. Utilis
 
 [Guide des thèmes](https://pimolu.com/docs/theming) · [Source](https://github.com/pimoludev/ui/tree/main/packages/design-tokens)
 
-> **Bêta :** `0.1.0-beta.8` est une prévisualisation. Les noms publics des tokens peuvent évoluer avant `1.0.0`.
+> **Bêta :** `0.1.0-beta.9` est une prévisualisation. Les noms publics des tokens peuvent évoluer avant `1.0.0`.
 
 ## Pourquoi les tokens Pimolu ?
 
@@ -30,7 +30,7 @@ Les tokens de design primitifs de Pimolu en variables CSS et JSON simple. Utilis
 ## Installation
 
 ```bash
-pnpm add @pimolu/design-tokens@beta
+pnpm add @pimolu/design-tokens@latest
 ```
 
 ## Utilisation en CSS

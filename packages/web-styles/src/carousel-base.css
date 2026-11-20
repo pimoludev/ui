@@ -1,0 +1,362 @@
+/* Shared structure for the six carousel families. Each family stylesheet
+   imports this file, so a family can evolve its layout without forking the
+   accessibility or control contract. */
+
+.pimolu-carousel-root {
+  position: relative;
+
+  display: grid;
+  gap: 12px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  max-width: 100%;
+
+  color: var(--pimolu-foreground);
+  font-family: var(--pimolu-font-body, inherit);
+
+  /* Defaults for the values CarouselContent writes on the viewport. */
+  --pimolu-carousel-gap: 16px;
+  --pimolu-carousel-per-view: 1;
+}
+
+/* ---------- viewport ---------- */
+
+/*
+ * The base Carousel stylesheet shares these class names. Reset its flex and
+ * scroll layout on family roots so a transformed stage can clip its own
+ * overflow instead of inheriting the base track.
+ */
+.pimolu-carousel-root > .pimolu-carousel__viewport {
+  display: block;
+
+  overflow: visible;
+
+  border-radius: 0;
+
+  scroll-snap-type: none;
+}
+
+.pimolu-carousel-root > .pimolu-carousel__viewport[data-scroll="false"] {
+  overflow: hidden;
+}
+
+.pimolu-carousel__viewport {
+  position: relative;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  outline: none;
+}
+
+.pimolu-carousel__viewport:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, currentColor);
+  outline-offset: 3px;
+}
+
+.pimolu-carousel__viewport[data-scroll="true"] {
+  display: flex;
+
+  gap: var(--pimolu-carousel-gap, 16px);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  overscroll-behavior-x: contain;
+
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+
+  scrollbar-width: none;
+}
+
+.pimolu-carousel__viewport[data-scroll="true"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- slides ---------- */
+
+.pimolu-carousel__slide {
+  box-sizing: border-box;
+
+  min-width: 0;
+
+  transition:
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 480ms ease;
+}
+
+.pimolu-carousel__viewport[data-scroll="true"] .pimolu-carousel__slide {
+  flex: 1 0
+    calc(
+      (100% - (var(--pimolu-carousel-per-view, 1) - 1) * var(--pimolu-carousel-gap, 16px)) /
+        var(--pimolu-carousel-per-view, 1)
+    );
+
+  scroll-snap-align: start;
+}
+
+.pimolu-carousel__viewport[data-effect="peek"] .pimolu-carousel__slide {
+  flex: 0 0 min(440px, 68vw);
+
+  scroll-snap-align: center;
+}
+
+/* ---------- controls ---------- */
+
+.pimolu-carousel__control {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  padding: 0;
+
+  border: 1px solid var(--pimolu-border, currentColor);
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: var(--pimolu-background, Canvas);
+  color: var(--pimolu-foreground);
+
+  box-shadow: var(--pimolu-shadow-raised, 0 2px 8px rgb(0 0 0 / 18%));
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+
+  transition:
+    background-color 150ms,
+    opacity 150ms;
+}
+
+.pimolu-carousel__control--previous {
+  inset-inline-start: var(--pimolu-spacing-2, 8px);
+}
+
+.pimolu-carousel__control--next {
+  inset-inline-end: var(--pimolu-spacing-2, 8px);
+}
+
+.pimolu-carousel__control:hover:not(:disabled) {
+  background: var(--pimolu-muted, var(--pimolu-background, Canvas));
+}
+
+.pimolu-carousel__control:disabled {
+  opacity: 0.35;
+
+  cursor: default;
+}
+
+.pimolu-carousel__control:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, currentColor);
+  outline-offset: 2px;
+}
+
+.pimolu-carousel__control svg {
+  display: block;
+
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ---------- dots ---------- */
+
+.pimolu-carousel__dots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.pimolu-carousel__dot {
+  display: inline-grid;
+  place-items: center;
+
+  box-sizing: border-box;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.pimolu-carousel__dot::before {
+  content: "";
+
+  display: block;
+
+  width: 0.5rem;
+  height: 0.5rem;
+
+  border-radius: var(--pimolu-radius-full, 999px);
+
+  background: color-mix(in srgb, var(--pimolu-foreground, currentColor) 28%, transparent);
+
+  transition:
+    width 150ms,
+    background-color 150ms;
+}
+
+.pimolu-carousel__dot[data-active="true"]::before {
+  width: 1.25rem;
+
+  background: var(--pimolu-primary, var(--pimolu-foreground, currentColor));
+}
+
+.pimolu-carousel__dot:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, currentColor);
+  outline-offset: 2px;
+}
+
+/* ---------- thumbnails ---------- */
+
+.pimolu-carousel__thumbnails {
+  display: flex;
+
+  gap: 8px;
+
+  min-width: 0;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.pimolu-carousel__thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+.pimolu-carousel__thumbnail {
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+
+  width: 72px;
+
+  padding: 2px;
+
+  border: 2px solid transparent;
+  border-radius: calc(var(--pimolu-radius-sm, 6px) + 4px);
+
+  background: transparent;
+
+  cursor: pointer;
+
+  opacity: 0.6;
+
+  transition:
+    opacity 150ms,
+    border-color 150ms;
+}
+
+.pimolu-carousel__thumbnail img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  border-radius: var(--pimolu-radius-sm, 6px);
+
+  object-fit: cover;
+}
+
+.pimolu-carousel__thumbnail[data-active="true"] {
+  border-color: var(--pimolu-primary);
+
+  opacity: 1;
+}
+
+.pimolu-carousel__thumbnail:hover {
+  opacity: 1;
+}
+
+.pimolu-carousel__thumbnail:focus-visible {
+  outline: 2px solid var(--pimolu-focus-ring, currentColor);
+  outline-offset: 2px;
+}
+
+/* ---------- announcements ---------- */
+
+.pimolu-carousel__live {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+
+  clip: rect(0 0 0 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pimolu-carousel__viewport[data-scroll="true"] {
+    scroll-behavior: auto;
+  }
+
+  .pimolu-carousel__slide,
+  .pimolu-carousel__control,
+  .pimolu-carousel__dot::before,
+  .pimolu-carousel__thumbnail {
+    transition: none;
+  }
+}
+
+/* ---------- forced colors ---------- */
+
+@media (forced-colors: active) {
+  .pimolu-carousel__control {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .pimolu-carousel__dot::before {
+    background: CanvasText;
+  }
+
+  .pimolu-carousel__dot[data-active="true"]::before {
+    background: Highlight;
+  }
+
+  .pimolu-carousel__thumbnail {
+    border-color: CanvasText;
+  }
+
+  .pimolu-carousel__thumbnail[data-active="true"] {
+    border-color: Highlight;
+  }
+}

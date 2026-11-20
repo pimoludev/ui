@@ -60,27 +60,29 @@
 }
 
 .pimolu-api-table__table.pimolu-table {
-  min-width: 40rem;
+  min-width: 0;
+
+  table-layout: fixed;
 }
 
 .pimolu-api-table__table
   :where(th, td):nth-child(1) {
-  width: 22%;
+  width: 20%;
 }
 
 .pimolu-api-table__table
   :where(th, td):nth-child(2) {
-  width: 26%;
+  width: 36%;
 }
 
 .pimolu-api-table__table
   :where(th, td):nth-child(3) {
-  width: 16%;
+  width: 10%;
 }
 
 .pimolu-api-table__table
   :where(th, td):nth-child(4) {
-  width: 36%;
+  width: 34%;
 }
 
 /* =========================================

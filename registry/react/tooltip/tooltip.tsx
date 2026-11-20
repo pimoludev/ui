@@ -20,6 +20,7 @@ import type { PimoluTooltipProps } from "./tooltip.types";
 
 import { Portal } from "../internal/portal";
 import { useAnchoredPosition } from "../internal/use-anchored-position";
+import { ensureTriggerFocusable } from "../internal/trigger-focus";
 
 /* =========================================
    HELPERS
@@ -165,6 +166,8 @@ export function Tooltip({ classNames,
 
   function assignRef(node: HTMLElement | null) {
     triggerRef.current = node;
+
+    ensureTriggerFocusable(node);
 
     const childRef = props.ref;
 

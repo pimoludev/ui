@@ -100,6 +100,7 @@ export function DocsLayout({ classNames,
         <main
           id={mainId}
           tabIndex={-1}
+          aria-label="Documentation content"
           className={mergeClasses("pimolu-docs-layout__main", partClasses.main)}
         >
           {children}

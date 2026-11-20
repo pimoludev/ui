@@ -1,0 +1,24 @@
+@import "./carousel-base.css";
+
+/* Several cards per view with a shared track. */
+.pimolu-multi-carousel .pimolu-carousel__viewport {
+  scroll-snap-type: x mandatory;
+}
+
+.pimolu-multi-carousel .pimolu-carousel__slide {
+  border-radius: calc(var(--pimolu-radius-lg, 14px) + 2px);
+  border: 1px solid var(--pimolu-border);
+  background: var(--pimolu-surface);
+  overflow: hidden;
+}
+
+/* Three columns of 100px each are unreadable on a phone. Keep the page
+   scroll-snap model but give every card a usable minimum width. */
+@media (max-width: 640px) {
+  .pimolu-multi-carousel
+    .pimolu-carousel__viewport[data-scroll="true"]
+    .pimolu-carousel__slide {
+    flex-basis: min(280px, 78vw);
+    min-width: min(280px, 78vw);
+  }
+}

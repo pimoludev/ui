@@ -8,6 +8,14 @@ const srcDir = new URL("../src/", import.meta.url);
 const distDir = new URL("../dist/", import.meta.url);
 
 const outputs = [
+  { input: "thumbnail-carousel.css", output: "thumbnail-carousel.css", minify: false },
+  { input: "coverflow-carousel.css", output: "coverflow-carousel.css", minify: false },
+  { input: "peek-carousel.css", output: "peek-carousel.css", minify: false },
+  { input: "stack-carousel.css", output: "stack-carousel.css", minify: false },
+  { input: "arc-carousel.css", output: "arc-carousel.css", minify: false },
+  { input: "multi-carousel.css", output: "multi-carousel.css", minify: false },
+  { input: "tokens.css", output: "tokens.css", minify: false },
+  { input: "themes.css", output: "themes.css", minify: false },
   { input: "motion.css", output: "motion.css", minify: false },
   { input: "layered.css", output: "layered.css", minify: false },
   {
@@ -133,6 +141,11 @@ const outputs = [
   {
     input: "dialog.css",
     output: "dialog.css",
+    minify: false,
+  },
+  {
+    input: "modal.css",
+    output: "modal.css",
     minify: false,
   },
   {

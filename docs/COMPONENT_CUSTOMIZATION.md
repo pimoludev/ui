@@ -1,6 +1,6 @@
 # Named-part customization by family
 
-Available in 0.1.0-beta.4. See [the contract](CUSTOMIZATION.md) for cascade layers and scoping. All 129 component families expose typed hooks on their rendered surfaces; PimoluProvider additionally exposes its root. Headless control components use their Content, child element or rendered surface rather than receiving a fictitious DOM class.
+Available in 0.1.0-beta.4. See [the contract](CUSTOMIZATION.md) for cascade layers and scoping. All 136 component families expose typed hooks on their rendered surfaces; PimoluProvider additionally exposes its root. Headless control components use their Content, child element or rendered surface rather than receiving a fictitious DOM class.
 
 Every component accepts its family's typed map. Only rendered parts exist in the DOM. Root classes belong to the current surface; independently nested roots reset inherited maps. Explicit local part classes override inherited part classes without replacing built-in structural classes.
 
@@ -24,6 +24,12 @@ Every component accepts its family's typed map. Only rendered parts exist in the
 | calendar | `day`, `grid`, `header`, `month`, `months`, `nav`, `root`, `srOnly`, `title`, `week`, `weekday`, `weekdays` |
 | card | `content`, `description`, `footer`, `header`, `root`, `title` |
 | carousel | `autoplay`, `control`, `dot`, `dots`, `footer`, `root`, `slide`, `viewport` |
+| thumbnail-carousel | `dots`, `live`, `next`, `previous`, `root`, `slide`, `thumbnail`, `thumbnails`, `viewport` |
+| coverflow-carousel | `dots`, `live`, `next`, `previous`, `root`, `slide`, `viewport` |
+| peek-carousel | `dots`, `live`, `next`, `previous`, `root`, `slide`, `viewport` |
+| stack-carousel | `dots`, `live`, `next`, `previous`, `root`, `slide`, `viewport` |
+| arc-carousel | `dots`, `live`, `next`, `previous`, `root`, `slide`, `viewport` |
+| multi-carousel | `dots`, `live`, `next`, `previous`, `root`, `slide`, `viewport` |
 | cascader | `check`, `chevron`, `clear`, `column`, `columnLabel`, `empty`, `field`, `helper`, `label`, `option`, `optionChevron`, `optionLabel`, `panel`, `root`, `trigger`, `value` |
 | center | `root` |
 | chart | `area`, `axis`, `axisLabel`, `axisTitle`, `bar`, `canvas`, `centerLabel`, `centerValue`, `cursor`, `donutTrack`, `empty`, `grid`, `legend`, `legendItem`, `legendLabel`, `legendSwatch`, `legendValue`, `line`, `point`, `root`, `segment`, `srOnly`, `svg`, `tooltip`, `tooltipRow`, `valueLabel` |

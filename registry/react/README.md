@@ -6,7 +6,7 @@ A token-first React component library for interfaces that need to feel intention
 
 [Documentation](https://pimolu.com/components) · [Quick start](https://pimolu.com/docs/quick-start) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react)
 
-> **Beta:** `0.1.0-beta.8` is a preview. Component APIs and visual tokens may change before `1.0.0`.
+> **Beta:** `0.1.0-beta.9` is a preview. Component APIs and visual tokens may change before `1.0.0`.
 
 ## Why Pimolu?
 
@@ -21,7 +21,7 @@ A token-first React component library for interfaces that need to feel intention
 
 | | |
 | --- | --- |
-| Components | 129 React families |
+| Components | 136 React families |
 | Themes | Light, dark and system |
 | Presets | default, adaptive, cartoon, glass, luxury, monochrome, neo-brutalism |
 | Styling | Plain CSS, CSS variables, optional cascade layers |
@@ -33,7 +33,7 @@ A token-first React component library for interfaces that need to feel intention
 ## Install
 
 ```bash
-pnpm add @pimolu/react@beta @pimolu/web-styles@beta
+pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
 React and React DOM 18 or 19 are peer dependencies. Load the shared stylesheet once in your application entry.
@@ -72,7 +72,7 @@ The package is ESM-only. Its entry includes `"use client"` so it can be imported
 | Surfaces and overlays | Card, Dialog, Drawer, Popover, Tooltip, Toast, Alert, Banner |
 | Navigation and layout | Navbar, Sidebar, Tabs, Breadcrumbs, Pagination, DashboardLayout, AppShell |
 | Data and productivity | Table, DataTable, DataGrid, TreeTable, Chart, Scheduler, Gantt, Kanban, FileManager |
-| Content and media | Typography, Prose, CodeBlock, Carousel, VideoPlayer, AudioPlayer, PDFViewer, Lightbox |
+| Content and media | Typography, Prose, CodeBlock, Carousel, ThumbnailCarousel, CoverflowCarousel, PeekCarousel, StackCarousel, ArcCarousel, MultiCarousel, VideoPlayer, AudioPlayer, PDFViewer, Lightbox |
 
 ## Customize a part, not a selector
 

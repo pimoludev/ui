@@ -62,6 +62,39 @@ export function TallPopoverExample() {
   );
 }
 
+export function NonFocusableTriggerExample() {
+  return (
+    <div className="pg-stack">
+      <p>
+        The trigger below is a plain span. Pimolu adds tabIndex=0 and
+        role=button, so Tab reaches it and Enter or Space opens the dialog.
+      </p>
+      <Dialog>
+        <DialogTrigger>
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "8px 12px",
+              border: "1px dashed var(--pimolu-control-border, var(--pimolu-border))",
+              borderRadius: "var(--pimolu-radius-md)",
+              color: "var(--pimolu-primary)",
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            Open with the keyboard
+          </span>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogTitle>Keyboard access</DialogTitle>
+          <p>Escape closes this dialog and focus returns to the trigger.</p>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
 export function HiddenDialogActionExample() {
   const [showCancel, setShowCancel] = useState(false);
   return (

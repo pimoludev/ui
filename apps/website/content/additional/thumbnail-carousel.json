@@ -1,0 +1,8 @@
+[
+  {
+    "file": "thumbnail-carousel-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to the stage, controls and thumbnail rail without replacing the built-in selection, focus or disabled states.",
+    "append": true
+  }
+]

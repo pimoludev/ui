@@ -1,0 +1,14 @@
+@import "./carousel-base.css";
+
+/* A single stage with a thumbnail rail underneath. */
+.pimolu-thumbnail-carousel .pimolu-carousel__viewport {
+  border-radius: calc(var(--pimolu-radius-lg, 14px) + 2px);
+  overflow: hidden;
+}
+
+.pimolu-thumbnail-carousel .pimolu-carousel__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

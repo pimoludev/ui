@@ -1,0 +1,8 @@
+[
+  {
+    "file": "peek-carousel-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Apply local classes to the viewport, cards, controls and dots without replacing the built-in peek treatment or focus states.",
+    "append": true
+  }
+]

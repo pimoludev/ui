@@ -120,7 +120,7 @@ test("all component, setup and standalone guide examples typecheck independently
     assert.doesNotMatch(source, /\b\w*VariantMap\b|\boptionsOf\b|\bpg-[\w-]+/, `${key}: private demo machinery in copied code`);
     return [path.join(website, "__snippets__", `${key}.tsx`).replaceAll("\\", "/"), source];
   }));
-  assert.equal(sources.size, 693 + Object.keys(setupExamples).length);
+  assert.equal(sources.size, 733 + Object.keys(setupExamples).length);
   const config = ts.readConfigFile(path.join(website, "tsconfig.json"), ts.sys.readFile);
   const { options } = ts.parseJsonConfigFileContent(config.config, ts.sys, website);
   options.incremental = false;
@@ -150,7 +150,7 @@ test("every family has at least four distinct, parsable live examples with copya
 });
 
 test("every component has an API, a parsable live example and valid related routes", () => {
-  assert.equal(components.length, 135);
+  assert.equal(components.length, 142);
   assert.equal(new Set(docNavigation.map((entry) => docHref(entry.slug))).size, docNavigation.length);
   for (const component of components) {
     assert.ok(api[component.family]?.length, `${component.family}: missing API`);

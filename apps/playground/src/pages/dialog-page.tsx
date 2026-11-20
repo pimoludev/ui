@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiddenDialogActionExample } from "./floating-regressions-demo";
+import { HiddenDialogActionExample, NonFocusableTriggerExample } from "./floating-regressions-demo";
 
 import {
   Button,
@@ -438,6 +438,7 @@ export function DialogPage() {
   return (
     <>
       <Section title="Conditional actions and focus" hint="Hidden actions are excluded from the keyboard loop."><HiddenDialogActionExample /></Section>
+      <Section title="Non-focusable trigger" hint="A span child stays reachable: Pimolu adds tabIndex and a button role when the element is not focusable."><NonFocusableTriggerExample /></Section>
       <PageHeader
         title="Dialog"
         hint="A modal panel with an overlay, focus trap, Escape and overlay dismissal, scroll lock and focus return. Header, title, description, footer and close button are separate parts, so the content stays ordinary JSX. Styles come from @pimolu/web-styles/dialog.css."
