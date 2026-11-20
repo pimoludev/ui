@@ -24,7 +24,11 @@ Never run on your own initiative.
 8. **Block** the push if any mandatory check fails.
 9. Ask for explicit confirmation, then push the current branch with `git push` (no `--force`).
    Force-push only with explicit authorization *and* after explaining the consequences (e.g. `--force-with-lease` on a personal branch).
-10. Report the pushed range and the upstream state.
+10. When the push includes a version tag, confirm that the matching GitHub
+    Release exists (`gh release view v<version>`). Pushing a tag without its
+    release is incomplete; hand creation back to `release-manager` with the
+    bilingual release notes and `--prerelease` for preview versions.
+11. Report the pushed range, the tag, the GitHub Release URL and the upstream state.
 
 ## Efficiency
 Reuse results from a prior identical run: if `pnpm verify` passed and neither the sources nor dependencies/lockfile changed since, report it instead of re-running. Re-run if anything in the tree changed.

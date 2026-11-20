@@ -115,7 +115,7 @@ Update the root `CHANGELOG.md` with a bilingual section:
   have no Updated badge. Never keep a stale badge merely because the previous
   release displayed it.
 
-### 6. Tag and preview
+### 6. Tag, GitHub Release and preview
 Only after steps 1–5:
 ```bash
 git tag -a v<version> -m "Pimolu UI <version>"
@@ -124,6 +124,23 @@ Push the tag only when the user explicitly asks to publish the tag:
 ```bash
 git push origin v<version>
 ```
+
+Every pushed version tag must have a matching GitHub Release. A tag alone is an
+incomplete release. Create it from the pushed tag with bilingual notes:
+```bash
+gh release create v<version> \
+  --title "Pimolu UI <version>" \
+  --prerelease \
+  --notes-file <bilingual-notes.md> \
+  --verify-tag
+```
+The release body carries the same facts as the changelog: an **At a glance**
+section, packages and install command, migration notes, verification commands and
+real results, known limits, then the changelog and website release links, in
+English followed by French. Preview and beta versions use `--prerelease`; only a
+stable release omits it. Verify with `gh release view v<version>` before reporting
+the release complete. If the repository host is not GitHub or no `gh` access
+exists, report the GitHub Release as blocked; never claim it exists.
 For the website preview, first build it. Deploy only to a provider that is
 actually configured in the repository or through an explicit environment
 command:
@@ -158,6 +175,8 @@ Publish order after a separate approval:
 - A stable version is proposed while the quality audit remains open.
 - A deployment is reported without a provider, URL and successful build.
 - An npm publish runs without a new explicit request.
+- A pushed version tag is reported as a complete release while its GitHub
+  Release is missing (`gh release view v<version>` must succeed).
 
 ## Report format
 ```
@@ -167,6 +186,7 @@ RELEASE <version> (<stage>)
 - checks: <command → result>
 - packages: <name → version → pack result>
 - tag: <tag> (local/pushed)
+- GitHub Release: <url> (prerelease/stable) or blocked reason
 - preview: <url or blocked reason>
 - changelog: <path>
 - remaining: <known gaps>
