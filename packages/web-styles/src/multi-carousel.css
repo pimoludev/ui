@@ -12,6 +12,15 @@
   overflow: hidden;
 }
 
+/* The application card already owns its border, radius and hover transform.
+   Plain removes the extra frame and lets the transform escape the slide. */
+.pimolu-multi-carousel[data-slide-appearance="plain"] .pimolu-carousel__slide {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
 /* Three columns of 100px each are unreadable on a phone. Keep the page
    scroll-snap model but give every card a usable minimum width. */
 @media (max-width: 640px) {

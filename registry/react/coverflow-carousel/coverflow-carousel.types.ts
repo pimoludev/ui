@@ -1,11 +1,13 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type {
   CarouselLabels,
+  CarouselRootOptions,
   CarouselStageClassNames,
 } from "../internal/carousel/carousel-engine";
 
 export interface CoverflowCarouselProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children">,
+    CarouselRootOptions {
   /** Slides: wrap each one in CarouselSlide. */
   children: ReactNode;
 

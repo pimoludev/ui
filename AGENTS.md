@@ -83,6 +83,7 @@ requirements and apply automatically to future component video requests.
 - `pnpm typecheck` — repo-wide `tsc` over `tsconfig.json` (covers `registry/**` + `packages/**`).
 - `pnpm lint` — ESLint, scoped to `apps/playground` (no root ESLint config).
 - `pnpm audit:themes` — read-only theme/preset integrity check (add `--strict` to also fail on warnings).
+- `pnpm --dir apps/website audit:presets` — full reference × preset × mode × width overflow matrix in Chromium (needs a production server on port 3001); the CI spec covers the same matrix.
 - `pnpm skills:check` — validates the `.agents/skills` catalog (frontmatter, names, duplicates).
 - `pnpm verify:quick` — `build:all → typecheck → audit:themes → test → test:themes → test:react → test:web-styles`.
 - `pnpm verify` — `verify:quick + lint + skills:check + playground build`. The canonical full check.

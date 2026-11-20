@@ -2,9 +2,9 @@
 
 **One system. Your signature.**
 
-A token-first React component library for interfaces that need to feel intentional. Pimolu ships 129 component families, seven visual presets, light and dark themes, and typed named-part styling without a CSS-in-JS runtime.
+A token-first React component library for interfaces that need to feel intentional. Pimolu ships 136 component families, seven visual presets, light and dark themes, and typed named-part styling without a CSS-in-JS runtime.
 
-[Documentation](https://pimolu.com/components) · [Quick start](https://pimolu.com/docs/quick-start) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react)
+[Documentation](https://pimolu.com/components) · [Quick start](https://pimolu.com/docs/quick-start) · [Identity Kit](https://pimolu.com/identity-kit) · [Showcase](https://pimolu.com/showcase) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react)
 
 > **Beta:** `0.1.0-beta.9` is a preview. Component APIs and visual tokens may change before `1.0.0`.
 
@@ -28,7 +28,7 @@ A token-first React component library for interfaces that need to feel intention
 | Customization | Typed `classNames` on every family and compound part |
 | Framework | React 18 and 19, Next.js App Router |
 | Distribution | ESM, TypeScript declarations, `"use client"` entry |
-| Package size | One compiled React bundle plus shared CSS |
+| Package size | One tree-shakeable ESM entry; shared or per-component CSS |
 
 ## Install
 
@@ -63,6 +63,24 @@ export function App() {
 ```
 
 The package is ESM-only. Its entry includes `"use client"` so it can be imported from a Next.js client boundary without extra configuration.
+
+The entry is a single module with `sideEffects: false`, so a bundler removes the families you do not import. React itself stays a peer dependency.
+
+## Load only the CSS you use
+
+`styles.css` is the simplest path: one import, every component sheet, the tokens, the themes and the presets. For smaller payloads, `@pimolu/web-styles` also exports `tokens.css`, `themes.css`, `motion.css` and one sheet per family:
+
+```css
+/* Tokens, themes and presets, without component rules */
+@import "@pimolu/web-styles/tokens.css";
+
+/* Only the families on this page */
+@import "@pimolu/web-styles/button.css";
+@import "@pimolu/web-styles/input.css";
+@import "@pimolu/web-styles/card.css";
+```
+
+Per-family sheets include the shared motion policy, so a standalone `motion.css` import is not needed for them. Never combine `styles.css` or `layered.css` with `tokens.css` or `themes.css`; import one entry only. See the [customization contract](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md#minimal-payloads) for the exact rules.
 
 ## What is inside
 
@@ -115,11 +133,26 @@ Every family exposes stable part keys. Compound components inherit their family 
 | [`@pimolu/design-tokens`](https://www.npmjs.com/package/@pimolu/design-tokens) | Primitive tokens in CSS and JSON |
 | [`@pimolu/core`](https://www.npmjs.com/package/@pimolu/core) | Framework-independent variant class utility |
 
+## Starters and projects built with Pimolu
+
+All of these install the published npm packages, not a repository checkout:
+
+| Project | Stack | Source |
+| --- | --- | --- |
+| [Next.js starter](https://github.com/pimoludev/nextjs-starter) | Next.js 16 App Router, TypeScript, Tailwind CSS | GitHub |
+| [React + Vite starter](https://github.com/pimoludev/react-vite-starter) | Vite, TypeScript, Tailwind CSS | GitHub |
+| [Dashboard starter](https://github.com/pimoludev/dashboard-starter) | Complete SaaS dashboard with the published packages | GitHub |
+| [Project Workspace](https://saas-landing.pimolu.com/) | SaaS landing page built with Pimolu UI | [Source](https://github.com/pimoludev/saas-landing) |
+| [Pimolu Headset](https://pimolu-headset.pimolu.com/) | E-commerce product storefront | [Source](https://github.com/pimoludev/pimolu-headset) |
+| [MECANES](https://www.mecanes.fr/) | Agency site built with Pimolu UI | [Showcase](https://pimolu.com/showcase) |
+
 ## Documentation and status
 
 - [Component catalogue](https://pimolu.com/components) with live examples, APIs and usage notes
 - [Quick start](https://pimolu.com/docs/quick-start)
 - [Theming guide](https://pimolu.com/docs/theming)
+- [Identity Kit](https://pimolu.com/identity-kit): choose a preset, brand colour, radius and density, preview real components, then export CSS variables and JSON
+- [Starters and showcase](https://pimolu.com/showcase)
 - [Source and issues](https://github.com/pimoludev/ui)
 
 Pimolu UI is a beta. The React registry is implemented; native, Angular and web-component registries are future directions, not current packages. The full visual and assistive-technology audit remains open, so this release is a preview rather than a stable `1.0.0`.

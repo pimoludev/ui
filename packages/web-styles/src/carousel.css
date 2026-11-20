@@ -87,7 +87,7 @@
 
 .pimolu-carousel__control {
   position: absolute;
-  top: 50%;
+  top: var(--pimolu-carousel-controls-center, 50%);
   z-index: 2;
 
   display: inline-flex;
@@ -107,11 +107,11 @@
   border-radius: var(--pimolu-radius-full, 999px);
 
   background: var(
-    --pimolu-background,
-    Canvas
+    --pimolu-control-background,
+    var(--pimolu-background, Canvas)
   );
 
-  color: var(--pimolu-foreground);
+  color: var(--pimolu-control-foreground, var(--pimolu-foreground));
 
   box-shadow:
     var(--pimolu-shadow-raised, 0 2px 8px rgb(0 0 0 / 18%));
@@ -168,6 +168,16 @@
 [dir="rtl"] { --pimolu-carousel-arrow-direction: -1; }
 [dir="ltr"] { --pimolu-carousel-arrow-direction: 1; }
 .pimolu-carousel__control svg { transform: scaleX(var(--pimolu-carousel-arrow-direction, 1)); }
+
+@media (max-width: 640px) {
+  [data-controls-mobile="hidden"] .pimolu-carousel__control {
+    display: none;
+  }
+
+  .pimolu-carousel[data-controls-mobile="hidden"] .pimolu-carousel__slide {
+    padding-inline: 0;
+  }
+}
 
 /* =========================================
    DOTS

@@ -19,6 +19,8 @@ export function MultiCarousel({
   labels,
   slidesPerView,
   gap = 16,
+  showControlsOnMobile = true,
+  slideAppearance = "surface",
   "aria-label": ariaLabel,
   ...rest
 }: MultiCarouselProps) {
@@ -30,6 +32,8 @@ export function MultiCarousel({
         className
       )}
       data-effect="multi"
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
+      data-slide-appearance={slideAppearance}
       {...rest}
     >
       <CarouselProvider

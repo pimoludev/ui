@@ -48,15 +48,32 @@ For application CSS, import the opt-in layered bundle once:
 }
 ```
 
+`layered.css` declares `theme, base, pimolu.tokens, pimolu.components,
+components, utilities` before importing. **Import it before Tailwind**, or
+declare the same order yourself before any import. Importing it after Tailwind
+leaves Pimolu above utilities, because a framework that declared its layers
+first fixes the order. Tokens and components live in separate sublayers of
+`pimolu`. Rules placed directly in `@layer pimolu { ... }` still override
+components, because declarations directly in a layer come after its sublayers.
+
 Unlayered application rules override normal rules in the `pimolu` layer without
 specificity escalation. Class-name order in JSX does not determine CSS priority.
 Import either `styles.css` or `layered.css`, not both.
 
-With Tailwind v4, declare the complete layer order before importing either.
-Preflight is supported in the `base` layer:
+With Tailwind v4, import the layered bundle first; Tailwind then slots its own
+layers into the declared order:
 
 ```css
-@layer theme, base, pimolu, components, utilities;
+@import "@pimolu/web-styles/layered.css";
+@import "tailwindcss";
+```
+
+Preflight is supported in the `base` layer: Accordion removes `hidden` while its
+closing box animates, so the reset cannot cancel the exit. If you need explicit
+control, declare the complete order before both imports:
+
+```css
+@layer theme, base, pimolu.tokens, pimolu.components, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "@pimolu/web-styles/layered.css";
@@ -241,6 +258,15 @@ and `--pimolu-button-letter-spacing`; Slider supports `--pimolu-slider-track-hei
 and `--pimolu-slider-thumb-size` through its control style. Internal geometry,
 progress, positioning and intermediate tone variables are implementation details
 unless explicitly documented. A `--pimolu-` prefix alone is not a stability promise.
+
+Carousel controls are a separate surface from the dots:
+`--pimolu-control-background` and `--pimolu-control-foreground` style the
+previous/next buttons without changing the inactive dot tone, which stays based
+on `--pimolu-foreground`. `--pimolu-carousel-controls-center` is written by the
+component after measuring the stage; do not set it manually.
+`--pimolu-peek-slide-width` is the CSS-variable form of `slideWidth`, and
+`--pimolu-carousel-thumbnail-aspect-ratio` changes the default `1 / 1`
+thumbnail crop.
 
 Typed reusable maps can be declared with `PimoluClassNames<"card">` from
 `@pimolu/react`. Unknown family names and part keys are rejected by TypeScript.

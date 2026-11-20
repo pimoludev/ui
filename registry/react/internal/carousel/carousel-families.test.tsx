@@ -98,4 +98,61 @@ describe("carousel families", () => {
     expect(screen.getByRole("button", { name: "Next slide" })).toHaveClass("family-next", "local-next");
     expect(screen.getByRole("group", { name: "Slide pagination" })).toHaveClass("family-dots", "local-dots");
   });
+
+  it("can hide the controls on mobile without removing the swiping surface", () => {
+    const { container } = render(
+      <MultiCarousel aria-label="Mobile controls" showControlsOnMobile={false}>
+        <CarouselContent>
+          {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </MultiCarousel>
+    );
+    expect(container.querySelector(".pimolu-multi-carousel")).toHaveAttribute("data-controls-mobile", "hidden");
+    expect(screen.getByRole("button", { name: "Next slide" })).toBeInTheDocument();
+  });
+
+  it("exposes plain slides and a custom peek width", () => {
+    const { container } = render(
+      <MultiCarousel aria-label="Plain slides" slideAppearance="plain">
+        <CarouselContent>
+          {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+        </CarouselContent>
+      </MultiCarousel>
+    );
+    expect(container.querySelector(".pimolu-multi-carousel")).toHaveAttribute("data-slide-appearance", "plain");
+
+    const { container: peek } = render(
+      <PeekCarousel aria-label="Narrow peek" slideWidth="min(320px, 78vw)">
+        <CarouselContent>
+          {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+        </CarouselContent>
+      </PeekCarousel>
+    );
+    expect((peek.querySelector(".pimolu-peek-carousel") as HTMLElement).style.getPropertyValue("--pimolu-peek-slide-width")).toBe("min(320px, 78vw)");
+  });
+
+  it("assigns the thumbnail image named part to the actual image", () => {
+    const { container } = render(
+      <ThumbnailCarousel aria-label="Thumbnail hook">
+        <CarouselContent>
+          {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+        </CarouselContent>
+        <CarouselThumbnails>
+          {slides.map((slide, index) => (
+            <CarouselThumbnail
+              key={slide}
+              index={index}
+              src={`/${slide}.png`}
+              alt={slide}
+              classNames={{ thumbnailImage: "thumbnail-image" }}
+            />
+          ))}
+        </CarouselThumbnails>
+      </ThumbnailCarousel>
+    );
+    const images = container.querySelectorAll("img.thumbnail-image");
+    expect(images).toHaveLength(3);
+  });
 });

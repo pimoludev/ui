@@ -43,15 +43,18 @@ persist preferences when `persist` is enabled; read
   the foreground: a custom brand colour requires its own text, hover and focus
   contrast checks.
 
-## Default: restored colors, current design
+## Default: decided palette and current design
 
-Npm beta.8 ships the restored slate/indigo Default, after the beta.7 Ink & Signal
-preview. Default uses the palette from commit
+Npm beta.8 ships the slate/indigo Default, after the beta.7 Ink & Signal
+preview. On 2026-11-20 the direction was **closed**: slate/indigo stays the
+committed Default, Ink & Signal is not adopted and Mineral is not pursued.
+Default uses the palette from commit
 `f01aca89fddeae45df523d90996ff492da3e0abb` in both modes, retaining the newer
 shape, typography, spacing, motion and layouts.
 Dark background is `#020617`, surface `#0F172A`, muted `#1E293B` and primary
 `#818CF8`; light background is white, surface `#F8FAFC` and primary `#4F46E5`.
-This palette is published in beta.8.
+This palette is published in beta.8. A future palette change is a new decision
+with a full preset-parity review, not an open question.
 
 The original semantic aliases are restored in `themes.json`, with one contrast
 correction: light muted text uses the additive `slate.550` (`#607087`) rather than

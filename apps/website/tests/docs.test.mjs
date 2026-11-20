@@ -120,7 +120,7 @@ test("all component, setup and standalone guide examples typecheck independently
     assert.doesNotMatch(source, /\b\w*VariantMap\b|\boptionsOf\b|\bpg-[\w-]+/, `${key}: private demo machinery in copied code`);
     return [path.join(website, "__snippets__", `${key}.tsx`).replaceAll("\\", "/"), source];
   }));
-  assert.equal(sources.size, 733 + Object.keys(setupExamples).length);
+  assert.equal(sources.size, 736 + Object.keys(setupExamples).length);
   const config = ts.readConfigFile(path.join(website, "tsconfig.json"), ts.sys.readFile);
   const { options } = ts.parseJsonConfigFileContent(config.config, ts.sys, website);
   options.incremental = false;
@@ -178,7 +178,7 @@ test("API generation retains mapped variant unions and generic required props", 
 });
 
 test("search covers every route and includes public API keywords", () => {
-  assert.equal(index.length, docNavigation.length + catalog.filter((entry) => !entry.documented).length + journalPosts.length + releaseNotes.length + blocks.length + 1);
+  assert.equal(index.length, docNavigation.length + catalog.filter((entry) => !entry.documented).length + journalPosts.length + releaseNotes.length + blocks.length + 2);
   for (const slug of ["site/blocks", ...blocks.map((block) => `blocks/${block.slug}`)]) {
     assert.ok(index.some((entry) => entry.slug === slug), `Missing block search entry: ${slug}`);
   }

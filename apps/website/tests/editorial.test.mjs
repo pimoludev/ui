@@ -48,6 +48,7 @@ test("RSS and llms.txt cover real content and escape XML metacharacters", async 
   for (const block of blocks) assert.ok(map.includes(`/blocks/${block.slug}`));
   for (const guide of guides) assert.ok(map.includes(`/docs${guide.slug ? `/${guide.slug}` : ""}`));
   assert.match(map, /0\.1\.0-beta\.9/);
+  assert.ok(map.includes("/identity-kit"));
   assert.ok(map.includes("/releases/0.1.0-beta.9"));
   assert.match(map, /published on npm/);
   assert.ok(!map.includes("npx @pimolu"));

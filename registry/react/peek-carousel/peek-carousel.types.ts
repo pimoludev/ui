@@ -1,11 +1,13 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type {
   CarouselLabels,
+  CarouselRootOptions,
   CarouselStageClassNames,
 } from "../internal/carousel/carousel-engine";
 
 export interface PeekCarouselProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children">,
+    CarouselRootOptions {
   /** Slides: wrap each one in CarouselSlide. */
   children: ReactNode;
 
@@ -29,4 +31,10 @@ export interface PeekCarouselProps
 
   /** Additive classes for the stable named parts. */
   classNames?: CarouselStageClassNames;
+
+  /**
+   * Width of every slide as a CSS length. Defaults to `min(440px, 68vw)`.
+   * The peek layout keeps neighbouring cards visible.
+   */
+  slideWidth?: string;
 }

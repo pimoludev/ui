@@ -1,4 +1,4 @@
-@layer theme, base, pimolu, components, utilities;
+@layer theme, base, pimolu.tokens, pimolu.components, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @source "../content/generated";

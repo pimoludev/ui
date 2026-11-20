@@ -21,7 +21,7 @@ grammar and the Identity Kit direction live in
   (`data-pimolu-radius`), density (`data-pimolu-density`) and a brand colour
   carried by `PimoluProvider`.
 - `apps/website` is the Next.js App Router site: workspace integration,
-  homepage, guides under `/docs`, an illustrated catalog and **135 live component
+  homepage, guides under `/docs`, an illustrated catalog and **142 live component
   references** under `/components`, a development-status `/releases` page and a
   `/showcase` collection of real projects authored in `content/showcase.ts`.
   `/blocks` lists 141 authored compositions, including 17 authentication
@@ -228,7 +228,7 @@ runs in an isolated preview document to prevent the outer tab styles from changi
 `ScrollOutline` controls TableOfContents for catalogue categories and article sections; article
 outlines are keyed by route. Application-layout CSS details are not shown to readers.
 `SiteAppearance` owns header preset selection and the light/dark icon toggle; device mode remains
-available in its popup. `/themes` redirects to `/docs/theming`. Search has 309 destinations and the sitemap 311 paths.
+available in its popup. `/themes` redirects to `/docs/theming`. Search has 314 destinations and the sitemap 321 paths.
 The docs generator runs `scripts/simplify-example.mjs` on all 532 copied examples: variant maps are
 expanded at build time, Playground layout classes become Tailwind utilities and sibling sections
 receive a gap. Supplemental previews render the same generated modules. Tests compile every copied
@@ -267,7 +267,7 @@ The repository preview is `0.1.0-beta.9` and is tagged `v0.1.0-beta.9`; the root
 `CHANGELOG.md` is the release source of truth. All five library packages are published on npm
 at this version; the public website has no deployment yet. `/llms.txt` maps the actual guides, component references and articles; the AI
 guide states that a Pimolu MCP server is future work.
-The search index contains 149 generated entries plus four top-level destinations. Source files,
+The search index contains 314 generated entries plus four top-level destinations. Source files,
 validation scope and actual screenshots are recorded in the website's implementation progress.
 
 Quick start targets consumers of the published npm packages, with React 18/19,
@@ -364,3 +364,44 @@ action, avoiding reliance on double-tap. Signature Clear/Undo finish valid touch
 taps even after a canvas stroke suppresses the browser's compatibility click;
 cancelled/moved contacts and duplicate clicks are ignored. Playground examples,
 website usage notes and e2e/mobile-surfaces.spec.ts cover these behaviors.
+
+## Identity Kit and distribution pass (2026-11-20)
+
+The website adds `/identity-kit`, a source-workspace Identity Kit: a base preset,
+brand colour, radius and density are previewed on real components in light or
+dark, with a WCAG contrast readout and CSS/JSON/usage exports. It generates an
+application override and adds no second theming API to the published packages.
+The theming guide and quick start link to it, the header and footer list it, and
+the sitemap and search index include it (314 destinations, 321 sitemap paths).
+
+The Default palette decision is closed: slate/indigo stays the committed Default,
+Ink & Signal is not adopted, Mineral is not pursued and no eighth preset is
+added. DESIGN_DIRECTION.md, DESIGN_SYSTEM.md, both READMEs and the website guides
+state the same decision. The npm README now reports 136 families (it said 129),
+links the Identity Kit and the published starters, and documents per-family CSS
+entry points next to `styles.css`.
+
+Preset parity is automated: `e2e/preset-parity.spec.ts` mounts every component
+reference in the seven presets and both modes at 1440px and 390px in Chromium,
+and `pnpm --dir apps/website audit:presets` records the complete matrix on
+demand. Two contrast corrections ship with it: CodeBlock numeric tokens and
+Alert descriptions now meet AA on their tinted surfaces; both references carry
+the Updated badge.
+
+## Carousel integration fixes and layered split (2026-11-21)
+
+`layered.css` now declares the full order and separates `pimolu.tokens` from
+`pimolu.components`; import it before Tailwind or declare that order first, since
+a framework that declares its layers first fixes them. Carousel arrows center on
+the measured stage instead of the root that also contains the dot row, and
+`showControlsOnMobile={false}` hides them below 640px on all seven carousel
+components. New `--pimolu-control-background` and `--pimolu-control-foreground`
+tokens style arrows independently from the inactive dots.
+
+MultiCarousel adds `slideAppearance="plain"`, PeekCarousel adds `slideWidth`, and
+thumbnail images expose `classNames.thumbnailImage` with a default 1:1 crop
+(`--pimolu-carousel-thumbnail-aspect-ratio`). The generated CSS-variable
+reference follows relative stylesheet imports, so shared carousel variables are
+documented on every family. The stale "not yet published on npm" copy for the six
+carousels and Modal is corrected. DropdownMenu/Drawer triggers already forward
+`tabIndex` and add keyboard focus in beta.9; no change was needed.

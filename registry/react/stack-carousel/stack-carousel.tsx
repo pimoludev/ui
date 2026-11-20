@@ -18,6 +18,7 @@ export function StackCarousel({
   onIndexChange,
   labels,
   gap = 0,
+  showControlsOnMobile = true,
   "aria-label": ariaLabel,
   ...rest
 }: StackCarouselProps) {
@@ -29,6 +30,7 @@ export function StackCarousel({
         className
       )}
       data-effect="stack"
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
       {...rest}
     >
       <CarouselProvider

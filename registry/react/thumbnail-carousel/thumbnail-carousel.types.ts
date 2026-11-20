@@ -2,10 +2,12 @@ import type { HTMLAttributes, ReactNode } from "react";
 import type {
   CarouselClassNames,
   CarouselLabels,
+  CarouselRootOptions,
 } from "../internal/carousel/carousel-engine";
 
 export interface ThumbnailCarouselProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children">,
+    CarouselRootOptions {
   /** Slides: wrap each one in CarouselSlide. */
   children: ReactNode;
 

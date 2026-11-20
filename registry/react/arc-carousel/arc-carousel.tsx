@@ -18,6 +18,7 @@ export function ArcCarousel({
   onIndexChange,
   labels,
   gap = 0,
+  showControlsOnMobile = true,
   "aria-label": ariaLabel,
   ...rest
 }: ArcCarouselProps) {
@@ -29,6 +30,7 @@ export function ArcCarousel({
         className
       )}
       data-effect="arc"
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
       {...rest}
     >
       <CarouselProvider

@@ -717,7 +717,8 @@ export const extendedComponents = [
     "description": "The simple, batteries-included gallery with autoplay, pause, dots and controls.",
     "usage": [
       "Keep navigation explicit; autoplay must be optional and pauseable when enabled. Touch swipes, dots and controls stay synchronized in RTL; horizontal arrow keys mirror the reading direction.",
-      "Carousel is the simple entry point and owns autoplay, pause, dots and controls. The six carousel families focus on layout and intentionally omit autoplay; compose your own timer there, or choose Carousel for a straightforward gallery."
+      "Carousel is the simple entry point and owns autoplay, pause, dots and controls. The six carousel families focus on layout and intentionally omit autoplay; compose your own timer there, or choose Carousel for a straightforward gallery.",
+      "showControlsOnMobile={false} hides the arrows below 640px when a swipe-first layout is enough; dots and the keyboard remain. Arrows centre on the visible viewport rather than the footer row."
     ],
     "accessibility": [
       "Test previous/next and slide announcements, and respect reduced-motion preferences."
@@ -733,7 +734,8 @@ export const extendedComponents = [
     "usage": [
       "Compose ThumbnailCarousel with CarouselContent, CarouselSlide, CarouselPrevious, CarouselNext, CarouselThumbnails and CarouselThumbnail. The rail and the arrow keys use the same engine state.",
       "Pass loop, index/defaultIndex and onIndexChange like the other families. gap controls the slide spacing; the thumbnail rail keeps its own compact spacing.",
-      "Source workspace addition: the carousel families are not yet published on npm."
+      "Thumbnail images use a 1 / 1 crop by default, adjustable with --pimolu-carousel-thumbnail-aspect-ratio, so mixed source ratios keep a uniform rail. classNames.thumbnailImage targets the image; classNames.thumbnail remains the button.",
+      "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Every thumbnail is a real button with aria-current, so pointer and keyboard users can switch the collection.",
@@ -750,7 +752,7 @@ export const extendedComponents = [
     "usage": [
       "CoverflowCarousel positions every slide from the active index instead of scrolling a track. Use CarouselContent, CarouselSlide and the shared controls.",
       "The active card keeps focus and pointer events; cards beyond the immediate neighbours are inert to pointer input. loop and onIndexChange follow the shared contract.",
-      "Source workspace addition: the carousel families are not yet published on npm."
+      "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Check that arrow keys, dots and buttons move one shared index and that hidden cards are not announced as current.",
@@ -767,7 +769,8 @@ export const extendedComponents = [
     "usage": [
       "PeekCarousel keeps a scroll-snap rail while the active card is centred. Use CarouselSlide for each card and the shared controls for navigation.",
       "The family defaults to centred alignment and a compact slide width, so the next and previous cards stay visible. gap controls the space between cards.",
-      "Source workspace addition: the carousel families are not yet published on npm."
+      "slideWidth accepts any CSS length, for example min(320px, 78vw), when the default peeking card is too wide. showControlsOnMobile={false} hides the arrows below 640px.",
+      "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Swipe, dots, buttons and arrow keys must keep the same active card; check the active slide's aria-current.",
@@ -784,7 +787,7 @@ export const extendedComponents = [
     "usage": [
       "StackCarousel positions every slide from the active index. Compose CarouselContent, CarouselSlide, the shared controls and CarouselDots.",
       "The stack re-orders around the active index; cards further away fade and stop receiving pointer events. loop keeps the deck continuous.",
-      "Source workspace addition: the carousel families are not yet published on npm."
+      "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Verify that pointer-inert cards are not reachable by Tab and that the active card is announced once.",
@@ -801,7 +804,7 @@ export const extendedComponents = [
     "usage": [
       "ArcCarousel fans the cards around the active index. Use CarouselContent, CarouselSlide and the shared controls; gap changes the card spacing.",
       "Below 640px the outer cards leave the stage and the active pair remains visible. The active card stays upright and closest to the viewer.",
-      "Source workspace addition: the carousel families are not yet published on npm."
+      "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Check the active card, dots and arrow buttons at narrow widths where outer cards are hidden.",
@@ -818,7 +821,8 @@ export const extendedComponents = [
     "usage": [
       "MultiCarousel shows slidesPerView cards at once. Use CarouselContent, CarouselSlide and the shared controls for paging.",
       "The track keeps one active index while several cards remain visible. gap controls the space between cards; loop wraps the page navigation.",
-      "Source workspace addition: the carousel families are not yet published on npm."
+      "slideAppearance=\"plain\" removes the built-in slide border, background and clipping when each application card owns its frame and hover transform. showControlsOnMobile={false} hides the arrows below 640px; swipe, dots and the keyboard remain.",
+      "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Verify that the visible page, dots and previous/next controls describe the same selection at every viewport width.",
@@ -1435,7 +1439,7 @@ export const extendedComponents = [
     "usage": [
       "Compose ModalTrigger and ModalContent with a title and description. Size caps the panel from sm to xl; Dialog remains the lighter name for the same interaction in existing applications.",
       "Use open/onOpenChange when your workflow owns dismissal. ModalClose wraps an existing button without creating a nested button, and a non-focusable trigger child receives tabIndex and a button role automatically.",
-      "Source workspace addition: the Modal family is not yet published on npm."
+      "Available since 0.1.0-beta.9: the Modal family installs from the published packages."
     ],
     "accessibility": [
       "Use ModalTitle to name the panel and ModalDescription for context. Focus is trapped, Escape and the overlay dismiss by default, the page cannot scroll behind the panel, and focus returns to the trigger.",

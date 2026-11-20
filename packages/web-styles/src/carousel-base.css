@@ -2,6 +2,16 @@
    imports this file, so a family can evolve its layout without forking the
    accessibility or control contract. */
 
+:root {
+  /* Public defaults. Set --pimolu-control-* on a carousel to style arrows
+     independently from the inactive dots; JS writes the measured stage center. */
+  --pimolu-control-background: var(--pimolu-background);
+  --pimolu-control-foreground: var(--pimolu-foreground);
+  --pimolu-carousel-controls-center: 50%;
+  --pimolu-peek-slide-width: min(440px, 68vw);
+  --pimolu-carousel-thumbnail-aspect-ratio: 1 / 1;
+}
+
 .pimolu-carousel-root {
   position: relative;
 
@@ -100,7 +110,7 @@
 }
 
 .pimolu-carousel__viewport[data-effect="peek"] .pimolu-carousel__slide {
-  flex: 0 0 min(440px, 68vw);
+  flex: 0 0 var(--pimolu-peek-slide-width, min(440px, 68vw));
 
   scroll-snap-align: center;
 }
@@ -109,7 +119,7 @@
 
 .pimolu-carousel__control {
   position: absolute;
-  top: 50%;
+  top: var(--pimolu-carousel-controls-center, 50%);
   z-index: 20;
 
   display: inline-flex;
@@ -126,8 +136,8 @@
   border: 1px solid var(--pimolu-border, currentColor);
   border-radius: var(--pimolu-radius-full, 999px);
 
-  background: var(--pimolu-background, Canvas);
-  color: var(--pimolu-foreground);
+  background: var(--pimolu-control-background, var(--pimolu-background, Canvas));
+  color: var(--pimolu-control-foreground, var(--pimolu-foreground));
 
   box-shadow: var(--pimolu-shadow-raised, 0 2px 8px rgb(0 0 0 / 18%));
 
@@ -168,6 +178,12 @@
 
   width: 1.25rem;
   height: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  [data-controls-mobile="hidden"] .pimolu-carousel__control {
+    display: none;
+  }
 }
 
 /* ---------- dots ---------- */
@@ -276,6 +292,8 @@
 
   width: 100%;
   height: auto;
+
+  aspect-ratio: var(--pimolu-carousel-thumbnail-aspect-ratio, 1 / 1);
 
   border-radius: var(--pimolu-radius-sm, 6px);
 

@@ -1802,3 +1802,16 @@ test("Tailwind Preflight compatibility", async () => {
     /a\.pimolu-chat__attachment-name\s*\{[^}]*text-decoration:\s*underline/s
   );
 });
+
+test("layered bundle fixes the order and separates tokens from components", async () => {
+  const css = await load("layered.css");
+
+  assert.match(
+    css,
+    /^@layer theme, base, pimolu\.tokens, pimolu\.components, components, utilities;/
+  );
+  assert.match(css, /@layer pimolu\.tokens \{/);
+  assert.match(css, /@layer pimolu\.components \{/);
+  assert.match(css, /--pimolu-primary:/);
+  assert.match(css, /\.pimolu-button/);
+});

@@ -1,5 +1,20 @@
 # Audit technique d’accessibilité — 21 octobre 2026
 
+## Contraste des surfaces teintées et Identity Kit — 20 novembre 2026
+
+L'Identity Kit a révélé deux contrastes insuffisants que les audits précédents ne
+couvraient pas : les jetons numériques de CodeBlock (4,14:1 sur la surface de
+code) et les descriptions d'Alert sur les surfaces teintées (4,29 à 4,33:1).
+Les deux mélanges ont été renforcés vers le premier plan ; les références
+CodeBlock et Alert portent le badge Updated.
+
+Validation : un scan axe de `/identity-kit` passe dans Chromium en clair avec les
+tags wcag2a, wcag2aa, wcag21aa, wcag22aa et best-practice, après les corrections.
+Limite : un seul état de l'Identity Kit est scanné (preset Default, couleur par
+défaut, mode clair). Les combinaisons de marque restent à vérifier par
+l'utilisateur, et le contraste affiché porte sur blanc et noir, pas sur chaque
+surface d'un preset. Aucune validation par lecteur d'écran n'est ajoutée.
+
 ## Complément montage tardif et styles partagés — 7 novembre 2026
 
 Le positionnement récupère une ancre dont la ref arrive après l'ouverture, sans

@@ -19,6 +19,7 @@
     "previews:capture": "node scripts/capture-previews.mjs",
     "blocks:capture": "node --experimental-strip-types scripts/capture-blocks.mjs",
     "audit:a11y": "node scripts/audit-accessibility.mjs",
+    "audit:presets": "node scripts/audit-preset-parity.mjs",
     "docs:baseline": "node scripts/snapshot-component-status.mjs",
     "blocks:format": "node --experimental-strip-types scripts/format-blocks.mjs",
     "blocks:format:check": "node --experimental-strip-types scripts/format-blocks.mjs --check"

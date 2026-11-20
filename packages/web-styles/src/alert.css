@@ -159,8 +159,9 @@
 .pimolu-alert__description {
   margin: 0;
 
-  color: var(
-    --pimolu-muted-foreground,
+  color: color-mix(
+    in srgb,
+    var(--pimolu-muted-foreground, currentColor) 55%,
     var(--pimolu-foreground, currentColor)
   );
 

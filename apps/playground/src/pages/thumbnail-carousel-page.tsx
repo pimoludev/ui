@@ -151,6 +151,44 @@ function LocalizedGallery() {
   );
 }
 
+function mixedThumbnail(index: number, height: number) {
+  const slide = slides[index % slides.length];
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 ${height}">` +
+    `<rect width="160" height="${height}" fill="${thumbnailColors[index % thumbnailColors.length]}"/>` +
+    `<text x="12" y="${Math.round(height * 0.62)}" fill="white" font-family="sans-serif" font-size="26">${slide.title}</text>` +
+    `</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+function MixedRail() {
+  const heights = [120, 180, 90, 150];
+  return (
+    <ThumbnailCarousel aria-label="Uniform thumbnail rail" loop defaultIndex={1}>
+      <CarouselContent>
+        {slides.slice(0, heights.length).map((slide, index) => (
+          <CarouselSlide key={slide.title}>
+            <Slide index={index} compact />
+          </CarouselSlide>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+      <CarouselThumbnails>
+        {slides.slice(0, heights.length).map((slide, index) => (
+          <CarouselThumbnail
+            key={slide.title}
+            index={index}
+            src={mixedThumbnail(index, heights[index])}
+            alt={`${slide.title} crop`}
+            classNames={{ thumbnailImage: "parts-thumbnail-image" }}
+          />
+        ))}
+      </CarouselThumbnails>
+    </ThumbnailCarousel>
+  );
+}
+
 function CustomizedParts() {
   return (
     <>
@@ -203,6 +241,9 @@ function CustomizedParts() {
 .parts-thumbnail-item {
   border-radius: 12px;
 }
+.parts-thumbnail-image {
+  object-position: center 35%;
+}
 `}
       </style>
     </>
@@ -231,6 +272,10 @@ export function ThumbnailCarouselPage() {
 
       <Section title="Compact editorial gallery" hint="A smaller stage that keeps the thumbnail rail visible with five captioned images.">
         <Gallery compact defaultIndex={2} gap={20} />
+      </Section>
+
+      <Section title="Uniform thumbnail rail" hint="Mixed source ratios keep one square crop through --pimolu-carousel-thumbnail-aspect-ratio; classNames.thumbnailImage targets the image itself.">
+        <MixedRail />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

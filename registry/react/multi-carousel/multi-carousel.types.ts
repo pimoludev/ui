@@ -1,11 +1,13 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type {
   CarouselLabels,
+  CarouselRootOptions,
   CarouselStageClassNames,
 } from "../internal/carousel/carousel-engine";
 
 export interface MultiCarouselProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children">,
+    CarouselRootOptions {
   /** Slides: wrap each one in CarouselSlide. */
   children: ReactNode;
 
@@ -35,4 +37,11 @@ export interface MultiCarouselProps
    * card width and may show fewer. Defaults to 3.
    */
   slidesPerView?: number;
+
+  /**
+   * "surface" draws the slide frame around each card. "plain" removes that
+   * border, background and clipping so an application card can own its own
+   * frame and hover transform. Defaults to "surface".
+   */
+  slideAppearance?: "surface" | "plain";
 }

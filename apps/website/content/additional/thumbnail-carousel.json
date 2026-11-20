@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Apply local classes to the stage, controls and thumbnail rail without replacing the built-in selection, focus or disabled states.",
     "append": true
+  },
+  {
+    "file": "thumbnail-carousel-uniform-rail.tsx",
+    "title": "Uniform thumbnail rail",
+    "description": "The thumbnail image has its own named part and a 1:1 default crop, so mixed source ratios no longer produce a saw-tooth rail. classNames.thumbnailImage targets the image itself.",
+    "append": true
   }
 ]

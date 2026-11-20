@@ -1,5 +1,68 @@
 # Pimolu Website — État et vérifications
 
+## Correctifs carrousels, couches et documentation — 21 novembre 2026
+
+- `layered.css` déclare désormais l'ordre `theme, base, pimolu.tokens,
+  pimolu.components, components, utilities` avant les imports et sépare les
+  tokens des composants. Il doit être importé avant Tailwind, ou l'ordre doit
+  être déclaré avant tout import : un framework qui déclare ses couches en
+  premier fixe l'ordre, CSS ne peut pas le réordonner ensuite.
+- Les flèches des sept carrousels sont centrées sur la scène visible, pas sur la
+  racine qui contient aussi les points. `showControlsOnMobile={false}` les masque
+  sous 640px ; le balayage, les points et le clavier restent disponibles.
+  `--pimolu-control-background` et `--pimolu-control-foreground` séparent les
+  flèches des points inactifs.
+- `MultiCarousel` ajoute `slideAppearance="plain"` pour laisser une carte produit
+  posséder sa bordure, son fond et son survol. `PeekCarousel` ajoute `slideWidth`
+  (longueur CSS). Les vignettes sont rognées en `1 / 1` par défaut
+  (`--pimolu-carousel-thumbnail-aspect-ratio`) et exposent
+  `classNames.thumbnailImage` sur l'image.
+- La référence des variables CSS suit désormais les imports relatifs : les
+  variables partagées de `carousel-base.css` apparaissent sur chaque famille,
+  avec filtrage des deux variables propres à Peek et Thumbnail.
+- Les mentions « not yet published on npm » des six carrousels et de Modal sont
+  remplacées par la version publiée réelle. Les triggers DropdownMenu et Drawer
+  acceptent déjà `tabIndex` et ajoutent `tabindex="0"`/`role="button"` depuis la
+  beta.9 ; les tests existants le confirment, aucune modification nécessaire.
+- Validation : `pnpm verify` vert (1 605 tests React, 13 tests thèmes, 38
+  tests CSS, typecheck, audit des thèmes sans avertissement, build playground),
+  build Next.js de 474 pages, 51 tests de documentation, 2 tests Playwright
+  carrousel, 3 tests Identity Kit, 14 tests de parité Chromium (3 976 contrôles).
+  Lint site : 0 erreur, 15 avertissements `no-img-element` préexistants ou liés
+  aux exemples ajoutés.
+
+## Identity Kit, décision Default et parité des presets — 20 novembre 2026
+
+- `/identity-kit` est une page autonome dans le workspace source. Elle combine
+  un preset, une couleur de marque, un rayon et une densité, prévisualise de
+  vrais composants Pimolu en clair ou sombre, affiche le contraste calculé du
+  primaire sur blanc et noir, et exporte des variables CSS, un JSON ou un
+  exemple d'usage. Elle ne modifie aucun package publié et ne crée pas une
+  seconde API de thème.
+- Le choix du Default est clos : slate/indigo reste la palette de référence,
+  Ink & Signal n'est pas adopté, Mineral n'est pas poursuivi et aucun huitième
+  preset n'est ajouté. `DESIGN_DIRECTION.md`, `DESIGN_SYSTEM.md`, les deux
+  README et les guides du site portent la même décision.
+- Le démarrage rapide documente l'entrée par feuille de famille
+  (`tokens.css` + `button.css`) à côté du bundle `styles.css`. Les README npm et
+  racine listent les starters et projets publiés hors monorepo, et le README npm
+  annonce désormais 136 familles (il indiquait 129).
+- `e2e/preset-parity.spec.ts` monte chaque référence de composant dans les sept
+  presets et les deux modes, à 1440 px et 390 px, en Chromium.
+  `audit:presets` enregistre la matrice complète (largeur, preset, mode) dans
+  `.artifacts/preset-parity.json` pour une exécution à la demande.
+- Deux contrastes ont été corrigés après le scan axe de la nouvelle page : les
+  jetons numériques de CodeBlock et les descriptions d'Alert sur surfaces
+  teintées. Le CodeBlock utilise aussi une grille par défaut : hors du layout de
+  documentation, les nœuds newline ajoutaient une ligne vide entre chaque ligne.
+  Les deux références portent Updated.
+- Validation : `pnpm verify:quick` vert (1 602 tests React, 13 tests thèmes,
+  37 tests CSS, typecheck et audit des thèmes), build Next.js de 474 pages,
+  51 tests de documentation, 3 tests Playwright Identity Kit (dont un scan axe
+  vert), 14 tests de parité Chromium (142 références × 7 presets × 2 modes ×
+  2 largeurs) et `audit:presets` sur 3 976 observations : 0 échec, 0 erreur de
+  page. Lint : 0 erreur, 12 avertissements `no-img-element` préexistants.
+
 ## Six familles de carrousel — 19 novembre 2026
 
 - Les six démos ajoutées à la référence Carousel sont désormais autoportantes :

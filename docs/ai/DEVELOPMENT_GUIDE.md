@@ -40,7 +40,8 @@ Node >= 20 and pnpm pinned in `package.json`. From the root: `pnpm install`, the
 `pnpm --dir registry/react exec vitest run button/button.test.tsx` targets one
 React test. The website has its own checks:
 `pnpm --dir apps/website typecheck`, `lint`, `test`, `build`, `test:e2e` and
-`audit:a11y` (the audit needs a running production server on port 3001).
+`audit:a11y` and `audit:presets` (both audits need a running production server
+on port 3001).
 The pre-commit hook runs `verify:quick` and checks the staged files;
 pre-push runs `verify`. The GitHub workflow
 `.github/workflows/ci.yml` runs library verification and website production,

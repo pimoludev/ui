@@ -65,6 +65,12 @@ export interface PimoluCarouselProps
   /** Shows the previous and next buttons. Defaults to true. */
   showControls?: boolean;
 
+  /**
+   * Shows the arrow controls on narrow viewports. Defaults to true. Swiping
+   * remains available when they are hidden.
+   */
+  showControlsOnMobile?: boolean;
+
   /** Shows the pagination dots. Defaults to true. */
   showDots?: boolean;
 

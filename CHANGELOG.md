@@ -4,6 +4,105 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+- EN: `layered.css` now declares `theme, base, pimolu.tokens, pimolu.components,
+  components, utilities` before importing, and splits tokens from component
+  rules. Import it before Tailwind, or declare the same order first: a framework
+  that declares its layers first fixes the order. Existing `@layer pimolu`
+  overrides keep working.
+- FR : `layered.css` déclare désormais `theme, base, pimolu.tokens,
+  pimolu.components, components, utilities` avant les imports et sépare les
+  tokens des règles de composants. Importez-le avant Tailwind, ou déclarez le
+  même ordre en premier : un framework qui déclare ses couches en premier fixe
+  l'ordre. Les surcharges `@layer pimolu` existantes restent valides.
+
+- EN: Carousel arrows are centred on the visible stage instead of the whole
+  root, including the dots row. `showControlsOnMobile={false}` hides them below
+  640px on all seven carousel components while swiping, dots and keyboard
+  navigation remain. `--pimolu-control-background` and
+  `--pimolu-control-foreground` style arrows without changing the inactive dot
+  tone.
+- FR : Les flèches des carrousels sont centrées sur la scène visible et non sur
+  la racine entière, points compris. `showControlsOnMobile={false}` les masque
+  sous 640px sur les sept composants carrousel, le balayage, les points et le
+  clavier restant disponibles. `--pimolu-control-background` et
+  `--pimolu-control-foreground` stylent les flèches sans modifier le ton des
+  points inactifs.
+
+- EN: `MultiCarousel` adds `slideAppearance="plain"` to remove the built-in slide
+  border, background and clipping when a product card owns its frame and hover
+  transform. `PeekCarousel` adds `slideWidth` for any CSS length. Thumbnails now
+  crop to a uniform `1 / 1` ratio, adjustable with
+  `--pimolu-carousel-thumbnail-aspect-ratio`, and expose
+  `classNames.thumbnailImage` on the image itself.
+- FR : `MultiCarousel` ajoute `slideAppearance="plain"` pour retirer la bordure,
+  le fond et le rognage intégrés quand une carte produit possède son cadre et
+  son survol. `PeekCarousel` ajoute `slideWidth` pour toute longueur CSS. Les
+  vignettes sont rognées en `1 / 1` par défaut, ajustable avec
+  `--pimolu-carousel-thumbnail-aspect-ratio`, et exposent
+  `classNames.thumbnailImage` sur l'image elle-même.
+
+- EN: The generated CSS-variable reference now follows relative stylesheet
+  imports, so shared carousel variables appear on every carousel family. The
+  carousel and Modal references no longer claim they are unpublished.
+- FR : La référence générée des variables CSS suit désormais les imports
+  relatifs, afin que les variables partagées des carrousels apparaissent sur
+  chaque famille. Les références carrousel et Modal ne prétendent plus être
+  non publiées.
+
+- EN: The website adds the **Identity Kit** at `/identity-kit`: choose a preset,
+  a brand colour, a radius and a density, preview real components in light or
+  dark, then copy CSS variables or JSON. It is a source-workspace tool that
+  generates an application override; the published packages keep their single
+  theming API. The theming guide and quick start now link to it.
+- FR : Le site ajoute l'**Identity Kit** à `/identity-kit` : choisissez un
+  preset, une couleur de marque, un rayon et une densité, prévisualisez de vrais
+  composants en clair ou sombre, puis copiez les variables CSS ou le JSON. C'est
+  un outil du workspace source qui génère une surcharge d'application ; les
+  packages publiés conservent leur unique API de thème. Le guide des thèmes et
+  le démarrage rapide y renvoient désormais.
+
+- EN: The quick start documents the per-family stylesheet entry
+  (`@pimolu/web-styles/button.css` with `tokens.css`) next to the complete
+  `styles.css` bundle, and both READMEs list the published starters and
+  projects that install the npm packages outside the monorepo.
+- FR : Le démarrage rapide documente l'entrée par feuille de famille
+  (`@pimolu/web-styles/button.css` avec `tokens.css`) à côté du bundle complet
+  `styles.css`, et les deux README listent les starters et projets publiés qui
+  installent les packages npm hors du monorepo.
+
+- EN: CodeBlock numeric syntax tokens use a stronger foreground mix, meeting AA
+  contrast on the code surface, and the code surface now uses a grid by default
+  so newline text nodes no longer add a blank line outside the documentation
+  layout. The exact palette still follows the active preset.
+- FR : Les jetons numériques de CodeBlock utilisent un mélange plus fort avec le
+  premier plan, atteignant le contraste AA sur la surface de code, et la surface
+  de code utilise désormais une grille par défaut afin que les nœuds de texte
+  newline n'ajoutent plus de ligne vide hors du layout de documentation. La
+  palette exacte suit toujours le preset actif.
+
+- EN: Alert descriptions mix the muted tone with the foreground, so they meet AA
+  contrast on the tinted info, success, warning and danger surfaces.
+- FR : Les descriptions d'Alert mélangent le ton atténué avec le premier plan,
+  afin d'atteindre le contraste AA sur les surfaces teintées info, succès,
+  avertissement et danger.
+
+- EN: A Chromium preset-parity spec mounts every component reference in the
+  seven presets and both modes at 1440px and 390px, and
+  `pnpm --dir apps/website audit:presets` records the complete matrix on demand.
+- FR : Une spec de parité en Chromium monte chaque référence de composant dans
+  les sept presets et les deux modes à 1440px et 390px, et
+  `pnpm --dir apps/website audit:presets` enregistre la matrice complète à la
+  demande.
+
+- EN: The Default palette decision is closed: slate/indigo stays the committed
+  Default, Ink & Signal is not adopted, and no eighth preset is added. The
+  design direction, design system, READMEs and website guides state the same
+  decision.
+- FR : La décision de palette Default est close : slate/indigo reste le Default
+  assumé, Ink & Signal n'est pas adopté et aucun huitième preset n'est ajouté.
+  La direction visuelle, le design system, les README et les guides du site
+  portent la même décision.
+
 ## [0.1.0-beta.9] — 2026-11-20
 
 Preview release. Tag: `v0.1.0-beta.9`. All five library packages are published on

@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { CarouselProvider } from "../internal/carousel/carousel-engine";
 import { mergeClasses } from "../internal/merge-classes";
 import type { PeekCarouselProps } from "./peek-carousel.types";
@@ -18,9 +19,15 @@ export function PeekCarousel({
   onIndexChange,
   labels,
   gap = 16,
+  slideWidth,
+  showControlsOnMobile = true,
+  style,
   "aria-label": ariaLabel,
   ...rest
 }: PeekCarouselProps) {
+  const rootStyle = slideWidth
+    ? ({ ...style, "--pimolu-peek-slide-width": slideWidth } as CSSProperties)
+    : style;
   return (
     <div
       className={mergeClasses(
@@ -29,6 +36,8 @@ export function PeekCarousel({
         className
       )}
       data-effect="peek"
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
+      style={rootStyle}
       {...rest}
     >
       <CarouselProvider

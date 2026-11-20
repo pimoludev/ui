@@ -2,7 +2,7 @@
 
 **A design system that keeps its promises.** One source of visual truth, themes and styles you can switch at runtime, and accessible React components — with no styling framework to learn.
 
-[Documentation](https://pimolu.com/docs) · [Components](https://pimolu.com/components) · [Showcase](https://pimolu.com/showcase) · [Repository](https://github.com/pimoludev/ui) · MIT License
+[Documentation](https://pimolu.com/docs) · [Components](https://pimolu.com/components) · [Identity Kit](https://pimolu.com/identity-kit) · [Showcase](https://pimolu.com/showcase) · [Repository](https://github.com/pimoludev/ui) · MIT License
 
 **English** · [Français](README.fr.md)
 
@@ -31,13 +31,13 @@ The design system has two complementary layers. A colour theme gives meaning to 
 
 | Preset | Character |
 | --- | --- |
-| `default` | Slate/indigo restored in the workspace, with the current typography and shape |
+| `default` | Slate neutrals with an indigo primary: the committed reference palette, with the current typography and shape |
 | `monochrome` | A restrained greyscale palette |
 | `cartoon` | Bold outlines and a playful feel |
 | `glass` | Translucent surfaces and soft depth |
 | `luxury` | Refined typography and warm neutrals |
 | `neo-brutalism` | Hard borders, flat shadows and high contrast |
-| `adaptive` | An alternative palette, available for comparison; not the Default |
+| `adaptive` | An alternative compatible palette, available alongside Default |
 
 Radius (`sharp`, `medium`, `round`), density (`compact`, `comfortable`, `spacious`) and `brandColor` can be configured independently through `PimoluProvider`. Density adjusts box metrics without shrinking text or icons. A custom brand colour does not automatically recalculate the foreground or guarantee contrast: verify the resulting text, hover and focus states.
 
@@ -114,10 +114,14 @@ On the web, import the generated stylesheet and apply a theme and a style throug
 @import "@pimolu/web-styles/layered.css";
 ```
 
-With Tailwind v4, declare the layer order first so utilities can override Pimolu without `!important`:
+`layered.css` declares the order itself: `theme`, `base`, `pimolu.tokens`,
+`pimolu.components`, `components`, `utilities`. Tokens and components live in
+separate sublayers. **Import it before Tailwind**, or declare the same order
+yourself before any import: a framework that has already declared its layers
+fixes the order, and CSS cannot reorder it afterwards.
 
 ```css
-@layer theme, base, pimolu, components, utilities;
+@layer theme, base, pimolu.tokens, pimolu.components, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "@pimolu/web-styles/layered.css";
@@ -145,11 +149,13 @@ The CSS import in the React example is an alternative to the global CSS `@import
 
 Tokens are also available as JSON and visual token data as JavaScript. These are foundations for future React Native rendering; Pimolu does not yet provide React Native components. Native will share design data and use its own rendering rather than React DOM components.
 
-The integration guides show how to use Pimolu UI with Next.js. A standalone Next.js starter will be maintained in a separate repository.
+The integration guides show how to use Pimolu UI with Next.js. Five independent integrations install the published packages and run outside this monorepo: the [Next.js starter](https://github.com/pimoludev/nextjs-starter), the [React + Vite starter](https://github.com/pimoludev/react-vite-starter), the [dashboard starter](https://github.com/pimoludev/dashboard-starter), [Project Workspace](https://saas-landing.pimolu.com/) and [Pimolu Headset](https://pimolu-headset.pimolu.com/). The [showcase](https://pimolu.com/showcase) also lists MECANES, an agency site built with Pimolu UI.
 
 ## Customization
 
 The published beta includes an opt-in `@pimolu/web-styles/layered.css` entry and typed `classNames` part hooks across all 136 component families, including compound descendants and portalled surfaces. Public props, semantic CSS variables and named parts let you refine components without copying their implementation. The existing CSS entry and class targets remain supported.
+
+`styles.css` is the simplest entry. To ship only what a page uses, import `@pimolu/web-styles/tokens.css` plus the per-family sheets you need, for example `@pimolu/web-styles/button.css`. Never load `styles.css` or `layered.css` together with `tokens.css` or `themes.css`.
 
 Choose `styles.css` or `layered.css`, rather than loading both. With Tailwind v4, put Preflight in the `base` layer before `pimolu`; with the unlayered entry, load Pimolu after Preflight. Portal content may sit outside your application wrapper: use its named parts to style the actual panel. See the [customization guide](https://pimolu.com/docs/customization) and [customization contract](docs/CUSTOMIZATION.md) for tested recipes and limits.
 
@@ -193,13 +199,15 @@ pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 
 Browse all five packages in the [Pimolu npm organization](https://www.npmjs.com/org/pimolu).
 
-The [public website](https://pimolu.com) includes guides, 135 live component references, a searchable illustrated catalogue, MDX articles and releases, and a showcase of real projects. Its Next.js App Router source is in `apps/website`.
+The [public website](https://pimolu.com) includes guides, 142 live component references, a searchable illustrated catalogue, MDX articles and releases, and a showcase of real projects. Its Next.js App Router source is in `apps/website`.
 
 This is still a beta. APIs and visual tokens may evolve; complex-component assistive-technology reviews and the full visual quality audit remain open. Automated browser checks do not establish complete accessibility conformance. See the [quality audit](docs/ai/QUALITY_AUDIT.md), [website accessibility audit](apps/website/ACCESSIBILITY_AUDIT.md) and [changelog](CHANGELOG.md) for coverage and limits.
 
 ## Design direction and next steps
 
-Since **0.1.0-beta.8**, the published Default uses the restored **slate/indigo** palette: the earlier background, surface, primary, hover and status colours in both modes, with light secondary text darkened to `#607087` for contrast on muted surfaces. The newer DM Sans / Newsreader / IBM Plex Mono roles, radii, spacing, motion and layouts remain, and the functional `control-border` plus the soft accent roles stay available. This replaces the beta.7 Ink & Signal palette in Default without adding an eighth preset. When upgrading from beta.7, review colours, radii and typography in your application; the other named presets keep their own palettes. The future **Identity Kit** remains a proposal to extend ThemeBuilder with identity preview and export.
+Since **0.1.0-beta.8**, the published Default uses the **slate/indigo** palette: the earlier background, surface, primary, hover and status colours in both modes, with light secondary text darkened to `#607087` for contrast on muted surfaces. The newer DM Sans / Newsreader / IBM Plex Mono roles, radii, spacing, motion and layouts remain, and the functional `control-border` plus the soft accent roles stay available. **This is the committed Default direction**, not a placeholder: the beta.7 Ink & Signal palette was explored and is not adopted, and no eighth preset is added. When upgrading from beta.7, review colours, radii and typography in your application; the other named presets keep their own palettes.
+
+The **Identity Kit** is now available on the website at [pimolu.com/identity-kit](https://pimolu.com/identity-kit). It starts from a preset, then adjusts the brand colour, radius and density, previews real components and exports CSS variables and JSON. It is a website tool in the source workspace: it generates an override for your application and does not add a second theming API to the published packages.
 
 Playground Design Lab provides real marketing, validated local form and searchable dashboard compositions, with a frozen beta.6 specimen for comparison. The optional local `/design-preview` route is ignored by Git and is not required to build the website. Use `--pimolu-control-border` for essential field boundaries and `--pimolu-border` for decorative separators; `--pimolu-primary-soft` and `--pimolu-primary-soft-foreground` provide a subtle accent surface and its text colour. These roles are available in beta.8. Human design and assistive-technology reviews remain open before a stable release.
 

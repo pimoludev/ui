@@ -18,6 +18,7 @@ export function CoverflowCarousel({
   onIndexChange,
   labels,
   gap = 0,
+  showControlsOnMobile = true,
   "aria-label": ariaLabel,
   ...rest
 }: CoverflowCarouselProps) {
@@ -29,6 +30,7 @@ export function CoverflowCarousel({
         className
       )}
       data-effect="coverflow"
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
       {...rest}
     >
       <CarouselProvider

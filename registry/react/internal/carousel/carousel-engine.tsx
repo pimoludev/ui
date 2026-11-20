@@ -31,13 +31,23 @@ export type CarouselPartNames =
   | "dots"
   | "thumbnails"
   | "thumbnail"
+  | "thumbnailImage"
   | "live";
 
 /** Additive classes for the stable named parts shared by every carousel family. */
 export type CarouselClassNames = Partial<Record<CarouselPartNames, string>>;
 
 /** The same map without the thumbnail rail, for the five stage-only families. */
-export type CarouselStageClassNames = Omit<CarouselClassNames, "thumbnail" | "thumbnails">;
+export type CarouselStageClassNames = Omit<CarouselClassNames, "thumbnail" | "thumbnails" | "thumbnailImage">;
+
+/** Root-level options shared by the composed carousel families. */
+export interface CarouselRootOptions {
+  /**
+   * Shows the previous/next controls on narrow viewports. Defaults to true.
+   * Swiping remains available when they are hidden.
+   */
+  showControlsOnMobile?: boolean;
+}
 
 export interface CarouselLabels {
   previous: string;
@@ -187,6 +197,34 @@ export function CarouselProvider({
     observer.observe(track);
     return () => observer.disconnect();
   }, [count, effect, gap, slidesPerView]);
+
+  /*
+   * Centre the controls on the visible stage rather than on the root, which
+   * also contains the dots row. The host receives a pixel offset the CSS uses
+   * as `top`; without JavaScript or before measurement it falls back to 50%.
+   */
+  useEffect(() => {
+    const track = trackRef.current;
+    const host = track?.parentElement;
+    if (!track || !host) return;
+    const measure = () => {
+      host.style.setProperty("--pimolu-carousel-controls-center", `${track.clientHeight / 2}px`);
+    };
+    measure();
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", measure);
+      return () => {
+        window.removeEventListener("resize", measure);
+        host.style.removeProperty("--pimolu-carousel-controls-center");
+      };
+    }
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    return () => {
+      observer.disconnect();
+      host.style.removeProperty("--pimolu-carousel-controls-center");
+    };
+  }, [count]);
 
   /*
    * Only the scroll-based layouts move the viewport. Coverflow, stack and arc

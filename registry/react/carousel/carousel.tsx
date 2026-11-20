@@ -144,6 +144,7 @@ export const Carousel = forwardRef<
     showDots = true,
     showPauseControl = true,
     pauseOnHover = true,
+    showControlsOnMobile = true,
 
     labels,
     viewportClassName,
@@ -248,6 +249,41 @@ export const Carousel = forwardRef<
     const first = track.children[0] as HTMLElement | undefined;
     track.scrollLeft = slide.offsetLeft - (first?.offsetLeft ?? 0);
   }, [currentIndex, count]);
+
+  /* Centre the arrows on the visible stage, not on the root that also
+     contains the dots row. CSS falls back to 50% before measurement. */
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const host = track?.parentElement;
+
+    if (!track || !host) return;
+
+    const measure = () => {
+      host.style.setProperty(
+        "--pimolu-carousel-controls-center",
+        `${track.clientHeight / 2}px`
+      );
+    };
+
+    measure();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", measure);
+      return () => {
+        window.removeEventListener("resize", measure);
+        host.style.removeProperty("--pimolu-carousel-controls-center");
+      };
+    }
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+
+    return () => {
+      observer.disconnect();
+      host.style.removeProperty("--pimolu-carousel-controls-center");
+    };
+  }, [count]);
 
   /* Autoplay, paused on hover/focus and under reduced motion. */
 
@@ -454,6 +490,7 @@ export const Carousel = forwardRef<
       data-controls={
         showControls && count > 1 ? "true" : "false"
       }
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
       data-orientation="horizontal"
       onKeyDown={handleKeyDown}
       onMouseEnter={handleMouseEnter}

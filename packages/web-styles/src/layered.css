@@ -1,4 +1,13 @@
-/* Opt-in cascade layer. Declare application layer order before this import
-   when combining Pimolu with a framework such as Tailwind. */
-@layer pimolu;
-@import "./styles.css" layer(pimolu);
+/* Opt-in cascade layer.
+
+   Import this file before Tailwind, another framework or application CSS, or
+   declare the same order yourself before any import. The statement below fixes
+   the documented order; if a framework has already declared its layers first,
+   CSS cannot reorder them afterwards.
+
+   Existing `@layer pimolu { ... }` overrides keep working: rules placed
+   directly in a layer that has sublayers come after its sublayers. */
+@layer theme, base, pimolu.tokens, pimolu.components, components, utilities;
+
+@import "./tokens.css" layer(pimolu.tokens);
+@import "./components.css" layer(pimolu.components);

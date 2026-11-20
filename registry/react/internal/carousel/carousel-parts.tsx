@@ -306,7 +306,13 @@ export function CarouselThumbnail({
       data-active={active ? "true" : "false"}
       onClick={() => carousel.goTo(index)}
     >
-      <img src={src} alt="" loading="lazy" draggable={false} />
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        draggable={false}
+        className={mergeClasses(carousel.parts.thumbnailImage, classNames?.thumbnailImage)}
+      />
     </button>
   );
 }

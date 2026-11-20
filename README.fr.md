@@ -2,7 +2,7 @@
 
 **Un design system qui tient ses promesses.** Une source unique de vérité visuelle, des thèmes et des styles interchangeables à l'exécution, et des composants React accessibles — sans framework de style à apprendre.
 
-[Documentation](https://pimolu.com/docs) · [Composants](https://pimolu.com/components) · [Showcase](https://pimolu.com/showcase) · [Dépôt](https://github.com/pimoludev/ui) · Licence MIT
+[Documentation](https://pimolu.com/docs) · [Composants](https://pimolu.com/components) · [Identity Kit](https://pimolu.com/identity-kit) · [Showcase](https://pimolu.com/showcase) · [Dépôt](https://github.com/pimoludev/ui) · Licence MIT
 
 [English](README.md) · **Français**
 
@@ -30,13 +30,13 @@ Le design system repose sur deux couches complémentaires. Un thème de couleurs
 
 | Preset | Caractère |
 | --- | --- |
-| `default` | Slate/indigo rétabli dans le workspace, avec la typographie et les formes actuelles |
+| `default` | Des neutres slate avec un primaire indigo : la palette de référence assumée, avec la typographie et les formes actuelles |
 | `monochrome` | Une palette grise et retenue |
 | `cartoon` | Des contours marqués et un rendu ludique |
 | `glass` | Des surfaces translucides et une profondeur douce |
 | `luxury` | Une typographie raffinée et des neutres chaleureux |
 | `neo-brutalism` | Des bordures franches, des ombres plates et un fort contraste |
-| `adaptive` | Une palette alternative disponible à la comparaison ; ce n'est pas le Default |
+| `adaptive` | Une palette alternative compatible, disponible aux côtés du Default |
 
 Le rayon (`sharp`, `medium`, `round`), la densité (`compact`, `comfortable`, `spacious`) et `brandColor` se configurent indépendamment avec `PimoluProvider`. La densité ajuste les dimensions des boîtes sans réduire le texte ni les icônes. Une couleur de marque personnalisée ne recalcule pas automatiquement le premier plan et ne garantit pas le contraste : vérifiez le texte obtenu, le survol et le focus.
 
@@ -113,10 +113,14 @@ Sur le web, importez la feuille de style générée et appliquez un thème et un
 @import "@pimolu/web-styles/layered.css";
 ```
 
-Avec Tailwind v4, déclarez d'abord l'ordre des couches pour que les utilitaires puissent surcharger Pimolu sans `!important` :
+`layered.css` déclare lui-même l'ordre : `theme`, `base`, `pimolu.tokens`,
+`pimolu.components`, `components`, `utilities`. Les tokens et les composants
+vivent dans des sous-couches distinctes. **Importez-le avant Tailwind**, ou
+déclarez le même ordre vous-même avant tout import : un framework qui a déjà
+déclaré ses couches fixe l'ordre, et le CSS ne peut plus le réordonner ensuite.
 
 ```css
-@layer theme, base, pimolu, components, utilities;
+@layer theme, base, pimolu.tokens, pimolu.components, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "@pimolu/web-styles/layered.css";
@@ -144,11 +148,13 @@ L'import CSS de l'exemple React est une alternative à `@import` dans la feuille
 
 Les tokens sont également disponibles en JSON et les données visuelles en JavaScript. Ces fondations préparent un futur rendu React Native ; Pimolu ne fournit pas encore de composants React Native. Le natif partagera les données de design avec son propre rendu, plutôt que les composants React DOM.
 
-Les guides d’intégration expliquent comment utiliser Pimolu UI avec Next.js. Un starter Next.js autonome sera maintenu dans un dépôt séparé.
+Les guides d’intégration expliquent comment utiliser Pimolu UI avec Next.js. Cinq intégrations indépendantes installent les packages publiés et fonctionnent hors de ce monorepo : le [starter Next.js](https://github.com/pimoludev/nextjs-starter), le [starter React + Vite](https://github.com/pimoludev/react-vite-starter), le [starter dashboard](https://github.com/pimoludev/dashboard-starter), [Project Workspace](https://saas-landing.pimolu.com/) et [Pimolu Headset](https://pimolu-headset.pimolu.com/). Le [showcase](https://pimolu.com/showcase) présente aussi MECANES, un site d'agence construit avec Pimolu UI.
 
 ## Personnalisation
 
 La bêta publiée comprend une entrée optionnelle `@pimolu/web-styles/layered.css` et des hooks de parties typés `classNames` sur les 136 familles, leurs sous-composants composés et leurs surfaces en portail. Les props publiques, les variables CSS sémantiques et les parties nommées permettent d'adapter les composants sans copier leur implémentation. Les anciennes entrées CSS et cibles de classes restent compatibles.
+
+`styles.css` reste l'entrée la plus simple. Pour ne charger que le nécessaire, importez `@pimolu/web-styles/tokens.css` puis les feuilles des familles utilisées, par exemple `@pimolu/web-styles/button.css`. Ne chargez jamais `styles.css` ou `layered.css` avec `tokens.css` ou `themes.css`.
 
 Choisissez `styles.css` ou `layered.css`, plutôt que de charger les deux. Avec Tailwind v4, placez Preflight dans la couche `base` avant `pimolu` ; avec l'entrée sans couche, chargez Pimolu après Preflight. Un portail peut se trouver hors du wrapper de votre application : utilisez les parties nommées pour styler le panneau réel. Consultez le [guide de personnalisation](https://pimolu.com/docs/customization) et le [contrat de personnalisation](docs/CUSTOMIZATION.md) pour les recettes testées et leurs limites.
 
@@ -194,13 +200,15 @@ pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 
 Retrouvez les cinq packages dans l'[organisation Pimolu sur npm](https://www.npmjs.com/org/pimolu).
 
-Le [site public](https://pimolu.com) comprend des guides, 136 références de composants interactives, un catalogue illustré avec recherche, des articles et releases en MDX et un showcase de projets réels. Son code Next.js App Router se trouve dans `apps/website`.
+Le [site public](https://pimolu.com) comprend des guides, 142 références de composants interactives, un catalogue illustré avec recherche, des articles et releases en MDX et un showcase de projets réels. Son code Next.js App Router se trouve dans `apps/website`.
 
 Le projet reste en bêta. Les API et tokens visuels peuvent évoluer ; les revues avec technologies d'assistance des composants complexes et l'audit visuel complet restent ouverts. Les contrôles navigateur automatisés ne constituent pas une garantie complète de conformité d'accessibilité. Consultez l'[audit qualité](docs/ai/QUALITY_AUDIT.md), l'[audit d'accessibilité du site](apps/website/ACCESSIBILITY_AUDIT.md) et le [changelog](CHANGELOG.md) pour la couverture et les limites.
 
 ## Direction visuelle et prochaines étapes
 
-Depuis **0.1.0-beta.8**, le Default publié utilise la palette **slate/indigo** rétablie : les couleurs précédentes de fond, surface, primaire, survol et statuts dans les deux modes, avec le texte secondaire clair assombri à `#607087` pour le contraste sur les surfaces atténuées. Les rôles DM Sans / Newsreader / IBM Plex Mono, les rayons, les espacements, les animations et les mises en page récents restent en place, tout comme `control-border` et les rôles d'accent doux. Cette palette remplace Ink & Signal dans Default sans ajouter de huitième preset. Lors d'une mise à jour depuis beta.7, vérifiez les couleurs, les rayons et la typographie dans votre application ; les autres presets nommés conservent leurs palettes. Le futur **Identity Kit** reste une proposition pour prolonger ThemeBuilder avec prévisualisation et export d'identité.
+Depuis **0.1.0-beta.8**, le Default publié utilise la palette **slate/indigo** : les couleurs précédentes de fond, surface, primaire, survol et statuts dans les deux modes, avec le texte secondaire clair assombri à `#607087` pour le contraste sur les surfaces atténuées. Les rôles DM Sans / Newsreader / IBM Plex Mono, les rayons, les espacements, les animations et les mises en page récents restent en place, tout comme `control-border` et les rôles d'accent doux. **C'est la direction Default assumée**, pas une solution provisoire : la palette Ink & Signal testée en beta.7 n'est pas adoptée et aucun huitième preset n'est ajouté. Lors d'une mise à jour depuis beta.7, vérifiez les couleurs, les rayons et la typographie dans votre application ; les autres presets nommés conservent leurs palettes.
+
+L'**Identity Kit** est disponible sur le site à l'adresse [pimolu.com/identity-kit](https://pimolu.com/identity-kit). Il part d'un preset, ajuste la couleur de marque, le rayon et la densité, prévisualise de vrais composants puis exporte des variables CSS et du JSON. C'est un outil du site dans le workspace source : il génère une surcharge pour votre application et n'ajoute pas une seconde API de thème aux packages publiés.
 
 Le Design Lab du playground propose de vraies compositions marketing, formulaire local avec validation et dashboard filtrable, accompagnées d'une référence beta.6 figée pour comparaison. La route locale facultative `/design-preview` est ignorée par Git et n'est pas nécessaire au build du site. Utilisez `--pimolu-control-border` pour les limites essentielles des champs et `--pimolu-border` pour les séparateurs décoratifs ; `--pimolu-primary-soft` et `--pimolu-primary-soft-foreground` définissent une surface d'accent discrète et sa couleur de texte. Ces rôles sont disponibles dans beta.8. Les revues humaines du design et avec technologies d'assistance restent ouvertes avant une version stable.
 

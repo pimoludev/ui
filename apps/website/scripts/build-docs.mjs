@@ -247,6 +247,7 @@ for (const entry of catalog.filter((entry) => !entry.documented)) {
 }
 
 index.push({ slug: "site/blocks", href: "/blocks", title: "Free Pimolu Blocks", description: "Real React compositions with interactive previews and copyable source.", group: "Blocks", keywords: ["blocks", "compositions", "free"] });
+index.push({ slug: "site/identity-kit", href: "/identity-kit", title: "Identity Kit", description: "Preview a Pimolu preset with a brand colour, radius and density, then export CSS variables or JSON.", group: "Identity", keywords: ["identity", "brand colour", "brand color", "preset", "radius", "density", "export", "css variables", "json", "theme builder"] });
 for (const block of blocks) {
   const labels = blockClassification(block);
   index.push({ slug: `blocks/${block.slug}`, href: `/blocks/${block.slug}`, title: block.title, description: block.description, group: "Blocks", keywords: [labels.category.label, labels.subcategory.label, ...block.components] });
@@ -254,15 +255,35 @@ for (const block of blocks) {
 
 // Named parts and consumed custom properties are derived from the public types
 // and the shared stylesheet, so a new part or token shows up without a second
-// hand-maintained list.
+// hand-maintained list. Relative @imports are followed: a family that shares
+// carousel-base.css must document the variables it actually consumes.
 const variablePattern = /var\(\s*(--pimolu-[a-z0-9-]+)/g;
+
+async function readStylesheetWithImports(file, seen = new Set()) {
+  if (seen.has(file)) return "";
+  seen.add(file);
+  let css = "";
+  try { css = await readFile(path.join(root, file), "utf8"); } catch { return ""; }
+  const directory = path.posix.dirname(file.replaceAll("\\", "/"));
+  const imports = [...css.matchAll(/@import\s+["']\.\/([^"']+)["']/g)].map((match) => path.posix.join(directory, match[1]));
+  const nested = await Promise.all(imports.map((item) => readStylesheetWithImports(item, seen)));
+  return [css, ...nested].join("\n");
+}
+
 for (const entry of catalog) {
   entry.parts = partsByFamily[entry.family] ?? [];
   entry.cssVariables = [];
   if (!entry.stylesheet) continue;
-  let css = "";
-  try { css = await readFile(path.join(root, entry.stylesheet), "utf8"); } catch { /* Optional stylesheet. */ }
-  entry.cssVariables = [...new Set([...css.matchAll(variablePattern)].map((match) => match[1]))].sort();
+  const css = await readStylesheetWithImports(entry.stylesheet);
+  // Two base-sheet variables only apply to their own family even though the
+  // shared file declares them for every carousel.
+  const familyOnly = {
+    "--pimolu-peek-slide-width": "peek-carousel",
+    "--pimolu-carousel-thumbnail-aspect-ratio": "thumbnail-carousel",
+  };
+  entry.cssVariables = [...new Set([...css.matchAll(variablePattern)].map((match) => match[1]))]
+    .filter((name) => !familyOnly[name] || familyOnly[name] === entry.family)
+    .sort();
 }
 
 await mkdir(output, { recursive: true });

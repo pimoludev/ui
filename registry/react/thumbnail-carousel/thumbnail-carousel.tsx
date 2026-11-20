@@ -18,6 +18,7 @@ export function ThumbnailCarousel({
   onIndexChange,
   labels,
   gap = 12,
+  showControlsOnMobile = true,
   "aria-label": ariaLabel,
   ...rest
 }: ThumbnailCarouselProps) {
@@ -29,6 +30,7 @@ export function ThumbnailCarousel({
         className
       )}
       data-effect="thumbnails"
+      data-controls-mobile={showControlsOnMobile ? undefined : "hidden"}
       {...rest}
     >
       <CarouselProvider

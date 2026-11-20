@@ -4,5 +4,11 @@
     "title": "Named-part customization",
     "description": "Apply local classes to the viewport, cards, controls and dots without replacing the built-in peek treatment or focus states.",
     "append": true
+  },
+  {
+    "file": "peek-carousel-custom-width.tsx",
+    "title": "Custom slide width",
+    "description": "slideWidth accepts any CSS length. A 320px card keeps more neighbours visible and hides the arrows on narrow screens while swiping stays available.",
+    "append": true
   }
 ]

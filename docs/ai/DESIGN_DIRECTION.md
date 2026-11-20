@@ -1,9 +1,10 @@
 # Pimolu design direction
 
-Status: **proposal for validation**, 2026-11-01. This document defines how
-Pimolu should be recognized and chosen, not how each component is implemented.
-It complements [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), [DENSITY.md](DENSITY.md),
-[QUALITY_AUDIT.md](QUALITY_AUDIT.md) and [ROADMAP.md](ROADMAP.md).
+Status: **adopted direction, 2026-11-20**. This document defines how Pimolu
+should be recognized and chosen, not how each component is implemented. It
+complements [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), [DENSITY.md](DENSITY.md),
+[QUALITY_AUDIT.md](QUALITY_AUDIT.md) and [ROADMAP.md](ROADMAP.md). The Default
+palette decision is closed in section 3.
 
 ## 1. Position
 
@@ -102,26 +103,26 @@ family, radius values, elevation and texture; they must not change the grammar.
    - Tables, schedulers, data grids and dashboards are first-class surfaces.
    - Compact must remain readable; it is not a smaller font.
 
-### Candidate Default direction: Ink & Signal
+### Default direction: decided
 
-The current Default (slate neutrals, indigo primary) is a safe compatibility
-baseline, but it is close to many SaaS systems. A candidate direction to
-validate is **Ink & Signal**:
+The Default keeps the **slate neutrals with an indigo primary** palette
+(`color.slate.*`, `color.indigo.600`). This is the committed reference direction,
+not a provisional baseline:
 
-- warm paper-like neutrals instead of default slate;
-- deep ink text and hairline structure;
-- one high-chroma signal accent for primary action and selection;
-- a restrained, editorial type hierarchy;
-- monospaced data voice;
-- shadows only for floating layers.
-
-This is a **candidate, not a token change**. Validate it on the full preset and
-component matrix before touching production tokens. A cooler alternative,
-**Mineral**, can be tested in parallel if the warm direction feels too editorial
-for data-heavy products.
+- beta.7 tested **Ink & Signal** (warm paper, deep ink, one signal accent); it
+  shipped as a preview and was deliberately reverted in beta.8;
+- the decision recorded on 2026-11-20 is to keep slate/indigo, with the current
+  DM Sans / Newsreader / IBM Plex Mono roles, radii, spacing and motion;
+- no eighth preset is added and **Mineral** is not pursued;
+- identity remains carried by the grammar above (type, hairlines, one signal,
+  causal motion, density that preserves legibility), not by a new hue.
 
 The Default must be the purest expression of the grammar. Presets are dialects,
-not separate languages.
+not separate languages. Brand differentiation belongs to `brandColor`, the
+radius and density axes, and the Identity Kit, not to another built-in palette.
+
+A future palette change is a new decision with a full preset-parity review; it
+is not an open question in this document.
 
 ### Anti-patterns
 
@@ -272,7 +273,8 @@ The positioning is credible only if it is measured.
 
 ### Two weeks
 
-- Validate the thesis and choose the Default candidate.
+- ~~Validate the thesis and choose the Default candidate.~~ Decision recorded:
+  slate/indigo stays the Default (2026-11-20).
 - Audit the current Default against the five signature moves.
 - Choose the three signature moves visible on every screen.
 - Rebuild the home page and one component page as a manifesto.
@@ -280,28 +282,29 @@ The positioning is credible only if it is measured.
 
 ### Six weeks
 
-- Ship an Identity Kit MVP with preview and CSS/JSON export.
+- ~~Ship an Identity Kit MVP with preview and CSS/JSON export.~~ Available at
+  `/identity-kit` in the website source workspace.
 - Add preset parity checks for the core controls.
 - Ship three product recipes: dashboard, settings, marketing.
-- Publish a “Why Pimolu” page that explains the difference in 30 seconds.
+- Publish a "Why Pimolu" page that explains the difference in 30 seconds.
 
 ### Three months
 
 - Prove the native data path with a small native surface.
 - Add Figma/Tailwind export if the MVP proves useful.
 - Publish an honest comparison and a community showcase.
-- Review whether the Default direction is distinctive without the logo.
+- Review whether the grammar is distinctive without the logo.
 
 ## 10. Open decisions
 
 | Decision | Options | Recommendation | Status |
 | --- | --- | --- | --- |
-| Default palette | Current slate/indigo, Ink & Signal, Mineral | Test Ink & Signal first | Open |
-| Type pairing | Humanist sans, geometric sans, editorial serif display | Choose one pairing and keep roles stable | Open |
-| Shape family | Soft, precise, mixed by preset | Three radius roles; values per preset | Open |
-| Signature component | ThemeBuilder, Command, DataGrid, Scheduler | ThemeBuilder / Identity Kit | Open |
+| Default palette | Keep slate/indigo, Ink & Signal, Mineral | Keep slate/indigo; re-evaluate only with a full parity review | Decided 2026-11-20 |
+| Type pairing | Humanist sans, geometric sans, editorial serif display | Keep the current DM Sans / Newsreader / IBM Plex Mono roles | Decided 2026-11-20 |
+| Shape family | Soft, precise, mixed by preset | Three radius roles; values per preset | Keep |
+| Signature component | ThemeBuilder, Command, DataGrid, Scheduler | ThemeBuilder / Identity Kit | Identity Kit MVP shipped |
 | Native first surface | Tokens only, settings form, dashboard | Tokens plus one real screen | Open |
-| Preset count | Keep seven, consolidate, add more | Keep seven until parity is proven | Open |
+| Preset count | Keep seven, consolidate, add more | Keep seven until parity is proven | Decided: seven |
 
 ## 11. Decision filter
 

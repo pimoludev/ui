@@ -6,9 +6,10 @@ accessibility review as complete.
 
 ## Playground and visual coverage
 
-- The router currently has **131 pages**. The generated CSS and presets expose
+- The router currently has **138 pages** (136 component families plus Overview,
+  Design Lab and ThemeBuilder). The generated CSS and presets expose
   **seven** styles: default, adaptive, cartoon, glass, luxury, monochrome and
-  neo-brutalism. Keep adaptive during this review.
+  neo-brutalism.
 - A Chromium smoke scan mounted the **113 routes present at the time** and
   performed **2,147 layout checks**: every style in light/dark at 1440 px, plus
   default forced colors, reduced motion and RTL at 1440 px, and default
@@ -17,6 +18,11 @@ accessibility review as complete.
   components added afterwards still need the same scan. This scan did **not**
   judge contrast, spacing, motion, keyboard behavior or individual component
   overflow.
+- `e2e/preset-parity.spec.ts` mounts all 142 component references in seven
+  presets × light/dark at 1440 px and 390 px in Chromium, and
+  `pnpm --dir apps/website audit:presets` records the complete matrix on demand.
+  It checks page-level overflow, hydration errors and runtime exceptions only;
+  contrast, spacing, motion and per-component overflow remain manual.
 - The DashboardLayout collapsed sidebar was inspected at desktop and mobile
   widths. A contact sheet covers its seven presets in light/dark. The rail now
   keeps navigable shortcuts visible at desktop width; mobile uses an opening

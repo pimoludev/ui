@@ -1,1 +1,38 @@
-{}
+{
+  "alert": {
+    "kind": "updated",
+    "description": "Descriptions mix the muted tone with the foreground so they meet AA contrast on tinted alert surfaces."
+  },
+  "arc-carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation."
+  },
+  "carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage and showControlsOnMobile hides them below 640px."
+  },
+  "code-block": {
+    "kind": "updated",
+    "description": "The code surface uses a grid by default so newline text nodes no longer add a blank line outside the documentation layout. Numeric syntax tokens also meet AA contrast."
+  },
+  "coverflow-carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation."
+  },
+  "multi-carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports; slideAppearance=\"plain\" lets an application card own its frame and hover transform."
+  },
+  "peek-carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports; slideWidth sets a custom card width."
+  },
+  "stack-carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation."
+  },
+  "thumbnail-carousel": {
+    "kind": "updated",
+    "description": "Controls center on the visible stage, thumbnails crop to a uniform aspect ratio, and classNames.thumbnailImage targets the actual image."
+  }
+}

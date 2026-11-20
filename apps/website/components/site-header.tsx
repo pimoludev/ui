@@ -15,6 +15,7 @@ const navigation = [
   { href: "/components", label: "Components" },
   { href: "/blocks", label: "Blocks" },
   { href: "/showcase", label: "Showcase" },
+  { href: "/identity-kit", label: "Identity Kit" },
 ];
 
 export function SiteHeader() {

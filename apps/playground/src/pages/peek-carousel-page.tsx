@@ -124,6 +124,30 @@ function LocalizedGallery() {
   );
 }
 
+function NarrowGallery() {
+  return (
+    <PeekCarousel
+      aria-label="Narrow peek gallery"
+      loop
+      defaultIndex={1}
+      slideWidth="min(320px, 78vw)"
+      showControlsOnMobile={false}
+    >
+      <CarouselContent>
+        {slides.map((slide, index) => (
+          <CarouselSlide key={slide.title}>
+            <Slide index={index} />
+          </CarouselSlide>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+      <CarouselDots />
+      <CarouselLiveRegion />
+    </PeekCarousel>
+  );
+}
+
 function CustomizedParts() {
   return (
     <>
@@ -198,6 +222,10 @@ export function PeekCarouselPage() {
 
       <Section title="Editorial cards" hint="A wider gap and a different starting card change the rhythm without changing the engine.">
         <Gallery defaultIndex={1} gap={24} />
+      </Section>
+
+      <Section title="Custom slide width" hint="slideWidth sets the card width as a CSS length; 320px keeps more neighbours visible without touching the engine.">
+        <NarrowGallery />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

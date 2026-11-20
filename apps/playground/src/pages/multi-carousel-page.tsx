@@ -125,6 +125,41 @@ function LocalizedGallery() {
   );
 }
 
+function PlainGallery() {
+  return (
+    <MultiCarousel
+      aria-label="Plain application cards"
+      loop
+      slidesPerView={3}
+      slideAppearance="plain"
+      showControlsOnMobile={false}
+    >
+      <CarouselContent>
+        {slides.map((slide, index) => (
+          <CarouselSlide key={slide.title}>
+            <div
+              className="pg-panel"
+              style={{
+                border: "1px solid var(--pimolu-border)",
+                borderRadius: "var(--pimolu-radius-lg)",
+                background: "var(--pimolu-surface)",
+                padding: 16,
+                transition: "transform 180ms ease",
+              }}
+            >
+              <Slide index={index} />
+            </div>
+          </CarouselSlide>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+      <CarouselDots />
+      <CarouselLiveRegion />
+    </MultiCarousel>
+  );
+}
+
 function CustomizedParts() {
   return (
     <>
@@ -200,6 +235,10 @@ export function MultiCarouselPage() {
 
       <Section title="Two-column layout" hint="A narrower composition for comparison pages and compact sidebars.">
         <Gallery defaultIndex={1} slidesPerView={2} gap={20} />
+      </Section>
+
+      <Section title="Plain application cards" hint="slideAppearance removes the built-in frame so each product card owns its border and hover transform; arrows are hidden below 640px and swiping remains.">
+        <PlainGallery />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

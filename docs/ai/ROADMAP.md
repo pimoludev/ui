@@ -6,7 +6,7 @@ date nor a feature that is already delivered. The general platform sequence
 in [PLATFORM_ROADMAP.md](PLATFORM_ROADMAP.md).
 
 1. **Stabilise what exists.** Track the verified work and the remaining
-   page-by-page review in [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Check the 131
+   page-by-page review in [QUALITY_AUDIT.md](QUALITY_AUDIT.md). Check the 138
    Playground pages in light/dark and the seven presets, then complete the
    complex-component accessibility cases, forced colors, reduced motion and RTL.
 2. **Fix the design system contracts.** Document the public tokens, check
