@@ -49,11 +49,21 @@ function Slide({ index }: { index: number }) {
   );
 }
 
-function Gallery({ defaultIndex = 0, slidesPerView = 3, gap }: { defaultIndex?: number; slidesPerView?: number; gap?: number }) {
+function Gallery({
+  defaultIndex = 0,
+  slidesPerView = 3,
+  gap,
+  limit = slides.length,
+}: {
+  defaultIndex?: number;
+  slidesPerView?: number;
+  gap?: number;
+  limit?: number;
+}) {
   return (
     <MultiCarousel aria-label="Multi item gallery" loop defaultIndex={defaultIndex} slidesPerView={slidesPerView} gap={gap}>
       <CarouselContent>
-        {slides.map((slide, index) => (
+        {slides.slice(0, limit).map((slide, index) => (
           <CarouselSlide key={slide.title}>
             <Slide index={index} />
           </CarouselSlide>
@@ -64,6 +74,40 @@ function Gallery({ defaultIndex = 0, slidesPerView = 3, gap }: { defaultIndex?: 
       <CarouselDots />
       <CarouselLiveRegion />
     </MultiCarousel>
+  );
+}
+
+function FilteredGallery() {
+  const [limit, setLimit] = useState(1);
+  const [columns, setColumns] = useState(3);
+  return (
+    <div className="pg-stack">
+      <div className="pg-row" role="group" aria-label="Available products">
+        {[1, 2, slides.length].map((count) => (
+          <Button
+            key={count}
+            variant={count === limit ? "primary" : "secondary"}
+            aria-pressed={count === limit}
+            onClick={() => setLimit(count)}
+          >
+            {`${count} ${count === 1 ? "product" : "products"}`}
+          </Button>
+        ))}
+      </div>
+      <div className="pg-row" role="group" aria-label="Cards per view">
+        {[3, 4].map((value) => (
+          <Button
+            key={value}
+            variant={value === columns ? "primary" : "secondary"}
+            aria-pressed={value === columns}
+            onClick={() => setColumns(value)}
+          >
+            {`${value} columns`}
+          </Button>
+        ))}
+      </div>
+      <Gallery limit={limit} slidesPerView={columns} />
+    </div>
   );
 }
 
@@ -239,6 +283,10 @@ export function MultiCarouselPage() {
 
       <Section title="Plain application cards" hint="slideAppearance removes the built-in frame so each product card owns its border and hover transform; arrows are hidden below 640px and swiping remains.">
         <PlainGallery />
+      </Section>
+
+      <Section title="Filtered product rail" hint="Switch between three and four columns, then filter the products. Cards keep their column width; the rail centres them and removes navigation when everything fits.">
+        <FilteredGallery />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

@@ -1,5 +1,18 @@
 # Audit technique d’accessibilité — 21 octobre 2026
 
+## Galeries à une page et restauration du focus — 25 novembre 2026
+
+Les variantes de carrousel ne rendent plus de flèches ni de pagination quand une
+seule page est atteignable. Les démos MultiCarousel incluent
+`CarouselLiveRegion`, qui annonce la page courante lorsque la pagination change.
+Quand un redimensionnement supprime la commande qui avait le focus, le focus
+revient au viewport du carrousel ; le test Playwright le vérifie dans Chromium,
+Firefox et WebKit.
+
+Limite : la navigation reste rendue côté client après mesure ; le HTML serveur
+ne contient pas les flèches et les points. Les lecteurs d'écran et le clavier
+restent à vérifier sur les compositions réelles, pas seulement sur la démo.
+
 ## Contraste des surfaces teintées et Identity Kit — 20 novembre 2026
 
 L'Identity Kit a révélé deux contrastes insuffisants que les audits précédents ne

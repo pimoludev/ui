@@ -4,6 +4,20 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+- EN: MultiCarousel keeps every card at its `slidesPerView` column width after
+  filtering. When one or two cards fit, the rail centres them and renders no
+  arrows or pagination. Navigation returns when the track overflows again, and
+  the uncontrolled active page resets to the nearest valid page when a filter or
+  resize removes it. Single-slide carousel galleries omit their navigation, and
+  the base Carousel omits the autoplay button for one slide.
+- FR : MultiCarousel conserve la largeur de colonne `slidesPerView` après un
+  filtre. Quand une ou deux cartes tiennent, le rail les centre et n'affiche ni
+  flèches ni pagination. Les commandes reviennent dès que la piste déborde, et
+  la page active non contrôlée revient à la page valide la plus proche quand un
+  filtre ou un redimensionnement la supprime. Les galeries à une seule slide
+  omettent leur navigation, et le Carousel de base omet le bouton de lecture
+  automatique pour une slide.
+
 - EN: `layered.css` now declares `theme, base, pimolu.tokens, pimolu.components,
   components, utilities` before importing, and splits tokens from component
   rules. Import it before Tailwind, or declare the same order first: a framework

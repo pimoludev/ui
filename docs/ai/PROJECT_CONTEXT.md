@@ -405,3 +405,15 @@ reference follows relative stylesheet imports, so shared carousel variables are
 documented on every family. The stale "not yet published on npm" copy for the six
 carousels and Modal is corrected. DropdownMenu/Drawer triggers already forward
 `tabIndex` and add keyboard focus in beta.9; no change was needed.
+
+## MultiCarousel one-page rails (2026-11-25)
+
+MultiCarousel measures its reachable pages from the DOM after mount and on
+mutation/resize. With `slidesPerView={3}` or `{4}`, cards keep the flex-basis
+column width; when one or two cards fit, the viewport centres them and the
+control parts return `null`. A second reachable page restores arrows, dots and
+the live region. The uncontrolled index clamps to the nearest valid page when a
+filter or resize removes it, and focus moves to the viewport when a focused
+control disappears. Other families omit navigation at one page; the base
+Carousel omits autoplay controls for one slide. Tests: carousel-families unit
+coverage and `e2e/carousel-controls.spec.ts` across three engines.

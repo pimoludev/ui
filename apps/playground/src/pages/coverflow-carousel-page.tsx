@@ -52,11 +52,11 @@ function Slide({ index }: { index: number }) {
   );
 }
 
-function Gallery({ defaultIndex = 0, gap }: { defaultIndex?: number; gap?: number }) {
+function Gallery({ defaultIndex = 0, gap, limit = slides.length }: { defaultIndex?: number; gap?: number; limit?: number }) {
   return (
     <CoverflowCarousel aria-label="Coverflow gallery" loop defaultIndex={defaultIndex} gap={gap}>
       <CarouselContent>
-        {slides.map((slide, index) => (
+        {slides.slice(0, limit).map((slide, index) => (
           <CarouselSlide key={slide.title}>
             <Slide index={index} />
           </CarouselSlide>
@@ -201,6 +201,10 @@ export function CoverflowCarouselPage() {
 
       <Section title="Editorial covers" hint="A wider gap separates the cards and the third cover is selected initially.">
         <Gallery defaultIndex={2} gap={24} />
+      </Section>
+
+      <Section title="Single slide" hint="The card stays visible. With one slide, the gallery omits navigation and pagination.">
+        <Gallery limit={1} />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

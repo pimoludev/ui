@@ -5,6 +5,14 @@
   scroll-snap-type: x mandatory;
 }
 
+.pimolu-multi-carousel .pimolu-carousel__viewport[data-scroll="true"] {
+  justify-content: safe center;
+}
+
+.pimolu-multi-carousel .pimolu-carousel__viewport[data-scroll="true"] > .pimolu-carousel__slide {
+  flex-grow: 0;
+}
+
 .pimolu-multi-carousel .pimolu-carousel__slide {
   border-radius: calc(var(--pimolu-radius-lg, 14px) + 2px);
   border: 1px solid var(--pimolu-border);
@@ -26,8 +34,7 @@
 @media (max-width: 640px) {
   .pimolu-multi-carousel
     .pimolu-carousel__viewport[data-scroll="true"]
-    .pimolu-carousel__slide {
-    flex-basis: min(280px, 78vw);
-    min-width: min(280px, 78vw);
+    > .pimolu-carousel__slide {
+    min-width: min(280px, 78%);
   }
 }

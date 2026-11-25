@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { mergeClasses } from "../merge-classes";
 import {
   useCarousel,
@@ -73,7 +67,7 @@ export function CarouselContent({
 
   return (
     <div
-      ref={carousel.trackRef}
+      ref={carousel.setTrack}
       className={mergeClasses(
         "pimolu-carousel__viewport",
         carousel.parts.viewport,
@@ -114,21 +108,13 @@ export function CarouselSlide({
   style?: CSSProperties;
 }) {
   const carousel = useCarousel("CarouselSlide");
-  const nodeRef = useRef<HTMLDivElement | null>(null);
-  const [slot, setSlot] = useState<number | null>(null);
-
-  useEffect(() => {
-    const registration = carousel.registerSlide(nodeRef.current);
-    setSlot(registration.index);
-    return registration.unregister;
-  }, [carousel.registerSlide]);
-
-  const index = slot ?? 0;
+  const [node, setNode] = useState<HTMLDivElement | null>(null);
+  const index = node ? Math.max(0, carousel.slides.indexOf(node)) : 0;
   const active = index === carousel.index;
 
   return (
     <div
-      ref={nodeRef}
+      ref={setNode}
       className={mergeClasses(
         "pimolu-carousel__slide",
         carousel.parts.slide,
@@ -169,6 +155,7 @@ export function CarouselPrevious({
   classNames?: CarouselClassNames;
 }) {
   const carousel = useCarousel("CarouselPrevious");
+  if (carousel.pageCount <= 1) return null;
   return (
     <button
       type="button"
@@ -195,6 +182,7 @@ export function CarouselNext({
   classNames?: CarouselClassNames;
 }) {
   const carousel = useCarousel("CarouselNext");
+  if (carousel.pageCount <= 1) return null;
   return (
     <button
       type="button"
@@ -221,6 +209,7 @@ export function CarouselDots({
   classNames?: CarouselClassNames;
 }) {
   const carousel = useCarousel("CarouselDots");
+  if (carousel.pageCount <= 1) return null;
   return (
     <div
       className={mergeClasses(
@@ -261,6 +250,7 @@ export function CarouselThumbnails({
   classNames?: CarouselClassNames;
 }) {
   const carousel = useCarousel("CarouselThumbnails");
+  if (carousel.count <= 1) return null;
   return (
     <div
       className={mergeClasses(
@@ -339,7 +329,7 @@ export function CarouselLiveRegion({
       )}
       aria-live="polite"
     >
-      {carousel.count ? `${carousel.index + 1} / ${carousel.count}` : ""}
+      {carousel.pageCount > 1 ? `${carousel.index + 1} / ${carousel.pageCount}` : ""}
     </p>
   );
 }

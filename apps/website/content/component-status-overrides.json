@@ -5,11 +5,11 @@
   },
   "arc-carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation."
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation. Single-slide galleries omit arrows and pagination."
   },
   "carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage and showControlsOnMobile hides them below 640px."
+    "description": "Controls center on the visible stage and showControlsOnMobile hides them below 640px. Single-slide galleries also omit the autoplay button."
   },
   "code-block": {
     "kind": "updated",
@@ -17,22 +17,22 @@
   },
   "coverflow-carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation."
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation. Single-slide galleries omit arrows and pagination."
   },
   "multi-carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage and can be hidden on narrow viewports; slideAppearance=\"plain\" lets an application card own its frame and hover transform."
+    "description": "Product cards retain their column width and centre when they fit. Arrows and pagination appear only when the rail has a second reachable page, and the active page resets when the current one disappears."
   },
   "peek-carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage and can be hidden on narrow viewports; slideWidth sets a custom card width."
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports; slideWidth sets a custom card width. Single-slide galleries omit arrows and pagination."
   },
   "stack-carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation."
+    "description": "Controls center on the visible stage and can be hidden on narrow viewports without removing swipe navigation. Single-slide galleries omit arrows and pagination."
   },
   "thumbnail-carousel": {
     "kind": "updated",
-    "description": "Controls center on the visible stage, thumbnails crop to a uniform aspect ratio, and classNames.thumbnailImage targets the actual image."
+    "description": "Controls center on the visible stage, thumbnails crop to a uniform aspect ratio, and classNames.thumbnailImage targets the actual image. A single image omits arrows and thumbnails."
   }
 }

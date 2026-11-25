@@ -471,6 +471,7 @@ export const Carousel = forwardRef<
 
   const canGoPrevious = loop || currentIndex > 0;
   const canGoNext = loop || currentIndex < count - 1;
+  const showPlayback = autoPlay && showPauseControl && count > 1;
 
   return scopeParts((
     <div
@@ -563,7 +564,7 @@ export const Carousel = forwardRef<
       )}
 
       {((showDots && count > 1) ||
-        (autoPlay && showPauseControl)) && (
+        showPlayback) && (
         <div className={mergeClasses("pimolu-carousel__footer", partClasses.footer)}>
           {showDots && count > 1 && (
             <div
@@ -596,7 +597,7 @@ export const Carousel = forwardRef<
             </div>
           )}
 
-          {autoPlay && showPauseControl && (
+          {showPlayback && (
             <button
               type="button"
               className={mergeClasses("pimolu-carousel__autoplay", partClasses.autoplay)}

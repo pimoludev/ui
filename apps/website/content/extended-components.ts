@@ -718,7 +718,8 @@ export const extendedComponents = [
     "usage": [
       "Keep navigation explicit; autoplay must be optional and pauseable when enabled. Touch swipes, dots and controls stay synchronized in RTL; horizontal arrow keys mirror the reading direction.",
       "Carousel is the simple entry point and owns autoplay, pause, dots and controls. The six carousel families focus on layout and intentionally omit autoplay; compose your own timer there, or choose Carousel for a straightforward gallery.",
-      "showControlsOnMobile={false} hides the arrows below 640px when a swipe-first layout is enough; dots and the keyboard remain. Arrows centre on the visible viewport rather than the footer row."
+      "showControlsOnMobile={false} hides the arrows below 640px when a swipe-first layout is enough; dots and the keyboard remain. Arrows centre on the visible viewport rather than the footer row.",
+      "The current workspace also omits the autoplay button when there is only one slide."
     ],
     "accessibility": [
       "Test previous/next and slide announcements, and respect reduced-motion preferences."
@@ -735,6 +736,7 @@ export const extendedComponents = [
       "Compose ThumbnailCarousel with CarouselContent, CarouselSlide, CarouselPrevious, CarouselNext, CarouselThumbnails and CarouselThumbnail. The rail and the arrow keys use the same engine state.",
       "Pass loop, index/defaultIndex and onIndexChange like the other families. gap controls the slide spacing; the thumbnail rail keeps its own compact spacing.",
       "Thumbnail images use a 1 / 1 crop by default, adjustable with --pimolu-carousel-thumbnail-aspect-ratio, so mixed source ratios keep a uniform rail. classNames.thumbnailImage targets the image; classNames.thumbnail remains the button.",
+      "In the current workspace, a single image renders without arrows or a thumbnail rail.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
@@ -752,6 +754,7 @@ export const extendedComponents = [
     "usage": [
       "CoverflowCarousel positions every slide from the active index instead of scrolling a track. Use CarouselContent, CarouselSlide and the shared controls.",
       "The active card keeps focus and pointer events; cards beyond the immediate neighbours are inert to pointer input. loop and onIndexChange follow the shared contract.",
+      "In the current workspace, a single slide renders without arrows or pagination.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
@@ -770,6 +773,7 @@ export const extendedComponents = [
       "PeekCarousel keeps a scroll-snap rail while the active card is centred. Use CarouselSlide for each card and the shared controls for navigation.",
       "The family defaults to centred alignment and a compact slide width, so the next and previous cards stay visible. gap controls the space between cards.",
       "slideWidth accepts any CSS length, for example min(320px, 78vw), when the default peeking card is too wide. showControlsOnMobile={false} hides the arrows below 640px.",
+      "In the current workspace, a single slide renders without arrows or pagination.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
@@ -787,6 +791,7 @@ export const extendedComponents = [
     "usage": [
       "StackCarousel positions every slide from the active index. Compose CarouselContent, CarouselSlide, the shared controls and CarouselDots.",
       "The stack re-orders around the active index; cards further away fade and stop receiving pointer events. loop keeps the deck continuous.",
+      "In the current workspace, a single slide renders without arrows or pagination.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
@@ -804,6 +809,7 @@ export const extendedComponents = [
     "usage": [
       "ArcCarousel fans the cards around the active index. Use CarouselContent, CarouselSlide and the shared controls; gap changes the card spacing.",
       "Below 640px the outer cards leave the stage and the active pair remains visible. The active card stays upright and closest to the viewer.",
+      "In the current workspace, a single slide renders without arrows or pagination.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
@@ -821,12 +827,14 @@ export const extendedComponents = [
     "usage": [
       "MultiCarousel shows slidesPerView cards at once. Use CarouselContent, CarouselSlide and the shared controls for paging.",
       "The track keeps one active index while several cards remain visible. gap controls the space between cards; loop wraps the page navigation.",
+      "In the current workspace, a product rail with slidesPerView={3} or {4} keeps each card at its column width on wide screens, even after a filter leaves only one or two products. The cards centre as a group when they fit.",
+      "Arrows and pagination appear only when the rail has a reachable second page. They update when the container resizes or products are added or removed, and the active page resets to the nearest valid page when the current one disappears. Remove any local flex-grow workaround after upgrading to a release that includes this fix.",
       "slideAppearance=\"plain\" removes the built-in slide border, background and clipping when each application card owns its frame and hover transform. showControlsOnMobile={false} hides the arrows below 640px; swipe, dots and the keyboard remain.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
     "accessibility": [
       "Verify that the visible page, dots and previous/next controls describe the same selection at every viewport width.",
-      "Keep focus inside the visible track and test the layout at narrow widths where a multi-column page can become cramped."
+      "Focus the viewport to use the arrow keys, Home and End. When resizing removes a focused navigation button, focus moves to the viewport."
     ]
   },
   {

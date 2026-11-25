@@ -309,6 +309,16 @@ describe("Pimolu Carousel", () => {
     ).toBeNull();
   });
 
+  it("omits the autoplay control when only one slide exists", () => {
+    render(
+      <Carousel autoPlay>
+        <div>Only slide</div>
+      </Carousel>
+    );
+
+    expect(screen.queryByRole("button", { name: /autoplay/i })).not.toBeInTheDocument();
+  });
+
   it("advances automatically, pauses on hover and respects reduced motion", () => {
     vi.useFakeTimers();
 

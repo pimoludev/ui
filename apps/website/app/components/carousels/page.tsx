@@ -55,7 +55,7 @@ const choices = [
   {
     need: "Several cards per page",
     family: "multi-carousel",
-    why: "A paged scroll-snap track with a readable mobile width.",
+    why: "A scroll-snap rail that keeps column widths stable after filtering.",
   },
 ] as const;
 
@@ -157,6 +157,11 @@ export default function CarouselsOverview() {
           out: compose your own timer when a layout needs it. All seven
           references use the same keyboard model, slide labels and reduced-motion
           behaviour.
+        </p>
+        <p className="max-w-3xl text-sm text-muted">
+          In the current workspace, single-slide galleries omit navigation.
+          <Link href="/components/multi-carousel"> MultiCarousel</Link> also
+          hides its navigation when all cards fit and restores it on overflow.
         </p>
       </section>
 

@@ -34,7 +34,8 @@ export interface MultiCarouselProps
 
   /**
    * Preferred number of slides visible at once. Narrow layouts keep a readable
-   * card width and may show fewer. Defaults to 3.
+   * card width and may show fewer. Cards retain their width when the rail
+   * contains fewer slides. Defaults to 1.
    */
   slidesPerView?: number;
 

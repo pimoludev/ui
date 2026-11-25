@@ -5,12 +5,13 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
   type KeyboardEvent,
   type ReactNode,
-  type RefObject,
+  type RefCallback,
 } from "react";
 
 export type CarouselEffect =
@@ -77,11 +78,11 @@ interface CarouselContextValue {
   labels: CarouselLabels;
   label?: string;
   parts: Partial<Record<CarouselPartNames, string>>;
-  trackRef: RefObject<HTMLDivElement | null>;
+  setTrack: RefCallback<HTMLDivElement>;
+  slides: HTMLElement[];
   goTo: (index: number) => void;
   next: () => void;
   previous: () => void;
-  registerSlide: (node: HTMLElement | null) => { index: number; unregister: () => void };
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   onScroll: () => void;
 }
@@ -109,6 +110,35 @@ export interface CarouselProviderProps {
   parts?: Partial<Record<CarouselPartNames, string>>;
 }
 
+function getTrackSlides(track: HTMLElement) {
+  return Array.from(track.children).filter((child): child is HTMLElement =>
+    child instanceof HTMLElement && child.classList.contains("pimolu-carousel__slide"),
+  );
+}
+
+function getSlideOffset(slide: HTMLElement, first: HTMLElement, rtl: boolean) {
+  const start = slide.getBoundingClientRect();
+  const origin = first.getBoundingClientRect();
+  return rtl ? origin.right - start.right : start.left - origin.left;
+}
+
+/** useLayoutEffect warns during SSR; effects do not run there anyway. */
+const useIsomorphicLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+function measureMultiPages(track: HTMLElement, slides: HTMLElement[]) {
+  if (slides.length <= 1) return 1;
+  if (!track.clientWidth || !slides[0].offsetWidth) return undefined;
+
+  const scrollRange = track.scrollWidth - track.clientWidth;
+  if (scrollRange <= 1) return 1;
+
+  const rtl = getComputedStyle(track).direction === "rtl";
+  // Multiple slide starts can resolve to the same end-of-track scroll position.
+  const lastPage = slides.findIndex((slide) => getSlideOffset(slide, slides[0], rtl) >= scrollRange - 1);
+  return lastPage === -1 ? slides.length : lastPage + 1;
+}
+
 export function CarouselProvider({
   effect,
   children,
@@ -124,24 +154,29 @@ export function CarouselProvider({
   parts = {},
 }: CarouselProviderProps) {
   const [internalIndex, setInternalIndex] = useState(defaultIndex);
-  const [count, setCount] = useState(0);
-  const [visibleSlides, setVisibleSlides] = useState(() => Math.max(1, Math.floor(slidesPerView) || 1));
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const slides = useRef<HTMLElement[]>([]);
+  const [track, setTrack] = useState<HTMLDivElement | null>(null);
+  const [slides, setSlides] = useState<HTMLElement[]>([]);
+  const [measuredPageCount, setMeasuredPageCount] = useState<number>();
   const scrollTimerRef = useRef<number | null>(null);
   const mergedLabels = useMemo(() => ({ ...defaultCarouselLabels, ...labels }), [labels]);
 
-  /*
-   * MultiCarousel shows several slides at once. Its pagination is therefore
-   * the number of reachable starting slides, not the number of slides. The
-   * stylesheet may show fewer cards on a narrow viewport, so measure the
-   * actual visible count instead of trusting the prop alone.
-   */
-  const perView = effect === "multi"
-    ? Math.max(1, Math.min(visibleSlides, count || 1))
-    : 1;
-  const pageCount = Math.max(1, count - perView + 1);
+  const count = track ? slides.length : 0;
+  const fallbackPages = count - Math.max(1, Math.floor(slidesPerView) || 1) + 1;
+  const pageCount = count <= 1 ? 1 : Math.max(1, effect === "multi" ? measuredPageCount ?? fallbackPages : count);
   const index = Math.min(Math.max(controlledIndex ?? internalIndex, 0), pageCount - 1);
+  const canNavigate = pageCount > 1;
+
+  /*
+   * A filter or a narrower layout can remove the page that owned the
+   * uncontrolled index. Clamp it once the new page count is known so a later
+   * growth cannot restore a page the user could not see in between.
+   */
+  useEffect(() => {
+    if (!track || count === 0) return;
+    if (internalIndex > pageCount - 1) {
+      setInternalIndex(Math.max(0, pageCount - 1));
+    }
+  }, [count, internalIndex, pageCount, track]);
 
   const clamp = useCallback((next: number, total: number) => {
     if (!total) return 0;
@@ -151,80 +186,60 @@ export function CarouselProvider({
 
   const commit = useCallback((next: number) => {
     const safe = clamp(next, pageCount);
+    if (safe === index) return;
     if (controlledIndex === undefined) setInternalIndex(safe);
     onIndexChange?.(safe);
-  }, [clamp, controlledIndex, onIndexChange, pageCount]);
+  }, [clamp, controlledIndex, index, onIndexChange, pageCount]);
 
   const goTo = useCallback((next: number) => commit(next), [commit]);
   const next = useCallback(() => commit(index + 1), [commit, index]);
   const previous = useCallback(() => commit(index - 1), [commit, index]);
 
-  const registerSlide = useCallback((node: HTMLElement | null) => {
-    if (!node) {
-      return { index: 0, unregister: () => {} };
-    }
-    if (!slides.current.includes(node)) slides.current.push(node);
-    const slot = slides.current.indexOf(node);
-    setCount(slides.current.length);
-    return {
-      index: slot,
-      unregister: () => {
-        slides.current = slides.current.filter((item) => item !== node);
-        setCount(slides.current.length);
-      },
-    };
-  }, []);
-
-  useEffect(() => {
-    if (effect !== "multi") return;
-    setVisibleSlides(Math.max(1, Math.floor(slidesPerView) || 1));
-    const track = trackRef.current;
-    const first = slides.current[0];
-    if (!track || !first) return;
-    const measure = () => {
-      const trackWidth = track.clientWidth;
-      const slideWidth = first.getBoundingClientRect().width;
-      if (!trackWidth || !slideWidth) return;
-      const measured = Math.round((trackWidth + gap) / (slideWidth + gap));
-      setVisibleSlides(Math.max(1, Math.min(measured, Math.max(1, slides.current.length))));
-    };
-    measure();
-    if (typeof ResizeObserver === "undefined") {
-      window.addEventListener("resize", measure);
-      return () => window.removeEventListener("resize", measure);
-    }
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-    return () => observer.disconnect();
-  }, [count, effect, gap, slidesPerView]);
-
-  /*
-   * Centre the controls on the visible stage rather than on the root, which
-   * also contains the dots row. The host receives a pixel offset the CSS uses
-   * as `top`; without JavaScript or before measurement it falls back to 50%.
-   */
-  useEffect(() => {
-    const track = trackRef.current;
-    const host = track?.parentElement;
+  useIsomorphicLayoutEffect(() => {
+    const host = track?.closest<HTMLElement>(".pimolu-carousel-root") ?? track?.parentElement;
     if (!track || !host) return;
+    let items = getTrackSlides(track);
     const measure = () => {
       host.style.setProperty("--pimolu-carousel-controls-center", `${track.clientHeight / 2}px`);
+      const pages = effect === "multi" ? measureMultiPages(track, items) : items.length;
+      setMeasuredPageCount(pages);
+
+      if (pages !== undefined && pages <= 1) {
+        const focused = track.ownerDocument.activeElement;
+        const control = focused?.closest(
+          ".pimolu-carousel__control, .pimolu-carousel__dots, .pimolu-carousel__thumbnails",
+        );
+        if (control && host.contains(control)) {
+          track.focus({ preventScroll: true });
+        }
+      }
     };
-    measure();
-    if (typeof ResizeObserver === "undefined") {
-      window.addEventListener("resize", measure);
-      return () => {
-        window.removeEventListener("resize", measure);
-        host.style.removeProperty("--pimolu-carousel-controls-center");
-      };
-    }
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
+    const resizeObserver = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
+    const syncSlides = () => {
+      items = getTrackSlides(track);
+      setSlides((previous) =>
+        previous.length === items.length && previous.every((slide, index) => slide === items[index])
+          ? previous
+          : items,
+      );
+      resizeObserver?.disconnect();
+      resizeObserver?.observe(track);
+      if (effect === "multi") items.forEach((slide) => resizeObserver?.observe(slide));
+      measure();
+    };
+    // Use DOM order so keyed insertions, removals and reordering update slide labels and paging.
+    const mutations = new MutationObserver(syncSlides);
+    mutations.observe(track, { childList: true });
+    if (!resizeObserver) window.addEventListener("resize", measure);
+    syncSlides();
+
     return () => {
-      observer.disconnect();
+      mutations.disconnect();
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", measure);
       host.style.removeProperty("--pimolu-carousel-controls-center");
     };
-  }, [count]);
+  }, [effect, gap, slidesPerView, track]);
 
   /*
    * Only the scroll-based layouts move the viewport. Coverflow, stack and arc
@@ -233,24 +248,27 @@ export function CarouselProvider({
   const scrolls = effect === "slide" || effect === "thumbnails" || effect === "peek" || effect === "multi";
 
   useEffect(() => {
-    if (!scrolls) return;
-    const track = trackRef.current;
-    const slide = slides.current[index];
+    if (!scrolls || !canNavigate) return;
+    const slide = slides[index];
     if (!track || !slide) return;
-    const trackRect = track.getBoundingClientRect();
-    const slideRect = slide.getBoundingClientRect();
-    const left = align === "center"
-      ? track.scrollLeft + (slideRect.left + slideRect.width / 2) - (trackRect.left + track.clientWidth / 2)
-      : track.scrollLeft + (slideRect.left - trackRect.left);
+    const rtl = getComputedStyle(track).direction === "rtl";
+    const direction = rtl ? -1 : 1;
+    let left = direction * getSlideOffset(slide, slides[0], rtl);
+    if (align === "center") {
+      const trackRect = track.getBoundingClientRect();
+      const slideRect = slide.getBoundingClientRect();
+      left = track.scrollLeft + slideRect.left + slideRect.width / 2 - trackRect.left - track.clientWidth / 2;
+    }
+    left = direction * Math.min(Math.max(0, direction * left), track.scrollWidth - track.clientWidth);
     const behavior = typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ? "auto"
       : "smooth";
     if (typeof track.scrollTo === "function") {
-      track.scrollTo({ left: Math.max(0, left), behavior });
+      track.scrollTo({ left, behavior });
     } else {
-      track.scrollLeft = Math.max(0, left);
+      track.scrollLeft = left;
     }
-  }, [align, index, scrolls]);
+  }, [align, canNavigate, index, pageCount, scrolls, slides, track]);
 
   useEffect(() => {
     return () => {
@@ -258,26 +276,24 @@ export function CarouselProvider({
         window.clearTimeout(scrollTimerRef.current);
       }
     };
-  }, []);
+  }, [track, pageCount]);
 
   /* After a swipe, follow the slide that actually reached the alignment edge. */
   const onScroll = useCallback(() => {
-    if (!scrolls) return;
+    if (!track || !scrolls || !canNavigate) return;
     if (scrollTimerRef.current !== null) {
       window.clearTimeout(scrollTimerRef.current);
     }
     scrollTimerRef.current = window.setTimeout(() => {
-      const track = trackRef.current;
-      if (!track) return;
       const trackRect = track.getBoundingClientRect();
-      const target = align === "center"
-        ? trackRect.left + track.clientWidth / 2
-        : trackRect.left;
+      const rtl = getComputedStyle(track).direction === "rtl";
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const target = align === "center" ? trackRect.left + track.clientWidth / 2 : Math.abs(track.scrollLeft);
       let closest = 0;
       let closestDistance = Number.POSITIVE_INFINITY;
-      Array.from(track.children).forEach((node, slot) => {
+      slides.slice(0, pageCount).forEach((node, slot) => {
         const rect = node.getBoundingClientRect();
-        const point = align === "center" ? rect.left + rect.width / 2 : rect.left;
+        const point = align === "center" ? rect.left + rect.width / 2 : Math.min(getSlideOffset(node, slides[0], rtl), maxScroll);
         const distance = Math.abs(point - target);
         if (distance < closestDistance) {
           closest = slot;
@@ -286,22 +302,26 @@ export function CarouselProvider({
       });
       commit(closest);
     }, 120);
-  }, [align, commit, scrolls]);
+  }, [align, canNavigate, commit, pageCount, scrolls, slides, track]);
 
   const onKeyDown = useCallback((event: KeyboardEvent<HTMLElement>) => {
+    if (!canNavigate || event.defaultPrevented || event.target !== event.currentTarget) return;
     const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
-    if (event.key === "ArrowLeft") previous();
-    else if (event.key === "ArrowRight") next();
-    else if (event.key === "Home") goTo(0);
-    else goTo(pageCount - 1);
-  }, [goTo, next, pageCount, previous]);
+    if (event.key === "Home") goTo(0);
+    else if (event.key === "End") goTo(pageCount - 1);
+    else {
+      const rtl = getComputedStyle(event.currentTarget).direction === "rtl";
+      if ((event.key === "ArrowRight") !== rtl) next();
+      else previous();
+    }
+  }, [canNavigate, goTo, next, pageCount, previous]);
 
   const value = useMemo<CarouselContextValue>(() => ({
     index, count, pageCount, loop, effect, align, slidesPerView, gap,
-    labels: mergedLabels, label, parts, trackRef, goTo, next, previous, registerSlide, onKeyDown, onScroll,
-  }), [index, count, pageCount, loop, effect, align, slidesPerView, gap, mergedLabels, label, parts, goTo, next, previous, registerSlide, onKeyDown, onScroll]);
+    labels: mergedLabels, label, parts, setTrack, slides, goTo, next, previous, onKeyDown, onScroll,
+  }), [index, count, pageCount, loop, effect, align, slidesPerView, gap, mergedLabels, label, parts, slides, goTo, next, previous, onKeyDown, onScroll]);
 
   return <CarouselContext.Provider value={value}>{children}</CarouselContext.Provider>;
 }

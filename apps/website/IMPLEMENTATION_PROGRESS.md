@@ -1,5 +1,22 @@
 # Pimolu Website — État et vérifications
 
+## Galeries à une page et largeur MultiCarousel — 25 novembre 2026
+
+- `MultiCarousel` conserve la largeur de colonne `slidesPerView` après un filtre.
+  Quand une ou deux cartes tiennent dans le rail, le groupe est centré et les
+  flèches, points et région live sont absents. Dès que la piste déborde à
+  nouveau, la pagination et les flèches reviennent.
+- L'index non contrôlé revient à la page valide la plus proche quand un filtre
+  ou un redimensionnement supprime la page active ; il ne réapparaît pas quand
+  le rail grandit à nouveau. Le focus quitte une commande supprimée pour le
+  viewport.
+- Les autres variantes masquent aussi leurs commandes à une seule slide ; le
+  Carousel de base masque le bouton de lecture automatique à une seule slide.
+- La démo `plain application cards` propose 3 ou 4 colonnes, 1, 2 ou 5 produits
+  et inclut `CarouselLiveRegion`. Le playground expose les mêmes réglages.
+- Validation : 1 609 tests React, 51 tests de documentation, 5 tests Playwright
+  carrousel dans Chromium, Firefox et WebKit, build site de 474 pages.
+
 ## Correctifs carrousels, couches et documentation — 21 novembre 2026
 
 - `layered.css` déclare désormais l'ordre `theme, base, pimolu.tokens,

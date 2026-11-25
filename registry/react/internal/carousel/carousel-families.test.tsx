@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import {
   ArcCarousel,
   CarouselContent,
   CarouselDots,
+  CarouselLiveRegion,
   CarouselNext,
   CarouselPrevious,
   CarouselSlide,
@@ -131,6 +132,77 @@ describe("carousel families", () => {
       </PeekCarousel>
     );
     expect((peek.querySelector(".pimolu-peek-carousel") as HTMLElement).style.getPropertyValue("--pimolu-peek-slide-width")).toBe("min(320px, 78vw)");
+  });
+
+  it("hides navigation when a single page is reachable and restores it when the rail grows", async () => {
+    const railSlides = ["Atlas", "Prism", "Signal", "Orbit"];
+    function Rail({ count }: { count: number }) {
+      return (
+        <MultiCarousel aria-label="Filtered rail" slidesPerView={3}>
+          <CarouselContent>
+            {railSlides.slice(0, count).map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+          <CarouselDots />
+          <CarouselLiveRegion />
+        </MultiCarousel>
+      );
+    }
+
+    const { rerender } = render(<Rail count={4} />);
+    expect(screen.getByRole("button", { name: "Next slide" })).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: /Go to slide/ })).toHaveLength(2);
+
+    fireEvent.click(screen.getByRole("button", { name: "Next slide" }));
+    expect(screen.getAllByRole("button", { name: /Go to slide/ })[1]).toHaveAttribute("aria-current", "true");
+
+    rerender(<Rail count={2} />);
+    await waitFor(() => {
+      expect(screen.queryByRole("button", { name: "Next slide" })).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: "Previous slide" })).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /Go to slide/ })).not.toBeInTheDocument();
+    });
+    expect(screen.queryByText(/\d+ \/ \d+/)).not.toBeInTheDocument();
+    // Let the passive clamp effect settle before growing the rail again.
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    rerender(<Rail count={4} />);
+    await waitFor(() => expect(screen.getByRole("button", { name: "Next slide" })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getAllByRole("button", { name: /Go to slide/ })[0]).toHaveAttribute("aria-current", "true"));
+  });
+
+  it("omits the thumbnail rail for a single image", () => {
+    render(
+      <ThumbnailCarousel aria-label="Single image">
+        <CarouselContent>
+          <CarouselSlide>Atlas</CarouselSlide>
+        </CarouselContent>
+        <CarouselThumbnails>
+          <CarouselThumbnail index={0} src="/Atlas.png" alt="Atlas" />
+        </CarouselThumbnails>
+      </ThumbnailCarousel>
+    );
+    expect(screen.queryByRole("group", { name: "Slides" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Next slide" })).not.toBeInTheDocument();
+  });
+
+  it("mirrors horizontal arrow keys in the shared family engine", () => {
+    render(
+      <div style={{ direction: "rtl" }}>
+        <CoverflowCarousel aria-label="RTL coverflow">
+          <CarouselContent>
+            {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+          </CarouselContent>
+          <CarouselLiveRegion />
+        </CoverflowCarousel>
+      </div>
+    );
+    const track = screen.getByRole("region", { name: "RTL coverflow" });
+    fireEvent.keyDown(track, { key: "ArrowLeft" });
+    expect(screen.getByText("2 / 3")).toBeInTheDocument();
+    fireEvent.keyDown(track, { key: "ArrowRight" });
+    expect(screen.getByText("1 / 3")).toBeInTheDocument();
   });
 
   it("assigns the thumbnail image named part to the actual image", () => {

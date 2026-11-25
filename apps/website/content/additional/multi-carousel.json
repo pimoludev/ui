@@ -8,7 +8,7 @@
   {
     "file": "multi-carousel-plain-slides.tsx",
     "title": "Plain application cards",
-    "description": "slideAppearance=\"plain\" removes the built-in slide frame so a product card can own its border, radius and hover lift. Arrows hide below 640px without losing swipe navigation.",
+    "description": "Try 3 or 4 columns, then filter to one or two products. Cards keep their column width and centre when they fit; dots return when the track can scroll. This example also hides the arrows below 640px using showControlsOnMobile.",
     "append": true
   }
 ]

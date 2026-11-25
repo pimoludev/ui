@@ -63,11 +63,11 @@ function Slide({ index, compact = false }: { index: number; compact?: boolean })
   );
 }
 
-function Gallery({ compact = false, defaultIndex = 0, gap }: { compact?: boolean; defaultIndex?: number; gap?: number }) {
+function Gallery({ compact = false, defaultIndex = 0, gap, limit = slides.length }: { compact?: boolean; defaultIndex?: number; gap?: number; limit?: number }) {
   return (
     <ThumbnailCarousel aria-label="Thumbnail gallery" loop defaultIndex={defaultIndex} gap={gap}>
       <CarouselContent>
-        {slides.map((slide, index) => (
+        {slides.slice(0, limit).map((slide, index) => (
           <CarouselSlide key={slide.title}>
             <Slide index={index} compact={compact} />
           </CarouselSlide>
@@ -76,7 +76,7 @@ function Gallery({ compact = false, defaultIndex = 0, gap }: { compact?: boolean
       <CarouselPrevious />
       <CarouselNext />
       <CarouselThumbnails>
-        {slides.map((slide, index) => (
+        {slides.slice(0, limit).map((slide, index) => (
           <CarouselThumbnail key={slide.title} index={index} src={thumbnail(index)} alt={`${slide.title} view`} />
         ))}
       </CarouselThumbnails>
@@ -276,6 +276,10 @@ export function ThumbnailCarouselPage() {
 
       <Section title="Uniform thumbnail rail" hint="Mixed source ratios keep one square crop through --pimolu-carousel-thumbnail-aspect-ratio; classNames.thumbnailImage targets the image itself.">
         <MixedRail />
+      </Section>
+
+      <Section title="Single slide" hint="The main image stays visible. With one image, there are no arrows or thumbnails to navigate.">
+        <Gallery limit={1} />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

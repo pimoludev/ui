@@ -109,6 +109,15 @@ export function CarouselPage() {
         </Carousel>
       </Section>
 
+      <Section title="Single product" hint="An image or announcement stays static when autoplay has only one slide.">
+        <Carousel aria-label="Single product" autoPlay loop>
+          <div className="pg-panel">
+            <h3>Studio Headphones</h3>
+            <p className="pg-muted">Champagne edition · $129</p>
+          </div>
+        </Carousel>
+      </Section>
+
       <Section
         title="Autoplay and loop"
         hint="Autoplay pauses while the pointer or keyboard focus is inside, from the pause control, and stays still when the user prefers reduced motion."

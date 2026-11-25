@@ -53,11 +53,11 @@ function Slide({ index }: { index: number }) {
   );
 }
 
-function Gallery({ defaultIndex = 0, gap }: { defaultIndex?: number; gap?: number }) {
+function Gallery({ defaultIndex = 0, gap, limit = slides.length }: { defaultIndex?: number; gap?: number; limit?: number }) {
   return (
     <StackCarousel aria-label="Stacked invitation deck" loop defaultIndex={defaultIndex} gap={gap}>
       <CarouselContent>
-        {slides.map((slide, index) => (
+        {slides.slice(0, limit).map((slide, index) => (
           <CarouselSlide key={slide.title}>
             <Slide index={index} />
           </CarouselSlide>
@@ -203,6 +203,10 @@ export function StackCarouselPage() {
 
       <Section title="Season opening" hint="A different starting card and a wider gap change the deck without changing the engine.">
         <Gallery defaultIndex={2} gap={20} />
+      </Section>
+
+      <Section title="Single slide" hint="The card stays visible. With one slide, the gallery omits navigation and pagination.">
+        <Gallery limit={1} />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">
