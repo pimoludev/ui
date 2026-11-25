@@ -3,42 +3,32 @@ export const metadata = {
   "title": "Unreleased",
   "status": "Development",
   "summary": "What the source workspace holds after the latest preview, and what still blocks a stable release.",
-  "notice": "These notes track the source workspace after 0.1.0-beta.9. The published preview is listed separately."
+  "notice": "These notes track the source workspace after 0.1.0-beta.10. The published preview is listed separately."
 };
 
 <ReleaseSection id="workspace" label="Available in the workspace" title="The workspace">
 
-- Builds on the **0.1.0-beta.9** preview, which introduced six carousel families and the Modal family.
+- Builds on the **0.1.0-beta.10** preview, which added the Identity Kit, measured carousel rails and the layered tokens/components split.
 
 - Installation guides and README commands recommend `@latest` for npm and pnpm. Quick start keeps exact-version examples with `--save-exact` and explains the optional beta channel and lockfile behavior.
 
 - 136 React component families, from everyday controls to data surfaces, application layouts and media, with seven visual presets and light/dark modes.
 
-- Opt-in layered CSS and typed named-part customization across all 136 families. `CarouselStageClassNames` covers the five carousel families without a thumbnail rail.
+- Opt-in layered CSS with `pimolu.tokens` and `pimolu.components`, typed named-part customization across all 136 families and per-family stylesheet entry points.
 
 - Stable anchored placement shared by Select, Combobox, MultiSelect, TreeSelect, Cascader, Mentions, DropdownMenu, Menubar, Popover, Tooltip, HoverCard, DatePicker and DateRangePicker, with focus loops that skip hidden, inert and disabled controls.
 
 </ReleaseSection>
 
-<ReleaseSection id="integration" label="Integration fixes" title="Feedback from real integrations">
-
-- Dialog, Drawer, DropdownMenu and the shared Popover/Tooltip helpers make cloned triggers keyboard reachable without overriding native controls or explicit roles.
-- `@pimolu/web-styles/tokens.css` ships every custom property without component rules, and `themes.css` ships primitives plus the light and dark semantic themes.
-- Component pages list typed `classNames` parts and consumed CSS variables; Class names and CSS variables use readable grids, and API tables no longer scroll horizontally.
-- Carousel controls stay above transformed cards on touch screens, MultiCarousel pagination follows the cards that actually fit, and swiping resynchronizes the active page.
-- MultiCarousel keeps product cards at their column width after filtering and centres the rail when all cards fit. Arrows and pagination return when the track overflows, and the active page resets to the nearest valid page when the current one disappears. Single-slide carousels omit navigation, including the thumbnail rail or autoplay button where applicable.
-
-</ReleaseSection>
-
 <ReleaseSection id="before-release" label="Still in progress" title="Before a stable release">
 
-- The library packages are published on npm at 0.1.0-beta.9. Install the recommended release with pnpm add @pimolu/react@latest @pimolu/web-styles@latest; latest currently resolves to a beta. A component-copy CLI is not announced.
+- The library packages are published on npm at 0.1.0-beta.10. Install the recommended release with pnpm add @pimolu/react@latest @pimolu/web-styles@latest; latest currently resolves to a beta. A component-copy CLI is not announced.
 
 - The 5–8 person design review and the assistive-technology review remain necessary before 0.1.0 stable. Automated axe and accessibility-tree checks are not a screen-reader certification.
 
 - Real iPhone/Safari hardware validation remains necessary for native touch physics, VoiceOver and reduced motion.
 
-- MultiCarousel `loop` returns to the first page with a functional but non-seamless jump. The six layout families intentionally omit autoplay.
+- Carousel navigation is measured and rendered on the client after mount; the server HTML does not contain arrows or dots.
 
 - Block previews use local sample state; they do not call real payments, email or authentication services.
 

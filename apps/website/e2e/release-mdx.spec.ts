@@ -20,7 +20,7 @@ test("MDX releases render, copy code and preserve navigation on mobile and deskt
   await page.getByRole("button", { name: "Browse releases" }).click();
   await page.getByRole("dialog", { name: "Release navigation", exact: true }).getByRole("link", { name: "Unreleased" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Unreleased");
-  await expect(page.locator("#before-release")).toContainText("0.1.0-beta.9");
+  await expect(page.locator("#before-release")).toContainText("0.1.0-beta.10");
   expect((await request.get("/releases/not-a-release")).status()).toBe(404);
   expect(errors).toEqual([]);
 });

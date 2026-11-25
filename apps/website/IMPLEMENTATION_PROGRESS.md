@@ -15,7 +15,8 @@
 - La démo `plain application cards` propose 3 ou 4 colonnes, 1, 2 ou 5 produits
   et inclut `CarouselLiveRegion`. Le playground expose les mêmes réglages.
 - Validation : 1 609 tests React, 51 tests de documentation, 5 tests Playwright
-  carrousel dans Chromium, Firefox et WebKit, build site de 474 pages.
+  carrousel dans Chromium, Firefox et WebKit, 671 parcours Chromium sur le site
+  complet et build site de 474 pages.
 
 ## Correctifs carrousels, couches et documentation — 21 novembre 2026
 

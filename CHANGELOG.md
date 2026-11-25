@@ -4,6 +4,14 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+## [0.1.0-beta.10] — 2026-11-25
+
+Preview release. Tag: `v0.1.0-beta.10`. All five library packages are published on
+npm at this version with `latest` and `beta` dist-tags. The website builds 474
+pages, including 142 component references across 136 source families. Pimolu UI
+remains a beta release: the human design review and the assistive-technology
+review stay open.
+
 - EN: MultiCarousel keeps every card at its `slidesPerView` column width after
   filtering. When one or two cards fit, the rail centres them and renders no
   arrows or pagination. Navigation returns when the track overflows again, and

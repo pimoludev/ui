@@ -6,7 +6,7 @@ A token-first React component library for interfaces that need to feel intention
 
 [Documentation](https://pimolu.com/components) · [Quick start](https://pimolu.com/docs/quick-start) · [Identity Kit](https://pimolu.com/identity-kit) · [Showcase](https://pimolu.com/showcase) · [Customization](https://github.com/pimoludev/ui/blob/main/docs/CUSTOMIZATION.md) · [Source](https://github.com/pimoludev/ui/tree/main/registry/react)
 
-> **Beta:** `0.1.0-beta.9` is a preview. Component APIs and visual tokens may change before `1.0.0`.
+> **Beta:** `0.1.0-beta.10` is a preview. Component APIs and visual tokens may change before `1.0.0`.
 
 ## Why Pimolu?
 

@@ -1,0 +1,108 @@
+export const metadata = {
+  "slug": "0.1.0-beta.10",
+  "title": "0.1.0-beta.10",
+  "status": "Preview",
+  "date": "2026-11-25",
+  "tag": "v0.1.0-beta.10",
+  "summary": "The Identity Kit, measured MultiCarousel rails, layered tokens and stronger contrast.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.10 with the latest and beta tags. Pimolu UI remains a beta release. The human design and assistive-technology reviews stay open."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.10">
+
+- **The Identity Kit is available.** Choose a preset, brand colour, radius and density, preview real components in light or dark, read the computed contrast and export CSS variables, JSON or a usage snippet.
+- **MultiCarousel measures its rail.** With `slidesPerView={3}` or `{4}`, cards keep their column width after filtering. One or two cards centre, arrows and pagination disappear, and they return as soon as the track overflows again.
+- **The Default decision is closed.** Slate/indigo stays the committed Default; Ink & Signal is not adopted and no eighth preset is added.
+- **The layered entry is split.** `layered.css` declares the order and separates `pimolu.tokens` from `pimolu.components`, so Tailwind base and utility layers behave predictably when it is imported before Tailwind.
+- **Contrast and documentation are corrected.** Alert descriptions, CodeBlock numeric tokens and the CodeBlock line rhythm meet the documented contrast and layout contract; generated CSS-variable lists now follow shared stylesheet imports.
+- **No component or hook is removed.** Hiding navigation when a single page is reachable is an intentional behaviour change, documented in the migration notes.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.10 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.10.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.10 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="identity-kit" label="New" title="Identity Kit">
+
+- `/identity-kit` combines a preset, brand colour, radius and density on a live preview built from real components.
+- The preview works in light and dark and reports the primary colour contrast on white and black before you export.
+- Exports cover CSS variables for light, dark and system preferences, a JSON selection and a Provider usage sample.
+- The CSS export must be loaded after `styles.css`; the page states that order instead of pretending to add a second theming API.
+- Header, footer, theming guide, quick start, sitemap, search and llms.txt link to the new tool.
+
+</ReleaseSection>
+
+<ReleaseSection id="carousels" label="Changed" title="Measured carousel rails">
+
+- The shared engine reads slides in DOM order and recomputes reachable pages after resizing, filtering or slide reordering.
+- MultiCarousel keeps each card at its `slidesPerView` column width. When one or two cards fit, the rail centres them and renders no arrows or pagination.
+- A second reachable page restores the arrows, dots and live region automatically.
+- The uncontrolled active page resets to the nearest valid page when a filter or resize removes it, so a later growth cannot restore an invisible page.
+- Focus moves to the viewport when a focused navigation control disappears.
+- All six carousel families and the base Carousel omit navigation controls at one page; the base Carousel also omits the autoplay button for one slide.
+- Arrow keys follow the document direction, and controls keep their own keyboard events.
+- `CarouselPrevious`, `CarouselNext`, `CarouselDots` and `CarouselThumbnails` return nothing when there is nothing to navigate.
+
+</ReleaseSection>
+
+<ReleaseSection id="layers" label="Changed" title="Tokens, components and contrast">
+
+- `layered.css` now declares `theme, base, pimolu.tokens, pimolu.components, components, utilities` before importing and must be imported before Tailwind, or that order must be declared first.
+- The unlayered `styles.css` entry is composed from the same `tokens.css` and `components.css` sources, so both entries share one component list.
+- `--pimolu-control-background` and `--pimolu-control-foreground` style carousel arrows without changing inactive dots.
+- Alert descriptions mix the muted tone with the foreground on tinted surfaces.
+- CodeBlock numeric tokens meet AA contrast, and the code surface uses a grid by default so newline text nodes no longer add a blank line outside the documentation layout.
+
+</ReleaseSection>
+
+<ReleaseSection id="docs" label="Website" title="Documentation and discovery">
+
+- The theme guide and quick start document the Identity Kit, the per-family stylesheet entry and the exact layered import constraint.
+- Component pages list every consumed CSS variable, including variables inherited from `carousel-base.css`, while Peek width and thumbnail ratio stay scoped to their own references.
+- The six carousel references and Modal no longer claim they are unpublished.
+- A new Chromium preset-parity spec mounts every reference in seven presets, both modes and two widths; `audit:presets` records the complete 3,976-observation matrix.
+- The npm README reports 136 families, the published starters and projects, and the per-family CSS entry points.
+
+</ReleaseSection>
+
+<ReleaseSection id="review" label="Evidence" title="What was verified">
+
+- `pnpm verify` passes with 1,609 React tests, 13 theme tests, 38 CSS tests, the token test, typecheck, the theme audit and the playground build.
+- The website passes 51 documentation tests and builds 474 pages.
+- Five Playwright carousel journeys pass in Chromium, Firefox and WebKit, covering column widths, filters, resizing, focus restoration, live announcements, peek width and thumbnail crops. The full Chromium suite passes 671 journeys.
+- The five packages pass `release:pack-check` with the expected version, entry points and contents.
+- The human design review and the assistive-technology review remain open; automated checks are not a screen-reader or WCAG certification.
+
+</ReleaseSection>
+
+<ReleaseSection id="migration" label="Migration" title="Upgrading from beta.9">
+
+- No public component, hook or prop was removed. New capabilities are additive, apart from the intentional absence of navigation when a single page is reachable.
+- Remove local `flex-grow` workarounds on MultiCarousel slides; the library keeps the column width itself.
+- `layered.css` must be imported before Tailwind, or the documented layer order must be declared before any import.
+- Custom carousel arrows can use `--pimolu-control-background` and `--pimolu-control-foreground` instead of overriding `.pimolu-carousel__control`.
+- Move any CSS import of the Identity Kit export after `styles.css`.
+- `CarouselStageClassNames` still covers the five families without a thumbnail rail.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- Carousel navigation is measured and rendered on the client after mount; the server HTML does not contain the arrows or dots.
+- The 5–8 person design review and the assistive-technology review have not been executed on hardware.
+- MultiCarousel `loop` returns to the first page with a functional but non-seamless jump. The six layout families intentionally omit autoplay.
+- Native, Angular and web registries remain unimplemented.
+- The website has no separate public preview deployment; the production build is verified locally.
+
+</ReleaseSection>

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.9",
+  "version": "0.1.0-beta.10",
   "references": [
     "theme-builder",
     "button",
@@ -682,43 +682,43 @@
       ]
     },
     "carousel": {
-      "fingerprint": "c114c47826fb0fbcc3acce22ac0f08bb119575876c8efb39e468944d6cf3d853",
+      "fingerprint": "33ea624bc05bf9bea34696f4c3bb8eb4938ce7e5a6f03f172b5e062f6153e93e",
       "exports": [
         "Carousel"
       ]
     },
     "thumbnail-carousel": {
-      "fingerprint": "f00abce02635aa20b1638005e9cfdc72de18c50568e6e0ba9f6bc700006220a3",
+      "fingerprint": "da921077ae31992734d2f4f746ae46d0e5f032123c984317e3271cbb14656213",
       "exports": [
         "ThumbnailCarousel"
       ]
     },
     "coverflow-carousel": {
-      "fingerprint": "b5ad5eb0bc930ef4f5867ac7a3238b3548e3d4c6ab716e7572fc3b56249b922b",
+      "fingerprint": "5c1b9044ca27b0e662d73d9fe15f79d81c6d7a54f738f0a87a312e8cd092a3fd",
       "exports": [
         "CoverflowCarousel"
       ]
     },
     "peek-carousel": {
-      "fingerprint": "eeea9d0ea0e85012ce4a10fae4cb7e2f565f9c61227ee71daf599c4a118a2f2b",
+      "fingerprint": "c5709d37ef33f3dfc71adfd57686abcce81bfafecfa72449515e148e0ac29526",
       "exports": [
         "PeekCarousel"
       ]
     },
     "stack-carousel": {
-      "fingerprint": "5481f1e4e1e5ddbcd882e541c881d80b450e848254f2705382d8dae955eda67c",
+      "fingerprint": "110e43197e415e617a2c777d04e51ac0c777834c9adc7280b4afc10e8025abb6",
       "exports": [
         "StackCarousel"
       ]
     },
     "arc-carousel": {
-      "fingerprint": "14ebb833b84a654d19dd6581a768e48d9d2cb46a57206f0730f21d29396c4eb3",
+      "fingerprint": "d92ad924c8b6ac8167c1c2f0bf194587991e810e39e00ceefe7b5251fb37c6a0",
       "exports": [
         "ArcCarousel"
       ]
     },
     "multi-carousel": {
-      "fingerprint": "48217467df7c12ee51a8b7c080d13955a10a3864415e42a91013d9058ab03966",
+      "fingerprint": "6550e6bbcff3bb098ba905cf92e68a9ea37a23b54a926cdfb860d26dd7d72f67",
       "exports": [
         "MultiCarousel"
       ]
@@ -824,7 +824,7 @@
       ]
     },
     "code-block": {
-      "fingerprint": "3e131f2529d2a75829deafd02013e80937155962c609f850c5e12f4ba79ed268",
+      "fingerprint": "2ea8540354bca50f138467ff8e49e9b041c0ec2dd5a184caf0992004f85840a3",
       "exports": [
         "CodeBlock",
         "codeBlockLanguages"
@@ -1030,7 +1030,7 @@
       ]
     },
     "alert": {
-      "fingerprint": "17201bbda6722b443c1d4f7ca5e2267b871b325f42a7f8c405010330770d2c30",
+      "fingerprint": "b61db1fecb12b71d20d6c7ba5a77d92271e70a4146aa1598fe54ef9744654bc6",
       "exports": [
         "Alert",
         "alertVariantMap"
