@@ -69,6 +69,12 @@ export interface PimoluCalendarProps {
   /** BCP 47 locale used for month, weekday and day labels. Defaults to "en-US". */
   locale?: string;
 
+  /** Accessible name of the previous-month control. Defaults to "Previous month". */
+  previousMonthLabel?: string;
+
+  /** Accessible name of the next-month control. Defaults to "Next month". */
+  nextMonthLabel?: string;
+
   /** Number of consecutive months rendered together. Defaults to 1. */
   numberOfMonths?: 1 | 2;
 

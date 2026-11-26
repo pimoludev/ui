@@ -353,6 +353,25 @@ describe("Pimolu Calendar", () => {
     ).toBeInTheDocument();
   });
 
+  it("keeps English navigation labels under another locale and accepts overrides", () => {
+    const props = { defaultMonth: OCTOBER, locale: "fr-FR" };
+    const { rerender } = render(<Calendar {...props} />);
+
+    expect(screen.getByRole("button", { name: "Previous month" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Next month" })).toBeInTheDocument();
+
+    rerender(
+      <Calendar
+        {...props}
+        previousMonthLabel="Mois précédent"
+        nextMonthLabel="Mois suivant"
+      />
+    );
+
+    expect(screen.getByRole("button", { name: "Mois précédent" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Mois suivant" })).toBeInTheDocument();
+  });
+
   it("follows a controlled month and reports navigation", async () => {
     const user = userEvent.setup();
 

@@ -210,6 +210,9 @@ function LocaleExample() {
         locale="fr-FR"
         weekStartsOn={1}
         numberOfMonths={2}
+        previousMonthLabel="Mois précédent"
+        nextMonthLabel="Mois suivant"
+        presetsLabel="Raccourcis de dates"
         fullWidth
       />
 
@@ -345,7 +348,7 @@ export function DateRangePickerPage() {
 
       <Section
         title="Locale and week start"
-        hint="The trigger, calendars and footer all follow locale; Monday-first weeks suit the French example."
+        hint="The trigger, calendars and footer all follow locale; Monday-first weeks suit the French example. Accessible navigation and presets labels stay English unless overridden."
       >
         <LocaleExample />
       </Section>

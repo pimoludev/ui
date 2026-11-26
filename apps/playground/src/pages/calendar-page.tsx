@@ -104,10 +104,14 @@ function RangeCalendarExample({
   numberOfMonths = 1,
   locale = "en-US",
   weekStartsOn = 0,
+  previousMonthLabel,
+  nextMonthLabel,
 }: {
   numberOfMonths?: 1 | 2;
   locale?: string;
   weekStartsOn?: 0 | 1;
+  previousMonthLabel?: string;
+  nextMonthLabel?: string;
 }) {
   const [range, setRange] = useState<PimoluDateRange>({
     from: new Date(2026, 9, 12),
@@ -125,6 +129,8 @@ function RangeCalendarExample({
         numberOfMonths={numberOfMonths}
         locale={locale}
         weekStartsOn={weekStartsOn}
+        previousMonthLabel={previousMonthLabel}
+        nextMonthLabel={nextMonthLabel}
       />
 
       <p className="pg-meta">
@@ -259,12 +265,14 @@ export function CalendarPage() {
 
       <Section
         title="Locale and week start"
-        hint="Month names, weekday headers and accessible date labels follow locale. weekStartsOn switches the first column."
+        hint="Month names, weekday headers and accessible date labels follow locale. Navigation labels stay English by default; pass previousMonthLabel and nextMonthLabel to localize them."
       >
         <RangeCalendarExample
           locale="fr-FR"
           weekStartsOn={1}
           numberOfMonths={1}
+          previousMonthLabel="Mois précédent"
+          nextMonthLabel="Mois suivant"
         />
       </Section>
 

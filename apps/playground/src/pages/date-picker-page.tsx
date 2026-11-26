@@ -105,6 +105,8 @@ function LocaleExample() {
         label="Date de publication"
         locale="fr-FR"
         weekStartsOn={1}
+        previousMonthLabel="Mois précédent"
+        nextMonthLabel="Mois suivant"
         value={date}
         onChange={setDate}
         fullWidth
@@ -227,7 +229,7 @@ export function DatePickerPage() {
 
       <Section
         title="Locale and week start"
-        hint="The trigger and the calendar share the locale; weekStartsOn controls the first grid column."
+        hint="The trigger and the calendar share the locale; weekStartsOn controls the first grid column. Navigation labels stay English unless previousMonthLabel and nextMonthLabel are supplied."
       >
         <LocaleExample />
       </Section>

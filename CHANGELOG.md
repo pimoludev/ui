@@ -4,6 +4,17 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+- EN: Calendar, DatePicker and DateRangePicker accept `previousMonthLabel`,
+  `nextMonthLabel` and, for the range picker, `presetsLabel`. These accessible
+  names stay English by default for every locale; `locale` continues to format
+  dates, month names and weekdays only. Applications that need another language
+  pass the names explicitly.
+- FR : Calendar, DatePicker et DateRangePicker acceptent `previousMonthLabel`,
+  `nextMonthLabel` et, pour le sélecteur de plage, `presetsLabel`. Ces noms
+  accessibles restent anglais par défaut pour toute locale ; `locale` continue
+  de formater les dates, les mois et les jours. Les applications qui utilisent
+  une autre langue fournissent ces noms explicitement.
+
 ## [0.1.0-beta.10] — 2026-11-25
 
 Preview release. Tag: `v0.1.0-beta.10`. All five library packages are published on

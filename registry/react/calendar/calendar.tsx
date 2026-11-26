@@ -209,6 +209,8 @@ export function Calendar({ classNames,
 
   weekStartsOn = 0,
   locale = "en-US",
+  previousMonthLabel = "Previous month",
+  nextMonthLabel = "Next month",
   numberOfMonths = 1,
 
   className,
@@ -620,7 +622,7 @@ export function Calendar({ classNames,
         <button
           type="button"
           className={mergeClasses("pimolu-calendar__nav", partClasses.nav)}
-          aria-label="Previous month"
+          aria-label={previousMonthLabel}
           disabled={previousDisabled}
           onClick={() => changeMonth(-1)}
         >
@@ -637,7 +639,7 @@ export function Calendar({ classNames,
         <button
           type="button"
           className={mergeClasses("pimolu-calendar__nav", partClasses.nav)}
-          aria-label="Next month"
+          aria-label={nextMonthLabel}
           disabled={nextDisabled}
           onClick={() => changeMonth(1)}
         >

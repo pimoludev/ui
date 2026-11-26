@@ -377,4 +377,26 @@ describe("Pimolu DatePicker", () => {
 
     expect(screen.getByText("*")).toBeInTheDocument();
   });
+
+  it("accepts localized calendar navigation labels while keeping the English default", async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(
+      <DatePicker label="Check-in date" locale="fr-FR" />
+    );
+
+    await user.click(screen.getByRole("button", { name: "Check-in date" }));
+    expect(screen.getByRole("button", { name: "Previous month" })).toBeInTheDocument();
+
+    rerender(
+      <DatePicker
+        label="Check-in date"
+        locale="fr-FR"
+        previousMonthLabel="Mois précédent"
+        nextMonthLabel="Mois suivant"
+      />
+    );
+
+    expect(screen.getByRole("button", { name: "Mois précédent" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Mois suivant" })).toBeInTheDocument();
+  });
 });

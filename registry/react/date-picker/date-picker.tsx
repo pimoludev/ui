@@ -86,6 +86,8 @@ export const DatePicker = forwardRef<
 
     locale = "en-US",
     weekStartsOn = 0,
+    previousMonthLabel,
+    nextMonthLabel,
     clearLabel,
 
     className,
@@ -412,6 +414,8 @@ export const DatePicker = forwardRef<
               disabledDates={disabledDates}
               weekStartsOn={weekStartsOn}
               locale={locale}
+              previousMonthLabel={previousMonthLabel}
+              nextMonthLabel={nextMonthLabel}
               aria-label={panelLabel}
             />
           </div>

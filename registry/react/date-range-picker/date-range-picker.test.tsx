@@ -499,4 +499,37 @@ describe("Pimolu DateRangePicker", () => {
       "true"
     );
   });
+
+  it("accepts localized navigation and presets labels", async () => {
+    const user = userEvent.setup();
+    const presets = [
+      {
+        label: "7 derniers jours",
+        range: { from: new Date(2026, 9, 14), to: new Date(2026, 9, 20) },
+      },
+    ];
+
+    const { rerender } = render(
+      <DateRangePicker label="Dates du séjour" locale="fr-FR" presets={presets} />
+    );
+
+    await user.click(screen.getByRole("button", { name: "Dates du séjour" }));
+    expect(screen.getByRole("button", { name: "Previous month" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Date range presets" })).toBeInTheDocument();
+
+    rerender(
+      <DateRangePicker
+        label="Dates du séjour"
+        locale="fr-FR"
+        presets={presets}
+        previousMonthLabel="Mois précédent"
+        nextMonthLabel="Mois suivant"
+        presetsLabel="Raccourcis de dates"
+      />
+    );
+
+    expect(screen.getByRole("button", { name: "Mois précédent" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Mois suivant" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Raccourcis de dates" })).toBeInTheDocument();
+  });
 });

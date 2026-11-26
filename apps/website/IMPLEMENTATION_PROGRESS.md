@@ -1,5 +1,17 @@
 # Pimolu Website — État et vérifications
 
+## Libellés accessibles des Calendars — 26 novembre 2026
+
+- Les composants Calendar, DatePicker et DateRangePicker exposent
+  `previousMonthLabel` et `nextMonthLabel` ; DateRangePicker ajoute
+  `presetsLabel`. Les valeurs par défaut restent anglaises pour toute locale,
+  conformément au choix explicite : `locale` ne formate que les dates, mois et
+  jours.
+- Les démos locales des trois familles montrent le passage des libellés en
+  français tout en conservant `locale="fr-FR"` ; les tests unitaires couvrent
+  le défaut anglais sous `fr-FR` et la surcharge.
+- Les références calendar, date-picker et date-range-picker portent Updated.
+
 ## Galeries à une page et largeur MultiCarousel — 25 novembre 2026
 
 - `MultiCarousel` conserve la largeur de colonne `slidesPerView` après un filtre.

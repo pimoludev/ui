@@ -54,6 +54,12 @@ export interface PimoluDatePickerProps {
   /** BCP 47 locale for display and calendar labels. Defaults to "en-US". */
   locale?: string;
 
+  /** Accessible name of the previous-month control. Defaults to "Previous month". */
+  previousMonthLabel?: string;
+
+  /** Accessible name of the next-month control. Defaults to "Next month". */
+  nextMonthLabel?: string;
+
   /** First day of the week: 0 = Sunday, 1 = Monday. Defaults to 0. */
   weekStartsOn?: 0 | 1;
 

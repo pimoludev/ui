@@ -388,10 +388,12 @@ export const extendedComponents = [
     },
     "description": "Select dates for a booking in a standalone calendar.",
     "usage": [
-      "Keep local calendar-day semantics and apply availability limits explicitly."
+      "Keep local calendar-day semantics and apply availability limits explicitly.",
+      "locale formats month names, weekdays and dates. Navigation button names default to English; pass previousMonthLabel and nextMonthLabel to localize them."
     ],
     "accessibility": [
-      "Verify arrow navigation, disabled dates, locale labels and the selected-date announcement."
+      "Verify arrow navigation, disabled dates, locale labels and the selected-date announcement.",
+      "Check the previous/next month names with a screen reader in the language of your interface."
     ]
   },
   {
@@ -401,10 +403,12 @@ export const extendedComponents = [
     },
     "description": "Pick arrival and departure dates for a reservation.",
     "usage": [
-      "Validate ordering and availability in the application; avoid UTC conversions that shift calendar days."
+      "Validate ordering and availability in the application; avoid UTC conversions that shift calendar days.",
+      "Supplied accessible names stay English by default: previousMonthLabel, nextMonthLabel and presetsLabel can be localized independently from locale."
     ],
     "accessibility": [
-      "Label the range, make both endpoints understandable and verify clear/open/close focus behavior."
+      "Label the range, make both endpoints understandable and verify clear/open/close focus behavior.",
+      "Check the month navigation and presets group names in the language of your interface."
     ]
   },
   {

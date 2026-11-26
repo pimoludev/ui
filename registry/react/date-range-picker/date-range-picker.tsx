@@ -135,6 +135,9 @@ export const DateRangePicker = forwardRef<
 
     locale = "en-US",
     weekStartsOn = 0,
+    previousMonthLabel,
+    nextMonthLabel,
+    presetsLabel = "Date range presets",
     clearLabel,
 
     className,
@@ -503,7 +506,7 @@ export const DateRangePicker = forwardRef<
                 <div
                   className={mergeClasses("pimolu-date-range-picker__presets", partClasses.presets)}
                   role="group"
-                  aria-label="Date range presets"
+                  aria-label={presetsLabel}
                 >
                   {presets.map((preset) => (
                     <button
@@ -527,6 +530,8 @@ export const DateRangePicker = forwardRef<
                 disabledDates={disabledDates}
                 weekStartsOn={weekStartsOn}
                 locale={locale}
+                previousMonthLabel={previousMonthLabel}
+                nextMonthLabel={nextMonthLabel}
                 numberOfMonths={numberOfMonths}
                 aria-label={panelLabel}
               />
