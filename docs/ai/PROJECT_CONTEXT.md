@@ -69,6 +69,9 @@ grammar and the Identity Kit direction live in
   known limits.
 - GitHub CI is enabled in `.github/workflows/ci.yml`: Node 24 jobs run library
   verification and website production checks, including three-engine Playwright.
+  `.github/workflows/discord-release.yml` posts a Discord embed when a GitHub
+  Release is published; it needs a repository secret `DISCORD_WEBHOOK_URL` and
+  is a no-op until that secret is set.
   `pnpm build:website` builds all workspace assets before Next.js;
   `pnpm dev:website` now does the same before development. Shared CSS outputs
   build in memory and replace files atomically, rejecting empty output.
