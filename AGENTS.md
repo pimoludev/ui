@@ -109,6 +109,7 @@ Validate the catalog with `pnpm skills:check`.
 | Commit | `git-commit` (which invokes the needed validations) |
 | Push | `github-push` (runs the full pre-push checks) |
 | Release | `release-manager` |
+| Discord release notification | `discord-notify` (+ `release-manager` when tied to a version) |
 | Report or publish a GitHub issue | `github-issue` (+ `release-manager` / `documentation-sync` when tied to a release) |
 | Multi-step / unclear routing | `pimolu-orchestrator` |
 
