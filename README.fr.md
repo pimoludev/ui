@@ -64,9 +64,9 @@ npm install @pimolu/react@latest @pimolu/web-styles@latest
 pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
-La version actuelle est **0.1.0-beta.10**. Importez `@pimolu/web-styles/styles.css` une fois au point d'entrée et placez votre interface dans `PimoluProvider` (voir « L'utiliser » ci-dessous). Core, thèmes et tokens sont installés comme dépendances ; ajoutez-les directement seulement si vous importez leurs API. Les packages publiés contiennent les fichiers ESM compilés, les types et le CSS : aucun clonage, build Pimolu ou réglage Next.js `transpilePackages` n'est nécessaire. Tailwind CSS reste facultatif.
+La version actuelle est **0.1.0-beta.11**. Importez `@pimolu/web-styles/styles.css` une fois au point d'entrée et placez votre interface dans `PimoluProvider` (voir « L'utiliser » ci-dessous). Core, thèmes et tokens sont installés comme dépendances ; ajoutez-les directement seulement si vous importez leurs API. Les packages publiés contiennent les fichiers ESM compilés, les types et le CSS : aucun clonage, build Pimolu ou réglage Next.js `transpilePackages` n'est nécessaire. Tailwind CSS reste facultatif.
 
-`@latest` suit le canal de publication recommandé, qui contient actuellement une bêta. Pour une version précise, remplacez `@latest` par exemple par `@0.1.0-beta.10` et ajoutez `--save-exact`. Le [Quick start](https://pimolu.com/docs/quick-start#versions) fournit les exemples npm et pnpm. Conservez le lockfile de votre application dans Git.
+`@latest` suit le canal de publication recommandé, qui contient actuellement une bêta. Pour une version précise, remplacez `@latest` par exemple par `@0.1.0-beta.11` et ajoutez `--save-exact`. Le [Quick start](https://pimolu.com/docs/quick-start#versions) fournit les exemples npm et pnpm. Conservez le lockfile de votre application dans Git.
 
 Pour mettre à jour une installation existante vers la version recommandée :
 
@@ -192,7 +192,7 @@ Un auditeur dédié, en lecture seule, protège spécifiquement le système de t
 
 ## État du projet
 
-Pimolu UI est en développement actif et a publié sa dernière prévisualisation publique, **`0.1.0-beta.10`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 136 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme ne sont pas encore implémentés. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.10`, avec les tags `latest` et `beta` :
+Pimolu UI est en développement actif et a publié sa dernière prévisualisation publique, **`0.1.0-beta.11`**. La chaîne de tokens, deux thèmes de couleur, sept presets visuels et 136 familles de composants React sont présents, avec des tests et des pages de démonstration. Le registre React est la priorité actuelle ; les autres registres de plateforme ne sont pas encore implémentés. Les cinq packages de la bibliothèque sont disponibles sur npm en `0.1.0-beta.11`, avec les tags `latest` et `beta` :
 
 ```bash
 pnpm add @pimolu/react@latest @pimolu/web-styles@latest

@@ -1,14 +1,1 @@
-{
-  "calendar": {
-    "kind": "updated",
-    "description": "previousMonthLabel and nextMonthLabel override the English month navigation names; locale still formats dates only."
-  },
-  "date-picker": {
-    "kind": "updated",
-    "description": "previousMonthLabel and nextMonthLabel pass through to the calendar; the default accessible names remain English for every locale."
-  },
-  "date-range-picker": {
-    "kind": "updated",
-    "description": "previousMonthLabel, nextMonthLabel and presetsLabel override the default English accessible names in the panel."
-  }
-}
+{}

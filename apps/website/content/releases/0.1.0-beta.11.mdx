@@ -1,0 +1,66 @@
+export const metadata = {
+  "slug": "0.1.0-beta.11",
+  "title": "0.1.0-beta.11",
+  "status": "Preview",
+  "date": "2026-11-26",
+  "tag": "v0.1.0-beta.11",
+  "summary": "Overridable accessible labels for the calendar navigation and range presets.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.11 with the latest and beta tags. Pimolu UI remains a beta release. The human design and assistive-technology reviews stay open."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.11">
+
+- **Calendar navigation labels are overridable.** `Calendar`, `DatePicker` and `DateRangePicker` accept `previousMonthLabel` and `nextMonthLabel`.
+- **Range presets have a name prop.** `DateRangePicker` also accepts `presetsLabel` for its shortcut group.
+- **English stays the default.** The three names remain `"Previous month"`, `"Next month"` and `"Date range presets"` for every locale. `locale` keeps formatting dates, month names and weekdays; applications choose another language explicitly.
+- **No breaking change.** The props are additive, so existing calendars and pickers keep their current accessible names.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.11 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.11.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.11 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="labels" label="Changed" title="Accessible names under your control">
+
+- A French interface can pass `previousMonthLabel="Mois précédent"`, `nextMonthLabel="Mois suivant"` and `presetsLabel="Raccourcis de dates"` while keeping `locale="fr-FR"` for the date format.
+- Any other language works the same way: the props accept plain strings, without adding a translation table to the library.
+- The playground locale examples for all three families demonstrate the override next to the formatted dates.
+- The calendar, date-picker and date-range-picker references list the new props in their generated API and explain the English default in their accessibility notes.
+
+</ReleaseSection>
+
+<ReleaseSection id="review" label="Evidence" title="What was verified">
+
+- `pnpm verify` passes with 1,612 React tests, 13 theme tests, 38 CSS tests, typecheck, the theme audit and the playground build.
+- The website passes 51 documentation tests and builds 474 pages.
+- Unit tests cover the English default under `fr-FR` and the explicit overrides in all three components.
+- The five packages pass `release:pack-check` with the expected version, entry points and contents.
+
+</ReleaseSection>
+
+<ReleaseSection id="migration" label="Migration" title="Upgrading from beta.10">
+
+- No component, prop or hook was removed. Existing accessible names are unchanged.
+- If your interface is not English, pass the three label props explicitly; `locale` alone does not translate them.
+- The component status baseline now matches beta.11, so no reference keeps an Updated badge from the previous cycle.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- Only three label strings are overridable. Other fixed strings, such as placeholders or status messages, keep their documented defaults unless the component exposes a prop.
+- The human design review and the assistive-technology review remain open; automated checks are not a screen-reader or WCAG certification.
+- Native, Angular and web registries remain unimplemented.
+
+</ReleaseSection>

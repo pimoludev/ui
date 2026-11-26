@@ -4,6 +4,14 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+## [0.1.0-beta.11] — 2026-11-26
+
+Preview release. Tag: `v0.1.0-beta.11`. All five library packages are published on
+npm at this version with `latest` and `beta` dist-tags. The website builds 474
+pages, including 142 component references across 136 source families. Pimolu UI
+remains a beta release: the human design review and the assistive-technology
+review stay open.
+
 - EN: Calendar, DatePicker and DateRangePicker accept `previousMonthLabel`,
   `nextMonthLabel` and, for the range picker, `presetsLabel`. These accessible
   names stay English by default for every locale; `locale` continues to format

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.10",
+  "version": "0.1.0-beta.11",
   "references": [
     "theme-builder",
     "button",
@@ -407,19 +407,19 @@
       ]
     },
     "calendar": {
-      "fingerprint": "ae54dceb2519671815a351e3825fdf9bf459623af2cad3f92c859822917b7ac7",
+      "fingerprint": "a6b4e73511db253d07a40fef3f970fca99e3ba29b108bf9a0591c1b82520fa81",
       "exports": [
         "Calendar"
       ]
     },
     "date-picker": {
-      "fingerprint": "43e4b018ccf66e36560dfbbd071cc940c598039553ffd027cc03f583a7b2be85",
+      "fingerprint": "fe936061e8cdaccc7ba032455965cc274a57f7a1e9dd762474a5fd95b8b715a5",
       "exports": [
         "DatePicker"
       ]
     },
     "date-range-picker": {
-      "fingerprint": "0be8b0fc2e9e34297942609003c95f014c10d16af1b5e5328eeac8c5726486c1",
+      "fingerprint": "07a83b0ce36abfad896fd0233cac8d596c1c1d2800d5613f307d47c907a09b2b",
       "exports": [
         "DateRangePicker"
       ]
