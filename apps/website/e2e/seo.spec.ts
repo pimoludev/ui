@@ -1,6 +1,22 @@
 import { test, expect } from "@playwright/test";
 import { journalPosts } from "../content/journal";
 
+test("sitemap lists canonical URLs with a valid lastmod and no previews", async ({ request }) => {
+  const response = await request.get("/sitemap.xml");
+  expect(response.ok()).toBeTruthy();
+
+  const xml = await response.text();
+  const locations = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const modified = [...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
+
+  expect(locations.length).toBeGreaterThan(300);
+  expect(modified).toHaveLength(locations.length);
+  expect(modified.every((date) => !Number.isNaN(Date.parse(date)))).toBe(true);
+  expect(locations).toContain("https://pimolu.com/identity-kit");
+  expect(locations).toContain("https://pimolu.com/releases/0.1.0-beta.11");
+  expect(locations.some((url) => url.includes("/preview/"))).toBe(false);
+});
+
 test("public pages expose descriptive titles and canonical structured data", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle("Pimolu UI: Customizable React Component Library");

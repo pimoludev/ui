@@ -4,6 +4,16 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+- EN: The website sitemap now emits `lastModified` for every canonical URL.
+  Release and blog pages use their authored dates; all other pages use the
+  latest published release date. The SEO browser check verifies that each
+  `<loc>` has a valid `<lastmod>` and that no preview route is indexed.
+- FR : Le sitemap du site émet désormais `lastModified` pour chaque URL
+  canonique. Les pages de release et d'article utilisent leur date rédigée ;
+  les autres utilisent la date de la dernière release publiée. Le contrôle
+  navigateur SEO vérifie que chaque `<loc>` a un `<lastmod>` valide et qu'aucune
+  route d'aperçu n'est indexée.
+
 ## [0.1.0-beta.11] — 2026-11-26
 
 Preview release. Tag: `v0.1.0-beta.11`. All five library packages are published on

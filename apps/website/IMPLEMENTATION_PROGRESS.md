@@ -1,5 +1,17 @@
 # Pimolu Website — État et vérifications
 
+## Sitemap avec date de modification — 27 novembre 2026
+
+- `apps/website/app/sitemap.ts` émet `lastModified` pour les 323 URL du sitemap.
+  `lib/site.ts` déduit la date des releases et articles depuis leurs métadonnées
+  rédigées, et utilise la date de la dernière release publiée pour les autres
+  pages.
+- `tests/editorial.test.mjs` vérifie ces dates ; `e2e/seo.spec.ts` vérifie en
+  navigateur que chaque `<loc>` a un `<lastmod>` valide et qu'aucun `/preview/`
+  n'est indexé.
+- La soumission manuelle du sitemap dans Google Search Console et Bing Webmaster
+  Tools reste à faire par le mainteneur ; le code ne peut pas la déclencher.
+
 ## Libellés accessibles des Calendars — 26 novembre 2026
 
 - Les composants Calendar, DatePicker et DateRangePicker exposent

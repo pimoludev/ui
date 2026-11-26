@@ -8,6 +8,7 @@ import { guides } from "../content/docs.ts";
 import { documentationMap, escapeXML, journalFeed } from "../lib/text-resources.ts";
 import { paletteFor, paletteTokens } from "../lib/palettes.ts";
 import { presetNames } from "../lib/preferences.ts";
+import { lastModifiedFor } from "../lib/site.ts";
 
 test("journal articles and releases have unique routes, section anchors and honest distribution status", () => {
   assert.ok(journalPosts.length > 0);
@@ -35,6 +36,29 @@ test("journal articles and releases have unique routes, section anchors and hone
   assert.equal(releaseNotes[8].tag, "v0.1.0-beta.3.1");
   assert.ok(releaseNotes.at(-1).sections.some((section) => section.items.some((item) => item.includes("0.1.0-beta.11"))));
   assert.ok(guides.find((guide) => guide.slug === "agents").sections.some((section) => section.paragraphs.some((text) => text.includes("no distributed Pimolu MCP server"))));
+});
+
+test("sitemap freshness follows authored release and article dates", () => {
+  const release = releaseNotes[0];
+  assert.equal(
+    lastModifiedFor(`/releases/${release.slug}`).toISOString().slice(0, 10),
+    release.date,
+  );
+  const post = journalPosts[0];
+  assert.equal(
+    lastModifiedFor(`/blog/${post.slug}`).toISOString().slice(0, 10),
+    post.date,
+  );
+  const fallback = lastModifiedFor("/components/button");
+  assert.ok(fallback instanceof Date);
+  assert.equal(
+    fallback.toISOString().slice(0, 10),
+    new Date(release.date).toISOString().slice(0, 10),
+  );
+  assert.equal(
+    lastModifiedFor("/releases/not-a-release").toISOString().slice(0, 10),
+    new Date(release.date).toISOString().slice(0, 10),
+  );
 });
 
 test("RSS and llms.txt cover real content and escape XML metacharacters", async () => {
