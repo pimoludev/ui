@@ -14,7 +14,9 @@ const PAGES_PER_WIDTH = 2;
 // Hundreds of navigations per test: tracing would dominate the run time.
 test.use({ trace: "off", screenshot: "only-on-failure" });
 
-test.describe.configure({ timeout: 300_000 });
+// The matrix navigates every reference at both widths in every preset and mode.
+// With 143 references it needs more than the default five-minute budget.
+test.describe.configure({ timeout: 600_000 });
 
 for (const preset of presetNames) {
   for (const theme of ["light", "dark"] as const) {
