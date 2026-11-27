@@ -1,6 +1,6 @@
 {
   "name": "@pimolu/web-styles",
-  "version": "0.1.0-beta.11",
+  "version": "0.1.0-beta.12",
   "description": "Pimolu UI component stylesheets and CSS bundles.",
   "license": "MIT",
   "repository": {
@@ -169,7 +169,7 @@
     "./multi-carousel.css": "./dist/multi-carousel.css"
   },
   "dependencies": {
-    "@pimolu/themes": "0.1.0-beta.11"
+    "@pimolu/themes": "0.1.0-beta.12"
   },
   "devDependencies": {
     "esbuild": "^0.25.0"

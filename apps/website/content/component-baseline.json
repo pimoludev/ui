@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta.11",
+  "version": "0.1.0-beta.12",
   "references": [
     "theme-builder",
     "button",
@@ -80,6 +80,7 @@
     "peek-carousel",
     "stack-carousel",
     "arc-carousel",
+    "tilted-carousel",
     "multi-carousel",
     "virtual-list",
     "tree-view",
@@ -717,6 +718,12 @@
         "ArcCarousel"
       ]
     },
+    "tilted-carousel": {
+      "fingerprint": "a968c8f47652b970714a658debc7160de2c3202862f7656c491ed224c29092b7",
+      "exports": [
+        "TiltedCarousel"
+      ]
+    },
     "multi-carousel": {
       "fingerprint": "6550e6bbcff3bb098ba905cf92e68a9ea37a23b54a926cdfb860d26dd7d72f67",
       "exports": [
@@ -1016,7 +1023,7 @@
       ]
     },
     "modal": {
-      "fingerprint": "47a401d3c341ea36bff28bf586b428b401c5f4dd51a72fa860951e9b88946ebd",
+      "fingerprint": "a24811d1466e2348b399d1cf80d5ae80b94cff0ca3aa110526ac20ae409f909b",
       "exports": [
         "Modal",
         "ModalTrigger",

@@ -18,7 +18,7 @@ Next.js App Router application consuming Pimolu directly from the root workspace
 
 The public guides target npm consumers: install `@pimolu/react@latest` and
 `@pimolu/web-styles@latest`, load the shared CSS and add `PimoluProvider`.
-The current published version is `0.1.0-beta.11` for all five library packages.
+The current published version is `0.1.0-beta.12` for all five library packages.
 Repository build instructions below are for contributors; npm consumers do not
 need a clone, `build:all` or `transpilePackages`. Quick start owns the npm setup;
 `/docs/contributing` contains repository setup and contributor checks. The removed

@@ -4,6 +4,14 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
 
 ## [Unreleased]
 
+## [0.1.0-beta.12] — 2026-11-27
+
+Preview release. Tag: `v0.1.0-beta.12`. All five library packages are published on
+npm at this version with `latest` and `beta` dist-tags. The website builds 478
+pages, including 143 component references across 137 source families. Pimolu UI
+remains a beta release: the human design review and the assistive-technology
+review stay open.
+
 - EN: The website sitemap now emits `lastModified` for every canonical URL.
   Release and blog pages use their authored dates; all other pages use the
   latest published release date. The SEO browser check verifies that each

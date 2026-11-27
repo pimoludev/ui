@@ -65,9 +65,9 @@ npm install @pimolu/react@latest @pimolu/web-styles@latest
 pnpm add @pimolu/react@latest @pimolu/web-styles@latest
 ```
 
-The current release is **0.1.0-beta.11**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
+The current release is **0.1.0-beta.12**. Import `@pimolu/web-styles/styles.css` once at your application entry and wrap your interface in `PimoluProvider` (see Usage below). Core, themes and design tokens are installed as dependencies; add them directly only when importing their APIs yourself. The published packages contain compiled ESM, types and CSS: no repository clone, Pimolu build step or Next.js `transpilePackages` setting is required. Tailwind CSS is optional.
 
-`@latest` follows the recommended release channel, which currently contains a beta. For a specific version, replace `@latest` with, for example, `@0.1.0-beta.11` and add `--save-exact`. See [Quick start](https://pimolu.com/docs/quick-start#versions) for npm and pnpm examples. Keep your application's lockfile committed.
+`@latest` follows the recommended release channel, which currently contains a beta. For a specific version, replace `@latest` with, for example, `@0.1.0-beta.12` and add `--save-exact`. See [Quick start](https://pimolu.com/docs/quick-start#versions) for npm and pnpm examples. Keep your application's lockfile committed.
 
 To update an existing installation to the recommended release:
 
@@ -191,7 +191,7 @@ A dedicated read-only auditor guards the theme system specifically. It confirms 
 
 ## Project status
 
-Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.11`**. The token pipeline, two color themes, seven visual presets and 136 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.11`, with both `latest` and `beta` tags:
+Pimolu UI is under active development and has published its latest public preview, **`0.1.0-beta.12`**. The token pipeline, two color themes, seven visual presets and 136 React component families are present, with component tests and playground pages. The React registry is the current focus; other platform registries are not implemented yet. The five library packages are available on npm at `0.1.0-beta.12`, with both `latest` and `beta` tags:
 
 ```bash
 pnpm add @pimolu/react@latest @pimolu/web-styles@latest

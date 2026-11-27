@@ -13,7 +13,7 @@ test("sitemap lists canonical URLs with a valid lastmod and no previews", async 
   expect(modified).toHaveLength(locations.length);
   expect(modified.every((date) => !Number.isNaN(Date.parse(date)))).toBe(true);
   expect(locations).toContain("https://pimolu.com/identity-kit");
-  expect(locations).toContain("https://pimolu.com/releases/0.1.0-beta.11");
+  expect(locations).toContain("https://pimolu.com/releases/0.1.0-beta.12");
   expect(locations.some((url) => url.includes("/preview/"))).toBe(false);
 });
 

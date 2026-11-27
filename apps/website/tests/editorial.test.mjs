@@ -21,20 +21,21 @@ test("journal articles and releases have unique routes, section anchors and hone
     assert.ok(post.sections.length > 0);
     assert.ok(post.sections.every((section) => section.paragraphs.length > 0));
   }
-  assert.deepEqual(releaseNotes.map((entry) => entry.slug), ["0.1.0-beta.11", "0.1.0-beta.10", "0.1.0-beta.9", "0.1.0-beta.8", "0.1.0-beta.7", "0.1.0-beta.6", "0.1.0-beta.5", "0.1.0-beta.4", "0.1.0-beta.3.1", "0.1.0-beta.3", "0.1.0-beta.2", "0.1.0-beta.1", "unreleased"]);
+  assert.deepEqual(releaseNotes.map((entry) => entry.slug), ["0.1.0-beta.12", "0.1.0-beta.11", "0.1.0-beta.10", "0.1.0-beta.9", "0.1.0-beta.8", "0.1.0-beta.7", "0.1.0-beta.6", "0.1.0-beta.5", "0.1.0-beta.4", "0.1.0-beta.3.1", "0.1.0-beta.3", "0.1.0-beta.2", "0.1.0-beta.1", "unreleased"]);
   const current = releaseNotes[0];
-  assert.equal(current.tag, "v0.1.0-beta.11");
+  assert.equal(current.tag, "v0.1.0-beta.12");
   assert.equal(current.status, "Preview");
   assert.ok(current.sections.some((section) => section.items.some((item) => item.includes("published on npm"))));
-  assert.equal(releaseNotes[1].tag, "v0.1.0-beta.10");
-  assert.equal(releaseNotes[2].tag, "v0.1.0-beta.9");
-  assert.equal(releaseNotes[3].tag, "v0.1.0-beta.8");
-  assert.equal(releaseNotes[4].tag, "v0.1.0-beta.7");
-  assert.equal(releaseNotes[5].tag, "v0.1.0-beta.6");
-  assert.equal(releaseNotes[6].tag, "v0.1.0-beta.5");
-  assert.equal(releaseNotes[7].tag, "v0.1.0-beta.4");
-  assert.equal(releaseNotes[8].tag, "v0.1.0-beta.3.1");
-  assert.ok(releaseNotes.at(-1).sections.some((section) => section.items.some((item) => item.includes("0.1.0-beta.11"))));
+  assert.equal(releaseNotes[1].tag, "v0.1.0-beta.11");
+  assert.equal(releaseNotes[2].tag, "v0.1.0-beta.10");
+  assert.equal(releaseNotes[3].tag, "v0.1.0-beta.9");
+  assert.equal(releaseNotes[4].tag, "v0.1.0-beta.8");
+  assert.equal(releaseNotes[5].tag, "v0.1.0-beta.7");
+  assert.equal(releaseNotes[6].tag, "v0.1.0-beta.6");
+  assert.equal(releaseNotes[7].tag, "v0.1.0-beta.5");
+  assert.equal(releaseNotes[8].tag, "v0.1.0-beta.4");
+  assert.equal(releaseNotes[9].tag, "v0.1.0-beta.3.1");
+  assert.ok(releaseNotes.at(-1).sections.some((section) => section.items.some((item) => item.includes("0.1.0-beta.12"))));
   assert.ok(guides.find((guide) => guide.slug === "agents").sections.some((section) => section.paragraphs.some((text) => text.includes("no distributed Pimolu MCP server"))));
 });
 
@@ -74,9 +75,9 @@ test("RSS and llms.txt cover real content and escape XML metacharacters", async 
   for (const entry of catalog) assert.ok(map.includes(entry.href));
   for (const block of blocks) assert.ok(map.includes(`/blocks/${block.slug}`));
   for (const guide of guides) assert.ok(map.includes(`/docs${guide.slug ? `/${guide.slug}` : ""}`));
-  assert.match(map, /0\.1\.0-beta\.11/);
+  assert.match(map, /0\.1\.0-beta\.12/);
   assert.ok(map.includes("/identity-kit"));
-  assert.ok(map.includes("/releases/0.1.0-beta.11"));
+  assert.ok(map.includes("/releases/0.1.0-beta.12"));
   assert.match(map, /published on npm/);
   assert.ok(!map.includes("npx @pimolu"));
 });

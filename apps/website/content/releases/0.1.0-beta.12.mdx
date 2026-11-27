@@ -1,0 +1,68 @@
+export const metadata = {
+  "slug": "0.1.0-beta.12",
+  "title": "0.1.0-beta.12",
+  "status": "Preview",
+  "date": "2026-11-27",
+  "tag": "v0.1.0-beta.12",
+  "summary": "An editorial tilted-card rail with an optional endless scroll, inactive carousel and modal surfaces, and fresh sitemap dates.",
+  "notice": "This preview records the verified source state. All five packages are published on npm at 0.1.0-beta.12 with the latest and beta tags. Pimolu UI remains a beta release. The human design and assistive-technology reviews stay open."
+};
+
+<ReleaseSection id="highlights" label="At a glance" title="What matters in beta.12">
+
+- **TiltedCarousel joins the carousel families.** A rail of separated, slightly rotated cards with `tilt`, `gap`, `slidesPerView`, `slideWidth` and `viewportHeight`. Arrows, dots and the keyboard share the measured page model.
+- **Optional endless scroll.** `autoScroll` repeats decorative slides once and wraps by one repetition, so content circulates A to Z to A with no visible end. Hover, focus, reduced motion and a built-in pause button stop it; the loop is disabled when a slide contains interactive content.
+- **Carousel and modal surfaces go inactive.** Mirrored and pointer-inert slides are hidden from the keyboard and assistive technology; a dismissed modal becomes inert as its exit animation starts.
+- **Sitemap freshness.** Every canonical URL now emits `lastModified`, from the authored date of releases and articles or the latest published release date elsewhere.
+- **Showcase.** games.pimolu.com joins the project gallery, ordered newest first.
+
+</ReleaseSection>
+
+<ReleaseSection id="packages" label="npm beta" title="Published packages">
+
+- Five library packages share the 0.1.0-beta.12 version: design-tokens, themes, core, react and web-styles.
+- All five are published on npm. The latest and beta dist-tags point to 0.1.0-beta.12.
+- Install the React surface with npm install @pimolu/react@beta @pimolu/web-styles@beta.
+- The tag v0.1.0-beta.12 marks the source state.
+
+```bash
+npm install @pimolu/react@beta @pimolu/web-styles@beta
+```
+
+</ReleaseSection>
+
+<ReleaseSection id="rail" label="Added" title="An editorial rail that loops when it should">
+
+- `TiltedCarousel` accepts controlled or uncontrolled selection, localized labels, additive named parts including a playback button, and a CSS entry point at `@pimolu/web-styles/tilted-carousel.css`.
+- `slidesPerView` resizes cards so the requested count fits; `slideWidth` overrides the computed width and `viewportHeight` sets the track height.
+- `autoScroll`, `autoScrollDirection`, `speed`, `pauseLabel` and `resumeLabel` configure the decorative loop. Pages are hidden while the endless rail runs.
+- The playground and website reference demonstrate basic use, controlled selection, localized labels, visible-card sizing, the endless scroll with direction and pause controls, a real services gallery and named-part customization.
+
+</ReleaseSection>
+
+<ReleaseSection id="review" label="Evidence" title="What was verified">
+
+- `pnpm verify` passes with 1,612 React tests, 13 theme tests, 38 CSS tests, typecheck, the theme audit and the playground build.
+- The website passes 53 documentation tests and builds 478 pages.
+- The Chromium browser suite covers carousel paging, one slide per press, continuous scroll direction, sizing and the catalog gallery.
+- The five packages pass `release:pack-check` with the expected version, entry points and contents.
+
+</ReleaseSection>
+
+<ReleaseSection id="migration" label="Migration" title="Upgrading from beta.11">
+
+- No component, prop or hook was removed. Existing carousels, modals and sitemap consumers keep their current behaviour.
+- The new rail is additive: import `@pimolu/web-styles/tilted-carousel.css` when you use the individual stylesheet entries instead of the full bundle.
+- The component status baseline now matches beta.12, so no reference keeps an Updated badge from the previous cycle.
+
+</ReleaseSection>
+
+<ReleaseSection id="limits" label="Preview" title="Known limits">
+
+- This is a beta: component APIs and visual tokens may still change before 0.1.0 stable.
+- Endless scroll is limited to decorative slides; a rail containing links, buttons or other interactive content stays manually navigable.
+- Carousel navigation is measured and rendered on the client after mount; the server HTML does not contain arrows or dots.
+- The human design review and the assistive-technology review remain open; automated checks are not a screen-reader or WCAG certification.
+- Native, Angular and direct CDN adapters remain unimplemented.
+
+</ReleaseSection>

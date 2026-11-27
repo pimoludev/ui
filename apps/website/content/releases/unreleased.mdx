@@ -3,22 +3,18 @@ export const metadata = {
   "title": "Unreleased",
   "status": "Development",
   "summary": "What the source workspace holds after the latest preview, and what still blocks a stable release.",
-  "notice": "These notes track the source workspace after 0.1.0-beta.11. The published preview is listed separately."
+  "notice": "These notes track the source workspace after 0.1.0-beta.12. The published preview is listed separately."
 };
 
 <ReleaseSection id="workspace" label="Available in the workspace" title="The workspace">
 
-- Builds on the **0.1.0-beta.11** preview, which made calendar navigation and range-preset accessible names overridable.
-
-- **TiltedCarousel** adds an editorial card rail with configurable tilt, spacing, width and height. It supports manual navigation and optional continuous scroll for decorative cards, with a pause button and a manual layout under reduced motion.
-
-- Cards that sit behind the interactive slides in ArcCarousel, CoverflowCarousel and StackCarousel are skipped by the keyboard. Modal controls become inactive at the start of the exit animation.
+- Builds on the **0.1.0-beta.12** preview, which added TiltedCarousel, inactive carousel and modal surfaces, and sitemap freshness.
 
 - Installation guides and README commands recommend `@latest` for npm and pnpm. Quick start keeps exact-version examples with `--save-exact` and explains the optional beta channel and lockfile behavior.
 
-- 136 React component families, from everyday controls to data surfaces, application layouts and media, with seven visual presets and light/dark modes.
+- 137 React component families, from everyday controls to data surfaces, application layouts and media, with seven visual presets and light/dark modes.
 
-- Opt-in layered CSS with `pimolu.tokens` and `pimolu.components`, typed named-part customization across all 136 families and per-family stylesheet entry points.
+- Opt-in layered CSS with `pimolu.tokens` and `pimolu.components`, typed named-part customization across all 137 families and per-family stylesheet entry points.
 
 - Stable anchored placement shared by Select, Combobox, MultiSelect, TreeSelect, Cascader, Mentions, DropdownMenu, Menubar, Popover, Tooltip, HoverCard, DatePicker and DateRangePicker, with focus loops that skip hidden, inert and disabled controls.
 
@@ -26,7 +22,7 @@ export const metadata = {
 
 <ReleaseSection id="before-release" label="Still in progress" title="Before a stable release">
 
-- The library packages are published on npm at 0.1.0-beta.11. Install the recommended release with pnpm add @pimolu/react@latest @pimolu/web-styles@latest; latest currently resolves to a beta. A component-copy CLI is not announced.
+- The library packages are published on npm at 0.1.0-beta.12. Install the recommended release with pnpm add @pimolu/react@latest @pimolu/web-styles@latest; latest currently resolves to a beta. A component-copy CLI is not announced.
 
 - The 5–8 person design review and the assistive-technology review remain necessary before 0.1.0 stable. Automated axe and accessibility-tree checks are not a screen-reader certification.
 
