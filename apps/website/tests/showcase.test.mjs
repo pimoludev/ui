@@ -4,6 +4,15 @@ import { readFile } from "node:fs/promises";
 import { showcaseProjects } from "../content/showcase.ts";
 import { indexablePaths, siteUrl } from "../lib/site.ts";
 
+test("showcase projects are ordered from newest to oldest", () => {
+  assert.deepEqual(showcaseProjects.map((project) => project.slug), [
+    "pimolu-games",
+    "pimolu-headset",
+    "mecanes",
+    "project-workspace",
+  ]);
+});
+
 test("showcase projects have unique anchors, valid destinations and real image assets", async () => {
   assert.equal(new Set(showcaseProjects.map((project) => project.slug)).size, showcaseProjects.length);
   for (const project of showcaseProjects) {
