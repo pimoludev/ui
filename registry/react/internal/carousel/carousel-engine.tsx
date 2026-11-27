@@ -21,6 +21,7 @@ export type CarouselEffect =
   | "peek"
   | "stack"
   | "arc"
+  | "tilted"
   | "multi";
 
 export type CarouselPartNames =
@@ -38,7 +39,7 @@ export type CarouselPartNames =
 /** Additive classes for the stable named parts shared by every carousel family. */
 export type CarouselClassNames = Partial<Record<CarouselPartNames, string>>;
 
-/** The same map without the thumbnail rail, for the five stage-only families. */
+/** The same map without the thumbnail rail, for stage-only families. */
 export type CarouselStageClassNames = Omit<CarouselClassNames, "thumbnail" | "thumbnails" | "thumbnailImage">;
 
 /** Root-level options shared by the composed carousel families. */
@@ -75,10 +76,13 @@ interface CarouselContextValue {
   align: "start" | "center";
   slidesPerView: number;
   gap: number;
+  marquee: boolean;
+  marqueeAvailable: boolean;
   labels: CarouselLabels;
   label?: string;
   parts: Partial<Record<CarouselPartNames, string>>;
   setTrack: RefCallback<HTMLDivElement>;
+  track: HTMLDivElement | null;
   slides: HTMLElement[];
   goTo: (index: number) => void;
   next: () => void;
@@ -105,6 +109,9 @@ export interface CarouselProviderProps {
   align?: "start" | "center";
   slidesPerView?: number;
   gap?: number;
+  /** Infinite marquee: no reachable end and no navigation pages. */
+  marquee?: boolean;
+  pauseMarquee?: boolean;
   labels?: Partial<CarouselLabels>;
   label?: string;
   parts?: Partial<Record<CarouselPartNames, string>>;
@@ -112,7 +119,9 @@ export interface CarouselProviderProps {
 
 function getTrackSlides(track: HTMLElement) {
   return Array.from(track.children).filter((child): child is HTMLElement =>
-    child instanceof HTMLElement && child.classList.contains("pimolu-carousel__slide"),
+    child instanceof HTMLElement &&
+    child.classList.contains("pimolu-carousel__slide") &&
+    !child.hasAttribute("data-carousel-mirror"),
   );
 }
 
@@ -126,16 +135,33 @@ function getSlideOffset(slide: HTMLElement, first: HTMLElement, rtl: boolean) {
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-function measureMultiPages(track: HTMLElement, slides: HTMLElement[]) {
+const NON_DECORATIVE_CONTENT = [
+  "[id]", "[tabindex]", "[contenteditable]", "a[href]", "button", "input", "select",
+  "textarea", "summary", "iframe", "audio[controls]", "video[controls]",
+  '[role="button"]', '[role="link"]',
+].join(", ");
+
+export function getSlideLayoutOffset(slide: HTMLElement, first: HTMLElement, rtl: boolean) {
+  return rtl
+    ? first.offsetLeft + first.offsetWidth - slide.offsetLeft - slide.offsetWidth
+    : slide.offsetLeft - first.offsetLeft;
+}
+
+function measurePages(track: HTMLElement, slides: HTMLElement[], tilted: boolean) {
   if (slides.length <= 1) return 1;
   if (!track.clientWidth || !slides[0].offsetWidth) return undefined;
 
-  const scrollRange = track.scrollWidth - track.clientWidth;
+  const rtl = getComputedStyle(track).direction === "rtl";
+  const getOffset = tilted ? getSlideLayoutOffset : getSlideOffset;
+  const last = slides[slides.length - 1];
+  // Tilt and the visual repeats can extend scrollWidth beyond the original rail.
+  const scrollRange = tilted
+    ? getOffset(last, slides[0], rtl) + last.offsetWidth - track.clientWidth
+    : track.scrollWidth - track.clientWidth;
   if (scrollRange <= 1) return 1;
 
-  const rtl = getComputedStyle(track).direction === "rtl";
   // Multiple slide starts can resolve to the same end-of-track scroll position.
-  const lastPage = slides.findIndex((slide) => getSlideOffset(slide, slides[0], rtl) >= scrollRange - 1);
+  const lastPage = slides.findIndex((slide) => getOffset(slide, slides[0], rtl) >= scrollRange - 1);
   return lastPage === -1 ? slides.length : lastPage + 1;
 }
 
@@ -149,6 +175,8 @@ export function CarouselProvider({
   align = effect === "peek" || effect === "coverflow" || effect === "stack" || effect === "arc" ? "center" : "start",
   slidesPerView = 1,
   gap = 16,
+  marquee = false,
+  pauseMarquee = false,
   labels,
   label,
   parts = {},
@@ -157,12 +185,17 @@ export function CarouselProvider({
   const [track, setTrack] = useState<HTMLDivElement | null>(null);
   const [slides, setSlides] = useState<HTMLElement[]>([]);
   const [measuredPageCount, setMeasuredPageCount] = useState<number>();
+  const [canRepeat, setCanRepeat] = useState(false);
   const scrollTimerRef = useRef<number | null>(null);
   const mergedLabels = useMemo(() => ({ ...defaultCarouselLabels, ...labels }), [labels]);
 
   const count = track ? slides.length : 0;
   const fallbackPages = count - Math.max(1, Math.floor(slidesPerView) || 1) + 1;
-  const pageCount = count <= 1 ? 1 : Math.max(1, effect === "multi" ? measuredPageCount ?? fallbackPages : count);
+  const paged = effect === "multi" || effect === "tilted";
+  const availablePages = count <= 1 ? 1 : Math.max(1, paged ? measuredPageCount ?? fallbackPages : count);
+  const marqueeAvailable = marquee && canRepeat && availablePages > 1;
+  const isMarquee = marqueeAvailable && !pauseMarquee;
+  const pageCount = isMarquee ? 1 : availablePages;
   const index = Math.min(Math.max(controlledIndex ?? internalIndex, 0), pageCount - 1);
   const canNavigate = pageCount > 1;
 
@@ -199,9 +232,12 @@ export function CarouselProvider({
     const host = track?.closest<HTMLElement>(".pimolu-carousel-root") ?? track?.parentElement;
     if (!track || !host) return;
     let items = getTrackSlides(track);
+    const checkRepeat = () => setCanRepeat(
+      marquee && items.length > 1 && items.every((item) => !item.querySelector(NON_DECORATIVE_CONTENT)),
+    );
     const measure = () => {
       host.style.setProperty("--pimolu-carousel-controls-center", `${track.clientHeight / 2}px`);
-      const pages = effect === "multi" ? measureMultiPages(track, items) : items.length;
+      const pages = paged ? measurePages(track, items, effect === "tilted") : items.length;
       setMeasuredPageCount(pages);
 
       if (pages !== undefined && pages <= 1) {
@@ -209,7 +245,7 @@ export function CarouselProvider({
         const control = focused?.closest(
           ".pimolu-carousel__control, .pimolu-carousel__dots, .pimolu-carousel__thumbnails",
         );
-        if (control && host.contains(control)) {
+        if (control?.closest(".pimolu-carousel-root") === host) {
           track.focus({ preventScroll: true });
         }
       }
@@ -224,12 +260,20 @@ export function CarouselProvider({
       );
       resizeObserver?.disconnect();
       resizeObserver?.observe(track);
-      if (effect === "multi") items.forEach((slide) => resizeObserver?.observe(slide));
+      if (paged) items.forEach((slide) => resizeObserver?.observe(slide));
       measure();
+      checkRepeat();
     };
     // Use DOM order so keyed insertions, removals and reordering update slide labels and paging.
-    const mutations = new MutationObserver(syncSlides);
-    mutations.observe(track, { childList: true });
+    const mutations = new MutationObserver((changes) => {
+      if (changes.some(({ type, target }) => type === "childList" && target === track)) syncSlides();
+      else checkRepeat();
+    });
+    mutations.observe(track, marquee ? {
+      childList: true,
+      subtree: true,
+      attributeFilter: ["id", "href", "tabindex", "contenteditable", "controls", "role"],
+    } : { childList: true });
     if (!resizeObserver) window.addEventListener("resize", measure);
     syncSlides();
 
@@ -239,13 +283,13 @@ export function CarouselProvider({
       window.removeEventListener("resize", measure);
       host.style.removeProperty("--pimolu-carousel-controls-center");
     };
-  }, [effect, gap, slidesPerView, track]);
+  }, [effect, gap, marquee, paged, slidesPerView, track]);
 
   /*
    * Only the scroll-based layouts move the viewport. Coverflow, stack and arc
    * position every slide from the active index, so they must not scroll.
    */
-  const scrolls = effect === "slide" || effect === "thumbnails" || effect === "peek" || effect === "multi";
+  const scrolls = effect === "slide" || effect === "thumbnails" || effect === "peek" || effect === "multi" || effect === "tilted";
 
   useEffect(() => {
     if (!scrolls || !canNavigate) return;
@@ -319,9 +363,9 @@ export function CarouselProvider({
   }, [canNavigate, goTo, next, pageCount, previous]);
 
   const value = useMemo<CarouselContextValue>(() => ({
-    index, count, pageCount, loop, effect, align, slidesPerView, gap,
-    labels: mergedLabels, label, parts, setTrack, slides, goTo, next, previous, onKeyDown, onScroll,
-  }), [index, count, pageCount, loop, effect, align, slidesPerView, gap, mergedLabels, label, parts, slides, goTo, next, previous, onKeyDown, onScroll]);
+    index, count, pageCount, loop, effect, align, slidesPerView, gap, marquee: isMarquee, marqueeAvailable,
+    labels: mergedLabels, label, parts, setTrack, track, slides, goTo, next, previous, onKeyDown, onScroll,
+  }), [index, count, pageCount, loop, effect, align, slidesPerView, gap, isMarquee, marqueeAvailable, mergedLabels, label, parts, track, slides, goTo, next, previous, onKeyDown, onScroll]);
 
   return <CarouselContext.Provider value={value}>{children}</CarouselContext.Provider>;
 }

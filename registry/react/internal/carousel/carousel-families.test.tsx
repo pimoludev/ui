@@ -15,11 +15,12 @@ import {
   PeekCarousel,
   StackCarousel,
   ThumbnailCarousel,
+  TiltedCarousel,
 } from "@pimolu/react";
 
 const slides = ["Atlas", "Prism", "Signal"];
 
-function Frame({ family }: { family: "thumbnail" | "coverflow" | "peek" | "stack" | "arc" | "multi" }) {
+function Frame({ family }: { family: "thumbnail" | "coverflow" | "peek" | "stack" | "arc" | "tilted" | "multi" }) {
   const content = (
     <CarouselContent>
       {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
@@ -31,13 +32,14 @@ function Frame({ family }: { family: "thumbnail" | "coverflow" | "peek" | "stack
   if (family === "peek") return <PeekCarousel aria-label="Peek">{content}{controls}</PeekCarousel>;
   if (family === "stack") return <StackCarousel aria-label="Stack">{content}{controls}</StackCarousel>;
   if (family === "arc") return <ArcCarousel aria-label="Arc">{content}{controls}</ArcCarousel>;
+  if (family === "tilted") return <TiltedCarousel aria-label="Tilted">{content}{controls}</TiltedCarousel>;
   return <MultiCarousel aria-label="Multi" slidesPerView={2}>{content}{controls}</MultiCarousel>;
 }
 
 describe("carousel families", () => {
-  it.each(["thumbnail", "coverflow", "peek", "stack", "arc", "multi"] as const)("%s exposes slides, controls and keyboard navigation", (family) => {
+  it.each(["thumbnail", "coverflow", "peek", "stack", "arc", "tilted", "multi"] as const)("%s exposes slides, controls and keyboard navigation", (family) => {
     render(<Frame family={family} />);
-    expect(screen.getByRole("region", { name: /Gallery|Coverflow|Peek|Stack|Arc|Multi/ })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: /Gallery|Coverflow|Peek|Stack|Arc|Tilted|Multi/ })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Next slide" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Previous slide" })).toBeDisabled();
     expect(screen.getByRole("group", { name: "Slide pagination" })).toBeInTheDocument();
@@ -132,6 +134,44 @@ describe("carousel families", () => {
       </PeekCarousel>
     );
     expect((peek.querySelector(".pimolu-peek-carousel") as HTMLElement).style.getPropertyValue("--pimolu-peek-slide-width")).toBe("min(320px, 78vw)");
+  });
+
+  it("advances one tilted slide per arrow press without scroll sync overriding it", () => {
+    render(<Frame family="tilted" />);
+    const next = screen.getByRole("button", { name: "Next slide" });
+    fireEvent.click(next);
+    expect(screen.getByRole("group", { name: "2 of 3" })).toHaveAttribute("data-active", "true");
+    fireEvent.click(next);
+    expect(screen.getByRole("group", { name: "3 of 3" })).toHaveAttribute("data-active", "true");
+  });
+
+  it("exposes the tilt amplitude and the continuous scroll direction on the root", () => {
+    function Gallery({ tilt, autoScroll, direction, slidesPerView, gap }: { tilt: number; autoScroll?: boolean; direction?: "ltr" | "rtl"; slidesPerView?: number; gap?: number }) {
+      return (
+        <TiltedCarousel aria-label="Tilted gallery" tilt={tilt} autoScroll={autoScroll} autoScrollDirection={direction} slidesPerView={slidesPerView} gap={gap}>
+          <CarouselContent>
+            {slides.map((slide) => <CarouselSlide key={slide}>{slide}</CarouselSlide>)}
+          </CarouselContent>
+        </TiltedCarousel>
+      );
+    }
+    const { container, rerender } = render(<Gallery tilt={6} autoScroll direction="rtl" />);
+    const root = container.querySelector<HTMLElement>(".pimolu-tilted-carousel")!;
+    expect(container.querySelectorAll(".pimolu-carousel__slide")).toHaveLength(slides.length * 2);
+    expect(screen.queryByRole("group", { name: "Slide pagination" })).not.toBeInTheDocument();
+    expect(root).toHaveAttribute("data-auto-scroll", "true");
+    expect(root).toHaveAttribute("data-auto-scroll-direction", "rtl");
+    expect(root.style.getPropertyValue("--pimolu-tilted-tilt")).toBe("6deg");
+
+    rerender(<Gallery tilt={2} />);
+    expect(root).not.toHaveAttribute("data-auto-scroll");
+    expect(root.style.getPropertyValue("--pimolu-tilted-tilt")).toBe("2deg");
+    expect(root.style.getPropertyValue("--pimolu-tilted-slide-width")).toBe("");
+
+    rerender(<Gallery tilt={2} slidesPerView={3} gap={24} />);
+    expect(root.style.getPropertyValue("--pimolu-tilted-slide-width")).toContain("/ 3");
+    const viewport = container.querySelector<HTMLElement>(".pimolu-carousel__viewport")!;
+    expect(viewport.style.getPropertyValue("--pimolu-carousel-gap")).toBe("24px");
   });
 
   it("hides navigation when a single page is reachable and restores it when the rail grows", async () => {

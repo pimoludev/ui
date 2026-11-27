@@ -14,6 +14,41 @@ All notable changes to Pimolu UI. The format follows [Keep a Changelog](https://
   navigateur SEO vérifie que chaque `<loc>` a un `<lastmod>` valide et qu'aucune
   route d'aperçu n'est indexée.
 
+- EN: In the source workspace, not yet published on npm, `TiltedCarousel` joins
+  the carousel families. It arranges slides in a scroll-snap rail with visible
+  gaps, each card keeping a deterministic tilt, and reuses the shared
+  `CarouselProvider` engine, named parts and accessible controls. `tilt` sets
+  the maximum rotation in degrees (default 3) and `gap` the spacing in pixels
+  (default 20). Set a target with `slidesPerView` or supply a custom
+  `slideWidth` and `viewportHeight`. `autoScroll` with
+  `autoScrollDirection="ltr" | "rtl"` moves the decorative
+  rail continuously at `speed` pixels per second (default 40), pausing on hover
+  and focus. The built-in pause button, reduced motion and interactive cards
+  keep manual navigation available. Visual repetitions stay outside the
+  accessibility tree. Navigation is measured from the
+  real scroll range: dots map to reachable pages, so no dot is dead and the last
+  page never leaves an empty rail. The stylesheet is
+  available as `@pimolu/web-styles/tilted-carousel.css` and the website
+  reference includes live playground examples.
+- FR : Dans l'espace de travail source, pas encore publié sur npm,
+  `TiltedCarousel` rejoint les familles de carrousels. Il dispose les
+  diapositives sur un rail à défilement avec des espaces visibles, chaque carte
+  conservant une inclinaison déterministe, et réutilise le moteur
+  `CarouselProvider`, les parties nommées et les commandes accessibles
+  existants. `tilt` fixe la rotation maximale en degrés (3 par défaut), `gap`
+  l'espacement en pixels (20 par défaut). `slidesPerView` fixe le nombre de
+  cartes souhaité. `slideWidth` et `viewportHeight` personnalisent les dimensions.
+  `autoScroll` avec `autoScrollDirection="ltr" | "rtl"` fait défiler le rail
+  décoratif à `speed` pixels par seconde (40 par défaut), avec pause au survol
+  et au focus. La commande de pause, le mouvement réduit et les cartes
+  interactives rendent la navigation manuelle disponible. Les copies visuelles
+  sont masquées aux technologies d'assistance. La navigation est mesurée sur la plage
+  de défilement réelle : les points correspondent aux pages atteignables, aucun
+  point n'est mort et la dernière page ne laisse pas de rail vide. La feuille de styles est
+  disponible comme
+  `@pimolu/web-styles/tilted-carousel.css` et la référence du site comprend des
+  exemples vivants du playground.
+
 ## [0.1.0-beta.11] — 2026-11-26
 
 Preview release. Tag: `v0.1.0-beta.11`. All five library packages are published on

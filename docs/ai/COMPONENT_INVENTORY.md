@@ -96,6 +96,7 @@ its tests, not an exhaustive accessibility certification or a frozen API.
 | PeekCarousel | `registry/react/peek-carousel/` | Centred card with peeking neighbours | Present and tested |
 | StackCarousel | `registry/react/stack-carousel/` | Shallow stacked deck | Present and tested |
 | ArcCarousel | `registry/react/arc-carousel/` | Cards fanned along a shallow arc | Present and tested |
+| TiltedCarousel | `registry/react/tilted-carousel/` | Spaced rail of tilted cards with optional continuous scroll | Present and tested |
 | MultiCarousel | `registry/react/multi-carousel/` | Several cards per scroll-snap page | Present and tested |
 | Resizable | `registry/react/resizable/` | Draggable split panels | Present and tested |
 | VirtualList | `registry/react/virtual-list/` | Windowed large lists | Present and tested |

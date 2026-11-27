@@ -1,1 +1,22 @@
-{}
+{
+  "arc-carousel": {
+    "kind": "updated",
+    "description": "Keyboard focus and assistive technology now skip the outer, non-interactive cards."
+  },
+  "carousel": {
+    "kind": "updated",
+    "description": "The usage guide clarifies which carousel to choose for timed or continuous automatic motion."
+  },
+  "coverflow-carousel": {
+    "kind": "updated",
+    "description": "Keyboard focus and assistive technology now skip cards behind the immediate neighbours."
+  },
+  "modal": {
+    "kind": "updated",
+    "description": "Dismissed panels become inactive as soon as the exit animation begins."
+  },
+  "stack-carousel": {
+    "kind": "updated",
+    "description": "Only the top card is interactive, including when tabbing through buttons and links."
+  }
+}

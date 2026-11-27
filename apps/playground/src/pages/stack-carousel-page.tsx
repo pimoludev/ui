@@ -53,13 +53,26 @@ function Slide({ index }: { index: number }) {
   );
 }
 
-function Gallery({ defaultIndex = 0, gap, limit = slides.length }: { defaultIndex?: number; gap?: number; limit?: number }) {
+function Gallery({ defaultIndex = 0, gap, limit = slides.length, interactive = false }: {
+  defaultIndex?: number;
+  gap?: number;
+  limit?: number;
+  interactive?: boolean;
+}) {
   return (
     <StackCarousel aria-label="Stacked invitation deck" loop defaultIndex={defaultIndex} gap={gap}>
       <CarouselContent>
         {slides.slice(0, limit).map((slide, index) => (
           <CarouselSlide key={slide.title}>
-            <Slide index={index} />
+            {interactive ? (
+              <div className="pg-panel">
+                <h3>{slide.title}</h3>
+                <details>
+                  <summary>About {slide.title}</summary>
+                  <p className="pg-muted">{slide.note}</p>
+                </details>
+              </div>
+            ) : <Slide index={index} />}
           </CarouselSlide>
         ))}
       </CarouselContent>
@@ -207,6 +220,10 @@ export function StackCarouselPage() {
 
       <Section title="Single slide" hint="The card stays visible. With one slide, the gallery omits navigation and pagination.">
         <Gallery limit={1} />
+      </Section>
+
+      <Section title="Interactive cards" hint="Only the top invitation offers interactive details. Move the deck to reveal another invitation.">
+        <Gallery interactive />
       </Section>
 
       <Section title="Named-part customization" hint="Apply local classes to stable named parts without replacing the built-in states.">

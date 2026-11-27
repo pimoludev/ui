@@ -13,6 +13,7 @@ const outputs = [
   { input: "peek-carousel.css", output: "peek-carousel.css", minify: false },
   { input: "stack-carousel.css", output: "stack-carousel.css", minify: false },
   { input: "arc-carousel.css", output: "arc-carousel.css", minify: false },
+  { input: "tilted-carousel.css", output: "tilted-carousel.css", minify: false },
   { input: "multi-carousel.css", output: "multi-carousel.css", minify: false },
   { input: "tokens.css", output: "tokens.css", minify: false },
   { input: "themes.css", output: "themes.css", minify: false },

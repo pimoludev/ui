@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { createContext, useContext, useState, type CSSProperties, type ReactNode } from "react";
 import { mergeClasses } from "../merge-classes";
 import {
   useCarousel,
   type CarouselClassNames,
   type CarouselEffect,
 } from "./carousel-engine";
+
+const CarouselMirrorContext = createContext(false);
 
 /* =========================================
    SHARED STYLES
@@ -63,7 +65,8 @@ export function CarouselContent({
     carousel.effect === "slide" ||
     carousel.effect === "thumbnails" ||
     carousel.effect === "peek" ||
-    carousel.effect === "multi";
+    carousel.effect === "multi" ||
+    carousel.effect === "tilted";
 
   return (
     <div
@@ -76,6 +79,7 @@ export function CarouselContent({
       )}
       data-effect={carousel.effect}
       data-scroll={scrolls ? "true" : "false"}
+      data-marquee={carousel.marquee || undefined}
       role="region"
       aria-roledescription="carousel"
       aria-label={label ?? carousel.label}
@@ -88,6 +92,11 @@ export function CarouselContent({
       } as CSSProperties}
     >
       {children}
+      {carousel.marquee && (
+        <CarouselMirrorContext.Provider value>
+          {children}
+        </CarouselMirrorContext.Provider>
+      )}
     </div>
   );
 }
@@ -108,9 +117,12 @@ export function CarouselSlide({
   style?: CSSProperties;
 }) {
   const carousel = useCarousel("CarouselSlide");
+  const mirror = useContext(CarouselMirrorContext);
   const [node, setNode] = useState<HTMLDivElement | null>(null);
   const index = node ? Math.max(0, carousel.slides.indexOf(node)) : 0;
   const active = index === carousel.index;
+  const transform = slideTransform(carousel.effect, index - carousel.index);
+  const hidden = mirror || transform.pointerEvents === "none";
 
   return (
     <div
@@ -121,14 +133,17 @@ export function CarouselSlide({
         classNames?.slide,
         className
       )}
-      role="group"
-      aria-roledescription="slide"
-      aria-label={carousel.labels.slide(index, carousel.count)}
-      aria-current={active ? "true" : undefined}
-      data-active={active ? "true" : "false"}
+      inert={hidden || undefined}
+      aria-hidden={hidden || undefined}
+      role={mirror ? undefined : "group"}
+      aria-roledescription={mirror ? undefined : "slide"}
+      aria-label={mirror ? undefined : carousel.labels.slide(index, carousel.count)}
+      aria-current={active && !carousel.marquee ? "true" : undefined}
+      data-active={active && !carousel.marquee ? "true" : "false"}
+      data-carousel-mirror={mirror || undefined}
       data-index={index}
       data-distance={Math.min(3, Math.abs(index - carousel.index))}
-      style={{ ...slideTransform(carousel.effect, index - carousel.index), ...style }}
+      style={{ ...transform, ...style }}
     >
       {children}
     </div>

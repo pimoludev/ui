@@ -426,7 +426,7 @@ export function ModalPage() {
 
       <Section
         title="Anatomy"
-        hint="Modal, ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalFooter and ModalClose, composed in the order a modal is read."
+        hint="Open the modal, then dismiss it with Escape. Focus returns to the trigger as the panel animates out and its controls become inactive."
       >
         <AnatomyModal />
       </Section>

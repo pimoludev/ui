@@ -165,6 +165,7 @@
     "./peek-carousel.css": "./dist/peek-carousel.css",
     "./stack-carousel.css": "./dist/stack-carousel.css",
     "./arc-carousel.css": "./dist/arc-carousel.css",
+    "./tilted-carousel.css": "./dist/tilted-carousel.css",
     "./multi-carousel.css": "./dist/multi-carousel.css"
   },
   "dependencies": {

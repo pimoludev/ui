@@ -126,6 +126,65 @@ test("focus moves to the viewport when a resize removes the navigation", async (
   await expect(page.locator(".pimolu-multi-carousel .pimolu-carousel__viewport")).toBeFocused();
 });
 
+test("tilted dots move the rail on every press, including the edge slides", async ({ page }) => {
+  await ready(page, "/preview/tilted-carousel?example=example-2&preset=default&theme=light");
+  const root = page.locator(".pimolu-tilted-carousel").first();
+  const track = root.locator(".pimolu-carousel__viewport");
+  const dotCount = await root.locator(".pimolu-carousel__dot").count();
+  const positions: number[] = [];
+  for (let index = 0; index < dotCount; index++) {
+    await root.locator(".pimolu-carousel__dot").nth(index).click();
+    await page.waitForTimeout(350);
+    positions.push(await track.evaluate((node) => Math.round(node.scrollLeft)));
+  }
+  expect(dotCount).toBeGreaterThan(1);
+  expect(new Set(positions).size).toBe(dotCount);
+});
+
+test("tilted arrows and dots advance exactly one slide per press", async ({ page }) => {
+  await ready(page, "/preview/tilted-carousel?example=example-2&preset=default&theme=light");
+  const root = page.locator(".pimolu-tilted-carousel").first();
+  const activeIndex = () => root.locator(".pimolu-carousel__dot").evaluateAll((dots) => dots.findIndex((dot) => dot.getAttribute("aria-current") === "true"));
+
+  const total = await root.locator(".pimolu-carousel__dot").count();
+  for (let index = 1; index < total; index++) {
+    await root.getByRole("button", { name: "Next slide" }).click();
+    await expect.poll(activeIndex).toBe(index);
+  }
+  await root.getByRole("button", { name: "Previous slide" }).click();
+  await expect.poll(activeIndex).toBe(total - 2);
+});
+
+test.describe("tilted continuous scroll", () => {
+  test.use({ reducedMotion: "no-preference" });
+
+  test("scrolls continuously and reverses on request", async ({ page }) => {
+    await ready(page, "/preview/tilted-carousel?example=example-4&preset=default&theme=light");
+    const track = page.locator(".pimolu-tilted-carousel .pimolu-carousel__viewport");
+    await page.getByRole("button", { name: "Play" }).click();
+    expect(await track.locator(".pimolu-carousel__slide").count()).toBe(12);
+    const before = await track.evaluate((node) => node.scrollLeft);
+    await page.waitForTimeout(500);
+    const forward = await track.evaluate((node) => node.scrollLeft);
+    expect(forward).toBeGreaterThan(before);
+
+    const root = page.locator(".pimolu-tilted-carousel").first();
+    await page.getByRole("button", { name: "Reverse direction" }).click();
+    await expect(root).toHaveAttribute("data-auto-scroll-direction", "rtl");
+    const rtlStart = await track.evaluate((node) => node.scrollLeft);
+    await page.waitForTimeout(300);
+    const rtlNow = await track.evaluate((node) => node.scrollLeft);
+    expect(rtlNow).toBeLessThan(rtlStart);
+
+    const widthBefore = await track.locator(".pimolu-carousel__slide").first().evaluate((node) => node.getBoundingClientRect().width);
+    await page.getByRole("button", { name: "3 visible" }).click();
+    await page.getByRole("button", { name: "36px gap" }).click();
+    await expect.poll(() => track.evaluate((node) => getComputedStyle(node).gap)).toBe("36px");
+    const widthAfter = await track.locator(".pimolu-carousel__slide").first().evaluate((node) => node.getBoundingClientRect().width);
+    expect(widthAfter).toBeLessThan(widthBefore);
+  });
+});
+
 test("peek cards accept a custom width and thumbnails share one crop", async ({ page }) => {
   await ready(page, "/preview/peek-carousel?example=example-6&preset=default&theme=light");
   const peek = await page.evaluate(() => {

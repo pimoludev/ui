@@ -18,6 +18,7 @@ const order = [
   "peek-carousel",
   "stack-carousel",
   "arc-carousel",
+  "tilted-carousel",
   "multi-carousel",
 ];
 
@@ -51,6 +52,11 @@ const choices = [
     need: "A shallow fan of cards",
     family: "arc-carousel",
     why: "Cards spread along an arc and simplify on narrow screens.",
+  },
+  {
+    need: "An editorial rail of tilted cards",
+    family: "tilted-carousel",
+    why: "A swipeable rail with optional continuous scroll for decorative cards.",
   },
   {
     need: "Several cards per page",
@@ -153,8 +159,8 @@ export default function CarouselsOverview() {
         <p className="max-w-3xl text-sm text-muted">
           <strong>Simple or advanced?</strong> <Code>Carousel</Code> is the
           recommended entry point and owns autoplay, pause and the stable
-          control contract. The six layout families deliberately leave autoplay
-          out: compose your own timer when a layout needs it. All seven
+          control contract. <Code>TiltedCarousel</Code> can continuously scroll
+          decorative cards. The other layouts advance on user input. All
           references use the same keyboard model, slide labels and reduced-motion
           behaviour.
         </p>

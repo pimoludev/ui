@@ -1118,6 +1118,8 @@ export { StackCarousel } from "./stack-carousel/stack-carousel";
 export type { StackCarouselProps } from "./stack-carousel/stack-carousel.types";
 export { ArcCarousel } from "./arc-carousel/arc-carousel";
 export type { ArcCarouselProps } from "./arc-carousel/arc-carousel.types";
+export { TiltedCarousel } from "./tilted-carousel/tilted-carousel";
+export type { TiltedCarouselProps } from "./tilted-carousel/tilted-carousel.types";
 export { MultiCarousel } from "./multi-carousel/multi-carousel";
 export type { MultiCarouselProps } from "./multi-carousel/multi-carousel.types";
 

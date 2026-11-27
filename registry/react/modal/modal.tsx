@@ -442,6 +442,7 @@ export function ModalContent({
       <div
         className={mergeClasses("pimolu-modal", partClasses.root)}
         data-state={state}
+        inert={!open || undefined}
       >
         <div
           className={mergeClasses("pimolu-modal__overlay", partClasses.overlay)}

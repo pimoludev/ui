@@ -22,14 +22,14 @@ test("every styled public export has typed named parts; headless exceptions stay
     if (props.getProperty("classNames")) styled.push(entry.name);
     else headless.push(entry.name);
   }
-  assert.equal(styled.length, 256);
+  assert.equal(styled.length, 257);
   assert.deepEqual(headless.sort(), ["Dialog", "DialogTrigger", "DialogClose", "Modal", "ModalTrigger", "ModalClose", "FormControl", "AlertDialog", "AlertDialogTrigger", "AlertDialogAction", "AlertDialogCancel", "DropdownMenu", "DropdownMenuTrigger", "Drawer", "DrawerTrigger", "DrawerClose", "ContextMenu", "ContextMenuTrigger", "HoverCard", "HoverCardTrigger", "Portal"].sort());
 });
 
 test("every reference documents its part keys and has a standalone customization example", async () => {
   const api = JSON.parse(await readFile(new URL("../content/generated/api.json", import.meta.url), "utf8"));
   const examples = JSON.parse(await readFile(new URL("../content/generated/additional-examples.json", import.meta.url), "utf8"));
-  assert.equal(Object.keys(api).length, 142);
+  assert.equal(Object.keys(api).length, 143);
   for (const [family, groups] of Object.entries(api)) {
     const props = groups.flatMap((group) => group.rows).filter((row) => row.name === "classNames");
     assert.ok(props.length, `${family}: missing named-part API`);

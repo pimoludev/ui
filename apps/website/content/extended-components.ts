@@ -721,7 +721,7 @@ export const extendedComponents = [
     "description": "The simple, batteries-included gallery with autoplay, pause, dots and controls.",
     "usage": [
       "Keep navigation explicit; autoplay must be optional and pauseable when enabled. Touch swipes, dots and controls stay synchronized in RTL; horizontal arrow keys mirror the reading direction.",
-      "Carousel is the simple entry point and owns autoplay, pause, dots and controls. The six carousel families focus on layout and intentionally omit autoplay; compose your own timer there, or choose Carousel for a straightforward gallery.",
+      "Choose Carousel for a straightforward gallery with timed autoplay. TiltedCarousel offers continuous scroll for decorative rails. The other layouts advance on user input.",
       "showControlsOnMobile={false} hides the arrows below 640px when a swipe-first layout is enough; dots and the keyboard remain. Arrows centre on the visible viewport rather than the footer row.",
       "The current workspace also omits the autoplay button when there is only one slide."
     ],
@@ -757,7 +757,7 @@ export const extendedComponents = [
     "description": "A centred card with scaled and rotated neighbours behind it.",
     "usage": [
       "CoverflowCarousel positions every slide from the active index instead of scrolling a track. Use CarouselContent, CarouselSlide and the shared controls.",
-      "The active card keeps focus and pointer events; cards beyond the immediate neighbours are inert to pointer input. loop and onIndexChange follow the shared contract.",
+      "The active card and immediate neighbours stay interactive. Cards rendered farther behind them are skipped by the keyboard and assistive technology.",
       "In the current workspace, a single slide renders without arrows or pagination.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
@@ -794,7 +794,7 @@ export const extendedComponents = [
     "description": "Cards stacked in a shallow deck behind the active one.",
     "usage": [
       "StackCarousel positions every slide from the active index. Compose CarouselContent, CarouselSlide, the shared controls and CarouselDots.",
-      "The stack re-orders around the active index; cards further away fade and stop receiving pointer events. loop keeps the deck continuous.",
+      "Only the top card is interactive. Its underlying cards come forward through the carousel controls and are skipped by the keyboard until they reach the top.",
       "In the current workspace, a single slide renders without arrows or pagination.",
       "Available since 0.1.0-beta.9: the carousel families install from the published packages."
     ],
@@ -818,7 +818,26 @@ export const extendedComponents = [
     ],
     "accessibility": [
       "Check the active card, dots and arrow buttons at narrow widths where outer cards are hidden.",
-      "Pointer-inert outer cards must not hide a required action; keep every essential control on the active card or in the shared controls."
+      "Outer cards are skipped by the keyboard and assistive technology. Keep essential actions on the active card or in the shared controls."
+    ]
+  },
+  {
+    "family": "tilted-carousel",
+    "group": "Carousels",
+    "selection": {
+      "section": "Basic"
+    },
+    "description": "A horizontal rail of separated, slightly tilted cards with optional continuous scroll.",
+    "usage": [
+      "TiltedCarousel keeps a scroll-snap rail with visible gaps between cards. Use CarouselContent, CarouselSlide and the shared controls; the viewport is focusable and the arrow keys mirror RTL.",
+      "Use tilt={0} for straight cards and gap for spacing in pixels. slidesPerView is a target count and keeps a readable minimum card width. Use slideWidth to set your own responsive CSS length, and viewportHeight for the height of the track.",
+      "Use autoScroll for decorative cards. The rail stays manual if cards contain common interactive elements or explicit HTML IDs. Extra copies are visual only and hidden from assistive technology. autoScrollDirection sets the physical direction and speed sets pixels per second.",
+      "The automatic rail runs only when its cards overflow. It pauses on hover or focus. Its built-in button returns to manual navigation while paused; customize it with pauseLabel, resumeLabel and classNames.playback. Reduced motion keeps the manual controls available.",
+      "In manual mode, swiping, arrows, dots and keyboard navigation share the same page index. Use index and onIndexChange to control it. Navigation is omitted when the cards fit. On narrow screens, the controls sit below the cards to keep the card content clear.",
+      "TiltedCarousel and its stylesheet @pimolu/web-styles/tilted-carousel.css are available in the current workspace ahead of publication."
+    ],
+    "accessibility": [
+      "Give the rail an aria-label. Focus the viewport to use ArrowLeft, ArrowRight, Home or End. Use the pause button to turn continuous motion off."
     ]
   },
   {
@@ -1455,7 +1474,7 @@ export const extendedComponents = [
     ],
     "accessibility": [
       "Use ModalTitle to name the panel and ModalDescription for context. Focus is trapped, Escape and the overlay dismiss by default, the page cannot scroll behind the panel, and focus returns to the trigger.",
-      "Keep a visible or programmatic close path. If you disable Escape and overlay dismissal, the footer actions must be the only deliberate way out and must remain reachable by keyboard."
+      "Keep a visible or programmatic close path when Escape and overlay dismissal are disabled. Once the modal closes, its controls become inactive during the exit animation."
     ]
   },
   {

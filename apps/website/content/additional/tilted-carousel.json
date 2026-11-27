@@ -1,0 +1,8 @@
+[
+  {
+    "file": "tilted-carousel-customization.tsx",
+    "title": "Named-part customization",
+    "description": "Set a responsive card width and a track height, then apply local classes to the cards, controls and dots.",
+    "append": true
+  }
+]

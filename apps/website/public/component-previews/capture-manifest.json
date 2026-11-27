@@ -4001,6 +4001,38 @@
   },
   {
     "example": "primary",
+    "family": "tilted-carousel",
+    "theme": "dark",
+    "selector": ".pimolu-tilted-carousel",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 296
+    },
+    "rendered": {
+      "width": 329,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
+    "family": "tilted-carousel",
+    "theme": "light",
+    "selector": ".pimolu-tilted-carousel",
+    "bounds": {
+      "x": 20,
+      "y": 20,
+      "width": 320,
+      "height": 296
+    },
+    "rendered": {
+      "width": 329,
+      "height": 304
+    }
+  },
+  {
+    "example": "primary",
     "family": "time-picker",
     "theme": "dark",
     "selector": ".pimolu-time-picker",

@@ -98,6 +98,7 @@ const pageComponents = {
   "peek-carousel": lazy(() => import("./pages/peek-carousel-page").then(({ PeekCarouselPage }) => ({ default: PeekCarouselPage }))),
   "stack-carousel": lazy(() => import("./pages/stack-carousel-page").then(({ StackCarouselPage }) => ({ default: StackCarouselPage }))),
   "arc-carousel": lazy(() => import("./pages/arc-carousel-page").then(({ ArcCarouselPage }) => ({ default: ArcCarouselPage }))),
+  "tilted-carousel": lazy(() => import("./pages/tilted-carousel-page").then(({ TiltedCarouselPage }) => ({ default: TiltedCarouselPage }))),
   "multi-carousel": lazy(() => import("./pages/multi-carousel-page").then(({ MultiCarouselPage }) => ({ default: MultiCarouselPage }))),
   resizable: lazy(() => import("./pages/resizable-page").then(({ ResizablePage }) => ({ default: ResizablePage }))),
   "virtual-list": lazy(() => import("./pages/virtual-list-page").then(({ VirtualListPage }) => ({ default: VirtualListPage }))),

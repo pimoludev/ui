@@ -1,0 +1,110 @@
+@import "./carousel-base.css";
+@import "./button.css";
+
+/* A horizontal rail of separate, slightly rotated cards with visible gaps. */
+.pimolu-tilted-carousel {
+  --pimolu-tilted-default-width: min(32%, 280px);
+}
+
+.pimolu-tilted-carousel .pimolu-carousel__viewport[data-effect="tilted"] {
+  height: var(--pimolu-tilted-viewport-height, clamp(260px, 40vw, 380px));
+
+  padding-block: 18px;
+  justify-content: safe center;
+}
+
+/* The continuous scroll writes small scrollLeft increments each frame; a smooth
+   behaviour would restart its animation on every write and cancel the motion. */
+.pimolu-tilted-carousel .pimolu-carousel__viewport[data-marquee="true"] {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+.pimolu-tilted-carousel .pimolu-carousel__viewport[data-effect="tilted"] > .pimolu-carousel__slide {
+  flex: 0 0 var(--pimolu-tilted-slide-width, var(--pimolu-tilted-default-width));
+
+  height: 100%;
+
+  scroll-snap-align: start;
+}
+
+:where(.pimolu-carousel__viewport[data-effect="tilted"]) > .pimolu-carousel__slide {
+  border: 1px solid var(--pimolu-border);
+  border-radius: calc(var(--pimolu-radius-lg, 14px) + 2px);
+  background: var(--pimolu-surface);
+  box-shadow: var(--pimolu-shadow-raised, 0 2px 8px rgb(0 0 0 / 18%));
+
+  overflow: hidden;
+
+  transform-origin: center center;
+}
+
+.pimolu-tilted-carousel:not([data-custom-width]) .pimolu-carousel__viewport[data-effect="tilted"] > .pimolu-carousel__slide {
+  min-inline-size: min(176px, 78%);
+}
+
+.pimolu-tilted-carousel__playback {
+  justify-self: center;
+}
+
+/* A stable scattered pattern keeps the row lively while it scrolls. */
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 1 of .pimolu-carousel__slide:not([data-carousel-mirror])),
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 1 of [data-carousel-mirror]) {
+  transform: rotate(calc(var(--pimolu-tilted-tilt, 3deg) * -1));
+}
+
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 2 of .pimolu-carousel__slide:not([data-carousel-mirror])),
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 2 of [data-carousel-mirror]) {
+  transform: rotate(var(--pimolu-tilted-tilt, 3deg));
+}
+
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 3 of .pimolu-carousel__slide:not([data-carousel-mirror])),
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 3 of [data-carousel-mirror]) {
+  transform: rotate(calc(var(--pimolu-tilted-tilt, 3deg) * -0.6));
+}
+
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 4 of .pimolu-carousel__slide:not([data-carousel-mirror])),
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 4 of [data-carousel-mirror]) {
+  transform: rotate(calc(var(--pimolu-tilted-tilt, 3deg) * 0.8));
+}
+
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 5 of .pimolu-carousel__slide:not([data-carousel-mirror])),
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n + 5 of [data-carousel-mirror]) {
+  transform: rotate(calc(var(--pimolu-tilted-tilt, 3deg) * -0.75));
+}
+
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n of .pimolu-carousel__slide:not([data-carousel-mirror])),
+.pimolu-carousel__viewport[data-effect="tilted"] > :nth-child(6n of [data-carousel-mirror]) {
+  transform: rotate(calc(var(--pimolu-tilted-tilt, 3deg) * 0.5));
+}
+
+@media (max-width: 640px) {
+  .pimolu-tilted-carousel {
+    --pimolu-tilted-default-width: min(46%, 220px);
+
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .pimolu-tilted-carousel > :where(:not(.pimolu-carousel__control, .pimolu-carousel__dots)) {
+    grid-column: 1 / -1;
+  }
+
+  .pimolu-tilted-carousel > .pimolu-carousel__control {
+    grid-row: 2;
+    position: static;
+    transform: none;
+  }
+
+  .pimolu-tilted-carousel > .pimolu-carousel__control--previous {
+    grid-column: 1;
+  }
+
+  .pimolu-tilted-carousel > .pimolu-carousel__control--next {
+    grid-column: 3;
+  }
+
+  .pimolu-tilted-carousel > .pimolu-carousel__dots {
+    grid-row: 2;
+    grid-column: 2;
+  }
+}

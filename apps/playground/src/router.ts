@@ -87,6 +87,7 @@ export const pages = [
   { id: "peek-carousel", label: "PeekCarousel", group: "Data display" },
   { id: "stack-carousel", label: "StackCarousel", group: "Data display" },
   { id: "arc-carousel", label: "ArcCarousel", group: "Data display" },
+  { id: "tilted-carousel", label: "TiltedCarousel", group: "Data display" },
   { id: "multi-carousel", label: "MultiCarousel", group: "Data display" },
   { id: "virtual-list", label: "VirtualList", group: "Data display" },
   { id: "tree-view", label: "TreeView", group: "Data display" },
